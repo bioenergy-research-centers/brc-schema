@@ -1,0 +1,3 @@
+# brc-schema
+
+Example schema
