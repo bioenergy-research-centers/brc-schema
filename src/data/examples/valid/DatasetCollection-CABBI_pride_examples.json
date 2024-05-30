@@ -1,0 +1,62 @@
+{ "datasets": [{
+	"title": "TMTPro Complementary Ion Quantification Increase Plexing and Sensitivity for Accurate Multiplexed Proteomics at the MS2 level",
+	"date": "2021-05-11",
+	"creator": [{
+		"creatorName": "Wuhr, Martin",
+		"email": "wuhr@princeton.edu",
+		"primaryContact": true,
+		"affiliation": "Lewis-Sigler Institute for Integrative Genomics, Princeton University"
+	},{
+		"creatorName": "Stadlmeier, Michael",
+		"email": "ms93@princeton.edu",
+		"affiliation": "Princeton University"
+	}],
+	"brc": "CABBI",
+	"repository": "PRIDE",
+	"bibliographicCitation": "https://dx.doi.org/10.6019/PXD021661",
+	"identifier": "PXD021661",
+	"species": [{
+		"scientificName": "Homo sapiens",
+		"NCBITaxID": 9606
+	},{
+		"scientificName": "Saccharomyces cerevisiae",
+		"NCBITaxID": 4932
+	}],
+	"analysisType": "shotgun_proteomics",
+	"description": "The ability of the TMTPro isobaric labeling reagents to form complementary ions for accurate multiplexed proteomics at the MS2 level was investigated. Human and yeast peptides were labeled in distinct ratios to analyze the effect of interference on the quantification accuracy. A method, TMTProC, was developed and optimized for accurate, sensitive MS2-level quantification of up to 8 conditions in one MS-run.",
+	"relatedItem": {
+		"title": "TMTpro Complementary Ion Quantification Increases Plexing and Sensitivity for Accurate Multiplexed Proteomics at the MS2 Level.",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://dx.doi.org/10.1021/ACS.JPROTEOME.0C00813"
+	},
+	"keywords": ["complementary ion quantification", "interference-free quantification", "multiplexing", "TMTpro"]
+},{
+	"title": "GNPS Raw data files for NetID manuscript",
+	"date": "2021-10-30",
+	"creator": [{
+		"creatorName": "Rabinowitz, Joshua",
+		"email": "joshr@princeton.edu",
+		"primaryContact": true,
+		"affiliation": "Princeton University"
+	}],
+	"brc": "CABBI",
+	"repository": "MassIVE",
+	"bibliographicCitation": "https://doi.org/doi:10.25345/C5WV53",
+	"identifier": "MSV000087434",
+	"species": [{
+		"scientificName": "Mus musculus",
+		"NCBITaxID": 10090
+	},{
+		"scientificName": "Saccharomyces cerevisiae",
+		"NCBITaxID": 4932
+	}],
+	"description": "This dataset is associated with this manuscript: Metabolite discovery through global annotation of untargeted metabolomics data. Li Chen, Wenyun Lu, Lin Wang, Xi Xing, Xin Teng, Xianfeng Zeng, Antonio D Muscarella, Yihui Shen, Alexis Cowan, Melanie R McReynolds, Brandon Kennedy, Ashley M Lato, Shawn R Campagna, Mona Singh, Joshua Rabinowitz. The dataset has six main folders: (1) Yeast-MS1 (2) Yeast-labeling (3) Liver-MS1 (4) Liver-targeted-MS2 (separate folders for mzxml files and matched csv files used as the inclusion list to set up PRM targeted-MS2 runs) (5) Mouse-labeling (6) Glucosyl_taurine-liver-vs-synthesis. Please refer to README-raw-data-NetID-20210512.doc for more details.",
+	"relatedItem": {
+		"title": "Metabolite discovery through global annotation of untargeted metabolomics data",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41592-021-01303-3"
+	},
+	"keywords": ["NetID", "liver", "yeast", "full-scan-MS1", "PRM-targeted-MS2"]
+}
+]
+}

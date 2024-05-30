@@ -173,8 +173,10 @@ test-examples: examples/output
 examples/output: src/brc_schema/schema/brc_schema.yaml
 	mkdir -p $@
 	$(RUN) linkml-run-examples \
+		--input-formats json \
 		--output-formats json \
 		--output-formats yaml \
+		--output-formats ttl \
 		--counter-example-input-directory src/data/examples/invalid \
 		--input-directory src/data/examples/valid \
 		--output-directory $@ \

@@ -1,23 +1,43 @@
+# metamodel_version: 1.7.0
 type Dataset
   {
-    id: Uriorcurie!
-    name: String
+    title: String!
+    date: Date!
+    creator: [Individual]!
+    brc: BRCEnum!
+    repository: String
+    bibliographicCitation: String!
+    identifier: String!
+    species: [Organism]!
+    analysisType: AnalysisType
     description: String
-    primaryEmail: String
-    birthDate: Date
-    ageInYears: Integer
-    vitalStatus: PersonStatus
+    relatedItem: RelatedItem
+    keywords: [String]
   }
 
 type DatasetCollection
   {
-    entries: [Dataset]
+    datasets: [Dataset]
   }
 
-type NamedThing
+type Individual
   {
-    id: Uriorcurie!
-    name: String
-    description: String
+    creatorName: String
+    email: String
+    primaryContact: Boolean
+    affiliation: String
+  }
+
+type Organism
+  {
+    scientificName: String
+    nCBITaxID: Integer
+  }
+
+type RelatedItem
+  {
+    title: String
+    relatedItemType: String
+    relatedItemIdentifier: String
   }
 

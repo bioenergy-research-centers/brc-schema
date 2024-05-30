@@ -1,161 +1,193 @@
 {
     "$defs": {
+        "AnalysisType": {
+            "description": "",
+            "enum": [
+                "shotgun_proteomics",
+                "cross_linking",
+                "affinity_purification",
+                "srm_mrm",
+                "swath_ms",
+                "Ms_imaging"
+            ],
+            "title": "AnalysisType",
+            "type": "string"
+        },
+        "BRCEnum": {
+            "description": "",
+            "enum": [
+                "CABBI",
+                "CBI",
+                "GLBRC",
+                "JBEI"
+            ],
+            "title": "BRCEnum",
+            "type": "string"
+        },
         "Dataset": {
             "additionalProperties": false,
-            "description": "Represents a Dataset",
+            "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
-                    "type": "integer"
+                "analysisType": {
+                    "$ref": "#/$defs/AnalysisType",
+                    "description": "The type of analysis performed on the dataset."
                 },
-                "birth_date": {
-                    "description": "Date on which a person is born",
+                "bibliographicCitation": {
+                    "description": "Citation for the dataset.",
+                    "type": "string"
+                },
+                "brc": {
+                    "$ref": "#/$defs/BRCEnum",
+                    "description": "Bioenergy Research Center affiliation."
+                },
+                "creator": {
+                    "description": "List of creators involved in the dataset, where one must be the primary contact.",
+                    "items": {
+                        "$ref": "#/$defs/Individual"
+                    },
+                    "type": "array"
+                },
+                "date": {
+                    "description": "The date the dataset was created or published.",
                     "format": "date",
                     "type": "string"
                 },
                 "description": {
-                    "description": "A human-readable description for a thing",
+                    "description": "A detailed description of the dataset.",
                     "type": "string"
                 },
-                "id": {
-                    "description": "A unique identifier for a thing",
+                "identifier": {
+                    "description": "Unique identifier for the dataset.",
                     "type": "string"
                 },
-                "name": {
-                    "description": "A human-readable name for a thing",
+                "keywords": {
+                    "description": "Keywords associated with the dataset.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "relatedItem": {
+                    "$ref": "#/$defs/RelatedItem",
+                    "description": "Related publication or item."
+                },
+                "repository": {
+                    "description": "The repository where the dataset is stored.",
                     "type": "string"
                 },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": "string"
+                "species": {
+                    "description": "Species information for the organism(s) studied.",
+                    "items": {
+                        "$ref": "#/$defs/Organism"
+                    },
+                    "type": "array"
                 },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
+                "title": {
+                    "description": "The title of the dataset.",
+                    "type": "string"
                 }
             },
             "required": [
-                "id"
+                "title",
+                "date",
+                "creator",
+                "brc",
+                "bibliographicCitation",
+                "identifier",
+                "species"
             ],
             "title": "Dataset",
             "type": "object"
         },
         "DatasetCollection": {
             "additionalProperties": false,
-            "description": "A holder for Dataset objects",
+            "description": "",
             "properties": {
-                "entries": {
-                    "additionalProperties": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/$defs/Dataset__identifier_optional"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                "datasets": {
+                    "items": {
+                        "$ref": "#/$defs/Dataset"
                     },
-                    "type": "object"
+                    "type": "array"
                 }
             },
             "title": "DatasetCollection",
             "type": "object"
         },
-        "Dataset__identifier_optional": {
+        "Individual": {
             "additionalProperties": false,
-            "description": "Represents a Dataset",
+            "description": "An individual involved in the dataset.",
             "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
+                "affiliation": {
+                    "description": "Affiliation of the creator.",
+                    "type": "string"
+                },
+                "creatorName": {
+                    "description": "Name of the creator.",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Email address of the creator.",
+                    "type": "string"
+                },
+                "primaryContact": {
+                    "description": "Indicates if the creator is the primary contact.",
+                    "type": "boolean"
+                }
+            },
+            "title": "Individual",
+            "type": "object"
+        },
+        "Organism": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "NCBITaxID": {
+                    "description": "NCBI taxonomy ID for the organism.",
                     "type": "integer"
                 },
-                "birth_date": {
-                    "description": "Date on which a person is born",
-                    "format": "date",
+                "scientificName": {
+                    "description": "Scientific name of the organism.",
                     "type": "string"
-                },
-                "description": {
-                    "description": "A human-readable description for a thing",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "A unique identifier for a thing",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "A human-readable name for a thing",
-                    "type": "string"
-                },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": "string"
-                },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
                 }
             },
-            "required": [],
-            "title": "Dataset",
+            "title": "Organism",
             "type": "object"
         },
-        "NamedThing": {
+        "RelatedItem": {
             "additionalProperties": false,
-            "description": "A generic grouping for any identifiable entity",
+            "description": "",
             "properties": {
-                "description": {
-                    "description": "A human-readable description for a thing",
+                "relatedItemIdentifier": {
+                    "description": "Identifier or URL for the related item.",
                     "type": "string"
                 },
-                "id": {
-                    "description": "A unique identifier for a thing",
+                "relatedItemType": {
+                    "description": "Type of the related item, e.g., JournalArticle.",
                     "type": "string"
                 },
-                "name": {
-                    "description": "A human-readable name for a thing",
+                "title": {
+                    "description": "Title of the related item.",
                     "type": "string"
                 }
             },
-            "required": [
-                "id"
-            ],
-            "title": "NamedThing",
+            "title": "RelatedItem",
             "type": "object"
-        },
-        "PersonStatus": {
-            "description": "",
-            "enum": [
-                "ALIVE",
-                "DEAD",
-                "UNKNOWN"
-            ],
-            "title": "PersonStatus",
-            "type": "string"
         }
     },
-    "$id": "https://w3id.org/bioenergy-research-centers/brc-schema",
+    "$id": "https://w3id.org/brc/metaprot-datasets-schema",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
-    "description": "A holder for Dataset objects",
+    "description": "",
     "metamodel_version": "1.7.0",
     "properties": {
-        "entries": {
-            "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/$defs/Dataset__identifier_optional"
-                    },
-                    {
-                        "type": "null"
-                    }
-                ]
+        "datasets": {
+            "items": {
+                "$ref": "#/$defs/Dataset"
             },
-            "type": "object"
+            "type": "array"
         }
     },
-    "title": "brc-schema",
+    "title": "datasets",
     "type": "object",
     "version": null
 }

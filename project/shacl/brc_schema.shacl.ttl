@@ -1,79 +1,170 @@
-@prefix PATO: <http://purl.obolibrary.org/obo/PATO_> .
-@prefix brc_schema: <https://w3id.org/bioenergy-research-centers/brc-schema/> .
+@prefix ERO: <http://purl.obolibrary.org/obo/ERO_> .
+@prefix OBI: <http://purl.obolibrary.org/obo/OBI_> .
+@prefix brc: <https://w3id.org/brc/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-schema1:Thing a sh:NodeShape ;
+brc:DatasetCollection a sh:NodeShape ;
     sh:closed true ;
-    sh:description "A generic grouping for any identifiable entity" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
+    sh:property [ sh:class schema1:Dataset ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 0 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "A human-readable description for a thing" ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path schema1:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "A human-readable name for a thing" ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path schema1:name ] ;
-    sh:targetClass schema1:Thing .
+            sh:path brc:datasets ] ;
+    sh:targetClass brc:DatasetCollection .
 
-brc_schema:DatasetCollection a sh:NodeShape ;
+schema1:Dataset a sh:NodeShape ;
     sh:closed true ;
-    sh:description "A holder for Dataset objects" ;
+    sh:description "A dataset containing metabolomics and proteomics data." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class brc_schema:Dataset ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path brc_schema:entries ] ;
-    sh:targetClass brc_schema:DatasetCollection .
-
-brc_schema:Dataset a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "Represents a Dataset" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The main email address of a person" ;
+    sh:property [ sh:class brc:RelatedItem ;
+            sh:description "Related publication or item." ;
             sh:maxCount 1 ;
-            sh:order 0 ;
-            sh:path schema1:email ;
-            sh:pattern "^\\S+@[\\S+\\.]+\\S+" ],
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path brc:relatedItem ],
         [ sh:datatype xsd:string ;
-            sh:description "A human-readable name for a thing" ;
+            sh:description "A detailed description of the dataset." ;
             sh:maxCount 1 ;
-            sh:order 5 ;
-            sh:path schema1:name ],
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dcterms:description ],
+        [ sh:class brc:Organism ;
+            sh:description "Species information for the organism(s) studied." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path brc:species ],
+        [ sh:datatype xsd:string ;
+            sh:description "Keywords associated with the dataset." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dcat:keyword ],
         [ sh:datatype xsd:date ;
-            sh:description "Date on which a person is born" ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path schema1:birthDate ],
-        [ sh:description "living or dead status" ;
-            sh:in ( PATO:0001421 PATO:0001422 "UNKNOWN" ) ;
-            sh:maxCount 1 ;
-            sh:order 3 ;
-            sh:path brc_schema:vital_status ],
-        [ sh:description "A unique identifier for a thing" ;
+            sh:description "The date the dataset was created or published." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:order 4 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Number of years since birth" ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path brc_schema:age_in_years ],
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dcterms:date ],
         [ sh:datatype xsd:string ;
-            sh:description "A human-readable description for a thing" ;
+            sh:description "The repository where the dataset is stored." ;
             sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path brc:repository ],
+        [ sh:datatype xsd:string ;
+            sh:description "Citation for the dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dcterms:bibliographicCitation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for the dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
             sh:order 6 ;
-            sh:path schema1:description ] ;
-    sh:targetClass brc_schema:Dataset .
+            sh:path schema1:identifier ],
+        [ sh:description "Bioenergy Research Center affiliation." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path prov:wasAttributedTo ],
+        [ sh:datatype xsd:string ;
+            sh:description "The title of the dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dcterms:title ],
+        [ sh:description "The type of analysis performed on the dataset." ;
+            sh:in ( ERO:0001660 OBI:0000800 "affinity_purification" "srm_mrm" OBI:0002958 "Ms_imaging" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path brc:analysisType ],
+        [ sh:class schema1:Person ;
+            sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path dcterms:creator ] ;
+    sh:targetClass schema1:Dataset .
+
+schema1:Person a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An individual involved in the dataset." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Affiliation of the creator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:affiliation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the creator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if the creator is the primary contact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:primaryContact ],
+        [ sh:datatype xsd:string ;
+            sh:description "Email address of the creator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path schema1:email ] ;
+    sh:targetClass schema1:Person .
+
+brc:Organism a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Scientific name of the organism." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path brc:scientificName ],
+        [ sh:datatype xsd:integer ;
+            sh:description "NCBI taxonomy ID for the organism." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:NCBITaxID ] ;
+    sh:targetClass brc:Organism .
+
+brc:RelatedItem a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Type of the related item, e.g., JournalArticle." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:relatedItemType ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier or URL for the related item." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:relatedItemIdentifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "Title of the related item." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dcterms:title ] ;
+    sh:targetClass brc:RelatedItem .
 

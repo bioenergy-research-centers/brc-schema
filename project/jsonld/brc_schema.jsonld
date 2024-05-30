@@ -1,42 +1,87 @@
 {
-  "name": "brc-schema",
-  "description": "Example schema",
-  "title": "brc-schema",
-  "see_also": [
-    "https://bioenergy-research-centers.github.io/brc-schema"
-  ],
-  "id": "https://w3id.org/bioenergy-research-centers/brc-schema",
+  "name": "datasets",
+  "description": "This schema defines the structure for metabolomics and proteomics datasets, capturing essential metadata including investigators, affiliations, data citation, organism details, analysis type, and more.",
+  "title": "Metabolomics and Proteomics Datasets Schema",
+  "id": "https://w3id.org/brc/metaprot-datasets-schema",
   "imports": [
     "linkml:types"
   ],
-  "license": "BSD-3",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "prefixes": [
-    {
-      "prefix_prefix": "brc_schema",
-      "prefix_reference": "https://w3id.org/bioenergy-research-centers/brc-schema/"
-    },
     {
       "prefix_prefix": "linkml",
       "prefix_reference": "https://w3id.org/linkml/"
     },
     {
-      "prefix_prefix": "biolink",
-      "prefix_reference": "https://w3id.org/biolink/"
+      "prefix_prefix": "brc",
+      "prefix_reference": "https://w3id.org/brc/"
+    },
+    {
+      "prefix_prefix": "skos",
+      "prefix_reference": "http://www.w3.org/2004/02/skos/core#"
+    },
+    {
+      "prefix_prefix": "pav",
+      "prefix_reference": "http://purl.org/pav/"
     },
     {
       "prefix_prefix": "schema",
       "prefix_reference": "http://schema.org/"
     },
     {
-      "prefix_prefix": "PATO",
-      "prefix_reference": "http://purl.obolibrary.org/obo/PATO_"
+      "prefix_prefix": "void",
+      "prefix_reference": "http://rdfs.org/ns/void#"
     },
     {
-      "prefix_prefix": "example",
-      "prefix_reference": "https://example.org/"
+      "prefix_prefix": "dcat",
+      "prefix_reference": "http://www.w3.org/ns/dcat#"
+    },
+    {
+      "prefix_prefix": "bibo",
+      "prefix_reference": "http://purl.org/ontology/bibo/"
+    },
+    {
+      "prefix_prefix": "oslc",
+      "prefix_reference": "http://open-services.net/ns/core#"
+    },
+    {
+      "prefix_prefix": "IAO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/IAO_"
+    },
+    {
+      "prefix_prefix": "SIO",
+      "prefix_reference": "http://semanticscience.org/resource/SIO_"
+    },
+    {
+      "prefix_prefix": "NCIT",
+      "prefix_reference": "http://purl.obolibrary.org/obo/NCIT_"
+    },
+    {
+      "prefix_prefix": "ERO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/ERO_"
+    },
+    {
+      "prefix_prefix": "OBI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
+    },
+    {
+      "prefix_prefix": "UO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/UO_"
+    },
+    {
+      "prefix_prefix": "edam",
+      "prefix_reference": "http://edamontology.org/"
+    },
+    {
+      "prefix_prefix": "prov",
+      "prefix_reference": "http://www.w3.org/ns/prov#"
+    },
+    {
+      "prefix_prefix": "dcterms",
+      "prefix_reference": "http://purl.org/dc/terms/"
     }
   ],
-  "default_prefix": "brc_schema",
+  "default_prefix": "brc",
   "default_range": "string",
   "types": [
     {
@@ -350,247 +395,679 @@
   ],
   "enums": [
     {
-      "name": "PersonStatus",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/PersonStatus",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
+      "name": "BRCEnum",
+      "definition_uri": "https://w3id.org/brc/BRCEnum",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
       "permissible_values": [
         {
-          "text": "ALIVE",
-          "description": "the person is living",
-          "meaning": "PATO:0001421"
-        },
-        {
-          "text": "DEAD",
-          "description": "the person is deceased",
-          "meaning": "PATO:0001422"
-        },
-        {
-          "text": "UNKNOWN",
-          "description": "the vital status is not known",
-          "todos": [
-            "map this to an ontology"
+          "text": "CABBI",
+          "description": "Center for Advanced Bioenergy and Bioproducts Innovation",
+          "see_also": [
+            "https://cabbi.bio/"
           ]
+        },
+        {
+          "text": "CBI",
+          "description": "Center for Bioenergy Innovation",
+          "see_also": [
+            "https://www.ornl.gov/content/center-bioenergy-innovation"
+          ]
+        },
+        {
+          "text": "GLBRC",
+          "description": "Great Lakes Bioenergy Research Center",
+          "see_also": [
+            "https://www.glbrc.org/"
+          ]
+        },
+        {
+          "text": "JBEI",
+          "description": "Joint BioEnergy Institute",
+          "see_also": [
+            "https://www.jbei.org/"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AnalysisType",
+      "definition_uri": "https://w3id.org/brc/AnalysisType",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "permissible_values": [
+        {
+          "text": "shotgun_proteomics",
+          "meaning": "ERO:0001660"
+        },
+        {
+          "text": "cross_linking",
+          "meaning": "OBI:0000800"
+        },
+        {
+          "text": "affinity_purification"
+        },
+        {
+          "text": "srm_mrm"
+        },
+        {
+          "text": "swath_ms",
+          "meaning": "OBI:0002958",
+          "title": "SWATH-MS protein profiling assay"
+        },
+        {
+          "text": "Ms_imaging"
         }
       ]
     }
   ],
   "slots": [
     {
-      "name": "id",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/id",
-      "description": "A unique identifier for a thing",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "http://schema.org/identifier"
-      ],
-      "slot_uri": "http://schema.org/identifier",
-      "identifier": true,
-      "owner": "NamedThing",
-      "domain_of": [
-        "NamedThing"
-      ],
-      "range": "uriorcurie",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "name",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/name",
-      "description": "A human-readable name for a thing",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "http://schema.org/name"
-      ],
-      "slot_uri": "http://schema.org/name",
-      "owner": "NamedThing",
-      "domain_of": [
-        "NamedThing"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "description",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/description",
-      "description": "A human-readable description for a thing",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "http://schema.org/description"
-      ],
-      "slot_uri": "http://schema.org/description",
-      "owner": "NamedThing",
-      "domain_of": [
-        "NamedThing"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "primary_email",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/primary_email",
-      "description": "The main email address of a person",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "http://schema.org/email"
-      ],
-      "slot_uri": "http://schema.org/email",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "birth_date",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/birth_date",
-      "description": "Date on which a person is born",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "http://schema.org/birthDate"
-      ],
-      "slot_uri": "http://schema.org/birthDate",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "date",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "age_in_years",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/age_in_years",
-      "description": "Number of years since birth",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "slot_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/age_in_years",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "integer",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "vital_status",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/vital_status",
-      "description": "living or dead status",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "slot_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/vital_status",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "PersonStatus",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "datasetCollection__entries",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "slot_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/entries",
+      "name": "datasetCollection__datasets",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/datasets",
       "multivalued": true,
-      "alias": "entries",
+      "alias": "datasets",
       "owner": "DatasetCollection",
       "domain_of": [
         "DatasetCollection"
       ],
       "range": "Dataset",
       "inlined": true,
+      "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "Dataset_primary_email",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/primary_email",
-      "description": "The main email address of a person",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
+      "name": "dataset__title",
+      "description": "The title of the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
       "mappings": [
-        "http://schema.org/email"
+        "http://purl.org/dc/terms/title"
       ],
-      "is_a": "primary_email",
-      "domain": "Dataset",
-      "slot_uri": "http://schema.org/email",
-      "alias": "primary_email",
+      "slot_uri": "http://purl.org/dc/terms/title",
+      "alias": "title",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
-      "is_usage_slot": true,
-      "usage_slot_name": "primary_email",
       "range": "string",
-      "pattern": "^\\S+@[\\S+\\.]+\\S+",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__date",
+      "description": "The date the dataset was created or published.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://purl.org/dc/terms/date"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/date",
+      "alias": "date",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "date",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__creator",
+      "description": "List of creators involved in the dataset, where one must be the primary contact.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://purl.org/dc/terms/creator"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/creator",
+      "multivalued": true,
+      "alias": "creator",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "Individual",
+      "required": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__brc",
+      "description": "Bioenergy Research Center affiliation.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://www.w3.org/ns/prov#wasAttributedTo"
+      ],
+      "slot_uri": "http://www.w3.org/ns/prov#wasAttributedTo",
+      "alias": "brc",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "BRCEnum",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__repository",
+      "description": "The repository where the dataset is stored.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/repository",
+      "alias": "repository",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__bibliographicCitation",
+      "description": "Citation for the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://purl.org/dc/terms/bibliographicCitation"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/bibliographicCitation",
+      "alias": "bibliographicCitation",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__identifier",
+      "description": "Unique identifier for the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://schema.org/identifier"
+      ],
+      "slot_uri": "http://schema.org/identifier",
+      "alias": "identifier",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__species",
+      "description": "Species information for the organism(s) studied.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/species",
+      "multivalued": true,
+      "alias": "species",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "Organism",
+      "required": true,
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__analysisType",
+      "description": "The type of analysis performed on the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/analysisType",
+      "alias": "analysisType",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "AnalysisType",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__description",
+      "description": "A detailed description of the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://purl.org/dc/terms/description"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/description",
+      "alias": "description",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__relatedItem",
+      "description": "Related publication or item.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/relatedItem",
+      "alias": "relatedItem",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "RelatedItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__keywords",
+      "description": "Keywords associated with the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://www.w3.org/ns/dcat#keyword"
+      ],
+      "exact_mappings": [
+        "http://schema.org/keywords"
+      ],
+      "slot_uri": "http://www.w3.org/ns/dcat#keyword",
+      "multivalued": true,
+      "alias": "keywords",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__creatorName",
+      "description": "Name of the creator.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://schema.org/name"
+      ],
+      "slot_uri": "http://schema.org/name",
+      "alias": "creatorName",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__email",
+      "description": "Email address of the creator.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://schema.org/email"
+      ],
+      "slot_uri": "http://schema.org/email",
+      "alias": "email",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__primaryContact",
+      "description": "Indicates if the creator is the primary contact.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/primaryContact",
+      "alias": "primaryContact",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__affiliation",
+      "description": "Affiliation of the creator.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/affiliation",
+      "alias": "affiliation",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "organism__scientificName",
+      "description": "Scientific name of the organism.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/scientificName",
+      "alias": "scientificName",
+      "owner": "Organism",
+      "domain_of": [
+        "Organism"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "organism__NCBITaxID",
+      "description": "NCBI taxonomy ID for the organism.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/NCBITaxID",
+      "alias": "NCBITaxID",
+      "owner": "Organism",
+      "domain_of": [
+        "Organism"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "relatedItem__title",
+      "description": "Title of the related item.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "http://purl.org/dc/terms/title"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/title",
+      "alias": "title",
+      "owner": "RelatedItem",
+      "domain_of": [
+        "RelatedItem"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "relatedItem__relatedItemType",
+      "description": "Type of the related item, e.g., JournalArticle.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/relatedItemType",
+      "alias": "relatedItemType",
+      "owner": "RelatedItem",
+      "domain_of": [
+        "RelatedItem"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "relatedItem__relatedItemIdentifier",
+      "description": "Identifier or URL for the related item.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slot_uri": "https://w3id.org/brc/relatedItemIdentifier",
+      "alias": "relatedItemIdentifier",
+      "owner": "RelatedItem",
+      "domain_of": [
+        "RelatedItem"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     }
   ],
   "classes": [
     {
-      "name": "NamedThing",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/NamedThing",
-      "description": "A generic grouping for any identifiable entity",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "mappings": [
-        "schema:Thing"
-      ],
-      "slots": [
-        "id",
-        "name",
-        "description"
-      ],
-      "slot_usage": {},
-      "class_uri": "http://schema.org/Thing",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Dataset",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/Dataset",
-      "description": "Represents a Dataset",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
-      "is_a": "NamedThing",
-      "slots": [
-        "id",
-        "name",
-        "description",
-        "Dataset_primary_email",
-        "birth_date",
-        "age_in_years",
-        "vital_status"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/Dataset",
-      "@type": "ClassDefinition"
-    },
-    {
       "name": "DatasetCollection",
-      "definition_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/DatasetCollection",
-      "description": "A holder for Dataset objects",
-      "from_schema": "https://w3id.org/bioenergy-research-centers/brc-schema",
+      "definition_uri": "https://w3id.org/brc/DatasetCollection",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
       "slots": [
-        "datasetCollection__entries"
+        "datasetCollection__datasets"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "entries",
+          "name": "datasets",
           "multivalued": true,
           "range": "Dataset",
-          "inlined": true,
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
       ],
-      "class_uri": "https://w3id.org/bioenergy-research-centers/brc-schema/DatasetCollection",
+      "class_uri": "https://w3id.org/brc/DatasetCollection",
       "tree_root": true,
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Dataset",
+      "definition_uri": "https://w3id.org/brc/Dataset",
+      "description": "A dataset containing metabolomics and proteomics data.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "schema:Dataset"
+      ],
+      "exact_mappings": [
+        "dcat:Dataset",
+        "bald:Container"
+      ],
+      "close_mappings": [
+        "dcat:Catalog"
+      ],
+      "slots": [
+        "dataset__title",
+        "dataset__date",
+        "dataset__creator",
+        "dataset__brc",
+        "dataset__repository",
+        "dataset__bibliographicCitation",
+        "dataset__identifier",
+        "dataset__species",
+        "dataset__analysisType",
+        "dataset__description",
+        "dataset__relatedItem",
+        "dataset__keywords"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "title",
+          "description": "The title of the dataset.",
+          "slot_uri": "dcterms:title",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "date",
+          "description": "The date the dataset was created or published.",
+          "slot_uri": "dcterms:date",
+          "range": "date",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "creator",
+          "description": "List of creators involved in the dataset, where one must be the primary contact.",
+          "slot_uri": "dcterms:creator",
+          "multivalued": true,
+          "range": "Individual",
+          "required": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "brc",
+          "description": "Bioenergy Research Center affiliation.",
+          "slot_uri": "prov:wasAttributedTo",
+          "range": "BRCEnum",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "repository",
+          "description": "The repository where the dataset is stored.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "bibliographicCitation",
+          "description": "Citation for the dataset.",
+          "slot_uri": "dcterms:bibliographicCitation",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "identifier",
+          "description": "Unique identifier for the dataset.",
+          "slot_uri": "schema:identifier",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "species",
+          "description": "Species information for the organism(s) studied.",
+          "multivalued": true,
+          "range": "Organism",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "analysisType",
+          "description": "The type of analysis performed on the dataset.",
+          "range": "AnalysisType",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "A detailed description of the dataset.",
+          "slot_uri": "dcterms:description",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "relatedItem",
+          "description": "Related publication or item.",
+          "range": "RelatedItem",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "keywords",
+          "description": "Keywords associated with the dataset.",
+          "exact_mappings": [
+            "schema:keywords"
+          ],
+          "slot_uri": "dcat:keyword",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "http://schema.org/Dataset",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Individual",
+      "definition_uri": "https://w3id.org/brc/Individual",
+      "description": "An individual involved in the dataset.",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "mappings": [
+        "schema:Person"
+      ],
+      "slots": [
+        "individual__creatorName",
+        "individual__email",
+        "individual__primaryContact",
+        "individual__affiliation"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "creatorName",
+          "description": "Name of the creator.",
+          "slot_uri": "schema:name",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "email",
+          "description": "Email address of the creator.",
+          "slot_uri": "schema:email",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "primaryContact",
+          "description": "Indicates if the creator is the primary contact.",
+          "range": "boolean",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "affiliation",
+          "description": "Affiliation of the creator.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "http://schema.org/Person",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Organism",
+      "definition_uri": "https://w3id.org/brc/Organism",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slots": [
+        "organism__scientificName",
+        "organism__NCBITaxID"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "scientificName",
+          "description": "Scientific name of the organism.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "NCBITaxID",
+          "description": "NCBI taxonomy ID for the organism.",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/brc/Organism",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "RelatedItem",
+      "definition_uri": "https://w3id.org/brc/RelatedItem",
+      "from_schema": "https://w3id.org/brc/metaprot-datasets-schema",
+      "slots": [
+        "relatedItem__title",
+        "relatedItem__relatedItemType",
+        "relatedItem__relatedItemIdentifier"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "title",
+          "description": "Title of the related item.",
+          "slot_uri": "dcterms:title",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "relatedItemType",
+          "description": "Type of the related item, e.g., JournalArticle.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "relatedItemIdentifier",
+          "description": "Identifier or URL for the related item.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/brc/RelatedItem",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-04-02T15:18:22",
-  "source_file_size": 2211,
-  "generation_date": "2024-04-02T15:23:55",
+  "source_file_date": "2024-04-02T13:16:28",
+  "source_file_size": 5473,
+  "generation_date": "2024-05-11T18:35:54",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
     "https://w3id.org/linkml/types.context.jsonld",
     {
-      "@base": "https://w3id.org/bioenergy-research-centers/brc-schema/"
+      "@base": "https://w3id.org/brc/"
     }
   ]
 }

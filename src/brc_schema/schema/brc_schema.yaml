@@ -1,96 +1,180 @@
----
-id: https://w3id.org/bioenergy-research-centers/brc-schema
-name: brc-schema
-title: brc-schema
-description: |-
-  Example schema
-license: BSD-3
-see_also:
-  - https://bioenergy-research-centers.github.io/brc-schema
+id: https://w3id.org/brc/metaprot-datasets-schema
+name: datasets
+title: Metabolomics and Proteomics Datasets Schema
+description: This schema defines the structure for metabolomics and proteomics datasets, capturing essential metadata including investigators, affiliations, data citation, organism details, analysis type, and more.
 
 prefixes:
-  brc_schema: https://w3id.org/bioenergy-research-centers/brc-schema/
   linkml: https://w3id.org/linkml/
-  biolink: https://w3id.org/biolink/
+  brc: https://w3id.org/brc/
+  skos: http://www.w3.org/2004/02/skos/core#
+  pav: http://purl.org/pav/
   schema: http://schema.org/
-  PATO: http://purl.obolibrary.org/obo/PATO_
-  example: https://example.org/
-default_prefix: brc_schema
-default_range: string
+  void: http://rdfs.org/ns/void#
+  dcat: http://www.w3.org/ns/dcat#
+  bibo: http://purl.org/ontology/bibo/
+  oslc: http://open-services.net/ns/core#
+  IAO: http://purl.obolibrary.org/obo/IAO_
+  SIO: http://semanticscience.org/resource/SIO_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
+  ERO: http://purl.obolibrary.org/obo/ERO_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  UO: http://purl.obolibrary.org/obo/UO_
+  edam: http://edamontology.org/
+  prov: http://www.w3.org/ns/prov#
+  dcterms: http://purl.org/dc/terms/
 
+default_prefix: brc
+  
 imports:
   - linkml:types
 
 classes:
-
-  NamedThing:
-    description: >-
-      A generic grouping for any identifiable entity
-    slots:
-      - id
-      - name
-      - description
-    class_uri: schema:Thing
-
-  Dataset:
-    is_a: NamedThing
-    description: >-
-      Represents a Dataset
-    slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
-    slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
-
   DatasetCollection:
     tree_root: true
-    description: >-
-      A holder for Dataset objects
     attributes:
-      entries:
+      datasets:
         range: Dataset
         multivalued: true
-        inlined: true
+        inlined_as_list: true
+  Dataset:
+    description: A dataset containing metabolomics and proteomics data.
+    class_uri: schema:Dataset
+    exact_mappings:
+      - dcat:Dataset
+      - bald:Container
+    close_mappings:
+      - dcat:Catalog
+    attributes:
+      title:
+        range: string
+        description: "The title of the dataset."
+        required: true
+        slot_uri: dcterms:title
+      date:
+        range: date
+        description: "The date the dataset was created or published."
+        required: true
+        slot_uri: dcterms:date
+      creator:
+        range: Individual
+        multivalued: true
+        inlined_as_list: true
+        description: "List of creators involved in the dataset, where one must be the primary contact."
+        required: true
+        slot_uri: dcterms:creator
+      brc:
+        range: BRCEnum
+        description: "Bioenergy Research Center affiliation."
+        required: true
+        slot_uri: prov:wasAttributedTo
+      repository:
+        range: string
+        description: "The repository where the dataset is stored."
+      bibliographicCitation:
+        range: string
+        description: "Citation for the dataset."
+        required: true
+        slot_uri: dcterms:bibliographicCitation
+      identifier:
+        range: string
+        description: "Unique identifier for the dataset."
+        required: true
+        slot_uri: schema:identifier
+      species:
+        range: Organism
+        multivalued: true
+        description: "Species information for the organism(s) studied."
+        required: true
+      analysisType:
+        range: AnalysisType
+        description: "The type of analysis performed on the dataset."
+      description:
+        range: string
+        description: "A detailed description of the dataset."
+        slot_uri: dcterms:description
+      relatedItem:
+        range: RelatedItem
+        description: "Related publication or item."
+      keywords:
+        range: string
+        multivalued: true
+        description: "Keywords associated with the dataset."
+        slot_uri: dcat:keyword
+        exact_mappings:
+          - schema:keywords
 
-slots:
-  id:
-    identifier: true
-    slot_uri: schema:identifier
-    range: uriorcurie
-    description: A unique identifier for a thing
-  name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
-  description:
-    slot_uri: schema:description
-    description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+  Individual:
+    description: An individual involved in the dataset.
+    class_uri: schema:Person
+    attributes:
+      creatorName:
+        range: string
+        description: "Name of the creator."
+        slot_uri: schema:name
+      email:
+        range: string
+        description: "Email address of the creator."
+        slot_uri: schema:email
+      primaryContact:
+        range: boolean
+        description: "Indicates if the creator is the primary contact."
+      affiliation:
+        range: string
+        description: "Affiliation of the creator."
+
+  Organism:
+    attributes:
+      scientificName:
+        range: string
+        description: "Scientific name of the organism."
+      NCBITaxID:
+        range: integer
+        description: "NCBI taxonomy ID for the organism."
+
+  RelatedItem:
+    attributes:
+      title:
+        range: string
+        description: "Title of the related item."
+        slot_uri: dcterms:title
+      relatedItemType:
+        range: string
+        description: "Type of the related item, e.g., JournalArticle."
+      relatedItemIdentifier:
+        range: string
+        description: "Identifier or URL for the related item."
 
 enums:
-  PersonStatus:
+  BRCEnum:
     permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+      CABBI:
+        description: "Center for Advanced Bioenergy and Bioproducts Innovation"
+        see_also:
+          - https://cabbi.bio/
+      CBI:
+        description: "Center for Bioenergy Innovation"
+        see_also:
+          - https://www.ornl.gov/content/center-bioenergy-innovation
+      GLBRC:
+        description: "Great Lakes Bioenergy Research Center"
+        see_also:
+          - https://www.glbrc.org/
+      JBEI:
+        description: "Joint BioEnergy Institute"
+        see_also:
+          - https://www.jbei.org/
+  AnalysisType:
+    permissible_values:
+      shotgun_proteomics:
+        meaning: ERO:0001660
+      cross_linking:
+        meaning: OBI:0000800
+      affinity_purification:
+        # TODO: check if the same as tandem affinity purification in MI
+      srm_mrm: {}
+      swath_ms:
+        meaning: OBI:0002958
+        title: SWATH-MS protein profiling assay
+      Ms_imaging: {}
+
+        

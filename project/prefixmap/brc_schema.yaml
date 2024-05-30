@@ -1,11 +1,27 @@
 {
-   "PATO": "http://purl.obolibrary.org/obo/PATO_",
-   "biolink": "https://w3id.org/biolink/",
-   "brc_schema": "https://w3id.org/bioenergy-research-centers/brc-schema/",
-   "example": "https://example.org/",
+   "ERO": "http://purl.obolibrary.org/obo/ERO_",
+   "IAO": "http://purl.obolibrary.org/obo/IAO_",
+   "NCIT": "http://purl.obolibrary.org/obo/NCIT_",
+   "OBI": "http://purl.obolibrary.org/obo/OBI_",
+   "SIO": "http://semanticscience.org/resource/SIO_",
+   "UO": "http://purl.obolibrary.org/obo/UO_",
+   "bald": "http://example.org/UNKNOWN/bald/",
+   "bibo": "http://purl.org/ontology/bibo/",
+   "brc": "https://w3id.org/brc/",
+   "dcat": "http://www.w3.org/ns/dcat#",
+   "dcterms": "http://purl.org/dc/terms/",
+   "edam": "http://edamontology.org/",
    "linkml": "https://w3id.org/linkml/",
+   "oslc": "http://open-services.net/ns/core#",
+   "pav": "http://purl.org/pav/",
+   "prov": "http://www.w3.org/ns/prov#",
    "schema": "http://schema.org/",
-   "NamedThing": {
-      "@id": "schema:Thing"
+   "skos": "http://www.w3.org/2004/02/skos/core#",
+   "void": "http://rdfs.org/ns/void#",
+   "Dataset": {
+      "@id": "schema:Dataset"
+   },
+   "Individual": {
+      "@id": "schema:Person"
    }
 }

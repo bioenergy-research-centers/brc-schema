@@ -1,23 +1,42 @@
-// Represents a Dataset
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
+// A dataset containing metabolomics and proteomics data.
 message Dataset
  {
-  uriorcurie id = 0
-  string name = 0
+  string title = 0
+  date date = 0
+ repeated  individual creator = 0
+  bRCEnum brc = 0
+  string repository = 0
+  string bibliographicCitation = 0
+  string identifier = 0
+ repeated  organism species = 0
+  analysisType analysisType = 0
   string description = 0
-  string primaryEmail = 0
-  date birthDate = 0
-  integer ageInYears = 0
-  personStatus vitalStatus = 0
+  relatedItem relatedItem = 0
+ repeated  string keywords = 0
  }
-// A holder for Dataset objects
 message DatasetCollection
  {
- repeated  dataset entries = 0
+ repeated  dataset datasets = 0
  }
-// A generic grouping for any identifiable entity
-message NamedThing
+// An individual involved in the dataset.
+message Individual
  {
-  uriorcurie id = 0
-  string name = 0
-  string description = 0
+  string creatorName = 0
+  string email = 0
+  boolean primaryContact = 0
+  string affiliation = 0
+ }
+message Organism
+ {
+  string scientificName = 0
+  integer nCBITaxID = 0
+ }
+message RelatedItem
+ {
+  string title = 0
+  string relatedItemType = 0
+  string relatedItemIdentifier = 0
  }
