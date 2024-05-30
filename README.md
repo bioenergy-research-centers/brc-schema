@@ -2,9 +2,16 @@
 
 Example schema
 
+See:
+
+- [creating a dataset schema for the BRCs](https://docs.google.com/presentation/d/1Z7pq7JxbSkuKMhfWMPGPwbMKrysbqfyVnhvWDxqhy9U/edit#slide=id.p)
+- [other background](https://docs.google.com/document/d/1H8fQ7IiCI_SASYuKNQElcpcPzfgHSrXMz8kwLfSWKvw/edit)
+
 ## Website
 
 [https://bioenergy-research-centers.github.io/brc-schema](https://bioenergy-research-centers.github.io/brc-schema)
+
+(will not work so long as repo is private)
 
 ## Repository Structure
 
