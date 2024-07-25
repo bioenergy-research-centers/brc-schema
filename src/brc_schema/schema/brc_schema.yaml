@@ -1,5 +1,5 @@
 id: https://w3id.org/brc/brc_schema
-name: datasets
+name: brc_schema
 title: BRC Metabolomics and Proteomics Datasets Schema
 description: >-
         This schema defines the structure for metabolomics and proteomics
