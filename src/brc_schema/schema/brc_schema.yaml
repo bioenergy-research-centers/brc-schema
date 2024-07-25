@@ -64,7 +64,9 @@ classes:
         range: Individual
         multivalued: true
         inlined_as_list: true
-        description: "List of creators involved in the dataset, where one must be the primary contact."
+        description: >-
+          List of creators involved in the dataset,
+          where one must be the primary contact.
         required: true
         slot_uri: dcterms:creator
       brc:
@@ -124,8 +126,29 @@ classes:
         range: boolean
         description: "Indicates if the creator is the primary contact."
       affiliation:
-        range: string
+        range: Organization
         description: "Affiliation of the creator."
+
+  Organization:
+    description: An organization involved in the dataset.
+    attributes:
+      organizationName:
+        range: string
+        description: Name of the organization.
+        slot_uri: schema:name
+      parentOrganization:
+        range: Organization
+        description: Higher-level parent of this organization.
+      wikidata_id:
+        range: wikidata_identifier
+        description: Wikidata identifier for the organization.
+        values_from:
+          - WIKIDATA
+      ror_id:
+        range: ror_identifier
+        description: ROR identifier for the organization.
+        values_from:
+          - ROR
 
   Organism:
     attributes:
@@ -181,3 +204,15 @@ enums:
         meaning: OBI:0002958
         title: SWATH-MS protein profiling assay
       Ms_imaging: {}
+
+types:
+  ror_identifier:
+    description: Identifier from Research Organization Registry.
+    typeof: uriorcurie
+    id_prefixes:
+      - ror
+  wikidata_identifier:
+    description: Identifier from Wikidata open knowledge base.
+    typeof: uriorcurie
+    id_prefixes:
+      - wikidata
