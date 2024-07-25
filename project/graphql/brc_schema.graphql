@@ -5,7 +5,7 @@ type Dataset
     date: Date!
     creator: [Individual]!
     brc: BRCEnum!
-    repository: String
+    repository: RepositoryEnum
     bibliographicCitation: String!
     identifier: String!
     species: [Organism]!
@@ -25,13 +25,21 @@ type Individual
     creatorName: String
     email: String
     primaryContact: Boolean
-    affiliation: String
+    affiliation: Organization
   }
 
 type Organism
   {
     scientificName: String
     nCBITaxID: Integer
+  }
+
+type Organization
+  {
+    organizationName: String
+    parentOrganization: Organization
+    wikidataId: WikidataIdentifier
+    rorId: RorIdentifier
   }
 
 type RelatedItem

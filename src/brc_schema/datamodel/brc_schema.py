@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-25T12:28:54
+# Generation date: 2024-07-25T13:00:13
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -38,7 +38,7 @@ NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
 SIO = CurieNamespace('SIO', 'http://semanticscience.org/resource/SIO_')
 UO = CurieNamespace('UO', 'http://purl.obolibrary.org/obo/UO_')
-BALD = CurieNamespace('bald', 'http://example.org/UNKNOWN/bald/')
+BALD = CurieNamespace('bald', 'https://www.opengis.net/def/binary-array-ld/')
 BIBO = CurieNamespace('bibo', 'http://purl.org/ontology/bibo/')
 BRC = CurieNamespace('brc', 'https://w3id.org/brc/')
 DCAT = CurieNamespace('dcat', 'http://www.w3.org/ns/dcat#')

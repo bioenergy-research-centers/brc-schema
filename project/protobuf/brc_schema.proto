@@ -8,7 +8,7 @@ message Dataset
   date date = 0
  repeated  individual creator = 0
   bRCEnum brc = 0
-  string repository = 0
+  repositoryEnum repository = 0
   string bibliographicCitation = 0
   string identifier = 0
  repeated  organism species = 0
@@ -27,12 +27,20 @@ message Individual
   string creatorName = 0
   string email = 0
   boolean primaryContact = 0
-  string affiliation = 0
+  organization affiliation = 0
  }
 message Organism
  {
   string scientificName = 0
   integer nCBITaxID = 0
+ }
+// An organization involved in the dataset.
+message Organization
+ {
+  string organizationName = 0
+  organization parentOrganization = 0
+  wikidataIdentifier wikidataId = 0
+  rorIdentifier rorId = 0
  }
 message RelatedItem
  {

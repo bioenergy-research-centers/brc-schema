@@ -5,7 +5,7 @@
    "OBI": "http://purl.obolibrary.org/obo/OBI_",
    "SIO": "http://semanticscience.org/resource/SIO_",
    "UO": "http://purl.obolibrary.org/obo/UO_",
-   "bald": "http://example.org/UNKNOWN/bald/",
+   "bald": "https://www.opengis.net/def/binary-array-ld/",
    "bibo": "http://purl.org/ontology/bibo/",
    "brc": "https://w3id.org/brc/",
    "dcat": "http://www.w3.org/ns/dcat#",
@@ -15,9 +15,11 @@
    "oslc": "http://open-services.net/ns/core#",
    "pav": "http://purl.org/pav/",
    "prov": "http://www.w3.org/ns/prov#",
+   "ror": "https://ror.org/",
    "schema": "http://schema.org/",
    "skos": "http://www.w3.org/2004/02/skos/core#",
    "void": "http://rdfs.org/ns/void#",
+   "wikidata": "https://www.wikidata.org/wiki/",
    "Dataset": {
       "@id": "schema:Dataset"
    },
