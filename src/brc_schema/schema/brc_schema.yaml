@@ -27,6 +27,8 @@ prefixes:
   edam: http://edamontology.org/
   prov: http://www.w3.org/ns/prov#
   dcterms: http://purl.org/dc/terms/
+  ror: https://ror.org/
+  wikidata: https://www.wikidata.org/wiki/
 
 default_prefix: brc
 
@@ -78,11 +80,14 @@ classes:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."
       bibliographicCitation:
+        # TODO: define a more specific format, like DOI
         range: string
         description: "Citation for the dataset."
         required: true
         slot_uri: dcterms:bibliographicCitation
       identifier:
+        # TODO: include ID validation here.
+        #       It will depend on the repository
         range: string
         description: "Unique identifier for the dataset."
         required: true
