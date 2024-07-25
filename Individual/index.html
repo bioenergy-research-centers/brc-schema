@@ -207,6 +207,13 @@
     click Individual href "../Individual"
       Individual : affiliation
 
+
+
+
+    Individual --&gt; "0..1" Organization : affiliation
+    click Organization href "../Organization"
+
+
       Individual : creatorName
 
       Individual : email
@@ -247,7 +254,7 @@
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../Organization/">Organization</a></td>
 <td>Affiliation of the creator</td>
 <td>direct</td>
 </tr>
@@ -275,7 +282,7 @@
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
-<li>from schema: https://w3id.org/brc/metaprot-datasets-schema</li>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
 </ul>
 <h2 id="mappings">Mappings</h2>
 <table>
@@ -302,12 +309,12 @@
 <details>
 <pre><code class="language-yaml">name: Individual
 description: An individual involved in the dataset.
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 attributes:
   creatorName:
     name: creatorName
     description: Name of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
     domain_of:
@@ -316,7 +323,7 @@ attributes:
   email:
     name: email
     description: Email address of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:email
     domain_of:
@@ -325,7 +332,7 @@ attributes:
   primaryContact:
     name: primaryContact
     description: Indicates if the creator is the primary contact.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Individual
@@ -333,11 +340,11 @@ attributes:
   affiliation:
     name: affiliation
     description: Affiliation of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Individual
-    range: string
+    range: Organization
 class_uri: schema:Person
 
 </code></pre>
@@ -346,12 +353,12 @@ class_uri: schema:Person
 <details>
 <pre><code class="language-yaml">name: Individual
 description: An individual involved in the dataset.
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 attributes:
   creatorName:
     name: creatorName
     description: Name of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
     alias: creatorName
@@ -362,7 +369,7 @@ attributes:
   email:
     name: email
     description: Email address of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:email
     alias: email
@@ -373,7 +380,7 @@ attributes:
   primaryContact:
     name: primaryContact
     description: Indicates if the creator is the primary contact.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: primaryContact
     owner: Individual
@@ -383,13 +390,13 @@ attributes:
   affiliation:
     name: affiliation
     description: Affiliation of the creator.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: affiliation
     owner: Individual
     domain_of:
     - Individual
-    range: string
+    range: Organization
 class_uri: schema:Person
 
 </code></pre>

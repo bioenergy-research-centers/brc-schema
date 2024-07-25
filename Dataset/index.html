@@ -253,6 +253,13 @@
 
       Dataset : repository
 
+
+
+
+    Dataset --&gt; "0..1" RepositoryEnum : repository
+    click RepositoryEnum href "../RepositoryEnum"
+
+
       Dataset : species
 
 
@@ -304,7 +311,7 @@
 </tr>
 <tr>
 <td><a href="../repository/">repository</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../RepositoryEnum/">RepositoryEnum</a></td>
 <td>The repository where the dataset is stored</td>
 <td>direct</td>
 </tr>
@@ -374,7 +381,7 @@
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
-<li>from schema: https://w3id.org/brc/metaprot-datasets-schema</li>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
 </ul>
 <h2 id="mappings">Mappings</h2>
 <table>
@@ -409,7 +416,7 @@
 <details>
 <pre><code class="language-yaml">name: Dataset
 description: A dataset containing metabolomics and proteomics data.
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 exact_mappings:
 - dcat:Dataset
 - bald:Container
@@ -419,7 +426,7 @@ attributes:
   title:
     name: title
     description: The title of the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:title
     domain_of:
@@ -430,7 +437,7 @@ attributes:
   date:
     name: date
     description: The date the dataset was created or published.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:date
     domain_of:
@@ -441,20 +448,20 @@ attributes:
     name: creator
     description: List of creators involved in the dataset, where one must be the primary
       contact.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:creator
-    multivalued: true
     domain_of:
     - Dataset
     range: Individual
     required: true
+    multivalued: true
     inlined: true
     inlined_as_list: true
   brc:
     name: brc
     description: Bioenergy Research Center affiliation.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: prov:wasAttributedTo
     domain_of:
@@ -464,15 +471,15 @@ attributes:
   repository:
     name: repository
     description: The repository where the dataset is stored.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
-    range: string
+    range: RepositoryEnum
   bibliographicCitation:
     name: bibliographicCitation
     description: Citation for the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:bibliographicCitation
     domain_of:
@@ -482,7 +489,7 @@ attributes:
   identifier:
     name: identifier
     description: Unique identifier for the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:identifier
     domain_of:
@@ -492,17 +499,17 @@ attributes:
   species:
     name: species
     description: Species information for the organism(s) studied.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    multivalued: true
     domain_of:
     - Dataset
     range: Organism
     required: true
+    multivalued: true
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
@@ -510,7 +517,7 @@ attributes:
   description:
     name: description
     description: A detailed description of the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:description
     domain_of:
@@ -519,7 +526,7 @@ attributes:
   relatedItem:
     name: relatedItem
     description: Related publication or item.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
@@ -527,15 +534,15 @@ attributes:
   keywords:
     name: keywords
     description: Keywords associated with the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     exact_mappings:
     - schema:keywords
     rank: 1000
     slot_uri: dcat:keyword
-    multivalued: true
     domain_of:
     - Dataset
     range: string
+    multivalued: true
 class_uri: schema:Dataset
 
 </code></pre>
@@ -544,7 +551,7 @@ class_uri: schema:Dataset
 <details>
 <pre><code class="language-yaml">name: Dataset
 description: A dataset containing metabolomics and proteomics data.
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 exact_mappings:
 - dcat:Dataset
 - bald:Container
@@ -554,7 +561,7 @@ attributes:
   title:
     name: title
     description: The title of the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:title
     alias: title
@@ -567,7 +574,7 @@ attributes:
   date:
     name: date
     description: The date the dataset was created or published.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:date
     alias: date
@@ -580,22 +587,22 @@ attributes:
     name: creator
     description: List of creators involved in the dataset, where one must be the primary
       contact.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:creator
-    multivalued: true
     alias: creator
     owner: Dataset
     domain_of:
     - Dataset
     range: Individual
     required: true
+    multivalued: true
     inlined: true
     inlined_as_list: true
   brc:
     name: brc
     description: Bioenergy Research Center affiliation.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: prov:wasAttributedTo
     alias: brc
@@ -607,17 +614,17 @@ attributes:
   repository:
     name: repository
     description: The repository where the dataset is stored.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: repository
     owner: Dataset
     domain_of:
     - Dataset
-    range: string
+    range: RepositoryEnum
   bibliographicCitation:
     name: bibliographicCitation
     description: Citation for the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:bibliographicCitation
     alias: bibliographicCitation
@@ -629,7 +636,7 @@ attributes:
   identifier:
     name: identifier
     description: Unique identifier for the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:identifier
     alias: identifier
@@ -641,19 +648,19 @@ attributes:
   species:
     name: species
     description: Species information for the organism(s) studied.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    multivalued: true
     alias: species
     owner: Dataset
     domain_of:
     - Dataset
     range: Organism
     required: true
+    multivalued: true
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: analysisType
     owner: Dataset
@@ -663,7 +670,7 @@ attributes:
   description:
     name: description
     description: A detailed description of the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:description
     alias: description
@@ -674,7 +681,7 @@ attributes:
   relatedItem:
     name: relatedItem
     description: Related publication or item.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: relatedItem
     owner: Dataset
@@ -684,17 +691,17 @@ attributes:
   keywords:
     name: keywords
     description: Keywords associated with the dataset.
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     exact_mappings:
     - schema:keywords
     rank: 1000
     slot_uri: dcat:keyword
-    multivalued: true
     alias: keywords
     owner: Dataset
     domain_of:
     - Dataset
     range: string
+    multivalued: true
 class_uri: schema:Dataset
 
 </code></pre>

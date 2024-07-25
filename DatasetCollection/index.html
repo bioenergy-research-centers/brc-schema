@@ -233,7 +233,7 @@
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
-<li>from schema: https://w3id.org/brc/metaprot-datasets-schema</li>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
 </ul>
 <h2 id="mappings">Mappings</h2>
 <table>
@@ -259,16 +259,16 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: DatasetCollection
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 attributes:
   datasets:
     name: datasets
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    multivalued: true
     domain_of:
     - DatasetCollection
     range: Dataset
+    multivalued: true
     inlined: true
     inlined_as_list: true
 tree_root: true
@@ -278,18 +278,18 @@ tree_root: true
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: DatasetCollection
-from_schema: https://w3id.org/brc/metaprot-datasets-schema
+from_schema: https://w3id.org/brc/brc_schema
 attributes:
   datasets:
     name: datasets
-    from_schema: https://w3id.org/brc/metaprot-datasets-schema
+    from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    multivalued: true
     alias: datasets
     owner: DatasetCollection
     domain_of:
     - DatasetCollection
     range: Dataset
+    multivalued: true
     inlined_as_list: true
 tree_root: true
 
