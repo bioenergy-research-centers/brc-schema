@@ -29,6 +29,7 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   ror: https://ror.org/
   wikidata: https://www.wikidata.org/wiki/
+  bald: https://www.opengis.net/def/binary-array-ld/
 
 default_prefix: brc
 
