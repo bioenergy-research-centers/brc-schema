@@ -240,11 +240,15 @@ enums:
 
 types:
   ror_identifier:
+    uri: xsd:anyURI
+    base: URIorCURIE
     description: Identifier from Research Organization Registry.
     typeof: uriorcurie
     id_prefixes:
       - ror
   wikidata_identifier:
+    uri: xsd:anyURI
+    base: URIorCURIE
     description: Identifier from Wikidata open knowledge base.
     typeof: uriorcurie
     id_prefixes:
