@@ -9,6 +9,10 @@ PREFIX linkml: <https://w3id.org/linkml/>
 PREFIX schema1: <http://schema.org/>
 
 
+<RorIdentifier> IRI
+
+<WikidataIdentifier> IRI
+
 linkml:String xsd:string
 
 linkml:Integer xsd:integer
@@ -53,7 +57,9 @@ linkml:Sparqlpath xsd:string
           dcterms:creator @<Individual> + ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
-          <repository> @linkml:String ? ;
+          <repository> [ <https://w3id.org/brc/RepositoryEnum#iProX> <https://w3id.org/brc/RepositoryEnum#jPOST>
+             <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>
+             <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ] ? ;
           dcterms:bibliographicCitation @linkml:String ;
           schema1:identifier @linkml:String ;
           <species> @<Organism> + ;
@@ -78,7 +84,7 @@ linkml:Sparqlpath xsd:string
     (  $<Individual_tes> (  schema1:name @linkml:String ? ;
           schema1:email @linkml:String ? ;
           <primaryContact> @linkml:Boolean ? ;
-          <affiliation> @linkml:String ?
+          <affiliation> @<Organization> ?
        ) ;
        rdf:type [ schema1:Person ] ?
     )
@@ -89,6 +95,16 @@ linkml:Sparqlpath xsd:string
           <NCBITaxID> @linkml:Integer ?
        ) ;
        rdf:type [ <Organism> ] ?
+    )
+}
+
+<Organization> CLOSED {
+    (  $<Organization_tes> (  schema1:name @linkml:String ? ;
+          <parentOrganization> @<Organization> ? ;
+          <wikidata_id> @<WikidataIdentifier> ? ;
+          <ror_id> @<RorIdentifier> ?
+       ) ;
+       rdf:type [ <Organization> ] ?
     )
 }
 

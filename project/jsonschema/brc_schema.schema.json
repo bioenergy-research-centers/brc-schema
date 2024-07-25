@@ -72,8 +72,8 @@
                     "description": "Related publication or item."
                 },
                 "repository": {
-                    "description": "The repository where the dataset is stored.",
-                    "type": "string"
+                    "$ref": "#/$defs/RepositoryEnum",
+                    "description": "The repository where the dataset is stored."
                 },
                 "species": {
                     "description": "Species information for the organism(s) studied.",
@@ -118,8 +118,8 @@
             "description": "An individual involved in the dataset.",
             "properties": {
                 "affiliation": {
-                    "description": "Affiliation of the creator.",
-                    "type": "string"
+                    "$ref": "#/$defs/Organization",
+                    "description": "Affiliation of the creator."
                 },
                 "creatorName": {
                     "description": "Name of the creator.",
@@ -153,6 +153,30 @@
             "title": "Organism",
             "type": "object"
         },
+        "Organization": {
+            "additionalProperties": false,
+            "description": "An organization involved in the dataset.",
+            "properties": {
+                "organizationName": {
+                    "description": "Name of the organization.",
+                    "type": "string"
+                },
+                "parentOrganization": {
+                    "$ref": "#/$defs/Organization",
+                    "description": "Higher-level parent of this organization."
+                },
+                "ror_id": {
+                    "description": "ROR identifier for the organization.",
+                    "type": "string"
+                },
+                "wikidata_id": {
+                    "description": "Wikidata identifier for the organization.",
+                    "type": "string"
+                }
+            },
+            "title": "Organization",
+            "type": "object"
+        },
         "RelatedItem": {
             "additionalProperties": false,
             "description": "",
@@ -172,9 +196,22 @@
             },
             "title": "RelatedItem",
             "type": "object"
+        },
+        "RepositoryEnum": {
+            "description": "",
+            "enum": [
+                "iProX",
+                "jPOST",
+                "MassIVE",
+                "PanoramaPublic",
+                "PedtideAtlas",
+                "PRIDE"
+            ],
+            "title": "RepositoryEnum",
+            "type": "string"
         }
     },
-    "$id": "https://w3id.org/brc/metaprot-datasets-schema",
+    "$id": "https://w3id.org/brc/brc_schema",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
     "description": "",
@@ -187,7 +224,7 @@
             "type": "array"
         }
     },
-    "title": "datasets",
+    "title": "brc_schema",
     "type": "object",
     "version": null
 }
