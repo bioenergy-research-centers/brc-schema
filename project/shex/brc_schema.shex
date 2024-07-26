@@ -63,9 +63,7 @@ linkml:Sparqlpath xsd:string
           dcterms:bibliographicCitation @linkml:String ;
           schema1:identifier @linkml:String ;
           <species> @<Organism> + ;
-          <analysisType> [ <http://purl.obolibrary.org/obo/ERO_0001660> <http://purl.obolibrary.org/obo/OBI_0000800>
-             <https://w3id.org/brc/AnalysisType#affinity_purification> <https://w3id.org/brc/AnalysisType#srm_mrm>
-             <http://purl.obolibrary.org/obo/OBI_0002958> <https://w3id.org/brc/AnalysisType#Ms_imaging> ] ? ;
+          <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
           <relatedItem> @<RelatedItem> ? ;
           dcat:keyword @linkml:String *
@@ -84,7 +82,7 @@ linkml:Sparqlpath xsd:string
     (  $<Individual_tes> (  schema1:name @linkml:String ? ;
           schema1:email @linkml:String ? ;
           <primaryContact> @linkml:Boolean ? ;
-          <affiliation> @<Organization> ?
+          <affiliation> @linkml:String ?
        ) ;
        rdf:type [ schema1:Person ] ?
     )

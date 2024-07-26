@@ -17,8 +17,8 @@
 --     * Slot: creatorName Description: Name of the creator.
 --     * Slot: email Description: Email address of the creator.
 --     * Slot: primaryContact Description: Indicates if the creator is the primary contact.
+--     * Slot: affiliation Description: Affiliation of the creator.
 --     * Slot: Dataset_id Description: Autocreated FK slot
---     * Slot: affiliation_id Description: Affiliation of the creator.
 -- # Class: "Organization" Description: "An organization involved in the dataset."
 --     * Slot: id Description: 
 --     * Slot: organizationName Description: Name of the organization.
@@ -75,7 +75,7 @@ CREATE TABLE "Dataset" (
 	repository VARCHAR(14), 
 	"bibliographicCitation" TEXT NOT NULL, 
 	identifier TEXT NOT NULL, 
-	"analysisType" VARCHAR(21), 
+	"analysisType" TEXT, 
 	description TEXT, 
 	"DatasetCollection_id" INTEGER, 
 	"relatedItem_id" INTEGER, 
@@ -88,11 +88,10 @@ CREATE TABLE "Individual" (
 	"creatorName" TEXT, 
 	email TEXT, 
 	"primaryContact" BOOLEAN, 
+	affiliation TEXT, 
 	"Dataset_id" INTEGER, 
-	affiliation_id INTEGER, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY("Dataset_id") REFERENCES "Dataset" (id), 
-	FOREIGN KEY(affiliation_id) REFERENCES "Organization" (id)
+	FOREIGN KEY("Dataset_id") REFERENCES "Dataset" (id)
 );
 CREATE TABLE "Dataset_species" (
 	"Dataset_id" INTEGER, 
