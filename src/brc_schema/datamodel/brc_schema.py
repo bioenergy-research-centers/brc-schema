@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-26T15:35:59
+# Generation date: 2024-07-26T17:55:47
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -117,7 +117,7 @@ class Dataset(YAMLRoot):
     identifier: str = None
     species: Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
-    analysisType: Optional[str] = None
+    analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
     relatedItem: Optional[Union[dict, "RelatedItem"]] = None
     keywords: Optional[Union[str, List[str]]] = empty_list()
@@ -327,7 +327,6 @@ class AnalysisType(EnumDefinitionImpl):
         text="swath_ms",
         meaning=OBI["0002958"])
     Ms_imaging = PermissibleValue(text="Ms_imaging")
-    not_specified = PermissibleValue(text="not_specified")
 
     _defn = EnumDefinition(
         name="AnalysisType",

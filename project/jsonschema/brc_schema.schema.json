@@ -8,8 +8,7 @@
                 "affinity_purification",
                 "srm_mrm",
                 "swath_ms",
-                "Ms_imaging",
-                "not_specified"
+                "Ms_imaging"
             ],
             "title": "AnalysisType",
             "type": "string"

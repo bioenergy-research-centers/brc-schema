@@ -105,7 +105,7 @@ classes:
           - range: AnalysisType
           - range: string
         description: "The type of analysis performed on the dataset."
-        # ifabsent: string(not_specified)
+        ifabsent: string(not specified)
       description:
         range: string
         description: "A detailed description of the dataset."
@@ -219,8 +219,8 @@ enums:
         meaning: OBI:0002958
         title: SWATH-MS protein profiling assay
       Ms_imaging: {}
-      not_specified:
-        title: Analysis type not specified.
+      #not specified:
+      #  title: Analysis type not specified.
   RepositoryEnum:
     permissible_values:
       iProX:

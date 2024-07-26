@@ -496,10 +496,6 @@
         },
         {
           "text": "Ms_imaging"
-        },
-        {
-          "text": "not_specified",
-          "title": "Analysis type not specified."
         }
       ]
     },
@@ -708,6 +704,7 @@
       "description": "The type of analysis performed on the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/analysisType",
+      "ifabsent": "string(not specified)",
       "alias": "analysisType",
       "owner": "Dataset",
       "domain_of": [
@@ -1095,6 +1092,7 @@
         {
           "name": "analysisType",
           "description": "The type of analysis performed on the dataset.",
+          "ifabsent": "string(not specified)",
           "any_of": [
             {
               "range": "AnalysisType",
@@ -1301,9 +1299,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-07-26T15:35:04",
+  "source_file_date": "2024-07-26T17:55:42",
   "source_file_size": 8031,
-  "generation_date": "2024-07-26T15:35:59",
+  "generation_date": "2024-07-26T17:55:47",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
