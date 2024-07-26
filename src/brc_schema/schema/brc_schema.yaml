@@ -99,7 +99,10 @@ classes:
         description: "Species information for the organism(s) studied."
         required: true
       analysisType:
-        range: AnalysisType
+        range: Any
+        any_of:
+          - range: AnalysisType
+          - range: string
         description: "The type of analysis performed on the dataset."
         ifabsent: string(not_specified)
       description:
@@ -133,7 +136,10 @@ classes:
         range: boolean
         description: "Indicates if the creator is the primary contact."
       affiliation:
-        range: Organization
+        range: Any
+        any_of:
+          - range: Organization
+          - range: string
         description: "Affiliation of the creator."
 
   Organization:
