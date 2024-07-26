@@ -32,6 +32,7 @@ prefixes:
   bald: https://www.opengis.net/def/binary-array-ld/
 
 default_prefix: brc
+default_range: string
 
 imports:
   - linkml:types
