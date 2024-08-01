@@ -788,6 +788,19 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__datasetname",
+      "description": "\"Name of a overall dataset to which this data entry belongs.\"",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/datasetname",
+      "alias": "datasetname",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "individual__creatorName",
       "description": "Name of the creator.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -1035,7 +1048,8 @@
         "dataset__analysisType",
         "dataset__description",
         "dataset__relatedItem",
-        "dataset__keywords"
+        "dataset__keywords",
+        "dataset__datasetname"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1141,6 +1155,12 @@
           "slot_uri": "dcat:keyword",
           "range": "string",
           "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "datasetname",
+          "description": "\"Name of a overall dataset to which this data entry belongs.\"",
+          "range": "string",
           "@type": "SlotDefinition"
         }
       ],
@@ -1313,9 +1333,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-01T12:10:33",
-  "source_file_size": 8272,
-  "generation_date": "2024-08-01T12:10:40",
+  "source_file_date": "2024-08-01T12:28:55",
+  "source_file_size": 8409,
+  "generation_date": "2024-08-01T12:29:00",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

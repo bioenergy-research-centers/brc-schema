@@ -13,6 +13,7 @@ type Dataset
     description: String
     relatedItem: RelatedItem
     keywords: [String]
+    datasetname: String
   }
 
 type DatasetCollection
