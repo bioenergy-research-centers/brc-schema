@@ -476,7 +476,8 @@
       "permissible_values": [
         {
           "text": "shotgun_proteomics",
-          "meaning": "ERO:0001660"
+          "meaning": "ERO:0001660",
+          "title": "shotgun proteomics"
         },
         {
           "text": "cross_linking",
@@ -703,12 +704,23 @@
       "description": "The type of analysis performed on the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/analysisType",
+      "ifabsent": "string(not specified)",
       "alias": "analysisType",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
-      "range": "AnalysisType",
+      "range": "string",
+      "any_of": [
+        {
+          "range": "AnalysisType",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "string",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
       "@type": "SlotDefinition"
     },
     {
@@ -816,8 +828,17 @@
       "domain_of": [
         "Individual"
       ],
-      "range": "Organization",
-      "inlined": true,
+      "range": "string",
+      "any_of": [
+        {
+          "range": "Organization",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "string",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
       "@type": "SlotDefinition"
     },
     {
@@ -1071,7 +1092,17 @@
         {
           "name": "analysisType",
           "description": "The type of analysis performed on the dataset.",
-          "range": "AnalysisType",
+          "ifabsent": "string(not specified)",
+          "any_of": [
+            {
+              "range": "AnalysisType",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "string",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
           "@type": "SlotDefinition"
         },
         {
@@ -1141,7 +1172,16 @@
         {
           "name": "affiliation",
           "description": "Affiliation of the creator.",
-          "range": "Organization",
+          "any_of": [
+            {
+              "range": "Organization",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "string",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
           "@type": "SlotDefinition"
         }
       ],
@@ -1259,9 +1299,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-07-25T13:00:09",
-  "source_file_size": 7734,
-  "generation_date": "2024-07-25T13:00:12",
+  "source_file_date": "2024-07-26T17:57:49",
+  "source_file_size": 8031,
+  "generation_date": "2024-08-01T11:46:17",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

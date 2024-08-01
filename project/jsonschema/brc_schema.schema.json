@@ -29,8 +29,16 @@
             "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
                 "analysisType": {
-                    "$ref": "#/$defs/AnalysisType",
-                    "description": "The type of analysis performed on the dataset."
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AnalysisType"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The type of analysis performed on the dataset.",
+                    "type": "string"
                 },
                 "bibliographicCitation": {
                     "description": "Citation for the dataset.",
@@ -118,8 +126,16 @@
             "description": "An individual involved in the dataset.",
             "properties": {
                 "affiliation": {
-                    "$ref": "#/$defs/Organization",
-                    "description": "Affiliation of the creator."
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Organization"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Affiliation of the creator.",
+                    "type": "string"
                 },
                 "creatorName": {
                     "description": "Name of the creator.",

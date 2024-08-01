@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-25T13:00:13
+# Generation date: 2024-08-01T11:46:17
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -117,7 +117,7 @@ class Dataset(YAMLRoot):
     identifier: str = None
     species: Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
-    analysisType: Optional[Union[str, "AnalysisType"]] = None
+    analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
     relatedItem: Optional[Union[dict, "RelatedItem"]] = None
     keywords: Optional[Union[str, List[str]]] = empty_list()
@@ -163,8 +163,8 @@ class Dataset(YAMLRoot):
         if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
             self.repository = RepositoryEnum(self.repository)
 
-        if self.analysisType is not None and not isinstance(self.analysisType, AnalysisType):
-            self.analysisType = AnalysisType(self.analysisType)
+        if self.analysisType is not None and not isinstance(self.analysisType, str):
+            self.analysisType = str(self.analysisType)
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
@@ -194,7 +194,7 @@ class Individual(YAMLRoot):
     creatorName: Optional[str] = None
     email: Optional[str] = None
     primaryContact: Optional[Union[bool, Bool]] = None
-    affiliation: Optional[Union[dict, "Organization"]] = None
+    affiliation: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.creatorName is not None and not isinstance(self.creatorName, str):
@@ -206,8 +206,8 @@ class Individual(YAMLRoot):
         if self.primaryContact is not None and not isinstance(self.primaryContact, Bool):
             self.primaryContact = Bool(self.primaryContact)
 
-        if self.affiliation is not None and not isinstance(self.affiliation, Organization):
-            self.affiliation = Organization(**as_dict(self.affiliation))
+        if self.affiliation is not None and not isinstance(self.affiliation, str):
+            self.affiliation = str(self.affiliation)
 
         super().__post_init__(**kwargs)
 
@@ -389,7 +389,7 @@ slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BR
                    model_uri=BRC.dataset__species, domain=None, range=Union[Union[dict, Organism], List[Union[dict, Organism]]])
 
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
-                   model_uri=BRC.dataset__analysisType, domain=None, range=Optional[Union[str, "AnalysisType"]])
+                   model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])
@@ -410,7 +410,7 @@ slots.individual__primaryContact = Slot(uri=BRC.primaryContact, name="individual
                    model_uri=BRC.individual__primaryContact, domain=None, range=Optional[Union[bool, Bool]])
 
 slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affiliation", curie=BRC.curie('affiliation'),
-                   model_uri=BRC.individual__affiliation, domain=None, range=Optional[Union[dict, Organization]])
+                   model_uri=BRC.individual__affiliation, domain=None, range=Optional[str])
 
 slots.organization__organizationName = Slot(uri=SCHEMA.name, name="organization__organizationName", curie=SCHEMA.curie('name'),
                    model_uri=BRC.organization__organizationName, domain=None, range=Optional[str])
