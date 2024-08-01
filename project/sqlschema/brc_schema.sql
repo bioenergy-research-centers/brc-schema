@@ -97,7 +97,7 @@ CREATE TABLE "Individual" (
 );
 CREATE TABLE "Dataset_species" (
 	"Dataset_id" INTEGER, 
-	species_id INTEGER NOT NULL, 
+	species_id INTEGER, 
 	PRIMARY KEY ("Dataset_id", species_id), 
 	FOREIGN KEY("Dataset_id") REFERENCES "Dataset" (id), 
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
