@@ -8,7 +8,7 @@ type Dataset
     repository: RepositoryEnum
     bibliographicCitation: String!
     identifier: String!
-    species: [Organism]!
+    species: [Organism]
     analysisType: String
     description: String
     relatedItem: RelatedItem

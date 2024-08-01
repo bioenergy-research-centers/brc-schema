@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-01T12:29:00
+# Generation date: 2024-08-01T17:08:22
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -115,8 +115,8 @@ class Dataset(YAMLRoot):
     brc: Union[str, "BRCEnum"] = None
     bibliographicCitation: str = None
     identifier: str = None
-    species: Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
+    species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
     relatedItem: Optional[Union[dict, "RelatedItem"]] = None
@@ -155,14 +155,12 @@ class Dataset(YAMLRoot):
         if not isinstance(self.identifier, str):
             self.identifier = str(self.identifier)
 
-        if self._is_empty(self.species):
-            self.MissingRequiredField("species")
+        if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
+            self.repository = RepositoryEnum(self.repository)
+
         if not isinstance(self.species, list):
             self.species = [self.species] if self.species is not None else []
         self.species = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.species]
-
-        if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
-            self.repository = RepositoryEnum(self.repository)
 
         if self.analysisType is not None and not isinstance(self.analysisType, str):
             self.analysisType = str(self.analysisType)
@@ -396,7 +394,7 @@ slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifie
                    model_uri=BRC.dataset__identifier, domain=None, range=str)
 
 slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BRC.curie('species'),
-                   model_uri=BRC.dataset__species, domain=None, range=Union[Union[dict, Organism], List[Union[dict, Organism]]])
+                   model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
 
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
                    model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])

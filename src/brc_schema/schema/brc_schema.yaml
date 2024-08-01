@@ -98,7 +98,6 @@ classes:
         range: Organism
         multivalued: true
         description: "Species information for the organism(s) studied."
-        required: true
       analysisType:
         # range: Any
         any_of:

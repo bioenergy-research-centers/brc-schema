@@ -63,7 +63,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ] ? ;
           dcterms:bibliographicCitation @linkml:String ;
           schema1:identifier @linkml:String ;
-          <species> @<Organism> + ;
+          <species> @<Organism> * ;
           <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
           <relatedItem> @<RelatedItem> ? ;

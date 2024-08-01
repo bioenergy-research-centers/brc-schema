@@ -105,8 +105,7 @@
                 "creator",
                 "brc",
                 "bibliographicCitation",
-                "identifier",
-                "species"
+                "identifier"
             ],
             "title": "Dataset",
             "type": "object"
