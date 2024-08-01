@@ -216,6 +216,7 @@
         "RepositoryEnum": {
             "description": "",
             "enum": [
+                "GEO",
                 "ICE",
                 "iProX",
                 "jPOST",

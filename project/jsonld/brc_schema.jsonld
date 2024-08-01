@@ -505,6 +505,13 @@
       "from_schema": "https://w3id.org/brc/brc_schema",
       "permissible_values": [
         {
+          "text": "GEO",
+          "description": "Gene Expression Omnibus",
+          "see_also": [
+            "https://www.ncbi.nlm.nih.gov/geo/"
+          ]
+        },
+        {
           "text": "ICE",
           "description": "Inventory of Composable Elements",
           "see_also": [
@@ -1306,9 +1313,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-01T11:53:21",
-  "source_file_size": 8150,
-  "generation_date": "2024-08-01T11:53:29",
+  "source_file_date": "2024-08-01T12:10:33",
+  "source_file_size": 8272,
+  "generation_date": "2024-08-01T12:10:40",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

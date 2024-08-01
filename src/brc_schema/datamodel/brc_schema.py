@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-01T11:53:30
+# Generation date: 2024-08-01T12:10:40
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -334,6 +334,9 @@ class AnalysisType(EnumDefinitionImpl):
 
 class RepositoryEnum(EnumDefinitionImpl):
 
+    GEO = PermissibleValue(
+        text="GEO",
+        description="Gene Expression Omnibus")
     ICE = PermissibleValue(
         text="ICE",
         description="Inventory of Composable Elements")

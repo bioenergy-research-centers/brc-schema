@@ -223,6 +223,10 @@ enums:
       #  title: Analysis type not specified.
   RepositoryEnum:
     permissible_values:
+      GEO:
+        description: "Gene Expression Omnibus"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/geo/
       ICE:
         description: "Inventory of Composable Elements"
         see_also:
