@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-01T11:46:17
+# Generation date: 2024-08-01T11:53:30
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -334,6 +334,9 @@ class AnalysisType(EnumDefinitionImpl):
 
 class RepositoryEnum(EnumDefinitionImpl):
 
+    ICE = PermissibleValue(
+        text="ICE",
+        description="Inventory of Composable Elements")
     iProX = PermissibleValue(
         text="iProX",
         description="Integrated Proteome Resources")

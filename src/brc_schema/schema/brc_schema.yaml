@@ -223,6 +223,10 @@ enums:
       #  title: Analysis type not specified.
   RepositoryEnum:
     permissible_values:
+      ICE:
+        description: "Inventory of Composable Elements"
+        see_also:
+          - https://ice.jbei.org/
       iProX:
         description: "Integrated Proteome Resources"
         see_also:
