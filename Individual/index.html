@@ -207,13 +207,6 @@
     click Individual href "../Individual"
       Individual : affiliation
 
-
-
-
-    Individual --&gt; "0..1" Organization : affiliation
-    click Organization href "../Organization"
-
-
       Individual : creatorName
 
       Individual : email
@@ -254,7 +247,7 @@
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
-<td>0..1 <br/> <a href="../Organization/">Organization</a></td>
+<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../Organization/">Organization</a> or <br/><a href="../String/">String</a></td>
 <td>Affiliation of the creator</td>
 <td>direct</td>
 </tr>
@@ -344,7 +337,9 @@ attributes:
     rank: 1000
     domain_of:
     - Individual
-    range: Organization
+    any_of:
+    - range: Organization
+    - range: string
 class_uri: schema:Person
 
 </code></pre>
@@ -396,7 +391,10 @@ attributes:
     owner: Individual
     domain_of:
     - Individual
-    range: Organization
+    range: string
+    any_of:
+    - range: Organization
+    - range: string
 class_uri: schema:Person
 
 </code></pre>
