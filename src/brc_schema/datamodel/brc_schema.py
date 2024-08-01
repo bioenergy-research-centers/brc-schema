@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-26T17:55:47
+# Generation date: 2024-08-01T11:46:17
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
