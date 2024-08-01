@@ -10,6 +10,7 @@
 --     * Slot: identifier Description: Unique identifier for the dataset.
 --     * Slot: analysisType Description: The type of analysis performed on the dataset.
 --     * Slot: description Description: A detailed description of the dataset.
+--     * Slot: datasetname Description: "Name of a overall dataset to which this data entry belongs."
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
 --     * Slot: relatedItem_id Description: Related publication or item.
 -- # Class: "Individual" Description: "An individual involved in the dataset."
@@ -77,6 +78,7 @@ CREATE TABLE "Dataset" (
 	identifier TEXT NOT NULL, 
 	"analysisType" TEXT, 
 	description TEXT, 
+	datasetname TEXT, 
 	"DatasetCollection_id" INTEGER, 
 	"relatedItem_id" INTEGER, 
 	PRIMARY KEY (id), 

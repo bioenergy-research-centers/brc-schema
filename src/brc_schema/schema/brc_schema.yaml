@@ -120,6 +120,10 @@ classes:
         slot_uri: dcat:keyword
         exact_mappings:
           - schema:keywords
+      datasetname:
+        range: string
+        description: >-
+          "Name of a overall dataset to which this data entry belongs."
 
   Individual:
     description: An individual involved in the dataset.

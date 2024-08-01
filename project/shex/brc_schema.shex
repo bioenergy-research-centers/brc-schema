@@ -67,7 +67,8 @@ linkml:Sparqlpath xsd:string
           <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
           <relatedItem> @<RelatedItem> ? ;
-          dcat:keyword @linkml:String *
+          dcat:keyword @linkml:String * ;
+          <datasetname> @linkml:String ?
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )

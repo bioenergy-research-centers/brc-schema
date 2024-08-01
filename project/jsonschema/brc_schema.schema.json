@@ -55,6 +55,10 @@
                     },
                     "type": "array"
                 },
+                "datasetname": {
+                    "description": "\"Name of a overall dataset to which this data entry belongs.\"",
+                    "type": "string"
+                },
                 "date": {
                     "description": "The date the dataset was created or published.",
                     "format": "date",

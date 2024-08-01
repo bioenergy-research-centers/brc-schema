@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-01T12:10:40
+# Generation date: 2024-08-01T12:29:00
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -121,6 +121,7 @@ class Dataset(YAMLRoot):
     description: Optional[str] = None
     relatedItem: Optional[Union[dict, "RelatedItem"]] = None
     keywords: Optional[Union[str, List[str]]] = empty_list()
+    datasetname: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.title):
@@ -175,6 +176,9 @@ class Dataset(YAMLRoot):
         if not isinstance(self.keywords, list):
             self.keywords = [self.keywords] if self.keywords is not None else []
         self.keywords = [v if isinstance(v, str) else str(v) for v in self.keywords]
+
+        if self.datasetname is not None and not isinstance(self.datasetname, str):
+            self.datasetname = str(self.datasetname)
 
         super().__post_init__(**kwargs)
 
@@ -405,6 +409,9 @@ slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedIte
 
 slots.dataset__keywords = Slot(uri=DCAT.keyword, name="dataset__keywords", curie=DCAT.curie('keyword'),
                    model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.dataset__datasetname = Slot(uri=BRC.datasetname, name="dataset__datasetname", curie=BRC.curie('datasetname'),
+                   model_uri=BRC.dataset__datasetname, domain=None, range=Optional[str])
 
 slots.individual__creatorName = Slot(uri=SCHEMA.name, name="individual__creatorName", curie=SCHEMA.curie('name'),
                    model_uri=BRC.individual__creatorName, domain=None, range=Optional[str])

@@ -16,6 +16,7 @@ message Dataset
   string description = 0
   relatedItem relatedItem = 0
  repeated  string keywords = 0
+  string datasetname = 0
  }
 message DatasetCollection
  {
