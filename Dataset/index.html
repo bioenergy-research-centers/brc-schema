@@ -260,7 +260,7 @@
 
 
 
-    Dataset --&gt; "1..*" Organism : species
+    Dataset --&gt; "*" Organism : species
     click Organism href "../Organism"
 
 
@@ -324,7 +324,7 @@
 </tr>
 <tr>
 <td><a href="../species/">species</a></td>
-<td>1..* <br/> <a href="../Organism/">Organism</a></td>
+<td>* <br/> <a href="../Organism/">Organism</a></td>
 <td>Species information for the organism(s) studied</td>
 <td>direct</td>
 </tr>
@@ -505,7 +505,6 @@ attributes:
     domain_of:
     - Dataset
     range: Organism
-    required: true
     multivalued: true
   analysisType:
     name: analysisType
@@ -667,7 +666,6 @@ attributes:
     domain_of:
     - Dataset
     range: Organism
-    required: true
     multivalued: true
   analysisType:
     name: analysisType
