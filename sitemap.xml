@@ -201,6 +201,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/datasetname/</loc>
+         <lastmod>2024-08-01</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/datasets/</loc>
          <lastmod>2024-08-01</lastmod>
          <changefreq>daily</changefreq>
