@@ -46,6 +46,6 @@ message Organization
 message RelatedItem
  {
   string title = 0
-  string relatedItemType = 0
-  string relatedItemIdentifier = 0
+  citedItemType relatedItemType = 0
+  uriorcurie relatedItemIdentifier = 0
  }

@@ -110,8 +110,11 @@ linkml:Sparqlpath xsd:string
 
 <RelatedItem> CLOSED {
     (  $<RelatedItem_tes> (  dcterms:title @linkml:String ? ;
-          <relatedItemType> @linkml:String ? ;
-          <relatedItemIdentifier> @linkml:String ?
+          <relatedItemType> [ <http://purl.obolibrary.org/obo/IAO_0000013> schema1:book schema1:dataset
+             <http://purl.obolibrary.org/obo/IAO_0000010> schema1:thesis <http://purl.obolibrary.org/obo/IAO_0000313>
+             schema1:Publication schema1:PresentationDigitalDocument <http://purl.obolibrary.org/obo/IAO_0000088> schema1:WebPage ]
+          ? ;
+          <relatedItemIdentifier> @linkml:Uriorcurie ?
        ) ;
        rdf:type [ <RelatedItem> ] ?
     )

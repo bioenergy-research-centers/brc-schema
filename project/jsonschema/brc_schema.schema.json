@@ -24,6 +24,23 @@
             "title": "BRCEnum",
             "type": "string"
         },
+        "CitedItemType": {
+            "description": "",
+            "enum": [
+                "JournalArticle",
+                "Book",
+                "Dataset",
+                "Software",
+                "Thesis",
+                "Patent",
+                "Preprint",
+                "Presentation",
+                "Report",
+                "Webpage"
+            ],
+            "title": "CitedItemType",
+            "type": "string"
+        },
         "Dataset": {
             "additionalProperties": false,
             "description": "A dataset containing metabolomics and proteomics data.",
@@ -205,8 +222,8 @@
                     "type": "string"
                 },
                 "relatedItemType": {
-                    "description": "Type of the related item, e.g., JournalArticle.",
-                    "type": "string"
+                    "$ref": "#/$defs/CitedItemType",
+                    "description": "Type of the related item, e.g., JournalArticle."
                 },
                 "title": {
                     "description": "Title of the related item.",

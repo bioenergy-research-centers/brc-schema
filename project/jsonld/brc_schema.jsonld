@@ -500,6 +500,63 @@
       ]
     },
     {
+      "name": "CitedItemType",
+      "definition_uri": "https://w3id.org/brc/CitedItemType",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "permissible_values": [
+        {
+          "text": "JournalArticle",
+          "description": "Journal article",
+          "meaning": "IAO:0000013"
+        },
+        {
+          "text": "Book",
+          "description": "Book",
+          "meaning": "schema:book"
+        },
+        {
+          "text": "Dataset",
+          "description": "Dataset",
+          "meaning": "schema:dataset"
+        },
+        {
+          "text": "Software",
+          "description": "Software",
+          "meaning": "IAO:0000010"
+        },
+        {
+          "text": "Thesis",
+          "description": "Thesis",
+          "meaning": "schema:thesis"
+        },
+        {
+          "text": "Patent",
+          "description": "Patent",
+          "meaning": "IAO:0000313"
+        },
+        {
+          "text": "Preprint",
+          "description": "Preprint",
+          "meaning": "schema:Publication"
+        },
+        {
+          "text": "Presentation",
+          "description": "Presentation",
+          "meaning": "schema:PresentationDigitalDocument"
+        },
+        {
+          "text": "Report",
+          "description": "Report",
+          "meaning": "IAO:0000088"
+        },
+        {
+          "text": "Webpage",
+          "description": "Webpage",
+          "meaning": "schema:WebPage"
+        }
+      ]
+    },
+    {
       "name": "RepositoryEnum",
       "definition_uri": "https://w3id.org/brc/RepositoryEnum",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -981,7 +1038,7 @@
       "domain_of": [
         "RelatedItem"
       ],
-      "range": "string",
+      "range": "CitedItemType",
       "@type": "SlotDefinition"
     },
     {
@@ -994,7 +1051,7 @@
       "domain_of": [
         "RelatedItem"
       ],
-      "range": "string",
+      "range": "uriorcurie",
       "@type": "SlotDefinition"
     }
   ],
@@ -1315,13 +1372,13 @@
         {
           "name": "relatedItemType",
           "description": "Type of the related item, e.g., JournalArticle.",
-          "range": "string",
+          "range": "CitedItemType",
           "@type": "SlotDefinition"
         },
         {
           "name": "relatedItemIdentifier",
           "description": "Identifier or URL for the related item.",
-          "range": "string",
+          "range": "uriorcurie",
           "@type": "SlotDefinition"
         }
       ],
@@ -1331,9 +1388,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-01T17:08:10",
-  "source_file_size": 8386,
-  "generation_date": "2024-08-01T17:08:21",
+  "source_file_date": "2024-08-07T17:32:11",
+  "source_file_size": 9243,
+  "generation_date": "2024-08-07T17:32:37",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
