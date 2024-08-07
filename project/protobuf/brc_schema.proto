@@ -12,7 +12,7 @@ message Dataset
   string bibliographicCitation = 0
   string identifier = 0
  repeated  organism species = 0
-  string analysisType = 0
+  analysisType analysisType = 0
   string description = 0
   relatedItem relatedItem = 0
  repeated  string keywords = 0

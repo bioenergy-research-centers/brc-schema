@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-07T17:32:37
+# Generation date: 2024-08-07T18:04:36
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -34,6 +34,7 @@ dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 # Namespaces
 ERO = CurieNamespace('ERO', 'http://purl.obolibrary.org/obo/ERO_')
 IAO = CurieNamespace('IAO', 'http://purl.obolibrary.org/obo/IAO_')
+MI = CurieNamespace('MI', 'http://purl.obolibrary.org/obo/MI_')
 NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
 SIO = CurieNamespace('SIO', 'http://semanticscience.org/resource/SIO_')
@@ -117,7 +118,7 @@ class Dataset(YAMLRoot):
     identifier: str = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
-    analysisType: Optional[str] = "not specified"
+    analysisType: Optional[Union[str, "AnalysisType"]] = None
     description: Optional[str] = None
     relatedItem: Optional[Union[dict, "RelatedItem"]] = None
     keywords: Optional[Union[str, List[str]]] = empty_list()
@@ -162,8 +163,8 @@ class Dataset(YAMLRoot):
             self.species = [self.species] if self.species is not None else []
         self.species = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.species]
 
-        if self.analysisType is not None and not isinstance(self.analysisType, str):
-            self.analysisType = str(self.analysisType)
+        if self.analysisType is not None and not isinstance(self.analysisType, AnalysisType):
+            self.analysisType = AnalysisType(self.analysisType)
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
@@ -317,22 +318,42 @@ class BRCEnum(EnumDefinitionImpl):
 
 class AnalysisType(EnumDefinitionImpl):
 
-    shotgun_proteomics = PermissibleValue(
-        text="shotgun_proteomics",
-        meaning=ERO["0001660"])
+    affinity_purification = PermissibleValue(
+        text="affinity_purification",
+        meaning=MI["0004"])
     cross_linking = PermissibleValue(
         text="cross_linking",
         meaning=OBI["0000800"])
-    affinity_purification = PermissibleValue(text="affinity_purification")
+    image_analysis = PermissibleValue(
+        text="image_analysis",
+        meaning=NCIT["C17606"])
+    Ms_imaging = PermissibleValue(text="Ms_imaging")
+    shotgun_proteomics = PermissibleValue(
+        text="shotgun_proteomics",
+        meaning=ERO["0001660"])
     srm_mrm = PermissibleValue(text="srm_mrm")
     swath_ms = PermissibleValue(
         text="swath_ms",
         meaning=OBI["0002958"])
-    Ms_imaging = PermissibleValue(text="Ms_imaging")
 
     _defn = EnumDefinition(
         name="AnalysisType",
     )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Expression profiling",
+            PermissibleValue(
+                text="Expression profiling",
+                meaning=NCIT["C19771"]))
+        setattr(cls, "Genomic - SNP calling",
+            PermissibleValue(
+                text="Genomic - SNP calling",
+                meaning=NCIT["C188690"]))
+        setattr(cls, "Targeted Locus (Loci)",
+            PermissibleValue(
+                text="Targeted Locus (Loci)",
+                meaning=OBI["0001899"]))
 
 class CitedItemType(EnumDefinitionImpl):
 
@@ -444,7 +465,7 @@ slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BR
                    model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
 
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
-                   model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
+                   model_uri=BRC.dataset__analysisType, domain=None, range=Optional[Union[str, "AnalysisType"]])
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])

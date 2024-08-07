@@ -64,7 +64,11 @@ linkml:Sparqlpath xsd:string
           dcterms:bibliographicCitation @linkml:String ;
           schema1:identifier @linkml:String ;
           <species> @<Organism> * ;
-          <analysisType> @linkml:String ? ;
+          <analysisType> [ <http://purl.obolibrary.org/obo/MI_0004> <http://purl.obolibrary.org/obo/OBI_0000800>
+             <http://purl.obolibrary.org/obo/NCIT_C19771> <http://purl.obolibrary.org/obo/NCIT_C188690>
+             <http://purl.obolibrary.org/obo/NCIT_C17606> <https://w3id.org/brc/AnalysisType#Ms_imaging>
+             <http://purl.obolibrary.org/obo/ERO_0001660> <https://w3id.org/brc/AnalysisType#srm_mrm>
+             <http://purl.obolibrary.org/obo/OBI_0002958> <http://purl.obolibrary.org/obo/OBI_0001899> ] ? ;
           dcterms:description @linkml:String ? ;
           <relatedItem> @<RelatedItem> ? ;
           dcat:keyword @linkml:String * ;
