@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-01T17:08:22
+# Generation date: 2024-08-07T17:32:37
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -279,18 +279,18 @@ class RelatedItem(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = BRC.RelatedItem
 
     title: Optional[str] = None
-    relatedItemType: Optional[str] = None
-    relatedItemIdentifier: Optional[str] = None
+    relatedItemType: Optional[Union[str, "CitedItemType"]] = None
+    relatedItemIdentifier: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.title is not None and not isinstance(self.title, str):
             self.title = str(self.title)
 
-        if self.relatedItemType is not None and not isinstance(self.relatedItemType, str):
-            self.relatedItemType = str(self.relatedItemType)
+        if self.relatedItemType is not None and not isinstance(self.relatedItemType, CitedItemType):
+            self.relatedItemType = CitedItemType(self.relatedItemType)
 
-        if self.relatedItemIdentifier is not None and not isinstance(self.relatedItemIdentifier, str):
-            self.relatedItemIdentifier = str(self.relatedItemIdentifier)
+        if self.relatedItemIdentifier is not None and not isinstance(self.relatedItemIdentifier, URIorCURIE):
+            self.relatedItemIdentifier = URIorCURIE(self.relatedItemIdentifier)
 
         super().__post_init__(**kwargs)
 
@@ -332,6 +332,53 @@ class AnalysisType(EnumDefinitionImpl):
 
     _defn = EnumDefinition(
         name="AnalysisType",
+    )
+
+class CitedItemType(EnumDefinitionImpl):
+
+    JournalArticle = PermissibleValue(
+        text="JournalArticle",
+        description="Journal article",
+        meaning=IAO["0000013"])
+    Book = PermissibleValue(
+        text="Book",
+        description="Book",
+        meaning=SCHEMA["book"])
+    Dataset = PermissibleValue(
+        text="Dataset",
+        description="Dataset",
+        meaning=SCHEMA["dataset"])
+    Software = PermissibleValue(
+        text="Software",
+        description="Software",
+        meaning=IAO["0000010"])
+    Thesis = PermissibleValue(
+        text="Thesis",
+        description="Thesis",
+        meaning=SCHEMA["thesis"])
+    Patent = PermissibleValue(
+        text="Patent",
+        description="Patent",
+        meaning=IAO["0000313"])
+    Preprint = PermissibleValue(
+        text="Preprint",
+        description="Preprint",
+        meaning=SCHEMA["Publication"])
+    Presentation = PermissibleValue(
+        text="Presentation",
+        description="Presentation",
+        meaning=SCHEMA["PresentationDigitalDocument"])
+    Report = PermissibleValue(
+        text="Report",
+        description="Report",
+        meaning=IAO["0000088"])
+    Webpage = PermissibleValue(
+        text="Webpage",
+        description="Webpage",
+        meaning=SCHEMA["WebPage"])
+
+    _defn = EnumDefinition(
+        name="CitedItemType",
     )
 
 class RepositoryEnum(EnumDefinitionImpl):
@@ -445,7 +492,7 @@ slots.relatedItem__title = Slot(uri=DCTERMS.title, name="relatedItem__title", cu
                    model_uri=BRC.relatedItem__title, domain=None, range=Optional[str])
 
 slots.relatedItem__relatedItemType = Slot(uri=BRC.relatedItemType, name="relatedItem__relatedItemType", curie=BRC.curie('relatedItemType'),
-                   model_uri=BRC.relatedItem__relatedItemType, domain=None, range=Optional[str])
+                   model_uri=BRC.relatedItem__relatedItemType, domain=None, range=Optional[Union[str, "CitedItemType"]])
 
 slots.relatedItem__relatedItemIdentifier = Slot(uri=BRC.relatedItemIdentifier, name="relatedItem__relatedItemIdentifier", curie=BRC.curie('relatedItemIdentifier'),
-                   model_uri=BRC.relatedItem__relatedItemIdentifier, domain=None, range=Optional[str])
+                   model_uri=BRC.relatedItem__relatedItemIdentifier, domain=None, range=Optional[Union[str, URIorCURIE]])

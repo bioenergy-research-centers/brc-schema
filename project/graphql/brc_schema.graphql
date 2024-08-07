@@ -46,7 +46,7 @@ type Organization
 type RelatedItem
   {
     title: String
-    relatedItemType: String
-    relatedItemIdentifier: String
+    relatedItemType: CitedItemType
+    relatedItemIdentifier: Uriorcurie
   }
 

@@ -64,7 +64,7 @@ CREATE TABLE "Organism" (
 CREATE TABLE "RelatedItem" (
 	id INTEGER NOT NULL, 
 	title TEXT, 
-	"relatedItemType" TEXT, 
+	"relatedItemType" VARCHAR(14), 
 	"relatedItemIdentifier" TEXT, 
 	PRIMARY KEY (id)
 );

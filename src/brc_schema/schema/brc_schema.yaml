@@ -183,10 +183,10 @@ classes:
         description: "Title of the related item."
         slot_uri: dcterms:title
       relatedItemType:
-        range: string
+        range: CitedItemType
         description: "Type of the related item, e.g., JournalArticle."
       relatedItemIdentifier:
-        range: string
+        range: uriorcurie
         description: "Identifier or URL for the related item."
 
 enums:
@@ -224,6 +224,38 @@ enums:
       Ms_imaging: {}
       #not specified:
       #  title: Analysis type not specified.
+  CitedItemType:
+    permissible_values:
+      JournalArticle:
+        meaning: IAO:0000013
+        description: "Journal article"
+      Book:
+        meaning: schema:book
+        description: "Book"
+      Dataset:
+        meaning: schema:dataset
+        description: "Dataset"
+      Software:
+        meaning: IAO:0000010
+        description: "Software"
+      Thesis:
+        meaning: schema:thesis
+        description: "Thesis"
+      Patent:
+        meaning: IAO:0000313
+        description: "Patent"
+      Preprint:
+        meaning: schema:Publication
+        description: "Preprint"
+      Presentation:
+        meaning: schema:PresentationDigitalDocument
+        description: "Presentation"
+      Report:
+        meaning: IAO:0000088
+        description: "Report"
+      Webpage:
+        meaning: schema:WebPage
+        description: "Webpage"
   RepositoryEnum:
     permissible_values:
       GEO:
