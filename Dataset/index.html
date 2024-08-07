@@ -207,6 +207,13 @@
     click Dataset href "../Dataset"
       Dataset : analysisType
 
+
+
+
+    Dataset --&gt; "0..1" AnalysisType : analysisType
+    click AnalysisType href "../AnalysisType"
+
+
       Dataset : bibliographicCitation
 
       Dataset : brc
@@ -330,7 +337,7 @@
 </tr>
 <tr>
 <td><a href="../analysisType/">analysisType</a></td>
-<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../AnalysisType/">AnalysisType</a> or <br/><a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../AnalysisType/">AnalysisType</a></td>
 <td>The type of analysis performed on the dataset</td>
 <td>direct</td>
 </tr>
@@ -511,12 +518,9 @@ attributes:
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    ifabsent: string(not specified)
     domain_of:
     - Dataset
-    any_of:
-    - range: AnalysisType
-    - range: string
+    range: AnalysisType
   description:
     name: description
     description: A detailed description of the dataset.
@@ -672,15 +676,11 @@ attributes:
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    ifabsent: string(not specified)
     alias: analysisType
     owner: Dataset
     domain_of:
     - Dataset
-    range: string
-    any_of:
-    - range: AnalysisType
-    - range: string
+    range: AnalysisType
   description:
     name: description
     description: A detailed description of the dataset.

@@ -263,6 +263,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slots" class="md-nav__link">
+    Slots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     Identifier and Mapping Information
   </a>
@@ -322,8 +329,8 @@
 </thead>
 <tbody>
 <tr>
-<td>shotgun_proteomics</td>
-<td>ERO:0001660</td>
+<td>affinity_purification</td>
+<td>MI:0004</td>
 <td></td>
 </tr>
 <tr>
@@ -332,8 +339,28 @@
 <td></td>
 </tr>
 <tr>
-<td>affinity_purification</td>
+<td>Expression profiling</td>
+<td>NCIT:C19771</td>
+<td></td>
+</tr>
+<tr>
+<td>Genomic - SNP calling</td>
+<td>NCIT:C188690</td>
+<td></td>
+</tr>
+<tr>
+<td>image_analysis</td>
+<td>NCIT:C17606</td>
+<td></td>
+</tr>
+<tr>
+<td>Ms_imaging</td>
 <td>None</td>
+<td></td>
+</tr>
+<tr>
+<td>shotgun_proteomics</td>
+<td>ERO:0001660</td>
 <td></td>
 </tr>
 <tr>
@@ -347,9 +374,24 @@
 <td></td>
 </tr>
 <tr>
-<td>Ms_imaging</td>
-<td>None</td>
+<td>Targeted Locus (Loci)</td>
+<td>OBI:0001899</td>
 <td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../analysisType/">analysisType</a></td>
+<td>The type of analysis performed on the dataset</td>
 </tr>
 </tbody>
 </table>
@@ -365,23 +407,41 @@
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 permissible_values:
+  affinity_purification:
+    text: affinity_purification
+    meaning: MI:0004
+    title: affinity purification
+  cross_linking:
+    text: cross_linking
+    meaning: OBI:0000800
+  Expression profiling:
+    text: Expression profiling
+    meaning: NCIT:C19771
+    title: Expression profiling
+  Genomic - SNP calling:
+    text: Genomic - SNP calling
+    meaning: NCIT:C188690
+    title: Genomic SNP calling
+  image_analysis:
+    text: image_analysis
+    meaning: NCIT:C17606
+    title: image analysis
+  Ms_imaging:
+    text: Ms_imaging
   shotgun_proteomics:
     text: shotgun_proteomics
     meaning: ERO:0001660
     title: shotgun proteomics
-  cross_linking:
-    text: cross_linking
-    meaning: OBI:0000800
-  affinity_purification:
-    text: affinity_purification
   srm_mrm:
     text: srm_mrm
   swath_ms:
     text: swath_ms
     meaning: OBI:0002958
     title: SWATH-MS protein profiling assay
-  Ms_imaging:
-    text: Ms_imaging
+  Targeted Locus (Loci):
+    text: Targeted Locus (Loci)
+    meaning: OBI:0001899
+    title: Targeted Locus Sequencing
 
 </code></pre>
 
