@@ -208,6 +208,13 @@
 
       RelatedItem : relatedItemType
 
+
+
+
+    RelatedItem --&gt; "0..1" CitedItemType : relatedItemType
+    click CitedItemType href "../CitedItemType"
+
+
       RelatedItem : title
 
 
@@ -232,13 +239,13 @@
 </tr>
 <tr>
 <td><a href="../relatedItemType/">relatedItemType</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../CitedItemType/">CitedItemType</a></td>
 <td>Type of the related item, e</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../relatedItemIdentifier/">relatedItemIdentifier</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
 <td>Identifier or URL for the related item</td>
 <td>direct</td>
 </tr>
@@ -310,7 +317,7 @@ attributes:
     rank: 1000
     domain_of:
     - RelatedItem
-    range: string
+    range: CitedItemType
   relatedItemIdentifier:
     name: relatedItemIdentifier
     description: Identifier or URL for the related item.
@@ -318,7 +325,7 @@ attributes:
     rank: 1000
     domain_of:
     - RelatedItem
-    range: string
+    range: uriorcurie
 
 </code></pre>
 </details>
@@ -347,7 +354,7 @@ attributes:
     owner: RelatedItem
     domain_of:
     - RelatedItem
-    range: string
+    range: CitedItemType
   relatedItemIdentifier:
     name: relatedItemIdentifier
     description: Identifier or URL for the related item.
@@ -357,7 +364,7 @@ attributes:
     owner: RelatedItem
     domain_of:
     - RelatedItem
-    range: string
+    range: uriorcurie
 
 </code></pre>
 </details>

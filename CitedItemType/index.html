@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/relatedItemIdentifier/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/CitedItemType/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: relatedItemIdentifier - brc-schema</title>
+        <title>Enum: CitedItemType - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-relateditemidentifier" class="md-skip">
+        <a href="#enum-citeditemtype" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: relatedItemIdentifier
+              Enum: CitedItemType
             
           </span>
         </div>
@@ -256,15 +256,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
-    Applicable Classes
+  <a href="#permissible-values" class="md-nav__link">
+    Permissible Values
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
+  <a href="#slots" class="md-nav__link">
+    Slots
   </a>
   
 </li>
@@ -290,13 +290,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
-    Mappings
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#linkml-source" class="md-nav__link">
     LinkML Source
   </a>
@@ -317,74 +310,143 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/relatedItemIdentifier.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/CitedItemType.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-relateditemidentifier">Slot: relatedItemIdentifier</h1>
-<p><em>Identifier or URL for the related item.</em></p>
-<p>URI: <a href="https://w3id.org/brc/relatedItemIdentifier">brc:relatedItemIdentifier</a></p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
+<h1 id="enum-citeditemtype">Enum: CitedItemType</h1>
+<p>URI: <a href="./">CitedItemType</a></p>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JournalArticle</td>
+<td>IAO:0000013</td>
+<td>Journal article</td>
+</tr>
+<tr>
+<td>Book</td>
+<td>schema:book</td>
+<td>Book</td>
+</tr>
+<tr>
+<td>Dataset</td>
+<td>schema:dataset</td>
+<td>Dataset</td>
+</tr>
+<tr>
+<td>Software</td>
+<td>IAO:0000010</td>
+<td>Software</td>
+</tr>
+<tr>
+<td>Thesis</td>
+<td>schema:thesis</td>
+<td>Thesis</td>
+</tr>
+<tr>
+<td>Patent</td>
+<td>IAO:0000313</td>
+<td>Patent</td>
+</tr>
+<tr>
+<td>Preprint</td>
+<td>schema:Publication</td>
+<td>Preprint</td>
+</tr>
+<tr>
+<td>Presentation</td>
+<td>schema:PresentationDigitalDocument</td>
+<td>Presentation</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>IAO:0000088</td>
+<td>Report</td>
+</tr>
+<tr>
+<td>Webpage</td>
+<td>schema:WebPage</td>
+<td>Webpage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
-<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../RelatedItem/">RelatedItem</a></td>
-<td></td>
-<td>no</td>
+<td><a href="../relatedItemType/">relatedItemType</a></td>
+<td>Type of the related item, e</td>
 </tr>
 </tbody>
 </table>
-<h2 id="properties">Properties</h2>
-<ul>
-<li>Range: <a href="../Uriorcurie/">Uriorcurie</a></li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/brc/brc_schema</li>
 </ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>brc:relatedItemIdentifier</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:relatedItemIdentifier</td>
-</tr>
-</tbody>
-</table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: relatedItemIdentifier
-description: Identifier or URL for the related item.
+<pre><code class="language-yaml">name: CitedItemType
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-alias: relatedItemIdentifier
-owner: RelatedItem
-domain_of:
-- RelatedItem
-range: uriorcurie
+permissible_values:
+  JournalArticle:
+    text: JournalArticle
+    description: Journal article
+    meaning: IAO:0000013
+  Book:
+    text: Book
+    description: Book
+    meaning: schema:book
+  Dataset:
+    text: Dataset
+    description: Dataset
+    meaning: schema:dataset
+  Software:
+    text: Software
+    description: Software
+    meaning: IAO:0000010
+  Thesis:
+    text: Thesis
+    description: Thesis
+    meaning: schema:thesis
+  Patent:
+    text: Patent
+    description: Patent
+    meaning: IAO:0000313
+  Preprint:
+    text: Preprint
+    description: Preprint
+    meaning: schema:Publication
+  Presentation:
+    text: Presentation
+    description: Presentation
+    meaning: schema:PresentationDigitalDocument
+  Report:
+    text: Report
+    description: Report
+    meaning: IAO:0000088
+  Webpage:
+    text: Webpage
+    description: Webpage
+    meaning: schema:WebPage
 
 </code></pre>
 
