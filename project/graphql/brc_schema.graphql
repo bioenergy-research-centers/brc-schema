@@ -9,7 +9,7 @@ type Dataset
     bibliographicCitation: String!
     identifier: String!
     species: [Organism]
-    analysisType: String
+    analysisType: AnalysisType
     description: String
     relatedItem: RelatedItem
     keywords: [String]

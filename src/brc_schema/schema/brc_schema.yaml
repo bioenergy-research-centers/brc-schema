@@ -10,26 +10,27 @@ description: >-
 
 prefixes:
   linkml: https://w3id.org/linkml/
-  brc: https://w3id.org/brc/
-  skos: http://www.w3.org/2004/02/skos/core#
-  pav: http://purl.org/pav/
-  schema: http://schema.org/
-  void: http://rdfs.org/ns/void#
-  dcat: http://www.w3.org/ns/dcat#
-  bibo: http://purl.org/ontology/bibo/
-  oslc: http://open-services.net/ns/core#
-  IAO: http://purl.obolibrary.org/obo/IAO_
-  SIO: http://semanticscience.org/resource/SIO_
-  NCIT: http://purl.obolibrary.org/obo/NCIT_
   ERO: http://purl.obolibrary.org/obo/ERO_
+  IAO: http://purl.obolibrary.org/obo/IAO_
+  MI: http://purl.obolibrary.org/obo/MI_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
   OBI: http://purl.obolibrary.org/obo/OBI_
+  SIO: http://semanticscience.org/resource/SIO_
   UO: http://purl.obolibrary.org/obo/UO_
-  edam: http://edamontology.org/
-  prov: http://www.w3.org/ns/prov#
-  dcterms: http://purl.org/dc/terms/
-  ror: https://ror.org/
-  wikidata: https://www.wikidata.org/wiki/
   bald: https://www.opengis.net/def/binary-array-ld/
+  bibo: http://purl.org/ontology/bibo/
+  brc: https://w3id.org/brc/
+  dcat: http://www.w3.org/ns/dcat#
+  dcterms: http://purl.org/dc/terms/
+  edam: http://edamontology.org/
+  oslc: http://open-services.net/ns/core#
+  pav: http://purl.org/pav/
+  prov: http://www.w3.org/ns/prov#
+  ror: https://ror.org/
+  schema: http://schema.org/
+  skos: http://www.w3.org/2004/02/skos/core#
+  void: http://rdfs.org/ns/void#
+  wikidata: https://www.wikidata.org/wiki/
 
 default_prefix: brc
 default_range: string
@@ -99,12 +100,8 @@ classes:
         multivalued: true
         description: "Species information for the organism(s) studied."
       analysisType:
-        # range: Any
-        any_of:
-          - range: AnalysisType
-          - range: string
+        range: AnalysisType
         description: "The type of analysis performed on the dataset."
-        ifabsent: string(not specified)
       description:
         range: string
         description: "A detailed description of the dataset."
@@ -210,20 +207,31 @@ enums:
           - https://www.jbei.org/
   AnalysisType:
     permissible_values:
+      affinity_purification:
+        meaning: MI:0004
+        title: affinity purification
+      cross_linking:
+        meaning: OBI:0000800
+      Expression profiling:
+        meaning: NCIT:C19771
+        title: Expression profiling
+      Genomic - SNP calling:
+        meaning: NCIT:C188690
+        title: Genomic SNP calling
+      image_analysis:
+        meaning: NCIT:C17606
+        title: image analysis
+      Ms_imaging: {}
       shotgun_proteomics:
         meaning: ERO:0001660
         title: shotgun proteomics
-      cross_linking:
-        meaning: OBI:0000800
-      affinity_purification:
-        # TODO: check if the same as tandem affinity purification in MI
       srm_mrm: {}
       swath_ms:
         meaning: OBI:0002958
         title: SWATH-MS protein profiling assay
-      Ms_imaging: {}
-      #not specified:
-      #  title: Analysis type not specified.
+      Targeted Locus (Loci):
+        meaning: OBI:0001899
+        title: Targeted Locus Sequencing
   CitedItemType:
     permissible_values:
       JournalArticle:

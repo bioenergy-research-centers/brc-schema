@@ -13,84 +13,88 @@
       "prefix_reference": "https://w3id.org/linkml/"
     },
     {
-      "prefix_prefix": "brc",
-      "prefix_reference": "https://w3id.org/brc/"
-    },
-    {
-      "prefix_prefix": "skos",
-      "prefix_reference": "http://www.w3.org/2004/02/skos/core#"
-    },
-    {
-      "prefix_prefix": "pav",
-      "prefix_reference": "http://purl.org/pav/"
-    },
-    {
-      "prefix_prefix": "schema",
-      "prefix_reference": "http://schema.org/"
-    },
-    {
-      "prefix_prefix": "void",
-      "prefix_reference": "http://rdfs.org/ns/void#"
-    },
-    {
-      "prefix_prefix": "dcat",
-      "prefix_reference": "http://www.w3.org/ns/dcat#"
-    },
-    {
-      "prefix_prefix": "bibo",
-      "prefix_reference": "http://purl.org/ontology/bibo/"
-    },
-    {
-      "prefix_prefix": "oslc",
-      "prefix_reference": "http://open-services.net/ns/core#"
+      "prefix_prefix": "ERO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/ERO_"
     },
     {
       "prefix_prefix": "IAO",
       "prefix_reference": "http://purl.obolibrary.org/obo/IAO_"
     },
     {
-      "prefix_prefix": "SIO",
-      "prefix_reference": "http://semanticscience.org/resource/SIO_"
+      "prefix_prefix": "MI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/MI_"
     },
     {
       "prefix_prefix": "NCIT",
       "prefix_reference": "http://purl.obolibrary.org/obo/NCIT_"
     },
     {
-      "prefix_prefix": "ERO",
-      "prefix_reference": "http://purl.obolibrary.org/obo/ERO_"
-    },
-    {
       "prefix_prefix": "OBI",
       "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
+    },
+    {
+      "prefix_prefix": "SIO",
+      "prefix_reference": "http://semanticscience.org/resource/SIO_"
     },
     {
       "prefix_prefix": "UO",
       "prefix_reference": "http://purl.obolibrary.org/obo/UO_"
     },
     {
-      "prefix_prefix": "edam",
-      "prefix_reference": "http://edamontology.org/"
+      "prefix_prefix": "bald",
+      "prefix_reference": "https://www.opengis.net/def/binary-array-ld/"
     },
     {
-      "prefix_prefix": "prov",
-      "prefix_reference": "http://www.w3.org/ns/prov#"
+      "prefix_prefix": "bibo",
+      "prefix_reference": "http://purl.org/ontology/bibo/"
+    },
+    {
+      "prefix_prefix": "brc",
+      "prefix_reference": "https://w3id.org/brc/"
+    },
+    {
+      "prefix_prefix": "dcat",
+      "prefix_reference": "http://www.w3.org/ns/dcat#"
     },
     {
       "prefix_prefix": "dcterms",
       "prefix_reference": "http://purl.org/dc/terms/"
     },
     {
+      "prefix_prefix": "edam",
+      "prefix_reference": "http://edamontology.org/"
+    },
+    {
+      "prefix_prefix": "oslc",
+      "prefix_reference": "http://open-services.net/ns/core#"
+    },
+    {
+      "prefix_prefix": "pav",
+      "prefix_reference": "http://purl.org/pav/"
+    },
+    {
+      "prefix_prefix": "prov",
+      "prefix_reference": "http://www.w3.org/ns/prov#"
+    },
+    {
       "prefix_prefix": "ror",
       "prefix_reference": "https://ror.org/"
     },
     {
-      "prefix_prefix": "wikidata",
-      "prefix_reference": "https://www.wikidata.org/wiki/"
+      "prefix_prefix": "schema",
+      "prefix_reference": "http://schema.org/"
     },
     {
-      "prefix_prefix": "bald",
-      "prefix_reference": "https://www.opengis.net/def/binary-array-ld/"
+      "prefix_prefix": "skos",
+      "prefix_reference": "http://www.w3.org/2004/02/skos/core#"
+    },
+    {
+      "prefix_prefix": "void",
+      "prefix_reference": "http://rdfs.org/ns/void#"
+    },
+    {
+      "prefix_prefix": "wikidata",
+      "prefix_reference": "https://www.wikidata.org/wiki/"
     }
   ],
   "default_prefix": "brc",
@@ -475,16 +479,36 @@
       "from_schema": "https://w3id.org/brc/brc_schema",
       "permissible_values": [
         {
-          "text": "shotgun_proteomics",
-          "meaning": "ERO:0001660",
-          "title": "shotgun proteomics"
+          "text": "affinity_purification",
+          "meaning": "MI:0004",
+          "title": "affinity purification"
         },
         {
           "text": "cross_linking",
           "meaning": "OBI:0000800"
         },
         {
-          "text": "affinity_purification"
+          "text": "Expression profiling",
+          "meaning": "NCIT:C19771",
+          "title": "Expression profiling"
+        },
+        {
+          "text": "Genomic - SNP calling",
+          "meaning": "NCIT:C188690",
+          "title": "Genomic SNP calling"
+        },
+        {
+          "text": "image_analysis",
+          "meaning": "NCIT:C17606",
+          "title": "image analysis"
+        },
+        {
+          "text": "Ms_imaging"
+        },
+        {
+          "text": "shotgun_proteomics",
+          "meaning": "ERO:0001660",
+          "title": "shotgun proteomics"
         },
         {
           "text": "srm_mrm"
@@ -495,7 +519,9 @@
           "title": "SWATH-MS protein profiling assay"
         },
         {
-          "text": "Ms_imaging"
+          "text": "Targeted Locus (Loci)",
+          "meaning": "OBI:0001899",
+          "title": "Targeted Locus Sequencing"
         }
       ]
     },
@@ -774,23 +800,12 @@
       "description": "The type of analysis performed on the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/analysisType",
-      "ifabsent": "string(not specified)",
       "alias": "analysisType",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
-      "range": "string",
-      "any_of": [
-        {
-          "range": "AnalysisType",
-          "@type": "AnonymousSlotExpression"
-        },
-        {
-          "range": "string",
-          "@type": "AnonymousSlotExpression"
-        }
-      ],
+      "range": "AnalysisType",
       "@type": "SlotDefinition"
     },
     {
@@ -1175,17 +1190,7 @@
         {
           "name": "analysisType",
           "description": "The type of analysis performed on the dataset.",
-          "ifabsent": "string(not specified)",
-          "any_of": [
-            {
-              "range": "AnalysisType",
-              "@type": "AnonymousSlotExpression"
-            },
-            {
-              "range": "string",
-              "@type": "AnonymousSlotExpression"
-            }
-          ],
+          "range": "AnalysisType",
           "@type": "SlotDefinition"
         },
         {
@@ -1388,9 +1393,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-07T17:32:11",
-  "source_file_size": 9243,
-  "generation_date": "2024-08-07T17:32:37",
+  "source_file_date": "2024-08-07T18:04:32",
+  "source_file_size": 9467,
+  "generation_date": "2024-08-07T18:04:36",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

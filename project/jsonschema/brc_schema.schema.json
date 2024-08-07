@@ -3,12 +3,16 @@
         "AnalysisType": {
             "description": "",
             "enum": [
-                "shotgun_proteomics",
-                "cross_linking",
                 "affinity_purification",
+                "cross_linking",
+                "Expression profiling",
+                "Genomic - SNP calling",
+                "image_analysis",
+                "Ms_imaging",
+                "shotgun_proteomics",
                 "srm_mrm",
                 "swath_ms",
-                "Ms_imaging"
+                "Targeted Locus (Loci)"
             ],
             "title": "AnalysisType",
             "type": "string"
@@ -46,16 +50,8 @@
             "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
                 "analysisType": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/AnalysisType"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ],
-                    "description": "The type of analysis performed on the dataset.",
-                    "type": "string"
+                    "$ref": "#/$defs/AnalysisType",
+                    "description": "The type of analysis performed on the dataset."
                 },
                 "bibliographicCitation": {
                     "description": "Citation for the dataset.",

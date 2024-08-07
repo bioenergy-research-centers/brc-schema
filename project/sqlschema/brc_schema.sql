@@ -76,7 +76,7 @@ CREATE TABLE "Dataset" (
 	repository VARCHAR(14), 
 	"bibliographicCitation" TEXT NOT NULL, 
 	identifier TEXT NOT NULL, 
-	"analysisType" TEXT, 
+	"analysisType" VARCHAR(21), 
 	description TEXT, 
 	datasetname TEXT, 
 	"DatasetCollection_id" INTEGER, 
