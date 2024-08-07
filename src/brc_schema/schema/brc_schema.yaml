@@ -244,6 +244,9 @@ enums:
       Patent:
         meaning: IAO:0000313
         description: "Patent"
+      Preprint:
+        meaning: schema:Publication
+        description: "Preprint"
       Presentation:
         meaning: schema:PresentationDigitalDocument
         description: "Presentation"
