@@ -99,12 +99,8 @@ classes:
         multivalued: true
         description: "Species information for the organism(s) studied."
       analysisType:
-        # range: Any
-        any_of:
-          - range: AnalysisType
-          - range: string
+        range: AnalysisType
         description: "The type of analysis performed on the dataset."
-        ifabsent: string(not specified)
       description:
         range: string
         description: "A detailed description of the dataset."
@@ -222,8 +218,6 @@ enums:
         meaning: OBI:0002958
         title: SWATH-MS protein profiling assay
       Ms_imaging: {}
-      #not specified:
-      #  title: Analysis type not specified.
   CitedItemType:
     permissible_values:
       JournalArticle:
