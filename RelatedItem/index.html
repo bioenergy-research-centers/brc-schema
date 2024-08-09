@@ -200,18 +200,19 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="class-relateditem">Class: RelatedItem</h1>
+<p><em>A related publication or item, including cited publications.</em></p>
 <p>URI: <a href="https://w3id.org/brc/RelatedItem">brc:RelatedItem</a></p>
 <div class="mermaid"> classDiagram
     class RelatedItem
     click RelatedItem href "../RelatedItem"
-      RelatedItem : relatedItemIdentifier
+      RelatedItem : relateditemidentifier
 
-      RelatedItem : relatedItemType
-
-
+      RelatedItem : relateditemtype
 
 
-    RelatedItem --&gt; "0..1" CitedItemType : relatedItemType
+
+
+    RelatedItem --&gt; "0..1" CitedItemType : relateditemtype
     click CitedItemType href "../CitedItemType"
 
 
@@ -238,13 +239,13 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relatedItemType/">relatedItemType</a></td>
+<td><a href="../relateditemtype/">relateditemtype</a></td>
 <td>0..1 <br/> <a href="../CitedItemType/">CitedItemType</a></td>
 <td>Type of the related item, e</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relatedItemIdentifier/">relatedItemIdentifier</a></td>
+<td><a href="../relateditemidentifier/">relateditemidentifier</a></td>
 <td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
 <td>Identifier or URL for the related item</td>
 <td>direct</td>
@@ -264,7 +265,7 @@
 <tbody>
 <tr>
 <td><a href="../Dataset/">Dataset</a></td>
-<td><a href="../relatedItem/">relatedItem</a></td>
+<td><a href="../relateditem/">relateditem</a></td>
 <td>range</td>
 <td><a href="./">RelatedItem</a></td>
 </tr>
@@ -299,6 +300,7 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: RelatedItem
+description: A related publication or item, including cited publications.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
   title:
@@ -310,16 +312,16 @@ attributes:
     - Dataset
     - RelatedItem
     range: string
-  relatedItemType:
-    name: relatedItemType
+  relateditemtype:
+    name: relateditemtype
     description: Type of the related item, e.g., JournalArticle.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - RelatedItem
     range: CitedItemType
-  relatedItemIdentifier:
-    name: relatedItemIdentifier
+  relateditemidentifier:
+    name: relateditemidentifier
     description: Identifier or URL for the related item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -332,6 +334,7 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: RelatedItem
+description: A related publication or item, including cited publications.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
   title:
@@ -345,22 +348,22 @@ attributes:
     - Dataset
     - RelatedItem
     range: string
-  relatedItemType:
-    name: relatedItemType
+  relateditemtype:
+    name: relateditemtype
     description: Type of the related item, e.g., JournalArticle.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relatedItemType
+    alias: relateditemtype
     owner: RelatedItem
     domain_of:
     - RelatedItem
     range: CitedItemType
-  relatedItemIdentifier:
-    name: relatedItemIdentifier
+  relateditemidentifier:
+    name: relateditemidentifier
     description: Identifier or URL for the related item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relatedItemIdentifier
+    alias: relateditemidentifier
     owner: RelatedItem
     domain_of:
     - RelatedItem

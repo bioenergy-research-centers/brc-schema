@@ -158,6 +158,11 @@
 <nav aria-label="Identifier and Mapping Information" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#valid-id-prefixes">
+    Valid ID Prefixes
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#schema-source">
     Schema Source
   </a>
@@ -205,16 +210,16 @@
 <div class="mermaid"> classDiagram
     class Dataset
     click Dataset href "../Dataset"
-      Dataset : analysisType
+      Dataset : analysistype
 
 
 
 
-    Dataset --&gt; "0..1" AnalysisType : analysisType
+    Dataset --&gt; "0..1" AnalysisType : analysistype
     click AnalysisType href "../AnalysisType"
 
 
-      Dataset : bibliographicCitation
+      Dataset : bibliographiccitation
 
       Dataset : brc
 
@@ -240,16 +245,18 @@
 
       Dataset : description
 
+      Dataset : id
+
       Dataset : identifier
 
       Dataset : keywords
 
-      Dataset : relatedItem
+      Dataset : relateditem
 
 
 
 
-    Dataset --&gt; "0..1" RelatedItem : relatedItem
+    Dataset --&gt; "0..1" RelatedItem : relateditem
     click RelatedItem href "../RelatedItem"
 
 
@@ -288,6 +295,12 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../id/">id</a></td>
+<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
+<td>Unique identifier for the dataset, assigned prior to inclusion in bioenergy</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../title/">title</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>The title of the dataset</td>
@@ -318,7 +331,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../bibliographicCitation/">bibliographicCitation</a></td>
+<td><a href="../bibliographiccitation/">bibliographiccitation</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>Citation for the dataset</td>
 <td>direct</td>
@@ -336,7 +349,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../analysisType/">analysisType</a></td>
+<td><a href="../analysistype/">analysistype</a></td>
 <td>0..1 <br/> <a href="../AnalysisType/">AnalysisType</a></td>
 <td>The type of analysis performed on the dataset</td>
 <td>direct</td>
@@ -348,7 +361,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relatedItem/">relatedItem</a></td>
+<td><a href="../relateditem/">relateditem</a></td>
 <td>0..1 <br/> <a href="../RelatedItem/">RelatedItem</a></td>
 <td>Related publication or item</td>
 <td>direct</td>
@@ -387,6 +400,22 @@
 </tbody>
 </table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="valid-id-prefixes">Valid ID Prefixes</h3>
+<p>Instances of this class <em>should</em> have identifiers with one of the following prefixes:</p>
+<ul>
+<li>
+<p>cabbi</p>
+</li>
+<li>
+<p>cbi</p>
+</li>
+<li>
+<p>glbrc</p>
+</li>
+<li>
+<p>jbei</p>
+</li>
+</ul>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/brc/brc_schema</li>
@@ -423,6 +452,11 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Dataset
+id_prefixes:
+- cabbi
+- cbi
+- glbrc
+- jbei
 description: A dataset containing metabolomics and proteomics data.
 from_schema: https://w3id.org/brc/brc_schema
 exact_mappings:
@@ -431,6 +465,17 @@ exact_mappings:
 close_mappings:
 - dcat:Catalog
 attributes:
+  id:
+    name: id
+    description: Unique identifier for the dataset, assigned prior to inclusion in
+      bioenergy.org.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: schema:identifier
+    domain_of:
+    - Dataset
+    range: uriorcurie
+    required: false
   title:
     name: title
     description: The title of the dataset.
@@ -484,8 +529,8 @@ attributes:
     domain_of:
     - Dataset
     range: RepositoryEnum
-  bibliographicCitation:
-    name: bibliographicCitation
+  bibliographiccitation:
+    name: bibliographiccitation
     description: Citation for the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -513,8 +558,8 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
-  analysisType:
-    name: analysisType
+  analysistype:
+    name: analysistype
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -530,8 +575,8 @@ attributes:
     domain_of:
     - Dataset
     range: string
-  relatedItem:
-    name: relatedItem
+  relateditem:
+    name: relateditem
     description: Related publication or item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -565,6 +610,11 @@ class_uri: schema:Dataset
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Dataset
+id_prefixes:
+- cabbi
+- cbi
+- glbrc
+- jbei
 description: A dataset containing metabolomics and proteomics data.
 from_schema: https://w3id.org/brc/brc_schema
 exact_mappings:
@@ -573,6 +623,19 @@ exact_mappings:
 close_mappings:
 - dcat:Catalog
 attributes:
+  id:
+    name: id
+    description: Unique identifier for the dataset, assigned prior to inclusion in
+      bioenergy.org.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: schema:identifier
+    alias: id
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: uriorcurie
+    required: false
   title:
     name: title
     description: The title of the dataset.
@@ -636,13 +699,13 @@ attributes:
     domain_of:
     - Dataset
     range: RepositoryEnum
-  bibliographicCitation:
-    name: bibliographicCitation
+  bibliographiccitation:
+    name: bibliographiccitation
     description: Citation for the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:bibliographicCitation
-    alias: bibliographicCitation
+    alias: bibliographiccitation
     owner: Dataset
     domain_of:
     - Dataset
@@ -671,12 +734,12 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
-  analysisType:
-    name: analysisType
+  analysistype:
+    name: analysistype
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: analysisType
+    alias: analysistype
     owner: Dataset
     domain_of:
     - Dataset
@@ -692,12 +755,12 @@ attributes:
     domain_of:
     - Dataset
     range: string
-  relatedItem:
-    name: relatedItem
+  relateditem:
+    name: relateditem
     description: Related publication or item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relatedItem
+    alias: relateditem
     owner: Dataset
     domain_of:
     - Dataset

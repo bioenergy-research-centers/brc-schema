@@ -200,13 +200,14 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="class-organism">Class: Organism</h1>
+<p><em>An organism studied in the dataset.</em></p>
 <p>URI: <a href="https://w3id.org/brc/Organism">brc:Organism</a></p>
 <div class="mermaid"> classDiagram
     class Organism
     click Organism href "../Organism"
-      Organism : NCBITaxID
+      Organism : ncbitaxid
 
-      Organism : scientificName
+      Organism : scientificname
 
 
 </div>
@@ -223,13 +224,13 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../scientificName/">scientificName</a></td>
+<td><a href="../scientificname/">scientificname</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Scientific name of the organism</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../NCBITaxID/">NCBITaxID</a></td>
+<td><a href="../ncbitaxid/">ncbitaxid</a></td>
 <td>0..1 <br/> <a href="../Integer/">Integer</a></td>
 <td>NCBI taxonomy ID for the organism</td>
 <td>direct</td>
@@ -284,18 +285,19 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Organism
+description: An organism studied in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  scientificName:
-    name: scientificName
+  scientificname:
+    name: scientificname
     description: Scientific name of the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Organism
     range: string
-  NCBITaxID:
-    name: NCBITaxID
+  ncbitaxid:
+    name: ncbitaxid
     description: NCBI taxonomy ID for the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -308,24 +310,25 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Organism
+description: An organism studied in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  scientificName:
-    name: scientificName
+  scientificname:
+    name: scientificname
     description: Scientific name of the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: scientificName
+    alias: scientificname
     owner: Organism
     domain_of:
     - Organism
     range: string
-  NCBITaxID:
-    name: NCBITaxID
+  ncbitaxid:
+    name: ncbitaxid
     description: NCBI taxonomy ID for the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: NCBITaxID
+    alias: ncbitaxid
     owner: Organism
     domain_of:
     - Organism

@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/primaryContact/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/parentorganization/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: primaryContact - brc-schema</title>
+        <title>Slot: parentorganization - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-primarycontact" class="md-skip">
+        <a href="#slot-parentorganization" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: primaryContact
+              Slot: parentorganization
             
           </span>
         </div>
@@ -317,15 +317,15 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/primaryContact.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/parentorganization.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-primarycontact">Slot: primaryContact</h1>
-<p><em>Indicates if the creator is the primary contact.</em></p>
-<p>URI: <a href="https://w3id.org/brc/primaryContact">brc:primaryContact</a></p>
+<h1 id="slot-parentorganization">Slot: parentorganization</h1>
+<p><em>Higher-level parent of this organization.</em></p>
+<p>URI: <a href="https://w3id.org/brc/parentorganization">brc:parentorganization</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -339,15 +339,15 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Individual/">Individual</a></td>
-<td>An individual involved in the dataset</td>
+<td><a href="../Organization/">Organization</a></td>
+<td>An organization involved in the dataset</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../Boolean/">Boolean</a></li>
+<li>Range: <a href="../Organization/">Organization</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -365,26 +365,26 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:primaryContact</td>
+<td>brc:parentorganization</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:primaryContact</td>
+<td>brc:parentorganization</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: primaryContact
-description: Indicates if the creator is the primary contact.
+<pre><code class="language-yaml">name: parentorganization
+description: Higher-level parent of this organization.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-alias: primaryContact
-owner: Individual
+alias: parentorganization
+owner: Organization
 domain_of:
-- Individual
-range: boolean
+- Organization
+range: Organization
 
 </code></pre>
 

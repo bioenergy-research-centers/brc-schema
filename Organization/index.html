@@ -205,14 +205,14 @@
 <div class="mermaid"> classDiagram
     class Organization
     click Organization href "../Organization"
-      Organization : organizationName
+      Organization : organizationname
 
-      Organization : parentOrganization
-
-
+      Organization : parentorganization
 
 
-    Organization --&gt; "0..1" Organization : parentOrganization
+
+
+    Organization --&gt; "0..1" Organization : parentorganization
     click Organization href "../Organization"
 
 
@@ -235,13 +235,13 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../organizationName/">organizationName</a></td>
+<td><a href="../organizationname/">organizationname</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Name of the organization</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../parentOrganization/">parentOrganization</a></td>
+<td><a href="../parentorganization/">parentorganization</a></td>
 <td>0..1 <br/> <a href="./">Organization</a></td>
 <td>Higher-level parent of this organization</td>
 <td>direct</td>
@@ -279,7 +279,7 @@
 </tr>
 <tr>
 <td><a href="./">Organization</a></td>
-<td><a href="../parentOrganization/">parentOrganization</a></td>
+<td><a href="../parentorganization/">parentorganization</a></td>
 <td>range</td>
 <td><a href="./">Organization</a></td>
 </tr>
@@ -317,8 +317,8 @@
 description: An organization involved in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  organizationName:
-    name: organizationName
+  organizationname:
+    name: organizationname
     description: Name of the organization.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -326,8 +326,8 @@ attributes:
     domain_of:
     - Organization
     range: string
-  parentOrganization:
-    name: parentOrganization
+  parentorganization:
+    name: parentorganization
     description: Higher-level parent of this organization.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -363,23 +363,23 @@ attributes:
 description: An organization involved in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  organizationName:
-    name: organizationName
+  organizationname:
+    name: organizationname
     description: Name of the organization.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
-    alias: organizationName
+    alias: organizationname
     owner: Organization
     domain_of:
     - Organization
     range: string
-  parentOrganization:
-    name: parentOrganization
+  parentorganization:
+    name: parentorganization
     description: Higher-level parent of this organization.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: parentOrganization
+    alias: parentorganization
     owner: Organization
     domain_of:
     - Organization
