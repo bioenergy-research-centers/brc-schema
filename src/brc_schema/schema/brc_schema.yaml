@@ -44,9 +44,11 @@ imports:
 
 classes:
   DatasetCollection:
+    description: Container class for defining a collection of datasets.
     tree_root: true
     attributes:
       datasets:
+        description: List of datasets in the collection.
         range: Dataset
         multivalued: true
         inlined_as_list: true
@@ -181,6 +183,7 @@ classes:
           - ROR
 
   Organism:
+    description: An organism studied in the dataset.
     attributes:
       scientificname:
         range: string
@@ -190,6 +193,7 @@ classes:
         description: "NCBI taxonomy ID for the organism."
 
   RelatedItem:
+    description: A related publication or item, including cited publications.
     attributes:
       title:
         range: string
@@ -204,6 +208,7 @@ classes:
 
 enums:
   BRCEnum:
+    description: Bioenergy Research Center affiliation.
     permissible_values:
       CABBI:
         description: "Center for Advanced Bioenergy and Bioproducts Innovation"
@@ -222,6 +227,7 @@ enums:
         see_also:
           - https://www.jbei.org/
   AnalysisType:
+    description: Type of analysis performed on the dataset.
     permissible_values:
       affinity_purification:
         meaning: MI:0004
@@ -249,6 +255,7 @@ enums:
         meaning: OBI:0001899
         title: Targeted Locus Sequencing
   CitedItemType:
+    description: Type of cited item, e.g., journal article.
     permissible_values:
       JournalArticle:
         meaning: IAO:0000013
@@ -281,6 +288,7 @@ enums:
         meaning: schema:WebPage
         description: "Webpage"
   RepositoryEnum:
+    description: Repository where the dataset is stored.
     permissible_values:
       GEO:
         description: "Gene Expression Omnibus"
