@@ -10,6 +10,10 @@ description: >-
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  cbi: https://fair.ornl.gov/CBI/
+  cabbi: https://cabbitools.igb.illinois.edu/brc/
+  glbrc: https://fair-data.glbrc.org/
+  jbei: https://hello.bioenergy.org/JBEI/
   ERO: http://purl.obolibrary.org/obo/ERO_
   IAO: http://purl.obolibrary.org/obo/IAO_
   MI: http://purl.obolibrary.org/obo/MI_
@@ -54,7 +58,19 @@ classes:
       - bald:Container
     close_mappings:
       - dcat:Catalog
+    id_prefixes:
+      - cabbi
+      - cbi
+      - glbrc
+      - jbei
     attributes:
+      id:
+        range: uriorcurie
+        description: >-
+          Unique identifier for the dataset, assigned prior to inclusion
+          in bioenergy.org.
+        required: false  # TODO: make this required
+        slot_uri: schema:identifier
       title:
         range: string
         description: "The title of the dataset."
