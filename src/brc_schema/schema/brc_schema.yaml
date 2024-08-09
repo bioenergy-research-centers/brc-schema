@@ -10,6 +10,10 @@ description: >-
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  cbi: https://fair.ornl.gov/CBI/
+  cabbi: https://cabbitools.igb.illinois.edu/brc/
+  glbrc: https://fair-data.glbrc.org/
+  jbei: https://hello.bioenergy.org/JBEI/
   ERO: http://purl.obolibrary.org/obo/ERO_
   IAO: http://purl.obolibrary.org/obo/IAO_
   MI: http://purl.obolibrary.org/obo/MI_
@@ -40,9 +44,11 @@ imports:
 
 classes:
   DatasetCollection:
+    description: Container class for defining a collection of datasets.
     tree_root: true
     attributes:
       datasets:
+        description: List of datasets in the collection.
         range: Dataset
         multivalued: true
         inlined_as_list: true
@@ -54,7 +60,19 @@ classes:
       - bald:Container
     close_mappings:
       - dcat:Catalog
+    id_prefixes:
+      - cabbi
+      - cbi
+      - glbrc
+      - jbei
     attributes:
+      id:
+        range: uriorcurie
+        description: >-
+          Unique identifier for the dataset, assigned prior to inclusion
+          in bioenergy.org.
+        required: false  # TODO: make this required
+        slot_uri: schema:identifier
       title:
         range: string
         description: "The title of the dataset."
@@ -82,7 +100,7 @@ classes:
       repository:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."
-      bibliographicCitation:
+      bibliographiccitation:
         # TODO: define a more specific format, like DOI
         range: string
         description: "Citation for the dataset."
@@ -99,14 +117,14 @@ classes:
         range: Organism
         multivalued: true
         description: "Species information for the organism(s) studied."
-      analysisType:
+      analysistype:
         range: AnalysisType
         description: "The type of analysis performed on the dataset."
       description:
         range: string
         description: "A detailed description of the dataset."
         slot_uri: dcterms:description
-      relatedItem:
+      relateditem:
         range: RelatedItem
         description: "Related publication or item."
       keywords:
@@ -125,7 +143,7 @@ classes:
     description: An individual involved in the dataset.
     class_uri: schema:Person
     attributes:
-      creatorName:
+      creatorname:
         range: string
         description: "Name of the creator."
         slot_uri: schema:name
@@ -133,7 +151,7 @@ classes:
         range: string
         description: "Email address of the creator."
         slot_uri: schema:email
-      primaryContact:
+      primarycontact:
         range: boolean
         description: "Indicates if the creator is the primary contact."
       affiliation:
@@ -146,11 +164,11 @@ classes:
   Organization:
     description: An organization involved in the dataset.
     attributes:
-      organizationName:
+      organizationname:
         range: string
         description: Name of the organization.
         slot_uri: schema:name
-      parentOrganization:
+      parentorganization:
         range: Organization
         description: Higher-level parent of this organization.
       wikidata_id:
@@ -165,29 +183,32 @@ classes:
           - ROR
 
   Organism:
+    description: An organism studied in the dataset.
     attributes:
-      scientificName:
+      scientificname:
         range: string
         description: "Scientific name of the organism."
-      NCBITaxID:
+      ncbitaxid:
         range: integer
         description: "NCBI taxonomy ID for the organism."
 
   RelatedItem:
+    description: A related publication or item, including cited publications.
     attributes:
       title:
         range: string
         description: "Title of the related item."
         slot_uri: dcterms:title
-      relatedItemType:
+      relateditemtype:
         range: CitedItemType
         description: "Type of the related item, e.g., JournalArticle."
-      relatedItemIdentifier:
+      relateditemidentifier:
         range: uriorcurie
         description: "Identifier or URL for the related item."
 
 enums:
   BRCEnum:
+    description: Bioenergy Research Center affiliation.
     permissible_values:
       CABBI:
         description: "Center for Advanced Bioenergy and Bioproducts Innovation"
@@ -206,6 +227,7 @@ enums:
         see_also:
           - https://www.jbei.org/
   AnalysisType:
+    description: Type of analysis performed on the dataset.
     permissible_values:
       affinity_purification:
         meaning: MI:0004
@@ -233,6 +255,7 @@ enums:
         meaning: OBI:0001899
         title: Targeted Locus Sequencing
   CitedItemType:
+    description: Type of cited item, e.g., journal article.
     permissible_values:
       JournalArticle:
         meaning: IAO:0000013
@@ -265,6 +288,7 @@ enums:
         meaning: schema:WebPage
         description: "Webpage"
   RepositoryEnum:
+    description: Repository where the dataset is stored.
     permissible_values:
       GEO:
         description: "Gene Expression Omnibus"

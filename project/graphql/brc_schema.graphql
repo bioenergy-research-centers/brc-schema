@@ -1,17 +1,18 @@
 # metamodel_version: 1.7.0
 type Dataset
   {
+    id: Uriorcurie
     title: String!
     date: Date!
     creator: [Individual]!
     brc: BRCEnum!
     repository: RepositoryEnum
-    bibliographicCitation: String!
+    bibliographiccitation: String!
     identifier: String!
     species: [Organism]
-    analysisType: AnalysisType
+    analysistype: AnalysisType
     description: String
-    relatedItem: RelatedItem
+    relateditem: RelatedItem
     keywords: [String]
     datasetname: String
   }
@@ -23,22 +24,22 @@ type DatasetCollection
 
 type Individual
   {
-    creatorName: String
+    creatorname: String
     email: String
-    primaryContact: Boolean
+    primarycontact: Boolean
     affiliation: String
   }
 
 type Organism
   {
-    scientificName: String
-    nCBITaxID: Integer
+    scientificname: String
+    ncbitaxid: Integer
   }
 
 type Organization
   {
-    organizationName: String
-    parentOrganization: Organization
+    organizationname: String
+    parentorganization: Organization
     wikidataId: WikidataIdentifier
     rorId: RorIdentifier
   }
@@ -46,7 +47,7 @@ type Organization
 type RelatedItem
   {
     title: String
-    relatedItemType: CitedItemType
-    relatedItemIdentifier: Uriorcurie
+    relateditemtype: CitedItemType
+    relateditemidentifier: Uriorcurie
   }
 
