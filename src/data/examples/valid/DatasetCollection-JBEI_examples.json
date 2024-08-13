@@ -1,0 +1,173 @@
+{ "datasets": [
+    {
+        "Title": "pYZ8",
+        "Date": "2024-4-21",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "Description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::RCKT1_gRNA1-pU3::RCKT1_gRNA2-pU6::RCKT1_gRNA3",
+        "repository": "ICE",
+	"bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+        "identifier": "JPUB_023855",
+        "keywords": []
+    },
+    {
+        "Title": "JBEI-258021",
+        "Description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::RCKT1_gRNA1-pU3::RCKT1_gRNA2-pU6::RCKT1_gRNA3",
+        "Date": "2024-4-21",
+        "identifier": "JPUB_023854",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+	"bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+        "repository": "ICE",
+        "keywords": []
+    },
+    {
+        "Title": "pYZ88",
+        "Description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::GMT1_gRNA1-pU3::GMT1_gRNA2-pU6::GMT1_gRNA3",
+        "Date": "2024-4-21",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"keywords": [],
+        "repository": "ICE",
+        "identifier": "JPUB_023853"
+    },
+    {
+        "Title": "JBEI-258017",
+        "Date": "2024-4-21",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "repository": "ICE",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"Description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::GMT1_gRNA1-pU3::GMT1_gRNA2-pU6::GMT1_gRNA3",
+        "identifier": "JPUB_023852",
+        "keywords": []
+    },
+    {
+        "Title": "pYPQ150Amp",
+        "Description": "Modified pYPQ150 w AmpR",
+        "Date": "2024-04-21",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "identifier": "JPUB_023851",
+        "keywords": []
+    },
+    {
+        "Title": "JBEI-258013",
+        "Description": "Modified pYPQ150 w AmpR",
+        "Date": "2024-04-21",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "identifier": "JPUB_023850",
+        "keywords": []
+    },
+    {
+        "Title": "pTKan-p35S-DsRed-p35S-R1GWR2",
+        "Description": "pTKan-p35S::DsRed::tNOS-p35S::R1GWR2-v2",
+        "Date": "2021-02-25",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "identifier": "JPUB_023849",
+        "keywords": []
+    },
+    {
+        "Title": "JBEI-150090",
+        "Description": "Invitrogen ccdB survival strain carrying pTKan-p35S::DsRed::tNOS-p35S::R1GWR2",
+        "Date": "2021-02-25",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "identifier": "JPUB_023848",
+        "keywords": []
+    },
+    {
+        "Title": "pYPQ143Amp",
+        "Description": "Modified pYPQ143 w AmpR",
+        "Date": "2020-03-31",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "identifier": "JPUB_023847",
+        "keywords": []
+    },
+    {
+        "Title": "JBEI-142011",
+        "Description": "Modified pYPQ143 w AmpR",
+        "Date": "2020-03-31",
+        "Creator": [{
+            "creatorName": "Yuan Zhang",
+            "Email": "yuanzhang@lbl.gov",
+            "primaryContact": "Yes",
+            "Affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }],
+        "BRC": "JBEI",
+        "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+	"datasetName": "Zhang et al. 2024",
+	"repository": "ICE",
+        "keywords": [],
+        "identifier": "JPUB_023846"
+    }
+]
+}
