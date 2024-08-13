@@ -7,14 +7,14 @@ type Dataset
     creator: [Individual]!
     brc: BRCEnum!
     repository: RepositoryEnum
-    bibliographiccitation: String!
+    bibliographicCitation: String!
     identifier: String!
     species: [Organism]
-    analysistype: AnalysisType
+    analysisType: String
     description: String
-    relateditem: RelatedItem
+    relatedItem: RelatedItem
     keywords: [String]
-    datasetname: String
+    datasetName: String
   }
 
 type DatasetCollection
@@ -24,22 +24,22 @@ type DatasetCollection
 
 type Individual
   {
-    creatorname: String
+    creatorName: String
     email: String
-    primarycontact: Boolean
+    primaryContact: Boolean
     affiliation: String
   }
 
 type Organism
   {
-    scientificname: String
-    ncbitaxid: Integer
+    scientificName: String
+    nCBITaxID: Integer
   }
 
 type Organization
   {
-    organizationname: String
-    parentorganization: Organization
+    organizationName: String
+    parentOrganization: Organization
     wikidataId: WikidataIdentifier
     rorId: RorIdentifier
   }
@@ -47,7 +47,7 @@ type Organization
 type RelatedItem
   {
     title: String
-    relateditemtype: CitedItemType
-    relateditemidentifier: Uriorcurie
+    relatedItemType: CitedItemType
+    relatedItemIdentifier: Uriorcurie
   }
 

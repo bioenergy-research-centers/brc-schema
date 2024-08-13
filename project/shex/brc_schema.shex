@@ -60,20 +60,17 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
           <repository> [ <https://w3id.org/brc/RepositoryEnum#GEO> <https://w3id.org/brc/RepositoryEnum#ICE>
              <https://w3id.org/brc/RepositoryEnum#iProX> <https://w3id.org/brc/RepositoryEnum#jPOST>
-             <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>
+             <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject>
+             <https://w3id.org/brc/RepositoryEnum#OSTI> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>
              <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ] ? ;
           dcterms:bibliographicCitation @linkml:String ;
           schema1:identifier @linkml:String ;
           <species> @<Organism> * ;
-          <analysistype> [ <http://purl.obolibrary.org/obo/MI_0004> <http://purl.obolibrary.org/obo/OBI_0000800>
-             <http://purl.obolibrary.org/obo/NCIT_C19771> <http://purl.obolibrary.org/obo/NCIT_C188690>
-             <http://purl.obolibrary.org/obo/NCIT_C17606> <https://w3id.org/brc/AnalysisType#Ms_imaging>
-             <http://purl.obolibrary.org/obo/ERO_0001660> <https://w3id.org/brc/AnalysisType#srm_mrm>
-             <http://purl.obolibrary.org/obo/OBI_0002958> <http://purl.obolibrary.org/obo/OBI_0001899> ] ? ;
+          <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
-          <relateditem> @<RelatedItem> ? ;
+          <relatedItem> @<RelatedItem> ? ;
           dcat:keyword @linkml:String * ;
-          <datasetname> @linkml:String ?
+          <datasetName> @linkml:String ?
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )
@@ -88,7 +85,7 @@ linkml:Sparqlpath xsd:string
 <Individual> CLOSED {
     (  $<Individual_tes> (  schema1:name @linkml:String ? ;
           schema1:email @linkml:String ? ;
-          <primarycontact> @linkml:Boolean ? ;
+          <primaryContact> @linkml:Boolean ? ;
           <affiliation> @linkml:String ?
        ) ;
        rdf:type [ schema1:Person ] ?
@@ -96,8 +93,8 @@ linkml:Sparqlpath xsd:string
 }
 
 <Organism> CLOSED {
-    (  $<Organism_tes> (  <scientificname> @linkml:String ? ;
-          <ncbitaxid> @linkml:Integer ?
+    (  $<Organism_tes> (  <scientificName> @linkml:String ? ;
+          <NCBITaxID> @linkml:Integer ?
        ) ;
        rdf:type [ <Organism> ] ?
     )
@@ -105,7 +102,7 @@ linkml:Sparqlpath xsd:string
 
 <Organization> CLOSED {
     (  $<Organization_tes> (  schema1:name @linkml:String ? ;
-          <parentorganization> @<Organization> ? ;
+          <parentOrganization> @<Organization> ? ;
           <wikidata_id> @<WikidataIdentifier> ? ;
           <ror_id> @<RorIdentifier> ?
        ) ;
@@ -115,11 +112,11 @@ linkml:Sparqlpath xsd:string
 
 <RelatedItem> CLOSED {
     (  $<RelatedItem_tes> (  dcterms:title @linkml:String ? ;
-          <relateditemtype> [ <http://purl.obolibrary.org/obo/IAO_0000013> schema1:book schema1:dataset
+          <relatedItemType> [ <http://purl.obolibrary.org/obo/IAO_0000013> schema1:book schema1:dataset
              <http://purl.obolibrary.org/obo/IAO_0000010> schema1:thesis <http://purl.obolibrary.org/obo/IAO_0000313>
              schema1:Publication schema1:PresentationDigitalDocument <http://purl.obolibrary.org/obo/IAO_0000088> schema1:WebPage ]
           ? ;
-          <relateditemidentifier> @linkml:Uriorcurie ?
+          <relatedItemIdentifier> @linkml:Uriorcurie ?
        ) ;
        rdf:type [ <RelatedItem> ] ?
     )
