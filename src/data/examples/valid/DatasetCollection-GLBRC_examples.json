@@ -95,7 +95,7 @@
       "analysisType": "Targeted Locus (Loci)",
       "description": "We sequenced the ITS and 16S rDNA region to characterize the microbial communities of switchgrass (Panicum virgatum), grown in the greenhouse, and investigate the effect of soil origin and plant genotype on microbiome assembly.",
       "relatedItem": {
-        "Title": "Soil Origin and Plant Genotype Modulate Switchgrass Aboveground Productivity and Root Microbiome Assembly",
+        "title": "Soil Origin and Plant Genotype Modulate Switchgrass Aboveground Productivity and Root Microbiome Assembly",
         "relatedItemType": "JournalArticle",
         "relatedItemIdentifier": "https://doi.org/10.1128/mbio.00079-22"
       },
