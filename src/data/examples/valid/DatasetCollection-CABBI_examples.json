@@ -4,7 +4,7 @@
 	"creator": [{
 		"creatorName": "Wuhr, Martin",
 		"email": "wuhr@princeton.edu",
-		"primaryContact": "Yes",
+		"primaryContact": true,
 		"affiliation": "Lewis-Sigler Institute for Integrative Genomics, Princeton University"
 	},{
 		"creatorName": "Stadlmeier, Michael",
@@ -36,7 +36,7 @@
 	"creator": [{
 		"creatorName": "Rabinowitz, Joshua",
 		"email": "joshr@princeton.edu",
-		"primaryContact": "Yes",
+		"primaryContact": true,
 		"affiliation": "Princeton University"
 	}],
 	"brc": "CABBI",
