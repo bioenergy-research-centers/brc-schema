@@ -10,14 +10,14 @@ message Dataset
  repeated  individual creator = 0
   bRCEnum brc = 0
   repositoryEnum repository = 0
-  string bibliographiccitation = 0
+  string bibliographicCitation = 0
   string identifier = 0
  repeated  organism species = 0
-  analysisType analysistype = 0
+  string analysisType = 0
   string description = 0
-  relatedItem relateditem = 0
+  relatedItem relatedItem = 0
  repeated  string keywords = 0
-  string datasetname = 0
+  string datasetName = 0
  }
 // Container class for defining a collection of datasets.
 message DatasetCollection
@@ -27,22 +27,22 @@ message DatasetCollection
 // An individual involved in the dataset.
 message Individual
  {
-  string creatorname = 0
+  string creatorName = 0
   string email = 0
-  boolean primarycontact = 0
+  boolean primaryContact = 0
   string affiliation = 0
  }
 // An organism studied in the dataset.
 message Organism
  {
-  string scientificname = 0
-  integer ncbitaxid = 0
+  string scientificName = 0
+  integer nCBITaxID = 0
  }
 // An organization involved in the dataset.
 message Organization
  {
-  string organizationname = 0
-  organization parentorganization = 0
+  string organizationName = 0
+  organization parentOrganization = 0
   wikidataIdentifier wikidataId = 0
   rorIdentifier rorId = 0
  }
@@ -50,6 +50,6 @@ message Organization
 message RelatedItem
  {
   string title = 0
-  citedItemType relateditemtype = 0
-  uriorcurie relateditemidentifier = 0
+  citedItemType relatedItemType = 0
+  uriorcurie relatedItemIdentifier = 0
  }

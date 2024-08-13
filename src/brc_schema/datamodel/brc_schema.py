@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-09T12:02:27
+# Generation date: 2024-08-13T12:36:41
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -121,16 +121,16 @@ class Dataset(YAMLRoot):
     date: Union[str, XSDDate] = None
     creator: Union[Union[dict, "Individual"], List[Union[dict, "Individual"]]] = None
     brc: Union[str, "BRCEnum"] = None
-    bibliographiccitation: str = None
+    bibliographicCitation: str = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
-    analysistype: Optional[Union[str, "AnalysisType"]] = None
+    analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
-    relateditem: Optional[Union[dict, "RelatedItem"]] = None
+    relatedItem: Optional[Union[dict, "RelatedItem"]] = None
     keywords: Optional[Union[str, List[str]]] = empty_list()
-    datasetname: Optional[str] = None
+    datasetName: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.title):
@@ -154,10 +154,10 @@ class Dataset(YAMLRoot):
         if not isinstance(self.brc, BRCEnum):
             self.brc = BRCEnum(self.brc)
 
-        if self._is_empty(self.bibliographiccitation):
-            self.MissingRequiredField("bibliographiccitation")
-        if not isinstance(self.bibliographiccitation, str):
-            self.bibliographiccitation = str(self.bibliographiccitation)
+        if self._is_empty(self.bibliographicCitation):
+            self.MissingRequiredField("bibliographicCitation")
+        if not isinstance(self.bibliographicCitation, str):
+            self.bibliographicCitation = str(self.bibliographicCitation)
 
         if self._is_empty(self.identifier):
             self.MissingRequiredField("identifier")
@@ -174,21 +174,21 @@ class Dataset(YAMLRoot):
             self.species = [self.species] if self.species is not None else []
         self.species = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.species]
 
-        if self.analysistype is not None and not isinstance(self.analysistype, AnalysisType):
-            self.analysistype = AnalysisType(self.analysistype)
+        if self.analysisType is not None and not isinstance(self.analysisType, str):
+            self.analysisType = str(self.analysisType)
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
 
-        if self.relateditem is not None and not isinstance(self.relateditem, RelatedItem):
-            self.relateditem = RelatedItem(**as_dict(self.relateditem))
+        if self.relatedItem is not None and not isinstance(self.relatedItem, RelatedItem):
+            self.relatedItem = RelatedItem(**as_dict(self.relatedItem))
 
         if not isinstance(self.keywords, list):
             self.keywords = [self.keywords] if self.keywords is not None else []
         self.keywords = [v if isinstance(v, str) else str(v) for v in self.keywords]
 
-        if self.datasetname is not None and not isinstance(self.datasetname, str):
-            self.datasetname = str(self.datasetname)
+        if self.datasetName is not None and not isinstance(self.datasetName, str):
+            self.datasetName = str(self.datasetName)
 
         super().__post_init__(**kwargs)
 
@@ -205,20 +205,20 @@ class Individual(YAMLRoot):
     class_name: ClassVar[str] = "Individual"
     class_model_uri: ClassVar[URIRef] = BRC.Individual
 
-    creatorname: Optional[str] = None
+    creatorName: Optional[str] = None
     email: Optional[str] = None
-    primarycontact: Optional[Union[bool, Bool]] = None
+    primaryContact: Optional[Union[bool, Bool]] = None
     affiliation: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self.creatorname is not None and not isinstance(self.creatorname, str):
-            self.creatorname = str(self.creatorname)
+        if self.creatorName is not None and not isinstance(self.creatorName, str):
+            self.creatorName = str(self.creatorName)
 
         if self.email is not None and not isinstance(self.email, str):
             self.email = str(self.email)
 
-        if self.primarycontact is not None and not isinstance(self.primarycontact, Bool):
-            self.primarycontact = Bool(self.primarycontact)
+        if self.primaryContact is not None and not isinstance(self.primaryContact, Bool):
+            self.primaryContact = Bool(self.primaryContact)
 
         if self.affiliation is not None and not isinstance(self.affiliation, str):
             self.affiliation = str(self.affiliation)
@@ -238,17 +238,17 @@ class Organization(YAMLRoot):
     class_name: ClassVar[str] = "Organization"
     class_model_uri: ClassVar[URIRef] = BRC.Organization
 
-    organizationname: Optional[str] = None
-    parentorganization: Optional[Union[dict, "Organization"]] = None
+    organizationName: Optional[str] = None
+    parentOrganization: Optional[Union[dict, "Organization"]] = None
     wikidata_id: Optional[Union[str, WikidataIdentifier]] = None
     ror_id: Optional[Union[str, RorIdentifier]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self.organizationname is not None and not isinstance(self.organizationname, str):
-            self.organizationname = str(self.organizationname)
+        if self.organizationName is not None and not isinstance(self.organizationName, str):
+            self.organizationName = str(self.organizationName)
 
-        if self.parentorganization is not None and not isinstance(self.parentorganization, Organization):
-            self.parentorganization = Organization(**as_dict(self.parentorganization))
+        if self.parentOrganization is not None and not isinstance(self.parentOrganization, Organization):
+            self.parentOrganization = Organization(**as_dict(self.parentOrganization))
 
         if self.wikidata_id is not None and not isinstance(self.wikidata_id, WikidataIdentifier):
             self.wikidata_id = WikidataIdentifier(self.wikidata_id)
@@ -271,15 +271,15 @@ class Organism(YAMLRoot):
     class_name: ClassVar[str] = "Organism"
     class_model_uri: ClassVar[URIRef] = BRC.Organism
 
-    scientificname: Optional[str] = None
-    ncbitaxid: Optional[int] = None
+    scientificName: Optional[str] = None
+    NCBITaxID: Optional[int] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self.scientificname is not None and not isinstance(self.scientificname, str):
-            self.scientificname = str(self.scientificname)
+        if self.scientificName is not None and not isinstance(self.scientificName, str):
+            self.scientificName = str(self.scientificName)
 
-        if self.ncbitaxid is not None and not isinstance(self.ncbitaxid, int):
-            self.ncbitaxid = int(self.ncbitaxid)
+        if self.NCBITaxID is not None and not isinstance(self.NCBITaxID, int):
+            self.NCBITaxID = int(self.NCBITaxID)
 
         super().__post_init__(**kwargs)
 
@@ -297,18 +297,18 @@ class RelatedItem(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = BRC.RelatedItem
 
     title: Optional[str] = None
-    relateditemtype: Optional[Union[str, "CitedItemType"]] = None
-    relateditemidentifier: Optional[Union[str, URIorCURIE]] = None
+    relatedItemType: Optional[Union[str, "CitedItemType"]] = None
+    relatedItemIdentifier: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.title is not None and not isinstance(self.title, str):
             self.title = str(self.title)
 
-        if self.relateditemtype is not None and not isinstance(self.relateditemtype, CitedItemType):
-            self.relateditemtype = CitedItemType(self.relateditemtype)
+        if self.relatedItemType is not None and not isinstance(self.relatedItemType, CitedItemType):
+            self.relatedItemType = CitedItemType(self.relatedItemType)
 
-        if self.relateditemidentifier is not None and not isinstance(self.relateditemidentifier, URIorCURIE):
-            self.relateditemidentifier = URIorCURIE(self.relateditemidentifier)
+        if self.relatedItemIdentifier is not None and not isinstance(self.relatedItemIdentifier, URIorCURIE):
+            self.relatedItemIdentifier = URIorCURIE(self.relatedItemIdentifier)
 
         super().__post_init__(**kwargs)
 
@@ -447,6 +447,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     MassIVE = PermissibleValue(
         text="MassIVE",
         description="Mass Spectrometry Interactive Virtual Environment")
+    OSTI = PermissibleValue(
+        text="OSTI",
+        description="Office of Scientific and Technical Information")
     PanoramaPublic = PermissibleValue(
         text="PanoramaPublic",
         description="Panorama Public")
@@ -461,6 +464,13 @@ class RepositoryEnum(EnumDefinitionImpl):
         name="RepositoryEnum",
         description="Repository where the dataset is stored.",
     )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "NCBI BioProject",
+            PermissibleValue(
+                text="NCBI BioProject",
+                description="National Center for Biotechnology Information BioProject"))
 
 # Slots
 class slots:
@@ -487,8 +497,8 @@ slots.dataset__brc = Slot(uri=PROV.wasAttributedTo, name="dataset__brc", curie=P
 slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository", curie=BRC.curie('repository'),
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])
 
-slots.dataset__bibliographiccitation = Slot(uri=DCTERMS.bibliographicCitation, name="dataset__bibliographiccitation", curie=DCTERMS.curie('bibliographicCitation'),
-                   model_uri=BRC.dataset__bibliographiccitation, domain=None, range=str)
+slots.dataset__bibliographicCitation = Slot(uri=DCTERMS.bibliographicCitation, name="dataset__bibliographicCitation", curie=DCTERMS.curie('bibliographicCitation'),
+                   model_uri=BRC.dataset__bibliographicCitation, domain=None, range=str)
 
 slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifier", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__identifier, domain=None, range=str)
@@ -496,38 +506,38 @@ slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifie
 slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BRC.curie('species'),
                    model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
 
-slots.dataset__analysistype = Slot(uri=BRC.analysistype, name="dataset__analysistype", curie=BRC.curie('analysistype'),
-                   model_uri=BRC.dataset__analysistype, domain=None, range=Optional[Union[str, "AnalysisType"]])
+slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
+                   model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])
 
-slots.dataset__relateditem = Slot(uri=BRC.relateditem, name="dataset__relateditem", curie=BRC.curie('relateditem'),
-                   model_uri=BRC.dataset__relateditem, domain=None, range=Optional[Union[dict, RelatedItem]])
+slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedItem", curie=BRC.curie('relatedItem'),
+                   model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[dict, RelatedItem]])
 
 slots.dataset__keywords = Slot(uri=DCAT.keyword, name="dataset__keywords", curie=DCAT.curie('keyword'),
                    model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, List[str]]])
 
-slots.dataset__datasetname = Slot(uri=BRC.datasetname, name="dataset__datasetname", curie=BRC.curie('datasetname'),
-                   model_uri=BRC.dataset__datasetname, domain=None, range=Optional[str])
+slots.dataset__datasetName = Slot(uri=BRC.datasetName, name="dataset__datasetName", curie=BRC.curie('datasetName'),
+                   model_uri=BRC.dataset__datasetName, domain=None, range=Optional[str])
 
-slots.individual__creatorname = Slot(uri=SCHEMA.name, name="individual__creatorname", curie=SCHEMA.curie('name'),
-                   model_uri=BRC.individual__creatorname, domain=None, range=Optional[str])
+slots.individual__creatorName = Slot(uri=SCHEMA.name, name="individual__creatorName", curie=SCHEMA.curie('name'),
+                   model_uri=BRC.individual__creatorName, domain=None, range=Optional[str])
 
 slots.individual__email = Slot(uri=SCHEMA.email, name="individual__email", curie=SCHEMA.curie('email'),
                    model_uri=BRC.individual__email, domain=None, range=Optional[str])
 
-slots.individual__primarycontact = Slot(uri=BRC.primarycontact, name="individual__primarycontact", curie=BRC.curie('primarycontact'),
-                   model_uri=BRC.individual__primarycontact, domain=None, range=Optional[Union[bool, Bool]])
+slots.individual__primaryContact = Slot(uri=BRC.primaryContact, name="individual__primaryContact", curie=BRC.curie('primaryContact'),
+                   model_uri=BRC.individual__primaryContact, domain=None, range=Optional[Union[bool, Bool]])
 
 slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affiliation", curie=BRC.curie('affiliation'),
                    model_uri=BRC.individual__affiliation, domain=None, range=Optional[str])
 
-slots.organization__organizationname = Slot(uri=SCHEMA.name, name="organization__organizationname", curie=SCHEMA.curie('name'),
-                   model_uri=BRC.organization__organizationname, domain=None, range=Optional[str])
+slots.organization__organizationName = Slot(uri=SCHEMA.name, name="organization__organizationName", curie=SCHEMA.curie('name'),
+                   model_uri=BRC.organization__organizationName, domain=None, range=Optional[str])
 
-slots.organization__parentorganization = Slot(uri=BRC.parentorganization, name="organization__parentorganization", curie=BRC.curie('parentorganization'),
-                   model_uri=BRC.organization__parentorganization, domain=None, range=Optional[Union[dict, Organization]])
+slots.organization__parentOrganization = Slot(uri=BRC.parentOrganization, name="organization__parentOrganization", curie=BRC.curie('parentOrganization'),
+                   model_uri=BRC.organization__parentOrganization, domain=None, range=Optional[Union[dict, Organization]])
 
 slots.organization__wikidata_id = Slot(uri=BRC.wikidata_id, name="organization__wikidata_id", curie=BRC.curie('wikidata_id'),
                    model_uri=BRC.organization__wikidata_id, domain=None, range=Optional[Union[str, WikidataIdentifier]])
@@ -535,17 +545,17 @@ slots.organization__wikidata_id = Slot(uri=BRC.wikidata_id, name="organization__
 slots.organization__ror_id = Slot(uri=BRC.ror_id, name="organization__ror_id", curie=BRC.curie('ror_id'),
                    model_uri=BRC.organization__ror_id, domain=None, range=Optional[Union[str, RorIdentifier]])
 
-slots.organism__scientificname = Slot(uri=BRC.scientificname, name="organism__scientificname", curie=BRC.curie('scientificname'),
-                   model_uri=BRC.organism__scientificname, domain=None, range=Optional[str])
+slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__scientificName", curie=BRC.curie('scientificName'),
+                   model_uri=BRC.organism__scientificName, domain=None, range=Optional[str])
 
-slots.organism__ncbitaxid = Slot(uri=BRC.ncbitaxid, name="organism__ncbitaxid", curie=BRC.curie('ncbitaxid'),
-                   model_uri=BRC.organism__ncbitaxid, domain=None, range=Optional[int])
+slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
+                   model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
 
 slots.relatedItem__title = Slot(uri=DCTERMS.title, name="relatedItem__title", curie=DCTERMS.curie('title'),
                    model_uri=BRC.relatedItem__title, domain=None, range=Optional[str])
 
-slots.relatedItem__relateditemtype = Slot(uri=BRC.relateditemtype, name="relatedItem__relateditemtype", curie=BRC.curie('relateditemtype'),
-                   model_uri=BRC.relatedItem__relateditemtype, domain=None, range=Optional[Union[str, "CitedItemType"]])
+slots.relatedItem__relatedItemType = Slot(uri=BRC.relatedItemType, name="relatedItem__relatedItemType", curie=BRC.curie('relatedItemType'),
+                   model_uri=BRC.relatedItem__relatedItemType, domain=None, range=Optional[Union[str, "CitedItemType"]])
 
-slots.relatedItem__relateditemidentifier = Slot(uri=BRC.relateditemidentifier, name="relatedItem__relateditemidentifier", curie=BRC.curie('relateditemidentifier'),
-                   model_uri=BRC.relatedItem__relateditemidentifier, domain=None, range=Optional[Union[str, URIorCURIE]])
+slots.relatedItem__relatedItemIdentifier = Slot(uri=BRC.relatedItemIdentifier, name="relatedItem__relatedItemIdentifier", curie=BRC.curie('relatedItemIdentifier'),
+                   model_uri=BRC.relatedItem__relatedItemIdentifier, domain=None, range=Optional[Union[str, URIorCURIE]])

@@ -100,7 +100,7 @@ classes:
       repository:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."
-      bibliographiccitation:
+      bibliographicCitation:
         # TODO: define a more specific format, like DOI
         range: string
         description: "Citation for the dataset."
@@ -117,14 +117,17 @@ classes:
         range: Organism
         multivalued: true
         description: "Species information for the organism(s) studied."
-      analysistype:
-        range: AnalysisType
+      analysisType:
+        any_of:
+          - range: AnalysisType
+          - range: string
         description: "The type of analysis performed on the dataset."
+        ifabsent: string(not specified)
       description:
         range: string
         description: "A detailed description of the dataset."
         slot_uri: dcterms:description
-      relateditem:
+      relatedItem:
         range: RelatedItem
         description: "Related publication or item."
       keywords:
@@ -134,7 +137,7 @@ classes:
         slot_uri: dcat:keyword
         exact_mappings:
           - schema:keywords
-      datasetname:
+      datasetName:
         range: string
         description: >-
           "Name of a overall dataset to which this data entry belongs."
@@ -143,7 +146,7 @@ classes:
     description: An individual involved in the dataset.
     class_uri: schema:Person
     attributes:
-      creatorname:
+      creatorName:
         range: string
         description: "Name of the creator."
         slot_uri: schema:name
@@ -151,7 +154,7 @@ classes:
         range: string
         description: "Email address of the creator."
         slot_uri: schema:email
-      primarycontact:
+      primaryContact:
         range: boolean
         description: "Indicates if the creator is the primary contact."
       affiliation:
@@ -164,11 +167,11 @@ classes:
   Organization:
     description: An organization involved in the dataset.
     attributes:
-      organizationname:
+      organizationName:
         range: string
         description: Name of the organization.
         slot_uri: schema:name
-      parentorganization:
+      parentOrganization:
         range: Organization
         description: Higher-level parent of this organization.
       wikidata_id:
@@ -185,10 +188,10 @@ classes:
   Organism:
     description: An organism studied in the dataset.
     attributes:
-      scientificname:
+      scientificName:
         range: string
         description: "Scientific name of the organism."
-      ncbitaxid:
+      NCBITaxID:
         range: integer
         description: "NCBI taxonomy ID for the organism."
 
@@ -199,10 +202,10 @@ classes:
         range: string
         description: "Title of the related item."
         slot_uri: dcterms:title
-      relateditemtype:
+      relatedItemType:
         range: CitedItemType
         description: "Type of the related item, e.g., JournalArticle."
-      relateditemidentifier:
+      relatedItemIdentifier:
         range: uriorcurie
         description: "Identifier or URL for the related item."
 
@@ -310,6 +313,14 @@ enums:
         description: "Mass Spectrometry Interactive Virtual Environment"
         see_also:
           - https://massive.ucsd.edu/ProteoSAFe/static/massive.jsp
+      NCBI BioProject:
+        description: "National Center for Biotechnology Information BioProject"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/bioproject/
+      OSTI:
+        description: "Office of Scientific and Technical Information"
+        see_also:
+          - https://www.osti.gov/biblio/
       PanoramaPublic:
         description: "Panorama Public"
         see_also:

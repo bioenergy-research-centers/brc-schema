@@ -643,6 +643,20 @@
           ]
         },
         {
+          "text": "NCBI BioProject",
+          "description": "National Center for Biotechnology Information BioProject",
+          "see_also": [
+            "https://www.ncbi.nlm.nih.gov/bioproject/"
+          ]
+        },
+        {
+          "text": "OSTI",
+          "description": "Office of Scientific and Technical Information",
+          "see_also": [
+            "https://www.osti.gov/biblio/"
+          ]
+        },
+        {
           "text": "PanoramaPublic",
           "description": "Panorama Public",
           "see_also": [
@@ -784,14 +798,14 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "dataset__bibliographiccitation",
+      "name": "dataset__bibliographicCitation",
       "description": "Citation for the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://purl.org/dc/terms/bibliographicCitation"
       ],
       "slot_uri": "http://purl.org/dc/terms/bibliographicCitation",
-      "alias": "bibliographiccitation",
+      "alias": "bibliographicCitation",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
@@ -833,16 +847,27 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "dataset__analysistype",
+      "name": "dataset__analysisType",
       "description": "The type of analysis performed on the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/analysistype",
-      "alias": "analysistype",
+      "slot_uri": "https://w3id.org/brc/analysisType",
+      "ifabsent": "string(not specified)",
+      "alias": "analysisType",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
-      "range": "AnalysisType",
+      "range": "string",
+      "any_of": [
+        {
+          "range": "AnalysisType",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "string",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
       "@type": "SlotDefinition"
     },
     {
@@ -862,11 +887,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "dataset__relateditem",
+      "name": "dataset__relatedItem",
       "description": "Related publication or item.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/relateditem",
-      "alias": "relateditem",
+      "slot_uri": "https://w3id.org/brc/relatedItem",
+      "alias": "relatedItem",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
@@ -896,11 +921,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "dataset__datasetname",
+      "name": "dataset__datasetName",
       "description": "\"Name of a overall dataset to which this data entry belongs.\"",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/datasetname",
-      "alias": "datasetname",
+      "slot_uri": "https://w3id.org/brc/datasetName",
+      "alias": "datasetName",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
@@ -909,14 +934,14 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "individual__creatorname",
+      "name": "individual__creatorName",
       "description": "Name of the creator.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://schema.org/name"
       ],
       "slot_uri": "http://schema.org/name",
-      "alias": "creatorname",
+      "alias": "creatorName",
       "owner": "Individual",
       "domain_of": [
         "Individual"
@@ -941,11 +966,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "individual__primarycontact",
+      "name": "individual__primaryContact",
       "description": "Indicates if the creator is the primary contact.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/primarycontact",
-      "alias": "primarycontact",
+      "slot_uri": "https://w3id.org/brc/primaryContact",
+      "alias": "primaryContact",
       "owner": "Individual",
       "domain_of": [
         "Individual"
@@ -977,14 +1002,14 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "organization__organizationname",
+      "name": "organization__organizationName",
       "description": "Name of the organization.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://schema.org/name"
       ],
       "slot_uri": "http://schema.org/name",
-      "alias": "organizationname",
+      "alias": "organizationName",
       "owner": "Organization",
       "domain_of": [
         "Organization"
@@ -993,11 +1018,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "organization__parentorganization",
+      "name": "organization__parentOrganization",
       "description": "Higher-level parent of this organization.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/parentorganization",
-      "alias": "parentorganization",
+      "slot_uri": "https://w3id.org/brc/parentOrganization",
+      "alias": "parentOrganization",
       "owner": "Organization",
       "domain_of": [
         "Organization"
@@ -1039,11 +1064,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "organism__scientificname",
+      "name": "organism__scientificName",
       "description": "Scientific name of the organism.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/scientificname",
-      "alias": "scientificname",
+      "slot_uri": "https://w3id.org/brc/scientificName",
+      "alias": "scientificName",
       "owner": "Organism",
       "domain_of": [
         "Organism"
@@ -1052,11 +1077,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "organism__ncbitaxid",
+      "name": "organism__NCBITaxID",
       "description": "NCBI taxonomy ID for the organism.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/ncbitaxid",
-      "alias": "ncbitaxid",
+      "slot_uri": "https://w3id.org/brc/NCBITaxID",
+      "alias": "NCBITaxID",
       "owner": "Organism",
       "domain_of": [
         "Organism"
@@ -1081,11 +1106,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "relatedItem__relateditemtype",
+      "name": "relatedItem__relatedItemType",
       "description": "Type of the related item, e.g., JournalArticle.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/relateditemtype",
-      "alias": "relateditemtype",
+      "slot_uri": "https://w3id.org/brc/relatedItemType",
+      "alias": "relatedItemType",
       "owner": "RelatedItem",
       "domain_of": [
         "RelatedItem"
@@ -1094,11 +1119,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "relatedItem__relateditemidentifier",
+      "name": "relatedItem__relatedItemIdentifier",
       "description": "Identifier or URL for the related item.",
       "from_schema": "https://w3id.org/brc/brc_schema",
-      "slot_uri": "https://w3id.org/brc/relateditemidentifier",
-      "alias": "relateditemidentifier",
+      "slot_uri": "https://w3id.org/brc/relatedItemIdentifier",
+      "alias": "relatedItemIdentifier",
       "owner": "RelatedItem",
       "domain_of": [
         "RelatedItem"
@@ -1159,14 +1184,14 @@
         "dataset__creator",
         "dataset__brc",
         "dataset__repository",
-        "dataset__bibliographiccitation",
+        "dataset__bibliographicCitation",
         "dataset__identifier",
         "dataset__species",
-        "dataset__analysistype",
+        "dataset__analysisType",
         "dataset__description",
-        "dataset__relateditem",
+        "dataset__relatedItem",
         "dataset__keywords",
-        "dataset__datasetname"
+        "dataset__datasetName"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1218,7 +1243,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "bibliographiccitation",
+          "name": "bibliographicCitation",
           "description": "Citation for the dataset.",
           "slot_uri": "dcterms:bibliographicCitation",
           "range": "string",
@@ -1241,9 +1266,19 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "analysistype",
+          "name": "analysisType",
           "description": "The type of analysis performed on the dataset.",
-          "range": "AnalysisType",
+          "ifabsent": "string(not specified)",
+          "any_of": [
+            {
+              "range": "AnalysisType",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "string",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
           "@type": "SlotDefinition"
         },
         {
@@ -1254,7 +1289,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "relateditem",
+          "name": "relatedItem",
           "description": "Related publication or item.",
           "range": "RelatedItem",
           "@type": "SlotDefinition"
@@ -1271,7 +1306,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "datasetname",
+          "name": "datasetName",
           "description": "\"Name of a overall dataset to which this data entry belongs.\"",
           "range": "string",
           "@type": "SlotDefinition"
@@ -1289,15 +1324,15 @@
         "schema:Person"
       ],
       "slots": [
-        "individual__creatorname",
+        "individual__creatorName",
         "individual__email",
-        "individual__primarycontact",
+        "individual__primaryContact",
         "individual__affiliation"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "creatorname",
+          "name": "creatorName",
           "description": "Name of the creator.",
           "slot_uri": "schema:name",
           "range": "string",
@@ -1311,7 +1346,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "primarycontact",
+          "name": "primaryContact",
           "description": "Indicates if the creator is the primary contact.",
           "range": "boolean",
           "@type": "SlotDefinition"
@@ -1341,22 +1376,22 @@
       "description": "An organization involved in the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
-        "organization__organizationname",
-        "organization__parentorganization",
+        "organization__organizationName",
+        "organization__parentOrganization",
         "organization__wikidata_id",
         "organization__ror_id"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "organizationname",
+          "name": "organizationName",
           "description": "Name of the organization.",
           "slot_uri": "schema:name",
           "range": "string",
           "@type": "SlotDefinition"
         },
         {
-          "name": "parentorganization",
+          "name": "parentOrganization",
           "description": "Higher-level parent of this organization.",
           "range": "Organization",
           "@type": "SlotDefinition"
@@ -1389,19 +1424,19 @@
       "description": "An organism studied in the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
-        "organism__scientificname",
-        "organism__ncbitaxid"
+        "organism__scientificName",
+        "organism__NCBITaxID"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "scientificname",
+          "name": "scientificName",
           "description": "Scientific name of the organism.",
           "range": "string",
           "@type": "SlotDefinition"
         },
         {
-          "name": "ncbitaxid",
+          "name": "NCBITaxID",
           "description": "NCBI taxonomy ID for the organism.",
           "range": "integer",
           "@type": "SlotDefinition"
@@ -1417,8 +1452,8 @@
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
         "relatedItem__title",
-        "relatedItem__relateditemtype",
-        "relatedItem__relateditemidentifier"
+        "relatedItem__relatedItemType",
+        "relatedItem__relatedItemIdentifier"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1430,13 +1465,13 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "relateditemtype",
+          "name": "relatedItemType",
           "description": "Type of the related item, e.g., JournalArticle.",
           "range": "CitedItemType",
           "@type": "SlotDefinition"
         },
         {
-          "name": "relateditemidentifier",
+          "name": "relatedItemIdentifier",
           "description": "Identifier or URL for the related item.",
           "range": "uriorcurie",
           "@type": "SlotDefinition"
@@ -1448,9 +1483,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-09T12:02:07",
-  "source_file_size": 10443,
-  "generation_date": "2024-08-09T12:02:27",
+  "source_file_date": "2024-08-13T12:35:45",
+  "source_file_size": 10844,
+  "generation_date": "2024-08-13T12:36:41",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

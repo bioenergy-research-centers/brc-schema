@@ -49,11 +49,19 @@
             "additionalProperties": false,
             "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
-                "analysistype": {
-                    "$ref": "#/$defs/AnalysisType",
-                    "description": "The type of analysis performed on the dataset."
+                "analysisType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AnalysisType"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The type of analysis performed on the dataset.",
+                    "type": "string"
                 },
-                "bibliographiccitation": {
+                "bibliographicCitation": {
                     "description": "Citation for the dataset.",
                     "type": "string"
                 },
@@ -68,7 +76,7 @@
                     },
                     "type": "array"
                 },
-                "datasetname": {
+                "datasetName": {
                     "description": "\"Name of a overall dataset to which this data entry belongs.\"",
                     "type": "string"
                 },
@@ -96,7 +104,7 @@
                     },
                     "type": "array"
                 },
-                "relateditem": {
+                "relatedItem": {
                     "$ref": "#/$defs/RelatedItem",
                     "description": "Related publication or item."
                 },
@@ -121,7 +129,7 @@
                 "date",
                 "creator",
                 "brc",
-                "bibliographiccitation",
+                "bibliographicCitation",
                 "identifier"
             ],
             "title": "Dataset",
@@ -158,7 +166,7 @@
                     "description": "Affiliation of the creator.",
                     "type": "string"
                 },
-                "creatorname": {
+                "creatorName": {
                     "description": "Name of the creator.",
                     "type": "string"
                 },
@@ -166,7 +174,7 @@
                     "description": "Email address of the creator.",
                     "type": "string"
                 },
-                "primarycontact": {
+                "primaryContact": {
                     "description": "Indicates if the creator is the primary contact.",
                     "type": "boolean"
                 }
@@ -178,11 +186,11 @@
             "additionalProperties": false,
             "description": "An organism studied in the dataset.",
             "properties": {
-                "ncbitaxid": {
+                "NCBITaxID": {
                     "description": "NCBI taxonomy ID for the organism.",
                     "type": "integer"
                 },
-                "scientificname": {
+                "scientificName": {
                     "description": "Scientific name of the organism.",
                     "type": "string"
                 }
@@ -194,11 +202,11 @@
             "additionalProperties": false,
             "description": "An organization involved in the dataset.",
             "properties": {
-                "organizationname": {
+                "organizationName": {
                     "description": "Name of the organization.",
                     "type": "string"
                 },
-                "parentorganization": {
+                "parentOrganization": {
                     "$ref": "#/$defs/Organization",
                     "description": "Higher-level parent of this organization."
                 },
@@ -218,11 +226,11 @@
             "additionalProperties": false,
             "description": "A related publication or item, including cited publications.",
             "properties": {
-                "relateditemidentifier": {
+                "relatedItemIdentifier": {
                     "description": "Identifier or URL for the related item.",
                     "type": "string"
                 },
-                "relateditemtype": {
+                "relatedItemType": {
                     "$ref": "#/$defs/CitedItemType",
                     "description": "Type of the related item, e.g., JournalArticle."
                 },
@@ -242,6 +250,8 @@
                 "iProX",
                 "jPOST",
                 "MassIVE",
+                "NCBI BioProject",
+                "OSTI",
                 "PanoramaPublic",
                 "PedtideAtlas",
                 "PRIDE"
