@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/bibliographiccitation/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/analysisType/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: bibliographiccitation - brc-schema</title>
+        <title>Slot: analysisType - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-bibliographiccitation" class="md-skip">
+        <a href="#slot-analysistype" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: bibliographiccitation
+              Slot: analysisType
             
           </span>
         </div>
@@ -317,15 +317,15 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/bibliographiccitation.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/analysisType.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-bibliographiccitation">Slot: bibliographiccitation</h1>
-<p><em>Citation for the dataset.</em></p>
-<p>URI: <a href="http://purl.org/dc/terms/bibliographicCitation">dcterms:bibliographicCitation</a></p>
+<h1 id="slot-analysistype">Slot: analysisType</h1>
+<p><em>The type of analysis performed on the dataset.</em></p>
+<p>URI: <a href="https://w3id.org/brc/analysisType">brc:analysisType</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -347,12 +347,7 @@
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p>Range: <a href="../String/">String</a></p>
-</li>
-<li>
-<p>Required: True</p>
-</li>
+<li>Range: <a href="../String/">String</a>&nbsp;or&nbsp;<br /><a href="../AnalysisType/">AnalysisType</a>&nbsp;or&nbsp;<br /><a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -370,28 +365,30 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>dcterms:bibliographicCitation</td>
+<td>brc:analysisType</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:bibliographiccitation</td>
+<td>brc:analysisType</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: bibliographiccitation
-description: Citation for the dataset.
+<pre><code class="language-yaml">name: analysisType
+description: The type of analysis performed on the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-slot_uri: dcterms:bibliographicCitation
-alias: bibliographiccitation
+ifabsent: string(not specified)
+alias: analysisType
 owner: Dataset
 domain_of:
 - Dataset
 range: string
-required: true
+any_of:
+- range: AnalysisType
+- range: string
 
 </code></pre>
 

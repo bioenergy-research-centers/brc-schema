@@ -207,11 +207,11 @@
     click Individual href "../Individual"
       Individual : affiliation
 
-      Individual : creatorname
+      Individual : creatorName
 
       Individual : email
 
-      Individual : primarycontact
+      Individual : primaryContact
 
 
 </div>
@@ -228,7 +228,7 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../creatorname/">creatorname</a></td>
+<td><a href="../creatorName/">creatorName</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Name of the creator</td>
 <td>direct</td>
@@ -240,7 +240,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../primarycontact/">primarycontact</a></td>
+<td><a href="../primaryContact/">primaryContact</a></td>
 <td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
 <td>Indicates if the creator is the primary contact</td>
 <td>direct</td>
@@ -304,8 +304,8 @@
 description: An individual involved in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  creatorname:
-    name: creatorname
+  creatorName:
+    name: creatorName
     description: Name of the creator.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -322,8 +322,8 @@ attributes:
     domain_of:
     - Individual
     range: string
-  primarycontact:
-    name: primarycontact
+  primaryContact:
+    name: primaryContact
     description: Indicates if the creator is the primary contact.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -350,13 +350,13 @@ class_uri: schema:Person
 description: An individual involved in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  creatorname:
-    name: creatorname
+  creatorName:
+    name: creatorName
     description: Name of the creator.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
-    alias: creatorname
+    alias: creatorName
     owner: Individual
     domain_of:
     - Individual
@@ -372,12 +372,12 @@ attributes:
     domain_of:
     - Individual
     range: string
-  primarycontact:
-    name: primarycontact
+  primaryContact:
+    name: primaryContact
     description: Indicates if the creator is the primary contact.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: primarycontact
+    alias: primaryContact
     owner: Individual
     domain_of:
     - Individual

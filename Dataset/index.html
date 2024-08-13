@@ -210,16 +210,9 @@
 <div class="mermaid"> classDiagram
     class Dataset
     click Dataset href "../Dataset"
-      Dataset : analysistype
+      Dataset : analysisType
 
-
-
-
-    Dataset --&gt; "0..1" AnalysisType : analysistype
-    click AnalysisType href "../AnalysisType"
-
-
-      Dataset : bibliographiccitation
+      Dataset : bibliographicCitation
 
       Dataset : brc
 
@@ -239,7 +232,7 @@
     click Individual href "../Individual"
 
 
-      Dataset : datasetname
+      Dataset : datasetName
 
       Dataset : date
 
@@ -251,12 +244,12 @@
 
       Dataset : keywords
 
-      Dataset : relateditem
+      Dataset : relatedItem
 
 
 
 
-    Dataset --&gt; "0..1" RelatedItem : relateditem
+    Dataset --&gt; "0..1" RelatedItem : relatedItem
     click RelatedItem href "../RelatedItem"
 
 
@@ -331,7 +324,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../bibliographiccitation/">bibliographiccitation</a></td>
+<td><a href="../bibliographicCitation/">bibliographicCitation</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>Citation for the dataset</td>
 <td>direct</td>
@@ -349,8 +342,8 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../analysistype/">analysistype</a></td>
-<td>0..1 <br/> <a href="../AnalysisType/">AnalysisType</a></td>
+<td><a href="../analysisType/">analysisType</a></td>
+<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../AnalysisType/">AnalysisType</a> or <br/><a href="../String/">String</a></td>
 <td>The type of analysis performed on the dataset</td>
 <td>direct</td>
 </tr>
@@ -361,7 +354,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relateditem/">relateditem</a></td>
+<td><a href="../relatedItem/">relatedItem</a></td>
 <td>0..1 <br/> <a href="../RelatedItem/">RelatedItem</a></td>
 <td>Related publication or item</td>
 <td>direct</td>
@@ -373,7 +366,7 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../datasetname/">datasetname</a></td>
+<td><a href="../datasetName/">datasetName</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>"Name of a overall dataset to which this data entry belongs</td>
 <td>direct</td>
@@ -529,8 +522,8 @@ attributes:
     domain_of:
     - Dataset
     range: RepositoryEnum
-  bibliographiccitation:
-    name: bibliographiccitation
+  bibliographicCitation:
+    name: bibliographicCitation
     description: Citation for the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -558,14 +551,17 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
-  analysistype:
-    name: analysistype
+  analysisType:
+    name: analysisType
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
+    ifabsent: string(not specified)
     domain_of:
     - Dataset
-    range: AnalysisType
+    any_of:
+    - range: AnalysisType
+    - range: string
   description:
     name: description
     description: A detailed description of the dataset.
@@ -575,8 +571,8 @@ attributes:
     domain_of:
     - Dataset
     range: string
-  relateditem:
-    name: relateditem
+  relatedItem:
+    name: relatedItem
     description: Related publication or item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -595,8 +591,8 @@ attributes:
     - Dataset
     range: string
     multivalued: true
-  datasetname:
-    name: datasetname
+  datasetName:
+    name: datasetName
     description: '"Name of a overall dataset to which this data entry belongs."'
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -699,13 +695,13 @@ attributes:
     domain_of:
     - Dataset
     range: RepositoryEnum
-  bibliographiccitation:
-    name: bibliographiccitation
+  bibliographicCitation:
+    name: bibliographicCitation
     description: Citation for the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:bibliographicCitation
-    alias: bibliographiccitation
+    alias: bibliographicCitation
     owner: Dataset
     domain_of:
     - Dataset
@@ -734,16 +730,20 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
-  analysistype:
-    name: analysistype
+  analysisType:
+    name: analysisType
     description: The type of analysis performed on the dataset.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: analysistype
+    ifabsent: string(not specified)
+    alias: analysisType
     owner: Dataset
     domain_of:
     - Dataset
-    range: AnalysisType
+    range: string
+    any_of:
+    - range: AnalysisType
+    - range: string
   description:
     name: description
     description: A detailed description of the dataset.
@@ -755,12 +755,12 @@ attributes:
     domain_of:
     - Dataset
     range: string
-  relateditem:
-    name: relateditem
+  relatedItem:
+    name: relatedItem
     description: Related publication or item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relateditem
+    alias: relatedItem
     owner: Dataset
     domain_of:
     - Dataset
@@ -779,12 +779,12 @@ attributes:
     - Dataset
     range: string
     multivalued: true
-  datasetname:
-    name: datasetname
+  datasetName:
+    name: datasetName
     description: '"Name of a overall dataset to which this data entry belongs."'
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: datasetname
+    alias: datasetName
     owner: Dataset
     domain_of:
     - Dataset

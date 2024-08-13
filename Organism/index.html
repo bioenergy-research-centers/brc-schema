@@ -205,9 +205,9 @@
 <div class="mermaid"> classDiagram
     class Organism
     click Organism href "../Organism"
-      Organism : ncbitaxid
+      Organism : NCBITaxID
 
-      Organism : scientificname
+      Organism : scientificName
 
 
 </div>
@@ -224,13 +224,13 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../scientificname/">scientificname</a></td>
+<td><a href="../scientificName/">scientificName</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Scientific name of the organism</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../ncbitaxid/">ncbitaxid</a></td>
+<td><a href="../NCBITaxID/">NCBITaxID</a></td>
 <td>0..1 <br/> <a href="../Integer/">Integer</a></td>
 <td>NCBI taxonomy ID for the organism</td>
 <td>direct</td>
@@ -288,16 +288,16 @@
 description: An organism studied in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  scientificname:
-    name: scientificname
+  scientificName:
+    name: scientificName
     description: Scientific name of the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Organism
     range: string
-  ncbitaxid:
-    name: ncbitaxid
+  NCBITaxID:
+    name: NCBITaxID
     description: NCBI taxonomy ID for the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -313,22 +313,22 @@ attributes:
 description: An organism studied in the dataset.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  scientificname:
-    name: scientificname
+  scientificName:
+    name: scientificName
     description: Scientific name of the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: scientificname
+    alias: scientificName
     owner: Organism
     domain_of:
     - Organism
     range: string
-  ncbitaxid:
-    name: ncbitaxid
+  NCBITaxID:
+    name: NCBITaxID
     description: NCBI taxonomy ID for the organism.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: ncbitaxid
+    alias: NCBITaxID
     owner: Organism
     domain_of:
     - Organism

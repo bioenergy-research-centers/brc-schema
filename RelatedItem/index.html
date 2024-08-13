@@ -205,14 +205,14 @@
 <div class="mermaid"> classDiagram
     class RelatedItem
     click RelatedItem href "../RelatedItem"
-      RelatedItem : relateditemidentifier
+      RelatedItem : relatedItemIdentifier
 
-      RelatedItem : relateditemtype
-
-
+      RelatedItem : relatedItemType
 
 
-    RelatedItem --&gt; "0..1" CitedItemType : relateditemtype
+
+
+    RelatedItem --&gt; "0..1" CitedItemType : relatedItemType
     click CitedItemType href "../CitedItemType"
 
 
@@ -239,13 +239,13 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relateditemtype/">relateditemtype</a></td>
+<td><a href="../relatedItemType/">relatedItemType</a></td>
 <td>0..1 <br/> <a href="../CitedItemType/">CitedItemType</a></td>
 <td>Type of the related item, e</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../relateditemidentifier/">relateditemidentifier</a></td>
+<td><a href="../relatedItemIdentifier/">relatedItemIdentifier</a></td>
 <td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
 <td>Identifier or URL for the related item</td>
 <td>direct</td>
@@ -265,7 +265,7 @@
 <tbody>
 <tr>
 <td><a href="../Dataset/">Dataset</a></td>
-<td><a href="../relateditem/">relateditem</a></td>
+<td><a href="../relatedItem/">relatedItem</a></td>
 <td>range</td>
 <td><a href="./">RelatedItem</a></td>
 </tr>
@@ -312,16 +312,16 @@ attributes:
     - Dataset
     - RelatedItem
     range: string
-  relateditemtype:
-    name: relateditemtype
+  relatedItemType:
+    name: relatedItemType
     description: Type of the related item, e.g., JournalArticle.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - RelatedItem
     range: CitedItemType
-  relateditemidentifier:
-    name: relateditemidentifier
+  relatedItemIdentifier:
+    name: relatedItemIdentifier
     description: Identifier or URL for the related item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
@@ -348,22 +348,22 @@ attributes:
     - Dataset
     - RelatedItem
     range: string
-  relateditemtype:
-    name: relateditemtype
+  relatedItemType:
+    name: relatedItemType
     description: Type of the related item, e.g., JournalArticle.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relateditemtype
+    alias: relatedItemType
     owner: RelatedItem
     domain_of:
     - RelatedItem
     range: CitedItemType
-  relateditemidentifier:
-    name: relateditemidentifier
+  relatedItemIdentifier:
+    name: relatedItemIdentifier
     description: Identifier or URL for the related item.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
-    alias: relateditemidentifier
+    alias: relatedItemIdentifier
     owner: RelatedItem
     domain_of:
     - RelatedItem

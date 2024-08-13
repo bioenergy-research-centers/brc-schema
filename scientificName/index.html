@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/relateditem/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/scientificName/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: relateditem - brc-schema</title>
+        <title>Slot: scientificName - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-relateditem" class="md-skip">
+        <a href="#slot-scientificname" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: relateditem
+              Slot: scientificName
             
           </span>
         </div>
@@ -317,15 +317,15 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/relateditem.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/scientificName.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-relateditem">Slot: relateditem</h1>
-<p><em>Related publication or item.</em></p>
-<p>URI: <a href="https://w3id.org/brc/relateditem">brc:relateditem</a></p>
+<h1 id="slot-scientificname">Slot: scientificName</h1>
+<p><em>Scientific name of the organism.</em></p>
+<p>URI: <a href="https://w3id.org/brc/scientificName">brc:scientificName</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -339,15 +339,15 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>A dataset containing metabolomics and proteomics data</td>
+<td><a href="../Organism/">Organism</a></td>
+<td>An organism studied in the dataset</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../RelatedItem/">RelatedItem</a></li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -365,26 +365,26 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:relateditem</td>
+<td>brc:scientificName</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:relateditem</td>
+<td>brc:scientificName</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: relateditem
-description: Related publication or item.
+<pre><code class="language-yaml">name: scientificName
+description: Scientific name of the organism.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-alias: relateditem
-owner: Dataset
+alias: scientificName
+owner: Organism
 domain_of:
-- Dataset
-range: RelatedItem
+- Organism
+range: string
 
 </code></pre>
 
