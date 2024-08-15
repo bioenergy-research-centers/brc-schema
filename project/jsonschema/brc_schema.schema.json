@@ -276,5 +276,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": null
+    "version": "2024-08-15"
 }
