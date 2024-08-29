@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 2024-08-15
+// version: 2024-08-29
 // A dataset containing metabolomics and proteomics data.
 message Dataset
  {

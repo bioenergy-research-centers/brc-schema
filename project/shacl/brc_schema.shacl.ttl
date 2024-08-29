@@ -27,10 +27,21 @@ schema1:Dataset a sh:NodeShape ;
     sh:closed true ;
     sh:description "A dataset containing metabolomics and proteomics data." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "A detailed description of the dataset." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dcterms:description ],
+        [ sh:datatype xsd:string ;
             sh:description "Citation for the dataset." ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
             sh:path dcterms:bibliographicCitation ],
@@ -40,18 +51,18 @@ schema1:Dataset a sh:NodeShape ;
             sh:minCount 1 ;
             sh:order 4 ;
             sh:path prov:wasAttributedTo ],
-        [ sh:datatype xsd:string ;
-            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+        [ sh:description "The repository where the dataset is stored." ;
+            sh:in ( "GEO" "ICE" "iProX" "jPOST" "MassIVE" "NCBI BioProject" "OSTI" "PanoramaPublic" "PedtideAtlas" "PRIDE" ) ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 13 ;
-            sh:path brc:datasetName ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
+            sh:order 5 ;
+            sh:path brc:repository ],
+        [ sh:defaultValue "not specified"^^xsd:string ;
+            sh:description "The type of analysis performed on the dataset." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:identifier ],
+            sh:or ( [ sh:in ( MI:0004 OBI:0000800 NCIT:C19771 NCIT:C188690 NCIT:C17606 "Ms_imaging" ERO:0001660 "srm_mrm" OBI:0002958 OBI:0001899 ) ] [ sh:datatype xsd:string ;
+                        sh:nodeKind sh:Literal ] ) ;
+            sh:order 9 ;
+            sh:path brc:analysisType ],
         [ sh:class brc:Organism ;
             sh:description "Species information for the organism(s) studied." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
@@ -63,6 +74,19 @@ schema1:Dataset a sh:NodeShape ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 11 ;
             sh:path brc:relatedItem ],
+        [ sh:datatype xsd:date ;
+            sh:description "The date the dataset was created or published." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dcterms:date ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path brc:datasetName ],
         [ sh:datatype xsd:string ;
             sh:description "Unique identifier for the dataset." ;
             sh:maxCount 1 ;
@@ -82,31 +106,6 @@ schema1:Dataset a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 12 ;
             sh:path dcat:keyword ],
-        [ sh:defaultValue "not specified"^^xsd:string ;
-            sh:description "The type of analysis performed on the dataset." ;
-            sh:maxCount 1 ;
-            sh:or ( [ sh:in ( MI:0004 OBI:0000800 NCIT:C19771 NCIT:C188690 NCIT:C17606 "Ms_imaging" ERO:0001660 "srm_mrm" OBI:0002958 OBI:0001899 ) ] [ sh:datatype xsd:string ;
-                        sh:nodeKind sh:Literal ] ) ;
-            sh:order 9 ;
-            sh:path brc:analysisType ],
-        [ sh:description "The repository where the dataset is stored." ;
-            sh:in ( "GEO" "ICE" "iProX" "jPOST" "MassIVE" "NCBI BioProject" "OSTI" "PanoramaPublic" "PedtideAtlas" "PRIDE" ) ;
-            sh:maxCount 1 ;
-            sh:order 5 ;
-            sh:path brc:repository ],
-        [ sh:datatype xsd:string ;
-            sh:description "A detailed description of the dataset." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 10 ;
-            sh:path dcterms:description ],
-        [ sh:datatype xsd:date ;
-            sh:description "The date the dataset was created or published." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path dcterms:date ],
         [ sh:class schema1:Person ;
             sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
             sh:minCount 1 ;
@@ -125,6 +124,12 @@ schema1:Person a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path schema1:name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if the creator is the primary contact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:primaryContact ],
         [ sh:datatype xsd:string ;
             sh:description "Email address of the creator." ;
             sh:maxCount 1 ;
@@ -136,54 +141,48 @@ schema1:Person a sh:NodeShape ;
             sh:or ( [ sh:class brc:Organization ] [ sh:datatype xsd:string ;
                         sh:nodeKind sh:Literal ] ) ;
             sh:order 3 ;
-            sh:path brc:affiliation ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indicates if the creator is the primary contact." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:primaryContact ] ;
+            sh:path brc:affiliation ] ;
     sh:targetClass schema1:Person .
 
 brc:Organism a sh:NodeShape ;
     sh:closed true ;
     sh:description "An organism studied in the dataset." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "NCBI taxonomy ID for the organism." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path brc:NCBITaxID ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Scientific name of the organism." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path brc:scientificName ] ;
+            sh:path brc:scientificName ],
+        [ sh:datatype xsd:integer ;
+            sh:description "NCBI taxonomy ID for the organism." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:NCBITaxID ] ;
     sh:targetClass brc:Organism .
 
 brc:RelatedItem a sh:NodeShape ;
     sh:closed true ;
     sh:description "A related publication or item, including cited publications." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
-            sh:description "Identifier or URL for the related item." ;
+    sh:property [ sh:description "Type of the related item, e.g., JournalArticle." ;
+            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage ) ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:relatedItemIdentifier ],
+            sh:order 1 ;
+            sh:path brc:relatedItemType ],
         [ sh:datatype xsd:string ;
             sh:description "Title of the related item." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path dcterms:title ],
-        [ sh:description "Type of the related item, e.g., JournalArticle." ;
-            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage ) ;
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Identifier or URL for the related item." ;
             sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path brc:relatedItemType ] ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:relatedItemIdentifier ] ;
     sh:targetClass brc:RelatedItem .
 
 brc:Organization a sh:NodeShape ;
@@ -197,17 +196,17 @@ brc:Organization a sh:NodeShape ;
             sh:order 0 ;
             sh:path schema1:name ],
         [ sh:datatype xsd:anyURI ;
-            sh:description "ROR identifier for the organization." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:ror_id ],
-        [ sh:datatype xsd:anyURI ;
             sh:description "Wikidata identifier for the organization." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path brc:wikidata_id ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "ROR identifier for the organization." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:ror_id ],
         [ sh:class brc:Organization ;
             sh:description "Higher-level parent of this organization." ;
             sh:maxCount 1 ;

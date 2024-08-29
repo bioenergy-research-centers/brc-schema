@@ -129,7 +129,6 @@
                 "date",
                 "creator",
                 "brc",
-                "bibliographicCitation",
                 "identifier"
             ],
             "title": "Dataset",
@@ -276,5 +275,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "2024-08-15"
+    "version": "2024-08-29"
 }
