@@ -325,7 +325,7 @@
 </tr>
 <tr>
 <td><a href="../bibliographicCitation/">bibliographicCitation</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../Uri/">Uri</a></td>
 <td>Citation for the dataset</td>
 <td>direct</td>
 </tr>
@@ -530,8 +530,7 @@ attributes:
     slot_uri: dcterms:bibliographicCitation
     domain_of:
     - Dataset
-    range: string
-    required: true
+    range: uri
   identifier:
     name: identifier
     description: Unique identifier for the dataset.
@@ -705,8 +704,7 @@ attributes:
     owner: Dataset
     domain_of:
     - Dataset
-    range: string
-    required: true
+    range: uri
   identifier:
     name: identifier
     description: Unique identifier for the dataset.
