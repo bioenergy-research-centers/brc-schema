@@ -173,7 +173,7 @@
         "NCBITaxID": 562,
         "scientificName": "Escherichia coli"
       }],
-      "bibliographicCitation": " https://dx.doi.org/10.6019/PXD031402",
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD031402",
       "date": "2022-09-19",
       "keywords": [
         "Biofuels",
@@ -327,7 +327,7 @@
         "NCBITaxID": 160488,
         "scientificName": "Pseudomonas putida KT2440"
       }],
-      "bibliographicCitation": "https,://dx.doi.org/10.6019/PXD014285",
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD014285",
       "date": "2020-04-07",
       "keywords": [
         "Lignin valorization, Pseudomonas putida"
