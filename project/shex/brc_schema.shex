@@ -64,7 +64,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject>
              <https://w3id.org/brc/RepositoryEnum#OSTI> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>
              <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ] ? ;
-          dcterms:bibliographicCitation @linkml:Uriorcurie ? ;
+          dcterms:bibliographicCitation @linkml:Uri ? ;
           schema1:identifier @linkml:String ;
           <species> @<Organism> * ;
           <analysisType> @linkml:String ? ;

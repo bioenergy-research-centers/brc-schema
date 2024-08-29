@@ -8,7 +8,7 @@ type Dataset
     creator: [Individual]!
     brc: BRCEnum!
     repository: RepositoryEnum
-    bibliographicCitation: Uriorcurie
+    bibliographicCitation: Uri
     identifier: String!
     species: [Organism]
     analysisType: String
