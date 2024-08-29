@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-29T11:20:30
+# Generation date: 2024-08-29T11:25:25
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -124,7 +124,7 @@ class Dataset(YAMLRoot):
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
-    bibliographicCitation: Optional[str] = None
+    bibliographicCitation: Optional[Union[str, URIorCURIE]] = None
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
@@ -165,8 +165,8 @@ class Dataset(YAMLRoot):
         if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
             self.repository = RepositoryEnum(self.repository)
 
-        if self.bibliographicCitation is not None and not isinstance(self.bibliographicCitation, str):
-            self.bibliographicCitation = str(self.bibliographicCitation)
+        if self.bibliographicCitation is not None and not isinstance(self.bibliographicCitation, URIorCURIE):
+            self.bibliographicCitation = URIorCURIE(self.bibliographicCitation)
 
         if not isinstance(self.species, list):
             self.species = [self.species] if self.species is not None else []
@@ -496,7 +496,7 @@ slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository",
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])
 
 slots.dataset__bibliographicCitation = Slot(uri=DCTERMS.bibliographicCitation, name="dataset__bibliographicCitation", curie=DCTERMS.curie('bibliographicCitation'),
-                   model_uri=BRC.dataset__bibliographicCitation, domain=None, range=Optional[str])
+                   model_uri=BRC.dataset__bibliographicCitation, domain=None, range=Optional[Union[str, URIorCURIE]])
 
 slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifier", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__identifier, domain=None, range=str)

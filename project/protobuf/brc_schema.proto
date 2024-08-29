@@ -11,7 +11,7 @@ message Dataset
  repeated  individual creator = 0
   bRCEnum brc = 0
   repositoryEnum repository = 0
-  string bibliographicCitation = 0
+  uriorcurie bibliographicCitation = 0
   string identifier = 0
  repeated  organism species = 0
   string analysisType = 0

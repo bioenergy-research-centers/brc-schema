@@ -811,7 +811,7 @@
       "domain_of": [
         "Dataset"
       ],
-      "range": "string",
+      "range": "uriorcurie",
       "@type": "SlotDefinition"
     },
     {
@@ -1246,7 +1246,7 @@
           "name": "bibliographicCitation",
           "description": "Citation for the dataset.",
           "slot_uri": "dcterms:bibliographicCitation",
-          "range": "string",
+          "range": "uriorcurie",
           "@type": "SlotDefinition"
         },
         {
@@ -1482,9 +1482,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2024-08-29T11:20:17",
-  "source_file_size": 10843,
-  "generation_date": "2024-08-29T11:20:30",
+  "source_file_date": "2024-08-29T11:23:34",
+  "source_file_size": 10847,
+  "generation_date": "2024-08-29T11:25:25",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

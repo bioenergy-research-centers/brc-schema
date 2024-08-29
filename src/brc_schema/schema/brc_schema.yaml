@@ -103,7 +103,7 @@ classes:
         description: "The repository where the dataset is stored."
       bibliographicCitation:
         # TODO: define a more specific format, like DOI
-        range: string
+        range: uriorcurie
         description: "Citation for the dataset."
         slot_uri: dcterms:bibliographicCitation
       identifier:
