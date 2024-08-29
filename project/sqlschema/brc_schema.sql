@@ -76,7 +76,7 @@ CREATE TABLE "Dataset" (
 	date DATE NOT NULL, 
 	brc VARCHAR(5) NOT NULL, 
 	repository VARCHAR(15), 
-	"bibliographicCitation" TEXT NOT NULL, 
+	"bibliographicCitation" TEXT, 
 	identifier TEXT NOT NULL, 
 	"analysisType" TEXT, 
 	description TEXT, 

@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-15T13:19:04
+# Generation date: 2024-08-29T11:34:05
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -11,7 +11,7 @@ import re
 from jsonasobj2 import JsonObj, as_dict
 from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, time
 from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
 
 from linkml_runtime.utils.slot import Slot
@@ -22,11 +22,11 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Uriorcurie
-from linkml_runtime.utils.metamodelcore import Bool, URIorCURIE, XSDDate
+from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Uri, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "2024-08-15"
+version = "2024-08-29"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -83,7 +83,7 @@ class WikidataIdentifier(Uriorcurie):
 
 
 
-@dataclass
+@dataclass(repr=False)
 class DatasetCollection(YAMLRoot):
     """
     Container class for defining a collection of datasets.
@@ -105,7 +105,7 @@ class DatasetCollection(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Dataset(YAMLRoot):
     """
     A dataset containing metabolomics and proteomics data.
@@ -121,10 +121,10 @@ class Dataset(YAMLRoot):
     date: Union[str, XSDDate] = None
     creator: Union[Union[dict, "Individual"], List[Union[dict, "Individual"]]] = None
     brc: Union[str, "BRCEnum"] = None
-    bibliographicCitation: str = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
+    bibliographicCitation: Optional[Union[str, URI]] = None
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
@@ -154,11 +154,6 @@ class Dataset(YAMLRoot):
         if not isinstance(self.brc, BRCEnum):
             self.brc = BRCEnum(self.brc)
 
-        if self._is_empty(self.bibliographicCitation):
-            self.MissingRequiredField("bibliographicCitation")
-        if not isinstance(self.bibliographicCitation, str):
-            self.bibliographicCitation = str(self.bibliographicCitation)
-
         if self._is_empty(self.identifier):
             self.MissingRequiredField("identifier")
         if not isinstance(self.identifier, str):
@@ -169,6 +164,9 @@ class Dataset(YAMLRoot):
 
         if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
             self.repository = RepositoryEnum(self.repository)
+
+        if self.bibliographicCitation is not None and not isinstance(self.bibliographicCitation, URI):
+            self.bibliographicCitation = URI(self.bibliographicCitation)
 
         if not isinstance(self.species, list):
             self.species = [self.species] if self.species is not None else []
@@ -193,7 +191,7 @@ class Dataset(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Individual(YAMLRoot):
     """
     An individual involved in the dataset.
@@ -226,7 +224,7 @@ class Individual(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Organization(YAMLRoot):
     """
     An organization involved in the dataset.
@@ -259,7 +257,7 @@ class Organization(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Organism(YAMLRoot):
     """
     An organism studied in the dataset.
@@ -284,7 +282,7 @@ class Organism(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class RelatedItem(YAMLRoot):
     """
     A related publication or item, including cited publications.
@@ -498,7 +496,7 @@ slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository",
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])
 
 slots.dataset__bibliographicCitation = Slot(uri=DCTERMS.bibliographicCitation, name="dataset__bibliographicCitation", curie=DCTERMS.curie('bibliographicCitation'),
-                   model_uri=BRC.dataset__bibliographicCitation, domain=None, range=str)
+                   model_uri=BRC.dataset__bibliographicCitation, domain=None, range=Optional[Union[str, URI]])
 
 slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifier", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__identifier, domain=None, range=str)
