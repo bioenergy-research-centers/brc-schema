@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 2024-08-29
+# version: 2024-09-12
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -66,6 +66,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ] ? ;
           dcterms:bibliographicCitation @linkml:Uri ? ;
           schema1:identifier @linkml:String ;
+          <has_related_ids> @linkml:Uriorcurie * ;
           <species> @<Organism> * ;
           <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;

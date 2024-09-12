@@ -1,6 +1,9 @@
 {
+   "BIOPROJECT": "https://www.ncbi.nlm.nih.gov/bioproject/?term=",
+   "BIOSAMPLE": "http://www.ncbi.nlm.nih.gov/biosample?term=",
    "ERO": "http://purl.obolibrary.org/obo/ERO_",
    "IAO": "http://purl.obolibrary.org/obo/IAO_",
+   "INSDC.SRA": "https://www.ncbi.nlm.nih.gov/sra/",
    "MI": "http://purl.obolibrary.org/obo/MI_",
    "NCIT": "http://purl.obolibrary.org/obo/NCIT_",
    "OBI": "http://purl.obolibrary.org/obo/OBI_",

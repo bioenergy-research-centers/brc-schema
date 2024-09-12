@@ -36,6 +36,9 @@
 --     * Slot: title Description: Title of the related item.
 --     * Slot: relatedItemType Description: Type of the related item, e.g., JournalArticle.
 --     * Slot: relatedItemIdentifier Description: Identifier or URL for the related item.
+-- # Class: "Dataset_has_related_ids" Description: ""
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: has_related_ids Description: "Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset."
 -- # Class: "Dataset_species" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: species_id Description: Species information for the organism(s) studied.
@@ -95,6 +98,12 @@ CREATE TABLE "Individual" (
 	affiliation TEXT, 
 	"Dataset_uid" INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE TABLE "Dataset_has_related_ids" (
+	"Dataset_uid" INTEGER, 
+	has_related_ids TEXT, 
+	PRIMARY KEY ("Dataset_uid", has_related_ids), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
 CREATE TABLE "Dataset_species" (

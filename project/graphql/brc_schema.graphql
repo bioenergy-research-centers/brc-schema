@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 2024-08-29
+# version: 2024-09-12
 type Dataset
   {
     id: Uriorcurie
@@ -10,6 +10,7 @@ type Dataset
     repository: RepositoryEnum
     bibliographicCitation: Uri
     identifier: String!
+    hasRelatedIds: [Uriorcurie]
     species: [Organism]
     analysisType: String
     description: String
