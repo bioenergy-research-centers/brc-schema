@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/Date/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/has_related_ids/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Type: Date - brc-schema</title>
+        <title>Slot: has_related_ids - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#type-date" class="md-skip">
+        <a href="#slot-has_related_ids" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Type: Date
+              Slot: has_related_ids
             
           </span>
         </div>
@@ -256,12 +256,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#applicable-classes" class="md-nav__link">
+    Applicable Classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     Identifier and Mapping Information
   </a>
   
     <nav class="md-nav" aria-label="Identifier and Mapping Information">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valid-id-prefixes" class="md-nav__link">
+    Valid ID Prefixes
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#schema-source" class="md-nav__link">
@@ -282,6 +303,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#linkml-source" class="md-nav__link">
+    LinkML Source
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -296,27 +324,57 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/Date.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/has_related_ids.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="type-date">Type: Date</h1>
-<p><em>a date (year, month and day) in an idealized calendar</em></p>
-<p>URI: <a href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a></p>
+<h1 id="slot-has_related_ids">Slot: has_related_ids</h1>
+<p><em>"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset."</em></p>
+<p>URI: <a href="https://w3id.org/brc/has_related_ids">brc:has_related_ids</a></p>
+<!-- no inheritance hierarchy -->
+
+<h2 id="applicable-classes">Applicable Classes</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Modifies Slot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../Dataset/">Dataset</a></td>
+<td>A dataset containing metabolomics and proteomics data</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
 <ul>
 <li>
-<p><a href="https://w3id.org/linkml/base">base</a>: XSDDate</p>
+<p>Range: <a href="../Uriorcurie/">Uriorcurie</a></p>
 </li>
 <li>
-<p><a href="https://w3id.org/linkml/uri">uri</a>: xsd:date</p>
-</li>
-<li>
-<p><a href="https://w3id.org/linkml/repr">repr</a>: str</p>
+<p>Multivalued: True</p>
 </li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="valid-id-prefixes">Valid ID Prefixes</h3>
+<p>Instances of this class <em>should</em> have identifiers with one of the following prefixes:</p>
+<ul>
+<li>
+<p>BIOPROJECT</p>
+</li>
+<li>
+<p>BIOSAMPLE</p>
+</li>
+<li>
+<p>INSDC.SRA</p>
+</li>
+</ul>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/brc/brc_schema</li>
@@ -332,14 +390,37 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>dcterms:date</td>
+<td>brc:has_related_ids</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:date</td>
+<td>brc:has_related_ids</td>
 </tr>
 </tbody>
 </table>
+<h2 id="linkml-source">LinkML Source</h2>
+<details>
+
+<pre><code class="language-yaml">name: has_related_ids
+id_prefixes:
+- BIOPROJECT
+- BIOSAMPLE
+- INSDC.SRA
+description: '&quot;Related identifiers for the dataset. These should be identifiers to
+  records in other repositories, and these records may be the same data or components
+  of the dataset.&quot;'
+from_schema: https://w3id.org/brc/brc_schema
+rank: 1000
+alias: has_related_ids
+owner: Dataset
+domain_of:
+- Dataset
+range: uriorcurie
+multivalued: true
+
+</code></pre>
+
+</details>
 
 
 
