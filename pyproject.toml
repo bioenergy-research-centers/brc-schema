@@ -12,7 +12,7 @@ python = "^3.9"
 linkml-runtime = "^1.7.0"
 
 [tool.poetry-dynamic-versioning]
-enable = true
+enable = false
 vcs = "git"
 style = "pep440"
 

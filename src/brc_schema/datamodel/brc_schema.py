@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-29T11:34:05
+# Generation date: 2024-09-12T11:24:27
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -26,14 +26,17 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "2024-08-29"
+version = "2024-09-12"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
+BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
+BIOSAMPLE = CurieNamespace('BIOSAMPLE', 'http://www.ncbi.nlm.nih.gov/biosample?term=')
 ERO = CurieNamespace('ERO', 'http://purl.obolibrary.org/obo/ERO_')
 IAO = CurieNamespace('IAO', 'http://purl.obolibrary.org/obo/IAO_')
+INSDC_SRA = CurieNamespace('INSDC_SRA', 'https://www.ncbi.nlm.nih.gov/sra/')
 MI = CurieNamespace('MI', 'http://purl.obolibrary.org/obo/MI_')
 NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
@@ -125,6 +128,7 @@ class Dataset(YAMLRoot):
     id: Optional[Union[str, URIorCURIE]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     bibliographicCitation: Optional[Union[str, URI]] = None
+    has_related_ids: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
@@ -167,6 +171,10 @@ class Dataset(YAMLRoot):
 
         if self.bibliographicCitation is not None and not isinstance(self.bibliographicCitation, URI):
             self.bibliographicCitation = URI(self.bibliographicCitation)
+
+        if not isinstance(self.has_related_ids, list):
+            self.has_related_ids = [self.has_related_ids] if self.has_related_ids is not None else []
+        self.has_related_ids = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.has_related_ids]
 
         if not isinstance(self.species, list):
             self.species = [self.species] if self.species is not None else []
@@ -500,6 +508,9 @@ slots.dataset__bibliographicCitation = Slot(uri=DCTERMS.bibliographicCitation, n
 
 slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifier", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__identifier, domain=None, range=str)
+
+slots.dataset__has_related_ids = Slot(uri=BRC.has_related_ids, name="dataset__has_related_ids", curie=BRC.curie('has_related_ids'),
+                   model_uri=BRC.dataset__has_related_ids, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
 
 slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BRC.curie('species'),
                    model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
