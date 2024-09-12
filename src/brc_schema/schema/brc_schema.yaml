@@ -10,13 +10,11 @@ description: >-
 version: "2024-08-29"
 
 prefixes:
-  linkml: https://w3id.org/linkml/
-  cbi: https://fair.ornl.gov/CBI/
-  cabbi: https://cabbitools.igb.illinois.edu/brc/
-  glbrc: https://fair-data.glbrc.org/
-  jbei: https://hello.bioenergy.org/JBEI/
+  BIOPROJECT: https://www.ncbi.nlm.nih.gov/bioproject/?term=
+  BIOSAMPLE: http://www.ncbi.nlm.nih.gov/biosample?term=
   ERO: http://purl.obolibrary.org/obo/ERO_
   IAO: http://purl.obolibrary.org/obo/IAO_
+  INSDC.SRA: https://www.ncbi.nlm.nih.gov/sra/
   MI: http://purl.obolibrary.org/obo/MI_
   NCIT: http://purl.obolibrary.org/obo/NCIT_
   OBI: http://purl.obolibrary.org/obo/OBI_
@@ -25,9 +23,14 @@ prefixes:
   bald: https://www.opengis.net/def/binary-array-ld/
   bibo: http://purl.org/ontology/bibo/
   brc: https://w3id.org/brc/
+  cabbi: https://cabbitools.igb.illinois.edu/brc/
+  cbi: https://fair.ornl.gov/CBI/
   dcat: http://www.w3.org/ns/dcat#
   dcterms: http://purl.org/dc/terms/
   edam: http://edamontology.org/
+  glbrc: https://fair-data.glbrc.org/
+  jbei: https://hello.bioenergy.org/JBEI/
+  linkml: https://w3id.org/linkml/
   oslc: http://open-services.net/ns/core#
   pav: http://purl.org/pav/
   prov: http://www.w3.org/ns/prov#
@@ -113,6 +116,18 @@ classes:
         description: "Unique identifier for the dataset."
         required: true
         slot_uri: schema:identifier
+      has_related_ids:
+        range: uriorcurie
+        multivalued: true
+        description: >-
+          "Related identifiers for the dataset. These
+          should be identifiers to records in other repositories,
+          and these records may be the same data or components
+          of the dataset."
+        id_prefixes:
+          - BIOPROJECT
+          - BIOSAMPLE
+          - INSDC.SRA
       species:
         range: Organism
         multivalued: true
