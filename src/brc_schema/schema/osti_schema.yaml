@@ -2,17 +2,15 @@ id: https://w3id.org/brc/osti_schema
 name: osti_schema
 title: LinkML schema of OSTI Submission Metadata
 description: >-
-        This schema is a LinkML representation of the OSTI Submission Metadata
-        schema, as described here:
-        https://www.osti.gov/elink/241-6api.jsp#record-model
-        OSTI uses the ELINK API infrastructure.
-        This schema corresponds to ELINK 241.6.
-        Note: for compatibility with the ELINK API, the schema uses the
-        original capitalization, e.g., "record" rather than "Record",
-        though the latter is more common in LinkML.
+  This schema is a LinkML representation of the OSTI Submission Metadata
+  schema, as described here:
+  https://www.osti.gov/elink/241-6api.jsp#record-model
+  OSTI uses the ELINK API infrastructure.
+  This schema corresponds to ELINK 241.6.
+  Note: for compatibility with the ELINK API, the schema uses the
+  original capitalization, e.g., "record" rather than "Record",
+  though the latter is more common in LinkML.
 version: "241.6"
-
-
 prefixes:
   linkml: https://w3id.org/linkml/
 
@@ -23,7 +21,6 @@ imports:
   - linkml:types
 
 classes:
-
   records:
     description: >-
       Results are always presented as a list of data defined as <record>
@@ -421,15 +418,14 @@ classes:
         range: float
 
 enums:
-
   ContributorTypeCodes:
     description: >-
       The type of contribution.
     permissible_values:
       ContactPerson:
         description: >-
-          Person with knowledge of how to access, troubleshoot, or otherwise field
-          issues related to the resource.
+          Person with knowledge of how to access, troubleshoot, or otherwise
+          field issues related to the resource.
       DataCollector:
         description: >-
           Person/institution responsible for finding or gathering data under the
@@ -444,23 +440,24 @@ enums:
           centre) responsible for maintaining the finished resource.
       Distributor:
         description: >-
-          Institution tasked with responsibility to generate/disseminate copies of
-          the resource in either electronic or print form.
+          Institution tasked with responsibility to generate/disseminate copies
+          of the resource in either electronic or print form.
       Editor:
         description: >-
           A person who oversees the details related to the publication format of
           the resource.
       HostingInstitution:
         description: >-
-          The organization allowing the resource to be available on the internet.
+          The organization allowing the resource to be available on the
+          internet.
       Producer:
         description: >-
-          Typically a person or organization responsible for the artistry and form
-          of a media product.
+          Typically a person or organization responsible for the artistry and
+          form of a media product.
       ProjectLeader:
         description: >-
-          Person officially designated as head of project team instrumental in the
-          work necessary to development of the resource.
+          Person officially designated as head of project team instrumental in
+          the work necessary to development of the resource.
       ProjectManager:
         description: >-
           Person officially designated as manager of a project. Project may
