@@ -353,9 +353,10 @@ classes:
     is_a: author
     description: >-
       Contributors are optional, but similar to authors.
-    contributorType:
-      description: The contribution type, attribute exclusive to contributors.
-      range: ContributorTypeCodes
+    attributes:
+      contributorType:
+        description: The contribution type, attribute exclusive to contributors.
+        range: ContributorTypeCodes
 
   detail:
     description: >-
