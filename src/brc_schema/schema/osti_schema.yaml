@@ -424,94 +424,94 @@ enums:
   ContributorTypeCodes:
     description: >-
       The type of contribution.
-    values:
-    ContactPerson:
-      description: >-
-        Person with knowledge of how to access, troubleshoot, or otherwise field
-        issues related to the resource.
-    DataCollector:
-      description: >-
-        Person/institution responsible for finding or gathering data under the
-        guidelines of the author(s) or Principal Investigator.
-    DataCurator:
-      description: >-
-        Person tasked with reviewing, enhancing, cleaning, or standardizing
-        metadata and the associated data submitted.
-    DataManager:
-      description: >-
-        Person (or organization with a staff of data managers, such as a data
-        centre) responsible for maintaining the finished resource.
-    Distributor:
-      description: >-
-        Institution tasked with responsibility to generate/disseminate copies of
-        the resource in either electronic or print form.
-    Editor:
-      description: >-
-        A person who oversees the details related to the publication format of
-        the resource.
-    HostingInstitution:
-      description: >-
-        The organization allowing the resource to be available on the internet.
-    Producer:
-      description: >-
-        Typically a person or organization responsible for the artistry and form
-        of a media product.
-    ProjectLeader:
-      description: >-
-        Person officially designated as head of project team instrumental in the
-        work necessary to development of the resource.
-    ProjectManager:
-      description: >-
-        Person officially designated as manager of a project. Project may
-        consist of one or many project teams and sub-teams.
-    ProjectMember:
-      description: >-
-        Person on the membership list of a designated project/project team.
-    RegistrationAgency:
-      description: >-
-        Institution officially appointed by a Registration Authority to handle
-        specific tasks within a defined area of responsibility.
-    RegistrationAuthority:
-      description: >-
-        A standards-setting body from which Registration Agencies obtain
-        official recognition and guidance.
-    RelatedPerson:
-      description: >-
-        Person with no specifically defined role in the development of the
-        resource, but who is someone the author wishes to recognize.
-    Researcher:
-      description: >-
-        A person involved in analyzing data or the results of an experiment or
-        formal study.
-    ResearchGroup:
-      description: >-
-        Refers to a group of individuals with a lab, department, or division;
-        the group has a particular, defined focus of activity.
-    RightsHolder:
-      description: >-
-        Person or institution owning or managing property rights, including
-        intellectual property rights over the resource.
-    Sponsor:
-      description: >-
-        Person or organization that issued a contract or under the auspices of
-        which a work has been performed.
-    Supervisor:
-      description: >-
-        Designated administrator over one or more groups working to produce a
-        resource or over one or more steps of development process.
-    WorkPackageLeader:
-      description: >-
-        A Work Package is a recognized data product, not all of which is
-        included in publication.
-    Other:
-      description: >-
-        Any person or institution making a significant contribution, but whose
-        contribution does not "fit".
+    permissible_values:
+      ContactPerson:
+        description: >-
+          Person with knowledge of how to access, troubleshoot, or otherwise field
+          issues related to the resource.
+      DataCollector:
+        description: >-
+          Person/institution responsible for finding or gathering data under the
+          guidelines of the author(s) or Principal Investigator.
+      DataCurator:
+        description: >-
+          Person tasked with reviewing, enhancing, cleaning, or standardizing
+          metadata and the associated data submitted.
+      DataManager:
+        description: >-
+          Person (or organization with a staff of data managers, such as a data
+          centre) responsible for maintaining the finished resource.
+      Distributor:
+        description: >-
+          Institution tasked with responsibility to generate/disseminate copies of
+          the resource in either electronic or print form.
+      Editor:
+        description: >-
+          A person who oversees the details related to the publication format of
+          the resource.
+      HostingInstitution:
+        description: >-
+          The organization allowing the resource to be available on the internet.
+      Producer:
+        description: >-
+          Typically a person or organization responsible for the artistry and form
+          of a media product.
+      ProjectLeader:
+        description: >-
+          Person officially designated as head of project team instrumental in the
+          work necessary to development of the resource.
+      ProjectManager:
+        description: >-
+          Person officially designated as manager of a project. Project may
+          consist of one or many project teams and sub-teams.
+      ProjectMember:
+        description: >-
+          Person on the membership list of a designated project/project team.
+      RegistrationAgency:
+        description: >-
+          Institution officially appointed by a Registration Authority to handle
+          specific tasks within a defined area of responsibility.
+      RegistrationAuthority:
+        description: >-
+          A standards-setting body from which Registration Agencies obtain
+          official recognition and guidance.
+      RelatedPerson:
+        description: >-
+          Person with no specifically defined role in the development of the
+          resource, but who is someone the author wishes to recognize.
+      Researcher:
+        description: >-
+          A person involved in analyzing data or the results of an experiment or
+          formal study.
+      ResearchGroup:
+        description: >-
+          Refers to a group of individuals with a lab, department, or division;
+          the group has a particular, defined focus of activity.
+      RightsHolder:
+        description: >-
+          Person or institution owning or managing property rights, including
+          intellectual property rights over the resource.
+      Sponsor:
+        description: >-
+          Person or organization that issued a contract or under the auspices of
+          which a work has been performed.
+      Supervisor:
+        description: >-
+          Designated administrator over one or more groups working to produce a
+          resource or over one or more steps of development process.
+      WorkPackageLeader:
+        description: >-
+          A Work Package is a recognized data product, not all of which is
+          included in publication.
+      Other:
+        description: >-
+          Any person or institution making a significant contribution, but whose
+          contribution does not "fit".
 
   DatasetTypeCodes:
     description: >-
       The type of dataset.
-    values:
+    permissible_values:
       AS:
         description: Animations/Simulations
       GD:
@@ -534,7 +534,7 @@ enums:
   relatedIdentifierType:
     description: >
       The type of identifier for the related resource.
-    values:
+    permissible_values:
       DOI:
         description: The related identifier is a DOI
       URL:
@@ -544,7 +544,7 @@ enums:
     description: >
       The type of relation between the related identifier and the parent
       dataset.
-    values:
+    permissible_values:
       Cites:
         description: indicates that A includes B in a citation
       Compiles:
