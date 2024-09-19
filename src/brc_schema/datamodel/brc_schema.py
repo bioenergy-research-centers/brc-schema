@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-09-12T11:24:27
+# Generation date: 2024-09-19T13:39:12
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -26,7 +26,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "2024-09-12"
+version = "0.0.3"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -132,7 +132,7 @@ class Dataset(YAMLRoot):
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     description: Optional[str] = None
-    relatedItem: Optional[Union[dict, "RelatedItem"]] = None
+    relatedItem: Optional[Union[Union[dict, "RelatedItem"], List[Union[dict, "RelatedItem"]]]] = empty_list()
     keywords: Optional[Union[str, List[str]]] = empty_list()
     datasetName: Optional[str] = None
 
@@ -186,8 +186,9 @@ class Dataset(YAMLRoot):
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
 
-        if self.relatedItem is not None and not isinstance(self.relatedItem, RelatedItem):
-            self.relatedItem = RelatedItem(**as_dict(self.relatedItem))
+        if not isinstance(self.relatedItem, list):
+            self.relatedItem = [self.relatedItem] if self.relatedItem is not None else []
+        self.relatedItem = [v if isinstance(v, RelatedItem) else RelatedItem(**as_dict(v)) for v in self.relatedItem]
 
         if not isinstance(self.keywords, list):
             self.keywords = [self.keywords] if self.keywords is not None else []
@@ -522,7 +523,7 @@ slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__descri
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])
 
 slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedItem", curie=BRC.curie('relatedItem'),
-                   model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[dict, RelatedItem]])
+                   model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[Union[dict, RelatedItem], List[Union[dict, RelatedItem]]]])
 
 slots.dataset__keywords = Slot(uri=DCAT.keyword, name="dataset__keywords", curie=DCAT.curie('keyword'),
                    model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, List[str]]])

@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 2024-09-12
+// version: 0.0.3
 // A dataset containing metabolomics and proteomics data.
 message Dataset
  {
@@ -17,7 +17,7 @@ message Dataset
  repeated  organism species = 0
   string analysisType = 0
   string description = 0
-  relatedItem relatedItem = 0
+ repeated  relatedItem relatedItem = 0
  repeated  string keywords = 0
   string datasetName = 0
  }

@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 2024-09-12
+# version: 0.0.3
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -70,7 +70,7 @@ linkml:Sparqlpath xsd:string
           <species> @<Organism> * ;
           <analysisType> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
-          <relatedItem> @<RelatedItem> ? ;
+          <relatedItem> @<RelatedItem> * ;
           dcat:keyword @linkml:String * ;
           <datasetName> @linkml:String ?
        ) ;

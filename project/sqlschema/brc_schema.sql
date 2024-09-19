@@ -13,7 +13,6 @@
 --     * Slot: description Description: A detailed description of the dataset.
 --     * Slot: datasetName Description: "Name of a overall dataset to which this data entry belongs."
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
---     * Slot: relatedItem_id Description: Related publication or item.
 -- # Class: "Individual" Description: "An individual involved in the dataset."
 --     * Slot: id Description: 
 --     * Slot: creatorName Description: Name of the creator.
@@ -42,6 +41,9 @@
 -- # Class: "Dataset_species" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: species_id Description: Species information for the organism(s) studied.
+-- # Class: "Dataset_relatedItem" Description: ""
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: relatedItem_id Description: Related publications or items.
 -- # Class: "Dataset_keywords" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: keywords Description: Keywords associated with the dataset.
@@ -85,10 +87,8 @@ CREATE TABLE "Dataset" (
 	description TEXT, 
 	"datasetName" TEXT, 
 	"DatasetCollection_id" INTEGER, 
-	"relatedItem_id" INTEGER, 
 	PRIMARY KEY (uid), 
-	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id), 
-	FOREIGN KEY("relatedItem_id") REFERENCES "RelatedItem" (id)
+	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id)
 );
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL, 
@@ -112,6 +112,13 @@ CREATE TABLE "Dataset_species" (
 	PRIMARY KEY ("Dataset_uid", species_id), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
+);
+CREATE TABLE "Dataset_relatedItem" (
+	"Dataset_uid" INTEGER, 
+	"relatedItem_id" INTEGER, 
+	PRIMARY KEY ("Dataset_uid", "relatedItem_id"), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
+	FOREIGN KEY("relatedItem_id") REFERENCES "RelatedItem" (id)
 );
 CREATE TABLE "Dataset_keywords" (
 	"Dataset_uid" INTEGER, 

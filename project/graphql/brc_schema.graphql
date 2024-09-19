@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 2024-09-12
+# version: 0.0.3
 type Dataset
   {
     id: Uriorcurie
@@ -14,7 +14,7 @@ type Dataset
     species: [Organism]
     analysisType: String
     description: String
-    relatedItem: RelatedItem
+    relatedItem: [RelatedItem]
     keywords: [String]
     datasetName: String
   }
