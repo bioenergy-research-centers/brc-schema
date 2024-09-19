@@ -144,7 +144,8 @@ classes:
         slot_uri: dcterms:description
       relatedItem:
         range: RelatedItem
-        description: "Related publication or item."
+        description: "Related publications or items."
+        multivalued: true
       keywords:
         range: string
         multivalued: true
