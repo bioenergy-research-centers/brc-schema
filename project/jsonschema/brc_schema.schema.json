@@ -133,15 +133,14 @@
                     ]
                 },
                 "relatedItem": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/RelatedItem"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Related publication or item."
+                    "description": "Related publications or items.",
+                    "items": {
+                        "$ref": "#/$defs/RelatedItem"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "repository": {
                     "$ref": "#/$defs/RepositoryEnum",
@@ -359,5 +358,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "2024-09-12"
+    "version": "0.0.3"
 }
