@@ -324,7 +324,7 @@
 
 
 <h1 id="slot-relateditem">Slot: relatedItem</h1>
-<p><em>Related publication or item.</em></p>
+<p><em>Related publications or items.</em></p>
 <p>URI: <a href="https://w3id.org/brc/relatedItem">brc:relatedItem</a></p>
 <!-- no inheritance hierarchy -->
 
@@ -347,7 +347,12 @@
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../RelatedItem/">RelatedItem</a></li>
+<li>
+<p>Range: <a href="../RelatedItem/">RelatedItem</a></p>
+</li>
+<li>
+<p>Multivalued: True</p>
+</li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -377,7 +382,7 @@
 <details>
 
 <pre><code class="language-yaml">name: relatedItem
-description: Related publication or item.
+description: Related publications or items.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 alias: relatedItem
@@ -385,6 +390,7 @@ owner: Dataset
 domain_of:
 - Dataset
 range: RelatedItem
+multivalued: true
 
 </code></pre>
 

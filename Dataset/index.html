@@ -251,7 +251,7 @@
 
 
 
-    Dataset --&gt; "0..1" RelatedItem : relatedItem
+    Dataset --&gt; "*" RelatedItem : relatedItem
     click RelatedItem href "../RelatedItem"
 
 
@@ -363,8 +363,8 @@
 </tr>
 <tr>
 <td><a href="../relatedItem/">relatedItem</a></td>
-<td>0..1 <br/> <a href="../RelatedItem/">RelatedItem</a></td>
-<td>Related publication or item</td>
+<td>* <br/> <a href="../RelatedItem/">RelatedItem</a></td>
+<td>Related publications or items</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -595,12 +595,13 @@ attributes:
     range: string
   relatedItem:
     name: relatedItem
-    description: Related publication or item.
+    description: Related publications or items.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
     range: RelatedItem
+    multivalued: true
   keywords:
     name: keywords
     description: Keywords associated with the dataset.
@@ -795,7 +796,7 @@ attributes:
     range: string
   relatedItem:
     name: relatedItem
-    description: Related publication or item.
+    description: Related publications or items.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: relatedItem
@@ -803,6 +804,7 @@ attributes:
     domain_of:
     - Dataset
     range: RelatedItem
+    multivalued: true
   keywords:
     name: keywords
     description: Keywords associated with the dataset.
