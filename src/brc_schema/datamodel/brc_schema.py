@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-09-19T13:39:12
+# Generation date: 2024-09-26T10:49:27
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -22,11 +22,11 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Uri, Uriorcurie
+from linkml_runtime.linkml_model.types import Boolean, Date, Float, Integer, String, Uri, Uriorcurie
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.0.3"
+version = "0.0.4"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -54,6 +54,7 @@ GLBRC = CurieNamespace('glbrc', 'https://fair-data.glbrc.org/')
 JBEI = CurieNamespace('jbei', 'https://hello.bioenergy.org/JBEI/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
 OSLC = CurieNamespace('oslc', 'http://open-services.net/ns/core#')
+OSTI = CurieNamespace('osti', 'https://www.osti.gov/biblio/')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
 PROV = CurieNamespace('prov', 'http://www.w3.org/ns/prov#')
 ROR = CurieNamespace('ror', 'https://ror.org/')
@@ -83,7 +84,8 @@ class WikidataIdentifier(Uriorcurie):
 
 
 # Class references
-
+class RecordOstiId(extended_int):
+    pass
 
 
 @dataclass(repr=False)
@@ -320,6 +322,451 @@ class RelatedItem(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
+class Records(YAMLRoot):
+    """
+    Results are always presented as a list of data defined as <record> elements wrapped in a <records> container.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Records"]
+    class_class_curie: ClassVar[str] = "osti:Records"
+    class_name: ClassVar[str] = "records"
+    class_model_uri: ClassVar[URIRef] = BRC.Records
+
+    records: Optional[Union[Union[int, RecordOstiId], List[Union[int, RecordOstiId]]]] = empty_list()
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if not isinstance(self.records, list):
+            self.records = [self.records] if self.records is not None else []
+        self.records = [v if isinstance(v, RecordOstiId) else RecordOstiId(v) for v in self.records]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Record(YAMLRoot):
+    """
+    A record is a collection of metadata elements that describe a data set.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Record"]
+    class_class_curie: ClassVar[str] = "osti:Record"
+    class_name: ClassVar[str] = "record"
+    class_model_uri: ClassVar[URIRef] = BRC.Record
+
+    osti_id: Union[int, RecordOstiId] = None
+    dataset_type: Union[str, "DatasetTypeCodes"] = None
+    title: str = None
+    authors: Union[Union[dict, "Author"], List[Union[dict, "Author"]]] = None
+    product_nos: str = None
+    contract_nos: str = None
+    publication_date: str = None
+    originating_research_org: str = None
+    sponsor_org: str = None
+    site_url: str = None
+    contact_name: str = None
+    contact_email: str = None
+    contact_org: str = None
+    contributors: Optional[Union[Union[dict, "Contributor"], List[Union[dict, "Contributor"]]]] = empty_list()
+    description: Optional[str] = None
+    product_type: Optional[str] = "DA"
+    doi: Optional[str] = None
+    doi_infix: Optional[str] = None
+    other_identifying_numbers: Optional[str] = None
+    keywords: Optional[str] = None
+    country: Optional[str] = None
+    language: Optional[str] = None
+    availability: Optional[str] = None
+    subject_categories_code: Optional[str] = None
+    entry_date: Optional[str] = None
+    site_input_code: Optional[str] = None
+    accession_num: Optional[str] = None
+    related_identifiers: Optional[Union[Union[dict, "Detail"], List[Union[dict, "Detail"]]]] = empty_list()
+    geolocations: Optional[Union[Union[dict, "Geolocation"], List[Union[dict, "Geolocation"]]]] = empty_list()
+    awards: Optional[Union[dict, "Award"]] = None
+    date_first_submitted: Optional[str] = None
+    date_last_submitted: Optional[str] = None
+    file_extension: Optional[str] = None
+    software_needed: Optional[str] = None
+    contact_phone: Optional[str] = None
+    othnondoe_contract_nos: Optional[str] = None
+    related_resource: Optional[str] = None
+    collaboration_names: Optional[str] = None
+    dataset_size: Optional[str] = None
+    set_reserved: Optional[str] = None
+    hidden: Optional[Union[bool, Bool]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.osti_id):
+            self.MissingRequiredField("osti_id")
+        if not isinstance(self.osti_id, RecordOstiId):
+            self.osti_id = RecordOstiId(self.osti_id)
+
+        if self._is_empty(self.dataset_type):
+            self.MissingRequiredField("dataset_type")
+        if not isinstance(self.dataset_type, DatasetTypeCodes):
+            self.dataset_type = DatasetTypeCodes(self.dataset_type)
+
+        if self._is_empty(self.title):
+            self.MissingRequiredField("title")
+        if not isinstance(self.title, str):
+            self.title = str(self.title)
+
+        if self._is_empty(self.authors):
+            self.MissingRequiredField("authors")
+        if not isinstance(self.authors, list):
+            self.authors = [self.authors] if self.authors is not None else []
+        self.authors = [v if isinstance(v, Author) else Author(**as_dict(v)) for v in self.authors]
+
+        if self._is_empty(self.product_nos):
+            self.MissingRequiredField("product_nos")
+        if not isinstance(self.product_nos, str):
+            self.product_nos = str(self.product_nos)
+
+        if self._is_empty(self.contract_nos):
+            self.MissingRequiredField("contract_nos")
+        if not isinstance(self.contract_nos, str):
+            self.contract_nos = str(self.contract_nos)
+
+        if self._is_empty(self.publication_date):
+            self.MissingRequiredField("publication_date")
+        if not isinstance(self.publication_date, str):
+            self.publication_date = str(self.publication_date)
+
+        if self._is_empty(self.originating_research_org):
+            self.MissingRequiredField("originating_research_org")
+        if not isinstance(self.originating_research_org, str):
+            self.originating_research_org = str(self.originating_research_org)
+
+        if self._is_empty(self.sponsor_org):
+            self.MissingRequiredField("sponsor_org")
+        if not isinstance(self.sponsor_org, str):
+            self.sponsor_org = str(self.sponsor_org)
+
+        if self._is_empty(self.site_url):
+            self.MissingRequiredField("site_url")
+        if not isinstance(self.site_url, str):
+            self.site_url = str(self.site_url)
+
+        if self._is_empty(self.contact_name):
+            self.MissingRequiredField("contact_name")
+        if not isinstance(self.contact_name, str):
+            self.contact_name = str(self.contact_name)
+
+        if self._is_empty(self.contact_email):
+            self.MissingRequiredField("contact_email")
+        if not isinstance(self.contact_email, str):
+            self.contact_email = str(self.contact_email)
+
+        if self._is_empty(self.contact_org):
+            self.MissingRequiredField("contact_org")
+        if not isinstance(self.contact_org, str):
+            self.contact_org = str(self.contact_org)
+
+        if not isinstance(self.contributors, list):
+            self.contributors = [self.contributors] if self.contributors is not None else []
+        self.contributors = [v if isinstance(v, Contributor) else Contributor(**as_dict(v)) for v in self.contributors]
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if self.product_type is not None and not isinstance(self.product_type, str):
+            self.product_type = str(self.product_type)
+
+        if self.doi is not None and not isinstance(self.doi, str):
+            self.doi = str(self.doi)
+
+        if self.doi_infix is not None and not isinstance(self.doi_infix, str):
+            self.doi_infix = str(self.doi_infix)
+
+        if self.other_identifying_numbers is not None and not isinstance(self.other_identifying_numbers, str):
+            self.other_identifying_numbers = str(self.other_identifying_numbers)
+
+        if self.keywords is not None and not isinstance(self.keywords, str):
+            self.keywords = str(self.keywords)
+
+        if self.country is not None and not isinstance(self.country, str):
+            self.country = str(self.country)
+
+        if self.language is not None and not isinstance(self.language, str):
+            self.language = str(self.language)
+
+        if self.availability is not None and not isinstance(self.availability, str):
+            self.availability = str(self.availability)
+
+        if self.subject_categories_code is not None and not isinstance(self.subject_categories_code, str):
+            self.subject_categories_code = str(self.subject_categories_code)
+
+        if self.entry_date is not None and not isinstance(self.entry_date, str):
+            self.entry_date = str(self.entry_date)
+
+        if self.site_input_code is not None and not isinstance(self.site_input_code, str):
+            self.site_input_code = str(self.site_input_code)
+
+        if self.accession_num is not None and not isinstance(self.accession_num, str):
+            self.accession_num = str(self.accession_num)
+
+        if not isinstance(self.related_identifiers, list):
+            self.related_identifiers = [self.related_identifiers] if self.related_identifiers is not None else []
+        self.related_identifiers = [v if isinstance(v, Detail) else Detail(**as_dict(v)) for v in self.related_identifiers]
+
+        if not isinstance(self.geolocations, list):
+            self.geolocations = [self.geolocations] if self.geolocations is not None else []
+        self.geolocations = [v if isinstance(v, Geolocation) else Geolocation(**as_dict(v)) for v in self.geolocations]
+
+        if self.awards is not None and not isinstance(self.awards, Award):
+            self.awards = Award(**as_dict(self.awards))
+
+        if self.date_first_submitted is not None and not isinstance(self.date_first_submitted, str):
+            self.date_first_submitted = str(self.date_first_submitted)
+
+        if self.date_last_submitted is not None and not isinstance(self.date_last_submitted, str):
+            self.date_last_submitted = str(self.date_last_submitted)
+
+        if self.file_extension is not None and not isinstance(self.file_extension, str):
+            self.file_extension = str(self.file_extension)
+
+        if self.software_needed is not None and not isinstance(self.software_needed, str):
+            self.software_needed = str(self.software_needed)
+
+        if self.contact_phone is not None and not isinstance(self.contact_phone, str):
+            self.contact_phone = str(self.contact_phone)
+
+        if self.othnondoe_contract_nos is not None and not isinstance(self.othnondoe_contract_nos, str):
+            self.othnondoe_contract_nos = str(self.othnondoe_contract_nos)
+
+        if self.related_resource is not None and not isinstance(self.related_resource, str):
+            self.related_resource = str(self.related_resource)
+
+        if self.collaboration_names is not None and not isinstance(self.collaboration_names, str):
+            self.collaboration_names = str(self.collaboration_names)
+
+        if self.dataset_size is not None and not isinstance(self.dataset_size, str):
+            self.dataset_size = str(self.dataset_size)
+
+        if self.set_reserved is not None and not isinstance(self.set_reserved, str):
+            self.set_reserved = str(self.set_reserved)
+
+        if self.hidden is not None and not isinstance(self.hidden, Bool):
+            self.hidden = Bool(self.hidden)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Author(YAMLRoot):
+    """
+    An author of a dataset.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Author"]
+    class_class_curie: ClassVar[str] = "osti:Author"
+    class_name: ClassVar[str] = "author"
+    class_model_uri: ClassVar[URIRef] = BRC.Author
+
+    first_name: Optional[str] = None
+    middle_name: Optional[str] = None
+    last_name: Optional[str] = None
+    affiliation_name: Optional[str] = None
+    private_email: Optional[str] = None
+    orcid_id: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.first_name is not None and not isinstance(self.first_name, str):
+            self.first_name = str(self.first_name)
+
+        if self.middle_name is not None and not isinstance(self.middle_name, str):
+            self.middle_name = str(self.middle_name)
+
+        if self.last_name is not None and not isinstance(self.last_name, str):
+            self.last_name = str(self.last_name)
+
+        if self.affiliation_name is not None and not isinstance(self.affiliation_name, str):
+            self.affiliation_name = str(self.affiliation_name)
+
+        if self.private_email is not None and not isinstance(self.private_email, str):
+            self.private_email = str(self.private_email)
+
+        if self.orcid_id is not None and not isinstance(self.orcid_id, str):
+            self.orcid_id = str(self.orcid_id)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Award(YAMLRoot):
+    """
+    Detail information for a particular award.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Award"]
+    class_class_curie: ClassVar[str] = "osti:Award"
+    class_name: ClassVar[str] = "award"
+    class_model_uri: ClassVar[URIRef] = BRC.Award
+
+    award_doi: Optional[str] = None
+    award_number: Optional[str] = None
+    funder_name: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.award_doi is not None and not isinstance(self.award_doi, str):
+            self.award_doi = str(self.award_doi)
+
+        if self.award_number is not None and not isinstance(self.award_number, str):
+            self.award_number = str(self.award_number)
+
+        if self.funder_name is not None and not isinstance(self.funder_name, str):
+            self.funder_name = str(self.funder_name)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class BoundingBox(YAMLRoot):
+    """
+    A square or rectangle shape defined by two sets of latitude and longitude data points.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["BoundingBox"]
+    class_class_curie: ClassVar[str] = "osti:BoundingBox"
+    class_name: ClassVar[str] = "boundingBox"
+    class_model_uri: ClassVar[URIRef] = BRC.BoundingBox
+
+    westLongitude: Optional[float] = None
+    eastLongitude: Optional[float] = None
+    northLatitude: Optional[float] = None
+    southLatitude: Optional[float] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.westLongitude is not None and not isinstance(self.westLongitude, float):
+            self.westLongitude = float(self.westLongitude)
+
+        if self.eastLongitude is not None and not isinstance(self.eastLongitude, float):
+            self.eastLongitude = float(self.eastLongitude)
+
+        if self.northLatitude is not None and not isinstance(self.northLatitude, float):
+            self.northLatitude = float(self.northLatitude)
+
+        if self.southLatitude is not None and not isinstance(self.southLatitude, float):
+            self.southLatitude = float(self.southLatitude)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Contributor(Author):
+    """
+    Contributors are optional, but similar to authors.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Contributor"]
+    class_class_curie: ClassVar[str] = "osti:Contributor"
+    class_name: ClassVar[str] = "contributor"
+    class_model_uri: ClassVar[URIRef] = BRC.Contributor
+
+    contributorType: Optional[Union[str, "ContributorTypeCodes"]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.contributorType is not None and not isinstance(self.contributorType, ContributorTypeCodes):
+            self.contributorType = ContributorTypeCodes(self.contributorType)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Detail(YAMLRoot):
+    """
+    Tag encapsulating a single related identifier value.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Detail"]
+    class_class_curie: ClassVar[str] = "osti:Detail"
+    class_name: ClassVar[str] = "detail"
+    class_model_uri: ClassVar[URIRef] = BRC.Detail
+
+    related_identifier: Optional[str] = None
+    relation_type: Optional[Union[str, "RelationType"]] = None
+    related_identifier_type: Optional[Union[str, "RelatedIdentifierType"]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.related_identifier is not None and not isinstance(self.related_identifier, str):
+            self.related_identifier = str(self.related_identifier)
+
+        if self.relation_type is not None and not isinstance(self.relation_type, RelationType):
+            self.relation_type = RelationType(self.relation_type)
+
+        if self.related_identifier_type is not None and not isinstance(self.related_identifier_type, RelatedIdentifierType):
+            self.related_identifier_type = RelatedIdentifierType(self.related_identifier_type)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Geolocation(YAMLRoot):
+    """
+    Wrapper tag for each individual geolocation data set.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Geolocation"]
+    class_class_curie: ClassVar[str] = "osti:Geolocation"
+    class_name: ClassVar[str] = "geolocation"
+    class_model_uri: ClassVar[URIRef] = BRC.Geolocation
+
+    place: Optional[str] = None
+    polygon: Optional[Union[Union[dict, "Point"], List[Union[dict, "Point"]]]] = empty_list()
+    boundingBox: Optional[Union[dict, BoundingBox]] = None
+    point: Optional[Union[dict, "Point"]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.place is not None and not isinstance(self.place, str):
+            self.place = str(self.place)
+
+        if not isinstance(self.polygon, list):
+            self.polygon = [self.polygon] if self.polygon is not None else []
+        self.polygon = [v if isinstance(v, Point) else Point(**as_dict(v)) for v in self.polygon]
+
+        if self.boundingBox is not None and not isinstance(self.boundingBox, BoundingBox):
+            self.boundingBox = BoundingBox(**as_dict(self.boundingBox))
+
+        if self.point is not None and not isinstance(self.point, Point):
+            self.point = Point(**as_dict(self.point))
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Point(YAMLRoot):
+    """
+    A point in a polygon.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Point"]
+    class_class_curie: ClassVar[str] = "osti:Point"
+    class_name: ClassVar[str] = "point"
+    class_model_uri: ClassVar[URIRef] = BRC.Point
+
+    longitude: Optional[float] = None
+    latitude: Optional[float] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.longitude is not None and not isinstance(self.longitude, float):
+            self.longitude = float(self.longitude)
+
+        if self.latitude is not None and not isinstance(self.latitude, float):
+            self.latitude = float(self.latitude)
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class BRCEnum(EnumDefinitionImpl):
     """
@@ -479,6 +926,223 @@ class RepositoryEnum(EnumDefinitionImpl):
                 text="NCBI BioProject",
                 description="National Center for Biotechnology Information BioProject"))
 
+class ContributorTypeCodes(EnumDefinitionImpl):
+    """
+    The type of contribution.
+    """
+    ContactPerson = PermissibleValue(
+        text="ContactPerson",
+        description="""Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource.""")
+    DataCollector = PermissibleValue(
+        text="DataCollector",
+        description="""Person/institution responsible for finding or gathering data under the guidelines of the author(s) or Principal Investigator.""")
+    DataCurator = PermissibleValue(
+        text="DataCurator",
+        description="""Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted.""")
+    DataManager = PermissibleValue(
+        text="DataManager",
+        description="""Person (or organization with a staff of data managers, such as a data centre) responsible for maintaining the finished resource.""")
+    Distributor = PermissibleValue(
+        text="Distributor",
+        description="""Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form.""")
+    Editor = PermissibleValue(
+        text="Editor",
+        description="A person who oversees the details related to the publication format of the resource.")
+    HostingInstitution = PermissibleValue(
+        text="HostingInstitution",
+        description="The organization allowing the resource to be available on the internet.")
+    Producer = PermissibleValue(
+        text="Producer",
+        description="Typically a person or organization responsible for the artistry and form of a media product.")
+    ProjectLeader = PermissibleValue(
+        text="ProjectLeader",
+        description="""Person officially designated as head of project team instrumental in the work necessary to development of the resource.""")
+    ProjectManager = PermissibleValue(
+        text="ProjectManager",
+        description="""Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams.""")
+    ProjectMember = PermissibleValue(
+        text="ProjectMember",
+        description="Person on the membership list of a designated project/project team.")
+    RegistrationAgency = PermissibleValue(
+        text="RegistrationAgency",
+        description="""Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility.""")
+    RegistrationAuthority = PermissibleValue(
+        text="RegistrationAuthority",
+        description="""A standards-setting body from which Registration Agencies obtain official recognition and guidance.""")
+    RelatedPerson = PermissibleValue(
+        text="RelatedPerson",
+        description="""Person with no specifically defined role in the development of the resource, but who is someone the author wishes to recognize.""")
+    Researcher = PermissibleValue(
+        text="Researcher",
+        description="A person involved in analyzing data or the results of an experiment or formal study.")
+    ResearchGroup = PermissibleValue(
+        text="ResearchGroup",
+        description="""Refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity.""")
+    RightsHolder = PermissibleValue(
+        text="RightsHolder",
+        description="""Person or institution owning or managing property rights, including intellectual property rights over the resource.""")
+    Sponsor = PermissibleValue(
+        text="Sponsor",
+        description="""Person or organization that issued a contract or under the auspices of which a work has been performed.""")
+    Supervisor = PermissibleValue(
+        text="Supervisor",
+        description="""Designated administrator over one or more groups working to produce a resource or over one or more steps of development process.""")
+    WorkPackageLeader = PermissibleValue(
+        text="WorkPackageLeader",
+        description="A Work Package is a recognized data product, not all of which is included in publication.")
+    Other = PermissibleValue(
+        text="Other",
+        description="""Any person or institution making a significant contribution, but whose contribution does not \"fit\".""")
+
+    _defn = EnumDefinition(
+        name="ContributorTypeCodes",
+        description="The type of contribution.",
+    )
+
+class DatasetTypeCodes(EnumDefinitionImpl):
+    """
+    The type of dataset.
+    """
+    AS = PermissibleValue(
+        text="AS",
+        description="Animations/Simulations")
+    GD = PermissibleValue(
+        text="GD",
+        description="Genome/Genetic Data (such as gene sequences)")
+    IM = PermissibleValue(
+        text="IM",
+        description="Interactive data maps, such as GIS data and/or shape files")
+    ND = PermissibleValue(
+        text="ND",
+        description="Numeric Data")
+    IP = PermissibleValue(
+        text="IP",
+        description="Still images or photos")
+    FP = PermissibleValue(
+        text="FP",
+        description="Figures/Plots, charts and diagrams")
+    SM = PermissibleValue(
+        text="SM",
+        description="Specialized Mix of differing data types")
+    MM = PermissibleValue(
+        text="MM",
+        description="Multimedia, such as videos of experiments")
+    I = PermissibleValue(
+        text="I",
+        description="Instrumentation/Experimental Data")
+
+    _defn = EnumDefinition(
+        name="DatasetTypeCodes",
+        description="The type of dataset.",
+    )
+
+class RelatedIdentifierType(EnumDefinitionImpl):
+    """
+    The type of identifier for the related resource.
+    """
+    DOI = PermissibleValue(
+        text="DOI",
+        description="The related identifier is a DOI")
+    URL = PermissibleValue(
+        text="URL",
+        description="The related identifier is a URL")
+
+    _defn = EnumDefinition(
+        name="RelatedIdentifierType",
+        description="""The type of identifier for the related resource.""",
+    )
+
+class RelationType(EnumDefinitionImpl):
+    """
+    The type of relation between the related identifier and the parent dataset.
+    """
+    Cites = PermissibleValue(
+        text="Cites",
+        description="indicates that A includes B in a citation")
+    Compiles = PermissibleValue(
+        text="Compiles",
+        description="indicates B is the result of a compile or creation event using A")
+    Continues = PermissibleValue(
+        text="Continues",
+        description="indicates A is a continuation of the work B")
+    Documents = PermissibleValue(
+        text="Documents",
+        description="indicates A is documentation about B")
+    HasMetadata = PermissibleValue(
+        text="HasMetadata",
+        description="indicates resource A has additional metadata B")
+    HasPart = PermissibleValue(
+        text="HasPart",
+        description="indicates A includes the part B")
+    IsCitedBy = PermissibleValue(
+        text="IsCitedBy",
+        description="indicates that B includes A in a citation")
+    IsCompiledBy = PermissibleValue(
+        text="IsCompiledBy",
+        description="indicates B is used to compile or create A")
+    IsContinuedBy = PermissibleValue(
+        text="IsContinuedBy",
+        description="indicates A is continued by the work B")
+    IsDerivedFrom = PermissibleValue(
+        text="IsDerivedFrom",
+        description="indicates B is a source upon which A is based")
+    IsDocumentedBy = PermissibleValue(
+        text="IsDocumentedBy",
+        description="indicates B is documentation about/explaining A")
+    IsIdenticalTo = PermissibleValue(
+        text="IsIdenticalTo",
+        description="""indicates that A is identical to B, for use when there is a need to register two separate instances of the same resource""")
+    IsMetadataFor = PermissibleValue(
+        text="IsMetadataFor",
+        description="indicates additional metadata A for a resource B")
+    IsNewVersionOf = PermissibleValue(
+        text="IsNewVersionOf",
+        description="indicates A is a new edition of B, where the new edition has been modified or updated")
+    IsOriginalFormOf = PermissibleValue(
+        text="IsOriginalFormOf",
+        description="indicates A is the original form of B")
+    IsPartOf = PermissibleValue(
+        text="IsPartOf",
+        description="indicates A is a portion of B; may be used for elements of a series")
+    IsPreviousVersionOf = PermissibleValue(
+        text="IsPreviousVersionOf",
+        description="indicates A is a previous edition of B")
+    IsReferencedBy = PermissibleValue(
+        text="IsReferencedBy",
+        description="indicates A is used as a source of information by B")
+    IsReviewedBy = PermissibleValue(
+        text="IsReviewedBy",
+        description="indicates that A is reviewed by B")
+    IsSourceOf = PermissibleValue(
+        text="IsSourceOf",
+        description="indicates A is a source upon which B is based")
+    IsSupplementedBy = PermissibleValue(
+        text="IsSupplementedBy",
+        description="indicates that B is a supplement to A")
+    IsSupplementTo = PermissibleValue(
+        text="IsSupplementTo",
+        description="indicates that A is a supplement to B")
+    IsObsoletedBy = PermissibleValue(
+        text="IsObsoletedBy",
+        description="indicates that A is obsoleted by B")
+    Obsoletes = PermissibleValue(
+        text="Obsoletes",
+        description="indicates that A obsoletes B")
+    IsVariantFormOf = PermissibleValue(
+        text="IsVariantFormOf",
+        description="""indicates A is a variant or different form of B, e.g. calculated or calibrated form or different packaging""")
+    References = PermissibleValue(
+        text="References",
+        description="indicates B is used as a source of information for A")
+    Reviews = PermissibleValue(
+        text="Reviews",
+        description="indicates that A is a review of B")
+
+    _defn = EnumDefinition(
+        name="RelationType",
+        description="""The type of relation between the related identifier and the parent dataset.""",
+    )
+
 # Slots
 class slots:
     pass
@@ -569,3 +1233,233 @@ slots.relatedItem__relatedItemType = Slot(uri=BRC.relatedItemType, name="related
 
 slots.relatedItem__relatedItemIdentifier = Slot(uri=BRC.relatedItemIdentifier, name="relatedItem__relatedItemIdentifier", curie=BRC.curie('relatedItemIdentifier'),
                    model_uri=BRC.relatedItem__relatedItemIdentifier, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.records__records = Slot(uri=OSTI.records, name="records__records", curie=OSTI.curie('records'),
+                   model_uri=BRC.records__records, domain=None, range=Optional[Union[Union[int, RecordOstiId], List[Union[int, RecordOstiId]]]])
+
+slots.record__osti_id = Slot(uri=OSTI.osti_id, name="record__osti_id", curie=OSTI.curie('osti_id'),
+                   model_uri=BRC.record__osti_id, domain=None, range=URIRef)
+
+slots.record__dataset_type = Slot(uri=OSTI.dataset_type, name="record__dataset_type", curie=OSTI.curie('dataset_type'),
+                   model_uri=BRC.record__dataset_type, domain=None, range=Union[str, "DatasetTypeCodes"])
+
+slots.record__title = Slot(uri=OSTI.title, name="record__title", curie=OSTI.curie('title'),
+                   model_uri=BRC.record__title, domain=None, range=str)
+
+slots.record__authors = Slot(uri=OSTI.authors, name="record__authors", curie=OSTI.curie('authors'),
+                   model_uri=BRC.record__authors, domain=None, range=Union[Union[dict, Author], List[Union[dict, Author]]])
+
+slots.record__contributors = Slot(uri=OSTI.contributors, name="record__contributors", curie=OSTI.curie('contributors'),
+                   model_uri=BRC.record__contributors, domain=None, range=Optional[Union[Union[dict, Contributor], List[Union[dict, Contributor]]]])
+
+slots.record__description = Slot(uri=OSTI.description, name="record__description", curie=OSTI.curie('description'),
+                   model_uri=BRC.record__description, domain=None, range=Optional[str])
+
+slots.record__product_nos = Slot(uri=OSTI.product_nos, name="record__product_nos", curie=OSTI.curie('product_nos'),
+                   model_uri=BRC.record__product_nos, domain=None, range=str)
+
+slots.record__contract_nos = Slot(uri=OSTI.contract_nos, name="record__contract_nos", curie=OSTI.curie('contract_nos'),
+                   model_uri=BRC.record__contract_nos, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,4000}$'))
+
+slots.record__product_type = Slot(uri=OSTI.product_type, name="record__product_type", curie=OSTI.curie('product_type'),
+                   model_uri=BRC.record__product_type, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2}$'))
+
+slots.record__doi = Slot(uri=OSTI.doi, name="record__doi", curie=OSTI.curie('doi'),
+                   model_uri=BRC.record__doi, domain=None, range=Optional[str])
+
+slots.record__doi_infix = Slot(uri=OSTI.doi_infix, name="record__doi_infix", curie=OSTI.curie('doi_infix'),
+                   model_uri=BRC.record__doi_infix, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.record__publication_date = Slot(uri=OSTI.publication_date, name="record__publication_date", curie=OSTI.curie('publication_date'),
+                   model_uri=BRC.record__publication_date, domain=None, range=str,
+                   pattern=re.compile(r'^(\d{2}/\d{2}/\d{4}|\d{4}|\d{4} [A-Za-z]+)$'))
+
+slots.record__other_identifying_numbers = Slot(uri=OSTI.other_identifying_numbers, name="record__other_identifying_numbers", curie=OSTI.curie('other_identifying_numbers'),
+                   model_uri=BRC.record__other_identifying_numbers, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,500}$'))
+
+slots.record__keywords = Slot(uri=OSTI.keywords, name="record__keywords", curie=OSTI.curie('keywords'),
+                   model_uri=BRC.record__keywords, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,4000}$'))
+
+slots.record__country = Slot(uri=OSTI.country, name="record__country", curie=OSTI.curie('country'),
+                   model_uri=BRC.record__country, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,5}$'))
+
+slots.record__language = Slot(uri=OSTI.language, name="record__language", curie=OSTI.curie('language'),
+                   model_uri=BRC.record__language, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,75}$'))
+
+slots.record__availability = Slot(uri=OSTI.availability, name="record__availability", curie=OSTI.curie('availability'),
+                   model_uri=BRC.record__availability, domain=None, range=Optional[str])
+
+slots.record__originating_research_org = Slot(uri=OSTI.originating_research_org, name="record__originating_research_org", curie=OSTI.curie('originating_research_org'),
+                   model_uri=BRC.record__originating_research_org, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,1000}$'))
+
+slots.record__sponsor_org = Slot(uri=OSTI.sponsor_org, name="record__sponsor_org", curie=OSTI.curie('sponsor_org'),
+                   model_uri=BRC.record__sponsor_org, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,1000}$'))
+
+slots.record__subject_categories_code = Slot(uri=OSTI.subject_categories_code, name="record__subject_categories_code", curie=OSTI.curie('subject_categories_code'),
+                   model_uri=BRC.record__subject_categories_code, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1000}$'))
+
+slots.record__entry_date = Slot(uri=OSTI.entry_date, name="record__entry_date", curie=OSTI.curie('entry_date'),
+                   model_uri=BRC.record__entry_date, domain=None, range=Optional[str])
+
+slots.record__site_url = Slot(uri=OSTI.site_url, name="record__site_url", curie=OSTI.curie('site_url'),
+                   model_uri=BRC.record__site_url, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,255}$'))
+
+slots.record__site_input_code = Slot(uri=OSTI.site_input_code, name="record__site_input_code", curie=OSTI.curie('site_input_code'),
+                   model_uri=BRC.record__site_input_code, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,10}$'))
+
+slots.record__accession_num = Slot(uri=OSTI.accession_num, name="record__accession_num", curie=OSTI.curie('accession_num'),
+                   model_uri=BRC.record__accession_num, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,25}$'))
+
+slots.record__related_identifiers = Slot(uri=OSTI.related_identifiers, name="record__related_identifiers", curie=OSTI.curie('related_identifiers'),
+                   model_uri=BRC.record__related_identifiers, domain=None, range=Optional[Union[Union[dict, Detail], List[Union[dict, Detail]]]])
+
+slots.record__geolocations = Slot(uri=OSTI.geolocations, name="record__geolocations", curie=OSTI.curie('geolocations'),
+                   model_uri=BRC.record__geolocations, domain=None, range=Optional[Union[Union[dict, Geolocation], List[Union[dict, Geolocation]]]])
+
+slots.record__awards = Slot(uri=OSTI.awards, name="record__awards", curie=OSTI.curie('awards'),
+                   model_uri=BRC.record__awards, domain=None, range=Optional[Union[dict, Award]])
+
+slots.record__date_first_submitted = Slot(uri=OSTI.date_first_submitted, name="record__date_first_submitted", curie=OSTI.curie('date_first_submitted'),
+                   model_uri=BRC.record__date_first_submitted, domain=None, range=Optional[str])
+
+slots.record__date_last_submitted = Slot(uri=OSTI.date_last_submitted, name="record__date_last_submitted", curie=OSTI.curie('date_last_submitted'),
+                   model_uri=BRC.record__date_last_submitted, domain=None, range=Optional[str])
+
+slots.record__file_extension = Slot(uri=OSTI.file_extension, name="record__file_extension", curie=OSTI.curie('file_extension'),
+                   model_uri=BRC.record__file_extension, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,15}$'))
+
+slots.record__software_needed = Slot(uri=OSTI.software_needed, name="record__software_needed", curie=OSTI.curie('software_needed'),
+                   model_uri=BRC.record__software_needed, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,200}$'))
+
+slots.record__contact_name = Slot(uri=OSTI.contact_name, name="record__contact_name", curie=OSTI.curie('contact_name'),
+                   model_uri=BRC.record__contact_name, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,250}$'))
+
+slots.record__contact_phone = Slot(uri=OSTI.contact_phone, name="record__contact_phone", curie=OSTI.curie('contact_phone'),
+                   model_uri=BRC.record__contact_phone, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,30}$'))
+
+slots.record__contact_email = Slot(uri=OSTI.contact_email, name="record__contact_email", curie=OSTI.curie('contact_email'),
+                   model_uri=BRC.record__contact_email, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,100}$'))
+
+slots.record__contact_org = Slot(uri=OSTI.contact_org, name="record__contact_org", curie=OSTI.curie('contact_org'),
+                   model_uri=BRC.record__contact_org, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,250}$'))
+
+slots.record__othnondoe_contract_nos = Slot(uri=OSTI.othnondoe_contract_nos, name="record__othnondoe_contract_nos", curie=OSTI.curie('othnondoe_contract_nos'),
+                   model_uri=BRC.record__othnondoe_contract_nos, domain=None, range=Optional[str])
+
+slots.record__related_resource = Slot(uri=OSTI.related_resource, name="record__related_resource", curie=OSTI.curie('related_resource'),
+                   model_uri=BRC.record__related_resource, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2255}$'))
+
+slots.record__collaboration_names = Slot(uri=OSTI.collaboration_names, name="record__collaboration_names", curie=OSTI.curie('collaboration_names'),
+                   model_uri=BRC.record__collaboration_names, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1000}$'))
+
+slots.record__dataset_size = Slot(uri=OSTI.dataset_size, name="record__dataset_size", curie=OSTI.curie('dataset_size'),
+                   model_uri=BRC.record__dataset_size, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.record__set_reserved = Slot(uri=OSTI.set_reserved, name="record__set_reserved", curie=OSTI.curie('set_reserved'),
+                   model_uri=BRC.record__set_reserved, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^[a-zA-Z]$'))
+
+slots.record__hidden = Slot(uri=OSTI.hidden, name="record__hidden", curie=OSTI.curie('hidden'),
+                   model_uri=BRC.record__hidden, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.author__first_name = Slot(uri=OSTI.first_name, name="author__first_name", curie=OSTI.curie('first_name'),
+                   model_uri=BRC.author__first_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.author__middle_name = Slot(uri=OSTI.middle_name, name="author__middle_name", curie=OSTI.curie('middle_name'),
+                   model_uri=BRC.author__middle_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.author__last_name = Slot(uri=OSTI.last_name, name="author__last_name", curie=OSTI.curie('last_name'),
+                   model_uri=BRC.author__last_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,60}$'))
+
+slots.author__affiliation_name = Slot(uri=OSTI.affiliation_name, name="author__affiliation_name", curie=OSTI.curie('affiliation_name'),
+                   model_uri=BRC.author__affiliation_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,900}$'))
+
+slots.author__private_email = Slot(uri=OSTI.private_email, name="author__private_email", curie=OSTI.curie('private_email'),
+                   model_uri=BRC.author__private_email, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,256}$'))
+
+slots.author__orcid_id = Slot(uri=OSTI.orcid_id, name="author__orcid_id", curie=OSTI.curie('orcid_id'),
+                   model_uri=BRC.author__orcid_id, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,16}$'))
+
+slots.award__award_doi = Slot(uri=OSTI.award_doi, name="award__award_doi", curie=OSTI.curie('award_doi'),
+                   model_uri=BRC.award__award_doi, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,250}$'))
+
+slots.award__award_number = Slot(uri=OSTI.award_number, name="award__award_number", curie=OSTI.curie('award_number'),
+                   model_uri=BRC.award__award_number, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,250}$'))
+
+slots.award__funder_name = Slot(uri=OSTI.funder_name, name="award__funder_name", curie=OSTI.curie('funder_name'),
+                   model_uri=BRC.award__funder_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,500}$'))
+
+slots.boundingBox__westLongitude = Slot(uri=OSTI.westLongitude, name="boundingBox__westLongitude", curie=OSTI.curie('westLongitude'),
+                   model_uri=BRC.boundingBox__westLongitude, domain=None, range=Optional[float])
+
+slots.boundingBox__eastLongitude = Slot(uri=OSTI.eastLongitude, name="boundingBox__eastLongitude", curie=OSTI.curie('eastLongitude'),
+                   model_uri=BRC.boundingBox__eastLongitude, domain=None, range=Optional[float])
+
+slots.boundingBox__northLatitude = Slot(uri=OSTI.northLatitude, name="boundingBox__northLatitude", curie=OSTI.curie('northLatitude'),
+                   model_uri=BRC.boundingBox__northLatitude, domain=None, range=Optional[float])
+
+slots.boundingBox__southLatitude = Slot(uri=OSTI.southLatitude, name="boundingBox__southLatitude", curie=OSTI.curie('southLatitude'),
+                   model_uri=BRC.boundingBox__southLatitude, domain=None, range=Optional[float])
+
+slots.contributor__contributorType = Slot(uri=OSTI.contributorType, name="contributor__contributorType", curie=OSTI.curie('contributorType'),
+                   model_uri=BRC.contributor__contributorType, domain=None, range=Optional[Union[str, "ContributorTypeCodes"]])
+
+slots.detail__related_identifier = Slot(uri=OSTI.related_identifier, name="detail__related_identifier", curie=OSTI.curie('related_identifier'),
+                   model_uri=BRC.detail__related_identifier, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2000}$'))
+
+slots.detail__relation_type = Slot(uri=OSTI.relation_type, name="detail__relation_type", curie=OSTI.curie('relation_type'),
+                   model_uri=BRC.detail__relation_type, domain=None, range=Optional[Union[str, "RelationType"]])
+
+slots.detail__related_identifier_type = Slot(uri=OSTI.related_identifier_type, name="detail__related_identifier_type", curie=OSTI.curie('related_identifier_type'),
+                   model_uri=BRC.detail__related_identifier_type, domain=None, range=Optional[Union[str, "RelatedIdentifierType"]])
+
+slots.geolocation__place = Slot(uri=OSTI.place, name="geolocation__place", curie=OSTI.curie('place'),
+                   model_uri=BRC.geolocation__place, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1000}$'))
+
+slots.geolocation__polygon = Slot(uri=OSTI.polygon, name="geolocation__polygon", curie=OSTI.curie('polygon'),
+                   model_uri=BRC.geolocation__polygon, domain=None, range=Optional[Union[Union[dict, Point], List[Union[dict, Point]]]])
+
+slots.geolocation__boundingBox = Slot(uri=OSTI.boundingBox, name="geolocation__boundingBox", curie=OSTI.curie('boundingBox'),
+                   model_uri=BRC.geolocation__boundingBox, domain=None, range=Optional[Union[dict, BoundingBox]])
+
+slots.geolocation__point = Slot(uri=OSTI.point, name="geolocation__point", curie=OSTI.curie('point'),
+                   model_uri=BRC.geolocation__point, domain=None, range=Optional[Union[dict, Point]])
+
+slots.point__longitude = Slot(uri=OSTI.longitude, name="point__longitude", curie=OSTI.curie('longitude'),
+                   model_uri=BRC.point__longitude, domain=None, range=Optional[float])
+
+slots.point__latitude = Slot(uri=OSTI.latitude, name="point__latitude", curie=OSTI.curie('latitude'),
+                   model_uri=BRC.point__latitude, domain=None, range=Optional[float])
