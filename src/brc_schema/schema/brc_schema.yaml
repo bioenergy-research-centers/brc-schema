@@ -173,6 +173,10 @@ classes:
         range: string
         description: >-
           "Name of a overall dataset to which this data entry belongs."
+      funding:
+        range: Funding
+        description: "Funding source(s) for the dataset."
+        multivalued: true
 
   Individual:
     description: An individual involved in the dataset.
@@ -198,6 +202,30 @@ classes:
           - range: Organization
           - range: string
         description: "Affiliation of the creator."
+
+  Funding:
+    description: >-
+      Funding source for the dataset. Each item corresponds
+      to a single award or grant.
+    close_mappings:
+      - schema:Grant
+      - osti:award
+    attributes:
+      fundingOrganization:
+        range: Organization
+        description: "Details of the funding entity."
+      awardNumber:
+        range: string
+        description: "Award number from the funding entity."
+      awardTitle:
+        range: string
+        description: "Title of the award."
+      awardURI:
+        range: uriorcurie
+        description: >-
+          URI for the award. This may be a DOI. Include prefix.
+        examples:
+          - value: doi:10.11578/award-2020/29300X
 
   Organization:
     description: An organization involved in the dataset.
