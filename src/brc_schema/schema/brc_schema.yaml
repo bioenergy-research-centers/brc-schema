@@ -32,6 +32,7 @@ prefixes:
   jbei: https://hello.bioenergy.org/JBEI/
   linkml: https://w3id.org/linkml/
   oslc: http://open-services.net/ns/core#
+  osti: https://www.osti.gov/biblio/
   pav: http://purl.org/pav/
   prov: http://www.w3.org/ns/prov#
   ror: https://ror.org/
@@ -82,11 +83,16 @@ classes:
         description: "The title of the dataset."
         required: true
         slot_uri: dcterms:title
+        exact_mappings:
+          - osti:title
       date:
         range: date
         description: "The date the dataset was created or published."
         required: true
         slot_uri: dcterms:date
+        close_mappings:
+          - schema:datePublished
+          - osti:publication_date  # Format varies
       creator:
         range: Individual
         multivalued: true
@@ -128,6 +134,8 @@ classes:
           - BIOPROJECT
           - BIOSAMPLE
           - INSDC.SRA
+        close_mappings:
+          - osti:related_identifiers  # Set of accepted identifiers may vary
       species:
         range: Organism
         multivalued: true
@@ -142,6 +150,8 @@ classes:
         range: string
         description: "A detailed description of the dataset."
         slot_uri: dcterms:description
+        exact_mappings:
+          - osti:description
       relatedItem:
         range: RelatedItem
         description: "Related publications or items."
@@ -153,6 +163,7 @@ classes:
         slot_uri: dcat:keyword
         exact_mappings:
           - schema:keywords
+          - osti:keywords
       datasetName:
         range: string
         description: >-
@@ -161,6 +172,9 @@ classes:
   Individual:
     description: An individual involved in the dataset.
     class_uri: schema:Person
+    exact_mappings:
+      - schema:Person
+      - osti:author
     attributes:
       creatorName:
         range: string

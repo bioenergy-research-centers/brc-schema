@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-09-26T10:51:01
+# Generation date: 2024-09-26T11:00:49
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -54,6 +54,7 @@ GLBRC = CurieNamespace('glbrc', 'https://fair-data.glbrc.org/')
 JBEI = CurieNamespace('jbei', 'https://hello.bioenergy.org/JBEI/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
 OSLC = CurieNamespace('oslc', 'http://open-services.net/ns/core#')
+OSTI = CurieNamespace('osti', 'https://www.osti.gov/biblio/')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
 PROV = CurieNamespace('prov', 'http://www.w3.org/ns/prov#')
 ROR = CurieNamespace('ror', 'https://ror.org/')
