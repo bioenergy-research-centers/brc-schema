@@ -232,11 +232,31 @@
     click Individual href "../Individual"
 
 
+      Dataset : dataset_url
+
       Dataset : datasetName
+
+      Dataset : datasetType
+
+
+
+
+    Dataset --&gt; "0..1" DatasetTypeCodes : datasetType
+    click DatasetTypeCodes href "../DatasetTypeCodes"
+
 
       Dataset : date
 
       Dataset : description
+
+      Dataset : funding
+
+
+
+
+    Dataset --&gt; "*" Funding : funding
+    click Funding href "../Funding"
+
 
       Dataset : has_related_ids
 
@@ -356,6 +376,12 @@
 <td>direct</td>
 </tr>
 <tr>
+<td><a href="../datasetType/">datasetType</a></td>
+<td>0..1 <br/> <a href="../DatasetTypeCodes/">DatasetTypeCodes</a></td>
+<td>High-level type of the main content of the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../description/">description</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>A detailed description of the dataset</td>
@@ -377,6 +403,18 @@
 <td><a href="../datasetName/">datasetName</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>"Name of a overall dataset to which this data entry belongs</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../funding/">funding</a></td>
+<td>* <br/> <a href="../Funding/">Funding</a></td>
+<td>Funding source(s) for the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../dataset_url/">dataset_url</a></td>
+<td>0..1 <br/> <a href="../Uri/">Uri</a></td>
+<td>URL for the dataset landing page</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -481,6 +519,8 @@ attributes:
     name: title
     description: The title of the dataset.
     from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:title
     rank: 1000
     slot_uri: dcterms:title
     domain_of:
@@ -492,6 +532,9 @@ attributes:
     name: date
     description: The date the dataset was created or published.
     from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - schema:datePublished
+    - osti:publication_date
     rank: 1000
     slot_uri: dcterms:date
     domain_of:
@@ -516,6 +559,8 @@ attributes:
     name: brc
     description: Bioenergy Research Center affiliation.
     from_schema: https://w3id.org/brc/brc_schema
+    broad_mappings:
+    - osti:originating_research_org
     rank: 1000
     slot_uri: prov:wasAttributedTo
     domain_of:
@@ -559,6 +604,8 @@ attributes:
       to records in other repositories, and these records may be the same data or
       components of the dataset."'
     from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - osti:related_identifiers
     rank: 1000
     domain_of:
     - Dataset
@@ -584,10 +631,22 @@ attributes:
     any_of:
     - range: AnalysisType
     - range: string
+  datasetType:
+    name: datasetType
+    description: High-level type of the main content of the dataset.
+    examples:
+    - value: GD
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: DatasetTypeCodes
   description:
     name: description
     description: A detailed description of the dataset.
     from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:description
     rank: 1000
     slot_uri: dcterms:description
     domain_of:
@@ -608,6 +667,7 @@ attributes:
     from_schema: https://w3id.org/brc/brc_schema
     exact_mappings:
     - schema:keywords
+    - osti:keywords
     rank: 1000
     slot_uri: dcat:keyword
     domain_of:
@@ -622,6 +682,26 @@ attributes:
     domain_of:
     - Dataset
     range: string
+  funding:
+    name: funding
+    description: Funding source(s) for the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: Funding
+    multivalued: true
+  dataset_url:
+    name: dataset_url
+    description: URL for the dataset landing page.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:site_url
+    rank: 1000
+    slot_uri: schema:url
+    domain_of:
+    - Dataset
+    range: uri
 class_uri: schema:Dataset
 
 </code></pre>
@@ -659,6 +739,8 @@ attributes:
     name: title
     description: The title of the dataset.
     from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:title
     rank: 1000
     slot_uri: dcterms:title
     alias: title
@@ -672,6 +754,9 @@ attributes:
     name: date
     description: The date the dataset was created or published.
     from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - schema:datePublished
+    - osti:publication_date
     rank: 1000
     slot_uri: dcterms:date
     alias: date
@@ -700,6 +785,8 @@ attributes:
     name: brc
     description: Bioenergy Research Center affiliation.
     from_schema: https://w3id.org/brc/brc_schema
+    broad_mappings:
+    - osti:originating_research_org
     rank: 1000
     slot_uri: prov:wasAttributedTo
     alias: brc
@@ -751,6 +838,8 @@ attributes:
       to records in other repositories, and these records may be the same data or
       components of the dataset."'
     from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - osti:related_identifiers
     rank: 1000
     alias: has_related_ids
     owner: Dataset
@@ -783,10 +872,24 @@ attributes:
     any_of:
     - range: AnalysisType
     - range: string
+  datasetType:
+    name: datasetType
+    description: High-level type of the main content of the dataset.
+    examples:
+    - value: GD
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: datasetType
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: DatasetTypeCodes
   description:
     name: description
     description: A detailed description of the dataset.
     from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:description
     rank: 1000
     slot_uri: dcterms:description
     alias: description
@@ -811,6 +914,7 @@ attributes:
     from_schema: https://w3id.org/brc/brc_schema
     exact_mappings:
     - schema:keywords
+    - osti:keywords
     rank: 1000
     slot_uri: dcat:keyword
     alias: keywords
@@ -829,6 +933,30 @@ attributes:
     domain_of:
     - Dataset
     range: string
+  funding:
+    name: funding
+    description: Funding source(s) for the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: funding
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: Funding
+    multivalued: true
+  dataset_url:
+    name: dataset_url
+    description: URL for the dataset landing page.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:site_url
+    rank: 1000
+    slot_uri: schema:url
+    alias: dataset_url
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: uri
 class_uri: schema:Dataset
 
 </code></pre>

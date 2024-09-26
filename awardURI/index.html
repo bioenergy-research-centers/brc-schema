@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/title/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/awardURI/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: title - brc-schema</title>
+        <title>Slot: awardURI - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-title" class="md-skip">
+        <a href="#slot-awarduri" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: title
+              Slot: awardURI
             
           </span>
         </div>
@@ -270,9 +270,29 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     Identifier and Mapping Information
   </a>
+  
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
+    Schema Source
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -304,14 +324,15 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/title.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/awardURI.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-title">Slot: title</h1>
-<p>URI: <a href="https://w3id.org/brc/title">brc:title</a></p>
+<h1 id="slot-awarduri">Slot: awardURI</h1>
+<p><em>URI for the award. This may be a DOI. Include prefix.</em></p>
+<p>URI: <a href="https://w3id.org/brc/awardURI">brc:awardURI</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -325,22 +346,34 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../RelatedItem/">RelatedItem</a></td>
-<td>A related publication or item, including cited publications</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>A dataset containing metabolomics and proteomics data</td>
+<td><a href="../Funding/">Funding</a></td>
+<td>Funding source for the dataset</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>Range: <a href="../Uriorcurie/">Uriorcurie</a></li>
 </ul>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doi:10.11578/award-2020/29300X</td>
+</tr>
+</tbody>
+</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
+</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -352,23 +385,28 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:title</td>
+<td>brc:awardURI</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:title</td>
+<td>brc:awardURI</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: title
-alias: title
+<pre><code class="language-yaml">name: awardURI
+description: URI for the award. This may be a DOI. Include prefix.
+examples:
+- value: doi:10.11578/award-2020/29300X
+from_schema: https://w3id.org/brc/brc_schema
+rank: 1000
+alias: awardURI
+owner: Funding
 domain_of:
-- Dataset
-- RelatedItem
-range: string
+- Funding
+range: uriorcurie
 
 </code></pre>
 

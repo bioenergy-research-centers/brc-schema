@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/title/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/dataset_url/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: title - brc-schema</title>
+        <title>Slot: dataset_url - brc-schema</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-title" class="md-skip">
+        <a href="#slot-dataset_url" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: title
+              Slot: dataset_url
             
           </span>
         </div>
@@ -274,6 +274,19 @@
     Identifier and Mapping Information
   </a>
   
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
+    Schema Source
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -304,14 +317,15 @@
                 
                   
 
-  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/title.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bioenergy-research-centers/brc-schema/edit/master/docs/dataset_url.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-title">Slot: title</h1>
-<p>URI: <a href="https://w3id.org/brc/title">brc:title</a></p>
+<h1 id="slot-dataset_url">Slot: dataset_url</h1>
+<p><em>URL for the dataset landing page.</em></p>
+<p>URI: <a href="http://schema.org/url">schema:url</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -325,11 +339,6 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../RelatedItem/">RelatedItem</a></td>
-<td>A related publication or item, including cited publications</td>
-<td>no</td>
-</tr>
-<tr>
 <td><a href="../Dataset/">Dataset</a></td>
 <td>A dataset containing metabolomics and proteomics data</td>
 <td>no</td>
@@ -338,9 +347,13 @@
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>Range: <a href="../Uri/">Uri</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
+</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -352,23 +365,33 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:title</td>
+<td>schema:url</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:title</td>
+<td>brc:dataset_url</td>
+</tr>
+<tr>
+<td>exact</td>
+<td>osti:site_url</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: title
-alias: title
+<pre><code class="language-yaml">name: dataset_url
+description: URL for the dataset landing page.
+from_schema: https://w3id.org/brc/brc_schema
+exact_mappings:
+- osti:site_url
+rank: 1000
+slot_uri: schema:url
+alias: dataset_url
+owner: Dataset
 domain_of:
 - Dataset
-- RelatedItem
-range: string
+range: uri
 
 </code></pre>
 

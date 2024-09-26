@@ -402,6 +402,10 @@
 <td>native</td>
 <td>brc:date</td>
 </tr>
+<tr>
+<td>close</td>
+<td>schema:datePublished, osti:publication_date</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -410,6 +414,9 @@
 <pre><code class="language-yaml">name: date
 description: The date the dataset was created or published.
 from_schema: https://w3id.org/brc/brc_schema
+close_mappings:
+- schema:datePublished
+- osti:publication_date
 rank: 1000
 slot_uri: dcterms:date
 alias: date

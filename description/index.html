@@ -371,6 +371,10 @@
 <td>native</td>
 <td>brc:description</td>
 </tr>
+<tr>
+<td>exact</td>
+<td>osti:description</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -379,6 +383,8 @@
 <pre><code class="language-yaml">name: description
 description: A detailed description of the dataset.
 from_schema: https://w3id.org/brc/brc_schema
+exact_mappings:
+- osti:description
 rank: 1000
 slot_uri: dcterms:description
 alias: description
