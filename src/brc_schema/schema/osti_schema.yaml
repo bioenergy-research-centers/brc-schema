@@ -13,6 +13,7 @@ description: >-
 version: "241.6"
 prefixes:
   linkml: https://w3id.org/linkml/
+  osti: https://www.osti.gov/biblio/
 
 default_prefix: osti
 default_range: string
@@ -46,20 +47,29 @@ classes:
         range: integer
         required: true
         identifier: true
+        examples:
+          - value: 1318659
       dataset_type:
         description: >-
           Type of the main content of the dataset.
         range: DatasetTypeCodes
+        required: true
+        examples:
+          - value: SM
       title:
         description: >-
           Full title of the dataset, with version numbers and date ranges if
           applicable.
         range: string
+        required: true
+        examples:
+          - value: "Title of the data set"
       authors:
         description: >-
           List of authors of the dataset.
         range: author
         multivalued: true
+        required: true
       contributors:
         description: >-
           List of contributors to the dataset.
@@ -75,11 +85,13 @@ classes:
           host or originating organization. Multiple values are separated by
           semicolon.
         range: string
+        required: true
       contract_nos:
         description: >-
           Primary DOE contract number(s), multiple values may be separated by
           semicolon.
         range: string
+        required: true
         pattern: "^.{0,4000}$"
       product_type:
         description: >-
@@ -103,6 +115,8 @@ classes:
           The dataset publication date, in mm/dd/yyyy, yyyy, or yyyy Month
           format.
         range: string
+        required: true
+        pattern: "^(\\d{2}/\\d{2}/\\d{4}|\\d{4}|\\d{4} [A-Za-z]+)$"
       other_identifying_numbers:
         description: >-
           Any alternative identifying numbers for this data set.
@@ -139,6 +153,7 @@ classes:
           If credited, the organization name primarily responsible for
           conducting the research.
         range: string
+        required: true
         examples:
           - value: "A Research University (United States)"
         pattern: "^.{0,1000}$"
@@ -149,6 +164,7 @@ classes:
           Organization Authority at https://www.osti.gov/elink/authorities.jsp.
           Multiple codes may be semi-colon delimited.
         range: string
+        required: true
         examples:
           - value: USDOE Office of Science (SC)
         pattern: "^.{0,1000}$"
@@ -173,6 +189,7 @@ classes:
         description: >-
           Full URL to the "landing page" for this data set.
         range: string
+        required: true
         pattern: "^.{0,255}$"
       site_input_code:
         description: >-
@@ -225,6 +242,7 @@ classes:
       contact_name:
         description: Name of a contact person for this data set.
         range: string
+        required: true
         pattern: "^.{0,250}$"
       contact_phone:
         description: Phone number for the contact.
@@ -233,10 +251,12 @@ classes:
       contact_email:
         description: Email address for the contact.
         range: string
+        required: true
         pattern: "^.{0,100}$"
       contact_org:
         description: The organization or laboratory affiliation of the contact.
         range: string
+        required: true
         pattern: "^.{0,250}$"
       othnondoe_contract_nos:
         description: Any non-DOE award numbers associated with this data set.
