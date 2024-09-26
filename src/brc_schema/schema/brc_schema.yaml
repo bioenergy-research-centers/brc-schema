@@ -107,6 +107,8 @@ classes:
         description: "Bioenergy Research Center affiliation."
         required: true
         slot_uri: prov:wasAttributedTo
+        broad_mappings:
+          - osti:originating_research_org
       repository:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."
