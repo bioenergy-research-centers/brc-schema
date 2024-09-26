@@ -45,7 +45,6 @@ classes:
         description: >-
           The unique OSTI identifier for the record. Required for updates.
         range: integer
-        required: true
         identifier: true
         examples:
           - value: 1318659
