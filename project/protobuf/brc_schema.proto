@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 0.0.3
+// version: 0.0.4
 // A dataset containing metabolomics and proteomics data.
 message Dataset
  {
@@ -16,15 +16,26 @@ message Dataset
  repeated  uriorcurie hasRelatedIds = 0
  repeated  organism species = 0
   string analysisType = 0
+  datasetTypeCodes datasetType = 0
   string description = 0
  repeated  relatedItem relatedItem = 0
  repeated  string keywords = 0
   string datasetName = 0
+ repeated  funding funding = 0
+  uri datasetUrl = 0
  }
 // Container class for defining a collection of datasets.
 message DatasetCollection
  {
  repeated  dataset datasets = 0
+ }
+// Funding source for the dataset. Each item corresponds to a single award or grant.
+message Funding
+ {
+  organization fundingOrganization = 0
+  string awardNumber = 0
+  string awardTitle = 0
+  uriorcurie awardURI = 0
  }
 // An individual involved in the dataset.
 message Individual

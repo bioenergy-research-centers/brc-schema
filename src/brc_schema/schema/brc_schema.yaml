@@ -179,6 +179,12 @@ classes:
         range: Funding
         description: "Funding source(s) for the dataset."
         multivalued: true
+      dataset_url:
+        range: uri
+        description: "URL for the dataset landing page."
+        slot_uri: schema:url
+        exact_mappings:
+          - osti:site_url
 
   Individual:
     description: An individual involved in the dataset.

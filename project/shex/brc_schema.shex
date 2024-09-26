@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.0.3
+# version: 0.0.4
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -69,10 +69,17 @@ linkml:Sparqlpath xsd:string
           <has_related_ids> @linkml:Uriorcurie * ;
           <species> @<Organism> * ;
           <analysisType> @linkml:String ? ;
+          <datasetType> [ <https://w3id.org/brc/DatasetTypeCodes#AS> <https://w3id.org/brc/DatasetTypeCodes#GD>
+             <https://w3id.org/brc/DatasetTypeCodes#IM> <https://w3id.org/brc/DatasetTypeCodes#ND>
+             <https://w3id.org/brc/DatasetTypeCodes#IP> <https://w3id.org/brc/DatasetTypeCodes#FP>
+             <https://w3id.org/brc/DatasetTypeCodes#SM> <https://w3id.org/brc/DatasetTypeCodes#MM>
+             <https://w3id.org/brc/DatasetTypeCodes#I> ] ? ;
           dcterms:description @linkml:String ? ;
           <relatedItem> @<RelatedItem> * ;
           dcat:keyword @linkml:String * ;
-          <datasetName> @linkml:String ?
+          <datasetName> @linkml:String ? ;
+          <funding> @<Funding> * ;
+          schema1:url @linkml:Uri ?
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )
@@ -81,6 +88,16 @@ linkml:Sparqlpath xsd:string
 <DatasetCollection> CLOSED {
     (  $<DatasetCollection_tes> <datasets> @<Dataset> * ;
        rdf:type [ <DatasetCollection> ] ?
+    )
+}
+
+<Funding> CLOSED {
+    (  $<Funding_tes> (  <fundingOrganization> @<Organization> ? ;
+          <awardNumber> @linkml:String ? ;
+          <awardTitle> @linkml:String ? ;
+          <awardURI> @linkml:Uriorcurie ?
+       ) ;
+       rdf:type [ <Funding> ] ?
     )
 }
 

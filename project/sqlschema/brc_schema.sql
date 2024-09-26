@@ -10,8 +10,10 @@
 --     * Slot: bibliographicCitation Description: Citation for the dataset.
 --     * Slot: identifier Description: Unique identifier for the dataset.
 --     * Slot: analysisType Description: The type of analysis performed on the dataset.
+--     * Slot: datasetType Description: High-level type of the main content of the dataset.
 --     * Slot: description Description: A detailed description of the dataset.
 --     * Slot: datasetName Description: "Name of a overall dataset to which this data entry belongs."
+--     * Slot: dataset_url Description: URL for the dataset landing page.
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
 -- # Class: "Individual" Description: "An individual involved in the dataset."
 --     * Slot: id Description: 
@@ -20,6 +22,12 @@
 --     * Slot: primaryContact Description: Indicates if the creator is the primary contact.
 --     * Slot: affiliation Description: Affiliation of the creator.
 --     * Slot: Dataset_uid Description: Autocreated FK slot
+-- # Class: "Funding" Description: "Funding source for the dataset. Each item corresponds to a single award or grant."
+--     * Slot: id Description: 
+--     * Slot: awardNumber Description: Award number from the funding entity.
+--     * Slot: awardTitle Description: Title of the award.
+--     * Slot: awardURI Description: URI for the award. This may be a DOI. Include prefix.
+--     * Slot: fundingOrganization_id Description: Details of the funding entity.
 -- # Class: "Organization" Description: "An organization involved in the dataset."
 --     * Slot: id Description: 
 --     * Slot: organizationName Description: Name of the organization.
@@ -47,6 +55,9 @@
 -- # Class: "Dataset_keywords" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: keywords Description: Keywords associated with the dataset.
+-- # Class: "Dataset_funding" Description: ""
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: funding_id Description: Funding source(s) for the dataset.
 
 CREATE TABLE "DatasetCollection" (
 	id INTEGER NOT NULL, 
@@ -84,11 +95,22 @@ CREATE TABLE "Dataset" (
 	"bibliographicCitation" TEXT, 
 	identifier TEXT NOT NULL, 
 	"analysisType" TEXT, 
+	"datasetType" VARCHAR(2), 
 	description TEXT, 
 	"datasetName" TEXT, 
+	dataset_url TEXT, 
 	"DatasetCollection_id" INTEGER, 
 	PRIMARY KEY (uid), 
 	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id)
+);
+CREATE TABLE "Funding" (
+	id INTEGER NOT NULL, 
+	"awardNumber" TEXT, 
+	"awardTitle" TEXT, 
+	"awardURI" TEXT, 
+	"fundingOrganization_id" INTEGER, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("fundingOrganization_id") REFERENCES "Organization" (id)
 );
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL, 
@@ -125,4 +147,11 @@ CREATE TABLE "Dataset_keywords" (
 	keywords TEXT, 
 	PRIMARY KEY ("Dataset_uid", keywords), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE TABLE "Dataset_funding" (
+	"Dataset_uid" INTEGER, 
+	funding_id INTEGER, 
+	PRIMARY KEY ("Dataset_uid", funding_id), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
+	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );

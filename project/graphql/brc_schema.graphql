@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.0.3
+# version: 0.0.4
 type Dataset
   {
     id: Uriorcurie
@@ -13,15 +13,26 @@ type Dataset
     hasRelatedIds: [Uriorcurie]
     species: [Organism]
     analysisType: String
+    datasetType: DatasetTypeCodes
     description: String
     relatedItem: [RelatedItem]
     keywords: [String]
     datasetName: String
+    funding: [Funding]
+    datasetUrl: Uri
   }
 
 type DatasetCollection
   {
     datasets: [Dataset]
+  }
+
+type Funding
+  {
+    fundingOrganization: Organization
+    awardNumber: String
+    awardTitle: String
+    awardURI: Uriorcurie
   }
 
 type Individual
