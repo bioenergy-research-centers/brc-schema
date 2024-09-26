@@ -327,7 +327,7 @@ classes:
     attributes:
       award_doi:
         description: >-
-          	Digital Object Identifier assigned to this award.
+          Digital Object Identifier assigned to this award.
         range: string
         examples:
           - value: 10.11578/award-2020/29300X
