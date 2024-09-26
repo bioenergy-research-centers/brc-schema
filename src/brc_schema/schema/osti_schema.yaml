@@ -528,25 +528,59 @@ enums:
   DatasetTypeCodes:
     description: >-
       The type of dataset.
+      Descriptions are from
+      https://www.osti.gov/elink/F2416instruct.jsp
     permissible_values:
       AS:
-        description: Animations/Simulations
+        description: >-
+          Animations/Simulations - Animations and simulations resulting from
+          runs of computer models or similar software.
       GD:
-        description: Genome/Genetic Data (such as gene sequences)
+        description: >-
+          Genome/Genetics Data - Information that is numeric or alpha-numeric
+          in nature (such as gene sequences) or that is a specialized mix of
+          text and non-text information conveying results of genetics/genome
+          research.
       IM:
-        description: Interactive data maps, such as GIS data and/or shape files
+        description: >-
+          Interactive Data Map(s) - A non-static interface and the GIS data
+          and/or shape files that generate it.
       ND:
-        description: Numeric Data
+        description: >-
+          Numeric Data - Data primarily expressed with numbers; other content
+          is secondary and supporting.
       IP:
-        description: Still images or photos
+        description: >-
+          Still Images or Photos - A collection of images or photographs that
+          are produced by a scientific instrument or that convey scientific
+          results of experiments. Scientific images that might constitute a
+          dataset could be images of cells or molecules that are typically
+          taken with electron microscopes, 3-D structures of proteins or
+          nanomaterials, images captured during an accelerator run, images from
+          astronomy, etc.
       FP:
-        description: Figures/Plots, charts and diagrams
+        description: >-
+          Figures/Plots - A dataset consisting mainly of data diagrams, graphs
+          and charts, diagrams or schematic drawings.
       SM:
-        description: Specialized Mix of differing data types
+        description: >-
+          Specialized Mix - This "type" may be used to indicate a dataset made
+          up of content that doesn't fit into one of the other "type"
+          categories. The content of a "specialized mix" dataset could have
+          some of everything in this list, for example, but is clearly focused
+          on data and does not have a "format", such as a technical report that
+          is focused on data would.
       MM:
-        description: Multimedia, such as videos of experiments
+        description: >-
+          Multimedia - An example of a multimedia dataset might be a video of
+          an experiment in progress, where the camera monitors change over a
+          number of hours.
       I:
-        description: Instrumentation/Experimental Data
+        description: >-
+          Instrument - Use this option to relate datasets which derive from a
+          specific DOE instrument at one of the laboratories or user
+          facilities. This creates a central Instrument record with a DOI to
+          link out to related datasets.
 
   relatedIdentifierType:
     description: >
