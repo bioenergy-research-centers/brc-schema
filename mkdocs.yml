@@ -2,24 +2,27 @@
 site_name: "brc-schema"
 theme:
   name: material
-  # palette:
-  #  scheme: slate
-  #  primary: cyan
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
   features:
     - content.tabs.link
 plugins:
   - search
   - mermaid2
 nav:
-  # - Home: home.md
   - Index: index.md
   - About: about.md
 site_url: https://bioenergy-research-centers.github.io/brc-schema
 repo_url: https://github.com/bioenergy-research-centers/brc-schema
-
-# Uncomment this block to enable use of Google Analytics.
-# Replace the property value with your own ID.
-# extra:
-#   analytics:
-#     provider: google
-#     property: G-XXXXXXXXXX
