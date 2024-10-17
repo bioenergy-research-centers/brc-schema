@@ -91,7 +91,7 @@ CREATE TABLE "Dataset" (
 	title TEXT NOT NULL, 
 	date DATE NOT NULL, 
 	brc VARCHAR(5) NOT NULL, 
-	repository VARCHAR(15), 
+	repository VARCHAR(42), 
 	"bibliographicCitation" TEXT, 
 	identifier TEXT NOT NULL, 
 	"analysisType" TEXT, 

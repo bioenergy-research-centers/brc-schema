@@ -21,10 +21,10 @@ brc:DatasetCollection a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "DatasetCollection" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom brc:Dataset ;
+            owl:minCardinality 0 ;
             owl:onProperty brc:datasets ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom brc:Dataset ;
             owl:onProperty brc:datasets ] ;
     skos:definition "Container class for defining a collection of datasets." ;
     skos:inScheme brc:brc_schema .
@@ -33,150 +33,150 @@ brc:Dataset a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Dataset" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom brc:Individual ;
-            owl:onProperty brc:creator ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:bibliographicCitation ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:bibliographicCitation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:datasetName ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:datasetType ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:DatasetTypeCodes ;
-            owl:onProperty brc:datasetType ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:analysisType ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Uriorcurie ;
-            owl:onProperty brc:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:brc ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
             owl:onProperty brc:keywords ],
         [ a owl:Restriction ;
-            owl:allValuesFrom brc:RepositoryEnum ;
-            owl:onProperty brc:repository ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:date ;
-            owl:onProperty brc:date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Uri ;
-            owl:onProperty brc:dataset_url ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:title ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty brc:brc ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:funding ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:BRCEnum ;
-            owl:onProperty brc:brc ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:species ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:datasetName ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Uriorcurie ;
-            owl:onProperty brc:has_related_ids ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty brc:creator ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:RelatedItem ;
-            owl:onProperty brc:relatedItem ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:dataset_url ],
+            owl:onProperty brc:identifier ],
         [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:unionOf ( brc:AnalysisType linkml:String ) ] ;
             owl:onProperty brc:analysisType ],
         [ a owl:Restriction ;
+            owl:allValuesFrom brc:Organism ;
+            owl:onProperty brc:species ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty brc:repository ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:Funding ;
-            owl:onProperty brc:funding ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:has_related_ids ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:identifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:keywords ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom brc:DatasetTypeCodes ;
             owl:onProperty brc:datasetType ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:repository ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:identifier ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:Organism ;
-            owl:onProperty brc:species ],
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:dataset_url ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:analysisType ],
+            owl:onProperty brc:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Uriorcurie ;
+            owl:onProperty brc:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:datasetName ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty brc:creator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:date ;
             owl:onProperty brc:date ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty brc:title ],
+            owl:allValuesFrom linkml:Uriorcurie ;
+            owl:onProperty brc:has_related_ids ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:has_related_ids ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:keywords ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:relatedItem ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:datasetType ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:description ],
+            owl:onProperty brc:brc ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom brc:Funding ;
+            owl:onProperty brc:funding ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom brc:RelatedItem ;
+            owl:onProperty brc:relatedItem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom brc:RepositoryEnum ;
+            owl:onProperty brc:repository ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:bibliographicCitation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:identifier ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty brc:datasetName ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:relatedItem ],
+            owl:onProperty brc:analysisType ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty brc:identifier ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:title ],
+            owl:allValuesFrom linkml:Uri ;
+            owl:onProperty brc:dataset_url ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty brc:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty brc:dataset_url ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Uri ;
             owl:onProperty brc:bibliographicCitation ],
         [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty brc:date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom brc:BRCEnum ;
+            owl:onProperty brc:brc ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty brc:brc ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty brc:title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:title ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:date ] ;
+            owl:onProperty brc:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:datasetType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:species ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:bibliographicCitation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:funding ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:analysisType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:datasetName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom brc:Individual ;
+            owl:onProperty brc:creator ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:identifier ] ;
     skos:closeMatch dcat:Catalog ;
     skos:definition "A dataset containing metabolomics and proteomics data." ;
     skos:exactMatch schema1:Dataset,
@@ -188,17 +188,23 @@ brc:Funding a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Funding" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
+            owl:maxCardinality 1 ;
             owl:onProperty brc:awardNumber ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty brc:awardNumber ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:awardURI ],
+            owl:minCardinality 0 ;
+            owl:onProperty brc:awardTitle ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:fundingOrganization ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:awardTitle ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:awardTitle ],
+            owl:onProperty brc:awardURI ],
         [ a owl:Restriction ;
             owl:allValuesFrom brc:Organization ;
             owl:onProperty brc:fundingOrganization ],
@@ -207,22 +213,16 @@ brc:Funding a owl:Class,
             owl:onProperty brc:awardURI ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:awardTitle ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:fundingOrganization ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:awardTitle ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:fundingOrganization ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty brc:awardNumber ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:fundingOrganization ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:awardURI ] ;
+            owl:onProperty brc:awardURI ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:awardTitle ] ;
     skos:closeMatch schema1:Grant,
         osti:award ;
     skos:definition "Funding source for the dataset. Each item corresponds to a single award or grant." ;
@@ -232,40 +232,40 @@ brc:Individual a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Individual" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:creatorName ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:creatorName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:affiliation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Boolean ;
+            owl:onProperty brc:primaryContact ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:email ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
+            owl:onProperty brc:primaryContact ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty brc:affiliation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:email ],
         [ a owl:Restriction ;
             owl:allValuesFrom [ owl:unionOf ( brc:Organization linkml:String ) ] ;
             owl:onProperty brc:affiliation ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:affiliation ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:primaryContact ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:creatorName ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty brc:creatorName ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:primaryContact ],
-        [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty brc:email ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:email ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Boolean ;
+            owl:maxCardinality 1 ;
             owl:onProperty brc:primaryContact ] ;
     skos:definition "An individual involved in the dataset." ;
     skos:exactMatch schema1:Person,
@@ -276,23 +276,23 @@ brc:Organism a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Organism" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:scientificName ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:scientificName ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:NCBITaxID ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:scientificName ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty brc:NCBITaxID ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty brc:NCBITaxID ] ;
+            owl:onProperty brc:NCBITaxID ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:scientificName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty brc:scientificName ] ;
     skos:definition "An organism studied in the dataset." ;
     skos:inScheme brc:brc_schema .
 
@@ -300,32 +300,32 @@ brc:RelatedItem a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "RelatedItem" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty brc:title ],
+            owl:allValuesFrom brc:CitedItemType ;
+            owl:onProperty brc:relatedItemType ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:relatedItemIdentifier ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:relatedItemIdentifier ],
+            owl:onProperty brc:relatedItemType ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Uriorcurie ;
             owl:onProperty brc:relatedItemIdentifier ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:relatedItemIdentifier ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty brc:title ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:relatedItemType ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom brc:CitedItemType ;
             owl:onProperty brc:relatedItemType ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty brc:title ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:relatedItemIdentifier ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:relatedItemType ] ;
+            owl:onProperty brc:title ] ;
     skos:definition "A related publication or item, including cited publications." ;
     skos:inScheme brc:brc_schema .
 
@@ -405,6 +405,11 @@ schema1:PresentationDigitalDocument a owl:Class,
 schema1:Publication a owl:Class,
         brc:CitedItemType ;
     rdfs:label "Preprint" ;
+    rdfs:subClassOf brc:CitedItemType .
+
+schema1:WebApplication a owl:Class,
+        brc:CitedItemType ;
+    rdfs:label "WebApplication" ;
     rdfs:subClassOf brc:CitedItemType .
 
 schema1:WebPage a owl:Class,
@@ -502,6 +507,21 @@ schema1:thesis a owl:Class,
     rdfs:label "SM" ;
     rdfs:subClassOf brc:DatasetTypeCodes .
 
+<https://w3id.org/brc/RepositoryEnum#AmeriFlux> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "AmeriFlux" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#Dryad> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Dryad" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#FigShare> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "FigShare" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
 <https://w3id.org/brc/RepositoryEnum#GEO> a owl:Class,
         brc:RepositoryEnum ;
     rdfs:label "GEO" ;
@@ -512,14 +532,34 @@ schema1:thesis a owl:Class,
     rdfs:label "ICE" ;
     rdfs:subClassOf brc:RepositoryEnum .
 
+<https://w3id.org/brc/RepositoryEnum#Illinois+Data+Bank> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Illinois Data Bank" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#Iowa+State+University+FigShare> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Iowa State University FigShare" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
 <https://w3id.org/brc/RepositoryEnum#MassIVE> a owl:Class,
         brc:RepositoryEnum ;
     rdfs:label "MassIVE" ;
     rdfs:subClassOf brc:RepositoryEnum .
 
+<https://w3id.org/brc/RepositoryEnum#Mendeley+Data> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Mendeley Data" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
 <https://w3id.org/brc/RepositoryEnum#NCBI+BioProject> a owl:Class,
         brc:RepositoryEnum ;
     rdfs:label "NCBI BioProject" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#ORNL+DAAC> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "ORNL DAAC" ;
     rdfs:subClassOf brc:RepositoryEnum .
 
 <https://w3id.org/brc/RepositoryEnum#OSTI> a owl:Class,
@@ -540,6 +580,21 @@ schema1:thesis a owl:Class,
 <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> a owl:Class,
         brc:RepositoryEnum ;
     rdfs:label "PedtideAtlas" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#Protein+Data+Bank> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Protein Data Bank" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#The+Cambridge+Crystallographic+Data+Centre> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "The Cambridge Crystallographic Data Centre" ;
+    rdfs:subClassOf brc:RepositoryEnum .
+
+<https://w3id.org/brc/RepositoryEnum#Zenodo> a owl:Class,
+        brc:RepositoryEnum ;
+    rdfs:label "Zenodo" ;
     rdfs:subClassOf brc:RepositoryEnum .
 
 <https://w3id.org/brc/RepositoryEnum#iProX> a owl:Class,
@@ -610,37 +665,37 @@ brc:Organization a owl:Class,
             owl:allValuesFrom brc:Organization ;
             owl:onProperty brc:parentOrganization ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom brc:wikidata_identifier ;
             owl:onProperty brc:wikidata_id ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty brc:parentOrganization ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:organizationName ],
+            owl:onProperty brc:ror_id ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty brc:parentOrganization ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:wikidata_id ],
+            owl:onProperty brc:ror_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom brc:ror_identifier ;
             owl:onProperty brc:ror_id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom brc:wikidata_identifier ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:organizationName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty brc:parentOrganization ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty brc:organizationName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty brc:wikidata_id ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty brc:ror_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty brc:ror_id ],
+            owl:onProperty brc:wikidata_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty brc:organizationName ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty brc:organizationName ] ;
     skos:definition "An organization involved in the dataset." ;
     skos:inScheme brc:brc_schema .
@@ -851,13 +906,14 @@ brc:AnalysisType a owl:Class,
 
 brc:CitedItemType a owl:Class,
         linkml:EnumDefinition ;
-    owl:unionOf ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage ) ;
+    owl:unionOf ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
     linkml:permissible_values IAO:0000010,
         IAO:0000013,
         IAO:0000088,
         IAO:0000313,
         schema1:PresentationDigitalDocument,
         schema1:Publication,
+        schema1:WebApplication,
         schema1:WebPage,
         schema1:book,
         schema1:dataset,
@@ -865,15 +921,25 @@ brc:CitedItemType a owl:Class,
 
 brc:RepositoryEnum a owl:Class,
         linkml:EnumDefinition ;
-    owl:unionOf ( <https://w3id.org/brc/RepositoryEnum#GEO> <https://w3id.org/brc/RepositoryEnum#ICE> <https://w3id.org/brc/RepositoryEnum#iProX> <https://w3id.org/brc/RepositoryEnum#jPOST> <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#NCBI+BioProject> <https://w3id.org/brc/RepositoryEnum#OSTI> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> ) ;
-    linkml:permissible_values <https://w3id.org/brc/RepositoryEnum#GEO>,
+    owl:unionOf ( <https://w3id.org/brc/RepositoryEnum#AmeriFlux> <https://w3id.org/brc/RepositoryEnum#Dryad> <https://w3id.org/brc/RepositoryEnum#FigShare> <https://w3id.org/brc/RepositoryEnum#GEO> <https://w3id.org/brc/RepositoryEnum#Iowa+State+University+FigShare> <https://w3id.org/brc/RepositoryEnum#ICE> <https://w3id.org/brc/RepositoryEnum#Illinois+Data+Bank> <https://w3id.org/brc/RepositoryEnum#iProX> <https://w3id.org/brc/RepositoryEnum#jPOST> <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#Mendeley+Data> <https://w3id.org/brc/RepositoryEnum#NCBI+BioProject> <https://w3id.org/brc/RepositoryEnum#ORNL+DAAC> <https://w3id.org/brc/RepositoryEnum#OSTI> <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Protein+Data+Bank> <https://w3id.org/brc/RepositoryEnum#The+Cambridge+Crystallographic+Data+Centre> <https://w3id.org/brc/RepositoryEnum#Zenodo> ) ;
+    linkml:permissible_values <https://w3id.org/brc/RepositoryEnum#AmeriFlux>,
+        <https://w3id.org/brc/RepositoryEnum#Dryad>,
+        <https://w3id.org/brc/RepositoryEnum#FigShare>,
+        <https://w3id.org/brc/RepositoryEnum#GEO>,
         <https://w3id.org/brc/RepositoryEnum#ICE>,
+        <https://w3id.org/brc/RepositoryEnum#Illinois+Data+Bank>,
+        <https://w3id.org/brc/RepositoryEnum#Iowa+State+University+FigShare>,
         <https://w3id.org/brc/RepositoryEnum#MassIVE>,
+        <https://w3id.org/brc/RepositoryEnum#Mendeley+Data>,
         <https://w3id.org/brc/RepositoryEnum#NCBI+BioProject>,
+        <https://w3id.org/brc/RepositoryEnum#ORNL+DAAC>,
         <https://w3id.org/brc/RepositoryEnum#OSTI>,
         <https://w3id.org/brc/RepositoryEnum#PRIDE>,
         <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>,
         <https://w3id.org/brc/RepositoryEnum#PedtideAtlas>,
+        <https://w3id.org/brc/RepositoryEnum#Protein+Data+Bank>,
+        <https://w3id.org/brc/RepositoryEnum#The+Cambridge+Crystallographic+Data+Centre>,
+        <https://w3id.org/brc/RepositoryEnum#Zenodo>,
         <https://w3id.org/brc/RepositoryEnum#iProX>,
         <https://w3id.org/brc/RepositoryEnum#jPOST> .
 

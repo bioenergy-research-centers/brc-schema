@@ -1,0 +1,1229 @@
+{ "datasets": [{
+	"title": "TMTPro Complementary Ion Quantification Increase Plexing and Sensitivity for Accurate Multiplexed Proteomics at the MS2 level",
+	"date": "2021-05-11",
+	"creator": [{
+		"creatorName": "Wuhr, Martin",
+		"email": "wuhr@princeton.edu",
+		"primaryContact": true,
+		"affiliation": "Lewis-Sigler Institute for Integrative Genomics, Princeton University"
+	},{
+		"creatorName": "Stadlmeier, Michael",
+		"email": "ms93@princeton.edu",
+		"affiliation": "Princeton University"
+	}],
+	"brc": "CABBI",
+	"repository": "PRIDE",
+	"bibliographicCitation": "https://dx.doi.org/10.6019/PXD021661",
+	"identifier": "PXD021661",
+	"species": [{
+		"scientificName": "Homo sapiens",
+		"NCBITaxID": 9606
+	},{
+		"scientificName": "Saccharomyces cerevisiae",
+		"NCBITaxID": 4932
+	}],
+	"analysisType": "shotgun_proteomics",
+	"description": "The ability of the TMTPro isobaric labeling reagents to form complementary ions for accurate multiplexed proteomics at the MS2 level was investigated. Human and yeast peptides were labeled in distinct ratios to analyze the effect of interference on the quantification accuracy. A method, TMTProC, was developed and optimized for accurate, sensitive MS2-level quantification of up to 8 conditions in one MS-run.",
+	"relatedItem": {
+		"title": "TMTpro Complementary Ion Quantification Increases Plexing and Sensitivity for Accurate Multiplexed Proteomics at the MS2 Level.",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://dx.doi.org/10.1021/ACS.JPROTEOME.0C00813"
+	},
+	"keywords": ["complementary ion quantification", "interference-free quantification", "multiplexing", "TMTpro"]
+},{
+	"title": "GNPS Raw data files for NetID manuscript",
+	"date": "2021-10-30",
+	"creator": [{
+		"creatorName": "Rabinowitz, Joshua",
+		"email": "joshr@princeton.edu",
+		"primaryContact": true,
+		"affiliation": "Princeton University"
+	}],
+	"brc": "CABBI",
+	"repository": "MassIVE",
+	"bibliographicCitation": "https://doi.org/doi:10.25345/C5WV53",
+	"identifier": "MSV000087434",
+	"species": [{
+		"scientificName": "Mus musculus",
+		"NCBITaxID": 10090
+	},{
+		"scientificName": "Saccharomyces cerevisiae",
+		"NCBITaxID": 4932
+	}],
+	"description": "This dataset is associated with this manuscript: Metabolite discovery through global annotation of untargeted metabolomics data. Li Chen, Wenyun Lu, Lin Wang, Xi Xing, Xin Teng, Xianfeng Zeng, Antonio D Muscarella, Yihui Shen, Alexis Cowan, Melanie R McReynolds, Brandon Kennedy, Ashley M Lato, Shawn R Campagna, Mona Singh, Joshua Rabinowitz. The dataset has six main folders: (1) Yeast-MS1 (2) Yeast-labeling (3) Liver-MS1 (4) Liver-targeted-MS2 (separate folders for mzxml files and matched csv files used as the inclusion list to set up PRM targeted-MS2 runs) (5) Mouse-labeling (6) Glucosyl_taurine-liver-vs-synthesis. Please refer to README-raw-data-NetID-20210512.doc for more details.",
+	"relatedItem": {
+		"title": "Metabolite discovery through global annotation of untargeted metabolomics data",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41592-021-01303-3"
+	},
+	"keywords": ["NetID", "liver", "yeast", "full scan MS1", "PRM-targeted MS2"]
+},{
+	"title": "Data from: Biomass yield, yield components and growing season phenotypic measurements of Miscanthus",
+	"date": "2024-04-08",
+	"creator": [{
+		"creatorName": "Lee, DoKyoung",
+		"email": "leedk@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Dryad",
+	"bibliographicCitation": "https://doi.org/10.5061/dryad.z612jm6kk",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "Dataset contains end-of-season Dry biomass yield of Miscanthus × giganteus from two sites (Urbana and Pesotum) in Central Illinois. The Urbana and Pesotum yields are collected over 4 years (2018-2021) and 2 years (2020-2021) respectively. Dataset also contains yield component traits (tiller height, tiller density and tiller weight) obtained at harvest. Phenotypic traits (canopy height, Leaf area index (LAI) and Leaf Chlorophyll content (LCC)) measured during the growing season are also included.",
+	"relatedItem": {
+		"title": "Nitrogen Fertilization Effects on Aged Miscanthus x giganteus Stands: Exploring Biomass Yield, Yield Components, and Biomass Prediction Using In-Season Morphological Traits",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.13139"
+	},
+	"keywords": ["miscanthus", "field data", "biomass yield", "phenotypic measurements"]
+},{
+	"title": "SoyFACE Fumigation Data Files",
+	"date": "2023-03-15",
+	"creator": [{
+		"creatorName": "Ainsworth, Elizabeth A.",
+		"email": "lisa.ainsworth@usda.gov",
+		"primaryContact": true,
+		"affiliation": "USDA-ARS"
+	},{
+		"creatorName": "Bernacchi, Carl",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "USDA-ARS"
+	},{
+		"creatorName": "DeLucia, Evan H.",
+		"email": "delucia@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"	
+	},{
+		"creatorName": "Leakey, Andrew D.B.",
+		"email": "leakey@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Ort, Donald R.",
+		"email": "d-ort@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-3496460_V3",
+	"species": [{
+		"scientificName": "Glycine max",
+		"NCBITaxID": 3847
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "This data set is related to the SoyFACE experiments, which are open-air agricultural climate change experiments that have been conducted since 2001. The fumigation experiments take place at the SoyFACE farm and facility in Champaign County, Illinois during the growing season of each year, typically between June and October.",
+	"relatedItem": [{
+		"title": "Two Decades of Fumigation Data from the Soybean Free Air Concentration Enrichment Facility",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41597-023-02118-x"
+	},{
+		"title": "Similar Photosynthetic but Different Yield Responses of C3 and C4 Crops to Elevated O3",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1073/pnas.2313591120"
+	}],
+	"keywords": ["free air concentration enrichment", "O3", "fumigation data", "weather data", "CO2"]
+},{
+	"title": "Miscanthus sinensis multi-location trial: phenotypic analysis, genome-wide association, and genomic prediction",
+	"date": "2019-03-25",
+	"creator": [{
+		"creatorName": "Sacks, Erik J.",
+		"email": "esacks@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-0790815_V3",
+	"species": [{
+		"scientificName": "Miscanthus sinensis",
+		"NCBITaxID": 62337
+	}],
+	"description": "This dataset contains genotypic and phenotypic data, R scripts, and the results of analysis pertaining to a multi-location field trial of Miscanthus sinensis. Genome-wide association and genomic prediction were performed for biomass yield and 14 yield-component traits across six field trial locations in Asia and North America, using 46,177 single-nucleotide polymorphism (SNP) markers mined from restriction site-associated DNA sequencing (RAD-seq) and 568 M. sinensis accessions. Genomic regions and candidate genes were identified that can be used for breeding improved varieties of M. sinensis, which in turn will be used to generate new M. x giganteus clones for biomass.",
+	"relatedItem": {
+		"title": "Genome-wide association and genomic prediction for biomass yield in a genetically diverse Miscanthus sinensis germplasm panel phenotyped at five locations in Asia and North America",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12620"
+	},
+	"keywords": ["miscanthus", "rad-seq", "genome-wide association", "genomic predication", "single nucleotide polymorphis markers"]
+},{
+	"title": "Excessive Rainfall Leads to Maize Yield Loss of a Comparable Magnitude to Extreme Drought in the United States",
+	"date": "2019-04-29",
+	"creator": [{
+		"creatorName": "Guan, Kaiyu",
+		"email": "kaiyug@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "FigShare",
+	"bibliographicCitation": "https://doi.org/10.6084/m9.figshare.7581473",
+	"species": [{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "This repository is for the datasets and codes for 'Excessive rainfall leads to maize yield loss of a comparable magnitude to extreme drought in the United States.' The datasets include maize yield, climate data, maize yield loss from crop insurance data in the US, etc. The datasets can reproduce the results of the paper and they can also be reused to explore other topics.",
+	"relatedItem": {
+		"title": "Excessive rainfall leads to maize yield loss of a comparable magnitude to extreme drought in the United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcb.14628"
+	},
+	"keywords": ["maize yield", "weather data", "modeling", "drought"]
+},{
+	"title": "Age-related changes in Miscanthus × giganteus phenology and the effect of nitrogen fertilization",
+	"date": "2019-07-31",
+	"creator": [{
+		"creatorName": "Heaton, Emily",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Mendeley Data",
+	"bibliographicCitation": "https://doi.org/10.17632/9rrfxshnm6.2",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "In this research we used the warm-season grass Miscanthus × giganteus as model herbaceous perennial species to study age-related changes on phenology. Age-related experiments are usually based on field experimental design that confound growing season and age effects and ignore variability generated during the establishment of the stand.  Here, we used a staggered-start experimental design where stands are repeatedly planted over subsequent years providing the ability to separate plant age effects from environmental effects.We hypothesized (i) M. × giganteus would produce more plant structures and reach more advanced developmental stages in a given growing season as it aged. (ii) Juvenile stands would have faster developmental rates and start development sooner and (iii) Mature stands would start senescence sooner in the growing season. Finally, we studied nitrogen (N) fertilization effects on M. × giganteus phenology as to assess whether age-related changes could be an artifact of size and N dilution in mature bigger individuals. We hypothesized that (iv) fertilized juvenile stands would have similar dynamics as mature unfertilized stands. Data were collected bi-weekly on all established stands during 2016 and 2017. Ten stems were harvested from each plot and staged at the lab according to M. × giganteus morphological scale developed by Tejera & Heaton (2017). Time series progression were then analyzed using non-linear models and parameters were compared across stand ages, N treatments and growing seasons. R scripts used to analyze the data are available upon request.",
+	"relatedItem": {
+		"title": "The older plant gets the sun: Age-related changes in Miscanthus × giganteus phenology",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12745"
+	},
+	"keywords": ["phenology", "fertilization effects", "miscanthus aging"]
+},{
+	"title": "Land Productivity and Land Availability for Growing Bioenergy Crop in the Contiguous U.S.",
+	"date": "2019-12-10",
+	"creator": [{
+		"creatorName": "Cai, Ximing",
+		"email": "xmcai@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-4584681_V1",
+	"description": "The dataset consists of two types of data: the estimate of land productivity (the maximum productivity, MP) and the estimate of land that has low productivity for any major crops planted in the Contiguous United States and then may be available for growing bioenergy crops (the marginal land, ML). All data items are in GeoTiff format, under the World Geodetic System (WGS) 84 project, and with a resolution of 0.0020810045 degree (~250 m).",
+	"relatedItem": {
+		"title": "Machine learning based estimation of land productivity in the contiguous US using biophysical predictors",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1088/1748-9326/ab865f"
+	},
+	"keywords": ["land productivity", "marginal land", "land use"]
+},{
+	"title": "The Economic and Environmental Costs and Benefits of the Renewable Fuel Standard",
+	"date": "2020-08-21",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "VanLoocke, Andy",
+		"email": "andyvanl@iastate.edu",
+		"primaryContact": false,
+		"affiliation": "Iowa State University"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-9851670_V1",
+	"description": "This dataset contains the BEPAM code and input data to analyze differing trade-offs that different types of biofuels offer among multi-dimensional environmental effects and convert them to a monetized value of environmental damages (or benefits) that can be compared with the economic costs of extending these mandates over the 2016–2030 period.",
+	"relatedItem": {
+		"title": "The economic and environmental costs and benefits of the renewable fuel standard",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1088/1748-9326/abd7af"
+	},
+	"keywords": ["social cost of carbon", "social cost of nitrogen", "cost benefit analysis", "indirect land use change", "biofuel and environmental policy analysis model"]
+},{
+	"title": "BEPAM Model Code and CABBI Simulation Results for 'Assessing the Returns to Land and Greenhouse Gas Savings from Producing Energy Crops on Conservation Reserve Program Land'",
+	"date": "2020-09-07",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "DeLucia, Evan",
+		"email": "delucia@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-2224392_V2",
+	"description": "This dataset contains the BEPAM code and input data to analyze the combination of biomass prices and CRP land rental payment reductions that can incentivize energy crop production on CRP land and its potential to increase soil carbon stocks and displace fossil fuel emissions.",
+	"relatedItem": {
+		"title": "Assessing the Returns to Land and Greenhouse Gas Savings from Producing Energy Crops on Conservation Reserve Program Land",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1021/acs.est.0c06133"
+	},
+	"keywords": ["miscanthus", "switchgrass", "carbon sequestration", "conservation reserve program", "biofuel and environmental policy analysis model"]
+},{
+	"title": "BEPAM Model Code and CABBI Simulation Results for ‘Assessing the Additional Carbon Savings with Biofuel’",
+	"date": "2020-10-15",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-4272529_V1",
+	"description": "This dataset contains the input data and GAMS model code to determine the carbon neutrality of corn for ethanol by assessing the additional carbon uptake by crops using an anticipated baseline approach.",
+	"relatedItem": {
+		"title": "Assessing the Additional Carbon Savings with Biofuel",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1007/s12155-020-10149-0"
+	},
+	"keywords": ["corn ethanol", "economic modeling", "life cycle carbon intensity", "biofuel and environmental policy analysis model"]
+},{
+	"title": "Farmers’ Perceptions of Marginal Land for Biofuel Crops",
+	"date": "2020-12-02",
+	"creator": [{
+		"creatorName": "Cai, Ximing",
+		"email": "xmcai@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-4272529_V1",
+	"description": "The dataset includes the survey results about farmers’ perceptions of marginal land availability and the likelihood of a land pixel being marginal based on a machine learning model trained from the survey.",
+	"relatedItem": {
+		"title": "Farmers’ Heterogenous Perceptions of Marginal Land for Biofuel Crops in U.S. Midwestern States Considering Biophysical and Socio-Economic Factors",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12821"
+	},
+	"keywords": ["marginal land", "surveys"]
+},{
+	"title": "BEPAM-E Model Code and CABBI Simulation Results for 'Repeal of the Clean Power Plan: Social Cost and Distributional Implications'",
+	"date": "2020-12-15",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-7562109_V1",
+	"description": "This dataset contains the input data and GAMS model code to examine the greenhouse gas and welfare implications of this repeal while incorporating the presence of the state renewable portfolio standards (RPS) in the US as the status quo.",
+	"relatedItem": {
+		"title": "Repeal of the Clean Power Plan: Social Cost and Distributional Implications",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/ajae.12189"
+	},
+	"keywords": ["carbon abatement", "electricity sector", "biofuel and environmental policy analysis model"]
+},{
+	"title": "AgroIBIS VSF Farmed Pothole Ponding Model Runs",
+	"date": "2021-02-08",
+	"creator": [{
+		"creatorName": "VanLoocke, Andy",
+		"email": "andyvanl@iastate.edu",
+		"primaryContact": true,
+		"affiliation": "Iowa State University"
+	}],
+	"brc": "CABBI",
+	"repository": "Iowa State University FigShare",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-7562109_V1",
+	"description": "This data set includes modeled (AgroIBIS-VSF) output of crop yield for miscanthus and a corn/soybean rotation in .nc format. Input includes the precipitation scenarios (.csv) used to generate the runs, and supplemental observed yield monitor data (.csv) from the research area of interest.",
+	"relatedItem": {
+		"title": "Planting Miscanthus Instead of Row Crops May Increase the Productivity and Economic Performance of Farmed Potholes",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12870"
+	},
+	"keywords": ["miscanthus", "potholes", "crop modeling", "agroibis-vsf"]
+},{
+	"title": "MODIS-based GPP, PAR, fC4, and SANIRv estimates from SLOPE for CONUS, 2000-2019",
+	"date": "2021-02-19",
+	"creator": [{
+		"creatorName": "Guan, Kaiyu",
+		"email": "kaiyug@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "ORNL DAAC",
+	"bibliographicCitation": "https://doi.org/10.3334/ORNLDAAC/1786",
+	"description": "This dataset contains estimated gross primary productivity (GPP), photosynthetically active radiation (PAR), soil adjusted near infrared reflectance of vegetation (SANIRv), the fraction of C4 crops in vegetation (fC4), and their uncertainties for the conterminous United States (CONUS) from 2000 to 2019. The daily estimates are SatelLite Only Photosynthesis Estimation (SLOPE) products at 250-m resolution. There are three distinct features of the GPP estimation algorithm: (1) SLOPE couples machine learning models with MODIS atmosphere and land products to accurately estimate PAR, (2) SLOPE couples gap-filling and filtering algorithms with surface reflectance acquired by both Terra and Aqua MODIS satellites to derive a soil-adjusted NIRv (SANIRv) dataset, and (3) SLOPE couples a temporal pattern recognition approach with a long-term Crop Data Layer (CDL) product to predict dynamic C4 crop fraction. PAR, SANIRv and C4 fraction are used to drive a parsimonious model with only two parameters to estimate GPP, along with a quantitative uncertainty, on a per-pixel and daily basis. The slope GPP product has an R2 = 0.84 and a root-mean-square error (RMSE) of 1.65 gC m-2 d-1.",
+	"relatedItem": {
+		"title": "A Daily, 250M and Real-Time Gross Primary Productivity Product (2000-Present) Covering the Contiguous United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.5194/essd-13-281-2021"
+	},
+	"keywords": ["gross primary production", "photosynthetically active radiation", "fraction C4", "modis"]
+},{
+	"title": "Simulated Land Allocation, Nitrogen Use, and Nitrogen Loss in the Mississippi Atchafalaya River Basin for Various RFS2 (Renewable Fuel Standard) Policy Scenarios",
+	"date": "2021-02-21",
+	"creator": [{
+		"creatorName": "VanLoocke, Andy",
+		"email": "andyvanl@iastate",
+		"primaryContact": true,
+		"affiliation": "Iowa State University"
+	},{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Heaton, Emily A.",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-3388479_V1",
+	"description": "Total nitrogen leaching rates were calculated over the Mississippi Atchafalaya River Basin (MARB) using an integrated economic-biophysical modeling approach. Land allocation for corn production and total nitrogen application rates were calculated for crop reporting districts using the Biofuel and Environmental Policy Analysis Model (BEPAM) for 5 RFS2 policy scenarios. These were used as input in the Integrated BIosphere Simulator-Agricultural Version (Agro-IBIS) and the Terrestrial Hydrologic Model with Biogeochemistry (THMB) to calculate the nitrogen loss.",
+	"relatedItem": {
+		"title": "Water Quality Effects of Economically Viable Land Use Change in the Mississippi River Basin under the Renewable Fuel Standard",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1021/acs.est.0c04358"
+	},
+	"keywords": ["nitrogen leaching", "bioethanol", "bioenergy crops", "agroibis", "terrestrial hydrologic model biogeochemistry"]
+},{
+	"title": "Photosynthetic Performance Measurements in Biomass Sorghum Varietals in Central Illinois During Four Growing Seasons",
+	"date": "2021-03-08",
+	"creator": [{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Bernacchi, Carl",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "USDA-ARS"
+	},{
+		"creatorName": "Leakey, Andrew D.B.",
+		"email": "leakey@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-4580996_V2",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558	
+	}],
+	"description": "In a set of field studies across four years, the effect of self-shading on photosynthetic performance in lower canopy sorghum leaves was studied at sites in Champaign County, IL. Photosynthetic parameters in upper and lower canopy leaves, carbon assimilation, electron transport, stomatal conductance, and activity of three C4-specific photosynthetic enzymes, were compared within a genetically diverse range of accessions varying widely in canopy architecture and thereby in the degree of self-shading. Accessions with erect leaves and high light transmission through the canopy are henceforth referred to as ‘erectophile’ and those with low leaf erectness, ‘planophile’. In the final year of the study, bundle sheath leakiness in erectophile and planophile accessions was also compared.",
+	"relatedItem": {
+		"title": "Can Improved Canopy Light Transmission Ameliorate Loss of Photosynthetic Efficiency in the Shade? An Investigation of Natural Variation in Sorghum bicolor",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1093/jxb/erab176"
+	},
+	"keywords": ["sorghum", "leaf inclination angle", "carbon assimilation", "electron transport", "stomatal conductance"]
+},{
+	"title": "Data for Toward a Dynamic Photosynthesis Model to Guide the Yield Improvement in C4 Crops",
+	"date": "2021-05-26",
+	"creator": [{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-2694900_V1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558	
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	},{
+		"scientificName": "Saccharum officinarum",
+		"NCBITaxID": 4547
+	}],
+	"description": "Steady-state and dynamic gas exchange data for maize (B73), sugarcane (CP88-1762) and sorghum (Tx430)",
+	"relatedItem": {
+		"title": "Towards a dynamic photosynthesis model to guide yield improvement in C4 crops",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/tpj.15365"
+	},
+	"keywords": ["sorghum", "sugarcane", "maize", "gas exchange"]
+},{
+	"title": "UAV-Based Multispectral Time-Series Imagery of Biomass Sorghum — 2019",
+	"date": "2021-05-10",
+	"creator": [{
+		"creatorName": "Leakey, Andrew D.B.",
+		"email": "leakey@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-0353090_V1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558	
+	}],
+	"description": "UAV-based high-resolution multispectral time-series orthophotos utilized to understand the relation between growth dynamics, imagery temporal resolution, and end-of-season biomass productivity of biomass sorghum as bioenergy crop. Sensor utilized is a RedEdge Micasense flown at 40 meters above ground level at the Energy Farm at University of Illinois Urbana-Champaign in 2019.",
+	"relatedItem": {
+		"title": "Understanding growth Dynamics and Yield Prediction of Sorghum Using High Temporal Resolution UAV Imagery Time Series and Machine Learning",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.3390/rs13091763"
+	},
+	"keywords": ["sorghum", "unmanned aerial vehicles", "high-throughput phenotyping", "machine learning"]
+},{
+	"title": "Soil Net Nitrogen Mineralization and Leaching under Miscanthus × giganteus and Zea mays",
+	"date": "2021-06-10",
+	"creator": [{
+		"creatorName": "Heaton, Emily A.",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "McDaniel, Marshall D.",
+		"email": "marsh@iastate.edu",
+		"primaryContact": false,
+		"affiliation": "Iowa State University"
+	}],
+	"brc": "CABBI",
+	"repository": "Iowa State University FigShare",
+	"bibliographicCitation": "https://doi.org/10.25380/iastate.14695989.v1",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "Research objectives were to compare whether miscanthus would leach less nitrogen (N) than continue maize and how soil net N mineralization (Nmin) may explain observed leaching. The experiment included three factors: 1) cropping system (maize, juvenile miscanthus = 1-2 y old, mature miscanthus = 3-4 y old); 2) N fertilization (0 and 224 kg N ha-1); and 3) environment (four site-years at two locations in Iowa, USA that differed in climate and soil fertility). During the 2017 and 2018 growing seasons a variety of soil measurements, including inorganic soil N (ammonium + nitrate), in situ Nmin, and N leaching were taken to better understand the differences in N cycling dynamics associated with each system.",
+	"relatedItem": {
+		"title": "Soil Net Nitrogen Mineralization and Leaching under Miscanthus x giganteus and Zea mays",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12875"
+	},
+	"keywords": ["miscanthus", "maize", "nitrogen mineralization", "nitrogen leaching"]
+},{
+	"title": "EnZymClass: Ensemble Method for Enzyme Classification",
+	"date": "2021-06-25",
+	"creator": [{
+		"creatorName": "Maranas, Costas D.",
+		"email": "cdm8@psu.edu",
+		"primaryContact": true,
+		"affiliation": "The Pennsylvania State University"
+	}],
+	"brc": "CABBI",
+	"repository": "Zenodo",
+	"bibliographicCitation": "https://doi.org/10.5281/zenodo.5032482",
+	"description": "The dataset contains the EnZymClass application and the raw and sequence data used in 'EnZymClass: Substrate specificity prediction tool of plant acyl-ACP thioesterases based on ensemble learning'",
+	"relatedItem": {
+		"title": "EnZymClass: Substrate specificity prediction tool of plant acyl-ACP thioesterases based on ensemble learning",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1016/j.crbiot.2021.12.002"
+	},
+	"keywords": ["thioesterase", "machine learning", "medium-chain oleochemicals"]
+},{
+	"title": "Maize and Sorghum Establishment and Yield following Pre-Emergence Waterlogging",
+	"date": "2021-08-20",
+	"creator": [{
+		"creatorName": "DeLucia, Evan H.",
+		"email": "delucia@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Yang, Wendy",
+		"email": "yangw@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "In 2020, early-season extreme precipitation events occurred following the planting of Sorghum bicolor (L.) Moench and Zea mays L. in central Illinois that caused ponding. Following the first rainfall event 50m transects were established to assess the waterlogging effects on seedling emergence and crop yields. Soil moisture, emergence, stem and tiller count, LAI, and yield were measured at various points in the season along these transects.",
+	"relatedItem": {
+		"title": "Comparative Establishment and Yield of Bioenergy Sorghum and Maize Following Pre-Emergence Waterlogging",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1002/agj2.20832"
+	},
+	"keywords": ["sorghum", "maize", "flooding events", "soil moisture", "yield", "leaf area index", "tiller count"]
+},{
+	"title": "ECNet: Evolutionary Context-Integrated Neural Network",
+	"date": "2021-08-30",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Peng, Jian",
+		"email": "jianpeng@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Zenodo",
+	"bibliographicCitation": "https://doi.org/10.5281/zenodo.5294461",
+	"description": "ECNet (evolutionary context-integrated neural network) is a deep learning model that guides protein engineering by predicting protein fitness from the sequence. It integrates local evolutionary context from homologous sequences that explicitly model residue-residue epistasis for the protein of interest with the global evolutionary context that encodes rich semantic and structural features from the enormous protein sequence universe.",
+	"relatedItem": {
+		"title": "ECNet is an evolutionary context-integrated deep learning framework for protein engineering",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41467-021-25976-8"
+	},
+	"keywords": ["machine learning", "protein engineering", "neural network"]
+},{
+	"title": "FUN-BioCROP: Fixation and Uptake of Nitrogen-Bioenergy Carbon, Rhizosphere, Organisms, and Protection",
+	"date": "2021-08-30",
+	"creator": [{
+		"creatorName": "Brzostek, Edward R.",
+		"email": "erbrzostek@mail.wvu.edu",
+		"primaryContact": true,
+		"affiliation": "West Virginia University"
+	}],
+	"brc": "CABBI",
+	"repository": "Zenodo",
+	"bibliographicCitation": "https://doi.org/10.5281/zenodo.5562481",
+	"description": "This data package contains the model input, results, and validation data from Juice, et al. 2022. The FUN-BioCROP model (Fixation and Uptake of Nitrogen- Bioenergy Carbon, Rhizosphere, Organisms, and Protection) advances the field of bioenergy modeling by integrating new empirical paradigms of the role of belowground processes in shaping coupled carbon (C) and nitrogen (N) cycles. It was developed by modifying the FUN-CORPSE model (Fixation and Uptake of Nitrogen-Carbon, Organisms, Rhizosphere, and Protection in the Soil Environment, Sulman et al. 2017 Ecology Letters) for use in bioenergy systems by including mechanistic tillage, organic matter addition, nitrogen fertilization, harvest, and feedstock-specific parameters, and to be driven by DayCent plant productivity and biomass data.",
+	"relatedItem": {
+		"title": "A New Bioenergy Model that Simulates the Impacts of Plant-Microbial Interactions, Soil Carbon Protection, and Mechanistic Tillage on Soil Carbon Cycling",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12914"
+	},
+	"keywords": ["bioenergy model", "soil carbon", "soil nitrogen", "FUN-BioCrop"]
+},{
+	"title": "Data for Intra- and Inter-Annual Variability of Nitrification in the Rhizosphere of Field-Grown Bioenergy Sorghum",
+	"date": "2021-12-09",
+	"creator": [{
+		"creatorName": "Yang, Wendy",
+		"email": "yangw@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "DeLucia, Evan H.",
+		"email": "delucia@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Kent, Angela D.",
+		"email": "akent@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-3696813_V1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558
+	}],
+	"description": "These data were collected in 2018 and 2019 at the University of Illinois Energy Farm (N 40.063607, W 88.206926). During each growing season, bulk and rhizosphere soil were collected from replicate Sorghum bicolor nitrogen use efficiency trial plots at three separate time points (approximately July 1, Aug. 1, and Sept. 1). We measured soil moisture, pH, soil nitrate and ammonium, potential nitrification, potential denitrification, and extracted and sequenced the V4 region of the 16S rRNA gene for microbial community analysis.",
+	"relatedItem": {
+		"title": "Intra- and Inter-Annual Variability of Nitrification in the Rhizosphere of Field-Grown Bioenergy Sorghum",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12917"
+	},
+	"keywords": ["soil nitrogen", "sorghum", "nitrification", "soil moisture", "pH"]
+},{
+	"title": "PlasmidMaker: a Versatile, Automated, and High Throughput End-to-End Platform for Plasmid Construction",
+	"date": "2021-08-30",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Zenodo",
+	"bibliographicCitation": "https://doi.org/10.5281/zenodo.5812313",
+	"description": "Plasmids are used extensively in basic and applied biology. However, design and construction of plasmids, specifically the ones carrying complex genetic information, remains one of the most time-consuming, labor-intensive, and rate-limiting steps in performing sophisticated biological experiments. Here, we report the development of a versatile, robust, automated end-to-end platform named PlasmidMaker that allows error-free construction of plasmids with virtually any sequences in a high-throughput manner. This platform consists of a most versatile DNA assembly method using Pyrococcus furiosus Argonaute (PfAgo)-based artificial restriction enzymes, a user-friendly frontend for plasmid design, and a backend that streamlines the workflow and integration with a robotic system. As a proof of concept, we used this platform to generate ~100 plasmids from six different species ranging from 5 to 18 kb in size from up to 11 DNA fragments within 3 days. PlasmidMaker should greatly expand the potential of synthetic biology.",
+	"relatedItem": [{
+		"title": "PlasmidMaker is a Versatile, Automated, and High Throughput End-to-End Platform for Plasmid Construction",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41467-022-30355-y"
+	},{
+		"title": "PlasmidMaker",
+		"relatedItemType": "WebApplication",
+		"relatedItemIdentifier": "https://biofoundry.web.illinois.edu/maker/"
+	}],
+	"keywords": ["plasmid generation", "high-throughput design", "PlasmidMaker", "web tool"]
+},{
+	"title": "Testing Unified Theories for Ozone Response in C4 Species",
+	"date": "2022-01-27",
+	"creator": [{
+		"creatorName": "Ainsworth, Elizabeth A.",
+		"email": "lisa.ainsworth@usda.gov",
+		"primaryContact": true,
+		"affiliation": "USDA-ARS"
+	},{
+		"creatorName": "Sacks, Erik J.",
+		"email": "esacks@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Lee, DoKyoung",
+		"email": "leedk@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-9373041_V1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558
+	},{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	},{
+		"scientificName": "Panicum virgatum",
+		"NCBITaxID": 38727
+	}],
+	"description": "Twenty-two genotypes of C4 species grown under ambient and elevated O3 concentration were studied at the SoyFACE in 2019. This dataset contains leaf morphology, photosynthesis and nutrient contents measured at three time points. The results of CO2 response curves are also included.",
+	"relatedItem": [{
+		"title": "Testing unified theories for ozone response in C4 species",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcb.16108"
+	}],
+	"keywords": ["miscanthus", "ozone", "sorghum", "switchgrass", "photosynthesis"]
+},{
+	"title": "Miscanthus x giganteus yield in a REpeated PLAnting Year (REPLAY) experiment across three sites in Iowa, USA",
+	"date": "2019-02-12",
+	"creator": [{
+		"creatorName": "Heaton, Emily",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Mendeley Data",
+	"bibliographicCitation": "https://doi.org/10.17632/zff2yzfmx9.2",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "Research objectives were to study nitrogen (N) fertilization and age effect on Miscanthus x giganteus (mxg) yield and their interaction. In addition, we studied how establishment conditions affected mxg yield response to N fertilization.  This is the first repeated planting year experiment conducted on perennial bioenergy grasses. Data showed that mxg yield response to N fertilization was highly variable. Establishment effects were an important driver of this variability and caused significant changes on the magnitude and direction of one-year-old stands’ response to N fertilization. With repeated planting we compared yield gain from first to second year of growth of different single starts. Yield gain of each single start was different within and between sites. This site-specific response suggests that important biases could be introduced when comparing results across studies if repeated planting is not utilized. ",
+	"relatedItem": [{
+		"title": "Multi-year and Multi-site Establishment of the Perennial Biomass Crop Miscanthus × giganteus Using a Staggered Start Design to Elucidate N Response",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1007/s12155-019-09985-6"
+	}],
+	"keywords": ["miscanthus", "biomass yield", "age effects", "nitrogen fertilization"]
+},{
+	"title": "Miscanthus x giganteus yield in a REpeated PLAnting Year (REPLAY) experiment across three sites in Iowa, USA",
+	"date": "2019-02-12",
+	"creator": [{
+		"creatorName": "Heaton, Emily",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Mendeley Data",
+	"bibliographicCitation": "https://doi.org/10.17632/zff2yzfmx9.2",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "Research objectives were to study nitrogen (N) fertilization and age effect on Miscanthus x giganteus (mxg) yield and their interaction. In addition, we studied how establishment conditions affected mxg yield response to N fertilization.  This is the first repeated planting year experiment conducted on perennial bioenergy grasses. Data showed that mxg yield response to N fertilization was highly variable. Establishment effects were an important driver of this variability and caused significant changes on the magnitude and direction of one-year-old stands’ response to N fertilization. With repeated planting we compared yield gain from first to second year of growth of different single starts. Yield gain of each single start was different within and between sites. This site-specific response suggests that important biases could be introduced when comparing results across studies if repeated planting is not utilized. ",
+	"relatedItem": [{
+		"title": "Multi-year and Multi-site Establishment of the Perennial Biomass Crop Miscanthus × giganteus Using a Staggered Start Design to Elucidate N Response",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1007/s12155-019-09985-6"
+	}],
+	"keywords": ["miscanthus", "biomass yield", "age effects", "nitrogen fertilization"]
+},{
+	"title": "Photoenzymatic Enantioselective Intermolecular Radical Hydroalkylation: Experimental Crystal Structure Determination",
+	"date": "2020-12-03",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "The Cambridge Crystallographic Data Centre",
+	"bibliographicCitation": "https://doi.org/10.5517/ccdc.csd.cc24sl3n",
+	"identifier": "1989831",
+	"description": "Chemial diagram of 1-(naphthalen-2-yl)-4-phenylpentan-1-on",
+	"relatedItem": [{
+		"title": "Photoenzymatic Enantioselective Intermolecular Radical Hydroalkylation",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41586-020-2406-6"
+	}],
+	"keywords": ["catalysis", "crystal structure"]
+},{
+	"title": "Data for Responsiveness of Miscanthus and Switchgrass Yields to Stand Age and Nitrogen Fertilization: A Meta-regression Analysis",
+	"date": "2022-02-10",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Sacks, Erik J.",
+		"email": "esacks@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "DeLucia, Evan H.",
+		"email": "delucia@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Heaton, Emily A.",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Lee, DoKyoung",
+		"email": "leedk@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-3580461_V1",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	},{
+		"scientificName": "Panicum virgatum",
+		"NCBITaxID": 38727
+	}],
+	"description": "The compiled datasets include plot level observations of energy crops (miscanthus and switchgrass) from recent experimental field trials in the US including dry biomass yield, location, state, region, harvest year, growing season degree days (GDD), winter season heating degree days (HDD), growing season cumulative precipitation, annual nitrogen application rate, age of the pant when harvested, National Commodity Crop Productivity Index (NCCPI) values, and cultivar type (switchgrass) from various published and unpublished sources.",
+	"relatedItem": [{
+		"title": "Responsiveness of miscanthus and switchgrass yields to stand age and nitrogen fertilization: A meta-regression analysis",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12929"
+	}],
+	"keywords": ["miscanthus", "switchgrass", "yield", "meta-analysis"]
+},{
+	"title": "AmeriFlux US-UiA University of Illinois Switchgrass Dataset (2008-2016)",
+	"date": "2022-03-01",
+	"creator": [{
+		"creatorName": "Bernacchi, Carl J.",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "AmeriFlux",
+	"bibliographicCitation": "https://doi.org/10.17190/AMF/1617725",
+	"species": [{
+		"scientificName": "Panicum virgatum",
+		"NCBITaxID": 38727
+	}],
+	"description": "This is the AmeriFlux version of the carbon flux data for the site US-UiA University of Illinois Switchgrass. Site Description - Field was treated with Potash, lime and diammonium phosphate before planting. Herbicide application included 2,4-D for 2008, 2009. 56 kg/ha nitrogen applied in 2010, 2011, 2012, 2013, 2014, 2016.",
+	"relatedItem": [{
+		"title": "The carbon and nitrogen cycle impacts of reverting perennial bioenergy switchgrass to an annual maize crop rotation",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12743"
+	}],
+	"keywords": ["switchgrass", "carbon flux"]
+},{
+	"title": "AmeriFlux US-UiB Miscahnthus Dataset (2008-2016)",
+	"date": "2022-03-01",
+	"creator": [{
+		"creatorName": "Bernacchi, Carl J.",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "AmeriFlux",
+	"bibliographicCitation": "https://doi.org/10.17190/AMF/1846664",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "This is the AmeriFlux version of the carbon flux data for the site US-UiB University of Illinois Miscanthus. Site Description - Diammonium phosphate, potash & lime fertilizer applied before planting in 2008. Prowl & 2,4-D herbicide used. 2,4-D & accent herbicide applied in 2009. No fertilizer applied. Bicep herbicide applied in 2010 & 2011. 56 kg/ha nitrogen applied in 2014, 2015 & 2016. 45 kg/ha nitrogen applied in 2017.",
+	"relatedItem": [{
+	}],
+	"keywords": ["miscanthus", "carbon flux"]
+},{
+	"title": "AmeriFlux US-UiC University of Illinois Maize-Soy Dataset (2008-2016)",
+	"date": "2022-03-01",
+	"creator": [{
+		"creatorName": "Bernacchi, Carl J.",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "AmeriFlux",
+	"bibliographicCitation": "https://doi.org/10.17190/AMF/1846665",
+	"species": [{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	},{
+		"scientificName": "Glycine max",
+		"NCBITaxID": 3849
+	}],
+	"description": "This is the AmeriFlux version of the carbon flux data for the site US-UiC University of Illinois Maize-Soy. Site Description - Agricultural field planted with maize in a three year rotation with soy (maize-maize-soy). The first soy rotation year was 2010. This field is typically planted in May and harvested in October. This site is located at an experimental farm approximately 2 miles south of the University of Illinois at Urbana Champaign and is colocated with (500-1000m distance) all other Us-Ui sites.",
+	"relatedItem": [{
+		"title": "Substantial carbon loss respired from a corn–soybean agroecosystem highlights the importance of careful management as we adapt to changing climate",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1088/1748-9326/ac661a"
+	},{
+		"title": "The carbon and nitrogen cycle impacts of reverting perennial bioenergy switchgrass to an annual maize crop rotation",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12743"
+	}],
+	"keywords": ["maize", "soybean", "carbon flux"]
+},{
+	"title": "AmeriFlux US-UiD University of Illinois Restored Native Prairie Dataset (2008-2016)",
+	"date": "2022-03-01",
+	"creator": [{
+		"creatorName": "Bernacchi, Carl J.",
+		"email": "bernacch@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "AmeriFlux",
+	"bibliographicCitation": "https://doi.org/10.17190/AMF/1987605",
+	"description": "This is the AmeriFlux version of the carbon flux data for the site US-UiD University of Illinois Restored Native Prairie. Site Description - Site harvested annually with a mower during winters starting 2009. No fertilizer was applied, and not irrigated.",
+	"keywords": ["native prairie", "carbon flux"]
+},{
+	"title": "Long-Term Yields in Annual and Perennial Bioenergy Crops in the Midwestern USA",
+	"date": "2022-03-01",
+	"creator": [{
+		"creatorName": "DeLucia, Evan H.",
+		"email": "delucia@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-0142760_V1",
+	"species": [{
+		"scientificName": "Panicum virgatum",
+		"NCBITaxID": 38727
+	},{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	},{
+		"scientificName": "Glycine max",
+		"NCBITaxID": 3849
+	}],
+	"description": "Data sets relating to the manuscript “Long-term yields in annual and perennial bioenergy crops in the Midwestern USA” published in Global Change Biology Bioenergy. Field data, including annual peak biomass and harvest yields from maize/soy, miscanthus, switchgrass, and prairie field trials from 2008-2018 are included. Peak and harvest biomass for fertilized and unfertilized miscanthus are included from 2014-2018.",
+	"relatedItem": [{
+		"title": "Long-Term Yields in Annual and Perennial Bioenergy Crops in the Midwestern United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.12940"
+	}],
+	"keywords": ["switchgrass", "miscanthus", "maize", "soybean", "native prairie", "biomass yield"]
+},{
+	"title": "Photosynthesis in Aging Perennial and Leaf Nitrogen",
+	"date": "2022-03-08",
+	"creator": [{
+		"creatorName": "Heaton, Emily",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Mendeley Data",
+	"bibliographicCitation": "https://doi.org/10.17632/tr37gtnjmy.1",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": 183674
+	}],
+	"description": "Perennial energy grasses are a fundamental component of the emerging bioeconomy. While their yield dynamics and environmental services are being widely studied, little attention has been given to how the physiological changes associated with perenniality (e.g., nutrient cycling) that underpin yield and environmental services, change as a function of age. Across species, perennial grasses show a photosynthetic decline as a function of stand age, however, the physiological drivers of this age-related decline are poorly understood. In this manuscript we ask: by how much does nitrogen dilution in larger older plants contribute to this photosynthetic decline? Our results support the hypothesis that nitrogen dilution did not limit photosynthesis in mature stands. Compared per unit of area-based leaf nitrogen, photosynthesis of fertilized mature stands was still 26% lower than unfertilized juvenile stands. We hypothesize that the lack of late-season carbohydrate sinks may instead drive the age-related decline in photosynthesis.",
+	"relatedItem": [{
+		"title": "Photosynthetic Decline in Aging Perennial Grass is Not Fully Explained by Leaf Nitrogen",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1093/jxb/erac382"
+	}],
+	"keywords": ["miscanthus", "photosynthesis", "aging effects", "nitrogen"]
+},{
+	"title": "Crystal structure of KRED F147/L153Q/Y190P variant",
+	"date": "2022-05-11",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Protein Data Bank",
+	"bibliographicCitation": "https://doi.org/10.2210/pdb7vdo/pdb",
+	"identifier": "7VDO",
+	"description": "Crystal structure of KRED F147L/L153Q/Y190P variant",
+	"relatedItem": [{
+		"title": "Photoinduced Chemomimetic Biocatalysis for Enantioselective Intermolecular Radical Conjugate Addition",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41929-022-00777-4"
+	}],
+	"keywords": ["protein", "structure coordinates", "catalysis"]
+},{
+	"title": "Crystal structure of KRED mutant-F147L/L153Q/Y190P/L199A/M205F/M206F",
+	"date": "2022-05-11",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Protein Data Bank",
+	"bibliographicCitation": "https://doi.org/10.2210/pdb7ve7/pdb",
+	"identifier": "7VE7",
+	"description": "Crystal structure of KRED mutant-F147L/L153Q/Y190P/L199A/M205F/M206F",
+	"relatedItem": [{
+		"title": "Photoinduced Chemomimetic Biocatalysis for Enantioselective Intermolecular Radical Conjugate Addition",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41929-022-00777-4"
+	}],
+	"keywords": ["protein", "structure coordinates", "catalysis"]
+},{
+	"title": "Crystal structure of KRED F147L/L153Q/Y190P variant and methyl methacrylate complex",
+	"date": "2022-05-11",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Protein Data Bank",
+	"bibliographicCitation": "https://doi.org/10.2210/pdb7ejj/pdb",
+	"identifier": "7EJJ",
+	"description": "Crystal structure of KRED F147L/L153Q/Y190P variant and methyl methacrylate complex",
+	"relatedItem": [{
+		"title": "Photoinduced Chemomimetic Biocatalysis for Enantioselective Intermolecular Radical Conjugate Addition",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41929-022-00777-4"
+	}],
+	"keywords": ["protein", "structure coordinates", "catalysis"]
+},{
+	"title": "Crystal structure of KRED F147L/L153Q/Y190P/L199A/M205F/M206F variant and methyl methacrylate complex",
+	"date": "2022-05-11",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Protein Data Bank",
+	"bibliographicCitation": "https://doi.org/10.2210/pdb7eji/pdb",
+	"identifier": "7EJI",
+	"description": "Crystal structure of KRED F147L/L153Q/Y190P/L199A/M205F/M206F variant and methyl methacrylate complex",
+	"relatedItem": [{
+		"title": "Photoinduced Chemomimetic Biocatalysis for Enantioselective Intermolecular Radical Conjugate Addition",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41929-022-00777-4"
+	}],
+	"keywords": ["protein", "structure coordinates", "catalysis"]
+},{
+	"title": "Crystal structure of KRED mutant-F147L/L153Q/Y190P/L199A/M205F/M206F and 2-hydroxyisoindoline-1,3-dione complex",
+	"date": "2022-05-11",
+	"creator": [{
+		"creatorName": "Zhao, Huimin",
+		"email": "zhao5@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Protein Data Bank",
+	"bibliographicCitation": "https://doi.org/10.2210/pdb7ejh/pdb",
+	"identifier": "7EJH",
+	"description": "Crystal structure of KRED mutant-F147L/L153Q/Y190P/L199A/M205F/M206F and 2-hydroxyisoindoline-1,3-dione complex",
+	"relatedItem": [{
+		"title": "Photoinduced Chemomimetic Biocatalysis for Enantioselective Intermolecular Radical Conjugate Addition",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1038/s41929-022-00777-4"
+	}],
+	"keywords": ["protein", "structure coordinates", "catalysis"]
+},{
+	"title": "Agroecosystem Model Simulations Reveal Spatial Variability in Relative Productivity in Biomass Sorghum and Maize in Iowa, USA",
+	"date": "2022-07-07",
+	"creator": [{
+		"creatorName": "VanLoocke, Andy",
+		"email": "andyvanl@iastate.edu",
+		"primaryContact": true,
+		"affiliation": "Iowa State University"
+	},{
+		"creatorName": "Heaton, Emily",
+		"email": "heaton6@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Iowa State University FigShare",
+	"bibliographicCitation": "https://doi.org/10.25380/iastate.14675565.v1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "This dataset includes field measurement and model simulation data focusing on the simulation of biomass sorghum (Sorghum bicolor L. Moench) in the state of Iowa. Measured field data are provided in CSV file format for 2019 & 2020. Model output files are provided as NetCDF file format for the state of Iowa (1998-2007) & the larger US region (1969-2018).",
+	"relatedItem": [{
+		"title": "Agroecosystem Model Simulations Reveal Spatial Variability in Relative Productivity in Biomass Sorghum and Maize for Energy in Iowa, USA",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.13004"
+	}],
+	"keywords": ["sorghum", "maize", "canopy height", "leaf area index", "AgroIBIS"]
+},{
+	"title": "Increased Bundle Sheath Leakiness of CO2 During Photosynthetic Induction Shows a Lack of Coordination between the C4 and C3 Cycles",
+	"date": "2022-09-07",
+	"creator": [{
+		"creatorName": "Long, Stephen P.",
+		"email": "slong@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-1181155_V1",
+	"species": [{
+		"scientificName": "Sorghum bicolor",
+		"NCBITaxID": 4558
+	},{
+		"scientificName": "Zea mays",
+		"NCBITaxID": 4577
+	}],
+	"description": "We developed a new application of isotopic gas exchange which couples a tunable diode laser absorption spectroscope (TDL) with a leaf gas exchange system, analyzing leakiness through induction of C4 photosynthesis on dark to high-light transitions. The youngest fully expanded leaf was measured on 40-45 day-old maize(B73) and sorghum (Tx430).",
+	"relatedItem": [{
+		"title": "Increased bundle-sheath leakiness of CO2 during photosynthetic induction shows a lack of coordination between the C4 and C3 cycles",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/nph.18485"
+	}],
+	"keywords": ["sorghum", "maize", "photosynthesis", "bundle-sheath leakiness"]
+},{
+	"title": "Assessing Marginal Land Availability Based on Land Use Change Information in the Contiguous United States",
+	"date": "2022-09-07",
+	"creator": [{
+		"creatorName": "Guan, Kaiyu",
+		"email": "kaiyug@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-6395937_V1",
+	"description": "The availability of economically marginal land for energy crops is identified using the Cropland Data Layer and other soil, wind, climate data resources. Permanent grassland, cropland and the estimated productivity are also identified. All data are recognized on a 30m spatial resolution across the contiguous United States.",
+	"relatedItem": [{
+		"title": "Assessing Marginal Land Availability Based on Land Use Change Information in the Contiguous United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1021/acs.est.1c02236"
+	}],
+	"keywords": ["marginal land", "remote sensing", "land use change", "Cropland Data Layer"]
+},{
+	"title": "Assessing the Efficiency Implications of Renewable Fuel Policy Design in the United States",
+	"date": "2022-09-16",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-6803176_V1",
+	"description": "This dataset contains model code (including input data) to replicate the outcomes for a published study titled “Assessing the Efficiency Implications of Renewable Fuel Policy Design in the United States.” The information consists of (1) the replication codes and (1) data for the model. To run the model, use GAMS to run the “Models.gms” file.",
+	"relatedItem": [{
+		"title": "Assessing the Efficiency Implications of Renewable Fuel Policy Design in the United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1002/jaa2.23"
+	}],
+	"keywords": ["renewable fuel standard", "nested structure", "cellulosic waiver credit", "RIN"]
+},{
+	"title": "UAV Remote Sensing Imagery of Miscanthus — 2020",
+	"date": "2022-10-10",
+	"creator": [{
+		"creatorName": "Leakey, Andrew D.B.",
+		"email": "leakey@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	},{
+		"creatorName": "Sacks, Erik",
+		"email": "esacks@illinois.edu",
+		"primaryContact": false,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-5689586_V1",
+	"species": [{
+		"scientificName": "Miscanthus sinensis",
+		"NCBITaxID": " 62337"
+	},{
+		"scientificName": "Miscanthus sacchariflorus",
+		"NCBITaxID": " 183675"
+	
+	}],
+	"description": "Aerial imagery utilized as input in the manuscript “Deep Convolutional Neural Networks Exploit High-Spatial- and -Temporal-Resolution Aerial Imagery to Predict Key Traits in Miscanthus.” Data was collected over Miscanthus sacchariflorus (Msa) and Miscanthus sinensis (Msi) breeding trials at the University of Illinois Energy Farm in 2020. Flights were performed using a DJI M600 mounted with a Micasense Rededge multispectral sensor at 20 m altitude around solar noon. Imagery is available as tif file by field trial and date (10). The post-processing of raw images into orthophoto was performed in Agisoft Metashape software. Each crop surface model and multispectral orthophoto was stacked into a unique raster stack by date and uploaded here. Each raster stack includes 6 layers in the following order: Layer 1 = crop surface model, Layer 2 = Blue, Layer 3 = Green, Layer 4 = Red, Layer 5 = Rededge, and Layer 6 = NIR multispectral bands. Msa raster stacks were resampled to 1.67 cm spatial resolution and Msi raster stacks were resampled to 1.41 cm spatial resolution to ease their integration into further analysis. ‘MMDDYYYY’ is the date of data collection, ‘MSA’ is M. Sacchariflorus trial, ‘MSI’ is Miscanthus Sinensis trial, ‘CSM’ is crop surface model layer, and ‘MULTSP’ are the five multispectral bands.",
+	"relatedItem": [{
+		"title": "Deep Convolutional Neural Networks Exploit High-Spatial- and -Temporal-Resolution Aerial Imagery to Phenotype Key Traits in Miscanthus",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.3390/rs14215333"
+	}],
+	"keywords": ["convolutional neural networks", "miscanthus", "field phenotyping", "UAV", "remote sensing"]
+},{
+	"title": "Determining Spatially Varying Profit-Maximizing Management Practices for Miscanthus and Switchgrass Production in the Rainfed United States",
+	"date": "2022-10-10",
+	"creator": [{
+		"creatorName": "Khanna, Madhu",
+		"email": "khanna1@illinois.edu",
+		"primaryContact": true,
+		"affiliation": "University of Illinois Urbana-Champaign"
+	}],
+	"brc": "CABBI",
+	"repository": "Illinois Data Bank",
+	"bibliographicCitation": "https://doi.org/10.13012/B2IDB-9793873_V1",
+	"species": [{
+		"scientificName": "Miscanthus x giganteus",
+		"NCBITaxID": "183674"
+	},{
+		"scientificName": "Panicum virgatum L.",
+		"NCBITaxID": "38727"
+	}],
+	"description": "The compiled datasets include county-level variables used for simulating miscanthus and switchgrass production in 2287 counties across the rainfed U.S. including five-year (2012-16) averaged growing season degree days (GDD), five-year (2012-16) averaged growing season cumulative precipitation, National Commodity Crop Productivity Index (NCCPI) values, regional dummies (only for miscanthus), the regional-level random effect of the yield response function, N price, land cash rent, the first year fixed cost (only for switchgrass), and separate datasets for simulating an alternative model assuming a constant N rate. The GAMS codes are used to run the simulation to obtain the main results including the age-varying profit-maximizing N rate, biomass yields, and annual profits for miscanthus and switchgrass production across counties in the rainfed U.S. The STATA codes are used to merge and analyze simulation results and create summary statistics tables and key figures.",
+	"relatedItem": [{
+		"title": "Determining Spatially Varying Profit-Maximizing Management Practices for Miscanthus and Switchgrass Production in the Rainfed United States",
+		"relatedItemType": "JournalArticle",
+		"relatedItemIdentifier": "https://doi.org/10.1111/gcbb.13021"
+	}],
+	"keywords": ["miscanthus", "switchgrass", "aging effects", "nitrogen effects", "yield"]
+}]
+}
