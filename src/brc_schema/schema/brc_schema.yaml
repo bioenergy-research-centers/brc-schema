@@ -361,6 +361,9 @@ enums:
       Webpage:
         meaning: schema:WebPage
         description: "Webpage"
+      WebApplication:
+        meaning: schema:WebApplication
+        description: "Web application"
   DatasetTypeCodes:
     description: >-
       High-level type of the main content of the dataset,
