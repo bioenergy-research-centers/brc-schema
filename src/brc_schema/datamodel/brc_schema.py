@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-09-26T11:33:08
+# Generation date: 2024-10-24T12:41:41
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -26,7 +26,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.0.4"
+version = "0.0.5"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -476,6 +476,10 @@ class CitedItemType(EnumDefinitionImpl):
         text="Webpage",
         description="Webpage",
         meaning=SCHEMA["WebPage"])
+    WebApplication = PermissibleValue(
+        text="WebApplication",
+        description="Web application",
+        meaning=SCHEMA["WebApplication"])
 
     _defn = EnumDefinition(
         name="CitedItemType",
@@ -524,6 +528,15 @@ class RepositoryEnum(EnumDefinitionImpl):
     """
     Repository where the dataset is stored.
     """
+    AmeriFlux = PermissibleValue(
+        text="AmeriFlux",
+        description="AmeriFlux")
+    Dryad = PermissibleValue(
+        text="Dryad",
+        description="Dryad")
+    FigShare = PermissibleValue(
+        text="FigShare",
+        description="FigShare")
     GEO = PermissibleValue(
         text="GEO",
         description="Gene Expression Omnibus")
@@ -551,6 +564,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     PRIDE = PermissibleValue(
         text="PRIDE",
         description="PRoteomics IDEntifications database")
+    Zenodo = PermissibleValue(
+        text="Zenodo",
+        description="Zenodo")
 
     _defn = EnumDefinition(
         name="RepositoryEnum",
@@ -559,10 +575,34 @@ class RepositoryEnum(EnumDefinitionImpl):
 
     @classmethod
     def _addvals(cls):
+        setattr(cls, "Iowa State University FigShare",
+            PermissibleValue(
+                text="Iowa State University FigShare",
+                description="Iowa State University FigShare"))
+        setattr(cls, "Illinois Data Bank",
+            PermissibleValue(
+                text="Illinois Data Bank",
+                description="Illinois Data Bank"))
+        setattr(cls, "Mendeley Data",
+            PermissibleValue(
+                text="Mendeley Data",
+                description="Mendeley Data"))
         setattr(cls, "NCBI BioProject",
             PermissibleValue(
                 text="NCBI BioProject",
                 description="National Center for Biotechnology Information BioProject"))
+        setattr(cls, "ORNL DAAC",
+            PermissibleValue(
+                text="ORNL DAAC",
+                description="\"Oak Ridge National Laboratory Distributed Active Archive Center\""))
+        setattr(cls, "Protein Data Bank",
+            PermissibleValue(
+                text="Protein Data Bank",
+                description="RCSB Protein Data Bank"))
+        setattr(cls, "The Cambridge Crystallographic Data Centre",
+            PermissibleValue(
+                text="The Cambridge Crystallographic Data Centre",
+                description="The Cambridge Crystallographic Data Centre"))
 
 # Slots
 class slots:

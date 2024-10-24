@@ -1,0 +1,907 @@
+{ "datasets": [
+  {
+      "title": "pYZ8",
+      "date": "2024-04-21",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::RCKT1_gRNA1-pU3::RCKT1_gRNA2-pU6::RCKT1_gRNA3",
+      "repository": "ICE",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "identifier": "JPUB_023855",
+      "keywords": []
+    },
+    {
+      "title": "JBEI-258021",
+      "description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::RCKT1_gRNA1-pU3::RCKT1_gRNA2-pU6::RCKT1_gRNA3",
+      "date": "2024-04-21",
+      "identifier": "JPUB_023854",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "keywords": []
+    },
+    {
+      "title": "pYZ88",
+      "description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::GMT1_gRNA1-pU3::GMT1_gRNA2-pU6::GMT1_gRNA3",
+      "date": "2024-04-21",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "keywords": [],
+      "repository": "ICE",
+      "identifier": "JPUB_023853"
+    },
+    {
+      "title": "JBEI-258017",
+      "date": "2024-04-21",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "repository": "ICE",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "description": "pTKan-p35S::DsRed-p35S::PcoCAS9-pU6::GMT1_gRNA1-pU3::GMT1_gRNA2-pU6::GMT1_gRNA3",
+      "identifier": "JPUB_023852",
+      "keywords": []
+    },
+    {
+      "title": "pYPQ150Amp",
+      "description": "Modified pYPQ150 w AmpR",
+      "date": "2024-04-21",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "identifier": "JPUB_023851",
+      "keywords": []
+    },
+    {
+      "title": "JBEI-258013",
+      "description": "Modified pYPQ150 w AmpR",
+      "date": "2024-04-21",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "identifier": "JPUB_023850",
+      "keywords": []
+    },
+    {
+      "title": "pTKan-p35S-DsRed-p35S-R1GWR2",
+      "description": "pTKan-p35S::DsRed::tNOS-p35S::R1GWR2-v2",
+      "date": "2021-02-25",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "identifier": "JPUB_023849",
+      "keywords": []
+    },
+    {
+      "title": "JBEI-150090",
+      "description": "Invitrogen ccdB survival strain carrying pTKan-p35S::DsRed::tNOS-p35S::R1GWR2",
+      "date": "2021-02-25",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "identifier": "JPUB_023848",
+      "keywords": []
+    },
+    {
+      "title": "pYPQ143Amp",
+      "description": "Modified pYPQ143 w AmpR",
+      "date": "2020-03-31",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "identifier": "JPUB_023847",
+      "keywords": []
+    },
+    {
+      "title": "JBEI-142011",
+      "description": "Modified pYPQ143 w AmpR",
+      "date": "2020-03-31",
+      "creator": [
+        {
+          "creatorName": "Yuan Zhang",
+          "email": "yuanzhang@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/837",
+      "datasetName": "Zhang et al. 2024",
+      "repository": "ICE",
+      "keywords": [],
+      "identifier": "JPUB_023846"
+    },
+  {
+      "identifier": "PXD043152",
+      "bibliographicCitation": "https://dx.doi.org/10.1038/s41467-024-46314-8",
+      "title": "Edible mycelium bioengineered for enhanced nutritional value and sensory appeal using a new synthetic biology toolkit",
+      "description": "Genetic engineering of filamentous fungi has promise for accelerating the transition to a more sustainable food system and enhancing the nutritional value, sensory appeal, and scalability of microbial foods. However, genetic tools and demonstrated use cases for bioengineered food production by edible strains are lacking. Here, we developed a synthetic biology toolkit for Aspergillus oryzae, an edible fungus traditionally used in fermented foods and currently used in protein production and meat alternatives. Our toolkit includes a CRISPR-Cas9 method for genome integration, neutral loci, and new promoters. We use these tools to enhance the elevate levels of the nutraceutical ergothioneine and intracellular heme in the edible biomass. The biomass overproducing heme is red in color and is readily formulated into imitation meat patties with minimal processing. These findings highlight the promise of genetic approaches to enhance fungal meat alternatives and provide useful engineering tools for diverse applications in fungal food production and beyond.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 5062,
+          "scientificName": "Aspergillus oryzae"
+        }
+      ],
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "date": "2024-03-22",
+      "keywords": [
+        "Bioengineering",
+        "Edible mycelium",
+        "nutrition",
+        "Proteomics",
+        "synthetic biology"
+      ],
+      "relatedItem": {
+        "title": "Edible mycelium bioengineered for enhanced nutritional value and sensory appeal using a modular synthetic biology toolkit",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.nature.com/articles/s41467-024-46314-8"
+      }
+    },
+    {
+      "identifier": "PXD040697",
+      "bibliographicCitation": "https://dx.doi.org/10.1016/J.CELREP.2023.113087",
+      "title": "Ensemble and iterative engineering for maximal bioconversion to the blue pigment, Indigoidine from non-canonical sustainable carbon sources",
+      "description": "While many heterologous molecules can be produced at trace concentrations via microbial bioconversion processes, maximizing their titers, rates, and yields from lignin-derived carbon streams remains challenging. Strong growth coupling can not only increase titers and yields but also shift the production period from stationary phase to growth phase. These methods however require multi-gene edits for implementation which may be initially perceived as impractical. Here, we evaluated 4,114 potential solutions to pair growth on para-coumarate to indigoidine production and prototype two cutsets in Pseudomonas putida KT2440. The implemented design was enhanced using adaptive lab evolution and the resulting strains were characterized for emergent phenotypes. Using x-ray tomography we revealed increased cell density in this strain. Proteomics identified two upregulated peroxidases that mitigate increased reactive oxygen species formation. Nine additional stepwise modifications informed by model-guided and rational approaches realized a growth coupled strain that produced 7.3 g/L indigoidine at 77% yield in minimal salt media. These ensemble strategies provide a blueprint for producing target molecules at high product titers, rates, and yields.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida KT2440"
+        }
+      ],
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "date": "2024-02-28",
+      "keywords": [
+        "ALE",
+        "CRISPR",
+        "Growth coupling",
+        "bioproduction",
+        "emergent cell phenotypes",
+        "genome scale metabolic models",
+        "heterologous pathway",
+        "indigoidine",
+        "lignin",
+        "Proteomics",
+        "recombineering",
+        "strain engineering"
+      ],
+      "relatedItem": {
+        "title": "Maximizing microbial bioproduction from sustainable carbon sources using iterative systems engineering",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.sciencedirect.com/science/article/pii/S2211124723010987"
+      }
+    },
+    {
+      "identifier": "PXD044193",
+      "title": "Development of Corynebacterium glutamicum as a monoterpene production platform",
+      "description": "Monoterpenes are commonly known for their role in the flavors and fragrances industry and are also gaining attention for other uses like insect repellant and as potential renewable fuels for aviation. Corynebacterium glutamicum, a Generally Recognized as Safe microbe, has been a choice organism in industry for the annual million ton-scale bioproduction of amino acids for more than 50 years; however, efforts to produce monoterpenes in C. glutamicum have remained relatively limited. In this study, we report a further expansion of the C. glutamicum biosynthetic repertoire through the development and optimization of a mevalonate-based monoterpene platform. In the course of our initial plasmid design iterations, we demonstrated an increased flux through the mevalonate-based bypass pathway to increase isoprenol production to the highest reported titers to date at nearly 1.5 g/L. These designs also evaluated the effects of backbone, promoter, and GPP synthase homolog source on product titers. Monoterpene production was further improved by disrupting competing pathways for isoprenoid precursor supply and by implementing a biphasic production system to prevent volatilization. With this platform, we achieved 486.3 mg/L (± 54.6 mg/L) of geranoids, 557.3 mg/L of 1,8-cineole (± 12.3 mg/L), and 209.7 mg/L of linalool (±23.9 mg/L). Furthermore, we determined that C. glutamicum oxidizes geraniol through an aldehyde intermediate before asymmetrically reducing geraniol to citronellol.",
+      "species": [
+        {
+          "NCBITaxID": 1718,
+          "scientificName": "Corynebacterium glutamicum"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.1016/J.YMBEN.2023.11.009",
+      "date": "2024-02-28",
+      "keywords": [
+        "Citral",
+        "Citronellol",
+        "Corynebacterium glutamicum",
+        "Eucalyptol",
+        "Geranic acid",
+        "Geraniol",
+        "Linalool",
+        "Proteomics",
+        "Monoterpene biosynthetic production"
+      ],
+      "repository": "PRIDE",
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Development of Corynebacterium glutamicum as a monoterpene production platform",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.sciencedirect.com/science/article/pii/S1096717623001738"
+      }
+    },
+    {
+      "identifier": "PXD041554",
+      "title": "Simultaneous carbon catabolite repression governs sugar and aromatic co-utilization in Pseudomonas putida M2",
+      "description": "Strains of Pseudomonas putida have emerged as promising biocatalysts for the conversion of sugars and aromatics obtained from lignocellulosic biomass. Understanding the role of carbon catabolite repression (CCR) in these strains is critical to optimizing the conversion of biomass to fuels and chemicals. The functioning of CCR in a P. putida strain, P. putida M2, capable of growing on both hexose and pentose sugars as well as aromatics, was investigated by cultivation experiments, proteomics, and CRISPRi-based gene repression. Strain M2 was able to co-utilize sugars and aromatics simultaneously; however, during co-cultivation with glucose and phenylpropanoid aromatics (p-coumarate and ferulate), intermediates (4-hydroxybenzoate and vanillate) accumulated, and substrate consumption was incomplete. In contrast, xylose-aromatic consumption resulted in transient intermediate accumulation and complete aromatic consumption, while xylose was incompletely consumed. Proteomics analysis of these co- cultivations revealed that glucose exerted stronger repression compared to xylose on the proteins involved in aromatic catabolism. Key glucose (Eda) and xylose (XylX) catabolic proteins were also identified at lower abundance during co-cultivation with aromatics implying simultaneous catabolite repression by sugars and aromatics. Downregulation of crc mediated by CRISPRi led to faster growth and uptake of both glucose and p-coumarate in the CRISPRi strains compared to the control while no difference was observed on xylose + p-coumarate. The increased abundance of the Eda protein and amino acids biosynthesis proteins in the CRISPRi strain further supported these observations. Lastly, small RNAs (sRNAs) sequencing results showed that the levels of CrcY and CrcZ homologs in M2, previously identified as sRNAs involved in CCR in P. putida strains, were lower under strong CCR (glucose + p-coumarate) condition compared to when repression was absent (p-coumarate or glucose only).",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD041554",
+      "date": "2023-09-07",
+      "keywords": [
+        "CRISPRi",
+        "Carbon catabolite repression",
+        "Crc",
+        "Lignocellulose",
+        "Proteomics",
+        "Pseudomonas putida",
+        "small RNA"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Simultaneous carbon catabolite repression governs sugar and aromatic co-utilization in Pseudomonas putida M2",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://journals.asm.org/doi/10.1128/aem.00852-23"
+      }
+    },
+    {
+      "identifier": "PXD031549",
+      "title": "Revealing Pentose Catabolism in Pseudomonas putida",
+      "description": "Pseudomonas alloputida KT2440 (previously misclassified as P. putida KT2440 based on 16S rRNA gene homology) has emerged as an ideal host strain for plan t biomass valorization. However, P. alloputida KT2440 is unable to natively utilize abundant pentose sugars (e.g., xylose and arabinose) in hydrolysate streams, which may account for up to 25% of lignocellulosic biomass. In the last decades, microbes have been engineered to utilize the pentose sugars. However, most of the engineered strains were either slow-growing or displayed phenotypes that could not be replicated. In this work, we successfully isolated five Pseudomonas species with the native capability to utilize glucose, xylose and p-coumarate as a sole carbon source. These isolates were in two clusters; one set of isolates (M2 and M5) and the second set of isolates (BP6 and BP7) showed 85.6% and 96.2% ANI, respectively, to P. alloputida KT24440. BP8 showed 84.6% ANI to P. putida KT2440 and does not belong to any neighboring type strains indicating a new species. Notably, the isolates showed robust growth solely on xylose and higher growth rates (m, 0.36-0.49 h-1) when compared to only known xylose-utilizing Pseudomonas taiwanenesis VLB120 (m, 0.28 h-1) as a control. Unexpectedly, among five isolates, M2 and M5 grew solely on arabinose as well. Comprehensive analysis of genomics, transcriptomics and proteomics revealed the isolates utilize xylose and arabinose via Weimberg pathway (xylD-xylX-xylA) and oxidative pathway (araD-araX-araA), respectively. Furthermore, a preliminary result demonstrated the production of flaviolin solely on xylose and arabinose in the isolate, showing noteworthy potential to be an alternative host for lignocellulosic feedstocks into valuable products. This is the first report on isolating Pseudomonas strains natively capable of utilizing all of the major carbon sources in lignocellulosic biomass, and leading to higher consumption of available substrates and therefore maximizing the product yield.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD031549",
+      "date": "2023-05-10",
+      "keywords": [
+        "Pseudomonas", 
+        "Soil isolates",
+        "Arabinose",
+        "Proteomics",
+        "pentose",
+        "xylose"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Revealing Pentose Catabolism in Pseudomonas putida",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.biorxiv.org/content/10.1101/2022.10.05.510959v1.full"
+      }
+    },
+    {
+      "identifier": "PXD031402",
+      "title": "Biosynthesis of polycyclopropanated high energy biofuels",
+      "description": "Cyclopropanes-functionalized hydrocarbons are excellent fuels. however, their synthesis is challenging and harmful for the environment. In this work we produced polycyclopropanated fatty acids in bacteria. These molecules can be easily converted into renewable fuels for high energy applications such as shipping, long-haul transport, aviation, and rocketry. We explored the chemical diversity encoded in the genome of thousands of bacteria to identify and repurpose naturally occurring cyclopropanated molecules. We identified a set of candidate iterative Polyketide Synthases (iPKSs) predicted to produce polycyclopropanated fatty acids (POP-FAs), expressed these PKSs in Streptomyces coelicolor and produced the POP-FAs. We determined the structure of the molecules and increased their production 22-fold. Polycyclopropanated fatty acid methyl esters (POP-FAMEs) were obtained by methyl esterifying the POP-FAs. Finally, we calculated the enthalpy of combustion of several POP fuel candidates to assess their potential as replacement for fossil fuels in energy demanding applications. Our research shows that POP-FAMEs and other polyketide derived POPs have the energetic properties for energy demanding applications for which sustainable alternatives are scarce.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 562,
+          "scientificName": "Escherichia coli"
+        }
+      ],
+      "bibliographicCitation": " https://dx.doi.org/10.6019/PXD031402",
+      "date": "2022-09-19",
+      "keywords": [
+        "Biofuels",
+        "POP- FAME",
+        "Rocket fuel",
+        "polycyclopropanated fatty acid methyl esters",
+        "polyketide synthase",
+        "Proteomics",
+        "sustainability"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Biosynthesis of polycyclopropanated high energy biofuels",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.sciencedirect.com/science/article/pii/S2542435122002380"
+      }
+    },
+    {
+      "identifier": "PXD024976",
+      "title": "A microbial supply chain for production of anti-cancer drug vinblastine",
+      "description": "Monoterpene indole alkaloids (MIAs) are a diverse family of complex plant secondary metabolites with many medicinal properties, including the essential anti-cancer therapeutics vinblastine and vincristine. As MIAs are difficult to chemically synthesize, the world’s supply chain for vinblastine relies on low-yielding extractions of precursors vindoline and catharanthine from the plant Catharanthus roseus, followed by chemical coupling and reduction to form vinblastine. Here, we demonstrate de novo microbial biosynthesis of vindoline and catharanthine from renewable feedstocks such as simple sugar and amino acids using highly engineered yeast. The study showcases the longest biosynthetic pathway refactored into a microbial cell factory to date, including 29 enzymatic steps from the yeast native metabolite geranyl pyrophosphate to catharanthine and vindoline. We made 44 genetic edits to yeast that include expression of 35 heterologous genes from plants as well as deletions, knock-downs, and overexpression of 10 yeast genes or variants thereof to improve the precursor supply. Finally, we demonstrate one-step in vitro vinblastine production using chemical coupling and reduction of vindoline and catharanthine. Not only is the yeast a scalable platform for production of vinblastine, it is also a platform for production of more than 2,000 different natural and new-to-nature MIAs.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 4932,
+          "scientificName": "Saccharomyces cerevisiae (Bakers yeast)"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD024976",
+      "date": "2022-09-09",
+      "keywords": [
+        "Metabolic engineering",
+        "Synthetic biology", 
+        "Proteomics",
+        "Vinblastine"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "A microbial supply chain for production of the anti-cancer drug vinblastine",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.nature.com/articles/s41586-022-05157-3"
+      }
+    },
+    {
+      "identifier": "PXD020215",
+      "title": "Development of a multiplexed platform to study laccases and cellulase activities using nanostructure-initiator mass spectrometry (NIMS)",
+      "description": "Lignocellulosic biomass is composed of three major biopolymers: cellulose, hemicellulose and lignin. Although lignin has long been considered a waste product in biomass conversion efforts, its utilization has since been identified as critical to the economic viability of second-generation biofuel production. There is thus increasing interest in finding enzymes and enzyme cocktails which can efficiently deconstruct both the cellulose/hemicellulose and lignin components of lignocellulosic biomass. Analytical tools capable of quickly detecting both glycan and lignin deconstruction could are needed to support the development and characterization of efficient enzymes/enzyme cocktails.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 192525,
+          "scientificName": "Agaricus bisporus var. bisporus"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD020215",
+      "date": "2021-09-09",
+      "keywords": [
+        "Enzyme assays",
+        "GHs (glycosyl hydrolases)",
+        "Laccases",
+        "Lignin",
+        "Multiplex assay",
+        "Proteomics",
+        "NIMS"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "A multiplexed nanostructure-initiator mass spectrometry (NIMS) assay for simultaneously detecting glycosyl hydrolase and lignin modifying enzyme activities",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.nature.com/articles/s41598-021-91181-8"
+      }
+    },
+    {
+      "identifier": "PXD021570",
+      "title": "Genome-scale metabolic rewiring to improve titers, rates and yields of the non-native non-ribosomal peptide product indigoidine at scale",
+      "description": "High titer, rates, yields (TRY) and scalability are challenging metrics to achieve due to trade-offs between carbon use for growth and production. To achieve these metrics, we took the minimal cut set (MCS) approach that predicts metabolic reactions for elimination to couple metabolite production strongly with growth. We computed MCS solution-sets for a non-native product indigoidine, a sustainable pigment, in Pseudomonas putida KT2440, an emerging industrial microbe. From 63 computed solution-sets, our -omics guided process identified one experimentally feasible solution requiring 14 simultaneous reaction interventions. Using multiplex-CRISPRi, this is the first experimental implementation of a 14-gene MCS-based solution that shifted production from stationary to exponential phase. We achieved 25.6 g/L, 0.22 g/l/h, and ~50% maximum theoretical yield (0.33 g indigoidine/g glucose) TRY respectively. These phenotypes were maintained from batch to fed-batch mode, and across scales (100-ml shake flasks, 250-ml ambr® and 2-L bioreactors).",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida KT2440"
+        }
+      ],
+      "date": "2020-10-24",
+      "keywords": [
+        "Metabolic engineering",
+        "Proteomics",
+        "genome editing"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Genome-scale metabolic rewiring improves titers rates and yields of the non-native product indigoidine at scale",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.nature.com/articles/s41467-020-19171-4"
+      }
+    },
+    {
+      "identifier": "PXD013623",
+      "title": "The metabolic response of Pseudomonas taiwanensis to NADH dehydrogenase deficiency",
+      "description": "We investigated the essentiality of the three NADH dehydrogenases of the respiratory chain of the obligate aerobe Pseudomonas taiwanensis VLB120 and the impact of the knockouts of corresponding genes on its physiology and metabolism.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 470150,
+          "scientificName": "Pseudomonas taiwanensis"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD013623",
+      "date": "2020-04-07",
+      "keywords": [
+        "NADH dehydrogenase",
+        "Pseudomonas",
+        "electron transport chain",
+        "oxidative stress",
+        "Proteomics",
+        "respiratory activity"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Systems Analysis of NADH Dehydrogenase Mutants Reveals Flexibility and Limits of Pseudomonas taiwanensis VLB120’s Metabolism",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://journals.asm.org/doi/10.1128/aem.03038-19"
+      }
+    },
+    {
+      "identifier": "PXD014285",
+      "title": "The global response of Pseudomonas putida to a complex lignolysate",
+      "description": "In this work, we developed processes using ionic liquids to obtain size-defined soluble aromatic-rich streams from sorghum biomass to assess their biocompatibility with P. putida. Growth was unexpectedly higher than that observed on a main aromatic compound. Subsequently, proteomics and metabolomics analysis revealed that BCD liquor contains additional carbon sources except aromatics. Our comparative proteomic analysis first revealed significant up-regulation of a diverse set of proteins in P. putida grown in the complex lignolysate to understand their function and regulation.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida KT2440"
+        }
+      ],
+      "bibliographicCitation": "https,://dx.doi.org/10.6019/PXD014285",
+      "date": "2020-04-07",
+      "keywords": [
+        "Lignin valorization",
+        "Proteomics",
+        "Pseudomonas putida"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Response of Pseudomonas putida to Complex, Aromatic-Rich Fractions from Biomass",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/cssc.202000268"
+      }
+    },
+    {
+      "identifier": "PXD013388",
+      "title": "Programmable polyketide biosynthesis platform for production of aromatic compounds in yeast",
+      "description": "To accelerate the shift to bio-based production and overcome complicated functional implementation of natural and artificial biosynthetic pathways to industry relevant organisms, development of new, versatile, bio-based production platforms are required. Here we present a novel yeast platform for biosynthesis of bacterial aromatic polyketides. The platform is based on a synthetic polyketide synthase system enabling a first demonstration of aromatic polyketide biosynthesis in a eukaryotic host.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 4932,
+          "scientificName": "Saccharomyces cerevisiae (Bakers yeast)"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD013388",
+      "date": "2020-02-11",
+      "keywords": [
+        "Metabolic engineering",
+        "S. cerevisiae",
+        "Targeted proteomics",
+        "Proteomics",
+        "polyketides"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Programmable polyketide biosynthesis platform for production of aromatic compounds in yeast",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.sciencedirect.com/science/article/pii/S2405805X20300041"
+      }
+    },
+    {
+      "identifier": "PXD012697",
+      "title": "Exploring Non-Canonical Terpene Space With a Heterologous Lepidopteran Mevalonate Pathway",
+      "description": "Lepidoptera (butterflies and moths) make the six-carbon compounds homoisopentenyl pyrophosphate (HIPP) and homodimethylallyl pyrophosphate (HDMAPP) that are incorporated into sixteen, seventeen and eighteen carbon farnesyl pyrophosphate (FPP) analogues. In this work we heterologously expressed the lepidopteran modified mevalonate pathway, a propionyl-CoA ligase, and terpene cyclases in E. coli to produce several novel terpenes containing sixteen carbons. Changing the terpene cyclase generated different novel terpene product profiles. To further validate the new compounds we confirmed 13C propionate was incorporated, and that the masses and fragmentation patterns were consistent with novel sixteen carbon terpenes by GC-QTOF. Based on the available FPP analogues lepidoptera produce, this approach should greatly expand the reachable biochemical space with applications in areas where terpenes have traditionally found uses.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 562,
+          "scientificName": "Escherichia coli"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD012697",
+      "date": "2019-10-29",
+      "keywords": [
+        "HDMAPP",
+        "HIPP",
+        "Juvenile Hormones",
+        "Mevalonate Pathway",
+        "Terpenes",
+        "homodimethylallyl pyrophosphate",
+        "Proteomics",
+        "homoisopentenyl pyrophosphate"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Mevalonate Pathway Promiscuity Enables Noncanonical Terpene Production",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://pubs.acs.org/doi/10.1021/acssynbio.9b00230"
+      }
+    },
+    {
+      "identifier": "PXD014182",
+      "title": "An automated cells-to-peptides sample preparation workflow for high-throughput, quantitative proteomic assays of microbes",
+      "description": "Mass spectrometry–based quantitative proteomic analysis has proven valuable for clinical and biotechnology related research and development. Driving this value have been improvements in the sensitivity, resolution, and robustness of mass analyzers. However, manual sample preparation protocols are often a bottleneck for sample throughput and can lead to poor reproducibility, especially for applications where thousands of samples per month must be analyzed. To alleviate these issues, we developed a ‘cells-to-peptides’ automated workflow for Gram-negative bacteria and fungi that includes cell lysis, protein precipitation, resuspension, quantification, normalization, and tryptic digestion. The workflow takes two hours to process 96 samples from cell pellets to the initiation of the tryptic digestion step and can process 384 samples in parallel. We measured the efficiency of protein extraction from various amounts of cell biomass and optimized the process for standard liquid chromatography-mass spectrometry systems. The automated workflow was tested by preparing 96 E. coli samples and quantifying over 600 peptides that resulted in a median coefficient of variation of 15.8%. Similar technical variance was observed for three other organisms as measured by highly-multiplexed LC-SRM-MS acquisition methods. These results show that this automated sample preparation workflow provides robust, reproducible proteomic samples for high-throughput applications.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 562,
+          "scientificName": "Escherichia coli"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD014182",
+      "date": "2019-08-23",
+      "keywords": [
+        "Automation",
+        "Bacteria",
+        "Biotechnology",
+        "Fungi",
+        "High-throughput",
+        "Microbes",
+        "Proteomics",
+        "Sample preparation"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Automated “Cells-To-Peptides” Sample Preparation Workflow for High-Throughput, Quantitative Proteomic Assays of Microbes",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://pubs.acs.org/doi/10.1021/acs.jproteome.9b00455"
+      }
+    },
+    {
+      "identifier": "PXD012013",
+      "title": "Methyl ketone production by Pseudomonas putida is enhanced by plant-derived amino acids",
+      "description": "Methyl ketone production by P. putida with A. thaliana and switchgrass hydrolysates obtained by dilute acid pretreatment led to the identification of plant-derived amino acids, rather than mono-aromatics, as key stimulative components of these hydrolysates. Shotgun proteomics indicated that the amino acids had a specific inductive effect on proteins involved in fatty acid biosynthesis, leading to a 9-fold increase in methyl ketone titer when amending glucose-containing minimal medium with a defined set of amino acids.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida KT2440"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD012013",
+      "date": "2019-06-27",
+      "keywords": [
+        "amino acids",
+        "biomass hydrolysates",
+        "lignin-related aromatics",
+        "methyl ketones",
+        "Proteomics",
+        "protein"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Methyl ketone production by Pseudomonas putida is enhanced by plant-derived amino acids",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/bit.26995"
+      }
+    },
+    {
+      "identifier": "PXD011212",
+      "title": "A rapid methods development workflow for high-throughput quantitative proteomic applications",
+      "description": "We developed a workflow using data acquired from discovery proteomic experiments, retention time prediction, and standard-flow chromatography to rapidly develop targeted proteomic assays.",
+      "repository": "PRIDE",
+      "species": [
+        {
+          "NCBITaxID": 562,
+          "scientificName": "Escherichia coli"
+        }
+      ],
+      "bibliographicCitation": "https://dx.doi.org/10.6019/PXD011212",
+      "date": "2019-06-27",
+      "keywords": [
+        "high-throughput",
+        "Proteomics",
+        "workflow"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "A rapid methods development workflow for high-throughput quantitative proteomic applications",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0211582"
+      }
+    },
+    {
+      "identifier": "PXD011350",
+      "title": "Massively parallel fitness profiling reveals multiple novel enzymes in Pseudomonas putida lysine metabolism",
+      "description": "The lysine metabolism of Pseudomonas putida can produce multiple important commodity chemicals and is implicated in rhizosphere colonization. However, despite intensive study, the biochemical and genetic links between lysine metabolism and central metabolism remains unresolved in P. putida. Here, we leverage Random Barcode Transposon Sequencing (RB-TnSeq), a genome-wide assay measuring the fitness of thousands of genes in parallel, to identify multiple novel enzymes and regulators in both L- and D-lysine metabolism. We first describe three pathway enzymes that catabolize 2-aminoadipate (2AA) to 2-ketoglutarate (2KG) connecting D-lysine to the TCA cycle. One of these enzymes, PP_5260, contains a DUF1338 domain, a family without previously described biological function. We demonstrate PP_5260 converts 2-oxoadipate (2OA) to 2-hydroxyglutarate (2HG), a novel biochemical reaction. We expand on recent work showing that the glutarate hydroxylase CsiD can co-utilize 2OA and 2KG. We further show glutarate metabolism is locally regulated by two independent glutarate responsive transcription factors, and that cellular abundance of D- and L-lysine pathway proteins are highly sensitive to pathway specific substrates. This work demonstrates the utility of RB-TnSeq of discovering novel metabolic pathways in even well-studied bacterial species.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 160488,
+          "scientificName": "Pseudomonas putida KT2440"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD011350",
+      "date": "2019-05-17",
+      "keywords": [
+        "Proteomics",
+        "targeted proteomics"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Massively Parallel Fitness Profiling Reveals Multiple Novel Enzymes in Pseudomonas putida Lysine Metabolism",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://journals.asm.org/doi/full/10.1128/mbio.02577-18"
+      }
+    },
+    {
+      "identifier": "PXD012312",
+      "title": "Lessons from Two Design-Build-Test-Learn Cycles of Dodecanol Production in Escherichia coli Aided by Machine Learning",
+      "description": "The Design–Build–Test–Learn (DBTL) cycle, facilitated by exponentially improving capabilities in synthetic biology, is an increasingly adopted metabolic engineering framework that represents a more systematic and efficient approach to strain development than historical efforts in biofuels and bio-based products. Here, we report on implementation of two DBTL cycles to optimize 1-dodecanol production from glucose using 60 engineered E. coli MG1655 strains. The first DBTL cycle employed a simple strategy to learn efficiently from a relatively small number of strains (36), wherein only the choice of ribosome-binding sites and an acyl-ACP/acyl-CoA reductase were modulated in a single pathway operon including genes encoding a thioesterase (UcFatB1), an acyl-ACP/acyl-CoA reductase (Maqu_2507, Maqu_2220, or Acr1), and an acyl-CoA synthetase (FadD). Measured variables included concentrations of dodecanol and all proteins in the engineered pathway. We used the data produced in the first DBTL cycle to train several machine-learning algorithms and to suggest protein profiles for the second DBTL cycle that would increase production. These strategies resulted in a 21% increase in dodecanol titer in Cycle 2 (up to 0.83 g/L, which is more than 6-fold greater than previously reported batch values for minimal medium). Beyond specific lessons learned about optimizing dodecanol titer in E. coli, this study had findings of broader relevance across synthetic biology applications, such as the importance of sequencing checks on plasmids in production strains as well as in cloning strains, and the critical need for more accurate protein expression predictive tools.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 562,
+          "scientificName": "Escherichia coli"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD012312",
+      "date": "2019-05-16",
+      "keywords": [
+        "Machine Learning",
+        "Metabolic engineering",
+        "Metabolomics",
+        "Proteomics",
+        "Synthetic biology"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Lessons from Two Design–Build–Test–Learn Cycles of Dodecanol Production in Escherichia coli Aided by Machine Learning",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://pubs.acs.org/doi/10.1021/acssynbio.9b00020"
+      }
+    },
+    {
+      "identifier": "PXD013389",
+      "title": "Biosynthesis and secretion of the microbial sulfated peptide RaxX and binding to the rice XA21 immune receptor",
+      "description": "The rice immune receptor XA21 is activated by the sulfated microbial peptide RaxX (required for activation of XA21-mediated immunity X) produced by Xanthomonas oryzae pv. oryzae (Xoo). Mutational studies and targeted proteomics revealed that RaxX is processed and secreted by the protease/transporter RaxB, whose function can be partially fulfilled by a noncognate peptidase-containing transporter B (PctB). RaxX is cleaved at a Gly-Gly motif, yielding a mature peptide that retains the necessary elements for RaxX function as an immunogen and host peptide hormone mimic. These results indicate that RaxX is a founding member of a previously unclassified and understudied group of tyrosine sulfated RiPPs (ribosomally synthesized, post-translationally modified peptides). We further demonstrate that sulfated RaxX directly binds XA21 with high affinity. This work reveals a complete, previously uncharacterized biological process: bacterial RiPP biosynthesis, secretion, binding to a eukaryotic receptor and triggering of a robust host immune response.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 360094,
+          "scientificName": "Xanthomonas oryzae pv. oryzae"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD013389",
+      "date": "2019-04-16",
+      "keywords": [
+        "RaxX",
+        "RiPPs",
+        "Proteomics",
+        "Tyrosine sulfation",
+        "X. oryzae",
+        "XA21 immune receptor"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Biosynthesis and secretion of the microbial sulfated peptide RaxX and binding to the rice XA21 immune receptor",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://www.pnas.org/doi/10.1073/pnas.1818275116"
+      }
+    },
+    {
+      "identifier": "PXD012293",
+      "title": "Engineering Corynebacterium glutamicum to produce the biogasoline isopentenol from plant biomass hydrolysates",
+      "description": "Many microbial hosts used for the rapid discovery and development of metabolic pathways can have sensitivities to final products and process reagents. Isopentenol, a biogasoline candidate, has an established heterologous gene pathway but is toxic to many microbial hosts. Reagents used in the pretreatment of plant biomass, such as ionic liquids, also inhibit growth of many host strains. We explored the use of Corynebacterium glutamicum as an alternative host to address these constraints. Results. We found C. glutamicum ATCC 13032 to be tolerant to both the final product, isopentenol, as well to three classes ionic liquids. A heterologous mevalonate-based isopentenol pathway was engineered in C. glutamicum. Isopentenol titers were improved via three routes: media optimization; substitution of an NADH-dependent HmgR homolog from Silicibacter pomeroyi; and development of a C. glutamicum ∆poxB ∆ldhA host chassis.",
+      "repository": "PanoramaPublic",
+      "species": [
+        {
+          "NCBITaxID": 196627,
+          "scientificName": "Corynebacterium glutamicum ATCC 13032"
+        }
+      ],
+      "bibliographicCitation": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD012293",
+      "date": "2019-04-03",
+      "keywords": [
+        "C. glutamicum",
+        "isoprenoid pathway",
+        "Proteomics",
+        "targeted proteomics"
+      ],
+      "brc": "JBEI",
+      "creator": [
+        {
+          "creatorName": "Christopher J. Petzold",
+          "email": "cjpetzold@lbl.gov",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "relatedItem": {
+        "title": "Engineering Corynebacterium glutamicum to produce the biogasoline isopentenol from plant biomass hydrolysates",
+        "relatedItemType": "JournalArticle",
+        "relatedItemIdentifier": "https://biotechnologyforbiofuels.biomedcentral.com/articles/10.1186/s13068-019-1381-3"
+      }
+    }
+  ]
+}
