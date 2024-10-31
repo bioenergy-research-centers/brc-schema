@@ -9,7 +9,7 @@ See:
 
 ## Website
 
-[[https://bioenergy-research-centers.github.io/brc-schema](https://bioenergy-research-centers.github.io/brc-schema)](https://brc-schema.glbrc.org/)
+[https://bioenergy-research-centers.github.io/brc-schema](https://bioenergy-research-centers.github.io/brc-schema)
 
 ## Repository Structure
 
