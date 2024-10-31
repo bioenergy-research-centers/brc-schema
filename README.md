@@ -1,6 +1,6 @@
 # brc-schema
 
-Example schema
+Bioenergy Research Center data schema.
 
 See:
 
@@ -9,9 +9,7 @@ See:
 
 ## Website
 
-[https://bioenergy-research-centers.github.io/brc-schema](https://bioenergy-research-centers.github.io/brc-schema)
-
-(will not work so long as repo is private)
+[[https://bioenergy-research-centers.github.io/brc-schema](https://bioenergy-research-centers.github.io/brc-schema)](https://brc-schema.glbrc.org/)
 
 ## Repository Structure
 
