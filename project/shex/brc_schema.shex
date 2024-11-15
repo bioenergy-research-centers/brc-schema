@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.0.5
+# version: 0.0.6
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -59,12 +59,15 @@ linkml:Sparqlpath xsd:string
           dcterms:creator @<Individual> + ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
-          <repository> [ <https://w3id.org/brc/RepositoryEnum#AmeriFlux> <https://w3id.org/brc/RepositoryEnum#Dryad>
-             <https://w3id.org/brc/RepositoryEnum#FigShare> <https://w3id.org/brc/RepositoryEnum#GEO>
+          <repository> [ <https://w3id.org/brc/RepositoryEnum#AmeriFlux> <https://w3id.org/brc/RepositoryEnum#Bio-Protocol>
+             <https://w3id.org/brc/RepositoryEnum#Dryad> <https://w3id.org/brc/RepositoryEnum#FigShare>
+             <https://w3id.org/brc/RepositoryEnum#GenBank> <https://w3id.org/brc/RepositoryEnum#GEO>
+             <https://w3id.org/brc/RepositoryEnum#GLBRC%20Sustainability>
              <https://w3id.org/brc/RepositoryEnum#Iowa%20State%20University%20FigShare> <https://w3id.org/brc/RepositoryEnum#ICE>
              <https://w3id.org/brc/RepositoryEnum#Illinois%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#iProX>
-             <https://w3id.org/brc/RepositoryEnum#jPOST> <https://w3id.org/brc/RepositoryEnum#MassIVE>
-             <https://w3id.org/brc/RepositoryEnum#Mendeley%20Data> <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject>
+             <https://w3id.org/brc/RepositoryEnum#JGI%20Gold> <https://w3id.org/brc/RepositoryEnum#jPOST>
+             <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#Mendeley%20Data>
+             <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject> <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA>
              <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC> <https://w3id.org/brc/RepositoryEnum#OSTI>
              <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PedtideAtlas>
              <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Protein%20Data%20Bank>
