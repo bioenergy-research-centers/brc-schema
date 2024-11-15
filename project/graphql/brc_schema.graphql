@@ -1,5 +1,84 @@
 # metamodel_version: 1.7.0
-# version: 0.0.5
+# version: 0.0.6
+enum AnalysisType
+  {
+    affinity_purification
+    cross_linking
+    Expression_profiling
+    Genomic___HYPHEN_MINUS___SNP_calling
+    image_analysis
+    Ms_imaging
+    shotgun_proteomics
+    srm_mrm
+    swath_ms
+    Targeted_Locus___LEFT_PARENTHESIS__Loci__RIGHT_PARENTHESIS__
+  }
+
+enum BRCEnum
+  {
+    CABBI
+    CBI
+    GLBRC
+    JBEI
+  }
+
+enum CitedItemType
+  {
+    JournalArticle
+    Book
+    Dataset
+    Software
+    Thesis
+    Patent
+    Preprint
+    Presentation
+    Report
+    Webpage
+    WebApplication
+  }
+
+enum DatasetTypeCodes
+  {
+    AS
+    GD
+    IM
+    ND
+    IP
+    FP
+    SM
+    MM
+    I
+  }
+
+enum RepositoryEnum
+  {
+    AmeriFlux
+    Bio__HYPHEN_MINUS__Protocol
+    Dryad
+    FigShare
+    GenBank
+    GEO
+    GLBRC_Sustainability
+    Iowa_State_University_FigShare
+    ICE
+    Illinois_Data_Bank
+    iProX
+    JGI_Gold
+    jPOST
+    MassIVE
+    Mendeley_Data
+    NCBI_BioProject
+    NCBI_SRA
+    ORNL_DAAC
+    OSTI
+    PanoramaPublic
+    PedtideAtlas
+    PRIDE
+    Protein_Data_Bank
+    The_Cambridge_Crystallographic_Data_Centre
+    Zenodo
+  }
+
 type Dataset
   {
     id: Uriorcurie

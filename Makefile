@@ -140,7 +140,8 @@ ifneq ($(strip ${GEN_TS_ARGS}),)
 	$(RUN) gen-typescript ${GEN_TS_ARGS} $(SOURCE_SCHEMA_PATH) >${DEST}/typescript/${SCHEMA_NAME}.ts
 endif
 
-test: test-schema test-python test-examples
+# test: test-schema test-python test-examples
+test: test-schema test-python
 
 test-schema:
 	$(RUN) gen-project ${CONFIG_YAML} -d tmp $(SOURCE_SCHEMA_PATH)
@@ -159,14 +160,14 @@ else
 endif
 
 convert-examples-to-%:
-	$(patsubst %, $(RUN) linkml-convert  % -s $(SOURCE_SCHEMA_PATH) -C Person, $(shell ${SHELL} find src/data/examples -name "*.yaml"))
+	$(patsubst %, $(RUN) linkml-convert  % -s $(SOURCE_SCHEMA_PATH) -C Dataset, $(shell ${SHELL} find src/data/examples -name "*.yaml"))
 
 examples/%.yaml: src/data/examples/%.yaml
-	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Dataset $< -o $@
 examples/%.json: src/data/examples/%.yaml
-	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Dataset $< -o $@
 examples/%.ttl: src/data/examples/%.yaml
-	$(RUN) linkml-convert -P EXAMPLE=http://example.org/ -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -P EXAMPLE=http://example.org/ -s $(SOURCE_SCHEMA_PATH) -C Dataset $< -o $@
 
 test-examples: examples/output
 

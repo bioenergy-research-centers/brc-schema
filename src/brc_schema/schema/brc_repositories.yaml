@@ -1,0 +1,163 @@
+id: https://w3id.org/brc/brc_repositories
+name: brc_repositories
+title: Bioenergy Research Center Data Schema for Data Repositories
+description: >-
+  This schema defines the set of repositories used by the Bioenergy
+  Research Centers (BRCs) to store and manage data. The schema includes
+  metadata about the repositories, such as the repository name, URL, and
+  description. The schema also includes metadata about the data stored in
+  the repositories, such as the data type, data format, and data size.
+  The schema is intended to be used by the BRCs to share information
+  about their repositories and data with other BRCs and the broader
+  scientific community.
+
+prefixes:
+  BIOPROJECT: https://www.ncbi.nlm.nih.gov/bioproject/?term=
+  BIOSAMPLE: http://www.ncbi.nlm.nih.gov/biosample?term=
+  ERO: http://purl.obolibrary.org/obo/ERO_
+  IAO: http://purl.obolibrary.org/obo/IAO_
+  INSDC.SRA: https://www.ncbi.nlm.nih.gov/sra/
+  MI: http://purl.obolibrary.org/obo/MI_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  SIO: http://semanticscience.org/resource/SIO_
+  UO: http://purl.obolibrary.org/obo/UO_
+  bald: https://www.opengis.net/def/binary-array-ld/
+  bibo: http://purl.org/ontology/bibo/
+  brc: https://w3id.org/brc/
+  cabbi: https://cabbitools.igb.illinois.edu/brc/
+  cbi: https://fair.ornl.gov/CBI/
+  dcat: http://www.w3.org/ns/dcat#
+  dcterms: http://purl.org/dc/terms/
+  edam: http://edamontology.org/
+  glbrc: https://fair-data.glbrc.org/
+  jbei: https://hello.bioenergy.org/JBEI/
+  linkml: https://w3id.org/linkml/
+  oslc: http://open-services.net/ns/core#
+  osti: https://www.osti.gov/biblio/
+  pav: http://purl.org/pav/
+  prov: http://www.w3.org/ns/prov#
+  ror: https://ror.org/
+  schema: http://schema.org/
+  skos: http://www.w3.org/2004/02/skos/core#
+  void: http://rdfs.org/ns/void#
+  wikidata: https://www.wikidata.org/wiki/
+
+default_prefix: brc
+default_range: string
+
+imports:
+  - linkml:types
+
+# TODO: Set up repositories as a class instead of an enum
+
+enums:
+  RepositoryEnum:
+    description: Repository where the dataset is stored.
+    permissible_values:
+      AmeriFlux:
+        description: "AmeriFlux"
+        see_also:
+          - https://ameriflux.lbl.gov/
+      Bio-Protocol:
+        description: "Bio-Protocol"
+        see_also:
+          - https://bio-protocol.org/
+      Dryad:
+        description: "Dryad"
+        see_also:
+          - https://datadryad.org/
+      FigShare:
+        description: "FigShare"
+        see_also:
+          - https://figshare.com/
+      GenBank:
+        description: "GenBank"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/genbank/
+          - https://bioregistry.io/registry/genbank
+      GEO:
+        description: "Gene Expression Omnibus"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/geo/
+      GLBRC Sustainability:
+        description: >-
+          "Great Lakes Bioenergy Research Center Sustainability Data Catalog"
+        see_also:
+          - https://data.sustainability.glbrc.org/
+      Iowa State University FigShare:
+        description: "Iowa State University FigShare"
+        see_also:
+          - https://iastate.figshare.com/
+      ICE:
+        description: "Inventory of Composable Elements"
+        see_also:
+          - https://ice.jbei.org/
+      Illinois Data Bank:
+        description: "Illinois Data Bank"
+        see_also:
+          - https://databank.illinois.edu/
+      iProX:
+        description: "Integrated Proteome Resources"
+        see_also:
+          - http://www.iprox.org/
+      JGI Gold:
+        description: "Joint Genome Institute Genome OnLine Database"
+        see_also:
+          - https://gold.jgi.doe.gov/
+          - https://bioregistry.io/registry/gold
+      jPOST:
+        description: "Japan ProteOme STandard Repository/Database"
+        see_also:
+          - https://jpostdb.org/
+      MassIVE:
+        description: "Mass Spectrometry Interactive Virtual Environment"
+        see_also:
+          - https://massive.ucsd.edu/ProteoSAFe/static/massive.jsp
+      Mendeley Data:
+        description: "Mendeley Data"
+        see_also:
+          - https://data.mendeley.com/
+      NCBI BioProject:
+        description: "National Center for Biotechnology Information BioProject"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/bioproject/
+      NCBI SRA:
+        description: >-
+          "National Center for Biotechnology Information Sequence Read Archive"
+        see_also:
+          - https://www.ncbi.nlm.nih.gov/sra/
+          - https://bioregistry.io/registry/insdc.sra
+      ORNL DAAC:
+        description: >-
+          "Oak Ridge National Laboratory Distributed Active Archive Center"
+        see_also:
+          - https://daac.ornl.gov/
+      OSTI:
+        description: "Office of Scientific and Technical Information"
+        see_also:
+          - https://www.osti.gov/biblio/
+      PanoramaPublic:
+        description: "Panorama Public"
+        see_also:
+          - https://panoramaweb.org/
+      PedtideAtlas:
+        description: "PeptideAtlas"
+        see_also:
+          - http://www.peptideatlas.org/
+      PRIDE:
+        description: "PRoteomics IDEntifications database"
+        see_also:
+          - https://www.ebi.ac.uk/pride/
+      Protein Data Bank:
+        description: "RCSB Protein Data Bank"
+        see_also:
+          - https://www.rcsb.org/
+      The Cambridge Crystallographic Data Centre:
+        description: "The Cambridge Crystallographic Data Centre"
+        see_also:
+          - https://www.ccdc.cam.ac.uk/
+      Zenodo:
+        description: "Zenodo"
+        see_also:
+          - https://zenodo.org/
