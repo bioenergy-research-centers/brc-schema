@@ -2,14 +2,14 @@ id: https://w3id.org/brc/brc_repositories
 name: brc_repositories
 title: Bioenergy Research Center Data Schema for Data Repositories
 description: >-
-        This schema defines the set of repositories used by the Bioenergy
-        Research Centers (BRCs) to store and manage data. The schema includes
-        metadata about the repositories, such as the repository name, URL, and
-        description. The schema also includes metadata about the data stored in
-        the repositories, such as the data type, data format, and data size.
-        The schema is intended to be used by the BRCs to share information
-        about their repositories and data with other BRCs and the broader
-        scientific community.
+  This schema defines the set of repositories used by the Bioenergy
+  Research Centers (BRCs) to store and manage data. The schema includes
+  metadata about the repositories, such as the repository name, URL, and
+  description. The schema also includes metadata about the data stored in
+  the repositories, such as the data type, data format, and data size.
+  The schema is intended to be used by the BRCs to share information
+  about their repositories and data with other BRCs and the broader
+  scientific community.
 
 prefixes:
   BIOPROJECT: https://www.ncbi.nlm.nih.gov/bioproject/?term=
