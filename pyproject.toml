@@ -18,8 +18,8 @@ style = "pep440"
 
 [tool.poetry.dev-dependencies]
 linkml = "^1.7.11rc1"
-mkdocs-material = "^8.2.8"
-mkdocs-mermaid2-plugin = "^0.6.0"
+mkdocs-material = ">8.2.8"
+mkdocs-mermaid2-plugin = ">0.6.0"
 schemasheets = "^0.1.14"
 
 [build-system]
@@ -27,4 +27,4 @@ requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry.extras]
-docs = ["linkml", "mkdocs-material"]
+docs = ["linkml", "mkdocs-material", "mkdocs-mermaid2-plugin"]
