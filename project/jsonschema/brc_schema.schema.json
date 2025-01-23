@@ -73,8 +73,11 @@
                     ]
                 },
                 "brc": {
-                    "$ref": "#/$defs/BRCEnum",
-                    "description": "Bioenergy Research Center affiliation."
+                    "description": "Bioenergy Research Center affiliation(s).",
+                    "items": {
+                        "$ref": "#/$defs/BRCEnum"
+                    },
+                    "type": "array"
                 },
                 "creator": {
                     "description": "List of creators involved in the dataset, where one must be the primary contact.",

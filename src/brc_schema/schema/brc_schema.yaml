@@ -104,11 +104,12 @@ classes:
         slot_uri: dcterms:creator
       brc:
         range: BRCEnum
-        description: "Bioenergy Research Center affiliation."
+        description: "Bioenergy Research Center affiliation(s)."
         required: true
         slot_uri: prov:wasAttributedTo
         broad_mappings:
           - osti:originating_research_org
+        multivalued: true
       repository:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."

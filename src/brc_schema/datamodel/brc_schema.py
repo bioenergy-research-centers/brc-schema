@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-15T15:43:47
+# Generation date: 2025-01-23T12:07:46
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -159,7 +159,7 @@ class Dataset(YAMLRoot):
     title: str = None
     date: Union[str, XSDDate] = None
     creator: Union[Union[dict, "Individual"], List[Union[dict, "Individual"]]] = None
-    brc: Union[str, "BRCEnum"] = None
+    brc: Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]] = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
     repository: Optional[Union[str, "RepositoryEnum"]] = None
@@ -194,8 +194,9 @@ class Dataset(YAMLRoot):
 
         if self._is_empty(self.brc):
             self.MissingRequiredField("brc")
-        if not isinstance(self.brc, BRCEnum):
-            self.brc = BRCEnum(self.brc)
+        if not isinstance(self.brc, list):
+            self.brc = [self.brc] if self.brc is not None else []
+        self.brc = [v if isinstance(v, BRCEnum) else BRCEnum(v) for v in self.brc]
 
         if self._is_empty(self.identifier):
             self.MissingRequiredField("identifier")
@@ -678,7 +679,7 @@ slots.dataset__creator = Slot(uri=DCTERMS.creator, name="dataset__creator", curi
                    model_uri=BRC.dataset__creator, domain=None, range=Union[Union[dict, Individual], List[Union[dict, Individual]]])
 
 slots.dataset__brc = Slot(uri=PROV.wasAttributedTo, name="dataset__brc", curie=PROV.curie('wasAttributedTo'),
-                   model_uri=BRC.dataset__brc, domain=None, range=Union[str, "BRCEnum"])
+                   model_uri=BRC.dataset__brc, domain=None, range=Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]])
 
 slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository", curie=BRC.curie('repository'),
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])

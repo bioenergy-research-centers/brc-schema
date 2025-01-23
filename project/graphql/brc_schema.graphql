@@ -85,7 +85,7 @@ type Dataset
     title: String!
     date: Date!
     creator: [Individual]!
-    brc: BRCEnum!
+    brc: [BRCEnum]!
     repository: RepositoryEnum
     bibliographicCitation: Uri
     identifier: String!
