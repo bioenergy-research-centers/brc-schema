@@ -50,6 +50,16 @@
             "additionalProperties": false,
             "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
+                "additional_brcs": {
+                    "description": "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.",
+                    "items": {
+                        "$ref": "#/$defs/BRCEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "analysisType": {
                     "anyOf": [
                         {
@@ -74,7 +84,7 @@
                 },
                 "brc": {
                     "$ref": "#/$defs/BRCEnum",
-                    "description": "Bioenergy Research Center affiliation."
+                    "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
                 },
                 "creator": {
                     "description": "List of creators involved in the dataset, where one must be the primary contact.",

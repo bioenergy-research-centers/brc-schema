@@ -104,11 +104,22 @@ classes:
         slot_uri: dcterms:creator
       brc:
         range: BRCEnum
-        description: "Bioenergy Research Center affiliation."
+        description: >-
+          The primary Bioenergy Research Center affiliation.
+          This is a single BRC name.
         required: true
         slot_uri: prov:wasAttributedTo
         broad_mappings:
           - osti:originating_research_org
+      additional_brcs:
+        range: BRCEnum
+        multivalued: true
+        description: >-
+          Additional Bioenergy Research Center affiliations.
+          This is a list of one or more additional BRC names,
+          for instances in which the dataset is associated with
+          multiple centers.
+        slot_uri: prov:wasAttributedTo
       repository:
         range: RepositoryEnum
         description: "The repository where the dataset is stored."

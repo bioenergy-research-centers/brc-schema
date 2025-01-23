@@ -5,7 +5,7 @@
 --     * Slot: id Description: Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.
 --     * Slot: title Description: The title of the dataset.
 --     * Slot: date Description: The date the dataset was created or published.
---     * Slot: brc Description: Bioenergy Research Center affiliation.
+--     * Slot: brc Description: The primary Bioenergy Research Center affiliation. This is a single BRC name.
 --     * Slot: repository Description: The repository where the dataset is stored.
 --     * Slot: bibliographicCitation Description: Citation for the dataset.
 --     * Slot: identifier Description: Unique identifier for the dataset.
@@ -43,6 +43,9 @@
 --     * Slot: title Description: Title of the related item.
 --     * Slot: relatedItemType Description: Type of the related item, e.g., JournalArticle.
 --     * Slot: relatedItemIdentifier Description: Identifier or URL for the related item.
+-- # Class: "Dataset_additional_brcs" Description: ""
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: additional_brcs Description: Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.
 -- # Class: "Dataset_has_related_ids" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: has_related_ids Description: "Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset."
@@ -120,6 +123,12 @@ CREATE TABLE "Individual" (
 	affiliation TEXT, 
 	"Dataset_uid" INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE TABLE "Dataset_additional_brcs" (
+	"Dataset_uid" INTEGER, 
+	additional_brcs VARCHAR(5), 
+	PRIMARY KEY ("Dataset_uid", additional_brcs), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
 CREATE TABLE "Dataset_has_related_ids" (

@@ -86,6 +86,7 @@ type Dataset
     date: Date!
     creator: [Individual]!
     brc: BRCEnum!
+    additionalBrcs: [BRCEnum]
     repository: RepositoryEnum
     bibliographicCitation: Uri
     identifier: String!

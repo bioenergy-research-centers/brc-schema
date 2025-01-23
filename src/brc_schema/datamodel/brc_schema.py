@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-15T15:43:47
+# Generation date: 2025-01-23T13:01:02
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -162,6 +162,7 @@ class Dataset(YAMLRoot):
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
+    additional_brcs: Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]] = empty_list()
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     bibliographicCitation: Optional[Union[str, URI]] = None
     has_related_ids: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
@@ -204,6 +205,10 @@ class Dataset(YAMLRoot):
 
         if self.id is not None and not isinstance(self.id, URIorCURIE):
             self.id = URIorCURIE(self.id)
+
+        if not isinstance(self.additional_brcs, list):
+            self.additional_brcs = [self.additional_brcs] if self.additional_brcs is not None else []
+        self.additional_brcs = [v if isinstance(v, BRCEnum) else BRCEnum(v) for v in self.additional_brcs]
 
         if self.repository is not None and not isinstance(self.repository, RepositoryEnum):
             self.repository = RepositoryEnum(self.repository)
@@ -679,6 +684,9 @@ slots.dataset__creator = Slot(uri=DCTERMS.creator, name="dataset__creator", curi
 
 slots.dataset__brc = Slot(uri=PROV.wasAttributedTo, name="dataset__brc", curie=PROV.curie('wasAttributedTo'),
                    model_uri=BRC.dataset__brc, domain=None, range=Union[str, "BRCEnum"])
+
+slots.dataset__additional_brcs = Slot(uri=PROV.wasAttributedTo, name="dataset__additional_brcs", curie=PROV.curie('wasAttributedTo'),
+                   model_uri=BRC.dataset__additional_brcs, domain=None, range=Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]])
 
 slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository", curie=BRC.curie('repository'),
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])
