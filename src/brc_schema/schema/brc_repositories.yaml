@@ -51,6 +51,14 @@ imports:
 
 # TODO: Set up repositories as a class instead of an enum
 
+subsets:
+  requires_login:
+    description: >-
+      These repositories require a login to access data.
+      This does not include resources in which data may
+      be private or restricted, but rather those that
+      require a login to access any data.
+
 enums:
   RepositoryEnum:
     description: Repository where the dataset is stored.
@@ -96,6 +104,8 @@ enums:
         description: "Inventory of Composable Elements"
         see_also:
           - https://ice.jbei.org/
+        in_subset:
+          - requires_login
       Illinois Data Bank:
         description: "Illinois Data Bank"
         see_also:

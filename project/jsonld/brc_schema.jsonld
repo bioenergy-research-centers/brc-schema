@@ -133,6 +133,15 @@
   ],
   "default_prefix": "brc",
   "default_range": "string",
+  "subsets": [
+    {
+      "name": "requires_login",
+      "definition_uri": "https://w3id.org/brc/RequiresLogin",
+      "description": "These repositories require a login to access data. This does not include resources in which data may be private or restricted, but rather those that require a login to access any data.",
+      "from_schema": "https://w3id.org/brc/brc_repositories",
+      "@type": "SubsetDefinition"
+    }
+  ],
   "types": [
     {
       "name": "ror_identifier",
@@ -684,6 +693,7 @@
         {
           "text": "Bio-Protocol",
           "description": "Bio-Protocol",
+          "meaning": "ror:04pvg6f08",
           "see_also": [
             "https://bio-protocol.org/"
           ]
@@ -691,6 +701,7 @@
         {
           "text": "Dryad",
           "description": "Dryad",
+          "meaning": "ror:00x6h5n95",
           "see_also": [
             "https://datadryad.org/"
           ]
@@ -698,6 +709,7 @@
         {
           "text": "FigShare",
           "description": "FigShare",
+          "meaning": "ror:041mxqs23",
           "see_also": [
             "https://figshare.com/"
           ]
@@ -734,6 +746,9 @@
         {
           "text": "ICE",
           "description": "Inventory of Composable Elements",
+          "in_subset": [
+            "requires_login"
+          ],
           "see_also": [
             "https://ice.jbei.org/"
           ]
@@ -777,6 +792,7 @@
         {
           "text": "Mendeley Data",
           "description": "Mendeley Data",
+          "meaning": "ror:01t2a8a42",
           "see_also": [
             "https://data.mendeley.com/"
           ]
@@ -806,6 +822,7 @@
         {
           "text": "OSTI",
           "description": "Office of Scientific and Technical Information",
+          "meaning": "ror:031478740",
           "see_also": [
             "https://www.osti.gov/biblio/"
           ]
@@ -841,6 +858,7 @@
         {
           "text": "The Cambridge Crystallographic Data Centre",
           "description": "The Cambridge Crystallographic Data Centre",
+          "meaning": "ror:00zbfm828",
           "see_also": [
             "https://www.ccdc.cam.ac.uk/"
           ]
@@ -1949,9 +1967,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-01-23T13:00:52",
+  "source_file_date": "2025-01-23T13:05:17",
   "source_file_size": 14749,
-  "generation_date": "2025-01-23T13:01:01",
+  "generation_date": "2025-01-23T13:43:08",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
