@@ -63,14 +63,17 @@ enums:
         description: "Bio-Protocol"
         see_also:
           - https://bio-protocol.org/
+        meaning: ror:04pvg6f08
       Dryad:
         description: "Dryad"
         see_also:
           - https://datadryad.org/
+        meaning: ror:00x6h5n95
       FigShare:
         description: "FigShare"
         see_also:
           - https://figshare.com/
+        meaning: ror:041mxqs23
       GenBank:
         description: "GenBank"
         see_also:
@@ -118,6 +121,7 @@ enums:
         description: "Mendeley Data"
         see_also:
           - https://data.mendeley.com/
+        meaning: ror:01t2a8a42
       NCBI BioProject:
         description: "National Center for Biotechnology Information BioProject"
         see_also:
@@ -137,6 +141,7 @@ enums:
         description: "Office of Scientific and Technical Information"
         see_also:
           - https://www.osti.gov/biblio/
+        meaning: ror:031478740
       PanoramaPublic:
         description: "Panorama Public"
         see_also:
@@ -157,6 +162,7 @@ enums:
         description: "The Cambridge Crystallographic Data Centre"
         see_also:
           - https://www.ccdc.cam.ac.uk/
+        meaning: ror:00zbfm828
       Zenodo:
         description: "Zenodo"
         see_also:
