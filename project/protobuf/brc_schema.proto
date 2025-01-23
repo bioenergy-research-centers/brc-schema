@@ -9,7 +9,8 @@ message Dataset
   string title = 0
   date date = 0
  repeated  individual creator = 0
- repeated  bRCEnum brc = 0
+  bRCEnum brc = 0
+ repeated  bRCEnum additionalBrcs = 0
   repositoryEnum repository = 0
   uri bibliographicCitation = 0
   string identifier = 0

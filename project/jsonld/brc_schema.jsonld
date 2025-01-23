@@ -951,7 +951,7 @@
     },
     {
       "name": "dataset__brc",
-      "description": "Bioenergy Research Center affiliation(s).",
+      "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://www.w3.org/ns/prov#wasAttributedTo"
@@ -967,6 +967,22 @@
       ],
       "range": "BRCEnum",
       "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__additional_brcs",
+      "description": "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "mappings": [
+        "http://www.w3.org/ns/prov#wasAttributedTo"
+      ],
+      "slot_uri": "http://www.w3.org/ns/prov#wasAttributedTo",
+      "alias": "additional_brcs",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "BRCEnum",
       "multivalued": true,
       "@type": "SlotDefinition"
     },
@@ -1507,6 +1523,7 @@
         "dataset__date",
         "dataset__creator",
         "dataset__brc",
+        "dataset__additional_brcs",
         "dataset__repository",
         "dataset__bibliographicCitation",
         "dataset__identifier",
@@ -1565,13 +1582,20 @@
         },
         {
           "name": "brc",
-          "description": "Bioenergy Research Center affiliation(s).",
+          "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name.",
           "broad_mappings": [
             "osti:originating_research_org"
           ],
           "slot_uri": "prov:wasAttributedTo",
           "range": "BRCEnum",
           "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "additional_brcs",
+          "description": "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.",
+          "slot_uri": "prov:wasAttributedTo",
+          "range": "BRCEnum",
           "multivalued": true,
           "@type": "SlotDefinition"
         },
@@ -1925,9 +1949,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-01-23T12:07:40",
-  "source_file_size": 14368,
-  "generation_date": "2025-01-23T12:07:45",
+  "source_file_date": "2025-01-23T13:00:52",
+  "source_file_size": 14749,
+  "generation_date": "2025-01-23T13:01:01",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
