@@ -8,6 +8,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ror: <https://ror.org/> .
 @prefix schema1: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -27,50 +28,38 @@ schema1:Dataset a sh:NodeShape ;
     sh:closed true ;
     sh:description "A dataset containing metabolomics and proteomics data." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
-            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:identifier ],
+    sh:property [ sh:class brc:RelatedItem ;
+            sh:description "Related publications or items." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path brc:relatedItem ],
         [ sh:datatype xsd:string ;
-            sh:description "The title of the dataset." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
+            sh:description "Keywords associated with the dataset." ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path dcterms:title ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 9 ;
-            sh:path brc:has_related_ids ],
+            sh:order 15 ;
+            sh:path dcat:keyword ],
+        [ sh:class brc:Organism ;
+            sh:description "Species information for the organism(s) studied." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path brc:species ],
         [ sh:datatype xsd:anyURI ;
             sh:description "URL for the dataset landing page." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 18 ;
             sh:path schema1:url ],
-        [ sh:description "High-level type of the main content of the dataset." ;
-            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Citation for the dataset." ;
             sh:maxCount 1 ;
-            sh:order 12 ;
-            sh:path brc:datasetType ],
-        [ sh:class brc:Organism ;
-            sh:description "Species information for the organism(s) studied." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 10 ;
-            sh:path brc:species ],
-        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
-            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
-            sh:order 5 ;
-            sh:path prov:wasAttributedTo ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for the dataset." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 8 ;
+            sh:order 7 ;
+            sh:path dcterms:bibliographicCitation ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
             sh:path schema1:identifier ],
         [ sh:class schema1:Person ;
             sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
@@ -79,38 +68,16 @@ schema1:Dataset a sh:NodeShape ;
             sh:order 3 ;
             sh:path dcterms:creator ],
         [ sh:datatype xsd:string ;
-            sh:description "Keywords associated with the dataset." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 15 ;
-            sh:path dcat:keyword ],
-        [ sh:description "The repository where the dataset is stored." ;
-            sh:in ( "AmeriFlux" "Bio-Protocol" "Dryad" "FigShare" "GenBank" "GEO" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Gold" "jPOST" "MassIVE" "Mendeley Data" "NCBI BioProject" "NCBI SRA" "ORNL DAAC" "OSTI" "PanoramaPublic" "PedtideAtlas" "PRIDE" "Protein Data Bank" "The Cambridge Crystallographic Data Centre" "Zenodo" ) ;
-            sh:maxCount 1 ;
-            sh:order 6 ;
-            sh:path brc:repository ],
-        [ sh:datatype xsd:date ;
-            sh:description "The date the dataset was created or published." ;
+            sh:description "The title of the dataset." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path dcterms:date ],
-        [ sh:class brc:Funding ;
-            sh:description "Funding source(s) for the dataset." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 17 ;
-            sh:path brc:funding ],
-        [ sh:datatype xsd:string ;
-            sh:description "A detailed description of the dataset." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 13 ;
-            sh:path dcterms:description ],
-        [ sh:class brc:RelatedItem ;
-            sh:description "Related publications or items." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 14 ;
-            sh:path brc:relatedItem ],
+            sh:order 1 ;
+            sh:path dcterms:title ],
+        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
+            sh:order 5 ;
+            sh:path prov:wasAttributedTo ],
         [ sh:defaultValue "not specified"^^xsd:string ;
             sh:description "The type of analysis performed on the dataset." ;
             sh:maxCount 1 ;
@@ -118,109 +85,148 @@ schema1:Dataset a sh:NodeShape ;
                         sh:nodeKind sh:Literal ] ) ;
             sh:order 11 ;
             sh:path brc:analysisType ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "Citation for the dataset." ;
+        [ sh:datatype xsd:date ;
+            sh:description "The date the dataset was created or published." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dcterms:date ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path dcterms:bibliographicCitation ],
+            sh:order 16 ;
+            sh:path brc:datasetName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for the dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path schema1:identifier ],
+        [ sh:description "High-level type of the main content of the dataset." ;
+            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+            sh:maxCount 1 ;
+            sh:order 12 ;
+            sh:path brc:datasetType ],
+        [ sh:class brc:Funding ;
+            sh:description "Funding source(s) for the dataset." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 17 ;
+            sh:path brc:funding ],
         [ sh:description "The primary Bioenergy Research Center affiliation. This is a single BRC name." ;
             sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:order 4 ;
             sh:path prov:wasAttributedTo ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path brc:has_related_ids ],
         [ sh:datatype xsd:string ;
-            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+            sh:description "A detailed description of the dataset." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 16 ;
-            sh:path brc:datasetName ] ;
+            sh:order 13 ;
+            sh:path dcterms:description ],
+        [ sh:description "The repository where the dataset is stored." ;
+            sh:in ( "AmeriFlux" ror:04pvg6f08 ror:00x6h5n95 ror:041mxqs23 "GenBank" "GEO" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Gold" "jPOST" "MassIVE" ror:01t2a8a42 "NCBI BioProject" "NCBI SRA" "ORNL DAAC" ror:031478740 "PanoramaPublic" "PedtideAtlas" "PRIDE" "Protein Data Bank" ror:00zbfm828 "Zenodo" ) ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path brc:repository ] ;
     sh:targetClass schema1:Dataset .
 
 schema1:Person a sh:NodeShape ;
     sh:closed true ;
     sh:description "An individual involved in the dataset." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:boolean ;
-            sh:description "Indicates if the creator is the primary contact." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:primaryContact ],
-        [ sh:description "Affiliation of the creator." ;
+    sh:property [ sh:description "Affiliation of the creator." ;
             sh:maxCount 1 ;
             sh:or ( [ sh:class brc:Organization ] [ sh:datatype xsd:string ;
                         sh:nodeKind sh:Literal ] ) ;
             sh:order 3 ;
             sh:path brc:affiliation ],
         [ sh:datatype xsd:string ;
-            sh:description "Name of the creator." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:string ;
             sh:description "Email address of the creator." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path schema1:email ] ;
+            sh:path schema1:email ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if the creator is the primary contact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:primaryContact ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the creator." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ] ;
     sh:targetClass schema1:Person .
 
 brc:Funding a sh:NodeShape ;
     sh:closed true ;
     sh:description "Funding source for the dataset. Each item corresponds to a single award or grant." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class brc:Organization ;
-            sh:description "Details of the funding entity." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path brc:fundingOrganization ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Award number from the funding entity." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path brc:awardNumber ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URI for the award. This may be a DOI. Include prefix." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:awardURI ],
         [ sh:datatype xsd:string ;
             sh:description "Title of the award." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path brc:awardTitle ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "URI for the award. This may be a DOI. Include prefix." ;
+        [ sh:class brc:Organization ;
+            sh:description "Details of the funding entity." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:awardURI ] ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path brc:fundingOrganization ] ;
     sh:targetClass brc:Funding .
 
 brc:Organism a sh:NodeShape ;
     sh:closed true ;
     sh:description "An organism studied in the dataset." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Scientific name of the organism." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path brc:scientificName ],
-        [ sh:datatype xsd:integer ;
+    sh:property [ sh:datatype xsd:integer ;
             sh:description "NCBI taxonomy ID for the organism." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:NCBITaxID ] ;
+            sh:path brc:NCBITaxID ],
+        [ sh:datatype xsd:string ;
+            sh:description "Scientific name of the organism." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path brc:scientificName ] ;
     sh:targetClass brc:Organism .
 
 brc:RelatedItem a sh:NodeShape ;
     sh:closed true ;
     sh:description "A related publication or item, including cited publications." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
+    sh:property [ sh:description "Type of the related item, e.g., JournalArticle." ;
+            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path brc:relatedItemType ],
+        [ sh:datatype xsd:anyURI ;
             sh:description "Identifier or URL for the related item." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -231,24 +237,19 @@ brc:RelatedItem a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path dcterms:title ],
-        [ sh:description "Type of the related item, e.g., JournalArticle." ;
-            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path brc:relatedItemType ] ;
+            sh:path dcterms:title ] ;
     sh:targetClass brc:RelatedItem .
 
 brc:Organization a sh:NodeShape ;
     sh:closed true ;
     sh:description "An organization involved in the dataset." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class brc:Organization ;
-            sh:description "Higher-level parent of this organization." ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:description "Wikidata identifier for the organization." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path brc:parentOrganization ],
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:wikidata_id ],
         [ sh:datatype xsd:string ;
             sh:description "Name of the organization." ;
             sh:maxCount 1 ;
@@ -256,16 +257,16 @@ brc:Organization a sh:NodeShape ;
             sh:order 0 ;
             sh:path schema1:name ],
         [ sh:datatype xsd:anyURI ;
-            sh:description "Wikidata identifier for the organization." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:wikidata_id ],
-        [ sh:datatype xsd:anyURI ;
             sh:description "ROR identifier for the organization." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
-            sh:path brc:ror_id ] ;
+            sh:path brc:ror_id ],
+        [ sh:class brc:Organization ;
+            sh:description "Higher-level parent of this organization." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path brc:parentOrganization ] ;
     sh:targetClass brc:Organization .
 

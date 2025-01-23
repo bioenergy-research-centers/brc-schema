@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-01-23T13:01:02
+# Generation date: 2025-01-23T13:43:09
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -573,10 +573,12 @@ class RepositoryEnum(EnumDefinitionImpl):
         description="AmeriFlux")
     Dryad = PermissibleValue(
         text="Dryad",
-        description="Dryad")
+        description="Dryad",
+        meaning=ROR["00x6h5n95"])
     FigShare = PermissibleValue(
         text="FigShare",
-        description="FigShare")
+        description="FigShare",
+        meaning=ROR["041mxqs23"])
     GenBank = PermissibleValue(
         text="GenBank",
         description="GenBank")
@@ -597,7 +599,8 @@ class RepositoryEnum(EnumDefinitionImpl):
         description="Mass Spectrometry Interactive Virtual Environment")
     OSTI = PermissibleValue(
         text="OSTI",
-        description="Office of Scientific and Technical Information")
+        description="Office of Scientific and Technical Information",
+        meaning=ROR["031478740"])
     PanoramaPublic = PermissibleValue(
         text="PanoramaPublic",
         description="Panorama Public")
@@ -621,7 +624,8 @@ class RepositoryEnum(EnumDefinitionImpl):
         setattr(cls, "Bio-Protocol",
             PermissibleValue(
                 text="Bio-Protocol",
-                description="Bio-Protocol"))
+                description="Bio-Protocol",
+                meaning=ROR["04pvg6f08"]))
         setattr(cls, "GLBRC Sustainability",
             PermissibleValue(
                 text="GLBRC Sustainability",
@@ -641,7 +645,8 @@ class RepositoryEnum(EnumDefinitionImpl):
         setattr(cls, "Mendeley Data",
             PermissibleValue(
                 text="Mendeley Data",
-                description="Mendeley Data"))
+                description="Mendeley Data",
+                meaning=ROR["01t2a8a42"]))
         setattr(cls, "NCBI BioProject",
             PermissibleValue(
                 text="NCBI BioProject",
@@ -661,7 +666,8 @@ class RepositoryEnum(EnumDefinitionImpl):
         setattr(cls, "The Cambridge Crystallographic Data Centre",
             PermissibleValue(
                 text="The Cambridge Crystallographic Data Centre",
-                description="The Cambridge Crystallographic Data Centre"))
+                description="The Cambridge Crystallographic Data Centre",
+                meaning=ROR["00zbfm828"]))
 
 # Slots
 class slots:

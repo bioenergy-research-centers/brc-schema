@@ -7,6 +7,7 @@ PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX ror: <https://ror.org/>
 PREFIX schema1: <http://schema.org/>
 
 
@@ -61,19 +62,16 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] * ;
-          <repository> [ <https://w3id.org/brc/RepositoryEnum#AmeriFlux> <https://w3id.org/brc/RepositoryEnum#Bio-Protocol>
-             <https://w3id.org/brc/RepositoryEnum#Dryad> <https://w3id.org/brc/RepositoryEnum#FigShare>
+          <repository> [ <https://w3id.org/brc/RepositoryEnum#AmeriFlux> ror:04pvg6f08 ror:00x6h5n95 ror:041mxqs23
              <https://w3id.org/brc/RepositoryEnum#GenBank> <https://w3id.org/brc/RepositoryEnum#GEO>
              <https://w3id.org/brc/RepositoryEnum#GLBRC%20Sustainability>
              <https://w3id.org/brc/RepositoryEnum#Iowa%20State%20University%20FigShare> <https://w3id.org/brc/RepositoryEnum#ICE>
              <https://w3id.org/brc/RepositoryEnum#Illinois%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#iProX>
              <https://w3id.org/brc/RepositoryEnum#JGI%20Gold> <https://w3id.org/brc/RepositoryEnum#jPOST>
-             <https://w3id.org/brc/RepositoryEnum#MassIVE> <https://w3id.org/brc/RepositoryEnum#Mendeley%20Data>
-             <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject> <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA>
-             <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC> <https://w3id.org/brc/RepositoryEnum#OSTI>
+             <https://w3id.org/brc/RepositoryEnum#MassIVE> ror:01t2a8a42 <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject>
+             <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA> <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC> ror:031478740
              <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PedtideAtlas>
-             <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Protein%20Data%20Bank>
-             <https://w3id.org/brc/RepositoryEnum#The%20Cambridge%20Crystallographic%20Data%20Centre>
+             <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Protein%20Data%20Bank> ror:00zbfm828
              <https://w3id.org/brc/RepositoryEnum#Zenodo> ] ? ;
           dcterms:bibliographicCitation @linkml:Uri ? ;
           schema1:identifier @linkml:String ;
