@@ -305,6 +305,15 @@
 
       Dataset : keywords
 
+      Dataset : plasmid_features
+
+
+
+
+    Dataset --&gt; "0..1" Plasmid : plasmid_features
+    click Plasmid href "../Plasmid"
+
+
       Dataset : relatedItem
 
 
@@ -412,6 +421,12 @@
 <td><a href="../species/">species</a></td>
 <td>* <br/> <a href="../Organism/">Organism</a></td>
 <td>Species information for the organism(s) studied</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../plasmid_features/">plasmid_features</a></td>
+<td>0..1 <br/> <a href="../Plasmid/">Plasmid</a></td>
+<td>Description of plasmid features, if applicable</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -678,6 +693,14 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
+  plasmid_features:
+    name: plasmid_features
+    description: Description of plasmid features, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: Plasmid
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
@@ -931,6 +954,16 @@ attributes:
     - Dataset
     range: Organism
     multivalued: true
+  plasmid_features:
+    name: plasmid_features
+    description: Description of plasmid features, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: plasmid_features
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: Plasmid
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
