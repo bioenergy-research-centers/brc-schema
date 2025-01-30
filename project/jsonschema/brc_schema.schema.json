@@ -164,6 +164,17 @@
                         "null"
                     ]
                 },
+                "plasmid_features": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Plasmid"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Description of plasmid features, if applicable."
+                },
                 "relatedItem": {
                     "description": "Related publications or items.",
                     "items": {
@@ -381,6 +392,69 @@
                 }
             },
             "title": "Organization",
+            "type": "object"
+        },
+        "Plasmid": {
+            "additionalProperties": false,
+            "description": "Description of plasmid or other molecular vector features.",
+            "properties": {
+                "backbone": {
+                    "description": "Name of the backbone of the plasmid, e.g., pUC19.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "host": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Organism"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID."
+                },
+                "ori": {
+                    "description": "Origin of replication for the plasmid, e.g., ColE1.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "promoters": {
+                    "description": "Promoters for the plasmid, e.g., T7.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "replicates_in": {
+                    "description": "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID.",
+                    "items": {
+                        "$ref": "#/$defs/Organism"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "selection_markers": {
+                    "description": "Selection markers for the plasmid, e.g, kan.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Plasmid",
             "type": "object"
         },
         "RelatedItem": {

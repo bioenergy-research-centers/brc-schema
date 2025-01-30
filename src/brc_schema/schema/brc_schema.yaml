@@ -76,7 +76,7 @@ classes:
         description: >-
           Unique identifier for the dataset, assigned prior to inclusion
           in bioenergy.org.
-        required: false  # TODO: make this required
+        required: false # TODO: make this required
         slot_uri: schema:identifier
       title:
         range: string
@@ -92,7 +92,7 @@ classes:
         slot_uri: dcterms:date
         close_mappings:
           - schema:datePublished
-          - osti:publication_date  # Format varies
+          - osti:publication_date # Format varies
       creator:
         range: Individual
         multivalued: true
@@ -148,11 +148,14 @@ classes:
           - BIOSAMPLE
           - INSDC.SRA
         close_mappings:
-          - osti:related_identifiers  # Set of accepted identifiers may vary
+          - osti:related_identifiers # Set of accepted identifiers may vary
       species:
         range: Organism
         multivalued: true
         description: "Species information for the organism(s) studied."
+      plasmid_features:
+        range: Plasmid
+        description: "Description of plasmid features, if applicable."
       analysisType:
         any_of:
           - range: AnalysisType
@@ -276,6 +279,39 @@ classes:
       NCBITaxID:
         range: integer
         description: "NCBI taxonomy ID for the organism."
+
+  Plasmid:
+    description: Description of plasmid or other molecular vector features.
+    attributes:
+      backbone:
+        range: string
+        description: >-
+          Name of the backbone of the plasmid, e.g., pUC19.
+      host:
+        range: Organism
+        description: >-
+          Host organism for the plasmid, e.g., E. coli.
+          Includes both the scientific name and NCBI Taxonomy ID.
+      ori:
+        range: string
+        description: >-
+          Origin of replication for the plasmid, e.g., ColE1.
+      promoters:
+        range: string
+        multivalued: true
+        description: >-
+          Promoters for the plasmid, e.g., T7.
+      replicates_in:
+        range: Organism
+        multivalued: true
+        description: >-
+          Organism(s) in which the plasmid replicates.
+          Includes both the scientific name and NCBI Taxonomy ID.
+      selection_markers:
+        range: string
+        multivalued: true
+        description: >-
+          Selection markers for the plasmid, e.g, kan.
 
   RelatedItem:
     description: A related publication or item, including cited publications.

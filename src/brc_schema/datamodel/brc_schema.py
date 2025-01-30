@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-01-23T13:43:09
+# Generation date: 2025-01-30T13:56:29
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -167,6 +167,7 @@ class Dataset(YAMLRoot):
     bibliographicCitation: Optional[Union[str, URI]] = None
     has_related_ids: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
+    plasmid_features: Optional[Union[dict, "Plasmid"]] = None
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
     description: Optional[str] = None
@@ -223,6 +224,9 @@ class Dataset(YAMLRoot):
         if not isinstance(self.species, list):
             self.species = [self.species] if self.species is not None else []
         self.species = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.species]
+
+        if self.plasmid_features is not None and not isinstance(self.plasmid_features, Plasmid):
+            self.plasmid_features = Plasmid(**as_dict(self.plasmid_features))
 
         if self.analysisType is not None and not isinstance(self.analysisType, str):
             self.analysisType = str(self.analysisType)
@@ -374,6 +378,50 @@ class Organism(YAMLRoot):
 
         if self.NCBITaxID is not None and not isinstance(self.NCBITaxID, int):
             self.NCBITaxID = int(self.NCBITaxID)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Plasmid(YAMLRoot):
+    """
+    Description of plasmid or other molecular vector features.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = BRC["Plasmid"]
+    class_class_curie: ClassVar[str] = "brc:Plasmid"
+    class_name: ClassVar[str] = "Plasmid"
+    class_model_uri: ClassVar[URIRef] = BRC.Plasmid
+
+    backbone: Optional[str] = None
+    host: Optional[Union[dict, Organism]] = None
+    ori: Optional[str] = None
+    promoters: Optional[Union[str, List[str]]] = empty_list()
+    replicates_in: Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]] = empty_list()
+    selection_markers: Optional[Union[str, List[str]]] = empty_list()
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.backbone is not None and not isinstance(self.backbone, str):
+            self.backbone = str(self.backbone)
+
+        if self.host is not None and not isinstance(self.host, Organism):
+            self.host = Organism(**as_dict(self.host))
+
+        if self.ori is not None and not isinstance(self.ori, str):
+            self.ori = str(self.ori)
+
+        if not isinstance(self.promoters, list):
+            self.promoters = [self.promoters] if self.promoters is not None else []
+        self.promoters = [v if isinstance(v, str) else str(v) for v in self.promoters]
+
+        if not isinstance(self.replicates_in, list):
+            self.replicates_in = [self.replicates_in] if self.replicates_in is not None else []
+        self.replicates_in = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.replicates_in]
+
+        if not isinstance(self.selection_markers, list):
+            self.selection_markers = [self.selection_markers] if self.selection_markers is not None else []
+        self.selection_markers = [v if isinstance(v, str) else str(v) for v in self.selection_markers]
 
         super().__post_init__(**kwargs)
 
@@ -709,6 +757,9 @@ slots.dataset__has_related_ids = Slot(uri=BRC.has_related_ids, name="dataset__ha
 slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BRC.curie('species'),
                    model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
 
+slots.dataset__plasmid_features = Slot(uri=BRC.plasmid_features, name="dataset__plasmid_features", curie=BRC.curie('plasmid_features'),
+                   model_uri=BRC.dataset__plasmid_features, domain=None, range=Optional[Union[dict, Plasmid]])
+
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
                    model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
 
@@ -774,6 +825,24 @@ slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__sc
 
 slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
                    model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
+
+slots.plasmid__backbone = Slot(uri=BRC.backbone, name="plasmid__backbone", curie=BRC.curie('backbone'),
+                   model_uri=BRC.plasmid__backbone, domain=None, range=Optional[str])
+
+slots.plasmid__host = Slot(uri=BRC.host, name="plasmid__host", curie=BRC.curie('host'),
+                   model_uri=BRC.plasmid__host, domain=None, range=Optional[Union[dict, Organism]])
+
+slots.plasmid__ori = Slot(uri=BRC.ori, name="plasmid__ori", curie=BRC.curie('ori'),
+                   model_uri=BRC.plasmid__ori, domain=None, range=Optional[str])
+
+slots.plasmid__promoters = Slot(uri=BRC.promoters, name="plasmid__promoters", curie=BRC.curie('promoters'),
+                   model_uri=BRC.plasmid__promoters, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.plasmid__replicates_in = Slot(uri=BRC.replicates_in, name="plasmid__replicates_in", curie=BRC.curie('replicates_in'),
+                   model_uri=BRC.plasmid__replicates_in, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
+
+slots.plasmid__selection_markers = Slot(uri=BRC.selection_markers, name="plasmid__selection_markers", curie=BRC.curie('selection_markers'),
+                   model_uri=BRC.plasmid__selection_markers, domain=None, range=Optional[Union[str, List[str]]])
 
 slots.relatedItem__title = Slot(uri=DCTERMS.title, name="relatedItem__title", curie=DCTERMS.curie('title'),
                    model_uri=BRC.relatedItem__title, domain=None, range=Optional[str])

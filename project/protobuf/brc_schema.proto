@@ -16,6 +16,7 @@ message Dataset
   string identifier = 0
  repeated  uriorcurie hasRelatedIds = 0
  repeated  organism species = 0
+  plasmid plasmidFeatures = 0
   string analysisType = 0
   datasetTypeCodes datasetType = 0
   string description = 0
@@ -59,6 +60,16 @@ message Organization
   organization parentOrganization = 0
   wikidataIdentifier wikidataId = 0
   rorIdentifier rorId = 0
+ }
+// Description of plasmid or other molecular vector features.
+message Plasmid
+ {
+  string backbone = 0
+  organism host = 0
+  string ori = 0
+ repeated  string promoters = 0
+ repeated  organism replicatesIn = 0
+ repeated  string selectionMarkers = 0
  }
 // A related publication or item, including cited publications.
 message RelatedItem

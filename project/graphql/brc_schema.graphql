@@ -92,6 +92,7 @@ type Dataset
     identifier: String!
     hasRelatedIds: [Uriorcurie]
     species: [Organism]
+    plasmidFeatures: Plasmid
     analysisType: String
     datasetType: DatasetTypeCodes
     description: String
@@ -135,6 +136,16 @@ type Organization
     parentOrganization: Organization
     wikidataId: WikidataIdentifier
     rorId: RorIdentifier
+  }
+
+type Plasmid
+  {
+    backbone: String
+    host: Organism
+    ori: String
+    promoters: [String]
+    replicatesIn: [Organism]
+    selectionMarkers: [String]
   }
 
 type RelatedItem
