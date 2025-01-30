@@ -1,0 +1,22 @@
+name: Announce Schema Update
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+    
+jobs:
+  announce-update:
+    name: Announce Schema Update to bioenergy.org repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Issue
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          owner: bioenergy-research-centers
+          repo: bioenergy.org
+          title: 'Update to new version of BRC Schema'
+          body: |
+            A new schema update has been made. Please review the changes.
