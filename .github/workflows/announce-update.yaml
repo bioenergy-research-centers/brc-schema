@@ -14,7 +14,7 @@ jobs:
       - name: Create Issue
         uses: dacbd/create-issue-action@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           owner: bioenergy-research-centers
           repo: bioenergy.org
           title: 'Update to new version of BRC Schema: ${{ github.event.release.name }}'
