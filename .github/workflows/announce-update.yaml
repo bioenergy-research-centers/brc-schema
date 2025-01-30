@@ -5,6 +5,12 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write
+  contents: write
+  checks: write
+  issues: write
+
 jobs:
   announce-update:
     name: Announce Schema Update to bioenergy.org repo
