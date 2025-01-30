@@ -3,8 +3,8 @@ name: Announce Schema Update
 on:
   workflow_dispatch:
   release:
-    types: [created]
-    
+    types: [published]
+
 jobs:
   announce-update:
     name: Announce Schema Update to bioenergy.org repo
@@ -17,6 +17,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           owner: bioenergy-research-centers
           repo: bioenergy.org
-          title: 'Update to new version of BRC Schema'
+          title: 'Update to new version of BRC Schema: ${{ github.event.release.name }}'
           body: |
-            A new schema update has been made. Please review the changes.
+            A new schema update ( ${{ github.event.release.name }} ) has been made.
+            Please review the changes and update this repo accordingly.
+            Release notes:
+            ${{ github.event.release.body }}
