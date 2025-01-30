@@ -18,14 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create Issue
-        uses: dacbd/create-issue-action@main
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          owner: bioenergy-research-centers
-          repo: bioenergy.org
-          title: 'Update to new version of BRC Schema: ${{ github.event.release.name }}'
-          body: |
-            A new schema update ( ${{ github.event.release.name }} ) has been made.
-            Please review the changes and update this repo accordingly.
-            Release notes:
-            ${{ github.event.release.body }}
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+               -H "Content-Type: application/json" \
+               -d '{"title": "Update to new version of BRC Schema - ${{ github.event.release.name }}", "body": "A new schema update ( ${{ github.event.release.name }} ) has been made. Please review the changes and update this repo accordingly. Release notes: ${{ github.event.release.body }} "}' \
+               https://api.github.com/repos/bioenergy-research-centers/bioenergy.org/issues
