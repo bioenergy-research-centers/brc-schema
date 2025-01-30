@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.0.6
+# version: 0.0.7
 enum AnalysisType
   {
     affinity_purification
