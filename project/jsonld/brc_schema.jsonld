@@ -1088,6 +1088,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__plasmid_features",
+      "description": "Description of plasmid features, if applicable.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/plasmid_features",
+      "alias": "plasmid_features",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "Plasmid",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__analysisType",
       "description": "The type of analysis performed on the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -1448,6 +1462,89 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "plasmid__backbone",
+      "description": "Name of the backbone of the plasmid, e.g., pUC19.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/backbone",
+      "alias": "backbone",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plasmid__host",
+      "description": "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/host",
+      "alias": "host",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "Organism",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plasmid__ori",
+      "description": "Origin of replication for the plasmid, e.g., ColE1.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/ori",
+      "alias": "ori",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plasmid__promoters",
+      "description": "Promoters for the plasmid, e.g., T7.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/promoters",
+      "alias": "promoters",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plasmid__replicates_in",
+      "description": "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/replicates_in",
+      "alias": "replicates_in",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "Organism",
+      "multivalued": true,
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plasmid__selection_markers",
+      "description": "Selection markers for the plasmid, e.g, kan.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/selection_markers",
+      "alias": "selection_markers",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "relatedItem__title",
       "description": "Title of the related item.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -1547,6 +1644,7 @@
         "dataset__identifier",
         "dataset__has_related_ids",
         "dataset__species",
+        "dataset__plasmid_features",
         "dataset__analysisType",
         "dataset__datasetType",
         "dataset__description",
@@ -1658,6 +1756,12 @@
           "description": "Species information for the organism(s) studied.",
           "range": "Organism",
           "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "plasmid_features",
+          "description": "Description of plasmid features, if applicable.",
+          "range": "Plasmid",
           "@type": "SlotDefinition"
         },
         {
@@ -1930,6 +2034,64 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "Plasmid",
+      "definition_uri": "https://w3id.org/brc/Plasmid",
+      "description": "Description of plasmid or other molecular vector features.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slots": [
+        "plasmid__backbone",
+        "plasmid__host",
+        "plasmid__ori",
+        "plasmid__promoters",
+        "plasmid__replicates_in",
+        "plasmid__selection_markers"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "backbone",
+          "description": "Name of the backbone of the plasmid, e.g., pUC19.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "host",
+          "description": "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID.",
+          "range": "Organism",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "ori",
+          "description": "Origin of replication for the plasmid, e.g., ColE1.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "promoters",
+          "description": "Promoters for the plasmid, e.g., T7.",
+          "range": "string",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "replicates_in",
+          "description": "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID.",
+          "range": "Organism",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "selection_markers",
+          "description": "Selection markers for the plasmid, e.g, kan.",
+          "range": "string",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/brc/Plasmid",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "RelatedItem",
       "definition_uri": "https://w3id.org/brc/RelatedItem",
       "description": "A related publication or item, including cited publications.",
@@ -1967,9 +2129,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-01-23T13:05:17",
-  "source_file_size": 14749,
-  "generation_date": "2025-01-23T13:43:08",
+  "source_file_date": "2025-01-30T13:55:44",
+  "source_file_size": 15895,
+  "generation_date": "2025-01-30T13:56:28",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
