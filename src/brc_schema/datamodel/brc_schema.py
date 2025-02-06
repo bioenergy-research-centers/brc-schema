@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-01-30T16:28:59
+# Generation date: 2025-02-06T12:44:11
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -633,6 +633,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     GEO = PermissibleValue(
         text="GEO",
         description="Gene Expression Omnibus")
+    GitHub = PermissibleValue(
+        text="GitHub",
+        description="GitHub")
     ICE = PermissibleValue(
         text="ICE",
         description="Inventory of Composable Elements")
