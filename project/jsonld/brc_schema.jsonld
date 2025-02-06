@@ -44,7 +44,7 @@
     },
     {
       "prefix_prefix": "SIO",
-      "prefix_reference": "http://semanticscience.org/resource/SIO_"
+      "prefix_reference": "http://identifiers.org/sio/"
     },
     {
       "prefix_prefix": "UO",
@@ -2136,9 +2136,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-01-30T17:09:33",
-  "source_file_size": 15792,
-  "generation_date": "2025-02-06T12:44:10",
+  "source_file_date": "2025-02-06T13:05:15",
+  "source_file_size": 15779,
+  "generation_date": "2025-02-06T13:05:39",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
