@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-06T12:44:11
+# Generation date: 2025-02-06T13:06:40
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -61,7 +61,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.0.7"
+version = "0.0.8"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -75,7 +75,7 @@ INSDC_SRA = CurieNamespace('INSDC_SRA', 'https://www.ncbi.nlm.nih.gov/sra/')
 MI = CurieNamespace('MI', 'http://purl.obolibrary.org/obo/MI_')
 NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
-SIO = CurieNamespace('SIO', 'http://semanticscience.org/resource/SIO_')
+SIO = CurieNamespace('SIO', 'http://identifiers.org/sio/')
 UO = CurieNamespace('UO', 'http://purl.obolibrary.org/obo/UO_')
 BALD = CurieNamespace('bald', 'https://www.opengis.net/def/binary-array-ld/')
 BIBO = CurieNamespace('bibo', 'http://purl.org/ontology/bibo/')
