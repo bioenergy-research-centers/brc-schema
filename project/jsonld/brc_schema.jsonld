@@ -730,6 +730,13 @@
           ]
         },
         {
+          "text": "GitHub",
+          "description": "GitHub",
+          "see_also": [
+            "https://github.com/"
+          ]
+        },
+        {
           "text": "GLBRC Sustainability",
           "description": "\"Great Lakes Bioenergy Research Center Sustainability Data Catalog\"",
           "see_also": [
@@ -2129,9 +2136,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-01-30T16:28:43",
+  "source_file_date": "2025-01-30T17:09:33",
   "source_file_size": 15792,
-  "generation_date": "2025-01-30T16:28:59",
+  "generation_date": "2025-02-06T12:44:10",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

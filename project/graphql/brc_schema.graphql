@@ -58,6 +58,7 @@ enum RepositoryEnum
     FigShare
     GenBank
     GEO
+    GitHub
     GLBRC_Sustainability
     Iowa_State_University_FigShare
     ICE

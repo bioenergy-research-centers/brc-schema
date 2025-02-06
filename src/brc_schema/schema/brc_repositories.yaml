@@ -91,6 +91,10 @@ enums:
         description: "Gene Expression Omnibus"
         see_also:
           - https://www.ncbi.nlm.nih.gov/geo/
+      GitHub:
+        description: "GitHub"
+        see_also:
+          - https://github.com/
       GLBRC Sustainability:
         description: >-
           "Great Lakes Bioenergy Research Center Sustainability Data Catalog"

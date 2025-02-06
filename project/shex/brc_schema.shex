@@ -64,7 +64,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] * ;
           <repository> [ <https://w3id.org/brc/RepositoryEnum#AmeriFlux> ror:04pvg6f08 ror:00x6h5n95 ror:041mxqs23
              <https://w3id.org/brc/RepositoryEnum#GenBank> <https://w3id.org/brc/RepositoryEnum#GEO>
-             <https://w3id.org/brc/RepositoryEnum#GLBRC%20Sustainability>
+             <https://w3id.org/brc/RepositoryEnum#GitHub> <https://w3id.org/brc/RepositoryEnum#GLBRC%20Sustainability>
              <https://w3id.org/brc/RepositoryEnum#Iowa%20State%20University%20FigShare> <https://w3id.org/brc/RepositoryEnum#ICE>
              <https://w3id.org/brc/RepositoryEnum#Illinois%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#iProX>
              <https://w3id.org/brc/RepositoryEnum#JGI%20Gold> <https://w3id.org/brc/RepositoryEnum#jPOST>
