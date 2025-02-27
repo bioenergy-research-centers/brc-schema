@@ -53,11 +53,32 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
+<Contributor> CLOSED {
+    (  $<Contributor_tes> (  &<Individual_tes> ;
+          rdf:type [ schema1:Person ] ? ;
+          <contributorType> [ <https://w3id.org/brc/ContributorTypeCodes#ContactPerson>
+             <https://w3id.org/brc/ContributorTypeCodes#DataCollector> <https://w3id.org/brc/ContributorTypeCodes#DataCurator>
+             <https://w3id.org/brc/ContributorTypeCodes#DataManager> <https://w3id.org/brc/ContributorTypeCodes#Distributor>
+             <https://w3id.org/brc/ContributorTypeCodes#Editor> <https://w3id.org/brc/ContributorTypeCodes#HostingInstitution>
+             <https://w3id.org/brc/ContributorTypeCodes#Producer> <https://w3id.org/brc/ContributorTypeCodes#ProjectLeader>
+             <https://w3id.org/brc/ContributorTypeCodes#ProjectManager> <https://w3id.org/brc/ContributorTypeCodes#ProjectMember>
+             <https://w3id.org/brc/ContributorTypeCodes#RegistrationAgency>
+             <https://w3id.org/brc/ContributorTypeCodes#RegistrationAuthority>
+             <https://w3id.org/brc/ContributorTypeCodes#RelatedPerson> <https://w3id.org/brc/ContributorTypeCodes#Researcher>
+             <https://w3id.org/brc/ContributorTypeCodes#ResearchGroup> <https://w3id.org/brc/ContributorTypeCodes#RightsHolder>
+             <https://w3id.org/brc/ContributorTypeCodes#Sponsor> <https://w3id.org/brc/ContributorTypeCodes#Supervisor>
+             <https://w3id.org/brc/ContributorTypeCodes#WorkPackageLeader> <https://w3id.org/brc/ContributorTypeCodes#Other> ] ?
+       ) ;
+       rdf:type [ <Contributor> ] ?
+    )
+}
+
 <Dataset> CLOSED {
     (  $<Dataset_tes> (  schema1:identifier @linkml:Uriorcurie ? ;
           dcterms:title @linkml:String ;
           dcterms:date @linkml:Date ;
           dcterms:creator @<Individual> + ;
+          <contributors> @<Contributor> * ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
@@ -111,15 +132,18 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<Individual> CLOSED {
-    (  $<Individual_tes> (  schema1:name @linkml:String ? ;
-          schema1:email @linkml:String ? ;
-          <primaryContact> @linkml:Boolean ? ;
-          <affiliation> @linkml:String ?
-       ) ;
-       rdf:type [ schema1:Person ] ?
-    )
-}
+<Individual>  (
+    CLOSED {
+       (  $<Individual_tes> (  schema1:name @linkml:String ? ;
+             schema1:email @linkml:String ? ;
+             <primaryContact> @linkml:Boolean ? ;
+             <affiliation> @linkml:String ? ;
+             <orcid> @linkml:Uriorcurie ?
+          ) ;
+          rdf:type [ schema1:Person ] ?
+       )
+    } OR @<Contributor>
+)
 
 <Organism> CLOSED {
     (  $<Organism_tes> (  <scientificName> @linkml:String ? ;

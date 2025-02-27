@@ -2,6 +2,16 @@
  package
 // metamodel_version: 1.7.0
 // version: 0.0.8
+// An individual who contributed to the dataset in some manner, not necessarily as an author.
+message Contributor
+ {
+  string name = 0
+  string email = 0
+  boolean primaryContact = 0
+  string affiliation = 0
+  uriorcurie orcid = 0
+  contributorTypeCodes contributorType = 0
+ }
 // A dataset containing metabolomics and proteomics data.
 message Dataset
  {
@@ -9,6 +19,7 @@ message Dataset
   string title = 0
   date date = 0
  repeated  individual creator = 0
+ repeated  contributor contributors = 0
   bRCEnum brc = 0
  repeated  bRCEnum additionalBrcs = 0
   repositoryEnum repository = 0
@@ -42,10 +53,11 @@ message Funding
 // An individual involved in the dataset.
 message Individual
  {
-  string creatorName = 0
+  string name = 0
   string email = 0
   boolean primaryContact = 0
   string affiliation = 0
+  uriorcurie orcid = 0
  }
 // An organism studied in the dataset.
 message Organism

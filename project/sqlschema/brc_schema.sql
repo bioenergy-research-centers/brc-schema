@@ -17,10 +17,20 @@
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
 -- # Class: "Individual" Description: "An individual involved in the dataset."
 --     * Slot: id Description: 
---     * Slot: creatorName Description: Name of the creator.
---     * Slot: email Description: Email address of the creator.
---     * Slot: primaryContact Description: Indicates if the creator is the primary contact.
---     * Slot: affiliation Description: Affiliation of the creator.
+--     * Slot: name Description: Name of the individual.
+--     * Slot: email Description: Email address of the individual.
+--     * Slot: primaryContact Description: Indicates if the individual is a primary contact.
+--     * Slot: affiliation Description: Affiliation of the individual.
+--     * Slot: orcid Description: ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+-- # Class: "Contributor" Description: "An individual who contributed to the dataset in some manner, not necessarily as an author."
+--     * Slot: id Description: 
+--     * Slot: contributorType Description: The contribution type.
+--     * Slot: name Description: Name of the individual.
+--     * Slot: email Description: Email address of the individual.
+--     * Slot: primaryContact Description: Indicates if the individual is a primary contact.
+--     * Slot: affiliation Description: Affiliation of the individual.
+--     * Slot: orcid Description: ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 -- # Class: "Funding" Description: "Funding source for the dataset. Each item corresponds to a single award or grant."
 --     * Slot: id Description: 
@@ -142,10 +152,23 @@ CREATE TABLE "Plasmid" (
 );
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL, 
-	"creatorName" TEXT, 
+	name TEXT, 
 	email TEXT, 
 	"primaryContact" BOOLEAN, 
 	affiliation TEXT, 
+	orcid TEXT, 
+	"Dataset_uid" INTEGER, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE TABLE "Contributor" (
+	id INTEGER NOT NULL, 
+	"contributorType" VARCHAR(21), 
+	name TEXT, 
+	email TEXT, 
+	"primaryContact" BOOLEAN, 
+	affiliation TEXT, 
+	orcid TEXT, 
 	"Dataset_uid" INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)

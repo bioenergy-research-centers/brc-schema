@@ -634,6 +634,98 @@
       ]
     },
     {
+      "name": "ContributorTypeCodes",
+      "definition_uri": "https://w3id.org/brc/ContributorTypeCodes",
+      "description": "The type of contribution. These values are based on the OSTI schema (ELINK 241.6).",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "permissible_values": [
+        {
+          "text": "ContactPerson",
+          "description": "Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource."
+        },
+        {
+          "text": "DataCollector",
+          "description": "Person/institution responsible for finding or gathering data under the guidelines of the author(s) or Principal Investigator."
+        },
+        {
+          "text": "DataCurator",
+          "description": "Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted."
+        },
+        {
+          "text": "DataManager",
+          "description": "Person (or organization with a staff of data managers, such as a data centre) responsible for maintaining the finished resource."
+        },
+        {
+          "text": "Distributor",
+          "description": "Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form."
+        },
+        {
+          "text": "Editor",
+          "description": "A person who oversees the details related to the publication format of the resource."
+        },
+        {
+          "text": "HostingInstitution",
+          "description": "The organization allowing the resource to be available on the internet."
+        },
+        {
+          "text": "Producer",
+          "description": "Typically a person or organization responsible for the artistry and form of a media product."
+        },
+        {
+          "text": "ProjectLeader",
+          "description": "Person officially designated as head of project team instrumental in the work necessary to development of the resource."
+        },
+        {
+          "text": "ProjectManager",
+          "description": "Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams."
+        },
+        {
+          "text": "ProjectMember",
+          "description": "Person on the membership list of a designated project/project team."
+        },
+        {
+          "text": "RegistrationAgency",
+          "description": "Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility."
+        },
+        {
+          "text": "RegistrationAuthority",
+          "description": "A standards-setting body from which Registration Agencies obtain official recognition and guidance."
+        },
+        {
+          "text": "RelatedPerson",
+          "description": "Person with no specifically defined role in the development of the resource, but who is someone the author wishes to recognize."
+        },
+        {
+          "text": "Researcher",
+          "description": "A person involved in analyzing data or the results of an experiment or formal study."
+        },
+        {
+          "text": "ResearchGroup",
+          "description": "Refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity."
+        },
+        {
+          "text": "RightsHolder",
+          "description": "Person or institution owning or managing property rights, including intellectual property rights over the resource."
+        },
+        {
+          "text": "Sponsor",
+          "description": "Person or organization that issued a contract or under the auspices of which a work has been performed."
+        },
+        {
+          "text": "Supervisor",
+          "description": "Designated administrator over one or more groups working to produce a resource or over one or more steps of development process."
+        },
+        {
+          "text": "WorkPackageLeader",
+          "description": "A Work Package is a recognized data product, not all of which is included in publication."
+        },
+        {
+          "text": "Other",
+          "description": "Any person or institution making a significant contribution, but whose contribution does not \"fit\"."
+        }
+      ]
+    },
+    {
       "name": "DatasetTypeCodes",
       "definition_uri": "https://w3id.org/brc/DatasetTypeCodes",
       "description": "High-level type of the main content of the dataset, following OSTI categories. See https://www.osti.gov/elink/F2416instruct.jsp",
@@ -975,6 +1067,22 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__contributors",
+      "description": "Contributors to the dataset who are not necessarily authors.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/contributors",
+      "alias": "contributors",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "Contributor",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__brc",
       "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -1255,14 +1363,14 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "individual__creatorName",
-      "description": "Name of the creator.",
+      "name": "individual__name",
+      "description": "Name of the individual.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://schema.org/name"
       ],
       "slot_uri": "http://schema.org/name",
-      "alias": "creatorName",
+      "alias": "name",
       "owner": "Individual",
       "domain_of": [
         "Individual"
@@ -1272,7 +1380,7 @@
     },
     {
       "name": "individual__email",
-      "description": "Email address of the creator.",
+      "description": "Email address of the individual.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://schema.org/email"
@@ -1288,7 +1396,7 @@
     },
     {
       "name": "individual__primaryContact",
-      "description": "Indicates if the creator is the primary contact.",
+      "description": "Indicates if the individual is a primary contact.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/primaryContact",
       "alias": "primaryContact",
@@ -1301,7 +1409,7 @@
     },
     {
       "name": "individual__affiliation",
-      "description": "Affiliation of the creator.",
+      "description": "Affiliation of the individual.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/affiliation",
       "alias": "affiliation",
@@ -1320,6 +1428,32 @@
           "@type": "AnonymousSlotExpression"
         }
       ],
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__orcid",
+      "description": "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/orcid",
+      "alias": "orcid",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
+      ],
+      "range": "uriorcurie",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "contributor__contributorType",
+      "description": "The contribution type.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/contributorType",
+      "alias": "contributorType",
+      "owner": "Contributor",
+      "domain_of": [
+        "Contributor"
+      ],
+      "range": "ContributorTypeCodes",
       "@type": "SlotDefinition"
     },
     {
@@ -1645,6 +1779,7 @@
         "dataset__title",
         "dataset__date",
         "dataset__creator",
+        "dataset__contributors",
         "dataset__brc",
         "dataset__additional_brcs",
         "dataset__repository",
@@ -1700,6 +1835,14 @@
           "slot_uri": "dcterms:creator",
           "range": "Individual",
           "required": true,
+          "multivalued": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "contributors",
+          "description": "Contributors to the dataset who are not necessarily authors.",
+          "range": "Contributor",
           "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
@@ -1870,36 +2013,37 @@
         "osti:author"
       ],
       "slots": [
-        "individual__creatorName",
+        "individual__name",
         "individual__email",
         "individual__primaryContact",
-        "individual__affiliation"
+        "individual__affiliation",
+        "individual__orcid"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "creatorName",
-          "description": "Name of the creator.",
+          "name": "name",
+          "description": "Name of the individual.",
           "slot_uri": "schema:name",
           "range": "string",
           "@type": "SlotDefinition"
         },
         {
           "name": "email",
-          "description": "Email address of the creator.",
+          "description": "Email address of the individual.",
           "slot_uri": "schema:email",
           "range": "string",
           "@type": "SlotDefinition"
         },
         {
           "name": "primaryContact",
-          "description": "Indicates if the creator is the primary contact.",
+          "description": "Indicates if the individual is a primary contact.",
           "range": "boolean",
           "@type": "SlotDefinition"
         },
         {
           "name": "affiliation",
-          "description": "Affiliation of the creator.",
+          "description": "Affiliation of the individual.",
           "any_of": [
             {
               "range": "Organization",
@@ -1911,9 +2055,41 @@
             }
           ],
           "@type": "SlotDefinition"
+        },
+        {
+          "name": "orcid",
+          "description": "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.",
+          "range": "uriorcurie",
+          "@type": "SlotDefinition"
         }
       ],
       "class_uri": "http://schema.org/Person",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Contributor",
+      "definition_uri": "https://w3id.org/brc/Contributor",
+      "description": "An individual who contributed to the dataset in some manner, not necessarily as an author.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "is_a": "Individual",
+      "slots": [
+        "individual__name",
+        "individual__email",
+        "individual__primaryContact",
+        "individual__affiliation",
+        "individual__orcid",
+        "contributor__contributorType"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "contributorType",
+          "description": "The contribution type.",
+          "range": "ContributorTypeCodes",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/brc/Contributor",
       "@type": "ClassDefinition"
     },
     {
@@ -2138,9 +2314,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-02-27T14:15:20",
-  "source_file_size": 15855,
-  "generation_date": "2025-02-27T14:29:02",
+  "source_file_date": "2025-02-27T14:55:01",
+  "source_file_size": 20311,
+  "generation_date": "2025-02-27T14:55:25",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

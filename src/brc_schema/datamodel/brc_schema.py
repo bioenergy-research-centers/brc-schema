@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-27T14:29:02
+# Generation date: 2025-02-27T14:55:26
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -162,6 +162,7 @@ class Dataset(YAMLRoot):
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
+    contributors: Optional[Union[Union[dict, "Contributor"], List[Union[dict, "Contributor"]]]] = empty_list()
     additional_brcs: Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]] = empty_list()
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     bibliographicCitation: Optional[Union[str, URI]] = None
@@ -206,6 +207,10 @@ class Dataset(YAMLRoot):
 
         if self.id is not None and not isinstance(self.id, URIorCURIE):
             self.id = URIorCURIE(self.id)
+
+        if not isinstance(self.contributors, list):
+            self.contributors = [self.contributors] if self.contributors is not None else []
+        self.contributors = [v if isinstance(v, Contributor) else Contributor(**as_dict(v)) for v in self.contributors]
 
         if not isinstance(self.additional_brcs, list):
             self.additional_brcs = [self.additional_brcs] if self.additional_brcs is not None else []
@@ -271,14 +276,15 @@ class Individual(YAMLRoot):
     class_name: ClassVar[str] = "Individual"
     class_model_uri: ClassVar[URIRef] = BRC.Individual
 
-    creatorName: Optional[str] = None
+    name: Optional[str] = None
     email: Optional[str] = None
     primaryContact: Optional[Union[bool, Bool]] = None
     affiliation: Optional[str] = None
+    orcid: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self.creatorName is not None and not isinstance(self.creatorName, str):
-            self.creatorName = str(self.creatorName)
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
 
         if self.email is not None and not isinstance(self.email, str):
             self.email = str(self.email)
@@ -288,6 +294,30 @@ class Individual(YAMLRoot):
 
         if self.affiliation is not None and not isinstance(self.affiliation, str):
             self.affiliation = str(self.affiliation)
+
+        if self.orcid is not None and not isinstance(self.orcid, URIorCURIE):
+            self.orcid = URIorCURIE(self.orcid)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Contributor(Individual):
+    """
+    An individual who contributed to the dataset in some manner, not necessarily as an author.
+    """
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = BRC["Contributor"]
+    class_class_curie: ClassVar[str] = "brc:Contributor"
+    class_name: ClassVar[str] = "Contributor"
+    class_model_uri: ClassVar[URIRef] = BRC.Contributor
+
+    contributorType: Optional[Union[str, "ContributorTypeCodes"]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.contributorType is not None and not isinstance(self.contributorType, ContributorTypeCodes):
+            self.contributorType = ContributorTypeCodes(self.contributorType)
 
         super().__post_init__(**kwargs)
 
@@ -575,6 +605,79 @@ class CitedItemType(EnumDefinitionImpl):
         description="Type of cited item, e.g., journal article.",
     )
 
+class ContributorTypeCodes(EnumDefinitionImpl):
+    """
+    The type of contribution. These values are based on the OSTI schema (ELINK 241.6).
+    """
+    ContactPerson = PermissibleValue(
+        text="ContactPerson",
+        description="""Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource.""")
+    DataCollector = PermissibleValue(
+        text="DataCollector",
+        description="""Person/institution responsible for finding or gathering data under the guidelines of the author(s) or Principal Investigator.""")
+    DataCurator = PermissibleValue(
+        text="DataCurator",
+        description="""Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted.""")
+    DataManager = PermissibleValue(
+        text="DataManager",
+        description="""Person (or organization with a staff of data managers, such as a data centre) responsible for maintaining the finished resource.""")
+    Distributor = PermissibleValue(
+        text="Distributor",
+        description="""Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form.""")
+    Editor = PermissibleValue(
+        text="Editor",
+        description="A person who oversees the details related to the publication format of the resource.")
+    HostingInstitution = PermissibleValue(
+        text="HostingInstitution",
+        description="The organization allowing the resource to be available on the internet.")
+    Producer = PermissibleValue(
+        text="Producer",
+        description="Typically a person or organization responsible for the artistry and form of a media product.")
+    ProjectLeader = PermissibleValue(
+        text="ProjectLeader",
+        description="""Person officially designated as head of project team instrumental in the work necessary to development of the resource.""")
+    ProjectManager = PermissibleValue(
+        text="ProjectManager",
+        description="""Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams.""")
+    ProjectMember = PermissibleValue(
+        text="ProjectMember",
+        description="Person on the membership list of a designated project/project team.")
+    RegistrationAgency = PermissibleValue(
+        text="RegistrationAgency",
+        description="""Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility.""")
+    RegistrationAuthority = PermissibleValue(
+        text="RegistrationAuthority",
+        description="""A standards-setting body from which Registration Agencies obtain official recognition and guidance.""")
+    RelatedPerson = PermissibleValue(
+        text="RelatedPerson",
+        description="""Person with no specifically defined role in the development of the resource, but who is someone the author wishes to recognize.""")
+    Researcher = PermissibleValue(
+        text="Researcher",
+        description="A person involved in analyzing data or the results of an experiment or formal study.")
+    ResearchGroup = PermissibleValue(
+        text="ResearchGroup",
+        description="""Refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity.""")
+    RightsHolder = PermissibleValue(
+        text="RightsHolder",
+        description="""Person or institution owning or managing property rights, including intellectual property rights over the resource.""")
+    Sponsor = PermissibleValue(
+        text="Sponsor",
+        description="""Person or organization that issued a contract or under the auspices of which a work has been performed.""")
+    Supervisor = PermissibleValue(
+        text="Supervisor",
+        description="""Designated administrator over one or more groups working to produce a resource or over one or more steps of development process.""")
+    WorkPackageLeader = PermissibleValue(
+        text="WorkPackageLeader",
+        description="A Work Package is a recognized data product, not all of which is included in publication.")
+    Other = PermissibleValue(
+        text="Other",
+        description="""Any person or institution making a significant contribution, but whose contribution does not \"fit\".""")
+
+    _defn = EnumDefinition(
+        name="ContributorTypeCodes",
+        description="The type of contribution. These values are based on the OSTI schema (ELINK 241.6).",
+    )
+
 class DatasetTypeCodes(EnumDefinitionImpl):
     """
     High-level type of the main content of the dataset, following OSTI categories. See
@@ -740,6 +843,9 @@ slots.dataset__date = Slot(uri=DCTERMS.date, name="dataset__date", curie=DCTERMS
 slots.dataset__creator = Slot(uri=DCTERMS.creator, name="dataset__creator", curie=DCTERMS.curie('creator'),
                    model_uri=BRC.dataset__creator, domain=None, range=Union[Union[dict, Individual], List[Union[dict, Individual]]])
 
+slots.dataset__contributors = Slot(uri=BRC.contributors, name="dataset__contributors", curie=BRC.curie('contributors'),
+                   model_uri=BRC.dataset__contributors, domain=None, range=Optional[Union[Union[dict, Contributor], List[Union[dict, Contributor]]]])
+
 slots.dataset__brc = Slot(uri=PROV.wasAttributedTo, name="dataset__brc", curie=PROV.curie('wasAttributedTo'),
                    model_uri=BRC.dataset__brc, domain=None, range=Union[str, "BRCEnum"])
 
@@ -788,8 +894,8 @@ slots.dataset__funding = Slot(uri=BRC.funding, name="dataset__funding", curie=BR
 slots.dataset__dataset_url = Slot(uri=SCHEMA.url, name="dataset__dataset_url", curie=SCHEMA.curie('url'),
                    model_uri=BRC.dataset__dataset_url, domain=None, range=Optional[Union[str, URI]])
 
-slots.individual__creatorName = Slot(uri=SCHEMA.name, name="individual__creatorName", curie=SCHEMA.curie('name'),
-                   model_uri=BRC.individual__creatorName, domain=None, range=Optional[str])
+slots.individual__name = Slot(uri=SCHEMA.name, name="individual__name", curie=SCHEMA.curie('name'),
+                   model_uri=BRC.individual__name, domain=None, range=Optional[str])
 
 slots.individual__email = Slot(uri=SCHEMA.email, name="individual__email", curie=SCHEMA.curie('email'),
                    model_uri=BRC.individual__email, domain=None, range=Optional[str])
@@ -799,6 +905,12 @@ slots.individual__primaryContact = Slot(uri=BRC.primaryContact, name="individual
 
 slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affiliation", curie=BRC.curie('affiliation'),
                    model_uri=BRC.individual__affiliation, domain=None, range=Optional[str])
+
+slots.individual__orcid = Slot(uri=BRC.orcid, name="individual__orcid", curie=BRC.curie('orcid'),
+                   model_uri=BRC.individual__orcid, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.contributor__contributorType = Slot(uri=BRC.contributorType, name="contributor__contributorType", curie=BRC.curie('contributorType'),
+                   model_uri=BRC.contributor__contributorType, domain=None, range=Optional[Union[str, "ContributorTypeCodes"]])
 
 slots.funding__fundingOrganization = Slot(uri=BRC.fundingOrganization, name="funding__fundingOrganization", curie=BRC.curie('fundingOrganization'),
                    model_uri=BRC.funding__fundingOrganization, domain=None, range=Optional[Union[dict, Organization]])
