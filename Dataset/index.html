@@ -264,6 +264,15 @@
     click BRCEnum href "../BRCEnum"
 
 
+      Dataset : contributors
+
+
+
+
+    Dataset --&gt; "*" Contributor : contributors
+    click Contributor href "../Contributor"
+
+
       Dataset : creator
 
 
@@ -381,6 +390,12 @@
 <td><a href="../creator/">creator</a></td>
 <td>1..* <br/> <a href="../Individual/">Individual</a></td>
 <td>List of creators involved in the dataset, where one must be the primary conta...</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../contributors/">contributors</a></td>
+<td>* <br/> <a href="../Contributor/">Contributor</a></td>
+<td>Contributors to the dataset who are not necessarily authors</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -614,6 +629,17 @@ attributes:
     - Dataset
     range: Individual
     required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  contributors:
+    name: contributors
+    description: Contributors to the dataset who are not necessarily authors.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: Contributor
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -863,6 +889,19 @@ attributes:
     - Dataset
     range: Individual
     required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  contributors:
+    name: contributors
+    description: Contributors to the dataset who are not necessarily authors.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: contributors
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: Contributor
     multivalued: true
     inlined: true
     inlined_as_list: true
