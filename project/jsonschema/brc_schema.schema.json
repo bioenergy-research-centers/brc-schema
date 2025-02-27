@@ -165,15 +165,14 @@
                     ]
                 },
                 "plasmid_features": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Plasmid"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Description of plasmid features, if applicable."
+                    "description": "Description of plasmid features, if applicable. This is a multivalued field.",
+                    "items": {
+                        "$ref": "#/$defs/Plasmid"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "relatedItem": {
                     "description": "Related publications or items.",

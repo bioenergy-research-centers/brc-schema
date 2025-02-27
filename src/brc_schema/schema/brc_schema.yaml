@@ -155,7 +155,10 @@ classes:
         description: "Species information for the organism(s) studied."
       plasmid_features:
         range: Plasmid
-        description: "Description of plasmid features, if applicable."
+        description: >-
+          Description of plasmid features, if applicable.
+          This is a multivalued field.
+        multivalued: true
       analysisType:
         any_of:
           - range: AnalysisType

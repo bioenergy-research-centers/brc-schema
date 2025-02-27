@@ -1096,7 +1096,7 @@
     },
     {
       "name": "dataset__plasmid_features",
-      "description": "Description of plasmid features, if applicable.",
+      "description": "Description of plasmid features, if applicable. This is a multivalued field.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/plasmid_features",
       "alias": "plasmid_features",
@@ -1105,6 +1105,7 @@
         "Dataset"
       ],
       "range": "Plasmid",
+      "multivalued": true,
       "inlined": true,
       "@type": "SlotDefinition"
     },
@@ -1767,8 +1768,9 @@
         },
         {
           "name": "plasmid_features",
-          "description": "Description of plasmid features, if applicable.",
+          "description": "Description of plasmid features, if applicable. This is a multivalued field.",
           "range": "Plasmid",
+          "multivalued": true,
           "@type": "SlotDefinition"
         },
         {
@@ -2136,9 +2138,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-02-06T13:06:35",
-  "source_file_size": 15779,
-  "generation_date": "2025-02-06T13:06:39",
+  "source_file_date": "2025-02-27T14:15:20",
+  "source_file_size": 15855,
+  "generation_date": "2025-02-27T14:29:02",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

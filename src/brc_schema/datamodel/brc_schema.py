@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-06T13:06:40
+# Generation date: 2025-02-27T14:29:02
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -167,7 +167,7 @@ class Dataset(YAMLRoot):
     bibliographicCitation: Optional[Union[str, URI]] = None
     has_related_ids: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
-    plasmid_features: Optional[Union[dict, "Plasmid"]] = None
+    plasmid_features: Optional[Union[Union[dict, "Plasmid"], List[Union[dict, "Plasmid"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
     description: Optional[str] = None
@@ -225,8 +225,9 @@ class Dataset(YAMLRoot):
             self.species = [self.species] if self.species is not None else []
         self.species = [v if isinstance(v, Organism) else Organism(**as_dict(v)) for v in self.species]
 
-        if self.plasmid_features is not None and not isinstance(self.plasmid_features, Plasmid):
-            self.plasmid_features = Plasmid(**as_dict(self.plasmid_features))
+        if not isinstance(self.plasmid_features, list):
+            self.plasmid_features = [self.plasmid_features] if self.plasmid_features is not None else []
+        self.plasmid_features = [v if isinstance(v, Plasmid) else Plasmid(**as_dict(v)) for v in self.plasmid_features]
 
         if self.analysisType is not None and not isinstance(self.analysisType, str):
             self.analysisType = str(self.analysisType)
@@ -761,7 +762,7 @@ slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BR
                    model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
 
 slots.dataset__plasmid_features = Slot(uri=BRC.plasmid_features, name="dataset__plasmid_features", curie=BRC.curie('plasmid_features'),
-                   model_uri=BRC.dataset__plasmid_features, domain=None, range=Optional[Union[dict, Plasmid]])
+                   model_uri=BRC.dataset__plasmid_features, domain=None, range=Optional[Union[Union[dict, Plasmid], List[Union[dict, Plasmid]]]])
 
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
                    model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
