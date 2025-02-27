@@ -102,6 +102,13 @@ classes:
           where one must be the primary contact.
         required: true
         slot_uri: dcterms:creator
+      contributors:
+        range: Contributor
+        multivalued: true
+        inlined_as_list: true
+        description: >-
+          Contributors to the dataset who are
+          not necessarily authors.
       brc:
         range: BRCEnum
         description: >-
