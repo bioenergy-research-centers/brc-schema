@@ -226,6 +226,13 @@ classes:
           - range: Organization
           - range: string
         description: "Affiliation of the creator."
+      orcid:
+        range: uriorcurie
+        description: >-
+          ORCID for the creator. This should include the
+          full URI with prefix, e.g.,
+          https://orcid.org/0000-0002-1825-0097.
+
 
   Funding:
     description: >-
