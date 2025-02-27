@@ -11,8 +11,6 @@ generator_args:
     # metadata_profile: rdfs
   markdown:
     mergeimports: true
-  graphql:
-    mergeimports: true
   java:
     mergeimports: true
     metadata: true
@@ -25,12 +23,6 @@ generator_args:
   python:
     mergeimports: true
   prefixmap:
-    mergeimports: true
-  proto:
-    mergeimports: true
-  shacl:
-    mergeimports: true
-  shex:
     mergeimports: true
   sqlddl:
     mergeimports: true

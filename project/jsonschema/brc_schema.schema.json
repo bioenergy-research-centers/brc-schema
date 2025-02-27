@@ -635,5 +635,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.0.8"
+    "version": "0.1.0"
 }
