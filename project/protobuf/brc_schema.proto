@@ -16,7 +16,7 @@ message Dataset
   string identifier = 0
  repeated  uriorcurie hasRelatedIds = 0
  repeated  organism species = 0
-  plasmid plasmidFeatures = 0
+ repeated  plasmid plasmidFeatures = 0
   string analysisType = 0
   datasetTypeCodes datasetType = 0
   string description = 0

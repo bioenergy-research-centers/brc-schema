@@ -93,7 +93,7 @@ type Dataset
     identifier: String!
     hasRelatedIds: [Uriorcurie]
     species: [Organism]
-    plasmidFeatures: Plasmid
+    plasmidFeatures: [Plasmid]
     analysisType: String
     datasetType: DatasetTypeCodes
     description: String

@@ -77,7 +77,7 @@ linkml:Sparqlpath xsd:string
           schema1:identifier @linkml:String ;
           <has_related_ids> @linkml:Uriorcurie * ;
           <species> @<Organism> * ;
-          <plasmid_features> @<Plasmid> ? ;
+          <plasmid_features> @<Plasmid> * ;
           <analysisType> @linkml:String ? ;
           <datasetType> [ <https://w3id.org/brc/DatasetTypeCodes#AS> <https://w3id.org/brc/DatasetTypeCodes#GD>
              <https://w3id.org/brc/DatasetTypeCodes#IM> <https://w3id.org/brc/DatasetTypeCodes#ND>

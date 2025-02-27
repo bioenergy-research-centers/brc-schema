@@ -15,7 +15,6 @@
 --     * Slot: datasetName Description: "Name of a overall dataset to which this data entry belongs."
 --     * Slot: dataset_url Description: URL for the dataset landing page.
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
---     * Slot: plasmid_features_id Description: Description of plasmid features, if applicable.
 -- # Class: "Individual" Description: "An individual involved in the dataset."
 --     * Slot: id Description: 
 --     * Slot: creatorName Description: Name of the creator.
@@ -58,6 +57,9 @@
 -- # Class: "Dataset_species" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: species_id Description: Species information for the organism(s) studied.
+-- # Class: "Dataset_plasmid_features" Description: ""
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: plasmid_features_id Description: Description of plasmid features, if applicable. This is a multivalued field.
 -- # Class: "Dataset_relatedItem" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: relatedItem_id Description: Related publications or items.
@@ -103,6 +105,24 @@ CREATE TABLE "RelatedItem" (
 	"relatedItemIdentifier" TEXT, 
 	PRIMARY KEY (id)
 );
+CREATE TABLE "Dataset" (
+	uid INTEGER NOT NULL, 
+	id TEXT, 
+	title TEXT NOT NULL, 
+	date DATE NOT NULL, 
+	brc VARCHAR(5) NOT NULL, 
+	repository VARCHAR(42), 
+	"bibliographicCitation" TEXT, 
+	identifier TEXT NOT NULL, 
+	"analysisType" TEXT, 
+	"datasetType" VARCHAR(2), 
+	description TEXT, 
+	"datasetName" TEXT, 
+	dataset_url TEXT, 
+	"DatasetCollection_id" INTEGER, 
+	PRIMARY KEY (uid), 
+	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id)
+);
 CREATE TABLE "Funding" (
 	id INTEGER NOT NULL, 
 	"awardNumber" TEXT, 
@@ -119,45 +139,6 @@ CREATE TABLE "Plasmid" (
 	host_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(host_id) REFERENCES "Organism" (id)
-);
-CREATE TABLE "Dataset" (
-	uid INTEGER NOT NULL, 
-	id TEXT, 
-	title TEXT NOT NULL, 
-	date DATE NOT NULL, 
-	brc VARCHAR(5) NOT NULL, 
-	repository VARCHAR(42), 
-	"bibliographicCitation" TEXT, 
-	identifier TEXT NOT NULL, 
-	"analysisType" TEXT, 
-	"datasetType" VARCHAR(2), 
-	description TEXT, 
-	"datasetName" TEXT, 
-	dataset_url TEXT, 
-	"DatasetCollection_id" INTEGER, 
-	plasmid_features_id INTEGER, 
-	PRIMARY KEY (uid), 
-	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id), 
-	FOREIGN KEY(plasmid_features_id) REFERENCES "Plasmid" (id)
-);
-CREATE TABLE "Plasmid_promoters" (
-	"Plasmid_id" INTEGER, 
-	promoters TEXT, 
-	PRIMARY KEY ("Plasmid_id", promoters), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
-);
-CREATE TABLE "Plasmid_replicates_in" (
-	"Plasmid_id" INTEGER, 
-	replicates_in_id INTEGER, 
-	PRIMARY KEY ("Plasmid_id", replicates_in_id), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id), 
-	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
-);
-CREATE TABLE "Plasmid_selection_markers" (
-	"Plasmid_id" INTEGER, 
-	selection_markers TEXT, 
-	PRIMARY KEY ("Plasmid_id", selection_markers), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
 );
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL, 
@@ -188,6 +169,13 @@ CREATE TABLE "Dataset_species" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
 );
+CREATE TABLE "Dataset_plasmid_features" (
+	"Dataset_uid" INTEGER, 
+	plasmid_features_id INTEGER, 
+	PRIMARY KEY ("Dataset_uid", plasmid_features_id), 
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
+	FOREIGN KEY(plasmid_features_id) REFERENCES "Plasmid" (id)
+);
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER, 
 	"relatedItem_id" INTEGER, 
@@ -207,4 +195,23 @@ CREATE TABLE "Dataset_funding" (
 	PRIMARY KEY ("Dataset_uid", funding_id), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
+);
+CREATE TABLE "Plasmid_promoters" (
+	"Plasmid_id" INTEGER, 
+	promoters TEXT, 
+	PRIMARY KEY ("Plasmid_id", promoters), 
+	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
+);
+CREATE TABLE "Plasmid_replicates_in" (
+	"Plasmid_id" INTEGER, 
+	replicates_in_id INTEGER, 
+	PRIMARY KEY ("Plasmid_id", replicates_in_id), 
+	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id), 
+	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
+);
+CREATE TABLE "Plasmid_selection_markers" (
+	"Plasmid_id" INTEGER, 
+	selection_markers TEXT, 
+	PRIMARY KEY ("Plasmid_id", selection_markers), 
+	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
 );
