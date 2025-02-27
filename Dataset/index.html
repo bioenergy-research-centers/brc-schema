@@ -312,7 +312,7 @@
 
 
 
-    Dataset --&gt; "0..1" Plasmid : plasmid_features
+    Dataset --&gt; "*" Plasmid : plasmid_features
     click Plasmid href "../Plasmid"
 
 
@@ -427,7 +427,7 @@
 </tr>
 <tr>
 <td><a href="../plasmid_features/">plasmid_features</a></td>
-<td>0..1 <br/> <a href="../Plasmid/">Plasmid</a></td>
+<td>* <br/> <a href="../Plasmid/">Plasmid</a></td>
 <td>Description of plasmid features, if applicable</td>
 <td>direct</td>
 </tr>
@@ -697,12 +697,14 @@ attributes:
     multivalued: true
   plasmid_features:
     name: plasmid_features
-    description: Description of plasmid features, if applicable.
+    description: Description of plasmid features, if applicable. This is a multivalued
+      field.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
     range: Plasmid
+    multivalued: true
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
@@ -958,7 +960,8 @@ attributes:
     multivalued: true
   plasmid_features:
     name: plasmid_features
-    description: Description of plasmid features, if applicable.
+    description: Description of plasmid features, if applicable. This is a multivalued
+      field.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: plasmid_features
@@ -966,6 +969,7 @@ attributes:
     domain_of:
     - Dataset
     range: Plasmid
+    multivalued: true
   analysisType:
     name: analysisType
     description: The type of analysis performed on the dataset.
