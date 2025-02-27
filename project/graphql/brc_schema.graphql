@@ -37,6 +37,31 @@ enum CitedItemType
     WebApplication
   }
 
+enum ContributorTypeCodes
+  {
+    ContactPerson
+    DataCollector
+    DataCurator
+    DataManager
+    Distributor
+    Editor
+    HostingInstitution
+    Producer
+    ProjectLeader
+    ProjectManager
+    ProjectMember
+    RegistrationAgency
+    RegistrationAuthority
+    RelatedPerson
+    Researcher
+    ResearchGroup
+    RightsHolder
+    Sponsor
+    Supervisor
+    WorkPackageLeader
+    Other
+  }
+
 enum DatasetTypeCodes
   {
     AS
@@ -80,12 +105,23 @@ enum RepositoryEnum
     Zenodo
   }
 
+type Contributor
+  {
+    name: String
+    email: String
+    primaryContact: Boolean
+    affiliation: String
+    orcid: Uriorcurie
+    contributorType: ContributorTypeCodes
+  }
+
 type Dataset
   {
     id: Uriorcurie
     title: String!
     date: Date!
     creator: [Individual]!
+    contributors: [Contributor]
     brc: BRCEnum!
     additionalBrcs: [BRCEnum]
     repository: RepositoryEnum
@@ -119,10 +155,11 @@ type Funding
 
 type Individual
   {
-    creatorName: String
+    name: String
     email: String
     primaryContact: Boolean
     affiliation: String
+    orcid: Uriorcurie
   }
 
 type Organism

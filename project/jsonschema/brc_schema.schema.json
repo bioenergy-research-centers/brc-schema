@@ -46,6 +46,89 @@
             "title": "CitedItemType",
             "type": "string"
         },
+        "Contributor": {
+            "additionalProperties": false,
+            "description": "An individual who contributed to the dataset in some manner, not necessarily as an author.",
+            "properties": {
+                "affiliation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Organization"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Affiliation of the individual.",
+                    "type": "string"
+                },
+                "contributorType": {
+                    "$ref": "#/$defs/ContributorTypeCodes",
+                    "description": "The contribution type."
+                },
+                "email": {
+                    "description": "Email address of the individual.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the individual.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "orcid": {
+                    "description": "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "primaryContact": {
+                    "description": "Indicates if the individual is a primary contact.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Contributor",
+            "type": "object"
+        },
+        "ContributorTypeCodes": {
+            "description": "The type of contribution. These values are based on the OSTI schema (ELINK 241.6).",
+            "enum": [
+                "ContactPerson",
+                "DataCollector",
+                "DataCurator",
+                "DataManager",
+                "Distributor",
+                "Editor",
+                "HostingInstitution",
+                "Producer",
+                "ProjectLeader",
+                "ProjectManager",
+                "ProjectMember",
+                "RegistrationAgency",
+                "RegistrationAuthority",
+                "RelatedPerson",
+                "Researcher",
+                "ResearchGroup",
+                "RightsHolder",
+                "Sponsor",
+                "Supervisor",
+                "WorkPackageLeader",
+                "Other"
+            ],
+            "title": "ContributorTypeCodes",
+            "type": "string"
+        },
         "Dataset": {
             "additionalProperties": false,
             "description": "A dataset containing metabolomics and proteomics data.",
@@ -85,6 +168,16 @@
                 "brc": {
                     "$ref": "#/$defs/BRCEnum",
                     "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
+                },
+                "contributors": {
+                    "description": "Contributors to the dataset who are not necessarily authors.",
+                    "items": {
+                        "$ref": "#/$defs/Contributor"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "creator": {
                     "description": "List of creators involved in the dataset, where one must be the primary contact.",
@@ -303,25 +396,32 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Affiliation of the creator.",
+                    "description": "Affiliation of the individual.",
                     "type": "string"
                 },
-                "creatorName": {
-                    "description": "Name of the creator.",
+                "email": {
+                    "description": "Email address of the individual.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "email": {
-                    "description": "Email address of the creator.",
+                "name": {
+                    "description": "Name of the individual.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "orcid": {
+                    "description": "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "primaryContact": {
-                    "description": "Indicates if the creator is the primary contact.",
+                    "description": "Indicates if the individual is a primary contact.",
                     "type": [
                         "boolean",
                         "null"
