@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/creatorName/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/orcid/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>Slot: creatorName - brc-schema</title>
+        <title>Slot: orcid - brc-schema</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-creatorname" class="md-skip">
+        <a href="#slot-orcid" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: creatorName
+              Slot: orcid
             
           </span>
         </div>
@@ -389,9 +389,9 @@
   
 
 
-<h1 id="slot-creatorname">Slot: creatorName</h1>
-<p><em>Name of the creator.</em></p>
-<p>URI: <a href="http://schema.org/name">schema:name</a></p>
+<h1 id="slot-orcid">Slot: orcid</h1>
+<p><em>ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.</em></p>
+<p>URI: <a href="https://w3id.org/brc/orcid">brc:orcid</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -413,7 +413,7 @@
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>Range: <a href="../Uriorcurie/">Uriorcurie</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -431,27 +431,27 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:name</td>
+<td>brc:orcid</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:creatorName</td>
+<td>brc:orcid</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: creatorName
-description: Name of the creator.
+<pre><code class="language-yaml">name: orcid
+description: ORCID for the individual. This should include the full URI with prefix,
+  e.g., https://orcid.org/0000-0002-1825-0097.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-slot_uri: schema:name
-alias: creatorName
+alias: orcid
 owner: Individual
 domain_of:
 - Individual
-range: string
+range: uriorcurie
 
 </code></pre>
 

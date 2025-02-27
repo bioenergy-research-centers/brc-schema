@@ -237,9 +237,11 @@
     click Individual href "../Individual"
       Individual : affiliation
 
-      Individual : creatorName
-
       Individual : email
+
+      Individual : name
+
+      Individual : orcid
 
       Individual : primaryContact
 
@@ -258,27 +260,33 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../creatorName/">creatorName</a></td>
+<td><a href="../name/">name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Name of the creator</td>
+<td>Name of the individual</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../email/">email</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Email address of the creator</td>
+<td>Email address of the individual</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../primaryContact/">primaryContact</a></td>
 <td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Indicates if the creator is the primary contact</td>
+<td>Indicates if the individual is a primary contact</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
 <td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../Organization/">Organization</a> or <br/><a href="../String/">String</a></td>
-<td>Affiliation of the creator</td>
+<td>Affiliation of the individual</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../orcid/">orcid</a></td>
+<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
+<td>ORCID for the individual</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -341,9 +349,9 @@ exact_mappings:
 - schema:Person
 - osti:author
 attributes:
-  creatorName:
-    name: creatorName
-    description: Name of the creator.
+  name:
+    name: name
+    description: Name of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
@@ -352,7 +360,7 @@ attributes:
     range: string
   email:
     name: email
-    description: Email address of the creator.
+    description: Email address of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:email
@@ -361,7 +369,7 @@ attributes:
     range: string
   primaryContact:
     name: primaryContact
-    description: Indicates if the creator is the primary contact.
+    description: Indicates if the individual is a primary contact.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
@@ -369,7 +377,7 @@ attributes:
     range: boolean
   affiliation:
     name: affiliation
-    description: Affiliation of the creator.
+    description: Affiliation of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
@@ -377,6 +385,15 @@ attributes:
     any_of:
     - range: Organization
     - range: string
+  orcid:
+    name: orcid
+    description: ORCID for the individual. This should include the full URI with prefix,
+      e.g., https://orcid.org/0000-0002-1825-0097.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Individual
+    range: uriorcurie
 class_uri: schema:Person
 
 </code></pre>
@@ -390,20 +407,20 @@ exact_mappings:
 - schema:Person
 - osti:author
 attributes:
-  creatorName:
-    name: creatorName
-    description: Name of the creator.
+  name:
+    name: name
+    description: Name of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:name
-    alias: creatorName
+    alias: name
     owner: Individual
     domain_of:
     - Individual
     range: string
   email:
     name: email
-    description: Email address of the creator.
+    description: Email address of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: schema:email
@@ -414,7 +431,7 @@ attributes:
     range: string
   primaryContact:
     name: primaryContact
-    description: Indicates if the creator is the primary contact.
+    description: Indicates if the individual is a primary contact.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: primaryContact
@@ -424,7 +441,7 @@ attributes:
     range: boolean
   affiliation:
     name: affiliation
-    description: Affiliation of the creator.
+    description: Affiliation of the individual.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: affiliation
@@ -435,6 +452,17 @@ attributes:
     any_of:
     - range: Organization
     - range: string
+  orcid:
+    name: orcid
+    description: ORCID for the individual. This should include the full URI with prefix,
+      e.g., https://orcid.org/0000-0002-1825-0097.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: orcid
+    owner: Individual
+    domain_of:
+    - Individual
+    range: uriorcurie
 class_uri: schema:Person
 
 </code></pre>

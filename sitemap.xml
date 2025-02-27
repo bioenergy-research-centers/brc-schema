@@ -197,10 +197,6 @@
          <lastmod>2025-02-27</lastmod>
     </url>
     <url>
-         <loc>https://bioenergy-research-centers.github.io/brc-schema/creatorName/</loc>
-         <lastmod>2025-02-27</lastmod>
-    </url>
-    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/datasetName/</loc>
          <lastmod>2025-02-27</lastmod>
     </url>
@@ -254,6 +250,14 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/keywords/</loc>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/name/</loc>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/orcid/</loc>
          <lastmod>2025-02-27</lastmod>
     </url>
     <url>
