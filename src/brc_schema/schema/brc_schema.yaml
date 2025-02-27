@@ -212,24 +212,24 @@ classes:
     attributes:
       creatorName:
         range: string
-        description: "Name of the creator."
+        description: "Name of the individual."
         slot_uri: schema:name
       email:
         range: string
-        description: "Email address of the creator."
+        description: "Email address of the individual."
         slot_uri: schema:email
       primaryContact:
         range: boolean
-        description: "Indicates if the creator is the primary contact."
+        description: "Indicates if the individual is a primary contact."
       affiliation:
         any_of:
           - range: Organization
           - range: string
-        description: "Affiliation of the creator."
+        description: "Affiliation of the individual."
       orcid:
         range: uriorcurie
         description: >-
-          ORCID for the creator. This should include the
+          ORCID for the individual. This should include the
           full URI with prefix, e.g.,
           https://orcid.org/0000-0002-1825-0097.
 
