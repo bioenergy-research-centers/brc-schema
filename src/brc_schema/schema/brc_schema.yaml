@@ -210,7 +210,7 @@ classes:
       - schema:Person
       - osti:author
     attributes:
-      creatorName:
+      name:
         range: string
         description: "Name of the individual."
         slot_uri: schema:name
