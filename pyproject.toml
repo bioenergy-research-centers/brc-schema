@@ -16,7 +16,7 @@ enable = false
 vcs = "git"
 style = "pep440"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 linkml = "^1.7.11rc1"
 mkdocs-material = ">8.2.8"
 mkdocs-mermaid2-plugin = ">0.6.0"
