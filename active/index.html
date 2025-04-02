@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/email/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/active/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>Slot: email - brc-schema</title>
+        <title>Slot: active - brc-schema</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-email" class="md-skip">
+        <a href="#slot-active" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: email
+              Slot: active
             
           </span>
         </div>
@@ -394,9 +394,9 @@
   
 
 
-<h1 id="slot-email">Slot: email</h1>
-<p><em>Email address of the individual.</em></p>
-<p>URI: <a href="http://schema.org/email">schema:email</a></p>
+<h1 id="slot-active">Slot: active</h1>
+<p><em>Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.</em></p>
+<p>URI: <a href="https://w3id.org/brc/active">brc:active</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -410,20 +410,15 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Individual/">Individual</a></td>
-<td>An individual involved in the dataset</td>
+<td><a href="../Dataset/">Dataset</a></td>
+<td>A dataset containing metabolomics and proteomics data</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>Range: <a href="../Boolean/">Boolean</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -441,27 +436,28 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:email</td>
+<td>brc:active</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:email</td>
+<td>brc:active</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: email
-description: Email address of the individual.
+<pre><code class="language-yaml">name: active
+description: Indicates whether the dataset is active or inactive. This is a boolean
+  field - true indicates active, false indicates inactive.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-slot_uri: schema:email
-alias: email
-owner: Individual
+ifabsent: 'True'
+alias: active
+owner: Dataset
 domain_of:
-- Individual
-range: string
+- Dataset
+range: boolean
 
 </code></pre>
 

@@ -242,6 +242,8 @@
 <div class="mermaid"> classDiagram
     class Dataset
     click Dataset href "../Dataset"
+      Dataset : active
+
       Dataset : additional_brcs
 
 
@@ -250,6 +252,8 @@
     Dataset --&gt; "*" BRCEnum : additional_brcs
     click BRCEnum href "../BRCEnum"
 
+
+      Dataset : alert
 
       Dataset : analysisType
 
@@ -372,6 +376,18 @@
 <td><a href="../id/">id</a></td>
 <td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
 <td>Unique identifier for the dataset, assigned prior to inclusion in bioenergy</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../active/">active</a></td>
+<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
+<td>Indicates whether the dataset is active or inactive</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../alert/">alert</a></td>
+<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
+<td>Indicates whether availability of the dataset has encountered some inconsiste...</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -592,6 +608,28 @@ attributes:
     - Dataset
     range: uriorcurie
     required: false
+  active:
+    name: active
+    description: Indicates whether the dataset is active or inactive. This is a boolean
+      field - true indicates active, false indicates inactive.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    ifabsent: 'True'
+    domain_of:
+    - Dataset
+    range: boolean
+  alert:
+    name: alert
+    description: Indicates whether availability of the dataset has encountered some
+      inconsistency. This is a boolean field - true indicates alert, false indicates
+      no alert. For example, if we have a Dataset object but the Dataset is missing
+      from its source feed, this should be set to true.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    ifabsent: 'False'
+    domain_of:
+    - Dataset
+    range: boolean
   title:
     name: title
     description: The title of the dataset.
@@ -846,6 +884,32 @@ attributes:
     - Dataset
     range: uriorcurie
     required: false
+  active:
+    name: active
+    description: Indicates whether the dataset is active or inactive. This is a boolean
+      field - true indicates active, false indicates inactive.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    ifabsent: 'True'
+    alias: active
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: boolean
+  alert:
+    name: alert
+    description: Indicates whether availability of the dataset has encountered some
+      inconsistency. This is a boolean field - true indicates alert, false indicates
+      no alert. For example, if we have a Dataset object but the Dataset is missing
+      from its source feed, this should be set to true.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    ifabsent: 'False'
+    alias: alert
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: boolean
   title:
     name: title
     description: The title of the dataset.

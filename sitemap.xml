@@ -161,11 +161,19 @@
          <lastmod>2025-04-02</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/active/</loc>
+         <lastmod>2025-04-02</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/additional_brcs/</loc>
          <lastmod>2025-04-02</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/affiliation/</loc>
+         <lastmod>2025-04-02</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/alert/</loc>
          <lastmod>2025-04-02</lastmod>
     </url>
     <url>
