@@ -78,13 +78,24 @@ classes:
           in bioenergy.org.
         required: false
         slot_uri: schema:identifier
-      active: 
+      active:
         range: boolean
         description: >-
           Indicates whether the dataset is active or inactive.
           This is a boolean field - true indicates active,
           false indicates inactive.
         ifabsent: true
+      alert:
+        range: boolean
+        description: >-
+          Indicates whether availability of the dataset
+          has encountered some inconsistency.
+          This is a boolean field - true indicates alert,
+          false indicates no alert.
+          For example, if we have a Dataset object
+          but the Dataset is missing from its source
+          feed, this should be set to true.
+        ifabsent: false
       title:
         range: string
         description: "The title of the dataset."
