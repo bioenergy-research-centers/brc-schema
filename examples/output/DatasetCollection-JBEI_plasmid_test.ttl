@@ -1,0 +1,34 @@
+@prefix brc: <https://w3id.org/brc/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix schema1: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a brc:DatasetCollection ;
+    brc:datasets [ a schema1:Dataset ;
+            dcterms:bibliographicCitation "https://public-registry.jbei.org/folders/171"^^xsd:anyURI ;
+            dcterms:creator [ a schema1:Person ;
+                    schema1:email "" ;
+                    schema1:name "Robert Dahl" ;
+                    brc:affiliation "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720" ;
+                    brc:primaryContact true ] ;
+            dcterms:date "2011-07-08"^^xsd:date ;
+            dcterms:description "fadB promoter driving RFP in E. coli Selection Markers: Kanamycin Host: E. coli DH1" ;
+            dcterms:title "JBEI-3807" ;
+            schema1:identifier "JPUB_005436" ;
+            prov:wasAttributedTo "JBEI" ;
+            brc:analysisType "not specified" ;
+            brc:datasetName "JBEI-3807" ;
+            brc:plasmid_features [ a brc:Plasmid ;
+                    brc:backbone "" ;
+                    brc:host [ a brc:Organism ;
+                            brc:NCBITaxID 536056 ;
+                            brc:scientificName "Escherichia coli DH1" ] ;
+                    brc:ori "" ;
+                    brc:promoters "fadB" ;
+                    brc:replicates_in [ a brc:Organism ;
+                            brc:NCBITaxID 536056 ;
+                            brc:scientificName "Escherichia coli DH1" ] ;
+                    brc:selection_markers "kan" ] ;
+            brc:repository "ICE" ] .
+
