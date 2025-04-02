@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-27T15:10:23
+# Generation date: 2025-04-02T17:28:28
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -802,6 +802,11 @@ class RepositoryEnum(EnumDefinitionImpl):
                 text="Mendeley Data",
                 description="Mendeley Data",
                 meaning=ROR["01t2a8a42"]))
+        setattr(cls, "National Microbiome Data Collaborative",
+            PermissibleValue(
+                text="National Microbiome Data Collaborative",
+                description="\"National Microbiome Data Collaborative\"",
+                meaning=ROR["05cwx3318"]))
         setattr(cls, "NCBI BioProject",
             PermissibleValue(
                 text="NCBI BioProject",

@@ -1,0 +1,46 @@
+{
+  "datasets": [
+    {
+      "title": "JBEI-3807",
+      "date": "2011-07-08",
+      "creator": [
+        {
+          "name": "Robert Dahl",
+          "email": "",
+          "primaryContact": true,
+          "affiliation": "Joint BioEnergy Institute, Lawrence Berkeley National Laboratory Berkeley CA 94720"
+        }
+      ],
+      "brc": "JBEI",
+      "identifier": "JPUB_005436",
+      "repository": "ICE",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/171",
+      "plasmid_features": [
+        {
+          "backbone": "",
+          "host": {
+            "scientificName": "Escherichia coli DH1",
+            "NCBITaxID": 536056
+          },
+          "ori": "",
+          "promoters": [
+            "fadB"
+          ],
+          "replicates_in": [
+            {
+              "scientificName": "Escherichia coli DH1",
+              "NCBITaxID": 536056
+            }
+          ],
+          "selection_markers": [
+            "kan"
+          ]
+        }
+      ],
+      "analysisType": "not specified",
+      "description": "fadB promoter driving RFP in E. coli Selection Markers: Kanamycin Host: E. coli DH1",
+      "datasetName": "JBEI-3807"
+    }
+  ],
+  "@type": "DatasetCollection"
+}

@@ -136,6 +136,12 @@ enums:
         see_also:
           - https://data.mendeley.com/
         meaning: ror:01t2a8a42
+      National Microbiome Data Collaborative:
+        description: >-
+          "National Microbiome Data Collaborative"
+        see_also:
+          - https://microbiomedata.org/
+        meaning: ror:05cwx3318
       NCBI BioProject:
         description: "National Center for Biotechnology Information BioProject"
         see_also:

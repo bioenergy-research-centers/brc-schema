@@ -897,6 +897,14 @@
           ]
         },
         {
+          "text": "National Microbiome Data Collaborative",
+          "description": "\"National Microbiome Data Collaborative\"",
+          "meaning": "ror:05cwx3318",
+          "see_also": [
+            "https://microbiomedata.org/"
+          ]
+        },
+        {
           "text": "NCBI BioProject",
           "description": "National Center for Biotechnology Information BioProject",
           "see_also": [
@@ -2314,9 +2322,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-02-27T15:07:37",
+  "source_file_date": "2025-04-02T17:24:36",
   "source_file_size": 20311,
-  "generation_date": "2025-02-27T15:10:23",
+  "generation_date": "2025-04-02T17:28:27",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
