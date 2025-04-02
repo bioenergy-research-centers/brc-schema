@@ -1014,6 +1014,34 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__active",
+      "description": "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/active",
+      "ifabsent": "True",
+      "alias": "active",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__alert",
+      "description": "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/alert",
+      "ifabsent": "False",
+      "alias": "alert",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__title",
       "description": "The title of the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -1784,6 +1812,8 @@
       ],
       "slots": [
         "dataset__id",
+        "dataset__active",
+        "dataset__alert",
         "dataset__title",
         "dataset__date",
         "dataset__creator",
@@ -1812,6 +1842,20 @@
           "description": "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.",
           "slot_uri": "schema:identifier",
           "range": "uriorcurie",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "active",
+          "description": "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.",
+          "ifabsent": "True",
+          "range": "boolean",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "alert",
+          "description": "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true.",
+          "ifabsent": "False",
+          "range": "boolean",
           "@type": "SlotDefinition"
         },
         {
@@ -2322,9 +2366,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-04-02T17:24:36",
-  "source_file_size": 20311,
-  "generation_date": "2025-04-02T17:28:27",
+  "source_file_date": "2025-04-02T17:41:03",
+  "source_file_size": 20981,
+  "generation_date": "2025-04-02T17:41:26",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

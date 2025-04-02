@@ -17,6 +17,7 @@
             dcterms:title "JBEI-3807" ;
             schema1:identifier "JPUB_005436" ;
             prov:wasAttributedTo "JBEI" ;
+            brc:active true ;
             brc:analysisType "not specified" ;
             brc:datasetName "JBEI-3807" ;
             brc:plasmid_features [ a brc:Plasmid ;

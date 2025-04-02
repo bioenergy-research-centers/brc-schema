@@ -119,6 +119,8 @@ type Contributor
 type Dataset
   {
     id: Uriorcurie
+    active: Boolean
+    alert: Boolean
     title: String!
     date: Date!
     creator: [Individual]!

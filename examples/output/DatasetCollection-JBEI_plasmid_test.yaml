@@ -9,6 +9,7 @@ datasets:
       Berkeley CA 94720
   brc: JBEI
   identifier: JPUB_005436
+  active: true
   repository: ICE
   bibliographicCitation: https://public-registry.jbei.org/folders/171
   plasmid_features:

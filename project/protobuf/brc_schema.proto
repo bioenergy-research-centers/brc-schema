@@ -16,6 +16,8 @@ message Contributor
 message Dataset
  {
   uriorcurie id = 0
+  boolean active = 0
+  boolean alert = 0
   string title = 0
   date date = 0
  repeated  individual creator = 0
