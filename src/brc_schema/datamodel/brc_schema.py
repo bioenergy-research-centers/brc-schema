@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-04-02T17:28:28
+# Generation date: 2025-04-02T17:41:26
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -162,6 +162,8 @@ class Dataset(YAMLRoot):
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
+    active: Optional[Union[bool, Bool]] = True
+    alert: Optional[Union[bool, Bool]] = False
     contributors: Optional[Union[Union[dict, "Contributor"], List[Union[dict, "Contributor"]]]] = empty_list()
     additional_brcs: Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]] = empty_list()
     repository: Optional[Union[str, "RepositoryEnum"]] = None
@@ -207,6 +209,12 @@ class Dataset(YAMLRoot):
 
         if self.id is not None and not isinstance(self.id, URIorCURIE):
             self.id = URIorCURIE(self.id)
+
+        if self.active is not None and not isinstance(self.active, Bool):
+            self.active = Bool(self.active)
+
+        if self.alert is not None and not isinstance(self.alert, Bool):
+            self.alert = Bool(self.alert)
 
         if not isinstance(self.contributors, list):
             self.contributors = [self.contributors] if self.contributors is not None else []
@@ -838,6 +846,12 @@ slots.datasetCollection__datasets = Slot(uri=BRC.datasets, name="datasetCollecti
 
 slots.dataset__id = Slot(uri=SCHEMA.identifier, name="dataset__id", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__id, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.dataset__active = Slot(uri=BRC.active, name="dataset__active", curie=BRC.curie('active'),
+                   model_uri=BRC.dataset__active, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.dataset__alert = Slot(uri=BRC.alert, name="dataset__alert", curie=BRC.curie('alert'),
+                   model_uri=BRC.dataset__alert, domain=None, range=Optional[Union[bool, Bool]])
 
 slots.dataset__title = Slot(uri=DCTERMS.title, name="dataset__title", curie=DCTERMS.curie('title'),
                    model_uri=BRC.dataset__title, domain=None, range=str)

@@ -75,6 +75,8 @@ linkml:Sparqlpath xsd:string
 
 <Dataset> CLOSED {
     (  $<Dataset_tes> (  schema1:identifier @linkml:Uriorcurie ? ;
+          <active> @linkml:Boolean ? ;
+          <alert> @linkml:Boolean ? ;
           dcterms:title @linkml:String ;
           dcterms:date @linkml:Date ;
           dcterms:creator @<Individual> + ;

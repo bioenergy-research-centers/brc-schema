@@ -3,6 +3,8 @@
 -- # Class: "Dataset" Description: "A dataset containing metabolomics and proteomics data."
 --     * Slot: uid Description: 
 --     * Slot: id Description: Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.
+--     * Slot: active Description: Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.
+--     * Slot: alert Description: Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true.
 --     * Slot: title Description: The title of the dataset.
 --     * Slot: date Description: The date the dataset was created or published.
 --     * Slot: brc Description: The primary Bioenergy Research Center affiliation. This is a single BRC name.
@@ -118,6 +120,8 @@ CREATE TABLE "RelatedItem" (
 CREATE TABLE "Dataset" (
 	uid INTEGER NOT NULL, 
 	id TEXT, 
+	active BOOLEAN, 
+	alert BOOLEAN, 
 	title TEXT NOT NULL, 
 	date DATE NOT NULL, 
 	brc VARCHAR(5) NOT NULL, 

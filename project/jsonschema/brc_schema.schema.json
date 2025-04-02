@@ -133,6 +133,13 @@
             "additionalProperties": false,
             "description": "A dataset containing metabolomics and proteomics data.",
             "properties": {
+                "active": {
+                    "description": "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
                 "additional_brcs": {
                     "description": "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.",
                     "items": {
@@ -140,6 +147,13 @@
                     },
                     "type": [
                         "array",
+                        "null"
+                    ]
+                },
+                "alert": {
+                    "description": "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true.",
+                    "type": [
+                        "boolean",
                         "null"
                     ]
                 },
