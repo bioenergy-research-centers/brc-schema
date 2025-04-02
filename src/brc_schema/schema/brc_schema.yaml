@@ -282,9 +282,13 @@ classes:
       awardNumber:
         range: string
         description: "Award number from the funding entity."
+        examples:
+          - value: DE-AC02-05CH11231
       awardTitle:
         range: string
         description: "Title of the award."
+        examples:
+          - value: "Biosystems Design to Enable Next-Generation Biofuels"
       awardURI:
         range: uriorcurie
         description: >-
@@ -307,11 +311,15 @@ classes:
         description: Wikidata identifier for the organization.
         values_from:
           - WIKIDATA
+        examples:
+          - value: wikidata:Q217810
       ror_id:
         range: ror_identifier
         description: ROR identifier for the organization.
         values_from:
           - ROR
+        examples:
+          - value: ror:05cwx3318
 
   Organism:
     description: An organism studied in the dataset.
