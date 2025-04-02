@@ -1509,6 +1509,12 @@
     {
       "name": "funding__awardNumber",
       "description": "Award number from the funding entity.",
+      "examples": [
+        {
+          "value": "DE-AC02-05CH11231",
+          "@type": "Example"
+        }
+      ],
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/awardNumber",
       "alias": "awardNumber",
@@ -1522,6 +1528,12 @@
     {
       "name": "funding__awardTitle",
       "description": "Title of the award.",
+      "examples": [
+        {
+          "value": "Biosystems Design to Enable Next-Generation Biofuels",
+          "@type": "Example"
+        }
+      ],
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/awardTitle",
       "alias": "awardTitle",
@@ -1584,6 +1596,12 @@
     {
       "name": "organization__wikidata_id",
       "description": "Wikidata identifier for the organization.",
+      "examples": [
+        {
+          "value": "wikidata:Q217810",
+          "@type": "Example"
+        }
+      ],
       "from_schema": "https://w3id.org/brc/brc_schema",
       "values_from": [
         "WIKIDATA"
@@ -1600,6 +1618,12 @@
     {
       "name": "organization__ror_id",
       "description": "ROR identifier for the organization.",
+      "examples": [
+        {
+          "value": "ror:05cwx3318",
+          "@type": "Example"
+        }
+      ],
       "from_schema": "https://w3id.org/brc/brc_schema",
       "values_from": [
         "ROR"
@@ -2170,12 +2194,24 @@
         {
           "name": "awardNumber",
           "description": "Award number from the funding entity.",
+          "examples": [
+            {
+              "value": "DE-AC02-05CH11231",
+              "@type": "Example"
+            }
+          ],
           "range": "string",
           "@type": "SlotDefinition"
         },
         {
           "name": "awardTitle",
           "description": "Title of the award.",
+          "examples": [
+            {
+              "value": "Biosystems Design to Enable Next-Generation Biofuels",
+              "@type": "Example"
+            }
+          ],
           "range": "string",
           "@type": "SlotDefinition"
         },
@@ -2224,6 +2260,12 @@
         {
           "name": "wikidata_id",
           "description": "Wikidata identifier for the organization.",
+          "examples": [
+            {
+              "value": "wikidata:Q217810",
+              "@type": "Example"
+            }
+          ],
           "values_from": [
             "WIKIDATA"
           ],
@@ -2233,6 +2275,12 @@
         {
           "name": "ror_id",
           "description": "ROR identifier for the organization.",
+          "examples": [
+            {
+              "value": "ror:05cwx3318",
+              "@type": "Example"
+            }
+          ],
           "values_from": [
             "ROR"
           ],
@@ -2366,9 +2414,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-04-02T17:41:03",
-  "source_file_size": 20981,
-  "generation_date": "2025-04-02T17:41:26",
+  "source_file_date": "2025-04-02T17:57:11",
+  "source_file_size": 21233,
+  "generation_date": "2025-04-02T17:57:30",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
