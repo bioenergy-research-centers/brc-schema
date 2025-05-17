@@ -57,6 +57,11 @@ classes:
         range: Dataset
         multivalued: true
         inlined_as_list: true
+      schema_version:
+        description: Version of the schema used for the collection.
+        range: string
+        examples:
+          - value: 0.1.1
   Dataset:
     description: A dataset containing metabolomics and proteomics data.
     class_uri: schema:Dataset
