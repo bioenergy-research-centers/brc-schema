@@ -340,21 +340,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -395,8 +380,7 @@
 
 
 <h1 id="slot-description">Slot: description</h1>
-<p><em>A detailed description of the dataset.</em></p>
-<p>URI: <a href="http://purl.org/dc/terms/description">dcterms:description</a>
+<p>URI: <a href="https://w3id.org/brc/description">brc:description</a>
 Alias: description</p>
 <!-- no inheritance hierarchy -->
 
@@ -415,6 +399,11 @@ Alias: description</p>
 <td>A dataset containing metabolomics and proteomics data</td>
 <td>no</td>
 </tr>
+<tr>
+<td><a href="../Plasmid/">Plasmid</a></td>
+<td>Description of plasmid or other molecular vector features</td>
+<td>no</td>
+</tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
@@ -422,10 +411,6 @@ Alias: description</p>
 <li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -437,15 +422,11 @@ Alias: description</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>dcterms:description</td>
+<td>brc:description</td>
 </tr>
 <tr>
 <td>native</td>
 <td>brc:description</td>
-</tr>
-<tr>
-<td>exact</td>
-<td>osti:description</td>
 </tr>
 </tbody>
 </table>
@@ -453,16 +434,10 @@ Alias: description</p>
 <details>
 
 <pre><code class="language-yaml">name: description
-description: A detailed description of the dataset.
-from_schema: https://w3id.org/brc/brc_schema
-exact_mappings:
-- osti:description
-rank: 1000
-slot_uri: dcterms:description
 alias: description
-owner: Dataset
 domain_of:
 - Dataset
+- Plasmid
 range: string
 
 </code></pre>

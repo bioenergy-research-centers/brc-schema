@@ -237,6 +237,8 @@
     click Plasmid href "../Plasmid"
       Plasmid : backbone
 
+      Plasmid : description
+
       Plasmid : host
 
 
@@ -279,6 +281,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="../description/">description</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Description of the plasmid, including any relevant features not captured in o...</td>
+<td>direct</td>
+</tr>
 <tr>
 <td><a href="../backbone/">backbone</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
@@ -368,6 +376,15 @@
 description: Description of plasmid or other molecular vector features.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
+  description:
+    name: description
+    description: Description of the plasmid, including any relevant features not captured
+      in other fields.
+    from_schema: https://w3id.org/brc/brc_schema
+    domain_of:
+    - Dataset
+    - Plasmid
+    range: string
   backbone:
     name: backbone
     description: Name of the backbone of the plasmid, e.g., pUC19.
@@ -430,6 +447,17 @@ attributes:
 description: Description of plasmid or other molecular vector features.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
+  description:
+    name: description
+    description: Description of the plasmid, including any relevant features not captured
+      in other fields.
+    from_schema: https://w3id.org/brc/brc_schema
+    alias: description
+    owner: Plasmid
+    domain_of:
+    - Dataset
+    - Plasmid
+    range: string
   backbone:
     name: backbone
     description: Name of the backbone of the plasmid, e.g., pUC19.
