@@ -339,6 +339,11 @@ classes:
   Plasmid:
     description: Description of plasmid or other molecular vector features.
     attributes:
+      description:
+        range: string
+        description: >-
+          Description of the plasmid, including
+          any relevant features not captured in other fields.
       backbone:
         range: string
         description: >-
