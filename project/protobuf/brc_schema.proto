@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 0.1.0
+// version: 0.1.1
 // An individual who contributed to the dataset in some manner, not necessarily as an author.
 message Contributor
  {
@@ -43,6 +43,7 @@ message Dataset
 message DatasetCollection
  {
  repeated  dataset datasets = 0
+  string schemaVersion = 0
  }
 // Funding source for the dataset. Each item corresponds to a single award or grant.
 message Funding

@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.0
+# version: 0.1.1
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -120,7 +120,9 @@ linkml:Sparqlpath xsd:string
 }
 
 <DatasetCollection> CLOSED {
-    (  $<DatasetCollection_tes> <datasets> @<Dataset> * ;
+    (  $<DatasetCollection_tes> (  <datasets> @<Dataset> * ;
+          <schema_version> @linkml:String ?
+       ) ;
        rdf:type [ <DatasetCollection> ] ?
     )
 }

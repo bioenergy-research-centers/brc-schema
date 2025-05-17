@@ -1,5 +1,6 @@
 -- # Class: "DatasetCollection" Description: "Container class for defining a collection of datasets."
 --     * Slot: id Description: 
+--     * Slot: schema_version Description: Version of the schema used for the collection.
 -- # Class: "Dataset" Description: "A dataset containing metabolomics and proteomics data."
 --     * Slot: uid Description: 
 --     * Slot: id Description: Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.
@@ -93,6 +94,7 @@
 
 CREATE TABLE "DatasetCollection" (
 	id INTEGER NOT NULL, 
+	schema_version TEXT, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE "Organization" (

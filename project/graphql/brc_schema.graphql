@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.0
+# version: 0.1.1
 enum AnalysisType
   {
     affinity_purification
@@ -146,6 +146,7 @@ type Dataset
 type DatasetCollection
   {
     datasets: [Dataset]
+    schemaVersion: String
   }
 
 type Funding
