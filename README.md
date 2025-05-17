@@ -1,6 +1,8 @@
 # brc-schema
 
-Bioenergy Research Center data schema.
+The Bioenergy Research Center data schema.
+
+This schema supports the data search platform at [Bioenergy.org](https://bioenergy.org/).
 
 See:
 
