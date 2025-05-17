@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-04-02T17:57:30
+# Generation date: 2025-05-17T17:41:29
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -61,7 +61,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.0"
+version = "0.1.1"
 
 # Overwrite dataclasses _init_fn to add **kwargs in __init__
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
@@ -135,11 +135,15 @@ class DatasetCollection(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = BRC.DatasetCollection
 
     datasets: Optional[Union[Union[dict, "Dataset"], List[Union[dict, "Dataset"]]]] = empty_list()
+    schema_version: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if not isinstance(self.datasets, list):
             self.datasets = [self.datasets] if self.datasets is not None else []
         self.datasets = [v if isinstance(v, Dataset) else Dataset(**as_dict(v)) for v in self.datasets]
+
+        if self.schema_version is not None and not isinstance(self.schema_version, str):
+            self.schema_version = str(self.schema_version)
 
         super().__post_init__(**kwargs)
 
@@ -843,6 +847,9 @@ class slots:
 
 slots.datasetCollection__datasets = Slot(uri=BRC.datasets, name="datasetCollection__datasets", curie=BRC.curie('datasets'),
                    model_uri=BRC.datasetCollection__datasets, domain=None, range=Optional[Union[Union[dict, Dataset], List[Union[dict, Dataset]]]])
+
+slots.datasetCollection__schema_version = Slot(uri=BRC.schema_version, name="datasetCollection__schema_version", curie=BRC.curie('schema_version'),
+                   model_uri=BRC.datasetCollection__schema_version, domain=None, range=Optional[str])
 
 slots.dataset__id = Slot(uri=SCHEMA.identifier, name="dataset__id", curie=SCHEMA.curie('identifier'),
                    model_uri=BRC.dataset__id, domain=None, range=Optional[Union[str, URIorCURIE]])

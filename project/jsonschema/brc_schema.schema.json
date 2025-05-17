@@ -333,6 +333,13 @@
                         "array",
                         "null"
                     ]
+                },
+                "schema_version": {
+                    "description": "Version of the schema used for the collection.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "title": "DatasetCollection",
@@ -646,9 +653,16 @@
                 "array",
                 "null"
             ]
+        },
+        "schema_version": {
+            "description": "Version of the schema used for the collection.",
+            "type": [
+                "string",
+                "null"
+            ]
         }
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.0"
+    "version": "0.1.1"
 }
