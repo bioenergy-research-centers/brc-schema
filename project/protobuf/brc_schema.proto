@@ -79,6 +79,7 @@ message Organization
 // Description of plasmid or other molecular vector features.
 message Plasmid
  {
+  string description = 0
   string backbone = 0
   organism host = 0
   string ori = 0

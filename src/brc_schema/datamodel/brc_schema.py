@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-05-17T17:41:29
+# Generation date: 2025-05-17T17:56:14
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -33,7 +33,6 @@ from linkml_runtime.linkml_model.meta import (
     PvFormulaOptions
 )
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from linkml_runtime.utils.formatutils import (
     camelcase,
@@ -62,9 +61,6 @@ from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
 version = "0.1.1"
-
-# Overwrite dataclasses _init_fn to add **kwargs in __init__
-dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -127,17 +123,17 @@ class DatasetCollection(YAMLRoot):
     """
     Container class for defining a collection of datasets.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["DatasetCollection"]
     class_class_curie: ClassVar[str] = "brc:DatasetCollection"
     class_name: ClassVar[str] = "DatasetCollection"
     class_model_uri: ClassVar[URIRef] = BRC.DatasetCollection
 
-    datasets: Optional[Union[Union[dict, "Dataset"], List[Union[dict, "Dataset"]]]] = empty_list()
+    datasets: Optional[Union[Union[dict, "Dataset"], list[Union[dict, "Dataset"]]]] = empty_list()
     schema_version: Optional[str] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if not isinstance(self.datasets, list):
             self.datasets = [self.datasets] if self.datasets is not None else []
         self.datasets = [v if isinstance(v, Dataset) else Dataset(**as_dict(v)) for v in self.datasets]
@@ -153,7 +149,7 @@ class Dataset(YAMLRoot):
     """
     A dataset containing metabolomics and proteomics data.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = SCHEMA["Dataset"]
     class_class_curie: ClassVar[str] = "schema:Dataset"
@@ -162,29 +158,29 @@ class Dataset(YAMLRoot):
 
     title: str = None
     date: Union[str, XSDDate] = None
-    creator: Union[Union[dict, "Individual"], List[Union[dict, "Individual"]]] = None
+    creator: Union[Union[dict, "Individual"], list[Union[dict, "Individual"]]] = None
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
     id: Optional[Union[str, URIorCURIE]] = None
     active: Optional[Union[bool, Bool]] = True
     alert: Optional[Union[bool, Bool]] = False
-    contributors: Optional[Union[Union[dict, "Contributor"], List[Union[dict, "Contributor"]]]] = empty_list()
-    additional_brcs: Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]] = empty_list()
+    contributors: Optional[Union[Union[dict, "Contributor"], list[Union[dict, "Contributor"]]]] = empty_list()
+    additional_brcs: Optional[Union[Union[str, "BRCEnum"], list[Union[str, "BRCEnum"]]]] = empty_list()
     repository: Optional[Union[str, "RepositoryEnum"]] = None
     bibliographicCitation: Optional[Union[str, URI]] = None
-    has_related_ids: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
-    species: Optional[Union[Union[dict, "Organism"], List[Union[dict, "Organism"]]]] = empty_list()
-    plasmid_features: Optional[Union[Union[dict, "Plasmid"], List[Union[dict, "Plasmid"]]]] = empty_list()
+    has_related_ids: Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]] = empty_list()
+    species: Optional[Union[Union[dict, "Organism"], list[Union[dict, "Organism"]]]] = empty_list()
+    plasmid_features: Optional[Union[Union[dict, "Plasmid"], list[Union[dict, "Plasmid"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
     description: Optional[str] = None
-    relatedItem: Optional[Union[Union[dict, "RelatedItem"], List[Union[dict, "RelatedItem"]]]] = empty_list()
-    keywords: Optional[Union[str, List[str]]] = empty_list()
+    relatedItem: Optional[Union[Union[dict, "RelatedItem"], list[Union[dict, "RelatedItem"]]]] = empty_list()
+    keywords: Optional[Union[str, list[str]]] = empty_list()
     datasetName: Optional[str] = None
-    funding: Optional[Union[Union[dict, "Funding"], List[Union[dict, "Funding"]]]] = empty_list()
+    funding: Optional[Union[Union[dict, "Funding"], list[Union[dict, "Funding"]]]] = empty_list()
     dataset_url: Optional[Union[str, URI]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.title):
             self.MissingRequiredField("title")
         if not isinstance(self.title, str):
@@ -281,7 +277,7 @@ class Individual(YAMLRoot):
     """
     An individual involved in the dataset.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = SCHEMA["Person"]
     class_class_curie: ClassVar[str] = "schema:Person"
@@ -294,7 +290,7 @@ class Individual(YAMLRoot):
     affiliation: Optional[str] = None
     orcid: Optional[Union[str, URIorCURIE]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.name is not None and not isinstance(self.name, str):
             self.name = str(self.name)
 
@@ -318,7 +314,7 @@ class Contributor(Individual):
     """
     An individual who contributed to the dataset in some manner, not necessarily as an author.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["Contributor"]
     class_class_curie: ClassVar[str] = "brc:Contributor"
@@ -327,7 +323,7 @@ class Contributor(Individual):
 
     contributorType: Optional[Union[str, "ContributorTypeCodes"]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.contributorType is not None and not isinstance(self.contributorType, ContributorTypeCodes):
             self.contributorType = ContributorTypeCodes(self.contributorType)
 
@@ -339,7 +335,7 @@ class Funding(YAMLRoot):
     """
     Funding source for the dataset. Each item corresponds to a single award or grant.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["Funding"]
     class_class_curie: ClassVar[str] = "brc:Funding"
@@ -351,7 +347,7 @@ class Funding(YAMLRoot):
     awardTitle: Optional[str] = None
     awardURI: Optional[Union[str, URIorCURIE]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.fundingOrganization is not None and not isinstance(self.fundingOrganization, Organization):
             self.fundingOrganization = Organization(**as_dict(self.fundingOrganization))
 
@@ -372,7 +368,7 @@ class Organization(YAMLRoot):
     """
     An organization involved in the dataset.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["Organization"]
     class_class_curie: ClassVar[str] = "brc:Organization"
@@ -384,7 +380,7 @@ class Organization(YAMLRoot):
     wikidata_id: Optional[Union[str, WikidataIdentifier]] = None
     ror_id: Optional[Union[str, RorIdentifier]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.organizationName is not None and not isinstance(self.organizationName, str):
             self.organizationName = str(self.organizationName)
 
@@ -405,7 +401,7 @@ class Organism(YAMLRoot):
     """
     An organism studied in the dataset.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["Organism"]
     class_class_curie: ClassVar[str] = "brc:Organism"
@@ -415,7 +411,7 @@ class Organism(YAMLRoot):
     scientificName: Optional[str] = None
     NCBITaxID: Optional[int] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.scientificName is not None and not isinstance(self.scientificName, str):
             self.scientificName = str(self.scientificName)
 
@@ -430,21 +426,25 @@ class Plasmid(YAMLRoot):
     """
     Description of plasmid or other molecular vector features.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["Plasmid"]
     class_class_curie: ClassVar[str] = "brc:Plasmid"
     class_name: ClassVar[str] = "Plasmid"
     class_model_uri: ClassVar[URIRef] = BRC.Plasmid
 
+    description: Optional[str] = None
     backbone: Optional[str] = None
     host: Optional[Union[dict, Organism]] = None
     ori: Optional[str] = None
-    promoters: Optional[Union[str, List[str]]] = empty_list()
-    replicates_in: Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]] = empty_list()
-    selection_markers: Optional[Union[str, List[str]]] = empty_list()
+    promoters: Optional[Union[str, list[str]]] = empty_list()
+    replicates_in: Optional[Union[Union[dict, Organism], list[Union[dict, Organism]]]] = empty_list()
+    selection_markers: Optional[Union[str, list[str]]] = empty_list()
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
         if self.backbone is not None and not isinstance(self.backbone, str):
             self.backbone = str(self.backbone)
 
@@ -474,7 +474,7 @@ class RelatedItem(YAMLRoot):
     """
     A related publication or item, including cited publications.
     """
-    _inherited_slots: ClassVar[List[str]] = []
+    _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = BRC["RelatedItem"]
     class_class_curie: ClassVar[str] = "brc:RelatedItem"
@@ -485,7 +485,7 @@ class RelatedItem(YAMLRoot):
     relatedItemType: Optional[Union[str, "CitedItemType"]] = None
     relatedItemIdentifier: Optional[Union[str, URIorCURIE]] = None
 
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+    def __post_init__(self, *_: str, **kwargs: Any):
         if self.title is not None and not isinstance(self.title, str):
             self.title = str(self.title)
 
@@ -846,7 +846,7 @@ class slots:
     pass
 
 slots.datasetCollection__datasets = Slot(uri=BRC.datasets, name="datasetCollection__datasets", curie=BRC.curie('datasets'),
-                   model_uri=BRC.datasetCollection__datasets, domain=None, range=Optional[Union[Union[dict, Dataset], List[Union[dict, Dataset]]]])
+                   model_uri=BRC.datasetCollection__datasets, domain=None, range=Optional[Union[Union[dict, Dataset], list[Union[dict, Dataset]]]])
 
 slots.datasetCollection__schema_version = Slot(uri=BRC.schema_version, name="datasetCollection__schema_version", curie=BRC.curie('schema_version'),
                    model_uri=BRC.datasetCollection__schema_version, domain=None, range=Optional[str])
@@ -867,16 +867,16 @@ slots.dataset__date = Slot(uri=DCTERMS.date, name="dataset__date", curie=DCTERMS
                    model_uri=BRC.dataset__date, domain=None, range=Union[str, XSDDate])
 
 slots.dataset__creator = Slot(uri=DCTERMS.creator, name="dataset__creator", curie=DCTERMS.curie('creator'),
-                   model_uri=BRC.dataset__creator, domain=None, range=Union[Union[dict, Individual], List[Union[dict, Individual]]])
+                   model_uri=BRC.dataset__creator, domain=None, range=Union[Union[dict, Individual], list[Union[dict, Individual]]])
 
 slots.dataset__contributors = Slot(uri=BRC.contributors, name="dataset__contributors", curie=BRC.curie('contributors'),
-                   model_uri=BRC.dataset__contributors, domain=None, range=Optional[Union[Union[dict, Contributor], List[Union[dict, Contributor]]]])
+                   model_uri=BRC.dataset__contributors, domain=None, range=Optional[Union[Union[dict, Contributor], list[Union[dict, Contributor]]]])
 
 slots.dataset__brc = Slot(uri=PROV.wasAttributedTo, name="dataset__brc", curie=PROV.curie('wasAttributedTo'),
                    model_uri=BRC.dataset__brc, domain=None, range=Union[str, "BRCEnum"])
 
 slots.dataset__additional_brcs = Slot(uri=PROV.wasAttributedTo, name="dataset__additional_brcs", curie=PROV.curie('wasAttributedTo'),
-                   model_uri=BRC.dataset__additional_brcs, domain=None, range=Optional[Union[Union[str, "BRCEnum"], List[Union[str, "BRCEnum"]]]])
+                   model_uri=BRC.dataset__additional_brcs, domain=None, range=Optional[Union[Union[str, "BRCEnum"], list[Union[str, "BRCEnum"]]]])
 
 slots.dataset__repository = Slot(uri=BRC.repository, name="dataset__repository", curie=BRC.curie('repository'),
                    model_uri=BRC.dataset__repository, domain=None, range=Optional[Union[str, "RepositoryEnum"]])
@@ -888,13 +888,13 @@ slots.dataset__identifier = Slot(uri=SCHEMA.identifier, name="dataset__identifie
                    model_uri=BRC.dataset__identifier, domain=None, range=str)
 
 slots.dataset__has_related_ids = Slot(uri=BRC.has_related_ids, name="dataset__has_related_ids", curie=BRC.curie('has_related_ids'),
-                   model_uri=BRC.dataset__has_related_ids, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+                   model_uri=BRC.dataset__has_related_ids, domain=None, range=Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]])
 
 slots.dataset__species = Slot(uri=BRC.species, name="dataset__species", curie=BRC.curie('species'),
-                   model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
+                   model_uri=BRC.dataset__species, domain=None, range=Optional[Union[Union[dict, Organism], list[Union[dict, Organism]]]])
 
 slots.dataset__plasmid_features = Slot(uri=BRC.plasmid_features, name="dataset__plasmid_features", curie=BRC.curie('plasmid_features'),
-                   model_uri=BRC.dataset__plasmid_features, domain=None, range=Optional[Union[Union[dict, Plasmid], List[Union[dict, Plasmid]]]])
+                   model_uri=BRC.dataset__plasmid_features, domain=None, range=Optional[Union[Union[dict, Plasmid], list[Union[dict, Plasmid]]]])
 
 slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysisType", curie=BRC.curie('analysisType'),
                    model_uri=BRC.dataset__analysisType, domain=None, range=Optional[str])
@@ -906,16 +906,16 @@ slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__descri
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])
 
 slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedItem", curie=BRC.curie('relatedItem'),
-                   model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[Union[dict, RelatedItem], List[Union[dict, RelatedItem]]]])
+                   model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[Union[dict, RelatedItem], list[Union[dict, RelatedItem]]]])
 
 slots.dataset__keywords = Slot(uri=DCAT.keyword, name="dataset__keywords", curie=DCAT.curie('keyword'),
-                   model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, List[str]]])
+                   model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.dataset__datasetName = Slot(uri=BRC.datasetName, name="dataset__datasetName", curie=BRC.curie('datasetName'),
                    model_uri=BRC.dataset__datasetName, domain=None, range=Optional[str])
 
 slots.dataset__funding = Slot(uri=BRC.funding, name="dataset__funding", curie=BRC.curie('funding'),
-                   model_uri=BRC.dataset__funding, domain=None, range=Optional[Union[Union[dict, Funding], List[Union[dict, Funding]]]])
+                   model_uri=BRC.dataset__funding, domain=None, range=Optional[Union[Union[dict, Funding], list[Union[dict, Funding]]]])
 
 slots.dataset__dataset_url = Slot(uri=SCHEMA.url, name="dataset__dataset_url", curie=SCHEMA.curie('url'),
                    model_uri=BRC.dataset__dataset_url, domain=None, range=Optional[Union[str, URI]])
@@ -968,6 +968,9 @@ slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__sc
 slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
                    model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
 
+slots.plasmid__description = Slot(uri=BRC.description, name="plasmid__description", curie=BRC.curie('description'),
+                   model_uri=BRC.plasmid__description, domain=None, range=Optional[str])
+
 slots.plasmid__backbone = Slot(uri=BRC.backbone, name="plasmid__backbone", curie=BRC.curie('backbone'),
                    model_uri=BRC.plasmid__backbone, domain=None, range=Optional[str])
 
@@ -978,13 +981,13 @@ slots.plasmid__ori = Slot(uri=BRC.ori, name="plasmid__ori", curie=BRC.curie('ori
                    model_uri=BRC.plasmid__ori, domain=None, range=Optional[str])
 
 slots.plasmid__promoters = Slot(uri=BRC.promoters, name="plasmid__promoters", curie=BRC.curie('promoters'),
-                   model_uri=BRC.plasmid__promoters, domain=None, range=Optional[Union[str, List[str]]])
+                   model_uri=BRC.plasmid__promoters, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.plasmid__replicates_in = Slot(uri=BRC.replicates_in, name="plasmid__replicates_in", curie=BRC.curie('replicates_in'),
-                   model_uri=BRC.plasmid__replicates_in, domain=None, range=Optional[Union[Union[dict, Organism], List[Union[dict, Organism]]]])
+                   model_uri=BRC.plasmid__replicates_in, domain=None, range=Optional[Union[Union[dict, Organism], list[Union[dict, Organism]]]])
 
 slots.plasmid__selection_markers = Slot(uri=BRC.selection_markers, name="plasmid__selection_markers", curie=BRC.curie('selection_markers'),
-                   model_uri=BRC.plasmid__selection_markers, domain=None, range=Optional[Union[str, List[str]]])
+                   model_uri=BRC.plasmid__selection_markers, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.relatedItem__title = Slot(uri=DCTERMS.title, name="relatedItem__title", curie=DCTERMS.curie('title'),
                    model_uri=BRC.relatedItem__title, domain=None, range=Optional[str])

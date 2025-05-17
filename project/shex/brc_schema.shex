@@ -169,7 +169,8 @@ linkml:Sparqlpath xsd:string
 }
 
 <Plasmid> CLOSED {
-    (  $<Plasmid_tes> (  <backbone> @linkml:String ? ;
+    (  $<Plasmid_tes> (  <description> @linkml:String ? ;
+          <backbone> @linkml:String ? ;
           <host> @<Organism> ? ;
           <ori> @linkml:String ? ;
           <promoters> @linkml:String * ;
