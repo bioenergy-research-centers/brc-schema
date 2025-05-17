@@ -1683,6 +1683,19 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "plasmid__description",
+      "description": "Description of the plasmid, including any relevant features not captured in other fields.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/description",
+      "alias": "description",
+      "owner": "Plasmid",
+      "domain_of": [
+        "Plasmid"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "plasmid__backbone",
       "description": "Name of the backbone of the plasmid, e.g., pUC19.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2356,6 +2369,7 @@
       "description": "Description of plasmid or other molecular vector features.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
+        "plasmid__description",
         "plasmid__backbone",
         "plasmid__host",
         "plasmid__ori",
@@ -2365,6 +2379,12 @@
       ],
       "slot_usage": {},
       "attributes": [
+        {
+          "name": "description",
+          "description": "Description of the plasmid, including any relevant features not captured in other fields.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
         {
           "name": "backbone",
           "description": "Name of the backbone of the plasmid, e.g., pUC19.",
@@ -2446,9 +2466,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-05-17T17:41:12",
-  "source_file_size": 21388,
-  "generation_date": "2025-05-17T17:41:29",
+  "source_file_date": "2025-05-17T17:55:53",
+  "source_file_size": 21563,
+  "generation_date": "2025-05-17T17:56:14",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

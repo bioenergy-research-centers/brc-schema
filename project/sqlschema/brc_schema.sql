@@ -53,6 +53,7 @@
 --     * Slot: NCBITaxID Description: NCBI taxonomy ID for the organism.
 -- # Class: "Plasmid" Description: "Description of plasmid or other molecular vector features."
 --     * Slot: id Description: 
+--     * Slot: description Description: Description of the plasmid, including any relevant features not captured in other fields.
 --     * Slot: backbone Description: Name of the backbone of the plasmid, e.g., pUC19.
 --     * Slot: ori Description: Origin of replication for the plasmid, e.g., ColE1.
 --     * Slot: host_id Description: Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID.
@@ -150,6 +151,7 @@ CREATE TABLE "Funding" (
 );
 CREATE TABLE "Plasmid" (
 	id INTEGER NOT NULL, 
+	description TEXT, 
 	backbone TEXT, 
 	ori TEXT, 
 	host_id INTEGER, 

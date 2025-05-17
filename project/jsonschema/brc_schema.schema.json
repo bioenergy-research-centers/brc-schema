@@ -525,6 +525,13 @@
                         "null"
                     ]
                 },
+                "description": {
+                    "description": "Description of the plasmid, including any relevant features not captured in other fields.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "host": {
                     "anyOf": [
                         {
