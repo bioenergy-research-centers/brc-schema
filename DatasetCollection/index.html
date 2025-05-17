@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://bioenergy-research-centers.github.io/brc-schema/DatasetCollection/" rel="canonical"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.6.11" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.14" name="generator"/>
 <title>Class: DatasetCollection - brc-schema</title>
-<link href="../assets/stylesheets/main.4af4bdda.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.342714a4.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -233,9 +233,13 @@
 
 
 
-    DatasetCollection --&gt; "*" Dataset : datasets
-    click Dataset href "../Dataset"
 
+        DatasetCollection --&gt; "*" Dataset : datasets
+        click Dataset href "../Dataset"
+
+
+
+      DatasetCollection : schema_version
 
 
 </div>
@@ -255,6 +259,12 @@
 <td><a href="../datasets/">datasets</a></td>
 <td>* <br/> <a href="../Dataset/">Dataset</a></td>
 <td>List of datasets in the collection</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../schema_version/">schema_version</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Version of the schema used for the collection</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -302,6 +312,16 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  schema_version:
+    name: schema_version
+    description: Version of the schema used for the collection.
+    examples:
+    - value: 0.1.1
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - DatasetCollection
+    range: string
 tree_root: true
 
 </code></pre>
@@ -324,6 +344,18 @@ attributes:
     range: Dataset
     multivalued: true
     inlined_as_list: true
+  schema_version:
+    name: schema_version
+    description: Version of the schema used for the collection.
+    examples:
+    - value: 0.1.1
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: schema_version
+    owner: DatasetCollection
+    domain_of:
+    - DatasetCollection
+    range: string
 tree_root: true
 
 </code></pre>
@@ -352,8 +384,8 @@ tree_root: true
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
 mermaid.initialize({});</script></body>
 </html>

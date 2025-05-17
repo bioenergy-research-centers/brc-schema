@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://bioenergy-research-centers.github.io/brc-schema/Dataset/" rel="canonical"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.6.11" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.14" name="generator"/>
 <title>Class: Dataset - brc-schema</title>
-<link href="../assets/stylesheets/main.4af4bdda.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.342714a4.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -249,8 +249,10 @@
 
 
 
-    Dataset --&gt; "*" BRCEnum : additional_brcs
-    click BRCEnum href "../BRCEnum"
+
+        Dataset --&gt; "*" BRCEnum : additional_brcs
+        click BRCEnum href "../BRCEnum"
+
 
 
       Dataset : alert
@@ -264,8 +266,10 @@
 
 
 
-    Dataset --&gt; "1" BRCEnum : brc
-    click BRCEnum href "../BRCEnum"
+
+        Dataset --&gt; "1" BRCEnum : brc
+        click BRCEnum href "../BRCEnum"
+
 
 
       Dataset : contributors
@@ -273,8 +277,10 @@
 
 
 
-    Dataset --&gt; "*" Contributor : contributors
-    click Contributor href "../Contributor"
+
+        Dataset --&gt; "*" Contributor : contributors
+        click Contributor href "../Contributor"
+
 
 
       Dataset : creator
@@ -282,8 +288,10 @@
 
 
 
-    Dataset --&gt; "1..*" Individual : creator
-    click Individual href "../Individual"
+
+        Dataset --&gt; "1..*" Individual : creator
+        click Individual href "../Individual"
+
 
 
       Dataset : dataset_url
@@ -295,8 +303,10 @@
 
 
 
-    Dataset --&gt; "0..1" DatasetTypeCodes : datasetType
-    click DatasetTypeCodes href "../DatasetTypeCodes"
+
+        Dataset --&gt; "0..1" DatasetTypeCodes : datasetType
+        click DatasetTypeCodes href "../DatasetTypeCodes"
+
 
 
       Dataset : date
@@ -308,8 +318,10 @@
 
 
 
-    Dataset --&gt; "*" Funding : funding
-    click Funding href "../Funding"
+
+        Dataset --&gt; "*" Funding : funding
+        click Funding href "../Funding"
+
 
 
       Dataset : has_related_ids
@@ -325,8 +337,10 @@
 
 
 
-    Dataset --&gt; "*" Plasmid : plasmid_features
-    click Plasmid href "../Plasmid"
+
+        Dataset --&gt; "*" Plasmid : plasmid_features
+        click Plasmid href "../Plasmid"
+
 
 
       Dataset : relatedItem
@@ -334,8 +348,10 @@
 
 
 
-    Dataset --&gt; "*" RelatedItem : relatedItem
-    click RelatedItem href "../RelatedItem"
+
+        Dataset --&gt; "*" RelatedItem : relatedItem
+        click RelatedItem href "../RelatedItem"
+
 
 
       Dataset : repository
@@ -343,8 +359,10 @@
 
 
 
-    Dataset --&gt; "0..1" RepositoryEnum : repository
-    click RepositoryEnum href "../RepositoryEnum"
+
+        Dataset --&gt; "0..1" RepositoryEnum : repository
+        click RepositoryEnum href "../RepositoryEnum"
+
 
 
       Dataset : species
@@ -352,8 +370,10 @@
 
 
 
-    Dataset --&gt; "*" Organism : species
-    click Organism href "../Organism"
+
+        Dataset --&gt; "*" Organism : species
+        click Organism href "../Organism"
+
 
 
       Dataset : title
@@ -1200,8 +1220,8 @@ class_uri: schema:Dataset
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
 mermaid.initialize({});</script></body>
 </html>
