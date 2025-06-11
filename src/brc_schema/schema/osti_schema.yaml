@@ -4,13 +4,12 @@ title: LinkML schema of OSTI Submission Metadata
 description: >-
   This schema is a LinkML representation of the OSTI Submission Metadata
   schema, as described here:
-  https://www.osti.gov/elink/241-6api.jsp#record-model
-  OSTI uses the ELINK API infrastructure.
-  This schema corresponds to ELINK 241.6.
-  Note: for compatibility with the ELINK API, the schema uses the
-  original capitalization, e.g., "record" rather than "Record",
-  though the latter is more common in LinkML.
-version: "241.6"
+  https://www.osti.gov/elink2api/
+  and here:
+  https://www.osti.gov/elink2api/record-schema
+  OSTI uses the E-Link API infrastructure.
+  This schema corresponds to the E-Link 2.0 API (2.6.0).
+version: "2.6.0"
 prefixes:
   linkml: https://w3id.org/linkml/
   osti: https://www.osti.gov/biblio/
