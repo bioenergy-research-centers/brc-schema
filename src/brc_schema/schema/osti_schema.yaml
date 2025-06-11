@@ -4,13 +4,12 @@ title: LinkML schema of OSTI Submission Metadata
 description: >-
   This schema is a LinkML representation of the OSTI Submission Metadata
   schema, as described here:
-  https://www.osti.gov/elink/241-6api.jsp#record-model
-  OSTI uses the ELINK API infrastructure.
-  This schema corresponds to ELINK 241.6.
-  Note: for compatibility with the ELINK API, the schema uses the
-  original capitalization, e.g., "record" rather than "Record",
-  though the latter is more common in LinkML.
-version: "241.6"
+  https://www.osti.gov/elink2api/
+  and here:
+  https://www.osti.gov/elink2api/record-schema
+  OSTI uses the E-Link API infrastructure.
+  This schema corresponds to the E-Link 2.0 API (2.6.0).
+version: "2.6.0"
 prefixes:
   linkml: https://w3id.org/linkml/
   osti: https://www.osti.gov/biblio/
@@ -24,30 +23,159 @@ imports:
 classes:
   records:
     description: >-
-      Results are always presented as a list of data defined as <record>
-      elements wrapped in a <records> container.
+      A list of Record metadata.
     tree_root: true
     attributes:
       records:
         description: List of records in the collection.
-        range: record
+        range: Record
         multivalued: true
 
-  # This class definition omits the following deprecated attributes:
-  # (see https://www.osti.gov/elink/241-6api.jsp#record-model-fields)
-  # - creators
-  record:
+  Record:
     description: >-
-      A record is a collection of metadata elements that describe a
-      data set.
+      Defines the bibliographic metadata about a particular work or record.
+      Depending on product type, various elements are permitted, not permitted,
+      or required.
     attributes:
       osti_id:
         description: >-
-          The unique OSTI identifier for the record. Required for updates.
+          Unique identifier for OSTI record, only required for updates.
         range: integer
         identifier: true
         examples:
-          - value: 1318659
+          - value: 9999
+      revision:
+        description: >-
+          Revision number (sequence) for this record.
+        range: integer
+        examples:
+          - value: 1
+        # readOnly: true
+      workflow_status:
+        description: >-
+          Workflow status of current revision of record.
+        range: WorkflowStatusEnum
+        examples:
+          - value: "SO"
+      access_limitations:
+        description: >-
+          Access limitation codes to describe the distribution rules and
+          limitations for this work.
+        range: AccessLimitationsEnum
+        multivalued: true
+        required: true
+        examples:
+          - value: "UNL"
+          - value: "OPN"
+        # maxLength: 5
+      access_limitation_other:
+        description: >-
+          Additional information about access limitation for this record,
+          if needed. Required for CUI or PDOUO designations in access limitation.
+          May contain information about the following: Special handling instructions,
+          Copyright restrictions, Other criteria pertinent to the review, access
+          limitation, announcement, and/or restriction of this STI product.
+        range: string
+        examples:
+          - value: "Restricted to US Distribution Only by DOE Order."
+      added_by:
+        description: >-
+          E-Link user ID that initially entered this record.
+          Value internally maintained by E-Link.
+        range: integer
+        examples:
+          - value: 28931
+        # readOnly: true
+      announcement_codes:
+        description: >-
+          List of announcement codes for this record.
+        range: string
+        examples:
+          - value: "EDB"
+          - value: "INIS"
+        multivalued: true
+      edition:
+        description: >-
+          Edition number, as applicable to Books or other products.
+        range: string
+        examples:
+          - value: "2023"
+        # maxLength: 10
+      volume:
+        description: >-
+          A volume number as applicable, usually for journals or books.
+        range: string
+        examples:
+          - value: "1"
+        # maxLength: 68
+      collection_type:
+        description: >-
+          Indicates the OSTI collection type originally creating this record.
+          Maintained internally by E-Link.
+        range: CollectionTypeEnum
+        examples:
+          - value: "DOE_LAB"
+        # readOnly: true
+      conference_information:
+        description: >-
+          "Describes the conference pertaining to this record, if any; usually name
+          and / or location the event took place.""
+        range: string
+        examples:
+          - value: "ApacheCON 2019 discussion panel"
+      conference_type:
+        description: >-
+          Code representing the type of conference-related work of this record.
+          Generally, only applicable to CO type submissions.
+        range: string
+        examples:
+          - value: "O"
+        # maxLength: 1
+      contract_award_date:
+        description: >-
+          Date contract for this record was awarded.
+        range: datetime
+        examples:
+          - value: "2012-02-19T00:00:00.000Z"
+      country_publication_code:
+        description: >-
+          Country of publication for this record
+        range: string
+        examples:
+          - value: "US"
+        # maxLength: 5
+      date_metadata_added:
+        description: >-
+          Date record first entered the OSTI system. Value internally
+          maintained by E-Link.
+        range: datetime
+        examples:
+          - value: "2023-09-22T18:31:32.043Z"
+        # readOnly: true
+      date_metadata_updated:
+        description: >-
+          Date of this revision of the record. Value internally
+          maintained by E-Link.
+        range: datetime
+        examples:
+          - value: "2020-04-02T12:33:17.553Z"
+        # readOnly: true
+      date_submitted_to_osti_first:
+        description: >-
+          Date record was first submitted to OSTI for publication.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2019-04-04T08:25:12.234Z"
+        # readOnly: true
+      date_submitted_to_osti_last:
+        description: >-
+          Most recent date record information was submitted to OSTI.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2018-05-04T11:44:23.864Z"
+        # readOnly: true
       dataset_type:
         description: >-
           Type of the main content of the dataset.
@@ -76,8 +204,27 @@ classes:
         multivalued: true
       description:
         description: >-
-          A short description or abstract.
+          Description or abstract for this record. Required to have a value
+          for grantee submissions.
         range: string
+        examples:
+          - value: "Information about a particular record, report, or other document, or executive summary or abstract of same."
+      descriptors:
+        description: >-
+          List of descriptor codes for this record
+        range: string
+        examples:
+          - value: "ATMOSPHERE"
+          - value: "ELECTRONS"
+        multivalued: true
+      doe_funded_flag:
+        description: >-
+          Indicates if the record is primarily DOE-funded. Indicate Y for
+          Yes, N for no, or leave blank/omit if unknown status.
+        range: string
+        # maxLength: 1
+        examples:
+          - value: "Y"
       product_nos:
         description: >-
           The most important identifying numbers given to the dataset by the
@@ -100,14 +247,49 @@ classes:
         pattern: "^.{0,2}$"
       doi:
         description: >-
-          Put a value in this field ONLY if the DOI has already been assigned
-          by an organization other than OSTI.
+          The DOI for this record, if any.  Enter value if previously
+          assigned a DOI for the record from an outside service.  If
+          not supplied, OSTI may assign a DOI for the work for certain
+          applicable record types.
         range: string
+        examples:
+          - value: "10.5072/2020/238479ax"
       doi_infix:
         description: >-
-          If present, the site-selected DOI inset value for new DOIs.
+          "Any customized infix value for the DOI used when generating
+          a DOI reference. The following characters should be avoided
+          in the infix value: ;/?:@&=+$,."
         range: string
-        pattern: "^.{0,50}$"
+        examples:
+          - value: "Climate2019"
+      edited_by:
+        description: >-
+          OSTI user ID making this revision of the metadata record.
+          Value internally maintained by E-Link.
+        range: integer
+        # readOnly: true
+        examples:
+          - value: 112389
+      edit_reason:
+        description: >-
+          Value provided by user editing a record describing the reason for the edit.
+        range: string
+        examples:
+          - value: "Modified title and authors."
+      edit_source:
+        description: >-
+          Value determined based on type of edit and user performing the association.
+        range: string
+        # readOnly: true
+        examples:
+          - value: "NORMAL_WEBFORM"
+      format_information:
+        description: >-
+          Information about the format of the product, including any operating system
+          or program requirements for use of the data, as applicable.
+        range: string
+        examples:
+          - value: "Originally Word Perfect 4.2 document"
       publication_date:
         # Note: not identical to the linkml date type, so not a date here
         description: >-
@@ -143,10 +325,10 @@ classes:
         pattern: "^.{0,75}$"
       availability:
         description: >-
-          If applicable, the office or organization to refer access requests to.
+          Describes record's availibility information.
         range: string
         examples:
-          - value: Direct paper publishing information
+          - value: "Also available at https://sample.com/document/report.pdf"
       originating_research_org:
         description: >-
           If credited, the organization name primarily responsible for
@@ -209,8 +391,8 @@ classes:
         multivalued: true
       geolocations:
         description: >-
-          Set of geolocation data, if any, for this data set.
-        range: geolocation
+          List of geolocation references for this record.
+        range: Geolocation
         multivalued: true
       awards:
         description: >-
@@ -397,7 +579,7 @@ classes:
           attribute "relatedIdentifierType".
         range: relatedIdentifierType
 
-  geolocation:
+  Geolocation:
     description: >-
       Wrapper tag for each individual geolocation data set.
     attributes:
@@ -658,3 +840,82 @@ enums:
         description: indicates B is used as a source of information for A
       Reviews:
         description: indicates that A is a review of B
+
+  WorkflowStatusEnum:
+    description: >-
+      The workflow status of the record.
+    permissible_values:
+      R:
+        description: >-
+          Fully released
+      SA:
+        description: >-
+          Saved
+      SR:
+        description: >-
+          Submitted to releasing official
+      SO:
+        description: >-
+          Submitted to OSTI awaiting validation
+      SF:
+        description: >-
+          Submitted to OSTI and failed validation
+      SX:
+        description: >-
+          Submitted to OSTI and failed to release
+      SV:
+        description: >-
+          Submitted to OSTI and failed validation
+      X:
+        description: >-
+          Error Status
+      D:
+        description: >-
+          Deleted:
+
+  AccessLimitationsEnum:
+    description: >
+      Access limitation codes to describe the distribution rules and limitations for this work.
+    permissible_values:
+      UNL:
+        description: Unlimited announcement
+      OPN:
+        description: OpenNET; requires opn_declassified_status, opn_declassified_date, identifier of type OPN_ACC
+      CPY:
+        description: Copyright restriction on part or all of the contents of this product
+      OUO:
+        description: Official use only
+      PROT:
+        description: Protected data (e.g., CRADA); requires prot_flag and pdouo_exemption_number; OTHER requires prot_data_other
+      PDOUO:
+        description: Program-determined OUO; requires pdouo_exemption_number
+      ECI:
+        description: Export-controlled information; requires pdouo_exemption_number
+      PDSH:
+        description: Protected Data Sensitive Homeland
+      USO:
+        description: US Only
+      LRD:
+        description: Limited Rights Data; requires pdouo_exemption_number
+      NAT:
+        description: National Security
+      NNPI:
+        description: Naval Navigation Propulsion Info
+      INTL:
+        description: International data
+      PROP:
+        description: Proprietary
+      PAT:
+        description: Patented information; requires pdouo_exemption_number
+      OTHR:
+        description: Other
+      CUI:
+        description: Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other
+
+  CollectionTypeEnum:
+    description: >-
+      The OSTI collection type originally creating this record.
+    permissible_values:
+      DOE_LAB:
+      DOE_GRANT:
+      CHORUS:
