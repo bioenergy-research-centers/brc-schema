@@ -107,6 +107,74 @@ classes:
         examples:
           - value: "1"
         # maxLength: 68
+      collection_type:
+        description: >-
+          Indicates the OSTI collection type originally creating this record.
+          Maintained internally by E-Link.
+        range: CollectionTypeEnum
+        examples:
+          - value: "DOE_LAB"
+        # readOnly: true
+      conference_information:
+        description: >-
+          "Describes the conference pertaining to this record, if any; usually name
+          and / or location the event took place.""
+        range: string
+        examples:
+          - value: "ApacheCON 2019 discussion panel"
+      conference_type:
+        description: >-
+          Code representing the type of conference-related work of this record.
+          Generally, only applicable to CO type submissions.
+        range: string
+        examples:
+          - value: "O"
+        # maxLength: 1
+      contract_award_date:
+        description: >-
+          Date contract for this record was awarded.
+        range: datetime
+        examples:
+          - value: "2012-02-19T00:00:00.000Z"
+      country_publication_code:
+        description: >-
+          Country of publication for this record
+        range: string
+        examples:
+          - value: "US"
+        # maxLength: 5
+      date_metadata_added:
+        description: >-
+          Date record first entered the OSTI system. Value internally
+          maintained by E-Link.
+        range: datetime
+        examples:
+          - value: "2023-09-22T18:31:32.043Z"
+        # readOnly: true
+      date_metadata_updated:
+        description: >-
+          Date of this revision of the record. Value internally
+          maintained by E-Link.
+        range: datetime
+        examples:
+          - value: "2020-04-02T12:33:17.553Z"
+        # readOnly: true
+      date_submitted_to_osti_first:
+        description: >-
+          Date record was first submitted to OSTI for publication.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2019-04-04T08:25:12.234Z"
+        # readOnly: true
+      date_submitted_to_osti_last:
+        description: >-
+          Most recent date record information was submitted to OSTI.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2018-05-04T11:44:23.864Z"
+        # readOnly: true
       dataset_type:
         description: >-
           Type of the main content of the dataset.
@@ -788,3 +856,11 @@ enums:
         description: Other
       CUI:
         description: Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other
+
+  CollectionTypeEnum:
+    description: >-
+      The OSTI collection type originally creating this record.
+    permissible_values:
+      DOE_LAB:
+      DOE_GRANT:
+      CHORUS:
