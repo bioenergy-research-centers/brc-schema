@@ -67,6 +67,46 @@ classes:
           - value: "UNL"
           - value: "OPN"
         # maxLength: 5
+      access_limitation_other:
+        description: >-
+          Additional information about access limitation for this record,
+          if needed. Required for CUI or PDOUO designations in access limitation.
+          May contain information about the following: Special handling instructions,
+          Copyright restrictions, Other criteria pertinent to the review, access
+          limitation, announcement, and/or restriction of this STI product.
+        range: string
+        examples:
+          - value: "Restricted to US Distribution Only by DOE Order."
+      added_by:
+        description: >-
+          E-Link user ID that initially entered this record.
+          Value internally maintained by E-Link.
+        range: integer
+        examples:
+          - value: 28931
+        # readOnly: true
+      announcement_codes:
+        description: >-
+          List of announcement codes for this record.
+        range: string
+        examples:
+          - value: "EDB"
+          - value: "INIS"
+        multivalued: true
+      edition:
+        description: >-
+          Edition number, as applicable to Books or other products.
+        range: string
+        examples:
+          - value: "2023"
+        # maxLength: 10
+      volume:
+        description: >-
+          A volume number as applicable, usually for journals or books.
+        range: string
+        examples:
+          - value: "1"
+        # maxLength: 68
       dataset_type:
         description: >-
           Type of the main content of the dataset.
@@ -162,10 +202,10 @@ classes:
         pattern: "^.{0,75}$"
       availability:
         description: >-
-          If applicable, the office or organization to refer access requests to.
+          Describes record's availibility information.
         range: string
         examples:
-          - value: Direct paper publishing information
+          - value: "Also available at https://sample.com/document/report.pdf"
       originating_research_org:
         description: >-
           If credited, the organization name primarily responsible for
