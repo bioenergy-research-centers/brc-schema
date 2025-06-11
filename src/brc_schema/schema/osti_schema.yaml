@@ -63,6 +63,7 @@ classes:
           limitations for this work.
         range: AccessLimitationsEnum
         multivalued: true
+        required: true
         examples:
           - value: "UNL"
           - value: "OPN"
@@ -203,8 +204,27 @@ classes:
         multivalued: true
       description:
         description: >-
-          A short description or abstract.
+          Description or abstract for this record. Required to have a value
+          for grantee submissions.
         range: string
+        examples:
+          - value: "Information about a particular record, report, or other document, or executive summary or abstract of same."
+      descriptors:
+        description: >-
+          List of descriptor codes for this record
+        range: string
+        examples:
+          - value: "ATMOSPHERE"
+          - value: "ELECTRONS"
+        multivalued: true
+      doe_funded_flag:
+        description: >-
+          Indicates if the record is primarily DOE-funded. Indicate Y for
+          Yes, N for no, or leave blank/omit if unknown status.
+        range: string
+        # maxLength: 1
+        examples:
+          - value: "Y"
       product_nos:
         description: >-
           The most important identifying numbers given to the dataset by the
@@ -227,14 +247,49 @@ classes:
         pattern: "^.{0,2}$"
       doi:
         description: >-
-          Put a value in this field ONLY if the DOI has already been assigned
-          by an organization other than OSTI.
+          The DOI for this record, if any.  Enter value if previously
+          assigned a DOI for the record from an outside service.  If
+          not supplied, OSTI may assign a DOI for the work for certain
+          applicable record types.
         range: string
+        examples:
+          - value: "10.5072/2020/238479ax"
       doi_infix:
         description: >-
-          If present, the site-selected DOI inset value for new DOIs.
+          "Any customized infix value for the DOI used when generating
+          a DOI reference. The following characters should be avoided
+          in the infix value: ;/?:@&=+$,."
         range: string
-        pattern: "^.{0,50}$"
+        examples:
+          - value: "Climate2019"
+      edited_by:
+        description: >-
+          OSTI user ID making this revision of the metadata record.
+          Value internally maintained by E-Link.
+        range: integer
+        # readOnly: true
+        examples:
+          - value: 112389
+      edit_reason:
+        description: >-
+          Value provided by user editing a record describing the reason for the edit.
+        range: string
+        examples:
+          - value: "Modified title and authors."
+      edit_source:
+        description: >-
+          Value determined based on type of edit and user performing the association.
+        range: string
+        # readOnly: true
+        examples:
+          - value: "NORMAL_WEBFORM"
+      format_information:
+        description: >-
+          Information about the format of the product, including any operating system
+          or program requirements for use of the data, as applicable.
+        range: string
+        examples:
+          - value: "Originally Word Perfect 4.2 document"
       publication_date:
         # Note: not identical to the linkml date type, so not a date here
         description: >-
@@ -336,8 +391,8 @@ classes:
         multivalued: true
       geolocations:
         description: >-
-          Set of geolocation data, if any, for this data set.
-        range: geolocation
+          List of geolocation references for this record.
+        range: Geolocation
         multivalued: true
       awards:
         description: >-
@@ -524,7 +579,7 @@ classes:
           attribute "relatedIdentifierType".
         range: relatedIdentifierType
 
-  geolocation:
+  Geolocation:
     description: >-
       Wrapper tag for each individual geolocation data set.
     attributes:
