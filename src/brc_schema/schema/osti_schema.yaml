@@ -23,30 +23,50 @@ imports:
 classes:
   records:
     description: >-
-      Results are always presented as a list of data defined as <record>
-      elements wrapped in a <records> container.
+      A list of Record metadata.
     tree_root: true
     attributes:
       records:
         description: List of records in the collection.
-        range: record
+        range: Record
         multivalued: true
 
-  # This class definition omits the following deprecated attributes:
-  # (see https://www.osti.gov/elink/241-6api.jsp#record-model-fields)
-  # - creators
-  record:
+  Record:
     description: >-
-      A record is a collection of metadata elements that describe a
-      data set.
+      Defines the bibliographic metadata about a particular work or record.
+      Depending on product type, various elements are permitted, not permitted,
+      or required.
     attributes:
       osti_id:
         description: >-
-          The unique OSTI identifier for the record. Required for updates.
+          Unique identifier for OSTI record, only required for updates.
         range: integer
         identifier: true
         examples:
-          - value: 1318659
+          - value: 9999
+      revision:
+        description: >-
+          Revision number (sequence) for this record.
+        range: integer
+        examples:
+          - value: 1
+        # readOnly: true
+      workflow_status:
+        description: >-
+          Workflow status of current revision of record.
+        range: WorkflowStatusEnum
+        examples:
+          - value: "SO"
+      access_limitations:
+        description: >-
+          Access limitation codes to describe the distribution rules and
+          limitations for this work.
+        range: AccessLimitationsEnum
+        multivalued: true
+        examples:
+          - value: "UNL"
+          - value: "OPN"
+        # maxLength: 5
       dataset_type:
         description: >-
           Type of the main content of the dataset.
@@ -657,3 +677,74 @@ enums:
         description: indicates B is used as a source of information for A
       Reviews:
         description: indicates that A is a review of B
+
+  WorkflowStatusEnum:
+    description: >-
+      The workflow status of the record.
+    permissible_values:
+      R:
+        description: >-
+          Fully released
+      SA:
+        description: >-
+          Saved
+      SR:
+        description: >-
+          Submitted to releasing official
+      SO:
+        description: >-
+          Submitted to OSTI awaiting validation
+      SF:
+        description: >-
+          Submitted to OSTI and failed validation
+      SX:
+        description: >-
+          Submitted to OSTI and failed to release
+      SV:
+        description: >-
+          Submitted to OSTI and failed validation
+      X:
+        description: >-
+          Error Status
+      D:
+        description: >-
+          Deleted:
+
+  AccessLimitationsEnum:
+    description: >
+      Access limitation codes to describe the distribution rules and limitations for this work.
+    permissible_values:
+      UNL:
+        description: Unlimited announcement
+      OPN:
+        description: OpenNET; requires opn_declassified_status, opn_declassified_date, identifier of type OPN_ACC
+      CPY:
+        description: Copyright restriction on part or all of the contents of this product
+      OUO:
+        description: Official use only
+      PROT:
+        description: Protected data (e.g., CRADA); requires prot_flag and pdouo_exemption_number; OTHER requires prot_data_other
+      PDOUO:
+        description: Program-determined OUO; requires pdouo_exemption_number
+      ECI:
+        description: Export-controlled information; requires pdouo_exemption_number
+      PDSH:
+        description: Protected Data Sensitive Homeland
+      USO:
+        description: US Only
+      LRD:
+        description: Limited Rights Data; requires pdouo_exemption_number
+      NAT:
+        description: National Security
+      NNPI:
+        description: Naval Navigation Propulsion Info
+      INTL:
+        description: International data
+      PROP:
+        description: Proprietary
+      PAT:
+        description: Patented information; requires pdouo_exemption_number
+      OTHR:
+        description: Other
+      CUI:
+        description: Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other
