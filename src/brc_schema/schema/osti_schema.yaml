@@ -474,6 +474,20 @@ classes:
         range: datetime
         examples:
           - value: "2004-07-12T00:00:00.000Z"
+      pdouo_exemption_number:
+        description: >-
+          Exception number for PDOUO access limitation records.
+          Multiple values may be delimited by semi-colons.
+        range: string
+        examples:
+          - value: "278324"
+      persons:
+        description: >-
+          List of persons (authors, contributors, etc.) related to this record.
+          For submissions, at least one AUTHOR or CONTRIBUTING Person, along
+          with a RELEASE contact, is required.
+        range: Person
+        multivalued: true
       availability:
         description: >-
           Describes record's availibility information.
@@ -1172,6 +1186,95 @@ classes:
         examples:
           - value: "10.11578/289342"
 
+  Person:
+    description: >-
+      Information about a particular person involved in the production or maintenance of this record
+    attributes:
+      type:
+        range: PersonType
+        required: true
+      first_name:
+        description: >-
+          First (or 'Given') name of the person
+        range: string
+        examples:
+          - value: "Sample"
+        # maxLength: 50
+      middle_name:
+        description: >-
+          Middle name or initial of the person
+        range: string
+        examples:
+          - value: "Q."
+        # maxLength: 50
+      last_name:
+        description: >-
+          Last (or 'Family') name of this person
+        range: string
+        examples:
+          - value: "Person"
+        # maxLength: 60
+      email:
+        description: >-
+          List of any email address(es) associated with this person.
+          Email addresses are validated to be well-formed.
+        range: string
+        multivalued: true
+        examples:
+          - value: "persons@sample.org"
+      orcid:
+        description: >-
+          ORCID (https://orcid.org/) value for this person.
+          ORCID values, if provided, must be of valid format.
+        range: string
+        examples:
+          - value: "0000-0001-2345-6789"
+      phone:
+        description: >-
+          Contact phone number for this person, if available.
+          If provided, must be a valid phone number expression.
+        range: string
+        examples:
+          - value: "(555) 860-9923"
+        # maxLength: 30
+      osti_user_id:
+        description: >-
+          OSTI-assigned identifier for this person, if any
+        range: integer
+      contributor_type:
+        range: ContributorType
+      affiliations:
+        # Note: Affiliation is not the same as Organization
+        # and is specific to this version of the schema,
+        # as the source schema uses a nested class definition
+        description: >-
+          List of any affiliations for this person.  At least one of either
+          'name' and/or 'ror_id' is required; if ROR ID is provided, the
+          value will be validated against the OSTI ROR authority.
+        range: Affiliation
+        multivalued: true
+
+  Affiliation:
+    # Note: this class is specific to this version of the schema,
+    # as the source schema uses a nested class definition
+    # within the Person class.
+    # Note: either name or ror_id are required
+    description: >-
+      An affiliation for a person, such as an organization or institution.
+    attributes:
+      name:
+        description: >-
+          Name of the institution or laboratory with which this person is affiliated.
+        range: string
+        examples:
+          - value: "Dutch Industries Research Laboratory, Oakland, CA"
+      ror_id:
+        description: >-
+          ROR ID of this affiliation, if any.  Will be validated against ROR
+          organization authority if present.
+        range: string
+        examples:
+          - value: "02x0wxr53"
 
 enums:
   ContributorType:
@@ -1539,3 +1642,18 @@ enums:
       AWARD_DOI:
       CN_DOE:
       CN_NONDOE:
+
+  PersonType:
+    # maxLength: 20
+    description: >-
+      Indicates type of person.
+    permissible_values:
+      AUTHOR:
+      RELEASE:
+      CONTACT:
+      CONTRIBUTING:
+      PROT_CE:
+      PROT_RO:
+      SBIZ_PI:
+      SBIZ_BO:
+  
