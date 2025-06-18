@@ -383,6 +383,15 @@ classes:
         range: AuditLog
         multivalued: true
         # readOnly: true
+      media:
+        description: >-
+          Listing of any media and files associated with this record,
+          along with various metadata information and status data for
+          each.  Empty if no media is currently associated with this
+          record.
+        range: MediaSet
+        multivalued: true
+        # readOnly: true
       availability:
         description: >-
           Describes record's availibility information.
@@ -730,6 +739,299 @@ classes:
         examples:
           - value: "Validation Successful."
 
+  MediaSet:
+    description: >-
+      Metadata about files associated with this product.  Summarizes
+      the main media file associated with this product, usually an
+      off-site URL or PDF uploaded to OSTI, with its state, URL if
+      applicable, and other identifying state information pertaining
+      to the media files as a group. Each media set is uniquely
+      identified by its `MEDIA_ID` value.
+    attributes:
+      media_id:
+        description: >-
+          Unique ID for this MEDIA SET.
+        range: integer
+        examples:
+          - value: 233743
+      revision:
+        description: >-
+          Revision number of this media association set.
+        range: integer
+        examples:
+          - value: 3
+        # readOnly: true
+      access_limitations:
+        description: >-
+          Access limitations are inherited from the parent metadata
+          record at time of association.
+        range: AccessLimitationsEnum
+        multivalued: true
+        examples:
+          - value: "UNL"
+        # readOnly: true
+        # maxLength: 5
+      osti_id:
+        description: >-
+          Links to Record OSTI_ID value for a Media Set.
+        range: integer
+        examples:
+          - value: 99238
+        # readOnly: true
+      status:
+        description: >-
+          Indicate the current processing of the media file set.
+        range: string
+        examples:
+          - value: "P"
+        # readOnly: true
+      added_by:
+        description: >-
+          Indicates user ID that added this media set.
+        range: integer
+        examples:
+          - value: 34582
+        # readOnly: true
+      document_page_count:
+        description: >-
+          Number of pages, if applicable, found in the processing of
+          this file.
+        range: integer
+        examples:
+          - value: 23
+        # readOnly: true
+      mime_type:
+        description: >-
+          MIME type description of the file content of this media file.
+          This value is set by OSTI media processing.
+        range: string
+        examples:
+          - value: "application/pdf"
+        # readOnly: true
+      media_title:
+        description: >-
+          Optional title provided for the given media set.
+        range: string
+        examples:
+          - value: "PDF of technical report content"
+        # maxLength: 500
+      media_location:
+        description: >-
+          Indicates if this media set's main content is LOCAL or OFF-SITE.
+        range: MediaLocationEnum
+        examples:
+          - value: "L"
+        # readOnly: true
+      media_source:
+        description: >-
+          Indicates the initial primary source of the media set.
+        range: string
+        examples:
+          - value: "MEDIA_API_UPLOAD"
+        # readOnly: true
+      date_added:
+        description: >-
+          Date this media set was first created. (UTC)
+        range: datetime
+        examples:
+          - value: "1992-03-08T11:23:44.123+00:00"
+        # readOnly: true
+      date_updated:
+        description: >-
+          Date this media set was most recently modified. (UTC)
+        range: datetime
+        examples:
+          - value: "2009-11-05T08:33:12.231+00:00"
+        # readOnly: true
+      date_valid_end:
+        description: >-
+          If present, date and time when media association was
+          removed or replaced. (UTC)
+        range: datetime
+        examples:
+          - value: "2021-02-15T12:32:11.332+00:00"
+        # readOnly: true
+      files:
+        description: >-
+          Array of all files, including original submission of file
+          or URL along with any derived files during processing of media.
+        range: MediaFile
+        multivalued: true
+
+  MediaFile:
+    description: >-
+      Metadata information pertaining to a particular media resource
+      associated with this product.  Contains information about its
+      disposition, content, and processing state.  Each individual file
+      is uniquely identified by its `MEDIA_FILE_ID` value.
+    attributes:
+      media_file_id:
+        description: >-
+          Unique identifier for a given MEDIA FILE.
+        range: integer
+        examples:
+          - value: 983445
+        # readOnly: true
+      media_id:
+        description: >-
+          Link to parent MEDIA SET ID.
+        range: integer
+        examples:
+          - value: 233743
+      checksum:
+        description: >-
+          Calculated hash or checksum value of the physical file as
+          applicable, from media processing.
+        range: string
+        examples:
+          - value: "85a88fc60dab52214508631f3dd93f1ada3e6e8cd00d09a58608054d8e5ded38"
+        # readOnly: true
+      revision:
+        description: >-
+          Revision number of this media file, associated with the MEDIA SET
+        range: integer
+        examples:
+          - value: 1
+        # readOnly: true
+      parent_media_file_id:
+        description: >-
+          If non-zero, indicates unique MEDIA FILE ID this MEDIA FILE
+          is derived from.
+        range: integer
+        examples:
+          - value: 0
+        # readOnly: true
+      status:
+        description: >-
+          Indiciates current processing status for this MEDIA FILE.
+          Other values may indicate awaiting additional processing,
+          such as 'OCR', pending text processing.
+        range: string
+        examples:
+          - value: "DONE"
+        # readOnly: true
+      media_type:
+        description: >-
+          Indicates TYPE of media file, detected or set during media
+          processing.
+        range: string
+        examples:
+          - value: "T"
+        # readOnly: true
+        # maxLength: 1
+      url_type:
+        description: >-
+          Indicates if the file is LOCALLY HOSTED ('L') or OFF-SITE URL ('O').
+        range: MediaLocationEnum
+        examples:
+          - value: "L"
+        # readOnly: true
+        # maxLength: 1
+      url:
+        description: >-
+          Either the file name for local files, or URL path to off-site resource.
+        range: string
+        examples:
+          - value: "report.pdf"
+        # maxLength: 255
+      mime_type:
+        description: >-
+          Mime type describing the MEDIA FILE content.
+        range: string
+        examples:
+          - value: "application/pdf"
+        # readOnly: true
+      added_by_user_id:
+        description: >-
+          Indicates the E-Link USER ID that attached this MEDIA FILE.
+        range: integer
+        examples:
+          - value: 118678
+        # readOnly: true
+      media_source:
+        description: >-
+          Describes method of file production or association with this media set.
+        range: string
+        examples:
+          - value: "TEXT_FILE_EXTRACTION"
+        # readOnly: true
+      file_size_bytes:
+        description: >-
+          If local file, the file size in bytes.
+        range: integer
+        examples:
+          - value: 993834
+        # readOnly: true
+      duration_seconds:
+        description: >-
+          For audio-visual media, the duration of the resource in seconds.
+        range: integer
+        examples:
+          - value: 77
+        # readOnly: true
+      document_page_count:
+        description: >-
+          For document-based media, the number of printed pages if applicable.
+        range: integer
+        examples:
+          - value: 22
+        # readOnly: true
+      subtitle_tracks:
+        description: >-
+          Indicates the number of subtitle tracks for audio-visual media.
+        range: integer
+        examples:
+          - value: 2
+        # readOnly: true
+      video_tracks:
+        description: >-
+          Indicates the number of video tracks in audio-visual media.
+        range: integer
+        examples:
+          - value: 1
+        # readOnly: true
+      pdf_version:
+        description: >-
+          For PDF media files, indicates the version of PDF.
+        range: string
+        examples:
+          - value: "1.5"
+        # readOnly: true
+      pdfa_conformance:
+        description: >-
+          For PDF media that is PDF/A compliant, the conformance level, generally A, B, or U.
+        range: string
+        examples:
+          - value: "A"
+        # readOnly: true
+      pdfa_part:
+        description: >-
+          For PDF media that is PDF/A compliant, the level of compliance, as a value between 1 and 4.
+        range: string
+        examples:
+          - value: "1"
+        # readOnly: true
+      pdfua_part:
+        description: >-
+          For PDF media that is PDF/UA compliant, its compliance level, generally 1 or 2.
+        range: string
+        examples:
+          - value: "2"
+        # readOnly: true
+      date_file_added:
+        description: >-
+          Indicates the date and time this media file was created.
+        range: datetime
+        examples:
+          - value: "2012-08-33T15:33:22.504+00:00"
+        # readOnly: true
+      date_file_updated:
+        description: >-
+          Indicates the last date and time this media file was modified.
+        range: datetime
+        examples:
+          - value: "2013-04-22T18:33:28.234+00:00"
+        # readOnly: true
 
 enums:
   ContributorTypeCodes:
@@ -1075,3 +1377,14 @@ enums:
       USER_VER:
       WORK_AUTH:
       WORK_PROP:
+
+  MediaLocationEnum:
+    description: >-
+      Indicates if a media file is stored locally or off-site.
+    permissible_values:
+      L:
+        description: >-
+          Local
+      O:      
+        description: >-
+          Off-Site
