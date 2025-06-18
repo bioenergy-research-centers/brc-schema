@@ -392,6 +392,44 @@ classes:
         range: MediaSet
         multivalued: true
         # readOnly: true
+      opn_addressee:
+        description: >-
+          For OpenNET records, the addressee information
+        range: string
+        examples:
+          - value: "Forestall Bldg A-113"
+      opn_declassified_date:
+        # Note: example is not in ISO-8601 format, so is
+        # handled as a string
+        description: >-
+          For OpenNET records, the date information was declassified
+        range: string
+        examples:
+          - value: "03/02/2018"
+      opn_declassified_status:
+        description: >-
+          For OpenNET records, status of declassification of information
+        range: string
+        examples:
+          - value: "N"
+      opn_document_categories:
+        description: >-
+          For OpenNET records, list of any document categories pertaining
+          to this record
+        range: string
+        multivalued: true
+        examples:
+          - value: "Chemistry"
+          - value: "Geothermal"
+      opn_document_location:
+        range: string
+        examples:
+          - value: "US Department of Science, Office 201"
+      opn_fieldoffice_acronym_code:
+        range: string
+        examples:
+          - value: "THX-1138"
+        # maxLength: 10
       availability:
         description: >-
           Describes record's availibility information.
