@@ -430,6 +430,12 @@ classes:
         examples:
           - value: "THX-1138"
         # maxLength: 10
+      organizations:
+        description: >-
+          List of organizations related to this record. For submissions,
+          at least SPONSOR and RESEARCHING organization is required.
+        range: Organization
+        multivalued: true
       availability:
         description: >-
           Describes record's availibility information.
@@ -1071,15 +1077,72 @@ classes:
           - value: "2013-04-22T18:33:28.234+00:00"
         # readOnly: true
 
-enums:
-  ContributorTypeCodes:
+  Organization:
+    # Note: either name or ror_id are required
     description: >-
-      The type of contribution.
-    permissible_values:
-      ContactPerson:
+      Describes a particular organization associated with the bibliographic record.
+      Organizations may be author collaborations, sponsors, research laboratories,
+      or contributors to the work, as indicated by their associated type.
+      For identification purposes, at least one of either 'name' or 'ror_id' is
+      required for validation.  If ROR ID is specified, it will be validated against
+      the ROR authority at OSTI.
+    attributes:
+      type:
+        range: OrganizationType
+        required: true
+      name:
         description: >-
-          Person with knowledge of how to access, troubleshoot, or otherwise
-          field issues related to the resource.
+          Name of the organization
+        range: string
+        required: true
+        examples:
+          - value: "Quantum Physics of America, Inc."
+        # maxLength: 800
+      contributor_type:
+        description: >-
+          Indicate the contribution made by this Organization.  Required for CONTRIBUTING 'type'.
+        range: ContributorType
+        examples:
+          - value: "DataCollector"
+      ror_id:
+        description: >-
+          ROR ID for this organization, if any. This value will be validated against the ROR authority.
+        range: string
+        examples:
+          - value: "31478740"
+      identifiers:
+        description: >-
+          List of any identifiers for this Organization.  Only applicable to Sponsoring organizations.
+        range: OrganizationIdentifier
+        multivalued: true
+
+  OrganizationIdentifier:
+    description: >-
+      One or more identifying numbers or references associated with this organization.  Please note
+      that only sponsoring organizations may have associated identifier values.
+    attributes:
+      type:
+        range: OrganizationIdentifierType
+        required: true
+        examples:
+          - value: "AWARD_DOI"
+      value:
+        description: >-
+          Indicates the value of this identifier.  May be validated according to its particular type.
+        range: string
+        required: true
+        examples:
+          - value: "10.11578/289342"
+
+
+enums:
+  ContributorType:
+    # maxLength: 25
+    description: >-
+      Describes the type of contribution to the work.  Required for Persons or
+      Organizations of CONTRIBUTING type.
+    permissible_values:
+      Chair:
       DataCollector:
         description: >-
           Person/institution responsible for finding or gathering data under the
@@ -1131,26 +1194,19 @@ enums:
         description: >-
           Person with no specifically defined role in the development of the
           resource, but who is someone the author wishes to recognize.
-      Researcher:
-        description: >-
-          A person involved in analyzing data or the results of an experiment or
-          formal study.
-      ResearchGroup:
-        description: >-
-          Refers to a group of individuals with a lab, department, or division;
-          the group has a particular, defined focus of activity.
+      Reviewer:
+      ReviewAssistant:
+      ReviewerExternal:
       RightsHolder:
         description: >-
           Person or institution owning or managing property rights, including
           intellectual property rights over the resource.
-      Sponsor:
-        description: >-
-          Person or organization that issued a contract or under the auspices of
-          which a work has been performed.
+      StatsReviewer:
       Supervisor:
         description: >-
           Designated administrator over one or more groups working to produce a
           resource or over one or more steps of development process.
+      Translator:
       WorkPackageLeader:
         description: >-
           A Work Package is a recognized data product, not all of which is
@@ -1426,3 +1482,22 @@ enums:
       O:      
         description: >-
           Off-Site
+
+  OrganizationType:
+    # maxLength: 20
+    description: >-
+      Indicates type of organization.
+    permissible_values:
+      AUTHOR:
+      CONTRIBUTING:
+      RESEARCHING:
+      SPONSOR:
+
+  OrganizationIdentifierType:
+    # maxLength: 20
+    description: >-
+      Describe the type of identifier.
+    permissible_values:
+      AWARD_DOI:
+      CN_DOE:
+      CN_NONDOE:
