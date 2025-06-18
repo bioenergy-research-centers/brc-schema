@@ -342,13 +342,37 @@ classes:
         examples:
           - value: "7/6/2022"
       publication_date:
-        # Note: not identical to the linkml date type, so not a date here
         description: >-
-          The dataset publication date, in mm/dd/yyyy, yyyy, or yyyy Month
-          format.
-        range: string
+          Date of publication of this record.  For Thesis/Dissertation records,
+          this may also be the completion date of the Thesis.  For Patents, the
+          date the patent was issued or approved.
+        range: datetime
         required: true
-        pattern: "^(\\d{2}/\\d{2}/\\d{4}|\\d{4}|\\d{4} [A-Za-z]+)$"
+        examples:
+          - value: "2009-06-12T00:00:00.000Z"
+      publication_date_text:
+        description: >-
+          String representation of the publication date (e.g., Summer 2001)
+        range: string
+        examples:
+          - value: "Winter 2012"
+      publisher_information:
+        description: >-
+          Publisher-specific information if applicable
+        range: string
+        examples:
+          - value: "University Press, Volume III Spring 2001"
+        # maxLength: 400
+      related_doc_info:
+        # deprecated: true
+        description: >-
+          Additional information regarding the document.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions.
+        range: string
+        examples:
+          - value: "Reprint Spring 2012"
+        # maxLength: 2255
       other_identifying_numbers:
         description: >-
           Any alternative identifying numbers for this data set.
@@ -488,6 +512,45 @@ classes:
           with a RELEASE contact, is required.
         range: Person
         multivalued: true
+      product_size:
+        description: >-
+          Information regarding physical size of media or report, if applicable.
+        range: string
+        examples:
+          - value: "227 pages"
+        # maxLength: 50
+      product_type:
+        range: ProductType
+      product_type_other:
+        description: >-
+          Additional information for 'OTHER' product types.  Required if 'OT'
+          product type is specified for this record.
+        range: string
+        examples:
+          - value: "Preprint"
+        # maxLength: 200
+      prot_flag:
+        description: >-
+          Indicates the type of protected data described by this record.
+          PROT must be specified in the access limitations.
+        range: string
+        examples:
+          - value: "EPACT"
+        # maxLength: 5
+      prot_data_other:
+        description: >-
+          Information regarding why the information is protected if not a
+          CRADA product.
+        range: string
+        examples:
+          - value: "PROTECTED"
+        # maxLength: 80
+      prot_release_date:
+        description: >-
+          The date on which data protections for this record will end.
+        range: datetime
+        examples:
+          - value: "2023-07-23T00:00:00.000Z"
       availability:
         description: >-
           Describes record's availibility information.
@@ -551,8 +614,8 @@ classes:
         pattern: "^.{0,25}$"
       related_identifiers:
         description: >-
-          Set of related identifiers for this data.
-        range: detail
+          List of related identifiers connected to this record
+        range: RelatedIdentifier
         multivalued: true
       geolocations:
         description: >-
@@ -721,28 +784,28 @@ classes:
         description: The contribution type, attribute exclusive to contributors.
         range: ContributorTypeCodes
 
-  detail:
+  RelatedIdentifier:
     description: >-
-      Tag encapsulating a single related identifier value.
+      Identifies other resources that are related in some manner to this record
     attributes:
-      related_identifier:
+      type:
         description: >-
-          The DOI of the related resource.
+          Identify the type of this related identifier
+        range: RelatedIdentifierType
+        examples:
+          - value: "DOI"
+        required: true
+      relation:
+        range: RelationType
+        required: true
+      value:
+        description: >-
+          The value of the identifier
         range: string
         examples:
-          - value: 10.5072/238923
-        pattern: "^.{0,2000}$"
-      relation_type:
-        description: >-
-          A code specifying the type of relation between this identifier and
-          the parent dataset. May be specified as the tag attribute
-          "relationType" optionally.
-        range: relationType
-      related_identifier_type:
-        description: >-
-          The type of identifier, usually "DOI". May be specified as tag
-          attribute "relatedIdentifierType".
-        range: relatedIdentifierType
+          - value: "10.11578/2020/28383"
+        required: true
+        # maxLength: 2000
 
   Geolocation:
     description: >-
@@ -1414,20 +1477,40 @@ enums:
           facilities. This creates a central Instrument record with a DOI to
           link out to related datasets.
 
-  relatedIdentifierType:
+  RelatedIdentifierType:
     description: >
-      The type of identifier for the related resource.
+      Identify the type of this related identifier
     permissible_values:
+      ARK:
+      arXiv:
+      bibcode:
       DOI:
-        description: The related identifier is a DOI
+      EAN13:
+      EISSN:
+      IGSN:
+      ISBN:
+      ISSN:
+      ISTC:
+      Handle:
+      LISSN:
+      LSID:
+      OTHER:
+      PMCID:
+      PMID:
+      PURL:
+      UPC:
+      URI:
       URL:
-        description: The related identifier is a URL
+      URN:
+      UUID:
+      w3id:
 
-  relationType:
+  RelationType:
+    # maxLength: 20
     description: >
-      The type of relation between the related identifier and the parent
-      dataset.
+      Indicates the relationship between this identifier and the source record.
     permissible_values:
+      BasedOnData:
       Cites:
         description: indicates that A includes B in a citation
       Compiles:
@@ -1435,22 +1518,36 @@ enums:
           indicates B is the result of a compile or creation event using A
       Continues:
         description: indicates A is a continuation of the work B
+      Describes:
       Documents:
         description: indicates A is documentation about B
+      Finances:
+      HasComment:
+      HasDerivation:
       HasMetadata:
         description: indicates resource A has additional metadata B
       HasPart:
         description: indicates A includes the part B
+      HasRelatedMaterial:
+      HasReply:
+      HasReview:
+      HasVersion:
+      IsBasedOn:
+      IsBasisFor:
       IsCitedBy:
         description: indicates that B includes A in a citation
+      IsCommentOn:
       IsCompiledBy:
         description: indicates B is used to compile or create A
       IsContinuedBy:
         description: indicates A is continued by the work B
+      IsDataBasisFor:
       IsDerivedFrom:
         description: indicates B is a source upon which A is based
+      IsDescribedBy:
       IsDocumentedBy:
         description: indicates B is documentation about/explaining A
+      IsFinancedBy:
       IsIdenticalTo:
         description: >-
           indicates that A is identical to B, for use when there is a need to
@@ -1461,6 +1558,8 @@ enums:
         description: >-
           indicates A is a new edition of B, where the new edition has been
           modified or updated
+      IsObsoletedBy:
+        description: indicates that A is obsoleted by B
       IsOriginalFormOf:
         description: indicates A is the original form of B
       IsPartOf:
@@ -1470,24 +1569,28 @@ enums:
         description: indicates A is a previous edition of B
       IsReferencedBy:
         description: indicates A is used as a source of information by B
+      IsRelatedMaterial:
+      IsReplyTo:
+      IsRequiredBy:
       IsReviewedBy:
         description: indicates that A is reviewed by B
+      IsReviewOf:
       IsSourceOf:
         description: indicates A is a source upon which B is based
       IsSupplementedBy:
         description: indicates that B is a supplement to A
       IsSupplementTo:
         description: indicates that A is a supplement to B
-      IsObsoletedBy:
-        description: indicates that A is obsoleted by B
-      Obsoletes:
-        description: indicates that A obsoletes B
       IsVariantFormOf:
         description: >-
           indicates A is a variant or different form of B, e.g. calculated or
           calibrated form or different packaging
+      IsVersionOf:
+      Obsoletes:
+        description: indicates that A obsoletes B
       References:
         description: indicates B is used as a source of information for A
+      Requires:
       Reviews:
         description: indicates that A is a review of B
 
@@ -1657,3 +1760,53 @@ enums:
       SBIZ_PI:
       SBIZ_BO:
   
+  ProductType:
+    # Note: code descriptions are from the E-Link documentation at
+    # https://www.osti.gov/elink2api/
+    # maxLength: 2
+    description: >-
+      Define the type of product represented by this metadata information.
+      Values presented *in italics* are considered Legacy types.
+    permissible_values:
+      AR:
+        description: >-
+          Accomplishment Report
+      B:
+        description: >-
+          Book
+      CO:
+        description: >-
+          Conference
+      DA:
+        description: >-
+          Dataset
+      FS:
+        description: >-
+          Factsheet
+      JA:
+        description: >-
+          Journal Article
+      MI:
+        description: >-
+          Miscellaneous
+      OT:
+        description: >-
+          Other
+      P:
+        description: >-
+          Patent
+      PD:
+        description: >-
+          Program Document
+      SM:
+        description: >-
+          Software Manual
+      TD:
+        description: >-
+          Thesis/Dissertation
+      TR:
+        description: >-
+          Technical Report
+      PA:
+        description: >-
+          Patent Application
