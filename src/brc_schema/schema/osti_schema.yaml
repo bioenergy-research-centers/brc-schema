@@ -44,6 +44,11 @@ classes:
         identifier: true
         examples:
           - value: 9999
+      identifiers:
+        description: >-
+          List of identifying numbers related to this record
+        range: Identifier
+        multivalued: true
       revision:
         description: >-
           Revision number (sequence) for this record.
@@ -290,6 +295,14 @@ classes:
         range: string
         examples:
           - value: "Originally Word Perfect 4.2 document"
+      media_embargo_sunset_date:
+        # Note: example is not in ISO-8601 format, so is
+        # handled as a string
+        description: >-
+          Indicates date on which the document embargo ends, if applicable.
+        range: string
+        examples:
+          - value: "7/6/2022"
       publication_date:
         # Note: not identical to the linkml date type, so not a date here
         description: >-
@@ -618,6 +631,23 @@ classes:
         description: Latitude of the point.
         range: float
 
+  Identifier:
+    description: >-
+      Values of various identifying numbers, such as DOE contract number,
+      product numbers, ISBN, ISSN, and other various forms of identifying
+      markings or numbers pertaining to the product or metadata.
+    attributes:
+      type:
+        range: I
+      value:
+        # maxLength: 100
+        description: >-
+          Value of this identifier
+        range: string
+        examples:
+          - value: "9234782"
+
+
 enums:
   ContributorTypeCodes:
     description: >-
@@ -919,3 +949,46 @@ enums:
       DOE_LAB:
       DOE_GRANT:
       CHORUS:
+
+  IdentifierType:
+    # Note: descriptions are specific to this version of the schema
+    # and are not from the original source
+    description: >-
+      Describe the type of identifier
+    permissible_values:
+      AUTH_REV:
+      CN_DOE:
+      CN_NONDOE:
+      CODEN:
+      DOE_DOCKET:
+        description: >-
+          DOE Docket number, used for documents submitted to the
+          DOE Electronic Docket Room (e-Docket Room) system.
+      EDB:
+      ETDE_RN:
+      INIS_RN:
+      ISBN:
+        description: >-
+          International Standard Book Number
+      ISSN:
+        description: >-
+          International Standard Serial Number
+      LEGACY:
+      NSA:
+      OPN_ACC:
+      OTHER_ID:
+      PATENT:
+        description: >-
+          Patent number
+      PROJ_ID:
+        description: >-
+          Project identifier
+      PROP_REV:
+      REF:
+      REL_TRN:
+      RN:
+      TRN:
+      TVI:
+      USER_VER:
+      WORK_AUTH:
+      WORK_PROP:
