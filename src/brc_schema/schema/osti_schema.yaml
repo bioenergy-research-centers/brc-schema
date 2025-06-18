@@ -436,6 +436,44 @@ classes:
           at least SPONSOR and RESEARCHING organization is required.
         range: Organization
         multivalued: true
+      other_information:
+        description: >-
+          Information useful to include in published announcements which is
+          not suited for other fields.
+        range: string
+        multivalued: true
+        examples:
+          - value: "Published in Nature, Fall 2012"
+      ouo_release_date:
+        # Note: example is not in ISO-8601 format, so is
+        # handled as a string
+        description: >-
+          Date of OUO access limitation expiration if applicable.
+        range: string
+        examples:
+          - value: "1997-05-09 10:23:44"
+      paper_flag:
+        description: >-
+          Indicates if OSTI has or had a paper copy of this product.
+        range: boolean
+        examples:
+          - value: true
+      patent_assignee:
+        description: >-
+          The holder of property rights to a patent.
+        range: string
+        examples:
+          - value: "United Property Holdings, LLC"
+      patent_file_date:
+        description: >-
+          Date patent was filed with US Patent Office.
+        range: datetime
+        examples:
+          - value: "2018-04-08T00:00:00.000Z"
+      patent_priority_date:
+        range: datetime
+        examples:
+          - value: "2004-07-12T00:00:00.000Z"
       availability:
         description: >-
           Describes record's availibility information.
