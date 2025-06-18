@@ -617,6 +617,106 @@ classes:
           List of related identifiers connected to this record
         range: RelatedIdentifier
         multivalued: true
+      released_to_osti_date:
+        description: >-
+          Date record information was released to OSTI, as entered
+          by releasing official.
+        range: datetime
+        examples:
+          - value: "2019-06-03T00:00:00.000Z"
+      releasing_official_comments:
+        description: >-
+          Any comments made by the releasing official on the record.
+        range: string
+        examples:
+          - value: "Final report due January 2021."
+      report_period_end_date:
+        range: datetime
+        examples:
+          - value: "2023-01-14T00:00:00.000Z"
+      report_period_start_date:
+        range: datetime
+        examples:
+          - value: "2023-01-05T00:00:00.000Z"
+      report_types:
+        description: >-
+          The type(s) of information or frequency of reporting of
+          information in this report.
+        range: string
+        multivalued: true
+        examples:
+          - value: "F"
+          - value: "B"
+      report_type_other:
+        description: >-
+          Detail information about 'Other' report types.
+        range: string
+        examples:
+          - value: "OTHERVALUE"
+        # maxLength: 80
+      sbiz_flag:
+        description: >-
+          Indicates if this metadata is SBIR or STTR related.
+        range: string
+        # maxLength: 6
+        examples:
+          - value: "SBIR"
+          - value: "STTR"
+      sbiz_phase:
+        description: >-
+          A three-character field constrained to 'I', 'II', 'IIA',
+          'IIB', or 'III' indicating the phase of this SBIR/STTR report.
+        range: string
+        # maxLength: 3
+        examples:
+          - value: "IIB"
+      sbiz_previous_contract_number:
+        description: >-
+          The previous SBIR/STTR contract number if a Phase III SBIR/STTR
+          report.
+        range: string
+        examples:
+          - value: "SMPL-2023-1291"
+        # maxLength: 14
+      sbiz_release_date:
+        description: >-
+          Date data protections on this SBIR/STTR record will expire.
+        range: datetime
+      site_ownership_code:
+        description: >-
+          Code of the DOE site submitting this document
+        range: string
+        examples:
+          - value: "BNL"
+        # maxLength: 10
+      site_unique_id:
+        description: >-
+          Site-specified unique accession number for this record
+        range: string
+        examples:
+          - value: "89345"
+      site_url:
+        description: >-
+          (DATASET product type only) The URL of the data set landing
+          page, containing links to data set content or additional
+          information as required.
+        range: string
+      source_input_type:
+        description: >-
+          Value determined by submission type at record creation time.
+          Defines how E-Link record was first entered into the system.
+        range: string
+        examples:
+          - value: "DOE_GRANT_WEBFORM"
+        # readOnly: true
+      source_edit_type:
+        description: >-
+          Value determined by submission type for each edit or revision
+          of a record. Changes on a per-revision basis.
+        range: string
+        examples:
+          - value: "DOE_LAB_API"
+        # readOnly: true
       geolocations:
         description: >-
           List of geolocation references for this record.
