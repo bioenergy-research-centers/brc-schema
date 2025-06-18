@@ -356,10 +356,12 @@ classes:
         pattern: "^.{0,500}$"
       keywords:
         description: >-
-          Words or phrases relevant to this data set. Multiple values may be
-          separated by a semicolon and a following space.
+          Concise set of key words for this record
         range: string
-        pattern: "^.{0,4000}$"
+        multivalued: true
+        examples:
+          - value: "NUCLEAR"
+          - value: "REACTIONS"
       country:
         description: >-
           The country of publication for this dataset.
@@ -367,13 +369,20 @@ classes:
         examples:
           - value: US
         pattern: "^.{0,5}$"
-      language:
+      languages:
         description: >-
-          The primary language of the dataset.
+          Language codes for this record
+        multivalued: true
         range: string
         examples:
-          - value: English
-        pattern: "^.{0,75}$"
+          - value: "English"
+      audit_logs:
+        description: >-
+          Listing of any audit logs of actions taken and worker
+          interactions performed on this metadata revision, if any.
+        range: AuditLog
+        multivalued: true
+        # readOnly: true
       availability:
         description: >-
           Describes record's availibility information.
@@ -684,6 +693,42 @@ classes:
         range: string
         examples:
           - value: "9234782"
+
+  AuditLog:
+    description: >-
+      Indicates status and information about back-end processing on a
+      given metadata record.
+    attributes:
+      type:
+        description: >-
+          Indicates the source of the status message, generally the
+          backend process performing the action in question.
+        range: string
+        examples:
+          - value: "VALIDATOR"
+      audit_date:
+        description: >-
+          Timestamp of the operation detailed in this audit log.
+        range: datetime
+        examples:
+          - value: "2024-11-04T15:08:44.438Z"
+      status:
+        description: >-
+          Indicates state or notification level of worker action
+          detailed in this audit log.  Generally SUCCESS or FAIL,
+          but may additionally indicate INFO, WARN, or ERROR status
+          messages.
+        range: string
+        examples:
+          - value: "SUCCESS"
+      messages:
+        description: >-
+          One or more messages pertaining to the action taken or
+          results of worker processing for this audit log.
+        range: string
+        multivalued: true
+        examples:
+          - value: "Validation Successful."
 
 
 enums:
