@@ -49,6 +49,44 @@ classes:
           List of identifying numbers related to this record
         range: Identifier
         multivalued: true
+      issue:
+        description: >-
+          Issue number for journals or other applicable products if any.
+        range: string
+        examples:
+          - value: "44"
+        # maxLength: 80
+      journal_license_url:
+        description: >-
+          URL for information regarding the journal license for information
+        range: string
+        examples:
+          - value: "https://journal-publishers.com/license/3.02/text"
+        # maxLength: 255
+      journal_name:
+        description: >-
+          Name of journal publishing this information
+        range: string
+        examples:
+          - value: "Proceedings of the National Academy of Sciences"
+        # maxLength: 250
+      journal_open_access_flag:
+        description: >-
+          Indicates if the journal article is available in an open access
+          journal, indicated as Y for open, N for not, or left blank/omitted
+          if not applicable or unknown status.
+        range: string
+        # maxLength: 1
+        examples:
+          - value: "N"
+      journal_type:
+        description: >-
+          Specific sub-type of the journal article.  For product type JA only.
+          Further qualifies the type of record.
+        range: string
+        examples:
+          - value: "AM"
+        # maxLength: 2
       revision:
         description: >-
           Revision number (sequence) for this record.
@@ -638,7 +676,7 @@ classes:
       markings or numbers pertaining to the product or metadata.
     attributes:
       type:
-        range: I
+        range: IdentifierType
       value:
         # maxLength: 100
         description: >-
