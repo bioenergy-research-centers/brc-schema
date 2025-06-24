@@ -43,7 +43,7 @@ classes:
         range: integer
         identifier: true
         examples:
-          - value: 9999
+          - value: "9999"
       identifiers:
         description: >-
           List of identifying numbers related to this record
@@ -92,7 +92,7 @@ classes:
           Revision number (sequence) for this record.
         range: integer
         examples:
-          - value: 1
+          - value: "1"
         # readOnly: true
       workflow_status:
         description: >-
@@ -127,7 +127,7 @@ classes:
           Value internally maintained by E-Link.
         range: integer
         examples:
-          - value: 28931
+          - value: "28931"
         # readOnly: true
       announcement_codes:
         description: >-
@@ -273,7 +273,7 @@ classes:
         range: integer
         # readOnly: true
         examples:
-          - value: 112389
+          - value: "112389"
       edit_reason:
         description: >-
           Value provided by user editing a record describing the reason for the edit.
@@ -430,7 +430,7 @@ classes:
           Indicates if OSTI has or had a paper copy of this product.
         range: boolean
         examples:
-          - value: true
+          - value: "true"
       patent_assignee:
         description: >-
           The holder of property rights to a patent.
@@ -470,6 +470,7 @@ classes:
         pattern: "^.{0,50}$"
       product_type:
         range: ProductType
+        pattern: "^.{0,2}$"
       product_type_other:
         description: >-
           Additional information for 'OTHER' product types.  Required if 'OT'
@@ -649,6 +650,7 @@ classes:
       relation:
         range: RelationType
         required: true
+        pattern: "^.{0,20}$"
       value:
         description: >-
           The value of the identifier
@@ -699,7 +701,7 @@ classes:
         maximum_value: 90
         required: true
         examples:
-          - value: 38.75096
+          - value: "38.75096"
       longitude:
         description: >-
           Longitude of this point in the geolocation; limited to -180 to 180,
@@ -709,7 +711,7 @@ classes:
         maximum_value: 180
         required: true
         examples:
-          - value: -76.51239
+          - value: "-76.51239"
 
   Identifier:
     description: >-
@@ -777,13 +779,13 @@ classes:
           Unique ID for this MEDIA SET.
         range: integer
         examples:
-          - value: 233743
+          - value: "233743"
       revision:
         description: >-
           Revision number of this media association set.
         range: integer
         examples:
-          - value: 3
+          - value: "3"
         # readOnly: true
       access_limitations:
         description: >-
@@ -800,7 +802,7 @@ classes:
           Links to Record OSTI_ID value for a Media Set.
         range: integer
         examples:
-          - value: 99238
+          - value: "99238"
         # readOnly: true
       status:
         description: >-
@@ -814,7 +816,7 @@ classes:
           Indicates user ID that added this media set.
         range: integer
         examples:
-          - value: 34582
+          - value: "34582"
         # readOnly: true
       document_page_count:
         description: >-
@@ -822,7 +824,7 @@ classes:
           this file.
         range: integer
         examples:
-          - value: 23
+          - value: "23"
         # readOnly: true
       mime_type:
         description: >-
@@ -894,14 +896,14 @@ classes:
           Unique identifier for a given MEDIA FILE.
         range: integer
         examples:
-          - value: 983445
+          - value: "983445"
         # readOnly: true
       media_id:
         description: >-
           Link to parent MEDIA SET ID.
         range: integer
         examples:
-          - value: 233743
+          - value: "233743"
       checksum:
         description: >-
           Calculated hash or checksum value of the physical file as
@@ -915,7 +917,7 @@ classes:
           Revision number of this media file, associated with the MEDIA SET
         range: integer
         examples:
-          - value: 1
+          - value: "1"
         # readOnly: true
       parent_media_file_id:
         description: >-
@@ -923,7 +925,7 @@ classes:
           is derived from.
         range: integer
         examples:
-          - value: 0
+          - value: "0"
         # readOnly: true
       status:
         description: >-
@@ -970,7 +972,7 @@ classes:
           Indicates the E-Link USER ID that attached this MEDIA FILE.
         range: integer
         examples:
-          - value: 118678
+          - value: "118678"
         # readOnly: true
       media_source:
         description: >-
@@ -984,35 +986,35 @@ classes:
           If local file, the file size in bytes.
         range: integer
         examples:
-          - value: 993834
+          - value: "993834"
         # readOnly: true
       duration_seconds:
         description: >-
           For audio-visual media, the duration of the resource in seconds.
         range: integer
         examples:
-          - value: 77
+          - value: "77"
         # readOnly: true
       document_page_count:
         description: >-
           For document-based media, the number of printed pages if applicable.
         range: integer
         examples:
-          - value: 22
+          - value: "22"
         # readOnly: true
       subtitle_tracks:
         description: >-
           Indicates the number of subtitle tracks for audio-visual media.
         range: integer
         examples:
-          - value: 2
+          - value: "2"
         # readOnly: true
       video_tracks:
         description: >-
           Indicates the number of video tracks in audio-visual media.
         range: integer
         examples:
-          - value: 1
+          - value: "1"
         # readOnly: true
       pdf_version:
         description: >-
@@ -1070,6 +1072,7 @@ classes:
       type:
         range: OrganizationType
         required: true
+        pattern: "^.{0,20}$"
       name:
         description: >-
           Name of the organization
@@ -1084,6 +1087,7 @@ classes:
         range: ContributorType
         examples:
           - value: "DataCollector"
+        pattern: "^.{0,25}$"
       ror_id:
         description: >-
           ROR ID for this organization, if any. This value will be validated against the ROR authority.
@@ -1106,6 +1110,7 @@ classes:
         required: true
         examples:
           - value: "AWARD_DOI"
+        pattern: "^.{0,20}$"
       value:
         description: >-
           Indicates the value of this identifier.  May be validated according to its particular type.
@@ -1121,6 +1126,7 @@ classes:
       type:
         range: PersonType
         required: true
+        pattern: "^.{0,20}$"
       first_name:
         description: >-
           First (or 'Given') name of the person
@@ -1171,6 +1177,7 @@ classes:
         range: integer
       contributor_type:
         range: ContributorType
+        pattern: "^.{0,25}$"
       affiliations:
         # Note: Affiliation is not the same as Organization
         # and is specific to this version of the schema,
@@ -1206,7 +1213,6 @@ classes:
 
 enums:
   ContributorType:
-    pattern: "^.{0,25}$"
     description: >-
       Describes the type of contribution to the work.  Required for Persons or
       Organizations of CONTRIBUTING type.
@@ -1314,7 +1320,6 @@ enums:
       w3id:
 
   RelationType:
-    pattern: "^.{0,20}$"
     description: >
       Indicates the relationship between this identifier and the source record.
     permissible_values:
@@ -1537,7 +1542,6 @@ enums:
           Off-Site
 
   OrganizationType:
-    pattern: "^.{0,20}$"
     description: >-
       Indicates type of organization.
     permissible_values:
@@ -1547,7 +1551,6 @@ enums:
       SPONSOR:
 
   OrganizationIdentifierType:
-    pattern: "^.{0,20}$"
     description: >-
       Describe the type of identifier.
     permissible_values:
@@ -1558,7 +1561,6 @@ enums:
   PersonType:
     # Note: code descriptions are from the E-Link documentation at
     # https://www.osti.gov/elink2api/
-    pattern: "^.{0,20}$"
     description: >-
       Indicates type of person.
     permissible_values:
@@ -1602,7 +1604,6 @@ enums:
   ProductType:
     # Note: code descriptions are from the E-Link documentation at
     # https://www.osti.gov/elink2api/
-    pattern: "^.{0,2}$"
     description: >-
       Define the type of product represented by this metadata information.
       Values presented *in italics* are considered Legacy types.
