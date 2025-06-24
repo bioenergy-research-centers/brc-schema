@@ -635,89 +635,6 @@ classes:
         range: Geolocation
         multivalued: true
 
-  author:
-    description: >-
-      An author of a dataset.
-    attributes:
-      first_name:
-        description: Author's first, or given, name.
-        range: string
-        pattern: "^.{0,50}$"
-      middle_name:
-        description: Author's middle name or initial, if supplied.
-        range: string
-        pattern: "^.{0,50}$"
-      last_name:
-        description: Author's last, or family, name.
-        range: string
-        pattern: "^.{0,60}$"
-      affiliation_name:
-        description: An affiliation, if entered.
-        range: string
-        pattern: "^.{0,900}$"
-      private_email:
-        description: Author's email address.
-        range: string
-        pattern: "^.{0,256}$"
-      orcid_id:
-        description: >-
-          Author’s ORCID, if supplied. Only include the 16-digit number.
-        range: string
-        pattern: "^.{0,16}$"
-
-  award:
-    description: >-
-      Detail information for a particular award.
-    attributes:
-      award_doi:
-        description: >-
-          Digital Object Identifier assigned to this award.
-        range: string
-        examples:
-          - value: 10.11578/award-2020/29300X
-        pattern: "^.{0,250}$"
-      award_number:
-        description: >-
-          Funder-specific identifier number for this award.
-        range: string
-        examples:
-          - value: AW-29300X
-        pattern: "^.{0,250}$"
-      funder_name:
-        description: >-
-          Name of funding entity or laboratory providing the award.
-        range: string
-        examples:
-          - value: Funding Entity LLC
-        pattern: "^.{0,500}$"
-
-  boundingBox:
-    description: >-
-      A square or rectangle shape defined by two sets of latitude and longitude
-      data points.
-    attributes:
-      westLongitude:
-        description: west Longitude
-        range: float
-      eastLongitude:
-        description: east Longitude
-        range: float
-      northLatitude:
-        description: north Latitude
-        range: float
-      southLatitude:
-        description: south Latitude
-        range: float
-
-  contributor:
-    is_a: author
-    description: >-
-      Contributors are optional, but similar to authors.
-    attributes:
-      contributorType:
-        description: The contribution type, attribute exclusive to contributors.
-        range: ContributorTypeCodes
-
   RelatedIdentifier:
     description: >-
       Identifies other resources that are related in some manner to this record
@@ -739,7 +656,7 @@ classes:
         examples:
           - value: "10.11578/2020/28383"
         required: true
-        # maxLength: 2000
+        pattern: "^.{0,2000}$"
 
   Geolocation:
     attributes:
@@ -803,7 +720,7 @@ classes:
       type:
         range: IdentifierType
       value:
-        # maxLength: 100
+        pattern: "^.{0,100}$"
         description: >-
           Value of this identifier
         range: string
@@ -877,7 +794,7 @@ classes:
         examples:
           - value: "UNL"
         # readOnly: true
-        # maxLength: 5
+        pattern: "^.{0,5}$"
       osti_id:
         description: >-
           Links to Record OSTI_ID value for a Media Set.
@@ -921,7 +838,7 @@ classes:
         range: string
         examples:
           - value: "PDF of technical report content"
-        # maxLength: 500
+        pattern: "^.{0,500}$"
       media_location:
         description: >-
           Indicates if this media set's main content is LOCAL or OFF-SITE.
@@ -1025,7 +942,7 @@ classes:
         examples:
           - value: "T"
         # readOnly: true
-        # maxLength: 1
+        pattern: "^.{0,1}$"
       url_type:
         description: >-
           Indicates if the file is LOCALLY HOSTED ('L') or OFF-SITE URL ('O').
@@ -1033,14 +950,14 @@ classes:
         examples:
           - value: "L"
         # readOnly: true
-        # maxLength: 1
+        pattern: "^.{0,1}$"
       url:
         description: >-
           Either the file name for local files, or URL path to off-site resource.
         range: string
         examples:
           - value: "report.pdf"
-        # maxLength: 255
+        pattern: "^.{0,255}$"
       mime_type:
         description: >-
           Mime type describing the MEDIA FILE content.
@@ -1160,7 +1077,7 @@ classes:
         required: true
         examples:
           - value: "Quantum Physics of America, Inc."
-        # maxLength: 800
+        pattern: "^.{0,800}$"
       contributor_type:
         description: >-
           Indicate the contribution made by this Organization.  Required for CONTRIBUTING 'type'.
@@ -1210,21 +1127,21 @@ classes:
         range: string
         examples:
           - value: "Sample"
-        # maxLength: 50
+        pattern: "^.{0,50}$"
       middle_name:
         description: >-
           Middle name or initial of the person
         range: string
         examples:
           - value: "Q."
-        # maxLength: 50
+        pattern: "^.{0,50}$"
       last_name:
         description: >-
           Last (or 'Family') name of this person
         range: string
         examples:
           - value: "Person"
-        # maxLength: 60
+        pattern: "^.{0,60}$"
       email:
         description: >-
           List of any email address(es) associated with this person.
@@ -1247,7 +1164,7 @@ classes:
         range: string
         examples:
           - value: "(555) 860-9923"
-        # maxLength: 30
+        pattern: "^.{0,30}$"
       osti_user_id:
         description: >-
           OSTI-assigned identifier for this person, if any
@@ -1289,7 +1206,7 @@ classes:
 
 enums:
   ContributorType:
-    # maxLength: 25
+    pattern: "^.{0,25}$"
     description: >-
       Describes the type of contribution to the work.  Required for Persons or
       Organizations of CONTRIBUTING type.
@@ -1368,63 +1285,6 @@ enums:
           Any person or institution making a significant contribution, but whose
           contribution does not "fit".
 
-  DatasetTypeCodes:
-    description: >-
-      The type of dataset.
-      Descriptions are from
-      https://www.osti.gov/elink/F2416instruct.jsp
-    permissible_values:
-      AS:
-        description: >-
-          Animations/Simulations - Animations and simulations resulting from
-          runs of computer models or similar software.
-      GD:
-        description: >-
-          Genome/Genetics Data - Information that is numeric or alpha-numeric
-          in nature (such as gene sequences) or that is a specialized mix of
-          text and non-text information conveying results of genetics/genome
-          research.
-      IM:
-        description: >-
-          Interactive Data Map(s) - A non-static interface and the GIS data
-          and/or shape files that generate it.
-      ND:
-        description: >-
-          Numeric Data - Data primarily expressed with numbers; other content
-          is secondary and supporting.
-      IP:
-        description: >-
-          Still Images or Photos - A collection of images or photographs that
-          are produced by a scientific instrument or that convey scientific
-          results of experiments. Scientific images that might constitute a
-          dataset could be images of cells or molecules that are typically
-          taken with electron microscopes, 3-D structures of proteins or
-          nanomaterials, images captured during an accelerator run, images from
-          astronomy, etc.
-      FP:
-        description: >-
-          Figures/Plots - A dataset consisting mainly of data diagrams, graphs
-          and charts, diagrams or schematic drawings.
-      SM:
-        description: >-
-          Specialized Mix - This "type" may be used to indicate a dataset made
-          up of content that doesn't fit into one of the other "type"
-          categories. The content of a "specialized mix" dataset could have
-          some of everything in this list, for example, but is clearly focused
-          on data and does not have a "format", such as a technical report that
-          is focused on data would.
-      MM:
-        description: >-
-          Multimedia - An example of a multimedia dataset might be a video of
-          an experiment in progress, where the camera monitors change over a
-          number of hours.
-      I:
-        description: >-
-          Instrument - Use this option to relate datasets which derive from a
-          specific DOE instrument at one of the laboratories or user
-          facilities. This creates a central Instrument record with a DOI to
-          link out to related datasets.
-
   RelatedIdentifierType:
     description: >
       Identify the type of this related identifier
@@ -1454,7 +1314,7 @@ enums:
       w3id:
 
   RelationType:
-    # maxLength: 20
+    pattern: "^.{0,20}$"
     description: >
       Indicates the relationship between this identifier and the source record.
     permissible_values:
@@ -1614,6 +1474,7 @@ enums:
         description: Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other
 
   CollectionTypeEnum:
+    # Note: see collection_type
     description: >-
       The OSTI collection type originally creating this record.
     permissible_values:
@@ -1676,7 +1537,7 @@ enums:
           Off-Site
 
   OrganizationType:
-    # maxLength: 20
+    pattern: "^.{0,20}$"
     description: >-
       Indicates type of organization.
     permissible_values:
@@ -1686,7 +1547,7 @@ enums:
       SPONSOR:
 
   OrganizationIdentifierType:
-    # maxLength: 20
+    pattern: "^.{0,20}$"
     description: >-
       Describe the type of identifier.
     permissible_values:
@@ -1695,23 +1556,53 @@ enums:
       CN_NONDOE:
 
   PersonType:
-    # maxLength: 20
+    # Note: code descriptions are from the E-Link documentation at
+    # https://www.osti.gov/elink2api/
+    pattern: "^.{0,20}$"
     description: >-
       Indicates type of person.
     permissible_values:
       AUTHOR:
+        description: >-
+          Authors are the main scientists or researchers involved in creating,
+          authoring, or producing the research output/scientific and technical
+          information resource.
       RELEASE:
+        description: >-
+          Releasing Official
       CONTACT:
+        description: >-
+          Contact Information
+          Persons of these types require at least one valid email address be specified.
       CONTRIBUTING:
+        description: >-
+          Contributors are people who may have been involved in acquiring
+          resources, collecting data, analyzing resources, developing methodologies,
+          validating information, visualizing data, or otherwise contributing to the
+          output, but would not be considered authors. (A valid contributor_type is
+          required.)
       PROT_CE:
+        description: >-
+          Protected Data Courtesy Email Information
+          Persons of these types require at least one valid email address be specified.
       PROT_RO:
+        description: >-
+          Protected Data Actual Releasing Official
+          This field is only applicable to Grantee records that are protected by
+          submitting with the "PROT" access limitation.
       SBIZ_PI:
+        description: >-
+          SBIR/STTR Principal Investigator
+          Persons of these types require at least one valid email address be specified.
       SBIZ_BO:
+        description: >-
+          SBIR/STTR Business Official
+          Business official persons require exactly two valid email addresses be specified.
   
   ProductType:
     # Note: code descriptions are from the E-Link documentation at
     # https://www.osti.gov/elink2api/
-    # maxLength: 2
+    pattern: "^.{0,2}$"
     description: >-
       Define the type of product represented by this metadata information.
       Values presented *in italics* are considered Legacy types.
