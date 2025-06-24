@@ -55,28 +55,28 @@ classes:
         range: string
         examples:
           - value: "44"
-        # maxLength: 80
+        pattern: "^.{0,80}$"
       journal_license_url:
         description: >-
           URL for information regarding the journal license for information
         range: string
         examples:
           - value: "https://journal-publishers.com/license/3.02/text"
-        # maxLength: 255
+        pattern: "^.{0,255}$"
       journal_name:
         description: >-
           Name of journal publishing this information
         range: string
         examples:
           - value: "Proceedings of the National Academy of Sciences"
-        # maxLength: 250
+        pattern: "^.{0,250}$"
       journal_open_access_flag:
         description: >-
           Indicates if the journal article is available in an open access
           journal, indicated as Y for open, N for not, or left blank/omitted
           if not applicable or unknown status.
         range: string
-        # maxLength: 1
+        pattern: "^.{0,1}$"
         examples:
           - value: "N"
       journal_type:
@@ -86,7 +86,7 @@ classes:
         range: string
         examples:
           - value: "AM"
-        # maxLength: 2
+        pattern: "^.{0,2}$"
       revision:
         description: >-
           Revision number (sequence) for this record.
@@ -110,7 +110,7 @@ classes:
         examples:
           - value: "UNL"
           - value: "OPN"
-        # maxLength: 5
+        pattern: "^.{0,5}$"
       access_limitation_other:
         description: >-
           Additional information about access limitation for this record,
@@ -143,14 +143,14 @@ classes:
         range: string
         examples:
           - value: "2023"
-        # maxLength: 10
+        pattern: "^.{0,10}$"
       volume:
         description: >-
           A volume number as applicable, usually for journals or books.
         range: string
         examples:
           - value: "1"
-        # maxLength: 68
+        pattern: "^.{0,68}$"
       collection_type:
         description: >-
           Indicates the OSTI collection type originally creating this record.
@@ -173,7 +173,7 @@ classes:
         range: string
         examples:
           - value: "O"
-        # maxLength: 1
+        pattern: "^.{0,1}$"
       contract_award_date:
         description: >-
           Date contract for this record was awarded.
@@ -186,7 +186,7 @@ classes:
         range: string
         examples:
           - value: "US"
-        # maxLength: 5
+        pattern: "^.{0,5}$"
       date_metadata_added:
         description: >-
           Date record first entered the OSTI system. Value internally
@@ -219,13 +219,6 @@ classes:
         examples:
           - value: "2018-05-04T11:44:23.864Z"
         # readOnly: true
-      dataset_type:
-        description: >-
-          Type of the main content of the dataset.
-        range: DatasetTypeCodes
-        required: true
-        examples:
-          - value: SM
       title:
         description: >-
           Title of record.  For Book Chapters, the title of the chapter.
@@ -233,17 +226,6 @@ classes:
         required: true
         examples:
           - value: "Sample document title"
-      authors:
-        description: >-
-          List of authors of the dataset.
-        range: author
-        multivalued: true
-        required: true
-      contributors:
-        description: >-
-          List of contributors to the dataset.
-        range: contributor
-        multivalued: true
       description:
         description: >-
           Description or abstract for this record. Required to have a value
@@ -264,29 +246,9 @@ classes:
           Indicates if the record is primarily DOE-funded. Indicate Y for
           Yes, N for no, or leave blank/omit if unknown status.
         range: string
-        # maxLength: 1
+        pattern: "^.{0,1}$"
         examples:
           - value: "Y"
-      product_nos:
-        description: >-
-          The most important identifying numbers given to the dataset by the
-          host or originating organization. Multiple values are separated by
-          semicolon.
-        range: string
-        required: true
-      contract_nos:
-        description: >-
-          Primary DOE contract number(s), multiple values may be separated by
-          semicolon.
-        range: string
-        required: true
-        pattern: "^.{0,4000}$"
-      product_type:
-        description: >-
-          The product type of the record ("DA" for "Dataset").
-        range: string
-        ifabsent: string(DA)
-        pattern: "^.{0,2}$"
       doi:
         description: >-
           The DOI for this record, if any.  Enter value if previously
@@ -361,7 +323,7 @@ classes:
         range: string
         examples:
           - value: "University Press, Volume III Spring 2001"
-        # maxLength: 400
+        pattern: "^.{0,400}$"
       related_doc_info:
         # deprecated: true
         description: >-
@@ -371,12 +333,7 @@ classes:
         range: string
         examples:
           - value: "Reprint Spring 2012"
-        # maxLength: 2255
-      other_identifying_numbers:
-        description: >-
-          Any alternative identifying numbers for this data set.
-        range: string
-        pattern: "^.{0,500}$"
+        pattern: "^.{0,2255}$"
       keywords:
         description: >-
           Concise set of key words for this record
@@ -385,13 +342,6 @@ classes:
         examples:
           - value: "NUCLEAR"
           - value: "REACTIONS"
-      country:
-        description: >-
-          The country of publication for this dataset.
-        range: string
-        examples:
-          - value: US
-        pattern: "^.{0,5}$"
       languages:
         description: >-
           Language codes for this record
@@ -452,7 +402,7 @@ classes:
         range: string
         examples:
           - value: "THX-1138"
-        # maxLength: 10
+        pattern: "^.{0,10}$"
       organizations:
         description: >-
           List of organizations related to this record. For submissions,
@@ -517,7 +467,7 @@ classes:
         range: string
         examples:
           - value: "227 pages"
-        # maxLength: 50
+        pattern: "^.{0,50}$"
       product_type:
         range: ProductType
       product_type_other:
@@ -527,7 +477,7 @@ classes:
         range: string
         examples:
           - value: "Preprint"
-        # maxLength: 200
+        pattern: "^.{0,200}$"
       prot_flag:
         description: >-
           Indicates the type of protected data described by this record.
@@ -535,7 +485,7 @@ classes:
         range: string
         examples:
           - value: "EPACT"
-        # maxLength: 5
+        pattern: "^.{0,5}$"
       prot_data_other:
         description: >-
           Information regarding why the information is protected if not a
@@ -543,7 +493,7 @@ classes:
         range: string
         examples:
           - value: "PROTECTED"
-        # maxLength: 80
+        pattern: "^.{0,80}$"
       prot_release_date:
         description: >-
           The date on which data protections for this record will end.
@@ -556,26 +506,6 @@ classes:
         range: string
         examples:
           - value: "Also available at https://sample.com/document/report.pdf"
-      originating_research_org:
-        description: >-
-          If credited, the organization name primarily responsible for
-          conducting the research.
-        range: string
-        required: true
-        examples:
-          - value: "A Research University (United States)"
-        pattern: "^.{0,1000}$"
-      sponsor_org:
-        description: >-
-          If credited, the organization name that sponsored / funded the
-          research. For a list of sponsor organizations, see Sponsoring
-          Organization Authority at https://www.osti.gov/elink/authorities.jsp.
-          Multiple codes may be semi-colon delimited.
-        range: string
-        required: true
-        examples:
-          - value: USDOE Office of Science (SC)
-        pattern: "^.{0,1000}$"
       subject_category_code:
         description: >-
           Set two-character subject category code values for this record
@@ -584,7 +514,7 @@ classes:
           - value: "2"
           - value: "31"
         multivalued: true
-        # maxLength: 2
+        pattern: "^.{0,2}$"
       subject_category_code_legacy:
         description: >-
           Any legacy or historical subject category codes for this report
@@ -594,29 +524,6 @@ classes:
           - value: "Geosciences"
           - value: "Physics"
         multivalued: true
-      entry_date:
-        description: >-
-          The date the record was added or last modified, in ISO-8601 format,
-          generated by the system.
-        range: string
-      site_url:
-        description: >-
-          Full URL to the "landing page" for this data set.
-        range: string
-        required: true
-        pattern: "^.{0,255}$"
-      site_input_code:
-        description: >-
-          (optional) The Site Code that owns this particular data set; will
-          default to logged-in user's primary Site if not set. User must have
-          appropriate privileges to submit records to this Site.
-        range: string
-        pattern: "^.{0,10}$"
-      accession_num:
-        description: >-
-          Site specific unique identifier for this data set.
-        range: string
-        pattern: "^.{0,25}$"
       related_identifiers:
         description: >-
           List of related identifiers connected to this record
@@ -658,12 +565,12 @@ classes:
         range: string
         examples:
           - value: "OTHERVALUE"
-        # maxLength: 80
+        pattern: "^.{0,80}$"
       sbiz_flag:
         description: >-
           Indicates if this metadata is SBIR or STTR related.
         range: string
-        # maxLength: 6
+        pattern: "^.{0,6}$"
         examples:
           - value: "SBIR"
           - value: "STTR"
@@ -672,7 +579,7 @@ classes:
           A three-character field constrained to 'I', 'II', 'IIA',
           'IIB', or 'III' indicating the phase of this SBIR/STTR report.
         range: string
-        # maxLength: 3
+        pattern: "^.{0,3}$"
         examples:
           - value: "IIB"
       sbiz_previous_contract_number:
@@ -682,7 +589,7 @@ classes:
         range: string
         examples:
           - value: "SMPL-2023-1291"
-        # maxLength: 14
+        pattern: "^.{0,14}$"
       sbiz_release_date:
         description: >-
           Date data protections on this SBIR/STTR record will expire.
@@ -693,7 +600,7 @@ classes:
         range: string
         examples:
           - value: "BNL"
-        # maxLength: 10
+        pattern: "^.{0,10}$"
       site_unique_id:
         description: >-
           Site-specified unique accession number for this record
@@ -727,84 +634,6 @@ classes:
           List of geolocation references for this record.
         range: Geolocation
         multivalued: true
-      awards:
-        description: >-
-          Information about any awards and award DOI for time awarded, etc. for
-          this dataset.
-        range: award
-      date_first_submitted:
-        # Note: not identical to the linkml date type, so not a date here
-        description: Date first sent to OSTI, administrative purposes only.
-        range: string
-      date_last_submitted:
-        # Note: not identical to the linkml date type, so not a date here
-        description: >-
-          Date most recently submitted to OSTI, administrative purposes only.
-        range: string
-      file_extension:
-        description: File format pertaining to this data.
-        range: string
-        pattern: "^.{0,15}$"
-      software_needed:
-        description: >-
-          Any supplementary software programs for representing or interpreting
-          this data.
-        range: string
-        examples:
-          - value: "Excel or other spreadsheet software"
-        pattern: "^.{0,200}$"
-      contact_name:
-        description: Name of a contact person for this data set.
-        range: string
-        required: true
-        pattern: "^.{0,250}$"
-      contact_phone:
-        description: Phone number for the contact.
-        range: string
-        pattern: "^.{0,30}$"
-      contact_email:
-        description: Email address for the contact.
-        range: string
-        required: true
-        pattern: "^.{0,100}$"
-      contact_org:
-        description: The organization or laboratory affiliation of the contact.
-        range: string
-        required: true
-        pattern: "^.{0,250}$"
-      othnondoe_contract_nos:
-        description: Any non-DOE award numbers associated with this data set.
-        range: string
-      related_resource:
-        description: >-
-          Full bibliographic citation for the key paper the dataset supports.
-        range: string
-        pattern: "^.{0,2255}$"
-      collaboration_names:
-        description: >-
-          Names of collaborations, such as ATLAS, or similar types of
-          organizations that significantly contributed to the existence of this
-          dataset.
-        range: string
-        pattern: "^.{0,1000}$"
-      dataset_size:
-        description: >-
-          Indicate the approximate size in number of files, megabytes, or other
-          appropriate metrics relevant to the data.
-        range: string
-        pattern: "^.{0,50}$"
-      set_reserved:
-        description: >-
-          If a DOI is needed BEFORE the dataset and its landing page are
-          available on the host website, use this tag to SAVE or RESERVE a DOI
-          value. This will NOT be transmitted to DataCite, nor will it be
-          resolvable until later updated without this tag.
-        range: string
-        pattern: "^[a-zA-Z]$"
-      hidden:
-        description: >-
-          Indicates if this record is currently hidden from output processing.
-        range: boolean
 
   author:
     description: >-
@@ -913,43 +742,57 @@ classes:
         # maxLength: 2000
 
   Geolocation:
-    description: >-
-      Wrapper tag for each individual geolocation data set.
     attributes:
-      place:
+      type:
         description: >-
-          Optional description of geolocation data in text form.
+          Describes the shape of this geolocation attribute.
+          (Optional, type may be determined by examination of the points.)
+          Single point in 'points' indicates this is a POINT; two points,
+          indicating NW and SE location, indicate a BOX; any other number
+          of points is assumed to be a POLYGON.  Note that POLYGONs should
+          begin and end on the same point, in order to properly express a
+          'closed polygon' shape.
+        range: GeolocationType
+        examples:
+          - value: "POINT"
+      label:
+        description: >-
+          Optional place name for this location or set of geolocation points.
         range: string
         examples:
-          - value: "Tennessee"
-        pattern: "^.{0,1000}$"
-      polygon:
-        description: >-
-          A set of points making up a closed arbitrary polygon shape.
+          - value: "Maryland coastal waters"
+      points:
         range: point
+        required: true
         multivalued: true
-      boundingBox:
-        description: >-
-          A square or rectangle shape defined by two sets of latitude and
-          longitude data points.
-        range: boundingBox
-      point:
-        description: >-
-          A single geolocation point, represented by latitude and longitude
-          values.
-        range: point
 
   point:
-    # Note: the API examples show these values as strings
-    # but they are otherwise floats
-    description: A point in a polygon.
+    # Note: the schema uses a slot named "items" within the "points"
+    # slot of Geolocation, so this may need some modifications
+    # if it does not map correctly.
+    # Note: the schema refers to these slots as integers, but
+    # the examples are floats, so using float here.
     attributes:
-      longitude:
-        description: Longitude of the point.
-        range: float
       latitude:
-        description: Latitude of the point.
+        description: >-
+          Latitude of this point in the geolocation; limited to -90 to 90,
+          inclusive.
         range: float
+        minimum_value: -90
+        maximum_value: 90
+        required: true
+        examples:
+          - value: 38.75096
+      longitude:
+        description: >-
+          Longitude of this point in the geolocation; limited to -180 to 180,
+          inclusive.
+        range: float
+        minimum_value: -180
+        maximum_value: 180
+        required: true
+        examples:
+          - value: -76.51239
 
   Identifier:
     description: >-
@@ -1915,3 +1758,9 @@ enums:
       PA:
         description: >-
           Patent Application
+
+  GeolocationType:
+    permissible_values:
+      POINT:
+      BOX:
+      POLYGON:
