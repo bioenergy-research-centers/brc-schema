@@ -228,12 +228,11 @@ classes:
           - value: SM
       title:
         description: >-
-          Full title of the dataset, with version numbers and date ranges if
-          applicable.
+          Title of record.  For Book Chapters, the title of the chapter.
         range: string
         required: true
         examples:
-          - value: "Title of the data set"
+          - value: "Sample document title"
       authors:
         description: >-
           List of authors of the dataset.
@@ -577,18 +576,24 @@ classes:
         examples:
           - value: USDOE Office of Science (SC)
         pattern: "^.{0,1000}$"
-      subject_categories_code:
-        # Note: The provided example does not match the description
+      subject_category_code:
         description: >-
-          A two digit code and its controlled vocabulary term(s) that indicate
-          the main subject topic of the dataset’s content. For codes,
-          vocabulary, and detailed definitions, see Subject Categories
-          Authority at https://www.osti.gov/elink/authorities.jsp.
-          Multiple codes may be semi-colon delimited.
+          Set two-character subject category code values for this record
         range: string
         examples:
-          - value: Testing; Software; Data
-        pattern: "^.{0,1000}$"
+          - value: "2"
+          - value: "31"
+        multivalued: true
+        # maxLength: 2
+      subject_category_code_legacy:
+        description: >-
+          Any legacy or historical subject category codes for this report
+        range: string
+        examples:
+          - value: "Political Science"
+          - value: "Geosciences"
+          - value: "Physics"
+        multivalued: true
       entry_date:
         description: >-
           The date the record was added or last modified, in ISO-8601 format,
