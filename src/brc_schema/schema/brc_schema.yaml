@@ -63,7 +63,9 @@ classes:
         examples:
           - value: 0.1.1
   Dataset:
-    description: A dataset containing metabolomics and proteomics data.
+    description: >-
+      A body of structured information describing some topic or topics
+      of interest. This includes metadata about the dataset.
     class_uri: schema:Dataset
     exact_mappings:
       - dcat:Dataset
