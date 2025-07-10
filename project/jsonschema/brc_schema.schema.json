@@ -131,7 +131,7 @@
         },
         "Dataset": {
             "additionalProperties": false,
-            "description": "A dataset containing metabolomics and proteomics data.",
+            "description": "A body of structured information describing some topic or topics of interest. This includes metadata about the dataset.",
             "properties": {
                 "active": {
                     "description": "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.",
@@ -678,5 +678,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.2"
+    "version": "0.1.3"
 }
