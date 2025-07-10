@@ -1,7 +1,7 @@
 -- # Class: "DatasetCollection" Description: "Container class for defining a collection of datasets."
 --     * Slot: id Description: 
 --     * Slot: schema_version Description: Version of the schema used for the collection.
--- # Class: "Dataset" Description: "A dataset containing metabolomics and proteomics data."
+-- # Class: "Dataset" Description: "A body of structured information describing some topic or topics of interest. This includes metadata about the dataset."
 --     * Slot: uid Description: 
 --     * Slot: id Description: Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.
 --     * Slot: active Description: Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.

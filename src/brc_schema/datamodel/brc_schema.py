@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-07-10T18:55:37
+# Generation date: 2025-07-10T19:06:12
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.2"
+version = "0.1.3"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -147,7 +147,8 @@ class DatasetCollection(YAMLRoot):
 @dataclass(repr=False)
 class Dataset(YAMLRoot):
     """
-    A dataset containing metabolomics and proteomics data.
+    A body of structured information describing some topic or topics of interest. This includes metadata about the
+    dataset.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
