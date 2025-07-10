@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -340,21 +340,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -395,8 +380,7 @@
 
 
 <h1 id="slot-id">Slot: id</h1>
-<p><em>Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.</em></p>
-<p>URI: <a href="http://schema.org/identifier">schema:identifier</a>
+<p>URI: <a href="https://w3id.org/brc/id">brc:id</a>
 Alias: id</p>
 <!-- no inheritance hierarchy -->
 
@@ -411,6 +395,11 @@ Alias: id</p>
 </thead>
 <tbody>
 <tr>
+<td><a href="../Plasmid/">Plasmid</a></td>
+<td>Description of plasmid or other molecular vector features</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../Dataset/">Dataset</a></td>
 <td>A dataset containing metabolomics and proteomics data</td>
 <td>no</td>
@@ -419,13 +408,9 @@ Alias: id</p>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../Uriorcurie/">Uriorcurie</a></li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -437,7 +422,7 @@ Alias: id</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:identifier</td>
+<td>brc:id</td>
 </tr>
 <tr>
 <td>native</td>
@@ -449,16 +434,11 @@ Alias: id</p>
 <details>
 
 <pre><code class="language-yaml">name: id
-description: Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org.
-from_schema: https://w3id.org/brc/brc_schema
-rank: 1000
-slot_uri: schema:identifier
 alias: id
-owner: Dataset
 domain_of:
 - Dataset
-range: uriorcurie
-required: false
+- Plasmid
+range: string
 
 </code></pre>
 
@@ -516,7 +496,7 @@ required: false
       <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
     
   </body>
