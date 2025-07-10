@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-06-24T15:08:58
+# Generation date: 2025-07-10T18:55:37
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -433,6 +433,7 @@ class Plasmid(YAMLRoot):
     class_name: ClassVar[str] = "Plasmid"
     class_model_uri: ClassVar[URIRef] = BRC.Plasmid
 
+    id: Optional[str] = None
     description: Optional[str] = None
     backbone: Optional[str] = None
     host: Optional[Union[dict, Organism]] = None
@@ -442,6 +443,9 @@ class Plasmid(YAMLRoot):
     selection_markers: Optional[Union[str, list[str]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self.id is not None and not isinstance(self.id, str):
+            self.id = str(self.id)
+
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
 
@@ -967,6 +971,9 @@ slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__sc
 
 slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
                    model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
+
+slots.plasmid__id = Slot(uri=BRC.id, name="plasmid__id", curie=BRC.curie('id'),
+                   model_uri=BRC.plasmid__id, domain=None, range=Optional[str])
 
 slots.plasmid__description = Slot(uri=BRC.description, name="plasmid__description", curie=BRC.curie('description'),
                    model_uri=BRC.plasmid__description, domain=None, range=Optional[str])

@@ -339,6 +339,11 @@ classes:
   Plasmid:
     description: Description of plasmid or other molecular vector features.
     attributes:
+      id:
+        range: string
+        description: >-
+          Unique identifier for the plasmid.
+          This must be unique within the dataset.
       description:
         range: string
         description: >-

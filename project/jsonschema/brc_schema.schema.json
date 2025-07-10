@@ -543,6 +543,13 @@
                     ],
                     "description": "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID."
                 },
+                "id": {
+                    "description": "Unique identifier for the plasmid. This must be unique within the dataset.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "ori": {
                     "description": "Origin of replication for the plasmid, e.g., ColE1.",
                     "type": [

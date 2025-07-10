@@ -52,7 +52,8 @@
 --     * Slot: scientificName Description: Scientific name of the organism.
 --     * Slot: NCBITaxID Description: NCBI taxonomy ID for the organism.
 -- # Class: "Plasmid" Description: "Description of plasmid or other molecular vector features."
---     * Slot: id Description: 
+--     * Slot: uid Description: 
+--     * Slot: id Description: Unique identifier for the plasmid. This must be unique within the dataset.
 --     * Slot: description Description: Description of the plasmid, including any relevant features not captured in other fields.
 --     * Slot: backbone Description: Name of the backbone of the plasmid, e.g., pUC19.
 --     * Slot: ori Description: Origin of replication for the plasmid, e.g., ColE1.
@@ -73,7 +74,7 @@
 --     * Slot: species_id Description: Species information for the organism(s) studied.
 -- # Class: "Dataset_plasmid_features" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
---     * Slot: plasmid_features_id Description: Description of plasmid features, if applicable. This is a multivalued field.
+--     * Slot: plasmid_features_uid Description: Description of plasmid features, if applicable. This is a multivalued field.
 -- # Class: "Dataset_relatedItem" Description: ""
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: relatedItem_id Description: Related publications or items.
@@ -84,13 +85,13 @@
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: funding_id Description: Funding source(s) for the dataset.
 -- # Class: "Plasmid_promoters" Description: ""
---     * Slot: Plasmid_id Description: Autocreated FK slot
+--     * Slot: Plasmid_uid Description: Autocreated FK slot
 --     * Slot: promoters Description: Promoters for the plasmid, e.g., T7.
 -- # Class: "Plasmid_replicates_in" Description: ""
---     * Slot: Plasmid_id Description: Autocreated FK slot
+--     * Slot: Plasmid_uid Description: Autocreated FK slot
 --     * Slot: replicates_in_id Description: Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID.
 -- # Class: "Plasmid_selection_markers" Description: ""
---     * Slot: Plasmid_id Description: Autocreated FK slot
+--     * Slot: Plasmid_uid Description: Autocreated FK slot
 --     * Slot: selection_markers Description: Selection markers for the plasmid, e.g, kan.
 
 CREATE TABLE "DatasetCollection" (
@@ -150,12 +151,13 @@ CREATE TABLE "Funding" (
 	FOREIGN KEY("fundingOrganization_id") REFERENCES "Organization" (id)
 );
 CREATE TABLE "Plasmid" (
-	id INTEGER NOT NULL, 
+	uid INTEGER NOT NULL, 
+	id TEXT, 
 	description TEXT, 
 	backbone TEXT, 
 	ori TEXT, 
 	host_id INTEGER, 
-	PRIMARY KEY (id), 
+	PRIMARY KEY (uid), 
 	FOREIGN KEY(host_id) REFERENCES "Organism" (id)
 );
 CREATE TABLE "Individual" (
@@ -202,10 +204,10 @@ CREATE TABLE "Dataset_species" (
 );
 CREATE TABLE "Dataset_plasmid_features" (
 	"Dataset_uid" INTEGER, 
-	plasmid_features_id INTEGER, 
-	PRIMARY KEY ("Dataset_uid", plasmid_features_id), 
+	plasmid_features_uid INTEGER, 
+	PRIMARY KEY ("Dataset_uid", plasmid_features_uid), 
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid), 
-	FOREIGN KEY(plasmid_features_id) REFERENCES "Plasmid" (id)
+	FOREIGN KEY(plasmid_features_uid) REFERENCES "Plasmid" (uid)
 );
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER, 
@@ -228,21 +230,21 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
 CREATE TABLE "Plasmid_promoters" (
-	"Plasmid_id" INTEGER, 
+	"Plasmid_uid" INTEGER, 
 	promoters TEXT, 
-	PRIMARY KEY ("Plasmid_id", promoters), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
+	PRIMARY KEY ("Plasmid_uid", promoters), 
+	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
 CREATE TABLE "Plasmid_replicates_in" (
-	"Plasmid_id" INTEGER, 
+	"Plasmid_uid" INTEGER, 
 	replicates_in_id INTEGER, 
-	PRIMARY KEY ("Plasmid_id", replicates_in_id), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id), 
+	PRIMARY KEY ("Plasmid_uid", replicates_in_id), 
+	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid), 
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
 CREATE TABLE "Plasmid_selection_markers" (
-	"Plasmid_id" INTEGER, 
+	"Plasmid_uid" INTEGER, 
 	selection_markers TEXT, 
-	PRIMARY KEY ("Plasmid_id", selection_markers), 
-	FOREIGN KEY("Plasmid_id") REFERENCES "Plasmid" (id)
+	PRIMARY KEY ("Plasmid_uid", selection_markers), 
+	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );

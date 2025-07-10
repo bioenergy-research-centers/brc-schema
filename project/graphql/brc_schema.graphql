@@ -182,6 +182,7 @@ type Organization
 
 type Plasmid
   {
+    id: String
     description: String
     backbone: String
     host: Organism
