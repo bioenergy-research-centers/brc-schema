@@ -2,6 +2,28 @@
  package
 // metamodel_version: 1.7.0
 // version: 0.1.3
+// An affiliation for a person, such as an organization or institution.
+message Affiliation
+ {
+  string name = 0
+  string rorId = 0
+ }
+// Indicates status and information about back-end processing on a given metadata record.
+message AuditLog
+ {
+  string type = 0
+  datetime auditDate = 0
+  string status = 0
+ repeated  string messages = 0
+ }
+// An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.
+message BRCOrganization
+ {
+  string organizationName = 0
+  bRCOrganization parentOrganization = 0
+  wikidataIdentifier wikidataId = 0
+  rorIdentifier rorId = 0
+ }
 // An individual who contributed to the dataset in some manner, not necessarily as an author.
 message Contributor
  {
@@ -48,10 +70,22 @@ message DatasetCollection
 // Funding source for the dataset. Each item corresponds to a single award or grant.
 message Funding
  {
-  organization fundingOrganization = 0
+  bRCOrganization fundingOrganization = 0
   string awardNumber = 0
   string awardTitle = 0
   uriorcurie awardURI = 0
+ }
+message Geolocation
+ {
+  geolocationType type = 0
+  string label = 0
+ repeated  point points = 0
+ }
+// Values of various identifying numbers, such as DOE contract number, product numbers, ISBN, ISSN, and other various forms of identifying markings or numbers pertaining to the product or metadata.
+message Identifier
+ {
+  identifierType type = 0
+  string value = 0
  }
 // An individual involved in the dataset.
 message Individual
@@ -62,19 +96,87 @@ message Individual
   string affiliation = 0
   uriorcurie orcid = 0
  }
+// Metadata information pertaining to a particular media resource associated with this product.  Contains information about its disposition, content, and processing state.  Each individual file is uniquely identified by its `MEDIA_FILE_ID` value.
+message MediaFile
+ {
+  integer mediaFileId = 0
+  integer mediaId = 0
+  string checksum = 0
+  integer revision = 0
+  integer parentMediaFileId = 0
+  string status = 0
+  string mediaType = 0
+  mediaLocationEnum urlType = 0
+  string url = 0
+  string mimeType = 0
+  integer addedByUserId = 0
+  string mediaSource = 0
+  integer fileSizeBytes = 0
+  integer durationSeconds = 0
+  integer documentPageCount = 0
+  integer subtitleTracks = 0
+  integer videoTracks = 0
+  string pdfVersion = 0
+  string pdfaConformance = 0
+  string pdfaPart = 0
+  string pdfuaPart = 0
+  string processingExceptions = 0
+  datetime dateFileAdded = 0
+  datetime dateFileUpdated = 0
+ }
+// Metadata about files associated with this product.  Summarizes the main media file associated with this product, usually an off-site URL or PDF uploaded to OSTI, with its state, URL if applicable, and other identifying state information pertaining to the media files as a group. Each media set is uniquely identified by its `MEDIA_ID` value.
+message MediaSet
+ {
+  integer mediaId = 0
+  integer revision = 0
+ repeated  accessLimitationsEnum accessLimitations = 0
+  integer ostiId = 0
+  string status = 0
+  integer addedBy = 0
+  integer documentPageCount = 0
+  string mimeType = 0
+  string mediaTitle = 0
+  mediaLocationEnum mediaLocation = 0
+  string mediaSource = 0
+  datetime dateAdded = 0
+  datetime dateUpdated = 0
+  datetime dateValidEnd = 0
+ repeated  mediaFile files = 0
+ }
 // An organism studied in the dataset.
 message Organism
  {
   string scientificName = 0
   integer nCBITaxID = 0
  }
-// An organization involved in the dataset.
+// Describes a particular organization associated with the bibliographic record. Organizations may be author collaborations, sponsors, research laboratories, or contributors to the work, as indicated by their associated type. For identification purposes, at least one of either 'name' or 'ror_id' is required for validation.  If ROR ID is specified, it will be validated against the ROR authority at OSTI.
 message Organization
  {
-  string organizationName = 0
-  organization parentOrganization = 0
-  wikidataIdentifier wikidataId = 0
-  rorIdentifier rorId = 0
+  organizationType type = 0
+  string name = 0
+  contributorType contributorType = 0
+  string rorId = 0
+ repeated  organizationIdentifier identifiers = 0
+ }
+// One or more identifying numbers or references associated with this organization.  Please note that only sponsoring organizations may have associated identifier values.
+message OrganizationIdentifier
+ {
+  organizationIdentifierType type = 0
+  string value = 0
+ }
+// Information about a particular person involved in the production or maintenance of this record
+message Person
+ {
+  personType type = 0
+  string firstName = 0
+  string middleName = 0
+  string lastName = 0
+ repeated  string email = 0
+  string orcid = 0
+  string phone = 0
+  integer ostiUserId = 0
+  contributorType contributorType = 0
+ repeated  affiliation affiliations = 0
  }
 // Description of plasmid or other molecular vector features.
 message Plasmid
@@ -87,6 +189,115 @@ message Plasmid
  repeated  string promoters = 0
  repeated  organism replicatesIn = 0
  repeated  string selectionMarkers = 0
+ }
+message Point
+ {
+  float latitude = 0
+  float longitude = 0
+ }
+// Defines the bibliographic metadata about a particular work or record. Depending on product type, various elements are permitted, not permitted, or required.
+message Record
+ {
+  integer ostiId = 0
+ repeated  identifier identifiers = 0
+  string issue = 0
+  string journalLicenseUrl = 0
+  string journalName = 0
+  string journalOpenAccessFlag = 0
+  string journalType = 0
+  integer revision = 0
+  workflowStatusEnum workflowStatus = 0
+ repeated  accessLimitationsEnum accessLimitations = 0
+  string accessLimitationOther = 0
+  integer addedBy = 0
+  string addedByEmail = 0
+  string addedByName = 0
+ repeated  string announcementCodes = 0
+  string edition = 0
+  string volume = 0
+  collectionTypeEnum collectionType = 0
+  string conferenceInformation = 0
+  string conferenceType = 0
+  datetime contractAwardDate = 0
+  string countryPublicationCode = 0
+  datetime dateMetadataAdded = 0
+  datetime dateMetadataUpdated = 0
+  datetime dateSubmittedToOstiFirst = 0
+  datetime dateSubmittedToOstiLast = 0
+  string title = 0
+  string description = 0
+ repeated  string descriptors = 0
+  string doeFundedFlag = 0
+  string doi = 0
+  string doiInfix = 0
+  integer editedBy = 0
+  string editedByEmail = 0
+  string editedByName = 0
+  string editReason = 0
+  string editSource = 0
+  string formatInformation = 0
+  string mediaEmbargoSunsetDate = 0
+  datetime publicationDate = 0
+  string publicationDateText = 0
+  string publisherInformation = 0
+  string relatedDocInfo = 0
+ repeated  string keywords = 0
+ repeated  string languages = 0
+ repeated  auditLog auditLogs = 0
+ repeated  mediaSet media = 0
+  string opnAddressee = 0
+  string opnDeclassifiedDate = 0
+  string opnDeclassifiedStatus = 0
+ repeated  string opnDocumentCategories = 0
+  string opnDocumentLocation = 0
+  string opnFieldofficeAcronymCode = 0
+ repeated  organization organizations = 0
+ repeated  string otherInformation = 0
+  string ouoReleaseDate = 0
+  boolean paperFlag = 0
+  string patentAssignee = 0
+  datetime patentFileDate = 0
+  datetime patentPriorityDate = 0
+  string pdouoExemptionNumber = 0
+ repeated  person persons = 0
+  string productSize = 0
+  productType productType = 0
+  string productTypeOther = 0
+  string protFlag = 0
+  string protDataOther = 0
+  datetime protReleaseDate = 0
+  string availability = 0
+ repeated  string subjectCategoryCode = 0
+ repeated  string subjectCategoryCodeLegacy = 0
+ repeated  relatedIdentifier relatedIdentifiers = 0
+  datetime releasedToOstiDate = 0
+  string releasingOfficialComments = 0
+  datetime reportPeriodEndDate = 0
+  datetime reportPeriodStartDate = 0
+ repeated  string reportTypes = 0
+  string reportTypeOther = 0
+  string sbizFlag = 0
+  string sbizPhase = 0
+  string sbizPreviousContractNumber = 0
+  datetime sbizReleaseDate = 0
+  string siteOwnershipCode = 0
+  string siteUniqueId = 0
+  string siteUrl = 0
+  string sourceInputType = 0
+  string sourceEditType = 0
+ repeated  geolocation geolocations = 0
+ }
+// A list of Record metadata.
+message Records
+ {
+ repeated  record records = 0
+ }
+// Identifies other resources that are related in some manner to this record
+message RelatedIdentifier
+ {
+  relatedIdentifierType type = 0
+  relationType relation = 0
+  string value = 0
  }
 // A related publication or item, including cited publications.
 message RelatedItem
