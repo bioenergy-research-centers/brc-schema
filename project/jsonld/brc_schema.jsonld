@@ -875,6 +875,13 @@
           ]
         },
         {
+          "text": "JGI Genome Portal",
+          "description": "Joint Genome Institute Genome Portal",
+          "see_also": [
+            "https://genome.jgi.doe.gov/"
+          ]
+        },
+        {
           "text": "jPOST",
           "description": "Japan ProteOme STandard Repository/Database",
           "see_also": [
@@ -2486,9 +2493,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-07-10T19:05:53",
+  "source_file_date": "2025-07-11T11:07:09",
   "source_file_size": 21794,
-  "generation_date": "2025-07-10T19:06:11",
+  "generation_date": "2025-08-07T10:16:16",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

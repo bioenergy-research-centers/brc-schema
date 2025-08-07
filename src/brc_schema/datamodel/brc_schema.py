@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-07-10T19:06:12
+# Generation date: 2025-08-07T10:16:16
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -814,6 +814,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="JGI Gold",
                 description="Joint Genome Institute Genome OnLine Database"))
+        setattr(cls, "JGI Genome Portal",
+            PermissibleValue(
+                text="JGI Genome Portal",
+                description="Joint Genome Institute Genome Portal"))
         setattr(cls, "Mendeley Data",
             PermissibleValue(
                 text="Mendeley Data",

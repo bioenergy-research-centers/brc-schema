@@ -90,6 +90,7 @@ enum RepositoryEnum
     Illinois_Data_Bank
     iProX
     JGI_Gold
+    JGI_Genome_Portal
     jPOST
     MassIVE
     Mendeley_Data

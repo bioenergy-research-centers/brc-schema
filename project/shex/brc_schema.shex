@@ -90,8 +90,8 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#GitHub> <https://w3id.org/brc/RepositoryEnum#GLBRC%20Sustainability>
              <https://w3id.org/brc/RepositoryEnum#Iowa%20State%20University%20FigShare> <https://w3id.org/brc/RepositoryEnum#ICE>
              <https://w3id.org/brc/RepositoryEnum#Illinois%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#iProX>
-             <https://w3id.org/brc/RepositoryEnum#JGI%20Gold> <https://w3id.org/brc/RepositoryEnum#jPOST>
-             <https://w3id.org/brc/RepositoryEnum#MassIVE> ror:01t2a8a42 ror:05cwx3318
+             <https://w3id.org/brc/RepositoryEnum#JGI%20Gold> <https://w3id.org/brc/RepositoryEnum#JGI%20Genome%20Portal>
+             <https://w3id.org/brc/RepositoryEnum#jPOST> <https://w3id.org/brc/RepositoryEnum#MassIVE> ror:01t2a8a42 ror:05cwx3318
              <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject> <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA>
              <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC> ror:031478740 <https://w3id.org/brc/RepositoryEnum#PanoramaPublic>
              <https://w3id.org/brc/RepositoryEnum#PedtideAtlas> <https://w3id.org/brc/RepositoryEnum#PRIDE>
