@@ -18,17 +18,17 @@ brc:DatasetCollection a sh:NodeShape ;
     sh:closed true ;
     sh:description "Container class for defining a collection of datasets." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class schema1:Dataset ;
-            sh:description "List of datasets in the collection." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path brc:datasets ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Version of the schema used for the collection." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:schema_version ] ;
+            sh:path brc:schema_version ],
+        [ sh:class schema1:Dataset ;
+            sh:description "List of datasets in the collection." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path brc:datasets ] ;
     sh:targetClass brc:DatasetCollection .
 
 osti:Records a sh:NodeShape ;
@@ -46,23 +46,13 @@ schema1:Dataset a sh:NodeShape ;
     sh:closed true ;
     sh:description "A body of structured information describing some topic or topics of interest. This includes metadata about the dataset." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "The primary Bioenergy Research Center affiliation. This is a single BRC name." ;
-            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 7 ;
-            sh:path prov:wasAttributedTo ],
-        [ sh:datatype xsd:string ;
-            sh:description "A detailed description of the dataset." ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:defaultValue true ;
+            sh:description "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 17 ;
-            sh:path dcterms:description ],
-        [ sh:description "The repository where the dataset is stored." ;
-            sh:in ( "AmeriFlux" ror:04pvg6f08 ror:00x6h5n95 ror:041mxqs23 "GenBank" "GEO" "GitHub" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Gold" "JGI Genome Portal" "jPOST" "MassIVE" ror:01t2a8a42 ror:05cwx3318 "NCBI BioProject" "NCBI SRA" "ORNL DAAC" ror:031478740 "PanoramaPublic" "PedtideAtlas" "PRIDE" "Protein Data Bank" ror:00zbfm828 "Zenodo" ) ;
-            sh:maxCount 1 ;
-            sh:order 9 ;
-            sh:path brc:repository ],
+            sh:order 1 ;
+            sh:path brc:active ],
         [ sh:datatype xsd:date ;
             sh:description "The date the dataset was created or published." ;
             sh:maxCount 1 ;
@@ -75,38 +65,22 @@ schema1:Dataset a sh:NodeShape ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 13 ;
             sh:path brc:species ],
-        [ sh:datatype xsd:boolean ;
-            sh:defaultValue true ;
-            sh:description "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path brc:active ],
-        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
-            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
-            sh:order 8 ;
-            sh:path prov:wasAttributedTo ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:alert ],
-        [ sh:class brc:RelatedItem ;
-            sh:description "Related publications or items." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 18 ;
-            sh:path brc:relatedItem ],
-        [ sh:class brc:Contributor ;
-            sh:description "Contributors to the dataset who are not necessarily authors." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path brc:contributors ],
         [ sh:datatype xsd:anyURI ;
-            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
+            sh:description "Citation for the dataset." ;
+            sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 12 ;
-            sh:path brc:has_related_ids ],
+            sh:order 10 ;
+            sh:path dcterms:bibliographicCitation ],
+        [ sh:class brc:Funding ;
+            sh:description "Funding source(s) for the dataset." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 21 ;
+            sh:path brc:funding ],
+        [ sh:description "High-level type of the main content of the dataset." ;
+            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+            sh:maxCount 1 ;
+            sh:order 16 ;
+            sh:path brc:datasetType ],
         [ sh:datatype xsd:string ;
             sh:description "Unique identifier for the dataset." ;
             sh:maxCount 1 ;
@@ -115,46 +89,10 @@ schema1:Dataset a sh:NodeShape ;
             sh:order 11 ;
             sh:path schema1:identifier ],
         [ sh:datatype xsd:string ;
-            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 20 ;
-            sh:path brc:datasetName ],
-        [ sh:class schema1:Person ;
-            sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path dcterms:creator ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "Citation for the dataset." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 10 ;
-            sh:path dcterms:bibliographicCitation ],
-        [ sh:defaultValue "not specified"^^xsd:string ;
-            sh:description "The type of analysis performed on the dataset." ;
-            sh:maxCount 1 ;
-            sh:or ( [ sh:in ( MI:0004 OBI:0000800 NCIT:C19771 NCIT:C188690 NCIT:C17606 "Ms_imaging" ERO:0001660 "srm_mrm" OBI:0002958 OBI:0001899 ) ] [ sh:datatype xsd:string ;
-                        sh:nodeKind sh:Literal ] ) ;
-            sh:order 15 ;
-            sh:path brc:analysisType ],
-        [ sh:datatype xsd:string ;
             sh:description "Keywords associated with the dataset." ;
             sh:nodeKind sh:Literal ;
             sh:order 19 ;
             sh:path dcat:keyword ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:identifier ],
-        [ sh:class brc:Plasmid ;
-            sh:description "Description of plasmid features, if applicable. This is a multivalued field." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 14 ;
-            sh:path brc:plasmid_features ],
         [ sh:datatype xsd:string ;
             sh:description "The title of the dataset." ;
             sh:maxCount 1 ;
@@ -162,34 +100,108 @@ schema1:Dataset a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path dcterms:title ],
-        [ sh:class brc:Funding ;
-            sh:description "Funding source(s) for the dataset." ;
+        [ sh:description "The repository where the dataset is stored." ;
+            sh:in ( "AmeriFlux" ror:04pvg6f08 ror:00x6h5n95 ror:041mxqs23 "GenBank" "GEO" "GitHub" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Gold" "JGI Genome Portal" "jPOST" "MassIVE" ror:01t2a8a42 ror:05cwx3318 "NCBI BioProject" "NCBI SRA" "ORNL DAAC" ror:031478740 "PanoramaPublic" "PedtideAtlas" "PRIDE" "Protein Data Bank" ror:00zbfm828 "Zenodo" ) ;
+            sh:maxCount 1 ;
+            sh:order 9 ;
+            sh:path brc:repository ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path brc:datasetName ],
+        [ sh:datatype xsd:string ;
+            sh:description "A detailed description of the dataset." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path dcterms:description ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:identifier ],
+        [ sh:class brc:Contributor ;
+            sh:description "Contributors to the dataset who are not necessarily authors." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 21 ;
-            sh:path brc:funding ],
+            sh:order 6 ;
+            sh:path brc:contributors ],
+        [ sh:class brc:RelatedItem ;
+            sh:description "Related publications or items." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 18 ;
+            sh:path brc:relatedItem ],
+        [ sh:defaultValue "not specified"^^xsd:string ;
+            sh:description "The type of analysis performed on the dataset." ;
+            sh:maxCount 1 ;
+            sh:or ( [ sh:in ( MI:0004 OBI:0000800 NCIT:C19771 NCIT:C188690 NCIT:C17606 "Ms_imaging" ERO:0001660 "srm_mrm" OBI:0002958 OBI:0001899 ) ] [ sh:datatype xsd:string ;
+                        sh:nodeKind sh:Literal ] ) ;
+            sh:order 15 ;
+            sh:path brc:analysisType ],
+        [ sh:class schema1:Person ;
+            sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path dcterms:creator ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path brc:has_related_ids ],
         [ sh:datatype xsd:anyURI ;
             sh:description "URL for the dataset landing page." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 22 ;
             sh:path schema1:url ],
-        [ sh:description "High-level type of the main content of the dataset." ;
-            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
+            sh:order 8 ;
+            sh:path prov:wasAttributedTo ],
+        [ sh:description "The primary Bioenergy Research Center affiliation. This is a single BRC name." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
             sh:maxCount 1 ;
-            sh:order 16 ;
-            sh:path brc:datasetType ] ;
+            sh:minCount 1 ;
+            sh:order 7 ;
+            sh:path prov:wasAttributedTo ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:alert ],
+        [ sh:class brc:Plasmid ;
+            sh:description "Description of plasmid features, if applicable. This is a multivalued field." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path brc:plasmid_features ] ;
     sh:targetClass schema1:Dataset .
 
 schema1:Person a sh:NodeShape ;
     sh:closed true ;
     sh:description "An individual involved in the dataset." ;
     sh:ignoredProperties ( brc:contributorType rdf:type ) ;
-    sh:property [ sh:datatype xsd:boolean ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Name of the individual." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:boolean ;
             sh:description "Indicates if the individual is a primary contact." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path brc:primaryContact ],
+        [ sh:datatype xsd:string ;
+            sh:description "Email address of the individual." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path schema1:email ],
         [ sh:description "Affiliation of the individual." ;
             sh:maxCount 1 ;
             sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
@@ -201,54 +213,42 @@ schema1:Person a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
-            sh:path brc:orcid ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of the individual." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Email address of the individual." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:email ] ;
+            sh:path brc:orcid ] ;
     sh:targetClass schema1:Person .
 
 brc:Contributor a sh:NodeShape ;
     sh:closed true ;
     sh:description "An individual who contributed to the dataset in some manner, not necessarily as an author." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
-            sh:description "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Name of the individual." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path brc:orcid ],
+            sh:order 1 ;
+            sh:path schema1:name ],
         [ sh:description "Affiliation of the individual." ;
             sh:maxCount 1 ;
             sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
                         sh:nodeKind sh:Literal ] ) ;
             sh:order 4 ;
             sh:path brc:affiliation ],
-        [ sh:description "The contribution type." ;
-            sh:in ( "ContactPerson" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Researcher" "ResearchGroup" "RightsHolder" "Sponsor" "Supervisor" "WorkPackageLeader" "Other" ) ;
-            sh:maxCount 1 ;
-            sh:order 0 ;
-            sh:path brc:contributorType ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of the individual." ;
+        [ sh:datatype xsd:anyURI ;
+            sh:description "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:name ],
+            sh:order 5 ;
+            sh:path brc:orcid ],
         [ sh:datatype xsd:string ;
             sh:description "Email address of the individual." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path schema1:email ],
+        [ sh:description "The contribution type." ;
+            sh:in ( "ContactPerson" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Researcher" "ResearchGroup" "RightsHolder" "Sponsor" "Supervisor" "WorkPackageLeader" "Other" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path brc:contributorType ],
         [ sh:datatype xsd:boolean ;
             sh:description "Indicates if the individual is a primary contact." ;
             sh:maxCount 1 ;
@@ -261,30 +261,30 @@ brc:Funding a sh:NodeShape ;
     sh:closed true ;
     sh:description "Funding source for the dataset. Each item corresponds to a single award or grant." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class brc:BRCOrganization ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Title of the award." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:awardTitle ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URI for the award. This may be a DOI. Include prefix." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:awardURI ],
+        [ sh:class brc:BRCOrganization ;
             sh:description "Details of the funding entity." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 0 ;
             sh:path brc:fundingOrganization ],
         [ sh:datatype xsd:string ;
-            sh:description "Title of the award." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:awardTitle ],
-        [ sh:datatype xsd:string ;
             sh:description "Award number from the funding entity." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:awardNumber ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "URI for the award. This may be a DOI. Include prefix." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:awardURI ] ;
+            sh:path brc:awardNumber ] ;
     sh:targetClass brc:Funding .
 
 brc:Plasmid a sh:NodeShape ;
@@ -303,23 +303,6 @@ brc:Plasmid a sh:NodeShape ;
             sh:order 7 ;
             sh:path brc:selection_markers ],
         [ sh:datatype xsd:string ;
-            sh:description "Description of the plasmid, including any relevant features not captured in other fields." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path brc:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of the backbone of the plasmid, e.g., pUC19." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:backbone ],
-        [ sh:class brc:Organism ;
-            sh:description "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path brc:replicates_in ],
-        [ sh:datatype xsd:string ;
             sh:description "Promoters for the plasmid, e.g., T7." ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
@@ -331,24 +314,35 @@ brc:Plasmid a sh:NodeShape ;
             sh:order 3 ;
             sh:path brc:host ],
         [ sh:datatype xsd:string ;
+            sh:description "Description of the plasmid, including any relevant features not captured in other fields." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:description ],
+        [ sh:datatype xsd:string ;
             sh:description "Unique identifier for the plasmid. This must be unique within the dataset." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path brc:id ] ;
+            sh:path brc:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the backbone of the plasmid, e.g., pUC19." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:backbone ],
+        [ sh:class brc:Organism ;
+            sh:description "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path brc:replicates_in ] ;
     sh:targetClass brc:Plasmid .
 
 brc:RelatedItem a sh:NodeShape ;
     sh:closed true ;
     sh:description "A related publication or item, including cited publications." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
-            sh:description "Identifier or URL for the related item." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:relatedItemIdentifier ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Title of the related item." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -358,7 +352,13 @@ brc:RelatedItem a sh:NodeShape ;
             sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
             sh:maxCount 1 ;
             sh:order 1 ;
-            sh:path brc:relatedItemType ] ;
+            sh:path brc:relatedItemType ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Identifier or URL for the related item." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:relatedItemIdentifier ] ;
     sh:targetClass brc:RelatedItem .
 
 osti:Affiliation a sh:NodeShape ;
@@ -366,24 +366,30 @@ osti:Affiliation a sh:NodeShape ;
     sh:description "An affiliation for a person, such as an organization or institution." ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Name of the institution or laboratory with which this person is affiliated." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path osti:name ],
-        [ sh:datatype xsd:string ;
             sh:description "ROR ID of this affiliation, if any.  Will be validated against ROR organization authority if present." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path osti:ror_id ] ;
+            sh:path osti:ror_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the institution or laboratory with which this person is affiliated." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path osti:name ] ;
     sh:targetClass osti:Affiliation .
 
 osti:AuditLog a sh:NodeShape ;
     sh:closed true ;
     sh:description "Indicates status and information about back-end processing on a given metadata record." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:dateTime ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Indicates state or notification level of worker action detailed in this audit log.  Generally SUCCESS or FAIL, but may additionally indicate INFO, WARN, or ERROR status messages." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path osti:status ],
+        [ sh:datatype xsd:dateTime ;
             sh:description "Timestamp of the operation detailed in this audit log." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -395,12 +401,6 @@ osti:AuditLog a sh:NodeShape ;
             sh:order 3 ;
             sh:path osti:messages ],
         [ sh:datatype xsd:string ;
-            sh:description "Indicates state or notification level of worker action detailed in this audit log.  Generally SUCCESS or FAIL, but may additionally indicate INFO, WARN, or ERROR status messages." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path osti:status ],
-        [ sh:datatype xsd:string ;
             sh:description "Indicates the source of the status message, generally the backend process performing the action in question." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -411,7 +411,13 @@ osti:AuditLog a sh:NodeShape ;
 osti:Geolocation a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "Describes the shape of this geolocation attribute. (Optional, type may be determined by examination of the points.) Single point in 'points' indicates this is a POINT; two points, indicating NW and SE location, indicate a BOX; any other number of points is assumed to be a POLYGON.  Note that POLYGONs should begin and end on the same point, in order to properly express a 'closed polygon' shape." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Optional place name for this location or set of geolocation points." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path osti:label ],
+        [ sh:description "Describes the shape of this geolocation attribute. (Optional, type may be determined by examination of the points.) Single point in 'points' indicates this is a POINT; two points, indicating NW and SE location, indicate a BOX; any other number of points is assumed to be a POLYGON.  Note that POLYGONs should begin and end on the same point, in order to properly express a 'closed polygon' shape." ;
             sh:in ( "POINT" "BOX" "POLYGON" ) ;
             sh:maxCount 1 ;
             sh:order 0 ;
@@ -420,13 +426,7 @@ osti:Geolocation a sh:NodeShape ;
             sh:minCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 2 ;
-            sh:path osti:points ],
-        [ sh:datatype xsd:string ;
-            sh:description "Optional place name for this location or set of geolocation points." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path osti:label ] ;
+            sh:path osti:points ] ;
     sh:targetClass osti:Geolocation .
 
 osti:Identifier a sh:NodeShape ;
@@ -450,12 +450,24 @@ osti:MediaFile a sh:NodeShape ;
     sh:closed true ;
     sh:description "Metadata information pertaining to a particular media resource associated with this product.  Contains information about its disposition, content, and processing state.  Each individual file is uniquely identified by its `MEDIA_FILE_ID` value." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "Unique identifier for a given MEDIA FILE." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "For PDF media files, indicates the version of PDF." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path osti:media_file_id ],
+            sh:order 17 ;
+            sh:path osti:pdf_version ],
+        [ sh:datatype xsd:integer ;
+            sh:description "If local file, the file size in bytes." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path osti:file_size_bytes ],
+        [ sh:datatype xsd:string ;
+            sh:description "Describes method of file production or association with this media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path osti:media_source ],
         [ sh:datatype xsd:string ;
             sh:description "Indicates TYPE of media file, detected or set during media processing." ;
             sh:maxCount 1 ;
@@ -463,79 +475,12 @@ osti:MediaFile a sh:NodeShape ;
             sh:order 6 ;
             sh:path osti:media_type ;
             sh:pattern "^.{0,1}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "If present, the reason why media processing failed, or description of problem encountered processing this particular file." ;
+        [ sh:description "Indicates if the file is LOCALLY HOSTED ('L') or OFF-SITE URL ('O')." ;
+            sh:in ( "L" "O" ) ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 21 ;
-            sh:path osti:processing_exceptions ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Indicates the last date and time this media file was modified." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 23 ;
-            sh:path osti:date_file_updated ],
-        [ sh:datatype xsd:string ;
-            sh:description "For PDF media that is PDF/A compliant, the conformance level, generally A, B, or U." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 18 ;
-            sh:path osti:pdfa_conformance ],
-        [ sh:datatype xsd:string ;
-            sh:description "For PDF media files, indicates the version of PDF." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 17 ;
-            sh:path osti:pdf_version ],
-        [ sh:datatype xsd:string ;
-            sh:description "For PDF media that is PDF/UA compliant, its compliance level, generally 1 or 2." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 20 ;
-            sh:path osti:pdfua_part ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Indicates the number of video tracks in audio-visual media." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 16 ;
-            sh:path osti:video_tracks ],
-        [ sh:datatype xsd:string ;
-            sh:description "Either the file name for local files, or URL path to off-site resource." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 8 ;
-            sh:path osti:url ;
-            sh:pattern "^.{0,255}$" ],
-        [ sh:datatype xsd:integer ;
-            sh:description "If non-zero, indicates unique MEDIA FILE ID this MEDIA FILE is derived from." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path osti:parent_media_file_id ],
-        [ sh:datatype xsd:integer ;
-            sh:description "For document-based media, the number of printed pages if applicable." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 14 ;
-            sh:path osti:document_page_count ],
-        [ sh:datatype xsd:string ;
-            sh:description "For PDF media that is PDF/A compliant, the level of compliance, as a value between 1 and 4." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 19 ;
-            sh:path osti:pdfa_part ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indiciates current processing status for this MEDIA FILE. Other values may indicate awaiting additional processing, such as 'OCR', pending text processing." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path osti:status ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Indicates the E-Link USER ID that attached this MEDIA FILE." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 10 ;
-            sh:path osti:added_by_user_id ],
+            sh:order 7 ;
+            sh:path osti:url_type ;
+            sh:pattern "^.{0,1}$" ],
         [ sh:datatype xsd:string ;
             sh:description "Mime type describing the MEDIA FILE content." ;
             sh:maxCount 1 ;
@@ -543,23 +488,17 @@ osti:MediaFile a sh:NodeShape ;
             sh:order 9 ;
             sh:path osti:mime_type ],
         [ sh:datatype xsd:integer ;
-            sh:description "If local file, the file size in bytes." ;
+            sh:description "Unique identifier for a given MEDIA FILE." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 12 ;
-            sh:path osti:file_size_bytes ],
+            sh:order 0 ;
+            sh:path osti:media_file_id ],
         [ sh:datatype xsd:integer ;
-            sh:description "Link to parent MEDIA SET ID." ;
+            sh:description "Indicates the E-Link USER ID that attached this MEDIA FILE." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path osti:media_id ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Indicates the date and time this media file was created." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 22 ;
-            sh:path osti:date_file_added ],
+            sh:order 10 ;
+            sh:path osti:added_by_user_id ],
         [ sh:datatype xsd:integer ;
             sh:description "Indicates the number of subtitle tracks for audio-visual media." ;
             sh:maxCount 1 ;
@@ -567,23 +506,77 @@ osti:MediaFile a sh:NodeShape ;
             sh:order 15 ;
             sh:path osti:subtitle_tracks ],
         [ sh:datatype xsd:integer ;
+            sh:description "Indicates the number of video tracks in audio-visual media." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path osti:video_tracks ],
+        [ sh:datatype xsd:string ;
+            sh:description "For PDF media that is PDF/A compliant, the conformance level, generally A, B, or U." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path osti:pdfa_conformance ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Indicates the date and time this media file was created." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path osti:date_file_added ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Indicates the last date and time this media file was modified." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path osti:date_file_updated ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Link to parent MEDIA SET ID." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path osti:media_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "If present, the reason why media processing failed, or description of problem encountered processing this particular file." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path osti:processing_exceptions ],
+        [ sh:datatype xsd:string ;
+            sh:description "For PDF media that is PDF/A compliant, the level of compliance, as a value between 1 and 4." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path osti:pdfa_part ],
+        [ sh:datatype xsd:integer ;
+            sh:description "For document-based media, the number of printed pages if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path osti:document_page_count ],
+        [ sh:datatype xsd:integer ;
+            sh:description "If non-zero, indicates unique MEDIA FILE ID this MEDIA FILE is derived from." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path osti:parent_media_file_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Calculated hash or checksum value of the physical file as applicable, from media processing." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path osti:checksum ],
+        [ sh:datatype xsd:integer ;
             sh:description "Revision number of this media file, associated with the MEDIA SET" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path osti:revision ],
         [ sh:datatype xsd:string ;
-            sh:description "Describes method of file production or association with this media set." ;
+            sh:description "Indiciates current processing status for this MEDIA FILE. Other values may indicate awaiting additional processing, such as 'OCR', pending text processing." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 11 ;
-            sh:path osti:media_source ],
-        [ sh:description "Indicates if the file is LOCALLY HOSTED ('L') or OFF-SITE URL ('O')." ;
-            sh:in ( "L" "O" ) ;
-            sh:maxCount 1 ;
-            sh:order 7 ;
-            sh:path osti:url_type ;
-            sh:pattern "^.{0,1}$" ],
+            sh:order 5 ;
+            sh:path osti:status ],
         [ sh:datatype xsd:integer ;
             sh:description "For audio-visual media, the duration of the resource in seconds." ;
             sh:maxCount 1 ;
@@ -591,58 +584,35 @@ osti:MediaFile a sh:NodeShape ;
             sh:order 13 ;
             sh:path osti:duration_seconds ],
         [ sh:datatype xsd:string ;
-            sh:description "Calculated hash or checksum value of the physical file as applicable, from media processing." ;
+            sh:description "For PDF media that is PDF/UA compliant, its compliance level, generally 1 or 2." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path osti:checksum ] ;
+            sh:order 20 ;
+            sh:path osti:pdfua_part ],
+        [ sh:datatype xsd:string ;
+            sh:description "Either the file name for local files, or URL path to off-site resource." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path osti:url ;
+            sh:pattern "^.{0,255}$" ] ;
     sh:targetClass osti:MediaFile .
 
 osti:MediaSet a sh:NodeShape ;
     sh:closed true ;
     sh:description "Metadata about files associated with this product.  Summarizes the main media file associated with this product, usually an off-site URL or PDF uploaded to OSTI, with its state, URL if applicable, and other identifying state information pertaining to the media files as a group. Each media set is uniquely identified by its `MEDIA_ID` value." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class osti:MediaFile ;
-            sh:description "Array of all files, including original submission of file or URL along with any derived files during processing of media." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 14 ;
-            sh:path osti:files ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indicate the current processing of the media file set." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path osti:status ],
-        [ sh:description "Indicates if this media set's main content is LOCAL or OFF-SITE." ;
-            sh:in ( "L" "O" ) ;
-            sh:maxCount 1 ;
-            sh:order 9 ;
-            sh:path osti:media_location ],
-        [ sh:datatype xsd:integer ;
+    sh:property [ sh:datatype xsd:integer ;
             sh:description "Links to Record OSTI_ID value for a Media Set." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path osti:osti_id ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Revision number of this media association set." ;
+        [ sh:description "Indicates if this media set's main content is LOCAL or OFF-SITE." ;
+            sh:in ( "L" "O" ) ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path osti:revision ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date this media set was most recently modified. (UTC)" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 12 ;
-            sh:path osti:date_updated ],
-        [ sh:datatype xsd:string ;
-            sh:description "Optional title provided for the given media set." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 8 ;
-            sh:path osti:media_title ;
-            sh:pattern "^.{0,500}$" ],
+            sh:order 9 ;
+            sh:path osti:media_location ],
         [ sh:datatype xsd:integer ;
             sh:description "Unique ID for this MEDIA SET." ;
             sh:maxCount 1 ;
@@ -650,17 +620,46 @@ osti:MediaSet a sh:NodeShape ;
             sh:order 0 ;
             sh:path osti:media_id ],
         [ sh:datatype xsd:integer ;
-            sh:description "Number of pages, if applicable, found in the processing of this file." ;
+            sh:description "Indicates user ID that added this media set." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path osti:document_page_count ],
+            sh:order 5 ;
+            sh:path osti:added_by ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Revision number of this media association set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path osti:revision ],
+        [ sh:description "Access limitations are inherited from the parent metadata record at time of association." ;
+            sh:in ( "UNL" "OPN" "CPY" "OUO" "PROT" "PDOUO" "ECI" "PDSH" "USO" "LRD" "NAT" "NNPI" "INTL" "PROP" "PAT" "OTHR" "CUI" ) ;
+            sh:order 2 ;
+            sh:path osti:access_limitations ;
+            sh:pattern "^.{0,5}$" ],
         [ sh:datatype xsd:dateTime ;
             sh:description "Date this media set was first created. (UTC)" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 11 ;
             sh:path osti:date_added ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicate the current processing of the media file set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path osti:status ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date this media set was most recently modified. (UTC)" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path osti:date_updated ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates the initial primary source of the media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path osti:media_source ],
         [ sh:datatype xsd:dateTime ;
             sh:description "If present, date and time when media association was removed or replaced. (UTC)" ;
             sh:maxCount 1 ;
@@ -668,57 +667,58 @@ osti:MediaSet a sh:NodeShape ;
             sh:order 13 ;
             sh:path osti:date_valid_end ],
         [ sh:datatype xsd:integer ;
-            sh:description "Indicates user ID that added this media set." ;
+            sh:description "Number of pages, if applicable, found in the processing of this file." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path osti:added_by ],
+            sh:order 6 ;
+            sh:path osti:document_page_count ],
+        [ sh:datatype xsd:string ;
+            sh:description "Optional title provided for the given media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path osti:media_title ;
+            sh:pattern "^.{0,500}$" ],
+        [ sh:class osti:MediaFile ;
+            sh:description "Array of all files, including original submission of file or URL along with any derived files during processing of media." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path osti:files ],
         [ sh:datatype xsd:string ;
             sh:description "MIME type description of the file content of this media file. This value is set by OSTI media processing." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 7 ;
-            sh:path osti:mime_type ],
-        [ sh:description "Access limitations are inherited from the parent metadata record at time of association." ;
-            sh:in ( "UNL" "OPN" "CPY" "OUO" "PROT" "PDOUO" "ECI" "PDSH" "USO" "LRD" "NAT" "NNPI" "INTL" "PROP" "PAT" "OTHR" "CUI" ) ;
-            sh:order 2 ;
-            sh:path osti:access_limitations ;
-            sh:pattern "^.{0,5}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indicates the initial primary source of the media set." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 10 ;
-            sh:path osti:media_source ] ;
+            sh:path osti:mime_type ] ;
     sh:targetClass osti:MediaSet .
 
 osti:Organization a sh:NodeShape ;
     sh:closed true ;
     sh:description "Describes a particular organization associated with the bibliographic record. Organizations may be author collaborations, sponsors, research laboratories, or contributors to the work, as indicated by their associated type. For identification purposes, at least one of either 'name' or 'ror_id' is required for validation.  If ROR ID is specified, it will be validated against the ROR authority at OSTI." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:in ( "AUTHOR" "CONTRIBUTING" "RESEARCHING" "SPONSOR" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path osti:type ;
-            sh:pattern "^.{0,20}$" ],
+    sh:property [ sh:class osti:OrganizationIdentifier ;
+            sh:description "List of any identifiers for this Organization.  Only applicable to Sponsoring organizations." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path osti:identifiers ],
         [ sh:datatype xsd:string ;
             sh:description "ROR ID for this organization, if any. This value will be validated against the ROR authority." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path osti:ror_id ],
-        [ sh:class osti:OrganizationIdentifier ;
-            sh:description "List of any identifiers for this Organization.  Only applicable to Sponsoring organizations." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path osti:identifiers ],
         [ sh:description "Indicate the contribution made by this Organization.  Required for CONTRIBUTING 'type'." ;
             sh:in ( "Chair" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Reviewer" "ReviewAssistant" "ReviewerExternal" "RightsHolder" "StatsReviewer" "Supervisor" "Translator" "WorkPackageLeader" "Other" ) ;
             sh:maxCount 1 ;
             sh:order 2 ;
             sh:path osti:contributor_type ;
             sh:pattern "^.{0,25}$" ],
+        [ sh:in ( "AUTHOR" "CONTRIBUTING" "RESEARCHING" "SPONSOR" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path osti:type ;
+            sh:pattern "^.{0,20}$" ],
         [ sh:datatype xsd:string ;
             sh:description "Name of the organization" ;
             sh:maxCount 1 ;
@@ -733,35 +733,72 @@ osti:OrganizationIdentifier a sh:NodeShape ;
     sh:closed true ;
     sh:description "One or more identifying numbers or references associated with this organization.  Please note that only sponsoring organizations may have associated identifier values." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:in ( "AWARD_DOI" "CN_DOE" "CN_NONDOE" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path osti:type ;
-            sh:pattern "^.{0,20}$" ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Indicates the value of this identifier.  May be validated according to its particular type." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path osti:value ] ;
+            sh:path osti:value ],
+        [ sh:in ( "AWARD_DOI" "CN_DOE" "CN_NONDOE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path osti:type ;
+            sh:pattern "^.{0,20}$" ] ;
     sh:targetClass osti:OrganizationIdentifier .
 
 osti:Person a sh:NodeShape ;
     sh:closed true ;
     sh:description "Information about a particular person involved in the production or maintenance of this record" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "List of any email address(es) associated with this person. Email addresses are validated to be well-formed." ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "OSTI-assigned identifier for this person, if any" ;
+            sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path osti:email ],
+            sh:order 7 ;
+            sh:path osti:osti_user_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "ORCID (https://orcid.org/) value for this person. ORCID values, if provided, must be of valid format." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path osti:orcid ],
+        [ sh:class osti:Affiliation ;
+            sh:description "List of any affiliations for this person.  At least one of either 'name' and/or 'ror_id' is required; if ROR ID is provided, the value will be validated against the OSTI ROR authority." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path osti:affiliations ],
+        [ sh:in ( "AUTHOR" "RELEASE" "CONTACT" "CONTRIBUTING" "PROT_CE" "PROT_RO" "SBIZ_PI" "SBIZ_BO" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path osti:type ;
+            sh:pattern "^.{0,20}$" ],
         [ sh:in ( "Chair" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Reviewer" "ReviewAssistant" "ReviewerExternal" "RightsHolder" "StatsReviewer" "Supervisor" "Translator" "WorkPackageLeader" "Other" ) ;
             sh:maxCount 1 ;
             sh:order 8 ;
             sh:path osti:contributor_type ;
             sh:pattern "^.{0,25}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "List of any email address(es) associated with this person. Email addresses are validated to be well-formed." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path osti:email ],
+        [ sh:datatype xsd:string ;
+            sh:description "Contact phone number for this person, if available. If provided, must be a valid phone number expression." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path osti:phone ;
+            sh:pattern "^.{0,30}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "First (or 'Given') name of the person" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path osti:first_name ;
+            sh:pattern "^.{0,50}$" ],
         [ sh:datatype xsd:string ;
             sh:description "Middle name or initial of the person" ;
             sh:maxCount 1 ;
@@ -775,44 +812,7 @@ osti:Person a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path osti:last_name ;
-            sh:pattern "^.{0,60}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "First (or 'Given') name of the person" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path osti:first_name ;
-            sh:pattern "^.{0,50}$" ],
-        [ sh:datatype xsd:integer ;
-            sh:description "OSTI-assigned identifier for this person, if any" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path osti:osti_user_id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Contact phone number for this person, if available. If provided, must be a valid phone number expression." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path osti:phone ;
-            sh:pattern "^.{0,30}$" ],
-        [ sh:class osti:Affiliation ;
-            sh:description "List of any affiliations for this person.  At least one of either 'name' and/or 'ror_id' is required; if ROR ID is provided, the value will be validated against the OSTI ROR authority." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 9 ;
-            sh:path osti:affiliations ],
-        [ sh:in ( "AUTHOR" "RELEASE" "CONTACT" "CONTRIBUTING" "PROT_CE" "PROT_RO" "SBIZ_PI" "SBIZ_BO" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path osti:type ;
-            sh:pattern "^.{0,20}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "ORCID (https://orcid.org/) value for this person. ORCID values, if provided, must be of valid format." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path osti:orcid ] ;
+            sh:pattern "^.{0,60}$" ] ;
     sh:targetClass osti:Person .
 
 osti:Point a sh:NodeShape ;
@@ -843,89 +843,6 @@ osti:Record a sh:NodeShape ;
     sh:description "Defines the bibliographic metadata about a particular work or record. Depending on product type, various elements are permitted, not permitted, or required." ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Issue number for journals or other applicable products if any." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path osti:issue ;
-            sh:pattern "^.{0,80}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "For OpenNET records, the addressee information" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 47 ;
-            sh:path osti:opn_addressee ],
-        [ sh:description "Workflow status of current revision of record." ;
-            sh:in ( "R" "SA" "SR" "SO" "SF" "SX" "SV" "X" "D" ) ;
-            sh:maxCount 1 ;
-            sh:order 8 ;
-            sh:path osti:workflow_status ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date contract for this record was awarded." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 20 ;
-            sh:path osti:contract_award_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "Exception number for PDOUO access limitation records. Multiple values may be delimited by semi-colons." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 60 ;
-            sh:path osti:pdouo_exemption_number ],
-        [ sh:datatype xsd:string ;
-            sh:description "Concise set of key words for this record" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 43 ;
-            sh:path osti:keywords ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date record first entered the OSTI system. Value internally maintained by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 22 ;
-            sh:path osti:date_metadata_added ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 75 ;
-            sh:path osti:report_period_start_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "The holder of property rights to a patent." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 57 ;
-            sh:path osti:patent_assignee ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date record information was released to OSTI, as entered by releasing official." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 72 ;
-            sh:path osti:released_to_osti_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "The previous SBIR/STTR contract number if a Phase III SBIR/STTR report." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 80 ;
-            sh:path osti:sbiz_previous_contract_number ;
-            sh:pattern "^.{0,14}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "\"Any customized infix value for the DOI used when generating a DOI reference. The following characters should be avoided in the infix value: ;/?:@&=+$,.\"" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 31 ;
-            sh:path osti:doi_infix ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date patent was filed with US Patent Office." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 58 ;
-            sh:path osti:patent_file_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "For OpenNET records, the date information was declassified" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 48 ;
-            sh:path osti:opn_declassified_date ],
-        [ sh:datatype xsd:string ;
             sh:description "Publisher-specific information if applicable" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -933,29 +850,81 @@ osti:Record a sh:NodeShape ;
             sh:path osti:publisher_information ;
             sh:pattern "^.{0,400}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Specific sub-type of the journal article.  For product type JA only. Further qualifies the type of record." ;
+            sh:description "Date of OUO access limitation expiration if applicable." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path osti:journal_type ;
-            sh:pattern "^.{0,2}$" ],
-        [ sh:description "Access/distribution limitation codes to describe the distribution rules and limitations for this work." ;
-            sh:in ( "UNL" "OPN" "CPY" "OUO" "PROT" "PDOUO" "ECI" "PDSH" "USO" "LRD" "NAT" "NNPI" "INTL" "PROP" "PAT" "OTHR" "CUI" ) ;
-            sh:minCount 1 ;
-            sh:order 9 ;
-            sh:path osti:access_limitations ;
-            sh:pattern "^.{0,5}$" ],
+            sh:order 55 ;
+            sh:path osti:ouo_release_date ],
+        [ sh:class osti:MediaSet ;
+            sh:description "Listing of any media and files associated with this record, along with various metadata information and status data for each.  Empty if no media is currently associated with this record." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 46 ;
+            sh:path osti:media ],
         [ sh:datatype xsd:string ;
-            sh:description "Set two-character subject category code values for this record" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 69 ;
-            sh:path osti:subject_category_code ;
-            sh:pattern "^.{0,2}$" ],
-        [ sh:description "Indicates the OSTI collection type originally creating this record. Maintained internally by E-Link." ;
-            sh:in ( "DOE_LAB" "DOE_GRANT" "CHORUS" ) ;
+            sh:description "Additional information about access/distribution limitation for this record, if needed. Required for CUI or PDOUO designations in access limitation. May contain information about the following: Special handling instructions, Copyright restrictions, Other criteria pertinent to the review, access limitation, announcement, and/or restriction of this STI product." ;
             sh:maxCount 1 ;
-            sh:order 17 ;
-            sh:path osti:collection_type ],
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path osti:access_limitation_other ],
+        [ sh:datatype xsd:string ;
+            sh:description "Site-specified unique accession number for this record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 83 ;
+            sh:path osti:site_unique_id ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if OSTI has or had a paper copy of this product." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 56 ;
+            sh:path osti:paper_flag ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates if this metadata is SBIR or STTR related." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 78 ;
+            sh:path osti:sbiz_flag ;
+            sh:pattern "^.{0,6}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Any legacy or historical subject category codes for this report" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 70 ;
+            sh:path osti:subject_category_code_legacy ],
+        [ sh:datatype xsd:string ;
+            sh:description "Value determined by submission type at record creation time. Defines how E-Link record was first entered into the system." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 85 ;
+            sh:path osti:source_input_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "Any comments made by the releasing official on the record." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 73 ;
+            sh:path osti:releasing_official_comments ],
+        [ sh:datatype xsd:string ;
+            sh:description "E-Link user name that created this revision of the metadata record. Value maintained by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 34 ;
+            sh:path osti:edited_by_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "List of descriptor codes for this record" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path osti:descriptors ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates date on which the document embargo ends, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 38 ;
+            sh:path osti:media_embargo_sunset_date ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Revision number (sequence) for this record." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path osti:revision ],
         [ sh:datatype xsd:string ;
             sh:description "Detail information about 'Other' report types." ;
             sh:maxCount 1 ;
@@ -964,58 +933,17 @@ osti:Record a sh:NodeShape ;
             sh:path osti:report_type_other ;
             sh:pattern "^.{0,80}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Information regarding physical size of media or report, if applicable." ;
+            sh:description "E-Link account email address initially entering this record. Value maintained by E-Link." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 62 ;
-            sh:path osti:product_size ;
-            sh:pattern "^.{0,50}$" ],
-        [ sh:class osti:Organization ;
-            sh:description "List of organizations related to this record. For submissions, at least SPONSOR and RESEARCHING organization is required." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 53 ;
-            sh:path osti:organizations ],
+            sh:order 12 ;
+            sh:path osti:added_by_email ],
         [ sh:datatype xsd:string ;
-            sh:description "Date of OUO access limitation expiration if applicable." ;
+            sh:description "String representation of the publication date (e.g., Summer 2001)" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 55 ;
-            sh:path osti:ouo_release_date ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 74 ;
-            sh:path osti:report_period_end_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "Any comments made by the releasing official on the record." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 73 ;
-            sh:path osti:releasing_official_comments ],
-        [ sh:datatype xsd:string ;
-            sh:description "A three-character field constrained to 'I', 'II', 'IIA', 'IIB', or 'III' indicating the phase of this SBIR/STTR report." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 79 ;
-            sh:path osti:sbiz_phase ;
-            sh:pattern "^.{0,3}$" ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Revision number (sequence) for this record." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path osti:revision ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 52 ;
-            sh:path osti:opn_fieldoffice_acronym_code ;
-            sh:pattern "^.{0,10}$" ],
-        [ sh:class osti:Geolocation ;
-            sh:description "List of geolocation references for this record." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 87 ;
-            sh:path osti:geolocations ],
+            sh:order 40 ;
+            sh:path osti:publication_date_text ],
         [ sh:datatype xsd:string ;
             sh:description "Country of publication for this record" ;
             sh:maxCount 1 ;
@@ -1023,24 +951,17 @@ osti:Record a sh:NodeShape ;
             sh:order 21 ;
             sh:path osti:country_publication_code ;
             sh:pattern "^.{0,5}$" ],
+        [ sh:description "Workflow status of current revision of record." ;
+            sh:in ( "R" "SA" "SR" "SO" "SF" "SX" "SV" "X" "D" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path osti:workflow_status ],
         [ sh:datatype xsd:string ;
-            sh:description "Value determined by submission type at record creation time. Defines how E-Link record was first entered into the system." ;
+            sh:description "Value determined by submission type for each edit or revision of a record. Changes on a per-revision basis." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 85 ;
-            sh:path osti:source_input_type ],
-        [ sh:class osti:AuditLog ;
-            sh:description "Listing of any audit logs of actions taken and worker interactions performed on this metadata revision, if any." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 45 ;
-            sh:path osti:audit_logs ],
-        [ sh:datatype xsd:string ;
-            sh:description "Additional information for 'OTHER' product types.  Required if 'OT' product type is specified for this record." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 64 ;
-            sh:path osti:product_type_other ;
-            sh:pattern "^.{0,200}$" ],
+            sh:order 86 ;
+            sh:path osti:source_edit_type ],
         [ sh:datatype xsd:string ;
             sh:description "Code representing the type of conference-related work of this record. Generally, only applicable to CO type submissions." ;
             sh:maxCount 1 ;
@@ -1049,28 +970,16 @@ osti:Record a sh:NodeShape ;
             sh:path osti:conference_type ;
             sh:pattern "^.{0,1}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Indicates date on which the document embargo ends, if applicable." ;
+            sh:description "(DATASET product type only) The URL of the data set landing page, containing links to data set content or additional information as required." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 38 ;
-            sh:path osti:media_embargo_sunset_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "Additional information about access/distribution limitation for this record, if needed. Required for CUI or PDOUO designations in access limitation. May contain information about the following: Special handling instructions, Copyright restrictions, Other criteria pertinent to the review, access limitation, announcement, and/or restriction of this STI product." ;
+            sh:order 84 ;
+            sh:path osti:site_url ],
+        [ sh:in ( "AR" "B" "CO" "DA" "FS" "JA" "MI" "OT" "P" "PD" "SM" "TD" "TR" "PA" ) ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 10 ;
-            sh:path osti:access_limitation_other ],
-        [ sh:datatype xsd:string ;
-            sh:description "Value provided by user editing a record describing the reason for the edit." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 35 ;
-            sh:path osti:edit_reason ],
-        [ sh:datatype xsd:string ;
-            sh:description "Information useful to include in published announcements which is not suited for other fields." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 54 ;
-            sh:path osti:other_information ],
+            sh:order 63 ;
+            sh:path osti:product_type ;
+            sh:pattern "^.{0,2}$" ],
         [ sh:datatype xsd:string ;
             sh:description "A volume number as applicable, usually for journals or books." ;
             sh:maxCount 1 ;
@@ -1079,42 +988,12 @@ osti:Record a sh:NodeShape ;
             sh:path osti:volume ;
             sh:pattern "^.{0,68}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "\"Describes the conference pertaining to this record, if any; usually name and / or location the event took place.\"\"" ;
+            sh:description "Edition number, as applicable to Books or other products." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 18 ;
-            sh:path osti:conference_information ],
-        [ sh:datatype xsd:string ;
-            sh:description "(DATASET product type only) The URL of the data set landing page, containing links to data set content or additional information as required." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 84 ;
-            sh:path osti:site_url ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Most recent date record information was submitted to OSTI. Maintained internally by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 25 ;
-            sh:path osti:date_submitted_to_osti_last ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indicates if OSTI has or had a paper copy of this product." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 56 ;
-            sh:path osti:paper_flag ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date record was first submitted to OSTI for publication. Maintained internally by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 24 ;
-            sh:path osti:date_submitted_to_osti_first ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date of publication of this record.  For Thesis/Dissertation records, this may also be the completion date of the Thesis.  For Patents, the date the patent was issued or approved." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 39 ;
-            sh:path osti:publication_date ],
+            sh:order 15 ;
+            sh:path osti:edition ;
+            sh:pattern "^.{0,10}$" ],
         [ sh:datatype xsd:string ;
             sh:description "Describes record's availibility information." ;
             sh:maxCount 1 ;
@@ -1122,41 +1001,60 @@ osti:Record a sh:NodeShape ;
             sh:order 68 ;
             sh:path osti:availability ],
         [ sh:datatype xsd:string ;
-            sh:description "URL for information regarding the journal license for information" ;
+            sh:description "Issue number for journals or other applicable products if any." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path osti:journal_license_url ;
-            sh:pattern "^.{0,255}$" ],
+            sh:order 2 ;
+            sh:path osti:issue ;
+            sh:pattern "^.{0,80}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "List of announcement codes for this record." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path osti:announcement_codes ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information regarding why the information is protected if not a CRADA product." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 66 ;
+            sh:path osti:prot_data_other ;
+            sh:pattern "^.{0,80}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The DOI for this record, if any.  Enter value if previously assigned a DOI for the record from an outside service.  If not supplied, OSTI may assign a DOI for the work for certain applicable record types." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path osti:doi ],
+        [ sh:datatype xsd:string ;
+            sh:description "Title of record.  For Book Chapters, the title of the chapter." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path osti:title ],
         [ sh:datatype xsd:dateTime ;
-            sh:description "The date on which data protections for this record will end." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 67 ;
-            sh:path osti:prot_release_date ],
+            sh:order 75 ;
+            sh:path osti:report_period_start_date ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date record was first submitted to OSTI for publication. Maintained internally by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path osti:date_submitted_to_osti_first ],
         [ sh:datatype xsd:string ;
-            sh:description "Information about the format of the product, including any operating system or program requirements for use of the data, as applicable." ;
+            sh:description "E-Link user email address that created this revision of the metadata record. Value maintained by E-Link." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 37 ;
-            sh:path osti:format_information ],
+            sh:order 33 ;
+            sh:path osti:edited_by_email ],
         [ sh:datatype xsd:string ;
-            sh:description "The type(s) of information or frequency of reporting of information in this report." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 76 ;
-            sh:path osti:report_types ],
-        [ sh:datatype xsd:integer ;
-            sh:description "OSTI user ID making this revision of the metadata record. Value internally maintained by E-Link." ;
+            sh:description "For OpenNET records, status of declassification of information" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 32 ;
-            sh:path osti:edited_by ],
-        [ sh:datatype xsd:string ;
-            sh:description "Value determined by submission type for each edit or revision of a record. Changes on a per-revision basis." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 86 ;
-            sh:path osti:source_edit_type ],
+            sh:order 49 ;
+            sh:path osti:opn_declassified_status ],
         [ sh:datatype xsd:string ;
             sh:description "Indicates if the journal article is available in an open access journal, indicated as Y for open, N for not, or left blank/omitted if not applicable or unknown status." ;
             sh:maxCount 1 ;
@@ -1164,40 +1062,23 @@ osti:Record a sh:NodeShape ;
             sh:order 5 ;
             sh:path osti:journal_open_access_flag ;
             sh:pattern "^.{0,1}$" ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 59 ;
-            sh:path osti:patent_priority_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indicates the type of protected data described by this record. PROT must be specified in the access limitations." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 65 ;
-            sh:path osti:prot_flag ;
-            sh:pattern "^.{0,5}$" ],
-        [ sh:class osti:Person ;
-            sh:description "List of persons (authors, contributors, etc.) related to this record. For submissions, at least one AUTHOR or CONTRIBUTING Person, along with a RELEASE contact, is required." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 61 ;
-            sh:path osti:persons ],
-        [ sh:datatype xsd:string ;
-            sh:description "E-Link user name that created this revision of the metadata record. Value maintained by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 34 ;
-            sh:path osti:edited_by_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "The DOI for this record, if any.  Enter value if previously assigned a DOI for the record from an outside service.  If not supplied, OSTI may assign a DOI for the work for certain applicable record types." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 30 ;
-            sh:path osti:doi ],
         [ sh:class osti:Identifier ;
             sh:description "List of identifying numbers related to this record" ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 1 ;
             sh:path osti:identifiers ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date data protections on this SBIR/STTR record will expire." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 81 ;
+            sh:path osti:sbiz_release_date ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date record first entered the OSTI system. Value internally maintained by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path osti:date_metadata_added ],
         [ sh:datatype xsd:dateTime ;
             sh:description "Date of this revision of the record. Value internally maintained by E-Link." ;
             sh:maxCount 1 ;
@@ -1211,148 +1092,77 @@ osti:Record a sh:NodeShape ;
             sh:order 42 ;
             sh:path osti:related_doc_info ;
             sh:pattern "^.{0,2255}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "For OpenNET records, status of declassification of information" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 49 ;
-            sh:path osti:opn_declassified_status ],
-        [ sh:datatype xsd:string ;
-            sh:description "Site-specified unique accession number for this record" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 83 ;
-            sh:path osti:site_unique_id ],
-        [ sh:datatype xsd:string ;
-            sh:description "E-Link user email address that created this revision of the metadata record. Value maintained by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 33 ;
-            sh:path osti:edited_by_email ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indicates if this metadata is SBIR or STTR related." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 78 ;
-            sh:path osti:sbiz_flag ;
-            sh:pattern "^.{0,6}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "List of announcement codes for this record." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 14 ;
-            sh:path osti:announcement_codes ],
-        [ sh:datatype xsd:string ;
-            sh:description "List of descriptor codes for this record" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 28 ;
-            sh:path osti:descriptors ],
-        [ sh:in ( "AR" "B" "CO" "DA" "FS" "JA" "MI" "OT" "P" "PD" "SM" "TD" "TR" "PA" ) ;
-            sh:maxCount 1 ;
-            sh:order 63 ;
-            sh:path osti:product_type ;
-            sh:pattern "^.{0,2}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "E-Link user name initially entering this record. Value maintained by E-Link." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 13 ;
-            sh:path osti:added_by_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Indicates if the record is primarily DOE-funded. Indicate Y for Yes, N for no, or leave blank/omit if unknown status." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 29 ;
-            sh:path osti:doe_funded_flag ;
-            sh:pattern "^.{0,1}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "Code of the DOE site submitting this document" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 82 ;
-            sh:path osti:site_ownership_code ;
-            sh:pattern "^.{0,10}$" ],
-        [ sh:datatype xsd:dateTime ;
-            sh:description "Date data protections on this SBIR/STTR record will expire." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 81 ;
-            sh:path osti:sbiz_release_date ],
-        [ sh:datatype xsd:string ;
-            sh:description "String representation of the publication date (e.g., Summer 2001)" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 40 ;
-            sh:path osti:publication_date_text ],
-        [ sh:datatype xsd:string ;
-            sh:description "For OpenNET records, list of any document categories pertaining to this record" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 50 ;
-            sh:path osti:opn_document_categories ],
-        [ sh:class osti:MediaSet ;
-            sh:description "Listing of any media and files associated with this record, along with various metadata information and status data for each.  Empty if no media is currently associated with this record." ;
+        [ sh:class osti:Geolocation ;
+            sh:description "List of geolocation references for this record." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 46 ;
-            sh:path osti:media ],
-        [ sh:datatype xsd:string ;
-            sh:description "Value determined based on type of edit and user performing the association." ;
+            sh:order 87 ;
+            sh:path osti:geolocations ],
+        [ sh:class osti:Organization ;
+            sh:description "List of organizations related to this record. For submissions, at least SPONSOR and RESEARCHING organization is required." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 53 ;
+            sh:path osti:organizations ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date contract for this record was awarded." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 36 ;
-            sh:path osti:edit_source ],
+            sh:order 20 ;
+            sh:path osti:contract_award_date ],
+        [ sh:class osti:AuditLog ;
+            sh:description "Listing of any audit logs of actions taken and worker interactions performed on this metadata revision, if any." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 45 ;
+            sh:path osti:audit_logs ],
         [ sh:datatype xsd:string ;
-            sh:description "Any legacy or historical subject category codes for this report" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 70 ;
-            sh:path osti:subject_category_code_legacy ],
-        [ sh:datatype xsd:integer ;
-            sh:description "E-Link user ID that initially entered this record. Value internally maintained by E-Link." ;
+            sh:description "Description or abstract for this record. Required to have a value for grantee submissions." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 11 ;
-            sh:path osti:added_by ],
+            sh:order 27 ;
+            sh:path osti:description ],
         [ sh:datatype xsd:string ;
-            sh:description "Information regarding why the information is protected if not a CRADA product." ;
+            sh:description "Information useful to include in published announcements which is not suited for other fields." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 54 ;
+            sh:path osti:other_information ],
+        [ sh:datatype xsd:string ;
+            sh:description "Exception number for PDOUO access limitation records. Multiple values may be delimited by semi-colons." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 66 ;
-            sh:path osti:prot_data_other ;
-            sh:pattern "^.{0,80}$" ],
+            sh:order 60 ;
+            sh:path osti:pdouo_exemption_number ],
+        [ sh:description "Access/distribution limitation codes to describe the distribution rules and limitations for this work." ;
+            sh:in ( "UNL" "OPN" "CPY" "OUO" "PROT" "PDOUO" "ECI" "PDSH" "USO" "LRD" "NAT" "NNPI" "INTL" "PROP" "PAT" "OTHR" "CUI" ) ;
+            sh:minCount 1 ;
+            sh:order 9 ;
+            sh:path osti:access_limitations ;
+            sh:pattern "^.{0,5}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Edition number, as applicable to Books or other products." ;
+            sh:description "A three-character field constrained to 'I', 'II', 'IIA', 'IIB', or 'III' indicating the phase of this SBIR/STTR report." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 15 ;
-            sh:path osti:edition ;
-            sh:pattern "^.{0,10}$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "Language codes for this record" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 44 ;
-            sh:path osti:languages ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 51 ;
-            sh:path osti:opn_document_location ],
-        [ sh:datatype xsd:string ;
-            sh:description "Title of record.  For Book Chapters, the title of the chapter." ;
+            sh:order 79 ;
+            sh:path osti:sbiz_phase ;
+            sh:pattern "^.{0,3}$" ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date of publication of this record.  For Thesis/Dissertation records, this may also be the completion date of the Thesis.  For Patents, the date the patent was issued or approved." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 26 ;
-            sh:path osti:title ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Unique identifier for OSTI record, only required for updates." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path osti:osti_id ],
+            sh:order 39 ;
+            sh:path osti:publication_date ],
         [ sh:datatype xsd:string ;
-            sh:description "E-Link account email address initially entering this record. Value maintained by E-Link." ;
+            sh:description "Additional information for 'OTHER' product types.  Required if 'OT' product type is specified for this record." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 12 ;
-            sh:path osti:added_by_email ],
+            sh:order 64 ;
+            sh:path osti:product_type_other ;
+            sh:pattern "^.{0,200}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The holder of property rights to a patent." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 57 ;
+            sh:path osti:patent_assignee ],
         [ sh:datatype xsd:string ;
             sh:description "Name of journal publishing this information" ;
             sh:maxCount 1 ;
@@ -1361,16 +1171,206 @@ osti:Record a sh:NodeShape ;
             sh:path osti:journal_name ;
             sh:pattern "^.{0,250}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Description or abstract for this record. Required to have a value for grantee submissions." ;
+            sh:description "Specific sub-type of the journal article.  For product type JA only. Further qualifies the type of record." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 27 ;
-            sh:path osti:description ],
+            sh:order 6 ;
+            sh:path osti:journal_type ;
+            sh:pattern "^.{0,2}$" ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date record information was released to OSTI, as entered by releasing official." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 72 ;
+            sh:path osti:released_to_osti_date ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique identifier for OSTI record, only required for updates." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path osti:osti_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Describes the conference pertaining to this record, if any; usually name and / or location the event took place.\"\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path osti:conference_information ],
+        [ sh:datatype xsd:string ;
+            sh:description "For OpenNET records, list of any document categories pertaining to this record" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 50 ;
+            sh:path osti:opn_document_categories ],
+        [ sh:datatype xsd:string ;
+            sh:description "Language codes for this record" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 44 ;
+            sh:path osti:languages ],
+        [ sh:datatype xsd:string ;
+            sh:description "E-Link user name initially entering this record. Value maintained by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path osti:added_by_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Value determined based on type of edit and user performing the association." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 36 ;
+            sh:path osti:edit_source ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Most recent date record information was submitted to OSTI. Maintained internally by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path osti:date_submitted_to_osti_last ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information about the format of the product, including any operating system or program requirements for use of the data, as applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 37 ;
+            sh:path osti:format_information ],
+        [ sh:datatype xsd:string ;
+            sh:description "Concise set of key words for this record" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 43 ;
+            sh:path osti:keywords ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 59 ;
+            sh:path osti:patent_priority_date ],
+        [ sh:class osti:Person ;
+            sh:description "List of persons (authors, contributors, etc.) related to this record. For submissions, at least one AUTHOR or CONTRIBUTING Person, along with a RELEASE contact, is required." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 61 ;
+            sh:path osti:persons ],
+        [ sh:datatype xsd:string ;
+            sh:description "Value provided by user editing a record describing the reason for the edit." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path osti:edit_reason ],
+        [ sh:datatype xsd:string ;
+            sh:description "Code of the DOE site submitting this document" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 82 ;
+            sh:path osti:site_ownership_code ;
+            sh:pattern "^.{0,10}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 52 ;
+            sh:path osti:opn_fieldoffice_acronym_code ;
+            sh:pattern "^.{0,10}$" ],
+        [ sh:description "Indicates the OSTI collection type originally creating this record. Maintained internally by E-Link." ;
+            sh:in ( "DOE_LAB" "DOE_GRANT" "CHORUS" ) ;
+            sh:maxCount 1 ;
+            sh:order 17 ;
+            sh:path osti:collection_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "URL for information regarding the journal license for information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path osti:journal_license_url ;
+            sh:pattern "^.{0,255}$" ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date patent was filed with US Patent Office." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 58 ;
+            sh:path osti:patent_file_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "For OpenNET records, the addressee information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 47 ;
+            sh:path osti:opn_addressee ],
         [ sh:class osti:RelatedIdentifier ;
             sh:description "List of related identifiers connected to this record" ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 71 ;
-            sh:path osti:related_identifiers ] ;
+            sh:path osti:related_identifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "For OpenNET records, the date information was declassified" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 48 ;
+            sh:path osti:opn_declassified_date ],
+        [ sh:datatype xsd:integer ;
+            sh:description "E-Link user ID that initially entered this record. Value internally maintained by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path osti:added_by ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "The date on which data protections for this record will end." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 67 ;
+            sh:path osti:prot_release_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information regarding physical size of media or report, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 62 ;
+            sh:path osti:product_size ;
+            sh:pattern "^.{0,50}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Any customized infix value for the DOI used when generating a DOI reference. The following characters should be avoided in the infix value: ;/?:@&=+$,.\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path osti:doi_infix ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates if the record is primarily DOE-funded. Indicate Y for Yes, N for no, or leave blank/omit if unknown status." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path osti:doe_funded_flag ;
+            sh:pattern "^.{0,1}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Set two-character subject category code values for this record" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 69 ;
+            sh:path osti:subject_category_code ;
+            sh:pattern "^.{0,2}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates the type of protected data described by this record. PROT must be specified in the access limitations." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 65 ;
+            sh:path osti:prot_flag ;
+            sh:pattern "^.{0,5}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The type(s) of information or frequency of reporting of information in this report." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 76 ;
+            sh:path osti:report_types ],
+        [ sh:datatype xsd:string ;
+            sh:description "The previous SBIR/STTR contract number if a Phase III SBIR/STTR report." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 80 ;
+            sh:path osti:sbiz_previous_contract_number ;
+            sh:pattern "^.{0,14}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 51 ;
+            sh:path osti:opn_document_location ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 74 ;
+            sh:path osti:report_period_end_date ],
+        [ sh:datatype xsd:integer ;
+            sh:description "OSTI user ID making this revision of the metadata record. Value internally maintained by E-Link." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path osti:edited_by ] ;
     sh:targetClass osti:Record .
 
 osti:RelatedIdentifier a sh:NodeShape ;
@@ -1383,12 +1383,6 @@ osti:RelatedIdentifier a sh:NodeShape ;
             sh:minCount 1 ;
             sh:order 0 ;
             sh:path osti:type ],
-        [ sh:in ( "BasedOnData" "Cites" "Compiles" "Continues" "Describes" "Documents" "Finances" "HasComment" "HasDerivation" "HasMetadata" "HasPart" "HasRelatedMaterial" "HasReply" "HasReview" "HasVersion" "IsBasedOn" "IsBasisFor" "IsCitedBy" "IsCommentOn" "IsCompiledBy" "IsContinuedBy" "IsDataBasisFor" "IsDerivedFrom" "IsDescribedBy" "IsDocumentedBy" "IsFinancedBy" "IsIdenticalTo" "IsMetadataFor" "IsNewVersionOf" "IsObsoletedBy" "IsOriginalFormOf" "IsPartOf" "IsPreviousVersionOf" "IsReferencedBy" "IsRelatedMaterial" "IsReplyTo" "IsRequiredBy" "IsReviewedBy" "IsReviewOf" "IsSourceOf" "IsSupplementedBy" "IsSupplementTo" "IsVariantFormOf" "IsVersionOf" "Obsoletes" "References" "Requires" "Reviews" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 1 ;
-            sh:path osti:relation ;
-            sh:pattern "^.{0,20}$" ],
         [ sh:datatype xsd:string ;
             sh:description "The value of the identifier" ;
             sh:maxCount 1 ;
@@ -1396,7 +1390,13 @@ osti:RelatedIdentifier a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path osti:value ;
-            sh:pattern "^.{0,2000}$" ] ;
+            sh:pattern "^.{0,2000}$" ],
+        [ sh:in ( "BasedOnData" "Cites" "Compiles" "Continues" "Describes" "Documents" "Finances" "HasComment" "HasDerivation" "HasMetadata" "HasPart" "HasRelatedMaterial" "HasReply" "HasReview" "HasVersion" "IsBasedOn" "IsBasisFor" "IsCitedBy" "IsCommentOn" "IsCompiledBy" "IsContinuedBy" "IsDataBasisFor" "IsDerivedFrom" "IsDescribedBy" "IsDocumentedBy" "IsFinancedBy" "IsIdenticalTo" "IsMetadataFor" "IsNewVersionOf" "IsObsoletedBy" "IsOriginalFormOf" "IsPartOf" "IsPreviousVersionOf" "IsReferencedBy" "IsRelatedMaterial" "IsReplyTo" "IsRequiredBy" "IsReviewedBy" "IsReviewOf" "IsSourceOf" "IsSupplementedBy" "IsSupplementTo" "IsVariantFormOf" "IsVersionOf" "Obsoletes" "References" "Requires" "Reviews" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path osti:relation ;
+            sh:pattern "^.{0,20}$" ] ;
     sh:targetClass osti:RelatedIdentifier .
 
 brc:Organism a sh:NodeShape ;
@@ -1421,29 +1421,29 @@ brc:BRCOrganization a sh:NodeShape ;
     sh:closed true ;
     sh:description "An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class brc:BRCOrganization ;
-            sh:description "Higher-level parent of this organization." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path brc:parentOrganization ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Name of the organization." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path schema1:name ],
         [ sh:datatype xsd:anyURI ;
+            sh:description "ROR identifier for the organization." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:ror_id ],
+        [ sh:datatype xsd:anyURI ;
             sh:description "Wikidata identifier for the organization." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path brc:wikidata_id ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "ROR identifier for the organization." ;
+        [ sh:class brc:BRCOrganization ;
+            sh:description "Higher-level parent of this organization." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:ror_id ] ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path brc:parentOrganization ] ;
     sh:targetClass brc:BRCOrganization .
 
