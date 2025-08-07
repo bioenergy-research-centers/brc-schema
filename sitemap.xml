@@ -5,11 +5,27 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/AccessLimitationsEnum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Affiliation/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/AnalysisType/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/AuditLog/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/BRCEnum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/BRCOrganization/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -21,7 +37,15 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/CollectionTypeEnum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Contributor/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/ContributorType/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -73,6 +97,22 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Geolocation/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/GeolocationType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Identifier/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/IdentifierType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Individual/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
@@ -86,6 +126,18 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Jsonpointer/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/MediaFile/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/MediaLocationEnum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/MediaSet/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -113,11 +165,59 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/OrganizationIdentifier/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/OrganizationIdentifierType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/OrganizationType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Person/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/PersonType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Plasmid/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Point/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/ProductType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Record/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Records/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/RelatedIdentifier/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/RelatedIdentifierType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RelatedItem/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/RelationType/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -157,11 +257,39 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/WorkflowStatusEnum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/about/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/access_limitation_other/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/access_limitations/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/active/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/added_by/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/added_by_email/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/added_by_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/added_by_user_id/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -173,11 +301,31 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/affiliations/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/alert/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/analysisType/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/announcement_codes/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/audit_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/audit_logs/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/availability/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -209,11 +357,39 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/checksum/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/collection_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/conference_information/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/conference_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/contract_award_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/contributorType/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/contributor_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/contributors/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/country_publication_code/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -241,11 +417,111 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_added/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_file_added/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_file_updated/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_metadata_added/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_metadata_updated/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_submitted_to_osti_first/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_submitted_to_osti_last/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_updated/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/date_valid_end/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/description/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/descriptors/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/document_page_count/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/doe_funded_flag/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/doi/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/doi_infix/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/duration_seconds/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edit_reason/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edit_source/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edited_by/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edited_by_email/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edited_by_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/edition/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/email/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/file_size_bytes/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/files/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/first_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/format_information/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -254,6 +530,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/fundingOrganization/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/geolocations/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -273,11 +553,123 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/identifiers/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/issue/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/journal_license_url/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/journal_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/journal_open_access_flag/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/journal_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/keywords/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/label/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/languages/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/last_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/latitude/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/longitude/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_embargo_sunset_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_file_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_location/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_source/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_title/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/media_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/messages/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/middle_name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/mime_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/name/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_addressee/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_declassified_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_declassified_status/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_document_categories/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_document_location/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/opn_fieldoffice_acronym_code/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -289,7 +681,31 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/organizations/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/ori/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/osti_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/osti_user_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/other_information/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/ouo_release_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/paper_flag/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -297,7 +713,55 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/parent_media_file_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/patent_assignee/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/patent_file_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/patent_priority_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/pdf_version/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/pdfa_conformance/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/pdfa_part/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/pdfua_part/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/pdouo_exemption_number/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/persons/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/phone/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/plasmid_features/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/points/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -305,7 +769,51 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/processing_exceptions/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/product_size/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/product_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/product_type_other/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/promoters/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/prot_data_other/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/prot_flag/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/prot_release_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/publication_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/publication_date_text/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/publisher_information/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/records/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -321,7 +829,43 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/related_doc_info/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/related_identifiers/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/relation/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/released_to_osti_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/releasing_official_comments/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/replicates_in/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/report_period_end_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/report_period_start_date/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/report_type_other/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/report_types/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -329,7 +873,27 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/revision/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/ror_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/sbiz_flag/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/sbiz_phase/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/sbiz_previous_contract_number/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/sbiz_release_date/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -345,7 +909,43 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/site_ownership_code/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/site_unique_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/site_url/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/source_edit_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/source_input_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/species/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/status/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/subject_category_code/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/subject_category_code_legacy/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/subtitle_tracks/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
@@ -353,7 +953,35 @@
          <lastmod>2025-08-07</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/url/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/url_type/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/value/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/video_tracks/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/volume/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/wikidata_id/</loc>
+         <lastmod>2025-08-07</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/workflow_status/</loc>
          <lastmod>2025-08-07</lastmod>
     </url>
 </urlset>

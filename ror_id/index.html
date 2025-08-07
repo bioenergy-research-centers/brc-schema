@@ -334,35 +334,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     <span class="md-ellipsis">
       Identifier and Mapping Information
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -404,7 +380,6 @@
 
 
 <h1 id="slot-ror_id">Slot: ror_id</h1>
-<p><em>ROR identifier for the organization.</em></p>
 <p>URI: <a href="https://w3id.org/brc/ror_id">brc:ror_id</a>
 Alias: ror_id</p>
 <!-- no inheritance hierarchy -->
@@ -420,7 +395,17 @@ Alias: ror_id</p>
 </thead>
 <tbody>
 <tr>
+<td><a href="../Affiliation/">Affiliation</a></td>
+<td>An affiliation for a person, such as an organization or institution</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../Organization/">Organization</a></td>
+<td>Describes a particular organization associated with the bibliographic record</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../BRCOrganization/">BRCOrganization</a></td>
 <td>An organization involved in the dataset</td>
 <td>no</td>
 </tr>
@@ -428,26 +413,9 @@ Alias: ror_id</p>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../RorIdentifier/">RorIdentifier</a></li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
-<h2 id="examples">Examples</h2>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ror:05cwx3318</td>
-</tr>
-</tbody>
-</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -471,18 +439,12 @@ Alias: ror_id</p>
 <details>
 
 <pre><code class="language-yaml">name: ror_id
-description: ROR identifier for the organization.
-examples:
-- value: ror:05cwx3318
-from_schema: https://w3id.org/brc/brc_schema
-rank: 1000
-values_from:
-- ROR
 alias: ror_id
-owner: Organization
 domain_of:
+- BRCOrganization
 - Organization
-range: ror_identifier
+- Affiliation
+range: string
 
 </code></pre>
 

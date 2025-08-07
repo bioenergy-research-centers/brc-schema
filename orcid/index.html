@@ -340,21 +340,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -395,7 +380,6 @@
 
 
 <h1 id="slot-orcid">Slot: orcid</h1>
-<p><em>ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.</em></p>
 <p>URI: <a href="https://w3id.org/brc/orcid">brc:orcid</a>
 Alias: orcid</p>
 <!-- no inheritance hierarchy -->
@@ -411,8 +395,8 @@ Alias: orcid</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
+<td><a href="../Person/">Person</a></td>
+<td>Information about a particular person involved in the production or maintenan...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -420,17 +404,18 @@ Alias: orcid</p>
 <td>An individual involved in the dataset</td>
 <td>no</td>
 </tr>
+<tr>
+<td><a href="../Contributor/">Contributor</a></td>
+<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
+<td>no</td>
+</tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../Uriorcurie/">Uriorcurie</a></li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -454,15 +439,11 @@ Alias: orcid</p>
 <details>
 
 <pre><code class="language-yaml">name: orcid
-description: ORCID for the individual. This should include the full URI with prefix,
-  e.g., https://orcid.org/0000-0002-1825-0097.
-from_schema: https://w3id.org/brc/brc_schema
-rank: 1000
 alias: orcid
-owner: Individual
 domain_of:
 - Individual
-range: uriorcurie
+- Person
+range: string
 
 </code></pre>
 

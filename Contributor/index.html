@@ -312,7 +312,7 @@
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
-<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../Organization/">Organization</a> or <br/><a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../BRCOrganization/">BRCOrganization</a> or <br/><a href="../String/">String</a></td>
 <td>Affiliation of the individual</td>
 <td><a href="../Individual/">Individual</a></td>
 </tr>
@@ -416,6 +416,8 @@ attributes:
     owner: Contributor
     domain_of:
     - Individual
+    - Organization
+    - Affiliation
     range: string
   email:
     name: email
@@ -427,6 +429,7 @@ attributes:
     owner: Contributor
     domain_of:
     - Individual
+    - Person
     range: string
   primaryContact:
     name: primaryContact
@@ -449,7 +452,7 @@ attributes:
     - Individual
     range: string
     any_of:
-    - range: Organization
+    - range: BRCOrganization
     - range: string
   orcid:
     name: orcid
@@ -461,6 +464,7 @@ attributes:
     owner: Contributor
     domain_of:
     - Individual
+    - Person
     range: uriorcurie
 
 </code></pre>

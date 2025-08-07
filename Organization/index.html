@@ -230,27 +230,47 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-organization">Class: Organization</h1>
-<p><em>An organization involved in the dataset.</em></p>
+<p><em>Describes a particular organization associated with the bibliographic record. Organizations may be author collaborations, sponsors, research laboratories, or contributors to the work, as indicated by their associated type. For identification purposes, at least one of either 'name' or 'ror_id' is required for validation.  If ROR ID is specified, it will be validated against the ROR authority at OSTI.</em></p>
 <p>URI: <a href="https://w3id.org/brc/Organization">brc:Organization</a></p>
 <div class="mermaid"> classDiagram
     class Organization
     click Organization href "../Organization"
-      Organization : organizationName
-
-      Organization : parentOrganization
+      Organization : contributor_type
 
 
 
 
 
-        Organization --&gt; "0..1" Organization : parentOrganization
-        click Organization href "../Organization"
+        Organization --&gt; "0..1" ContributorType : contributor_type
+        click ContributorType href "../ContributorType"
 
 
+
+      Organization : identifiers
+
+
+
+
+
+        Organization --&gt; "*" OrganizationIdentifier : identifiers
+        click OrganizationIdentifier href "../OrganizationIdentifier"
+
+
+
+      Organization : name
 
       Organization : ror_id
 
-      Organization : wikidata_id
+      Organization : type
+
+
+
+
+
+        Organization --&gt; "1" OrganizationType : type
+        click OrganizationType href "../OrganizationType"
+
+
 
 
 </div>
@@ -267,27 +287,33 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../organizationName/">organizationName</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td><a href="../type/">type</a></td>
+<td>1 <br/> <a href="../OrganizationType/">OrganizationType</a></td>
+<td></td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../name/">name</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>Name of the organization</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../parentOrganization/">parentOrganization</a></td>
-<td>0..1 <br/> <a href="./">Organization</a></td>
-<td>Higher-level parent of this organization</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../wikidata_id/">wikidata_id</a></td>
-<td>0..1 <br/> <a href="../WikidataIdentifier/">WikidataIdentifier</a></td>
-<td>Wikidata identifier for the organization</td>
+<td><a href="../contributor_type/">contributor_type</a></td>
+<td>0..1 <br/> <a href="../ContributorType/">ContributorType</a></td>
+<td>Indicate the contribution made by this Organization</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../ror_id/">ror_id</a></td>
-<td>0..1 <br/> <a href="../RorIdentifier/">RorIdentifier</a></td>
-<td>ROR identifier for the organization</td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>ROR ID for this organization, if any</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../identifiers/">identifiers</a></td>
+<td>* <br/> <a href="../OrganizationIdentifier/">OrganizationIdentifier</a></td>
+<td>List of any identifiers for this Organization</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -304,26 +330,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Individual/">Individual</a></td>
-<td><a href="../affiliation/">affiliation</a></td>
-<td>any_of[range]</td>
-<td><a href="./">Organization</a></td>
-</tr>
-<tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td><a href="../affiliation/">affiliation</a></td>
-<td>any_of[range]</td>
-<td><a href="./">Organization</a></td>
-</tr>
-<tr>
-<td><a href="../Funding/">Funding</a></td>
-<td><a href="../fundingOrganization/">fundingOrganization</a></td>
-<td>range</td>
-<td><a href="./">Organization</a></td>
-</tr>
-<tr>
-<td><a href="./">Organization</a></td>
-<td><a href="../parentOrganization/">parentOrganization</a></td>
+<td><a href="../Record/">Record</a></td>
+<td><a href="../organizations/">organizations</a></td>
 <td>range</td>
 <td><a href="./">Organization</a></td>
 </tr>
@@ -358,108 +366,160 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Organization
-description: An organization involved in the dataset.
+description: Describes a particular organization associated with the bibliographic
+  record. Organizations may be author collaborations, sponsors, research laboratories,
+  or contributors to the work, as indicated by their associated type. For identification
+  purposes, at least one of either 'name' or 'ror_id' is required for validation.  If
+  ROR ID is specified, it will be validated against the ROR authority at OSTI.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  organizationName:
-    name: organizationName
-    description: Name of the organization.
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    slot_uri: schema:name
+  type:
+    name: type
+    from_schema: https://w3id.org/brc/osti_schema
     domain_of:
+    - RelatedIdentifier
+    - Geolocation
+    - Identifier
+    - AuditLog
     - Organization
-    range: string
-  parentOrganization:
-    name: parentOrganization
-    description: Higher-level parent of this organization.
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    domain_of:
-    - Organization
-    range: Organization
-  wikidata_id:
-    name: wikidata_id
-    description: Wikidata identifier for the organization.
+    - OrganizationIdentifier
+    - Person
+    range: OrganizationType
+    required: true
+    pattern: ^.{0,20}$
+  name:
+    name: name
+    description: Name of the organization
     examples:
-    - value: wikidata:Q217810
-    from_schema: https://w3id.org/brc/brc_schema
+    - value: Quantum Physics of America, Inc.
+    from_schema: https://w3id.org/brc/osti_schema
+    domain_of:
+    - Individual
+    - Organization
+    - Affiliation
+    range: string
+    required: true
+    pattern: ^.{0,800}$
+  contributor_type:
+    name: contributor_type
+    description: Indicate the contribution made by this Organization.  Required for
+      CONTRIBUTING 'type'.
+    examples:
+    - value: DataCollector
+    from_schema: https://w3id.org/brc/osti_schema
     rank: 1000
-    values_from:
-    - WIKIDATA
     domain_of:
     - Organization
-    range: wikidata_identifier
+    - Person
+    range: ContributorType
+    pattern: ^.{0,25}$
   ror_id:
     name: ror_id
-    description: ROR identifier for the organization.
+    description: ROR ID for this organization, if any. This value will be validated
+      against the ROR authority.
     examples:
-    - value: ror:05cwx3318
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    values_from:
-    - ROR
+    - value: '31478740'
+    from_schema: https://w3id.org/brc/osti_schema
     domain_of:
+    - BRCOrganization
     - Organization
-    range: ror_identifier
+    - Affiliation
+    range: string
+  identifiers:
+    name: identifiers
+    description: List of any identifiers for this Organization.  Only applicable to
+      Sponsoring organizations.
+    from_schema: https://w3id.org/brc/osti_schema
+    domain_of:
+    - Record
+    - Organization
+    range: OrganizationIdentifier
+    multivalued: true
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Organization
-description: An organization involved in the dataset.
+description: Describes a particular organization associated with the bibliographic
+  record. Organizations may be author collaborations, sponsors, research laboratories,
+  or contributors to the work, as indicated by their associated type. For identification
+  purposes, at least one of either 'name' or 'ror_id' is required for validation.  If
+  ROR ID is specified, it will be validated against the ROR authority at OSTI.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
-  organizationName:
-    name: organizationName
-    description: Name of the organization.
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    slot_uri: schema:name
-    alias: organizationName
+  type:
+    name: type
+    from_schema: https://w3id.org/brc/osti_schema
+    alias: type
     owner: Organization
     domain_of:
+    - RelatedIdentifier
+    - Geolocation
+    - Identifier
+    - AuditLog
     - Organization
-    range: string
-  parentOrganization:
-    name: parentOrganization
-    description: Higher-level parent of this organization.
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    alias: parentOrganization
-    owner: Organization
-    domain_of:
-    - Organization
-    range: Organization
-  wikidata_id:
-    name: wikidata_id
-    description: Wikidata identifier for the organization.
+    - OrganizationIdentifier
+    - Person
+    range: OrganizationType
+    required: true
+    pattern: ^.{0,20}$
+  name:
+    name: name
+    description: Name of the organization
     examples:
-    - value: wikidata:Q217810
-    from_schema: https://w3id.org/brc/brc_schema
+    - value: Quantum Physics of America, Inc.
+    from_schema: https://w3id.org/brc/osti_schema
+    alias: name
+    owner: Organization
+    domain_of:
+    - Individual
+    - Organization
+    - Affiliation
+    range: string
+    required: true
+    pattern: ^.{0,800}$
+  contributor_type:
+    name: contributor_type
+    description: Indicate the contribution made by this Organization.  Required for
+      CONTRIBUTING 'type'.
+    examples:
+    - value: DataCollector
+    from_schema: https://w3id.org/brc/osti_schema
     rank: 1000
-    values_from:
-    - WIKIDATA
-    alias: wikidata_id
+    alias: contributor_type
     owner: Organization
     domain_of:
     - Organization
-    range: wikidata_identifier
+    - Person
+    range: ContributorType
+    pattern: ^.{0,25}$
   ror_id:
     name: ror_id
-    description: ROR identifier for the organization.
+    description: ROR ID for this organization, if any. This value will be validated
+      against the ROR authority.
     examples:
-    - value: ror:05cwx3318
-    from_schema: https://w3id.org/brc/brc_schema
-    rank: 1000
-    values_from:
-    - ROR
+    - value: '31478740'
+    from_schema: https://w3id.org/brc/osti_schema
     alias: ror_id
     owner: Organization
     domain_of:
+    - BRCOrganization
     - Organization
-    range: ror_identifier
+    - Affiliation
+    range: string
+  identifiers:
+    name: identifiers
+    description: List of any identifiers for this Organization.  Only applicable to
+      Sponsoring organizations.
+    from_schema: https://w3id.org/brc/osti_schema
+    alias: identifiers
+    owner: Organization
+    domain_of:
+    - Record
+    - Organization
+    range: OrganizationIdentifier
+    multivalued: true
 
 </code></pre>
 </details>

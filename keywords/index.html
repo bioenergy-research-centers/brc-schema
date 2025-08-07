@@ -340,21 +340,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -395,8 +380,7 @@
 
 
 <h1 id="slot-keywords">Slot: keywords</h1>
-<p><em>Keywords associated with the dataset.</em></p>
-<p>URI: <a href="http://www.w3.org/ns/dcat#keyword">dcat:keyword</a>
+<p>URI: <a href="https://w3id.org/brc/keywords">brc:keywords</a>
 Alias: keywords</p>
 <!-- no inheritance hierarchy -->
 
@@ -415,22 +399,18 @@ Alias: keywords</p>
 <td>A body of structured information describing some topic or topics of interest</td>
 <td>no</td>
 </tr>
+<tr>
+<td><a href="../Record/">Record</a></td>
+<td>Defines the bibliographic metadata about a particular work or record</td>
+<td>no</td>
+</tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p>Range: <a href="../String/">String</a></p>
-</li>
-<li>
-<p>Multivalued: True</p>
-</li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -442,15 +422,11 @@ Alias: keywords</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>dcat:keyword</td>
+<td>brc:keywords</td>
 </tr>
 <tr>
 <td>native</td>
 <td>brc:keywords</td>
-</tr>
-<tr>
-<td>exact</td>
-<td>schema:keywords, osti:keywords</td>
 </tr>
 </tbody>
 </table>
@@ -458,19 +434,11 @@ Alias: keywords</p>
 <details>
 
 <pre><code class="language-yaml">name: keywords
-description: Keywords associated with the dataset.
-from_schema: https://w3id.org/brc/brc_schema
-exact_mappings:
-- schema:keywords
-- osti:keywords
-rank: 1000
-slot_uri: dcat:keyword
 alias: keywords
-owner: Dataset
 domain_of:
 - Dataset
+- Record
 range: string
-multivalued: true
 
 </code></pre>
 

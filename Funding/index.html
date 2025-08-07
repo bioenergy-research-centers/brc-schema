@@ -247,8 +247,8 @@
 
 
 
-        Funding --&gt; "0..1" Organization : fundingOrganization
-        click Organization href "../Organization"
+        Funding --&gt; "0..1" BRCOrganization : fundingOrganization
+        click BRCOrganization href "../BRCOrganization"
 
 
 
@@ -268,7 +268,7 @@
 <tbody>
 <tr>
 <td><a href="../fundingOrganization/">fundingOrganization</a></td>
-<td>0..1 <br/> <a href="../Organization/">Organization</a></td>
+<td>0..1 <br/> <a href="../BRCOrganization/">BRCOrganization</a></td>
 <td>Details of the funding entity</td>
 <td>direct</td>
 </tr>
@@ -358,7 +358,7 @@ attributes:
     rank: 1000
     domain_of:
     - Funding
-    range: Organization
+    range: BRCOrganization
   awardNumber:
     name: awardNumber
     description: Award number from the funding entity.
@@ -411,7 +411,7 @@ attributes:
     owner: Funding
     domain_of:
     - Funding
-    range: Organization
+    range: BRCOrganization
   awardNumber:
     name: awardNumber
     description: Award number from the funding entity.

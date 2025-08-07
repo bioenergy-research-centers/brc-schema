@@ -340,21 +340,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Source
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -395,8 +380,7 @@
 
 
 <h1 id="slot-email">Slot: email</h1>
-<p><em>Email address of the individual.</em></p>
-<p>URI: <a href="http://schema.org/email">schema:email</a>
+<p>URI: <a href="https://w3id.org/brc/email">brc:email</a>
 Alias: email</p>
 <!-- no inheritance hierarchy -->
 
@@ -411,13 +395,18 @@ Alias: email</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
+<td><a href="../Person/">Person</a></td>
+<td>Information about a particular person involved in the production or maintenan...</td>
 <td>no</td>
 </tr>
 <tr>
 <td><a href="../Individual/">Individual</a></td>
 <td>An individual involved in the dataset</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Contributor/">Contributor</a></td>
+<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -427,10 +416,6 @@ Alias: email</p>
 <li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -442,7 +427,7 @@ Alias: email</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:email</td>
+<td>brc:email</td>
 </tr>
 <tr>
 <td>native</td>
@@ -454,14 +439,10 @@ Alias: email</p>
 <details>
 
 <pre><code class="language-yaml">name: email
-description: Email address of the individual.
-from_schema: https://w3id.org/brc/brc_schema
-rank: 1000
-slot_uri: schema:email
 alias: email
-owner: Individual
 domain_of:
 - Individual
+- Person
 range: string
 
 </code></pre>
