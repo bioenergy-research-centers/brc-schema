@@ -123,6 +123,10 @@ enums:
         see_also:
           - https://gold.jgi.doe.gov/
           - https://bioregistry.io/registry/gold
+      JGI Genome Portal:
+        description: "Joint Genome Institute Genome Portal"
+        see_also:
+          - https://genome.jgi.doe.gov/
       jPOST:
         description: "Japan ProteOme STandard Repository/Database"
         see_also:
