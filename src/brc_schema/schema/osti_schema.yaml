@@ -8,8 +8,8 @@ description: >-
   and here:
   https://www.osti.gov/elink2api/record-schema
   OSTI uses the E-Link API infrastructure.
-  This schema corresponds to the E-Link 2.0 API (2.6.0).
-version: "2.6.0"
+  This schema corresponds to the E-Link 2.0 API (2.6.2).
+version: "2.6.2"
 prefixes:
   linkml: https://w3id.org/linkml/
   osti: https://www.osti.gov/biblio/
@@ -102,8 +102,8 @@ classes:
           - value: "SO"
       access_limitations:
         description: >-
-          Access limitation codes to describe the distribution rules and
-          limitations for this work.
+          Access/distribution limitation codes to describe the
+          distribution rules and limitations for this work.
         range: AccessLimitationsEnum
         multivalued: true
         required: true
@@ -113,7 +113,7 @@ classes:
         pattern: "^.{0,5}$"
       access_limitation_other:
         description: >-
-          Additional information about access limitation for this record,
+          Additional information about access/distribution limitation for this record,
           if needed. Required for CUI or PDOUO designations in access limitation.
           May contain information about the following: Special handling instructions,
           Copyright restrictions, Other criteria pertinent to the review, access
@@ -129,6 +129,20 @@ classes:
         examples:
           - value: "28931"
         # readOnly: true
+      added_by_email:
+        description: >-
+          E-Link account email address initially entering this record.
+          Value maintained by E-Link.
+        range: string
+        examples:
+          - value: "ensorn@osti.gov"
+      added_by_name:
+        description: >-
+          E-Link user name initially entering this record.
+          Value maintained by E-Link.
+        range: string
+        examples:
+          - value: "Neal Ensor"
       announcement_codes:
         description: >-
           List of announcement codes for this record.
@@ -274,6 +288,20 @@ classes:
         # readOnly: true
         examples:
           - value: "112389"
+      edited_by_email:
+        description: >-
+          E-Link user email address that created this revision of the metadata record.
+          Value maintained by E-Link.
+        range: string
+        examples:
+          - value: "harrisonm@site.gov"
+      edited_by_name:
+        description: >-
+          E-Link user name that created this revision of the metadata record.
+          Value maintained by E-Link.
+        range: string
+        examples:
+          - value: "Mark Harrison"
       edit_reason:
         description: >-
           Value provided by user editing a record describing the reason for the edit.
@@ -1044,6 +1072,13 @@ classes:
         examples:
           - value: "2"
         # readOnly: true
+      processing_exceptions:
+        description: >-
+          If present, the reason why media processing failed, or description of
+          problem encountered processing this particular file.
+        range: string
+        examples:
+          - value: "Source PDF file is encrypted."
       date_file_added:
         description: >-
           Indicates the date and time this media file was created.

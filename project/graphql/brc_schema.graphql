@@ -1,5 +1,26 @@
 # metamodel_version: 1.7.0
-# version: 0.1.3
+# version: 0.1.4
+enum AccessLimitationsEnum
+  {
+    UNL
+    OPN
+    CPY
+    OUO
+    PROT
+    PDOUO
+    ECI
+    PDSH
+    USO
+    LRD
+    NAT
+    NNPI
+    INTL
+    PROP
+    PAT
+    OTHR
+    CUI
+  }
+
 enum AnalysisType
   {
     affinity_purification
@@ -35,6 +56,40 @@ enum CitedItemType
     Report
     Webpage
     WebApplication
+  }
+
+enum CollectionTypeEnum
+  {
+    DOE_LAB
+    DOE_GRANT
+    CHORUS
+  }
+
+enum ContributorType
+  {
+    Chair
+    DataCollector
+    DataCurator
+    DataManager
+    Distributor
+    Editor
+    HostingInstitution
+    Producer
+    ProjectLeader
+    ProjectManager
+    ProjectMember
+    RegistrationAgency
+    RegistrationAuthority
+    RelatedPerson
+    Reviewer
+    ReviewAssistant
+    ReviewerExternal
+    RightsHolder
+    StatsReviewer
+    Supervisor
+    Translator
+    WorkPackageLeader
+    Other
   }
 
 enum ContributorTypeCodes
@@ -75,6 +130,172 @@ enum DatasetTypeCodes
     I
   }
 
+enum GeolocationType
+  {
+    POINT
+    BOX
+    POLYGON
+  }
+
+enum IdentifierType
+  {
+    AUTH_REV
+    CN_DOE
+    CN_NONDOE
+    CODEN
+    DOE_DOCKET
+    EDB
+    ETDE_RN
+    INIS_RN
+    ISBN
+    ISSN
+    LEGACY
+    NSA
+    OPN_ACC
+    OTHER_ID
+    PATENT
+    PROJ_ID
+    PROP_REV
+    REF
+    REL_TRN
+    RN
+    TRN
+    TVI
+    USER_VER
+    WORK_AUTH
+    WORK_PROP
+  }
+
+enum MediaLocationEnum
+  {
+    L
+    O
+  }
+
+enum OrganizationIdentifierType
+  {
+    AWARD_DOI
+    CN_DOE
+    CN_NONDOE
+  }
+
+enum OrganizationType
+  {
+    AUTHOR
+    CONTRIBUTING
+    RESEARCHING
+    SPONSOR
+  }
+
+enum PersonType
+  {
+    AUTHOR
+    RELEASE
+    CONTACT
+    CONTRIBUTING
+    PROT_CE
+    PROT_RO
+    SBIZ_PI
+    SBIZ_BO
+  }
+
+enum ProductType
+  {
+    AR
+    B
+    CO
+    DA
+    FS
+    JA
+    MI
+    OT
+    P
+    PD
+    SM
+    TD
+    TR
+    PA
+  }
+
+enum RelatedIdentifierType
+  {
+    ARK
+    arXiv
+    bibcode
+    DOI
+    EAN13
+    EISSN
+    IGSN
+    ISBN
+    ISSN
+    ISTC
+    Handle
+    LISSN
+    LSID
+    OTHER
+    PMCID
+    PMID
+    PURL
+    UPC
+    URI
+    URL
+    URN
+    UUID
+    w3id
+  }
+
+enum RelationType
+  {
+    BasedOnData
+    Cites
+    Compiles
+    Continues
+    Describes
+    Documents
+    Finances
+    HasComment
+    HasDerivation
+    HasMetadata
+    HasPart
+    HasRelatedMaterial
+    HasReply
+    HasReview
+    HasVersion
+    IsBasedOn
+    IsBasisFor
+    IsCitedBy
+    IsCommentOn
+    IsCompiledBy
+    IsContinuedBy
+    IsDataBasisFor
+    IsDerivedFrom
+    IsDescribedBy
+    IsDocumentedBy
+    IsFinancedBy
+    IsIdenticalTo
+    IsMetadataFor
+    IsNewVersionOf
+    IsObsoletedBy
+    IsOriginalFormOf
+    IsPartOf
+    IsPreviousVersionOf
+    IsReferencedBy
+    IsRelatedMaterial
+    IsReplyTo
+    IsRequiredBy
+    IsReviewedBy
+    IsReviewOf
+    IsSourceOf
+    IsSupplementedBy
+    IsSupplementTo
+    IsVariantFormOf
+    IsVersionOf
+    Obsoletes
+    References
+    Requires
+    Reviews
+  }
+
 enum RepositoryEnum
   {
     AmeriFlux
@@ -105,6 +326,41 @@ enum RepositoryEnum
     Protein_Data_Bank
     The_Cambridge_Crystallographic_Data_Centre
     Zenodo
+  }
+
+enum WorkflowStatusEnum
+  {
+    R
+    SA
+    SR
+    SO
+    SF
+    SX
+    SV
+    X
+    D
+  }
+
+type Affiliation
+  {
+    name: String
+    rorId: String
+  }
+
+type AuditLog
+  {
+    type: String
+    auditDate: Datetime
+    status: String
+    messages: [String]
+  }
+
+type BRCOrganization
+  {
+    organizationName: String
+    parentOrganization: BRCOrganization
+    wikidataId: WikidataIdentifier
+    rorId: RorIdentifier
   }
 
 type Contributor
@@ -152,10 +408,23 @@ type DatasetCollection
 
 type Funding
   {
-    fundingOrganization: Organization
+    fundingOrganization: BRCOrganization
     awardNumber: String
     awardTitle: String
     awardURI: Uriorcurie
+  }
+
+type Geolocation
+  {
+    type: GeolocationType
+    label: String
+    points: [Point]!
+  }
+
+type Identifier
+  {
+    type: IdentifierType
+    value: String
   }
 
 type Individual
@@ -167,6 +436,53 @@ type Individual
     orcid: Uriorcurie
   }
 
+type MediaFile
+  {
+    mediaFileId: Integer
+    mediaId: Integer
+    checksum: String
+    revision: Integer
+    parentMediaFileId: Integer
+    status: String
+    mediaType: String
+    urlType: MediaLocationEnum
+    url: String
+    mimeType: String
+    addedByUserId: Integer
+    mediaSource: String
+    fileSizeBytes: Integer
+    durationSeconds: Integer
+    documentPageCount: Integer
+    subtitleTracks: Integer
+    videoTracks: Integer
+    pdfVersion: String
+    pdfaConformance: String
+    pdfaPart: String
+    pdfuaPart: String
+    processingExceptions: String
+    dateFileAdded: Datetime
+    dateFileUpdated: Datetime
+  }
+
+type MediaSet
+  {
+    mediaId: Integer
+    revision: Integer
+    accessLimitations: [AccessLimitationsEnum]
+    ostiId: Integer
+    status: String
+    addedBy: Integer
+    documentPageCount: Integer
+    mimeType: String
+    mediaTitle: String
+    mediaLocation: MediaLocationEnum
+    mediaSource: String
+    dateAdded: Datetime
+    dateUpdated: Datetime
+    dateValidEnd: Datetime
+    files: [MediaFile]
+  }
+
 type Organism
   {
     scientificName: String
@@ -175,10 +491,31 @@ type Organism
 
 type Organization
   {
-    organizationName: String
-    parentOrganization: Organization
-    wikidataId: WikidataIdentifier
-    rorId: RorIdentifier
+    type: OrganizationType!
+    name: String!
+    contributorType: ContributorType
+    rorId: String
+    identifiers: [OrganizationIdentifier]
+  }
+
+type OrganizationIdentifier
+  {
+    type: OrganizationIdentifierType!
+    value: String!
+  }
+
+type Person
+  {
+    type: PersonType!
+    firstName: String
+    middleName: String
+    lastName: String
+    email: [String]
+    orcid: String
+    phone: String
+    ostiUserId: Integer
+    contributorType: ContributorType
+    affiliations: [Affiliation]
   }
 
 type Plasmid
@@ -191,6 +528,116 @@ type Plasmid
     promoters: [String]
     replicatesIn: [Organism]
     selectionMarkers: [String]
+  }
+
+type Point
+  {
+    latitude: Float!
+    longitude: Float!
+  }
+
+type Record
+  {
+    ostiId: Integer!
+    identifiers: [Identifier]
+    issue: String
+    journalLicenseUrl: String
+    journalName: String
+    journalOpenAccessFlag: String
+    journalType: String
+    revision: Integer
+    workflowStatus: WorkflowStatusEnum
+    accessLimitations: [AccessLimitationsEnum]!
+    accessLimitationOther: String
+    addedBy: Integer
+    addedByEmail: String
+    addedByName: String
+    announcementCodes: [String]
+    edition: String
+    volume: String
+    collectionType: CollectionTypeEnum
+    conferenceInformation: String
+    conferenceType: String
+    contractAwardDate: Datetime
+    countryPublicationCode: String
+    dateMetadataAdded: Datetime
+    dateMetadataUpdated: Datetime
+    dateSubmittedToOstiFirst: Datetime
+    dateSubmittedToOstiLast: Datetime
+    title: String!
+    description: String
+    descriptors: [String]
+    doeFundedFlag: String
+    doi: String
+    doiInfix: String
+    editedBy: Integer
+    editedByEmail: String
+    editedByName: String
+    editReason: String
+    editSource: String
+    formatInformation: String
+    mediaEmbargoSunsetDate: String
+    publicationDate: Datetime!
+    publicationDateText: String
+    publisherInformation: String
+    relatedDocInfo: String
+    keywords: [String]
+    languages: [String]
+    auditLogs: [AuditLog]
+    media: [MediaSet]
+    opnAddressee: String
+    opnDeclassifiedDate: String
+    opnDeclassifiedStatus: String
+    opnDocumentCategories: [String]
+    opnDocumentLocation: String
+    opnFieldofficeAcronymCode: String
+    organizations: [Organization]
+    otherInformation: [String]
+    ouoReleaseDate: String
+    paperFlag: Boolean
+    patentAssignee: String
+    patentFileDate: Datetime
+    patentPriorityDate: Datetime
+    pdouoExemptionNumber: String
+    persons: [Person]
+    productSize: String
+    productType: ProductType
+    productTypeOther: String
+    protFlag: String
+    protDataOther: String
+    protReleaseDate: Datetime
+    availability: String
+    subjectCategoryCode: [String]
+    subjectCategoryCodeLegacy: [String]
+    relatedIdentifiers: [RelatedIdentifier]
+    releasedToOstiDate: Datetime
+    releasingOfficialComments: String
+    reportPeriodEndDate: Datetime
+    reportPeriodStartDate: Datetime
+    reportTypes: [String]
+    reportTypeOther: String
+    sbizFlag: String
+    sbizPhase: String
+    sbizPreviousContractNumber: String
+    sbizReleaseDate: Datetime
+    siteOwnershipCode: String
+    siteUniqueId: String
+    siteUrl: String
+    sourceInputType: String
+    sourceEditType: String
+    geolocations: [Geolocation]
+  }
+
+type Records
+  {
+    records: [Record]
+  }
+
+type RelatedIdentifier
+  {
+    type: RelatedIdentifierType!
+    relation: RelationType!
+    value: String!
   }
 
 type RelatedItem

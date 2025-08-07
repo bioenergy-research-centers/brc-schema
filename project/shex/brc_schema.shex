@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.3
+# version: 0.1.4
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -7,6 +7,7 @@ PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX osti: <https://www.osti.gov/biblio/>
 PREFIX ror: <https://ror.org/>
 PREFIX schema1: <http://schema.org/>
 
@@ -52,6 +53,34 @@ linkml:Jsonpointer xsd:string
 linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
+
+osti:Affiliation CLOSED {
+    (  $osti:Affiliation_tes (  osti:name @linkml:String ? ;
+          osti:ror_id @linkml:String ?
+       ) ;
+       rdf:type [ osti:Affiliation ] ?
+    )
+}
+
+osti:AuditLog CLOSED {
+    (  $osti:AuditLog_tes (  osti:type @linkml:String ? ;
+          osti:audit_date @linkml:Datetime ? ;
+          osti:status @linkml:String ? ;
+          osti:messages @linkml:String *
+       ) ;
+       rdf:type [ osti:AuditLog ] ?
+    )
+}
+
+<BRCOrganization> CLOSED {
+    (  $<BRCOrganization_tes> (  schema1:name @linkml:String ? ;
+          <parentOrganization> @<BRCOrganization> ? ;
+          <wikidata_id> @<WikidataIdentifier> ? ;
+          <ror_id> @<RorIdentifier> ?
+       ) ;
+       rdf:type [ <BRCOrganization> ] ?
+    )
+}
 
 <Contributor> CLOSED {
     (  $<Contributor_tes> (  &<Individual_tes> ;
@@ -128,12 +157,42 @@ linkml:Sparqlpath xsd:string
 }
 
 <Funding> CLOSED {
-    (  $<Funding_tes> (  <fundingOrganization> @<Organization> ? ;
+    (  $<Funding_tes> (  <fundingOrganization> @<BRCOrganization> ? ;
           <awardNumber> @linkml:String ? ;
           <awardTitle> @linkml:String ? ;
           <awardURI> @linkml:Uriorcurie ?
        ) ;
        rdf:type [ <Funding> ] ?
+    )
+}
+
+osti:Geolocation CLOSED {
+    (  $osti:Geolocation_tes (  osti:type [ <https://www.osti.gov/biblio/GeolocationType#POINT>
+             <https://www.osti.gov/biblio/GeolocationType#BOX> <https://www.osti.gov/biblio/GeolocationType#POLYGON> ] ? ;
+          osti:label @linkml:String ? ;
+          osti:points @osti:Point +
+       ) ;
+       rdf:type [ osti:Geolocation ] ?
+    )
+}
+
+osti:Identifier CLOSED {
+    (  $osti:Identifier_tes (  osti:type [ <https://www.osti.gov/biblio/IdentifierType#AUTH_REV>
+             <https://www.osti.gov/biblio/IdentifierType#CN_DOE> <https://www.osti.gov/biblio/IdentifierType#CN_NONDOE>
+             <https://www.osti.gov/biblio/IdentifierType#CODEN> <https://www.osti.gov/biblio/IdentifierType#DOE_DOCKET>
+             <https://www.osti.gov/biblio/IdentifierType#EDB> <https://www.osti.gov/biblio/IdentifierType#ETDE_RN>
+             <https://www.osti.gov/biblio/IdentifierType#INIS_RN> <https://www.osti.gov/biblio/IdentifierType#ISBN>
+             <https://www.osti.gov/biblio/IdentifierType#ISSN> <https://www.osti.gov/biblio/IdentifierType#LEGACY>
+             <https://www.osti.gov/biblio/IdentifierType#NSA> <https://www.osti.gov/biblio/IdentifierType#OPN_ACC>
+             <https://www.osti.gov/biblio/IdentifierType#OTHER_ID> <https://www.osti.gov/biblio/IdentifierType#PATENT>
+             <https://www.osti.gov/biblio/IdentifierType#PROJ_ID> <https://www.osti.gov/biblio/IdentifierType#PROP_REV>
+             <https://www.osti.gov/biblio/IdentifierType#REF> <https://www.osti.gov/biblio/IdentifierType#REL_TRN>
+             <https://www.osti.gov/biblio/IdentifierType#RN> <https://www.osti.gov/biblio/IdentifierType#TRN>
+             <https://www.osti.gov/biblio/IdentifierType#TVI> <https://www.osti.gov/biblio/IdentifierType#USER_VER>
+             <https://www.osti.gov/biblio/IdentifierType#WORK_AUTH> <https://www.osti.gov/biblio/IdentifierType#WORK_PROP> ] ? ;
+          osti:value @linkml:String ?
+       ) ;
+       rdf:type [ osti:Identifier ] ?
     )
 }
 
@@ -150,6 +209,66 @@ linkml:Sparqlpath xsd:string
     } OR @<Contributor>
 )
 
+osti:MediaFile CLOSED {
+    (  $osti:MediaFile_tes (  osti:media_file_id @linkml:Integer ? ;
+          osti:media_id @linkml:Integer ? ;
+          osti:checksum @linkml:String ? ;
+          osti:revision @linkml:Integer ? ;
+          osti:parent_media_file_id @linkml:Integer ? ;
+          osti:status @linkml:String ? ;
+          osti:media_type @linkml:String ? ;
+          osti:url_type [ <https://www.osti.gov/biblio/MediaLocationEnum#L> <https://www.osti.gov/biblio/MediaLocationEnum#O> ] ? ;
+          osti:url @linkml:String ? ;
+          osti:mime_type @linkml:String ? ;
+          osti:added_by_user_id @linkml:Integer ? ;
+          osti:media_source @linkml:String ? ;
+          osti:file_size_bytes @linkml:Integer ? ;
+          osti:duration_seconds @linkml:Integer ? ;
+          osti:document_page_count @linkml:Integer ? ;
+          osti:subtitle_tracks @linkml:Integer ? ;
+          osti:video_tracks @linkml:Integer ? ;
+          osti:pdf_version @linkml:String ? ;
+          osti:pdfa_conformance @linkml:String ? ;
+          osti:pdfa_part @linkml:String ? ;
+          osti:pdfua_part @linkml:String ? ;
+          osti:processing_exceptions @linkml:String ? ;
+          osti:date_file_added @linkml:Datetime ? ;
+          osti:date_file_updated @linkml:Datetime ?
+       ) ;
+       rdf:type [ osti:MediaFile ] ?
+    )
+}
+
+osti:MediaSet CLOSED {
+    (  $osti:MediaSet_tes (  osti:media_id @linkml:Integer ? ;
+          osti:revision @linkml:Integer ? ;
+          osti:access_limitations [ <https://www.osti.gov/biblio/AccessLimitationsEnum#UNL>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OPN> <https://www.osti.gov/biblio/AccessLimitationsEnum#CPY>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OUO> <https://www.osti.gov/biblio/AccessLimitationsEnum#PROT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PDOUO> <https://www.osti.gov/biblio/AccessLimitationsEnum#ECI>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PDSH> <https://www.osti.gov/biblio/AccessLimitationsEnum#USO>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#LRD> <https://www.osti.gov/biblio/AccessLimitationsEnum#NAT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#NNPI> <https://www.osti.gov/biblio/AccessLimitationsEnum#INTL>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PROP> <https://www.osti.gov/biblio/AccessLimitationsEnum#PAT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OTHR> <https://www.osti.gov/biblio/AccessLimitationsEnum#CUI> ] * ;
+          osti:osti_id @linkml:Integer ? ;
+          osti:status @linkml:String ? ;
+          osti:added_by @linkml:Integer ? ;
+          osti:document_page_count @linkml:Integer ? ;
+          osti:mime_type @linkml:String ? ;
+          osti:media_title @linkml:String ? ;
+          osti:media_location [ <https://www.osti.gov/biblio/MediaLocationEnum#L> <https://www.osti.gov/biblio/MediaLocationEnum#O>
+             ] ? ;
+          osti:media_source @linkml:String ? ;
+          osti:date_added @linkml:Datetime ? ;
+          osti:date_updated @linkml:Datetime ? ;
+          osti:date_valid_end @linkml:Datetime ? ;
+          osti:files @osti:MediaFile *
+       ) ;
+       rdf:type [ osti:MediaSet ] ?
+    )
+}
+
 <Organism> CLOSED {
     (  $<Organism_tes> (  <scientificName> @linkml:String ? ;
           <NCBITaxID> @linkml:Integer ?
@@ -158,13 +277,76 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<Organization> CLOSED {
-    (  $<Organization_tes> (  schema1:name @linkml:String ? ;
-          <parentOrganization> @<Organization> ? ;
-          <wikidata_id> @<WikidataIdentifier> ? ;
-          <ror_id> @<RorIdentifier> ?
+osti:Organization CLOSED {
+    (  $osti:Organization_tes (  osti:type [ <https://www.osti.gov/biblio/OrganizationType#AUTHOR>
+             <https://www.osti.gov/biblio/OrganizationType#CONTRIBUTING> <https://www.osti.gov/biblio/OrganizationType#RESEARCHING>
+             <https://www.osti.gov/biblio/OrganizationType#SPONSOR> ] ;
+          osti:name @linkml:String ;
+          osti:contributor_type [ <https://www.osti.gov/biblio/ContributorType#Chair>
+             <https://www.osti.gov/biblio/ContributorType#DataCollector> <https://www.osti.gov/biblio/ContributorType#DataCurator>
+             <https://www.osti.gov/biblio/ContributorType#DataManager> <https://www.osti.gov/biblio/ContributorType#Distributor>
+             <https://www.osti.gov/biblio/ContributorType#Editor> <https://www.osti.gov/biblio/ContributorType#HostingInstitution>
+             <https://www.osti.gov/biblio/ContributorType#Producer> <https://www.osti.gov/biblio/ContributorType#ProjectLeader>
+             <https://www.osti.gov/biblio/ContributorType#ProjectManager>
+             <https://www.osti.gov/biblio/ContributorType#ProjectMember>
+             <https://www.osti.gov/biblio/ContributorType#RegistrationAgency>
+             <https://www.osti.gov/biblio/ContributorType#RegistrationAuthority>
+             <https://www.osti.gov/biblio/ContributorType#RelatedPerson> <https://www.osti.gov/biblio/ContributorType#Reviewer>
+             <https://www.osti.gov/biblio/ContributorType#ReviewAssistant>
+             <https://www.osti.gov/biblio/ContributorType#ReviewerExternal>
+             <https://www.osti.gov/biblio/ContributorType#RightsHolder> <https://www.osti.gov/biblio/ContributorType#StatsReviewer>
+             <https://www.osti.gov/biblio/ContributorType#Supervisor> <https://www.osti.gov/biblio/ContributorType#Translator>
+             <https://www.osti.gov/biblio/ContributorType#WorkPackageLeader> <https://www.osti.gov/biblio/ContributorType#Other> ]
+          ? ;
+          osti:ror_id @linkml:String ? ;
+          osti:identifiers @osti:OrganizationIdentifier *
        ) ;
-       rdf:type [ <Organization> ] ?
+       rdf:type [ osti:Organization ] ?
+    )
+}
+
+osti:OrganizationIdentifier CLOSED {
+    (  $osti:OrganizationIdentifier_tes (  osti:type [ <https://www.osti.gov/biblio/OrganizationIdentifierType#AWARD_DOI>
+             <https://www.osti.gov/biblio/OrganizationIdentifierType#CN_DOE>
+             <https://www.osti.gov/biblio/OrganizationIdentifierType#CN_NONDOE> ] ;
+          osti:value @linkml:String
+       ) ;
+       rdf:type [ osti:OrganizationIdentifier ] ?
+    )
+}
+
+osti:Person CLOSED {
+    (  $osti:Person_tes (  osti:type [ <https://www.osti.gov/biblio/PersonType#AUTHOR>
+             <https://www.osti.gov/biblio/PersonType#RELEASE> <https://www.osti.gov/biblio/PersonType#CONTACT>
+             <https://www.osti.gov/biblio/PersonType#CONTRIBUTING> <https://www.osti.gov/biblio/PersonType#PROT_CE>
+             <https://www.osti.gov/biblio/PersonType#PROT_RO> <https://www.osti.gov/biblio/PersonType#SBIZ_PI>
+             <https://www.osti.gov/biblio/PersonType#SBIZ_BO> ] ;
+          osti:first_name @linkml:String ? ;
+          osti:middle_name @linkml:String ? ;
+          osti:last_name @linkml:String ? ;
+          osti:email @linkml:String * ;
+          osti:orcid @linkml:String ? ;
+          osti:phone @linkml:String ? ;
+          osti:osti_user_id @linkml:Integer ? ;
+          osti:contributor_type [ <https://www.osti.gov/biblio/ContributorType#Chair>
+             <https://www.osti.gov/biblio/ContributorType#DataCollector> <https://www.osti.gov/biblio/ContributorType#DataCurator>
+             <https://www.osti.gov/biblio/ContributorType#DataManager> <https://www.osti.gov/biblio/ContributorType#Distributor>
+             <https://www.osti.gov/biblio/ContributorType#Editor> <https://www.osti.gov/biblio/ContributorType#HostingInstitution>
+             <https://www.osti.gov/biblio/ContributorType#Producer> <https://www.osti.gov/biblio/ContributorType#ProjectLeader>
+             <https://www.osti.gov/biblio/ContributorType#ProjectManager>
+             <https://www.osti.gov/biblio/ContributorType#ProjectMember>
+             <https://www.osti.gov/biblio/ContributorType#RegistrationAgency>
+             <https://www.osti.gov/biblio/ContributorType#RegistrationAuthority>
+             <https://www.osti.gov/biblio/ContributorType#RelatedPerson> <https://www.osti.gov/biblio/ContributorType#Reviewer>
+             <https://www.osti.gov/biblio/ContributorType#ReviewAssistant>
+             <https://www.osti.gov/biblio/ContributorType#ReviewerExternal>
+             <https://www.osti.gov/biblio/ContributorType#RightsHolder> <https://www.osti.gov/biblio/ContributorType#StatsReviewer>
+             <https://www.osti.gov/biblio/ContributorType#Supervisor> <https://www.osti.gov/biblio/ContributorType#Translator>
+             <https://www.osti.gov/biblio/ContributorType#WorkPackageLeader> <https://www.osti.gov/biblio/ContributorType#Other> ]
+          ? ;
+          osti:affiliations @osti:Affiliation *
+       ) ;
+       rdf:type [ osti:Person ] ?
     )
 }
 
@@ -179,6 +361,177 @@ linkml:Sparqlpath xsd:string
           <selection_markers> @linkml:String *
        ) ;
        rdf:type [ <Plasmid> ] ?
+    )
+}
+
+osti:Point CLOSED {
+    (  $osti:Point_tes (  osti:latitude @linkml:Float ;
+          osti:longitude @linkml:Float
+       ) ;
+       rdf:type [ osti:Point ] ?
+    )
+}
+
+osti:Record CLOSED {
+    (  $osti:Record_tes (  osti:identifiers @osti:Identifier * ;
+          osti:issue @linkml:String ? ;
+          osti:journal_license_url @linkml:String ? ;
+          osti:journal_name @linkml:String ? ;
+          osti:journal_open_access_flag @linkml:String ? ;
+          osti:journal_type @linkml:String ? ;
+          osti:revision @linkml:Integer ? ;
+          osti:workflow_status [ <https://www.osti.gov/biblio/WorkflowStatusEnum#R>
+             <https://www.osti.gov/biblio/WorkflowStatusEnum#SA> <https://www.osti.gov/biblio/WorkflowStatusEnum#SR>
+             <https://www.osti.gov/biblio/WorkflowStatusEnum#SO> <https://www.osti.gov/biblio/WorkflowStatusEnum#SF>
+             <https://www.osti.gov/biblio/WorkflowStatusEnum#SX> <https://www.osti.gov/biblio/WorkflowStatusEnum#SV>
+             <https://www.osti.gov/biblio/WorkflowStatusEnum#X> <https://www.osti.gov/biblio/WorkflowStatusEnum#D> ] ? ;
+          osti:access_limitations [ <https://www.osti.gov/biblio/AccessLimitationsEnum#UNL>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OPN> <https://www.osti.gov/biblio/AccessLimitationsEnum#CPY>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OUO> <https://www.osti.gov/biblio/AccessLimitationsEnum#PROT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PDOUO> <https://www.osti.gov/biblio/AccessLimitationsEnum#ECI>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PDSH> <https://www.osti.gov/biblio/AccessLimitationsEnum#USO>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#LRD> <https://www.osti.gov/biblio/AccessLimitationsEnum#NAT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#NNPI> <https://www.osti.gov/biblio/AccessLimitationsEnum#INTL>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#PROP> <https://www.osti.gov/biblio/AccessLimitationsEnum#PAT>
+             <https://www.osti.gov/biblio/AccessLimitationsEnum#OTHR> <https://www.osti.gov/biblio/AccessLimitationsEnum#CUI> ] + ;
+          osti:access_limitation_other @linkml:String ? ;
+          osti:added_by @linkml:Integer ? ;
+          osti:added_by_email @linkml:String ? ;
+          osti:added_by_name @linkml:String ? ;
+          osti:announcement_codes @linkml:String * ;
+          osti:edition @linkml:String ? ;
+          osti:volume @linkml:String ? ;
+          osti:collection_type [ <https://www.osti.gov/biblio/CollectionTypeEnum#DOE_LAB>
+             <https://www.osti.gov/biblio/CollectionTypeEnum#DOE_GRANT> <https://www.osti.gov/biblio/CollectionTypeEnum#CHORUS> ] ?
+          ;
+          osti:conference_information @linkml:String ? ;
+          osti:conference_type @linkml:String ? ;
+          osti:contract_award_date @linkml:Datetime ? ;
+          osti:country_publication_code @linkml:String ? ;
+          osti:date_metadata_added @linkml:Datetime ? ;
+          osti:date_metadata_updated @linkml:Datetime ? ;
+          osti:date_submitted_to_osti_first @linkml:Datetime ? ;
+          osti:date_submitted_to_osti_last @linkml:Datetime ? ;
+          osti:title @linkml:String ;
+          osti:description @linkml:String ? ;
+          osti:descriptors @linkml:String * ;
+          osti:doe_funded_flag @linkml:String ? ;
+          osti:doi @linkml:String ? ;
+          osti:doi_infix @linkml:String ? ;
+          osti:edited_by @linkml:Integer ? ;
+          osti:edited_by_email @linkml:String ? ;
+          osti:edited_by_name @linkml:String ? ;
+          osti:edit_reason @linkml:String ? ;
+          osti:edit_source @linkml:String ? ;
+          osti:format_information @linkml:String ? ;
+          osti:media_embargo_sunset_date @linkml:String ? ;
+          osti:publication_date @linkml:Datetime ;
+          osti:publication_date_text @linkml:String ? ;
+          osti:publisher_information @linkml:String ? ;
+          osti:related_doc_info @linkml:String ? ;
+          osti:keywords @linkml:String * ;
+          osti:languages @linkml:String * ;
+          osti:audit_logs @osti:AuditLog * ;
+          osti:media @osti:MediaSet * ;
+          osti:opn_addressee @linkml:String ? ;
+          osti:opn_declassified_date @linkml:String ? ;
+          osti:opn_declassified_status @linkml:String ? ;
+          osti:opn_document_categories @linkml:String * ;
+          osti:opn_document_location @linkml:String ? ;
+          osti:opn_fieldoffice_acronym_code @linkml:String ? ;
+          osti:organizations @osti:Organization * ;
+          osti:other_information @linkml:String * ;
+          osti:ouo_release_date @linkml:String ? ;
+          osti:paper_flag @linkml:Boolean ? ;
+          osti:patent_assignee @linkml:String ? ;
+          osti:patent_file_date @linkml:Datetime ? ;
+          osti:patent_priority_date @linkml:Datetime ? ;
+          osti:pdouo_exemption_number @linkml:String ? ;
+          osti:persons @osti:Person * ;
+          osti:product_size @linkml:String ? ;
+          osti:product_type [ <https://www.osti.gov/biblio/ProductType#AR> <https://www.osti.gov/biblio/ProductType#B>
+             <https://www.osti.gov/biblio/ProductType#CO> <https://www.osti.gov/biblio/ProductType#DA>
+             <https://www.osti.gov/biblio/ProductType#FS> <https://www.osti.gov/biblio/ProductType#JA>
+             <https://www.osti.gov/biblio/ProductType#MI> <https://www.osti.gov/biblio/ProductType#OT>
+             <https://www.osti.gov/biblio/ProductType#P> <https://www.osti.gov/biblio/ProductType#PD>
+             <https://www.osti.gov/biblio/ProductType#SM> <https://www.osti.gov/biblio/ProductType#TD>
+             <https://www.osti.gov/biblio/ProductType#TR> <https://www.osti.gov/biblio/ProductType#PA> ] ? ;
+          osti:product_type_other @linkml:String ? ;
+          osti:prot_flag @linkml:String ? ;
+          osti:prot_data_other @linkml:String ? ;
+          osti:prot_release_date @linkml:Datetime ? ;
+          osti:availability @linkml:String ? ;
+          osti:subject_category_code @linkml:String * ;
+          osti:subject_category_code_legacy @linkml:String * ;
+          osti:related_identifiers @osti:RelatedIdentifier * ;
+          osti:released_to_osti_date @linkml:Datetime ? ;
+          osti:releasing_official_comments @linkml:String ? ;
+          osti:report_period_end_date @linkml:Datetime ? ;
+          osti:report_period_start_date @linkml:Datetime ? ;
+          osti:report_types @linkml:String * ;
+          osti:report_type_other @linkml:String ? ;
+          osti:sbiz_flag @linkml:String ? ;
+          osti:sbiz_phase @linkml:String ? ;
+          osti:sbiz_previous_contract_number @linkml:String ? ;
+          osti:sbiz_release_date @linkml:Datetime ? ;
+          osti:site_ownership_code @linkml:String ? ;
+          osti:site_unique_id @linkml:String ? ;
+          osti:site_url @linkml:String ? ;
+          osti:source_input_type @linkml:String ? ;
+          osti:source_edit_type @linkml:String ? ;
+          osti:geolocations @osti:Geolocation *
+       ) ;
+       rdf:type [ osti:Record ]
+    )
+}
+
+osti:Records CLOSED {
+    (  $osti:Records_tes osti:records @osti:Record * ;
+       rdf:type [ osti:Records ] ?
+    )
+}
+
+osti:RelatedIdentifier CLOSED {
+    (  $osti:RelatedIdentifier_tes (  osti:type [ <https://www.osti.gov/biblio/RelatedIdentifierType#ARK>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#arXiv> <https://www.osti.gov/biblio/RelatedIdentifierType#bibcode>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#DOI> <https://www.osti.gov/biblio/RelatedIdentifierType#EAN13>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#EISSN> <https://www.osti.gov/biblio/RelatedIdentifierType#IGSN>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#ISBN> <https://www.osti.gov/biblio/RelatedIdentifierType#ISSN>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#ISTC> <https://www.osti.gov/biblio/RelatedIdentifierType#Handle>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#LISSN> <https://www.osti.gov/biblio/RelatedIdentifierType#LSID>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#OTHER> <https://www.osti.gov/biblio/RelatedIdentifierType#PMCID>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#PMID> <https://www.osti.gov/biblio/RelatedIdentifierType#PURL>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#UPC> <https://www.osti.gov/biblio/RelatedIdentifierType#URI>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#URL> <https://www.osti.gov/biblio/RelatedIdentifierType#URN>
+             <https://www.osti.gov/biblio/RelatedIdentifierType#UUID> <https://www.osti.gov/biblio/RelatedIdentifierType#w3id> ] ;
+          osti:relation [ <https://www.osti.gov/biblio/RelationType#BasedOnData> <https://www.osti.gov/biblio/RelationType#Cites>
+             <https://www.osti.gov/biblio/RelationType#Compiles> <https://www.osti.gov/biblio/RelationType#Continues>
+             <https://www.osti.gov/biblio/RelationType#Describes> <https://www.osti.gov/biblio/RelationType#Documents>
+             <https://www.osti.gov/biblio/RelationType#Finances> <https://www.osti.gov/biblio/RelationType#HasComment>
+             <https://www.osti.gov/biblio/RelationType#HasDerivation> <https://www.osti.gov/biblio/RelationType#HasMetadata>
+             <https://www.osti.gov/biblio/RelationType#HasPart> <https://www.osti.gov/biblio/RelationType#HasRelatedMaterial>
+             <https://www.osti.gov/biblio/RelationType#HasReply> <https://www.osti.gov/biblio/RelationType#HasReview>
+             <https://www.osti.gov/biblio/RelationType#HasVersion> <https://www.osti.gov/biblio/RelationType#IsBasedOn>
+             <https://www.osti.gov/biblio/RelationType#IsBasisFor> <https://www.osti.gov/biblio/RelationType#IsCitedBy>
+             <https://www.osti.gov/biblio/RelationType#IsCommentOn> <https://www.osti.gov/biblio/RelationType#IsCompiledBy>
+             <https://www.osti.gov/biblio/RelationType#IsContinuedBy> <https://www.osti.gov/biblio/RelationType#IsDataBasisFor>
+             <https://www.osti.gov/biblio/RelationType#IsDerivedFrom> <https://www.osti.gov/biblio/RelationType#IsDescribedBy>
+             <https://www.osti.gov/biblio/RelationType#IsDocumentedBy> <https://www.osti.gov/biblio/RelationType#IsFinancedBy>
+             <https://www.osti.gov/biblio/RelationType#IsIdenticalTo> <https://www.osti.gov/biblio/RelationType#IsMetadataFor>
+             <https://www.osti.gov/biblio/RelationType#IsNewVersionOf> <https://www.osti.gov/biblio/RelationType#IsObsoletedBy>
+             <https://www.osti.gov/biblio/RelationType#IsOriginalFormOf> <https://www.osti.gov/biblio/RelationType#IsPartOf>
+             <https://www.osti.gov/biblio/RelationType#IsPreviousVersionOf>
+             <https://www.osti.gov/biblio/RelationType#IsReferencedBy> <https://www.osti.gov/biblio/RelationType#IsRelatedMaterial>
+             <https://www.osti.gov/biblio/RelationType#IsReplyTo> <https://www.osti.gov/biblio/RelationType#IsRequiredBy>
+             <https://www.osti.gov/biblio/RelationType#IsReviewedBy> <https://www.osti.gov/biblio/RelationType#IsReviewOf>
+             <https://www.osti.gov/biblio/RelationType#IsSourceOf> <https://www.osti.gov/biblio/RelationType#IsSupplementedBy>
+             <https://www.osti.gov/biblio/RelationType#IsSupplementTo> <https://www.osti.gov/biblio/RelationType#IsVariantFormOf>
+             <https://www.osti.gov/biblio/RelationType#IsVersionOf> <https://www.osti.gov/biblio/RelationType#Obsoletes>
+             <https://www.osti.gov/biblio/RelationType#References> <https://www.osti.gov/biblio/RelationType#Requires>
+             <https://www.osti.gov/biblio/RelationType#Reviews> ] ;
+          osti:value @linkml:String
+       ) ;
+       rdf:type [ osti:RelatedIdentifier ] ?
     )
 }
 
