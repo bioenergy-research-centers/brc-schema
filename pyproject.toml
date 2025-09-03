@@ -10,6 +10,7 @@ include = ["README.md", "src/brc_schema/schema", "project"]
 [tool.poetry.dependencies]
 python = "^3.9"
 linkml-runtime = "^1.7.0"
+linkml-map = "^0.3.8"
 
 [tool.poetry-dynamic-versioning]
 enable = false
