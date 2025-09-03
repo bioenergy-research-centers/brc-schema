@@ -29,49 +29,10 @@
    "skos": "http://www.w3.org/2004/02/skos/core#",
    "void": "http://rdfs.org/ns/void#",
    "wikidata": "https://www.wikidata.org/wiki/",
-   "Affiliation": {
-      "@id": "osti:Affiliation"
-   },
-   "AuditLog": {
-      "@id": "osti:AuditLog"
-   },
    "Dataset": {
       "@id": "schema:Dataset"
    },
-   "Geolocation": {
-      "@id": "osti:Geolocation"
-   },
-   "Identifier": {
-      "@id": "osti:Identifier"
-   },
    "Individual": {
       "@id": "schema:Person"
-   },
-   "MediaFile": {
-      "@id": "osti:MediaFile"
-   },
-   "MediaSet": {
-      "@id": "osti:MediaSet"
-   },
-   "Organization": {
-      "@id": "osti:Organization"
-   },
-   "OrganizationIdentifier": {
-      "@id": "osti:OrganizationIdentifier"
-   },
-   "Person": {
-      "@id": "osti:Person"
-   },
-   "Point": {
-      "@id": "osti:Point"
-   },
-   "Record": {
-      "@id": "osti:Record"
-   },
-   "Records": {
-      "@id": "osti:Records"
-   },
-   "RelatedIdentifier": {
-      "@id": "osti:RelatedIdentifier"
    }
 }
