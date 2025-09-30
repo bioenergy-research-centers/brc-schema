@@ -12,9 +12,10 @@ from brc_schema.transform_osti_to_brc import set_up_transformer
 from brc_schema.util.io import dump_output
 
 output_option = click.option("-o", "--output", help="Output file.")
-schema_option = click.option("-s", "--schema", help="Path to source schema.")
+schema_option = click.option(
+    "-s", "--schema", help="Path to source schema as YAML.")
 transformer_specification_option = click.option(
-    "-T", "--transformer-specification", help="Path to transformer specification."
+    "-T", "--transformer-specification", help="Path to transformer specification as YAML."
 )
 
 logger = logging.getLogger(__name__)
@@ -39,6 +40,7 @@ def main(verbose: int, quiet: bool) -> None:
 
 @main.command()
 @output_option
+@transformer_specification_option
 @schema_option
 @click.option("--source-type")
 @click.argument("input_data")
@@ -54,7 +56,12 @@ def transform(
     Map data from a source schema to a target schema using a transformation specification.
 
     Example:
+
         brcschema transform -T X-to-Y-tr.yaml -s X.yaml  X-data.yaml
+
+        or
+
+        brcschema transform -T osti_to_brc.yaml -s osti_schema.yaml data_in_osti_form.yaml
 
     """
     logger.info(
