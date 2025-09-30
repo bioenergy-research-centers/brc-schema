@@ -58,10 +58,24 @@ def transform(
         f"Transforming {input_data} as {tx_type}"
     )
     tr = set_up_transformer(tx_type)
+
+    # We may need to transform the input data to YAML first
+    # If it's in JSON form we need to wrap it in a records container
+    if input_data.endswith(".yaml") or input_data.endswith(".yml"):
+        pass
+    elif input_data.endswith(".json"):
+        # convert JSON to YAML
+        with open(input_data) as file:
+            input_obj = yaml.safe_load(file)
+        # Wrap the input in a records container
+        wrapped_obj = {"records": input_obj}
+        yaml_path = input_data.rsplit(".", 1)[0] + ".yaml"
+        with open(yaml_path, "w", encoding="utf-8") as yaml_file:
+            yaml.dump(wrapped_obj, yaml_file)
+        input_data = yaml_path
+
     with open(input_data) as file:
         input_obj = yaml.safe_load(file)
-
-    print(f"Input contains {len(input_obj['datasets'])} dataset(s)")
 
     if tx_type == "osti_to_brc":
         source_type = "records"

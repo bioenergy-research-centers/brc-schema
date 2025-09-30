@@ -1,5 +1,7 @@
 id: https://w3id.org/brc/osti_to_brc
 title: osti_to_brc
+source_schema: osti_schema
+target_schema: brc_schema
 
 class_derivations:
   DatasetCollection:
@@ -7,3 +9,17 @@ class_derivations:
     slot_derivations:
       datasets:
         populated_from: records
+
+  Dataset:
+    populated_from: Record
+    slot_derivations:
+      title:
+        populated_from: title
+      date:
+        populated_from: publication_date
+      creator:
+        populated_from: persons
+      brc:
+        expr: "'placeholder_brc'"
+      identifier:
+        expr: "'placeholder_id'"
