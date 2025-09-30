@@ -1,0 +1,9 @@
+id: https://w3id.org/brc/brc_to_osti
+title: brc_to_osti
+
+class_derivations:
+  records:
+    populated_from: DatasetCollection
+    slot_derivations:
+      datasets:
+        populated_from: datasets

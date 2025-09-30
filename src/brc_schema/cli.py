@@ -6,11 +6,16 @@ from typing import Any, Optional
 import click
 import yaml
 
-from brc_schema.transform_osti_to_brc import set_up_transformer
+from brc_schema.transform import set_up_transformer, do_transform
 from brc_schema.util.io import dump_output
 
 output_option = click.option("-o", "--output", help="Output file.")
-tx_type_option = click.option("-T", "--transform-type", help="Type of transformation. Either 'osti_to_brc' or 'brc_to_osti'.")
+tx_type_option = click.option(
+    "-T",
+    "--tx-type",
+    required=True,
+    help="Type of transformation. Either 'osti_to_brc' or 'brc_to_osti'."
+)
 
 logger = logging.getLogger(__name__)
 
@@ -33,16 +38,11 @@ def main(verbose: int, quiet: bool) -> None:
 
 
 @main.command()
-@output_option
 @tx_type_option
-@click.option("--source-type")
 @click.argument("input_data")
 def transform(
     input_data: str,
-    source_type: Optional[str],
     tx_type: str,
-    output: Optional[str],
-    **kwargs: dict[str, Any],
 ) -> None:
     """
     Transform input data from OSTI format to BRC schema or vice-versa.
@@ -60,9 +60,16 @@ def transform(
     tr = set_up_transformer(tx_type)
     with open(input_data) as file:
         input_obj = yaml.safe_load(file)
-    tr.index(input_obj, source_type)
-    tr_obj = tr.map_object(input_obj, source_type)
-    dump_output(tr_obj, "yaml", output)
+
+    if tx_type == "osti_to_brc":
+        source_type = "records"
+    elif tx_type == "brc_to_osti":
+        source_type = "DatasetCollection"
+    else:
+        raise ValueError(f"Unknown transformation type {tx_type}")
+
+    tr_obj = do_transform(tr, input_obj, source_type)
+    dump_output(tr_obj, "yaml", "test_output.yaml")
 
 
 if __name__ == "__main__":
