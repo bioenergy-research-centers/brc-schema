@@ -61,6 +61,8 @@ def transform(
     with open(input_data) as file:
         input_obj = yaml.safe_load(file)
 
+    print(f"Input contains {len(input_obj['datasets'])} dataset(s)")
+
     if tx_type == "osti_to_brc":
         source_type = "records"
     elif tx_type == "brc_to_osti":
