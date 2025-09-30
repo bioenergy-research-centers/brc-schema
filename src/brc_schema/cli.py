@@ -5,18 +5,12 @@ from typing import Any, Optional
 
 import click
 import yaml
-from linkml_map.transformer.object_transformer import ObjectTransformer
-from linkml_runtime import SchemaView
 
 from brc_schema.transform_osti_to_brc import set_up_transformer
 from brc_schema.util.io import dump_output
 
 output_option = click.option("-o", "--output", help="Output file.")
-schema_option = click.option(
-    "-s", "--schema", help="Path to source schema as YAML.")
-transformer_specification_option = click.option(
-    "-T", "--transformer-specification", help="Path to transformer specification as YAML."
-)
+tx_type_option = click.option("-T", "--transform-type", help="Type of transformation. Either 'osti_to_brc' or 'brc_to_osti'.")
 
 logger = logging.getLogger(__name__)
 
@@ -40,36 +34,30 @@ def main(verbose: int, quiet: bool) -> None:
 
 @main.command()
 @output_option
-@transformer_specification_option
-@schema_option
+@tx_type_option
 @click.option("--source-type")
 @click.argument("input_data")
 def transform(
     input_data: str,
-    schema: str,
     source_type: Optional[str],
-    transformer_specification: str,
+    tx_type: str,
     output: Optional[str],
     **kwargs: dict[str, Any],
 ) -> None:
     """
-    Map data from a source schema to a target schema using a transformation specification.
+    Transform input data from OSTI format to BRC schema or vice-versa.
+
+    If input data is not in YAML format, it will be converted to YAML first.
 
     Example:
 
-        brcschema transform -T X-to-Y-tr.yaml -s X.yaml  X-data.yaml
-
-        or
-
-        brcschema transform -T osti_to_brc.yaml -s osti_schema.yaml data_in_osti_form.yaml
+        brcschema transform -T osti_to_brc data_in_osti_form.yaml
 
     """
     logger.info(
-        f"Transforming {input_data} conforming to {schema} using {transformer_specification}"
+        f"Transforming {input_data} as {tx_type}"
     )
-    tr = ObjectTransformer(**kwargs)
-    tr.source_schemaview = SchemaView(schema)
-    tr.load_transformer_specification(transformer_specification)
+    tr = set_up_transformer(tx_type)
     with open(input_data) as file:
         input_obj = yaml.safe_load(file)
     tr.index(input_obj, source_type)
