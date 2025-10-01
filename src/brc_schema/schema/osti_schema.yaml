@@ -841,6 +841,62 @@ classes:
           - value: "ATMOSPHERE"
           - value: "ELECTRONS"
         multivalued: true
+      journal_issn:
+        # deprecated: true
+        description: >-
+          International Standard Serial Number (ISSN) for the journal
+          publishing this record.  Considered historical or deprecated
+          information, provided for access to historical data. This field
+          is NOT recommended for new submissions; use journal_name and
+          identifiers from Identifier class instead.
+        range: string
+        examples:
+          - value: "1234-5678"
+        pattern: "^.{0,9}$"
+      journal_issue:
+        # deprecated: true
+        description: >-
+          Issue number for journals or other applicable products if any.
+          Considered historical or deprecated information, provided for
+          access to historical data. This field is NOT recommended for new
+          submissions; use issue instead.
+        range: string
+        examples:
+          - value: "44"
+        pattern: "^.{0,80}$"
+      journal_volume:
+        # deprecated: true
+        description: >-
+          A volume number as applicable, usually for journals or books.
+          Considered historical or deprecated information, provided for
+          access to historical data. This field is NOT recommended for new
+          submissions; use volume instead.
+        range: string
+        examples:
+          - value: "1"
+        pattern: "^.{0,68}$"
+      publisher:
+        # deprecated: true
+        description: >-
+          Publisher-specific information if applicable.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use
+          publisher_information instead.
+        range: string
+        examples:
+          - value: "University Press, Volume III Spring 2001"
+        pattern: "^.{0,400}$"
+      relation:
+        # deprecated: true
+        description: >-
+          Identifies other resources that are related in some manner to this record.
+          Considered historical or deprecated information, provided for access
+          to historical data. This field is NOT recommended for new submissions;
+          use the RelatedIdentifier class instead.
+        range: string
+        examples:
+          - value: "IsSupplementTo"
+        pattern: "^.{0,20}$"
 
   RelatedIdentifier:
     description: >-
