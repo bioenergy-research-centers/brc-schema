@@ -9,6 +9,10 @@ description: >-
   https://www.osti.gov/elink2api/record-schema
   OSTI uses the E-Link API infrastructure.
   This schema corresponds to the E-Link 2.0 API (2.6.2).
+  It also contains some deprecated fields to support
+  backward compatibility with older records (e.g., article_type
+  has been replaced by product_type, but some records still
+  use the former).
 version: "2.6.2"
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -663,6 +667,58 @@ classes:
           List of geolocation references for this record.
         range: Geolocation
         multivalued: true
+      article_type:
+        # deprecated: true
+        description: >-
+          Article type code for journal articles.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use product_type
+          instead.
+        range: string
+        examples:
+          - value: "Accepted Manuscript"
+      authors:
+        # deprecated: true
+        description: >-
+          List of authors for this record.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use persons
+          instead.
+        range: string
+        examples:
+          - value: "Smith, John"
+          - value: "Doe, Jane"
+        multivalued: true
+      contract_number:
+        # deprecated: true
+        description: >-
+          DOE contract number related to this record.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use identifiers
+          from Identifier class instead.
+        range: string
+        examples:
+          - value: "AC02-05CH11231"
+      country_publication:
+        # deprecated: true
+        description: >-
+          Country of publication for this record.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use
+          country_publication_code instead.
+        range: string
+        examples:
+          - value: "United States"
+      doe_contract_number:
+        # deprecated: true
+        description: >-
+          DOE contract number related to this record.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use identifiers
+          from Identifier class instead.
+        range: string
+        examples:
+          - value: "AC02-05CH11231"
 
   RelatedIdentifier:
     description: >-
