@@ -53,11 +53,12 @@ poetry install
 Transform input data from OSTI format to BRC schema or vice-versa.
 
 ```bash
-brcschema transform -T <transformation_type> <input_file>
+brcschema transform -T <transformation_type> -o <output_file> <input_file>
 ```
 
 **Options:**
 - `-T, --tx-type`: Type of transformation. Either `osti_to_brc` or `brc_to_osti` (required)
+- `-o, --output PATH`: Output YAML file path (required)
 - `-v, --verbose`: Enable verbose logging (can be repeated for more verbosity)
 - `-q, --quiet`: Suppress output except errors
 
@@ -65,10 +66,10 @@ brcschema transform -T <transformation_type> <input_file>
 
 ```bash
 # Transform OSTI format to BRC schema
-brcschema transform -T osti_to_brc data_in_osti_form.yaml
+brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
 
 # Transform BRC schema to OSTI format
-brcschema transform -T brc_to_osti data_in_brc_form.yaml
+brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
 ```
 
 #### `retrieve-osti` - Retrieve records from OSTI E-Link API
@@ -117,7 +118,7 @@ Retrieve OSTI records and transform them to BRC format:
 brcschema retrieve-osti --osti-ids 2562995 2574191 -o osti_records.json
 
 # Step 2: Transform to BRC format
-brcschema transform -T osti_to_brc osti_records.json
+brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
 ```
 
 ## Using the OSTI E-Link API
