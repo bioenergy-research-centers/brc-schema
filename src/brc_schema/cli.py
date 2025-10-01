@@ -1,13 +1,15 @@
 """CLI for brc_schema"""
 
 import logging
-from typing import Any, Optional
+from pathlib import Path
+from typing import Any, Optional, List
 
 import click
 import yaml
 
 from brc_schema.transform import set_up_transformer, do_transform
 from brc_schema.util.io import dump_output
+from brc_schema.util.elink import OSTIRecordRetriever
 
 output_option = click.option("-o", "--output", help="Output file.")
 tx_type_option = click.option(
@@ -86,6 +88,134 @@ def transform(
 
     tr_obj = do_transform(tr, input_obj, source_type)
     dump_output(tr_obj, "yaml", "test_output.yaml")
+
+
+@main.command()
+@click.option(
+    "--osti-ids",
+    multiple=True,
+    help="One or more OSTI IDs to retrieve (e.g., 2562995 2574191)"
+)
+@click.option(
+    "--dois",
+    multiple=True,
+    help="One or more DOIs to retrieve (e.g., 10.1002/aesr.202500034)"
+)
+@click.option(
+    "--osti-id-file",
+    type=click.Path(exists=True, path_type=Path),
+    help="File containing OSTI IDs, one per line"
+)
+@click.option(
+    "--doi-file",
+    type=click.Path(exists=True, path_type=Path),
+    help="File containing DOIs, one per line"
+)
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(path_type=Path),
+    required=True,
+    help="Output JSON file path"
+)
+@click.option(
+    "--api-key",
+    help="OSTI API key (optional, can also use OSTI_API_KEY environment variable)"
+)
+@click.option(
+    "--no-pretty",
+    is_flag=True,
+    help="Disable pretty-printing of JSON output"
+)
+def retrieve_osti(
+    osti_ids: tuple,
+    dois: tuple,
+    osti_id_file: Optional[Path],
+    doi_file: Optional[Path],
+    output: Path,
+    api_key: Optional[str],
+    no_pretty: bool
+) -> None:
+    """
+    Retrieve records from OSTI E-Link 2.0 API.
+
+    You can provide OSTI IDs, DOIs, or read them from files.
+    Retrieved records are saved to a JSON file in OSTI schema format.
+
+    Examples:
+
+        # Retrieve by OSTI IDs
+        brcschema retrieve-osti --osti-ids 2562995 2574191 -o records.json
+
+        # Retrieve by DOIs
+        brcschema retrieve-osti --dois 10.1002/aesr.202500034 -o records.json
+
+        # Retrieve from ID file
+        brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+
+        # Mix of OSTI IDs and DOIs
+        brcschema retrieve-osti --osti-ids 2562995 --dois 10.1002/aesr.202500034 -o records.json
+    """
+    # Collect OSTI IDs
+    all_osti_ids = list(osti_ids)
+    if osti_id_file:
+        logger.info(f"Reading OSTI IDs from {osti_id_file}")
+        all_osti_ids.extend(_read_ids_from_file(osti_id_file))
+
+    # Collect DOIs
+    all_dois = list(dois)
+    if doi_file:
+        logger.info(f"Reading DOIs from {doi_file}")
+        all_dois.extend(_read_ids_from_file(doi_file))
+
+    # Validate input
+    if not all_osti_ids and not all_dois:
+        raise click.UsageError(
+            "No OSTI IDs or DOIs provided. Use --osti-ids, --dois, "
+            "--osti-id-file, or --doi-file"
+        )
+
+    logger.info(
+        f"Retrieving {len(all_osti_ids)} OSTI IDs and {len(all_dois)} DOIs")
+
+    # Initialize retriever
+    retriever = OSTIRecordRetriever(api_key=api_key)
+
+    # Retrieve and save records
+    try:
+        num_records = retriever.save_records_to_file(
+            output_path=output,
+            osti_ids=all_osti_ids if all_osti_ids else None,
+            dois=all_dois if all_dois else None,
+            pretty=not no_pretty
+        )
+
+        logger.info(f"Successfully saved {num_records} records to {output}")
+        click.echo(f"✓ Retrieved {num_records} records and saved to {output}")
+
+    except Exception as e:
+        logger.error(f"Error retrieving records: {e}", exc_info=True)
+        raise click.ClickException(str(e))
+
+
+def _read_ids_from_file(file_path: Path) -> List[str]:
+    """
+    Read IDs (OSTI IDs or DOIs) from a file, one per line.
+
+    Lines starting with # are treated as comments and ignored.
+
+    Args:
+        file_path: Path to file containing IDs
+
+    Returns:
+        List of IDs (as strings)
+    """
+    with open(file_path, 'r') as f:
+        return [
+            line.strip()
+            for line in f
+            if line.strip() and not line.strip().startswith('#')
+        ]
 
 
 if __name__ == "__main__":
