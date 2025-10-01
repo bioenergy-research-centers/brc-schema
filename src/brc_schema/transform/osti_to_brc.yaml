@@ -18,39 +18,145 @@ class_derivations:
         # These may not be the full set of contract numbers
         # expr: "eval_conditional((doe_contract_number == 'SC0018420', 'CABBI'), (doe_contract_number == 'SC0018409', 'GLBRC'), (doe_contract_number == 'AC36-08GO28308', 'CBI'), (doe_contract_number == 'AC02-05CH11231', 'JBEI'))"
       #  expr: "None"
+      title:
+        populated_from: title
+      description:
+        populated_from: description
+      date:
+        populated_from: publication_date
+      identifier:
+        expr: "'https://www.osti.gov/biblio/' + osti_id"
       bibliographicCitation:
         expr: |
           if src.doi:
             target = 'https://doi.org/' + src.doi
           else:
             target = None
-      creator:
-        expr: |
-            if src.authors:
-              target = src.authors
-      date:
-        populated_from: publication_date
-      description:
-        populated_from: description
-      identifier:
-        expr: "'https://www.osti.gov/biblio/' + osti_id"
       keywords:
         populated_from: keywords
+      creator:
+        expr: |
+          if src.persons:
+            target = [p for p in src.persons if p.type == 'AUTHOR']
+          elif src.authors:
+            target = src.authors
+          else:
+            target = None
+      contributors:
+        expr: |
+          if src.persons:
+            target = [p for p in src.persons if p.type == 'CONTRIBUTING']
+          else:
+            target = None
+      funding:
+        expr: |
+          if src.organizations:
+            target = [org for org in src.organizations if org.type == 'SPONSOR']
+          else:
+            target = None
       relatedItem:
         populated_from: related_identifiers
-      title:
-        populated_from: title
+      #datasetType:
+      #  populated_from: product_type
+      dataset_url:
+        populated_from: site_url
 
-  Person:
+  Individual:
     populated_from: Person
     slot_derivations:
       name:
-        expr: "first_name + ' ' + last_name"
-      primaryContact:
-        expr: "eval_conditional((corresponding == 'Y', True), (corresponding == 'N', False))"
+        expr: |
+          if src.middle_name:
+            target = src.first_name + ' ' + src.middle_name + ' ' + src.last_name
+          else:
+            target = src.first_name + ' ' + src.last_name
       email:
-        populated_from: email
+        expr: |
+          if src.email and len(src.email) > 0:
+            target = src.email[0]
+          else:
+            target = None
+      primaryContact:
+        expr: "src.type == 'AUTHOR'"
       affiliation:
         populated_from: affiliations
       orcid:
         populated_from: orcid
+
+  Contributor:
+    populated_from: Person
+    slot_derivations:
+      name:
+        expr: |
+          if src.middle_name:
+            target = src.first_name + ' ' + src.middle_name + ' ' + src.last_name
+          else:
+            target = src.first_name + ' ' + src.last_name
+      email:
+        expr: |
+          if src.email and len(src.email) > 0:
+            target = src.email[0]
+          else:
+            target = None
+      affiliation:
+        populated_from: affiliations
+      orcid:
+        populated_from: orcid
+      contributorType:
+        populated_from: contributor_type
+
+  BRCOrganization:
+    populated_from: Affiliation
+    slot_derivations:
+      organizationName:
+        populated_from: name
+      ror_id:
+        populated_from: ror_id
+
+  Funding:
+    populated_from: Organization
+    slot_derivations:
+      fundingOrganization:
+        expr: |
+          # Create a BRCOrganization from the Organization
+          target = {'organizationName': src.name}
+          if src.ror_id:
+            target['ror_id'] = src.ror_id
+      awardNumber:
+        expr: |
+          if src.identifiers:
+            # Extract award numbers from identifiers
+            awards = [id.value for id in src.identifiers if id.type in ['AWARD_DOI', 'CN_DOE', 'CN_NONDOE']]
+            target = awards[0] if awards else None
+          else:
+            target = None
+      awardTitle:
+        expr: "None"
+      awardURI:
+        expr: |
+          if src.identifiers:
+            # Extract DOI awards and format as URI
+            dois = [id.value for id in src.identifiers if id.type == 'AWARD_DOI']
+            target = 'doi:' + dois[0] if dois else None
+          else:
+            target = None
+
+  RelatedItem:
+    populated_from: RelatedIdentifier
+    slot_derivations:
+      title:
+        expr: "None"
+      relatedItemIdentifier:
+        populated_from: value
+      relatedItemType:
+        expr: |
+          # Map OSTI identifier types to BRC CitedItemType
+          # This is a basic mapping; may need refinement
+          type_map = {
+            'DOI': 'JournalArticle',
+            'URL': 'Webpage',
+            'URI': 'Webpage',
+            'arXiv': 'Preprint',
+            'ISBN': 'Book'
+          }
+          target = type_map.get(src.type, None)
