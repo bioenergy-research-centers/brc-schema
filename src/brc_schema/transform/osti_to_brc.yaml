@@ -19,9 +19,15 @@ class_derivations:
         # expr: "eval_conditional((doe_contract_number == 'SC0018420', 'CABBI'), (doe_contract_number == 'SC0018409', 'GLBRC'), (doe_contract_number == 'AC36-08GO28308', 'CBI'), (doe_contract_number == 'AC02-05CH11231', 'JBEI'))"
       #  expr: "None"
       bibliographicCitation:
-        populated_from: doi
+        expr: |
+          if src.doi:
+            target = 'https://doi.org/' + src.doi
+          else:
+            target = None
       creator:
-        populated_from: persons
+        expr: |
+            if src.authors:
+              target = src.authors
       date:
         populated_from: publication_date
       description:
