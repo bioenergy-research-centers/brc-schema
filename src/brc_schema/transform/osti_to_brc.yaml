@@ -13,13 +13,38 @@ class_derivations:
   Dataset:
     populated_from: Record
     slot_derivations:
-      title:
-        populated_from: title
-      date:
-        populated_from: publication_date
+      #brc:
+        # This expression converts to permissible value for BRCEnum
+        # These may not be the full set of contract numbers
+        # expr: "eval_conditional((doe_contract_number == 'SC0018420', 'CABBI'), (doe_contract_number == 'SC0018409', 'GLBRC'), (doe_contract_number == 'AC36-08GO28308', 'CBI'), (doe_contract_number == 'AC02-05CH11231', 'JBEI'))"
+      #  expr: "None"
+      bibliographicCitation:
+        populated_from: doi
       creator:
         populated_from: persons
-      brc:
-        expr: "'placeholder_brc'"
+      date:
+        populated_from: publication_date
+      description:
+        populated_from: description
       identifier:
-        expr: "'placeholder_id'"
+        expr: "'https://www.osti.gov/biblio/' + osti_id"
+      keywords:
+        populated_from: keywords
+      relatedItem:
+        populated_from: related_identifiers
+      title:
+        populated_from: title
+
+  Person:
+    populated_from: Person
+    slot_derivations:
+      name:
+        expr: "first_name + ' ' + last_name"
+      primaryContact:
+        expr: "eval_conditional((corresponding == 'Y', True), (corresponding == 'N', False))"
+      email:
+        populated_from: email
+      affiliation:
+        populated_from: affiliations
+      orcid:
+        populated_from: orcid
