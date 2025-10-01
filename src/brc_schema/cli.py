@@ -41,10 +41,18 @@ def main(verbose: int, quiet: bool) -> None:
 
 @main.command()
 @tx_type_option
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(path_type=Path),
+    required=True,
+    help="Output YAML file path"
+)
 @click.argument("input_data")
 def transform(
     input_data: str,
     tx_type: str,
+    output: Path
 ) -> None:
     """
     Transform input data from OSTI format to BRC schema or vice-versa.
@@ -53,7 +61,7 @@ def transform(
 
     Example:
 
-        brcschema transform -T osti_to_brc data_in_osti_form.yaml
+        brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
 
     """
     logger.info(
@@ -87,7 +95,7 @@ def transform(
         raise ValueError(f"Unknown transformation type {tx_type}")
 
     tr_obj = do_transform(tr, input_obj, source_type)
-    dump_output(tr_obj, "yaml", "test_output.yaml")
+    dump_output(tr_obj, "yaml", str(output))
 
 
 @main.command()
