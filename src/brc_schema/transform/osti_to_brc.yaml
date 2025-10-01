@@ -60,14 +60,20 @@ class_derivations:
       creator:
         expr: |
           if src.persons:
+            # Use Person objects with type AUTHOR
             target = [p for p in src.persons if p.type == 'AUTHOR']
           elif src.authors:
-            target = src.authors
+            # Coerce string list to Individual objects
+            target = [{'name': author, 'primaryContact': False} for author in src.authors]
+            # Set first author as primary contact if available
+            if target:
+              target[0]['primaryContact'] = True
           else:
             target = None
       contributors:
         expr: |
           if src.persons:
+            # Use Person objects with type CONTRIBUTING
             target = [p for p in src.persons if p.type == 'CONTRIBUTING']
           else:
             target = None
