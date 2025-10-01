@@ -12,6 +12,7 @@ python = ">=3.9,<=3.13"
 linkml-runtime = "^1.7.0"
 linkml-map = ">0.3.8"
 linkml = ">1.7.11rc1"
+elinkapi = "^0.5.3"
 
 [tool.poetry-dynamic-versioning]
 enable = false
