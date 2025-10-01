@@ -689,6 +689,17 @@ classes:
           - value: "Smith, John"
           - value: "Doe, Jane"
         multivalued: true
+      conference_info:
+        # deprecated: true
+        description: >-
+          Additional information regarding a conference.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use
+          conference_information instead.
+        range: string
+        examples:
+          - value: "Presented at ApacheCON 2019"
+        pattern: "^.{0,255}$"
       contract_number:
         # deprecated: true
         description: >-
@@ -719,6 +730,117 @@ classes:
         range: string
         examples:
           - value: "AC02-05CH11231"
+      entry_date:
+        # deprecated: true
+        description: >-
+          Date record first entered the OSTI system.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use
+          date_metadata_added instead.
+        range: datetime
+        examples:
+          - value: "2023-09-22T18:31:32.043Z"
+      identifier:
+        # deprecated: true
+        description: >-
+          Various identifying numbers related to this record.  Considered
+          historical or deprecated information, provided for access to
+          historical data. This field is NOT recommended for new submissions;
+          use identifiers from Identifier class instead.
+        range: string
+        examples:
+          - value: "9234782"
+        multivalued: true
+      language:
+        # deprecated: true
+        description: >-
+          Language codes for this record.  Considered historical or deprecated
+          information, provided for access to historical data. This field is
+          NOT recommended for new submissions; use languages instead.
+        range: string
+        examples:
+          - value: "English"
+        multivalued: true
+      links:
+        # deprecated: true
+        description: >-
+          Listing of any media and files associated with this record.
+          Considered historical or deprecated information, provided for
+          access to historical data. This field is NOT recommended for new
+          submissions; use media instead.
+        range: string
+        examples:
+          - value: "https://www.osti.gov/servlets/purl/1234567"
+        multivalued: true
+      other_identifiers:
+        # deprecated: true
+        description: >-
+          Various identifying numbers related to this record.  Considered
+          historical or deprecated information, provided for access to
+          historical data. This field is NOT recommended for new submissions;
+          use identifiers from Identifier class instead.
+        range: string
+        examples:
+          - value: "9234782"
+        multivalued: true
+      other_number:
+        # deprecated: true
+        description: >-
+          Various identifying numbers related to this record.  Considered
+          historical or deprecated information, provided for access to
+          historical data. This field is NOT recommended for new submissions;
+          use identifiers from Identifier class instead.
+        range: string
+        examples:
+          - value: "9234782"
+        multivalued: true
+      report_number:
+        # deprecated: true
+        description: >-
+          Various identifying numbers related to this record.  Considered
+          historical or deprecated information, provided for access to
+          historical data. This field is NOT recommended for new submissions;
+          use identifiers from Identifier class instead.
+        range: string
+        examples:
+          - value: "9234782"
+        multivalued: true
+      research_orgs:
+        # deprecated: true
+        description: >-
+          List of researching organizations related to this record.
+          Considered historical or deprecated information, provided for
+          access to historical data. This field is NOT recommended for new
+          submissions; use organizations instead.
+        range: string
+        examples:
+          - value: "Argonne National Laboratory"
+          - value: "Lawrence Berkeley National Laboratory"
+        multivalued: true
+      sponsor_orgs:
+        # deprecated: true
+        description: >-
+          List of sponsoring organizations related to this record.
+          Considered historical or deprecated information, provided for
+          access to historical data. This field is NOT recommended for new
+          submissions; use organizations instead.
+        range: string
+        examples:
+          - value: "U.S. Department of Energy"
+          - value: "National Science Foundation"
+        multivalued: true
+      subjects:
+        # deprecated: true
+        description: >-
+          List of descriptor codes for this record.  Considered historical
+          or deprecated information, provided for access to historical data.
+          This field is NOT recommended for new submissions; use
+          subject_category_code instead.
+        range: string
+        examples:
+          - value: "ATMOSPHERE"
+          - value: "ELECTRONS"
+        multivalued: true
 
   RelatedIdentifier:
     description: >-
