@@ -13,11 +13,34 @@ class_derivations:
   Dataset:
     populated_from: Record
     slot_derivations:
-      #brc:
-        # This expression converts to permissible value for BRCEnum
-        # These may not be the full set of contract numbers
-        # expr: "eval_conditional((doe_contract_number == 'SC0018420', 'CABBI'), (doe_contract_number == 'SC0018409', 'GLBRC'), (doe_contract_number == 'AC36-08GO28308', 'CBI'), (doe_contract_number == 'AC02-05CH11231', 'JBEI'))"
-      #  expr: "None"
+      brc:
+        expr: |
+          # Map DOE contract numbers to BRC values
+          # Check multiple possible locations for the contract number
+          contract_map = {
+            'SC0018420': 'CABBI',
+            'SC0018409': 'GLBRC',
+            'AC36-08GO28308': 'CBI',
+            'AC02-05CH11231': 'JBEI'
+          }
+          
+          contract_num = None
+          
+          # Check doe_contract_number field (deprecated but may be present)
+          if src.doe_contract_number:
+            contract_num = src.doe_contract_number
+          # Check contract_number field (deprecated but may be present)
+          elif src.contract_number:
+            contract_num = src.contract_number
+          # Check identifiers list for CN_DOE type
+          elif src.identifiers:
+            for identifier in src.identifiers:
+              if identifier.type == 'CN_DOE':
+                contract_num = identifier.value
+                break
+          
+          # Map to BRC value if found in our mapping
+          target = contract_map.get(contract_num, None) if contract_num else None
       title:
         populated_from: title
       description:
