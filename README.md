@@ -82,7 +82,7 @@ brcschema retrieve-osti [OPTIONS] -o <output_file>
 
 **Options:**
 - `--osti-ids TEXT`: One or more OSTI IDs to retrieve (can be repeated)
-- `--dois TEXT`: One or more DOIs to retrieve (can be repeated)
+- `--dois TEXT`: One or more DOIs to retrieve (must be in OSTI format: 10.11578/XXXXXXX)
 - `--osti-id-file PATH`: File containing OSTI IDs, one per line
 - `--doi-file PATH`: File containing DOIs, one per line
 - `-o, --output PATH`: Output JSON file path (required)
@@ -90,23 +90,25 @@ brcschema retrieve-osti [OPTIONS] -o <output_file>
 - `--no-pretty`: Disable pretty-printing of JSON output
 - `-v, --verbose`: Enable verbose logging
 
+**Note:** DOIs must be in OSTI format (e.g., `10.11578/2584700`). The OSTI ID is extracted from the DOI. Non-OSTI DOIs will be skipped.
+
 **Examples:**
 
 ```bash
 # Retrieve by OSTI IDs
-brcschema retrieve-osti --osti-ids 2562995 2574191 -o records.json
+brcschema retrieve-osti --osti-ids 2584700 2574191 -o records.json
 
-# Retrieve by DOIs
-brcschema retrieve-osti --dois 10.1002/aesr.202500034 -o records.json
+# Retrieve by DOIs (OSTI format only)
+brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 
 # Retrieve from ID file
 brcschema retrieve-osti --osti-id-file ids.txt -o records.json
 
 # Mix of OSTI IDs and DOIs with authentication
-brcschema retrieve-osti --osti-ids 2562995 --dois 10.1002/aesr.202500034 --api-key YOUR_KEY -o records.json
+brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-key YOUR_KEY -o records.json
 
 # With verbose logging
-brcschema -vv retrieve-osti --osti-ids 2562995 -o records.json
+brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
 ```
 
 ### Complete Workflow Example
@@ -151,6 +153,8 @@ Many OSTI records require authentication. To access the API:
 
 ### Python API Usage
 
+**Note:** When using DOIs, they must be in OSTI format (10.11578/XXXXXXX). The OSTI ID will be extracted from the DOI.
+
 #### Simple Retrieval
 
 ```python
@@ -158,8 +162,8 @@ from brc_schema.util.elink import retrieve_osti_records
 
 # Retrieve records and save to file
 records = retrieve_osti_records(
-    osti_ids=[2562995, 2574191],
-    dois=["10.1002/aesr.202500034"],
+    osti_ids=[2584700, 2574191],
+    dois=["10.11578/2584700"],  # OSTI format DOIs only
     output_file="osti_records.json"
 )
 
@@ -178,23 +182,23 @@ retriever = OSTIRecordRetriever()
 retriever = OSTIRecordRetriever(api_key="your_api_key_here")
 
 # Retrieve single record by OSTI ID
-record = retriever.get_record_by_osti_id(2562995)
+record = retriever.get_record_by_osti_id(2584700)
 if record:
     print(f"Title: {record.get('title')}")
 
-# Retrieve single record by DOI
-record = retriever.get_record_by_doi("10.1002/aesr.202500034")
+# Retrieve single record by DOI (OSTI format only)
+record = retriever.get_record_by_doi("10.11578/2584700")
 
 # Retrieve multiple records
 records = retriever.get_records(
-    osti_ids=[2562995, 2574191],
-    dois=["10.1002/aesr.202500034"]
+    osti_ids=[2584700, 2574191],
+    dois=["10.11578/2584700"]
 )
 
 # Save records to file
 retriever.save_records_to_file(
     output_path="output/osti_records.json",
-    osti_ids=[2562995, 2574191],
+    osti_ids=[2584700, 2574191],
     pretty=True
 )
 ```
