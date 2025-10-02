@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Optional, List
+from typing import Optional, List
 
 import click
 import yaml
@@ -11,7 +11,6 @@ from brc_schema.transform import set_up_transformer, do_transform
 from brc_schema.util.io import dump_output
 from brc_schema.util.elink import OSTIRecordRetriever
 
-output_option = click.option("-o", "--output", help="Output file.")
 tx_type_option = click.option(
     "-T",
     "--tx-type",
