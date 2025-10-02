@@ -203,8 +203,10 @@ def retrieve_osti(
             pretty=not no_pretty
         )
 
-        logger.info(f"Successfully saved {num_records} records to {output}")
-        click.echo(f"✓ Retrieved {num_records} records and saved to {output}")
+        logger.info(
+            f"Successfully saved {len(num_records)} record(s) to {output}")
+        click.echo(
+            f"✓ Retrieved {len(num_records)} record(s) and saved to {output}")
 
     except Exception as e:
         logger.error(f"Error retrieving records: {e}", exc_info=True)
