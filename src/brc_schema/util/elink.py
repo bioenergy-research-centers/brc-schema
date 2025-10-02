@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class DateTimeEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles date and datetime objects."""
-    
+
     def default(self, obj):
         if isinstance(obj, (date, datetime)):
             return obj.isoformat()
@@ -71,8 +71,12 @@ class OSTIRecordRetriever:
         """
         Retrieve a single record by DOI.
 
+        Note: The E-Link API's get_single_record method only accepts OSTI IDs.
+        For DOIs in the format "10.11578/XXXXXXX", we extract the OSTI ID
+        from the last part. For other DOI formats, this method may not work.
+
         Args:
-            doi: The DOI to retrieve (e.g., "10.1002/aesr.202500034")
+            doi: The DOI to retrieve (e.g., "10.11578/2584700")
 
         Returns:
             Dictionary containing the record metadata, or None if not found
@@ -83,13 +87,20 @@ class OSTIRecordRetriever:
                 doi = doi.split('doi.org/')[-1]
 
             logger.info(f"Retrieving record for DOI: {doi}")
-            record = self.api.get_single_record(doi=doi)
 
-            if record:
-                # Convert Record object to dictionary
-                return self.api.record_to_dict(record)
+            # Extract OSTI ID from DOI
+            # OSTI DOIs typically follow the pattern: 10.11578/OSTI_ID
+            if doi.startswith('10.11578/'):
+                osti_id = doi.split('/')[-1]
+                logger.debug(f"Extracted OSTI ID {osti_id} from DOI {doi}")
+
+                # Use the OSTI ID retrieval method
+                return self.get_record_by_osti_id(osti_id)
             else:
-                logger.warning(f"No record found for DOI: {doi}")
+                logger.warning(
+                    f"DOI {doi} does not follow the expected OSTI format (10.11578/XXXXXXX). "
+                    "Cannot extract OSTI ID. Consider using OSTI ID directly."
+                )
                 return None
 
         except Exception as e:
@@ -165,9 +176,11 @@ class OSTIRecordRetriever:
 
         with open(output_path, 'w', encoding='utf-8') as f:
             if pretty:
-                json.dump(output_data, f, indent=2, ensure_ascii=False, cls=DateTimeEncoder)
+                json.dump(output_data, f, indent=2,
+                          ensure_ascii=False, cls=DateTimeEncoder)
             else:
-                json.dump(output_data, f, ensure_ascii=False, cls=DateTimeEncoder)
+                json.dump(output_data, f, ensure_ascii=False,
+                          cls=DateTimeEncoder)
 
         logger.info(f"Saved {len(records)} records to {output_path}")
         return len(records)
@@ -182,9 +195,12 @@ def retrieve_osti_records(
     """
     Convenience function to retrieve OSTI records.
 
+    Note: DOIs must be in OSTI format (10.11578/XXXXXXX) where XXXXXXX is the OSTI ID.
+    Non-OSTI DOIs will be skipped with a warning.
+
     Args:
         osti_ids: List of OSTI IDs to retrieve
-        dois: List of DOIs to retrieve
+        dois: List of DOIs to retrieve (must be in OSTI format: 10.11578/XXXXXXX)
         output_file: Optional path to save records as JSON
         api_key: Optional API key for authentication
 
@@ -193,8 +209,8 @@ def retrieve_osti_records(
 
     Example:
         >>> records = retrieve_osti_records(
-        ...     osti_ids=[2562995, 2574191],
-        ...     dois=["10.1002/aesr.202500034"],
+        ...     osti_ids=[2584700, 2574191],
+        ...     dois=["10.11578/2584700"],
         ...     output_file="osti_records.json"
         ... )
     """
