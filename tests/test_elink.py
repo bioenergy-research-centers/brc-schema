@@ -39,7 +39,7 @@ class TestOSTIRecordRetriever:
         record = retriever.get_record_by_osti_id(2584700)
 
         assert record is not None
-        assert record.get('osti_id') == '2584700'
+        assert record.get('osti_id') == 2584700  # API returns int
         assert 'title' in record
 
     @pytest.mark.integration
@@ -51,7 +51,7 @@ class TestOSTIRecordRetriever:
         record = retriever.get_record_by_doi("10.11578/2584700")
 
         assert record is not None
-        assert record.get('osti_id') == '2584700'
+        assert record.get('osti_id') == 2584700  # API returns int
         assert 'title' in record
         assert record.get('doi') == '10.11578/2584700'
 
@@ -88,13 +88,13 @@ class TestOSTIRecordRetriever:
         with tempfile.TemporaryDirectory() as tmpdir:
             output_path = Path(tmpdir) / "test_records.json"
 
-            num_records = retriever.save_records_to_file(
+            records = retriever.save_records_to_file(
                 output_path=output_path,
                 osti_ids=[2584700],
                 pretty=True
             )
 
-            assert num_records == 1
+            assert len(records) == 1
             assert output_path.exists()
 
             # Verify the file structure
@@ -103,7 +103,7 @@ class TestOSTIRecordRetriever:
 
             assert 'records' in data
             assert isinstance(data['records'], list)
-            assert len(data['records']) == num_records
+            assert len(data['records']) == len(records)
 
 
 class TestConvenienceFunction:
@@ -118,7 +118,7 @@ class TestConvenienceFunction:
         )
 
         assert len(records) == 1
-        assert records[0].get('osti_id') == '2584700'
+        assert records[0].get('osti_id') == 2584700  # API returns int
 
     @pytest.mark.integration
     @skip_if_no_api_key
