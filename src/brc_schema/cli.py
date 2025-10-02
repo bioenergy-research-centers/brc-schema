@@ -85,7 +85,11 @@ def transform(
             wrapped_obj = input_obj
         yaml_path = input_data.rsplit(".", 1)[0] + ".yaml"
         with open(yaml_path, "w", encoding="utf-8") as yaml_file:
-            yaml.dump(wrapped_obj, yaml_file)
+            yaml.safe_dump(data=wrapped_obj,
+                           stream=yaml_file,
+                           sort_keys=False,
+                           allow_unicode=True,
+                           default_flow_style=False)
         input_data = yaml_path
 
     with open(input_data) as file:
