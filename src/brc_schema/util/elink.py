@@ -117,27 +117,52 @@ class OSTIRecordRetriever:
         """
         Retrieve multiple records by OSTI IDs and/or DOIs.
 
+        In the case of duplicate records,
+        only one instance of each record will be returned.
+
         Args:
             osti_ids: List of OSTI IDs to retrieve
             dois: List of DOIs to retrieve
 
         Returns:
-            List of record dictionaries
+            List of record dictionaries (duplicates removed)
         """
         records = []
+        seen_osti_ids = set()
 
         # Retrieve records by OSTI ID
         if osti_ids:
             for osti_id in osti_ids:
-                record = self.get_record_by_osti_id(osti_id)
-                if record:
-                    records.append(record)
+                osti_id_str = str(osti_id)
+                if osti_id_str not in seen_osti_ids:
+                    # Mark as seen before retrieval
+                    seen_osti_ids.add(osti_id_str)
+                    record = self.get_record_by_osti_id(osti_id)
+                    if record:
+                        records.append(record)
 
         # Retrieve records by DOI
         if dois:
             for doi in dois:
+                # Extract OSTI ID from DOI if possible to check for duplicates
+                if doi.startswith('http'):
+                    doi_clean = doi.split('doi.org/')[-1]
+                else:
+                    doi_clean = doi
+
+                # Check if this is an OSTI DOI and extract the ID
+                if doi_clean.startswith(OSTI_DOI_PREFIX):
+                    osti_id_from_doi = doi_clean.split('/')[-1]
+                    if osti_id_from_doi in seen_osti_ids:
+                        logger.info(
+                            f"Skipping DOI {doi} - already retrieved as OSTI ID {osti_id_from_doi}")
+                        continue
+
                 record = self.get_record_by_doi(doi)
                 if record:
+                    # Extract OSTI ID from the retrieved record to track it
+                    if 'osti_id' in record:
+                        seen_osti_ids.add(str(record['osti_id']))
                     records.append(record)
 
         logger.info(f"Retrieved {len(records)} records total")
