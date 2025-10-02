@@ -131,6 +131,30 @@ class_derivations:
         expr: |
           # Set active to True if workflow_status is 'R' (Released)
           target = src.workflow_status == 'R' if src.workflow_status else False
+      has_related_ids:
+        expr: |
+          if src.identifiers:
+            # Extract identifiers that are NOT contract numbers (CN_DOE, CN_NONDOE, CN)
+            # These represent related IDs in other repositories
+            target = []
+            for identifier in src.identifiers:
+              try:
+                # Skip contract number types
+                if identifier.type not in ['CN_DOE', 'CN_NONDOE', 'CN']:
+                  # Format as CURIE if possible, or just use the value
+                  if identifier.type == 'RN':
+                    # Research Number - format as BIOPROJECT CURIE
+                    target.append(f"BIOPROJECT:{identifier.value}")
+                  elif identifier.type == 'DOI':
+                    target.append(f"doi:{identifier.value}")
+                  else:
+                    # For other types, just use the value
+                    target.append(identifier.value)
+              except:
+                pass
+            target = target if target else None
+          else:
+            target = None
 
   Individual:
     populated_from: Person
