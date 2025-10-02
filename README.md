@@ -48,6 +48,22 @@ poetry install
 
 ### Available Commands
 
+**NOTE:** All CLI commands must be preceded by 
+
+```bash
+poetry run
+```
+
+or by first running the following:
+
+```bash
+eval $(poetry env activate)
+```
+
+to run the commands within the Poetry environment.
+
+If you encounter an error like `brcschema: command not found` then try running in the Poetry environment.
+
 #### `transform` - Transform data between OSTI and BRC formats
 
 Transform input data from OSTI format to BRC schema or vice-versa.
