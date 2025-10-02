@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 OSTI_DOI_PREFIX = "10.11578/"
 
+
 class DateTimeEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles date and datetime objects."""
 
@@ -165,7 +166,7 @@ class OSTIRecordRetriever:
 
         if not records:
             logger.warning("No records retrieved to save")
-            return 0
+            records = []
 
         # Create output structure matching OSTI schema
         output_data = {
