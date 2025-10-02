@@ -14,6 +14,7 @@ from brc_schema.util.elink import OSTIRecordRetriever
 tx_type_option = click.option(
     "-T",
     "--tx-type",
+    type=click.Choice(['osti_to_brc', 'brc_to_osti']),
     required=True,
     help="Type of transformation. Either 'osti_to_brc' or 'brc_to_osti'."
 )
