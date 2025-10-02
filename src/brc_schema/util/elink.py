@@ -11,6 +11,7 @@ from elinkapi import Elink
 
 logger = logging.getLogger(__name__)
 
+OSTI_DOI_PREFIX = "10.11578/"
 
 class DateTimeEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles date and datetime objects."""
@@ -90,7 +91,7 @@ class OSTIRecordRetriever:
 
             # Extract OSTI ID from DOI
             # OSTI DOIs typically follow the pattern: 10.11578/OSTI_ID
-            if doi.startswith('10.11578/'):
+            if doi.startswith(OSTI_DOI_PREFIX):
                 osti_id = doi.split('/')[-1]
                 logger.debug(f"Extracted OSTI ID {osti_id} from DOI {doi}")
 
