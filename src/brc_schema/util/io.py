@@ -12,7 +12,9 @@ def dump_output(
     file_path: Optional[str] = None,
 ) -> None:
     """
-    Dump output as YAML to a file or stdout.
+    Dump output to a file or stdout.
+
+    YAML is preferred.
 
     :param output_data: data to dump
     :type output_data: dict[str, Any] | list[Any] | str
@@ -21,18 +23,21 @@ def dump_output(
     :param file_path: path to an output file, defaults to None
     :type file_path: Optional[str], optional
     """
-    if output_data is None:
-        # this should already have been caught...
-        msg = "No output to be printed"
-        raise ValueError(msg)
 
     text_dump = output_data
     if output_format == "yaml":
         text_dump = yaml_dumper.dumps(output_data)
-    elif output_format:
+    elif output_format == "str" or output_format is None:
+        if isinstance(output_data, str):
+            text_dump = output_data
+        else:
+            text_dump = str(output_data)
+    elif output_format and output_format is not None:
         # some other defined output format
         msg = f"Output format {output_format} is not supported"
         raise NotImplementedError(msg)
+    else:
+        raise ValueError("No output to be printed.")
 
     if not file_path:
         sys.stdout.write(text_dump)
