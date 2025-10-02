@@ -3,12 +3,22 @@
 import json
 import logging
 import os
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union, Optional, Dict, Any
 
 from elinkapi import Elink
 
 logger = logging.getLogger(__name__)
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles date and datetime objects."""
+    
+    def default(self, obj):
+        if isinstance(obj, (date, datetime)):
+            return obj.isoformat()
+        return super().default(obj)
 
 
 class OSTIRecordRetriever:
@@ -155,9 +165,9 @@ class OSTIRecordRetriever:
 
         with open(output_path, 'w', encoding='utf-8') as f:
             if pretty:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
+                json.dump(output_data, f, indent=2, ensure_ascii=False, cls=DateTimeEncoder)
             else:
-                json.dump(output_data, f, ensure_ascii=False)
+                json.dump(output_data, f, ensure_ascii=False, cls=DateTimeEncoder)
 
         logger.info(f"Saved {len(records)} records to {output_path}")
         return len(records)
