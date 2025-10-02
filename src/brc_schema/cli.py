@@ -70,15 +70,19 @@ def transform(
     tr = set_up_transformer(tx_type)
 
     # We may need to transform the input data to YAML first
-    # If it's in JSON form we need to wrap it in a records container
+    # If it's in JSON form we may need to wrap it in a records container
     if input_data.endswith(".yaml") or input_data.endswith(".yml"):
         pass
     elif input_data.endswith(".json"):
         # convert JSON to YAML
         with open(input_data) as file:
             input_obj = yaml.safe_load(file)
-        # Wrap the input in a records container
-        wrapped_obj = {"records": input_obj}
+        # Wrap the input in a records container only if it's a plain list
+        if isinstance(input_obj, list):
+            wrapped_obj = {"records": input_obj}
+        else:
+            # Already wrapped (e.g., {"records": [...]})
+            wrapped_obj = input_obj
         yaml_path = input_data.rsplit(".", 1)[0] + ".yaml"
         with open(yaml_path, "w", encoding="utf-8") as yaml_file:
             yaml.dump(wrapped_obj, yaml_file)

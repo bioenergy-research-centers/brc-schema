@@ -81,12 +81,12 @@ class_derivations:
             target = [p for p in src.persons if p.type == 'CONTRIBUTING']
           else:
             target = None
-      funding:
-        expr: |
-          if src.organizations:
-            target = [org for org in src.organizations if org.type == 'SPONSOR']
-          else:
-            target = None
+      # funding:
+      #   expr: |
+      #     if src.organizations:
+      #       target = [org for org in src.organizations if org.type == 'SPONSOR']
+      #     else:
+      #       target = None
       relatedItem:
         populated_from: related_identifiers
       #datasetType:

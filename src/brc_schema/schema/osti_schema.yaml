@@ -237,6 +237,22 @@ classes:
         examples:
           - value: "2018-05-04T11:44:23.864Z"
         # readOnly: true
+      date_released_first:
+        description: >-
+          Date record was first released/published in OSTI.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2025-08-25T21:20:58.633000+00:00"
+        # readOnly: true
+      date_released_last:
+        description: >-
+          Most recent date record was released/published in OSTI.
+          Maintained internally by E-Link.
+        range: datetime
+        examples:
+          - value: "2025-08-25T21:20:58.633000+00:00"
+        # readOnly: true
       title:
         description: >-
           Title of record.  For Book Chapters, the title of the chapter.
@@ -463,6 +479,30 @@ classes:
         range: boolean
         examples:
           - value: "true"
+      hidden_flag:
+        description: >-
+          Indicates if the record is hidden from public view.
+        range: boolean
+        examples:
+          - value: "false"
+      sensitivity_flag:
+        description: >-
+          Indicates the sensitivity classification of the record (e.g., U for Unclassified).
+        range: string
+        examples:
+          - value: "U"
+      doe_supported_flag:
+        description: >-
+          Indicates if the work was supported by DOE funding.
+        range: boolean
+        examples:
+          - value: "false"
+      peer_reviewed_flag:
+        description: >-
+          Indicates if the work was peer-reviewed.
+        range: boolean
+        examples:
+          - value: "false"
       patent_assignee:
         description: >-
           The holder of property rights to a patent.
