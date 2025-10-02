@@ -95,8 +95,11 @@ brcschema retrieve-osti [OPTIONS] -o <output_file>
 **Examples:**
 
 ```bash
-# Retrieve by OSTI IDs
-brcschema retrieve-osti --osti-ids 2584700 2574191 -o records.json
+# Retrieve by OSTI IDs (use --osti-ids multiple times for multiple IDs)
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+
+# Retrieve a single OSTI ID
+brcschema retrieve-osti --osti-ids 2584700 -o records.json
 
 # Retrieve by DOIs (OSTI format only)
 brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
@@ -117,7 +120,7 @@ Retrieve OSTI records and transform them to BRC format:
 
 ```bash
 # Step 1: Retrieve OSTI records
-brcschema retrieve-osti --osti-ids 2562995 2574191 -o osti_records.json
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
 
 # Step 2: Transform to BRC format
 brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
@@ -148,7 +151,7 @@ Many OSTI records require authentication. To access the API:
 
    **Method 3: Command-line option**
    ```bash
-   brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2562995 -o records.json
+   brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
    ```
 
 ### Python API Usage

@@ -102,12 +102,12 @@ def transform(
 @click.option(
     "--osti-ids",
     multiple=True,
-    help="One or more OSTI IDs to retrieve (e.g., 2562995 2574191)"
+    help="OSTI ID to retrieve (can be used multiple times)"
 )
 @click.option(
     "--dois",
     multiple=True,
-    help="One or more DOIs to retrieve (e.g., 10.1002/aesr.202500034)"
+    help="DOI to retrieve (can be used multiple times)"
 )
 @click.option(
     "--osti-id-file",
@@ -152,17 +152,17 @@ def retrieve_osti(
 
     Examples:
 
-        # Retrieve by OSTI IDs
-        brcschema retrieve-osti --osti-ids 2562995 2574191 -o records.json
+        # Retrieve by OSTI IDs (multiple IDs)
+        brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 
-        # Retrieve by DOIs
-        brcschema retrieve-osti --dois 10.1002/aesr.202500034 -o records.json
+        # Retrieve by DOIs (OSTI format)
+        brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 
         # Retrieve from ID file
         brcschema retrieve-osti --osti-id-file ids.txt -o records.json
 
         # Mix of OSTI IDs and DOIs
-        brcschema retrieve-osti --osti-ids 2562995 --dois 10.1002/aesr.202500034 -o records.json
+        brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
     """
     # Collect OSTI IDs
     all_osti_ids = list(osti_ids)
