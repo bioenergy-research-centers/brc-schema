@@ -149,7 +149,7 @@ class OSTIRecordRetriever:
         osti_ids: Optional[List[Union[int, str]]] = None,
         dois: Optional[List[str]] = None,
         pretty: bool = True
-    ) -> int:
+    ) -> List[Dict[str, Any]]:
         """
         Retrieve records and save them to a JSON file.
 
@@ -160,7 +160,7 @@ class OSTIRecordRetriever:
             pretty: Whether to pretty-print the JSON (default: True)
 
         Returns:
-            Number of records written to file
+            List of records written to file
         """
         records = self.get_records(osti_ids=osti_ids, dois=dois)
 
@@ -185,7 +185,7 @@ class OSTIRecordRetriever:
                           cls=DateTimeEncoder)
 
         logger.info(f"Saved {len(records)} records to {output_path}")
-        return len(records)
+        return records
 
 
 def retrieve_osti_records(
@@ -219,7 +219,8 @@ def retrieve_osti_records(
     retriever = OSTIRecordRetriever(api_key=api_key)
 
     if output_file:
-        retriever.save_records_to_file(
+        # save_records_to_file returns the records it retrieved
+        return retriever.save_records_to_file(
             output_path=output_file,
             osti_ids=osti_ids,
             dois=dois
