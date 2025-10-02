@@ -97,6 +97,10 @@ class_derivations:
       #  populated_from: product_type
       dataset_url:
         populated_from: site_url
+      active:
+        expr: |
+          # Set active to True if workflow_status is 'R' (Released)
+          target = src.workflow_status == 'R' if src.workflow_status else False
 
   Individual:
     populated_from: Person
