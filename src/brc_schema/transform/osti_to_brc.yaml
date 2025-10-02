@@ -52,7 +52,11 @@ class_derivations:
       date:
         populated_from: publication_date
       identifier:
-        expr: "'https://www.osti.gov/biblio/' + osti_id"
+        expr: |
+          if src.osti_id:
+            target = f"https://www.osti.gov/biblio/{src.osti_id}"
+          else:
+            target = None
       bibliographicCitation:
         expr: |
           if src.doi:
