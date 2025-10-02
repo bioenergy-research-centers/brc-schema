@@ -92,7 +92,7 @@ def transform(
                            default_flow_style=False)
         input_data = yaml_path
 
-    with open(input_data) as file:
+    with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
 
     if tx_type == "osti_to_brc":
