@@ -100,7 +100,6 @@ def transform(
         raise ValueError(f"Unknown transformation type {tx_type}")
 
     tr_obj = do_transform(tr, input_obj, source_type)
-    print(tr_obj)
     dump_output(tr_obj, "yaml", str(output))
 
 

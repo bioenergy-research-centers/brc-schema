@@ -68,8 +68,48 @@ class_derivations:
       creator:
         expr: |
           if src.persons:
-            # Use Person objects with type AUTHOR
-            target = [p for p in src.persons if p.type == 'AUTHOR']
+            # Transform Person objects with type AUTHOR to Individual dictionaries
+            target = []
+            for p in src.persons:
+              try:
+                if p.type == 'AUTHOR':
+                  # Build name from first, middle, last
+                  name_parts = []
+                  if p.first_name:
+                    name_parts.append(p.first_name)
+                  if p.middle_name:
+                    name_parts.append(p.middle_name)
+                  if p.last_name:
+                    name_parts.append(p.last_name)
+                  name = ' '.join(name_parts) if name_parts else None
+                  
+                  # Build Individual dictionary
+                  individual = {}
+                  if name:
+                    individual['name'] = name
+                  
+                  # Add email (take first if multiple)
+                  if p.email and len(p.email) > 0:
+                    individual['email'] = p.email[0]
+                  
+                  # Add ORCID if present
+                  if p.orcid:
+                    individual['orcid'] = p.orcid
+                  
+                  # Add affiliation (take first if multiple)
+                  if p.affiliations and len(p.affiliations) > 0:
+                    aff = p.affiliations[0]
+                    if aff.name:
+                      individual['affiliation'] = aff.name
+                  
+                  # Set primary contact (first author is primary)
+                  individual['primaryContact'] = len(target) == 0
+                  
+                  if name:  # Only add if we have a name
+                    target.append(individual)
+              except Exception as e:
+                pass
+            target = target if target else None
           elif src.authors:
             # Coerce string list to Individual objects
             target = [{'name': author, 'primaryContact': False} for author in src.authors]
@@ -81,8 +121,49 @@ class_derivations:
       contributors:
         expr: |
           if src.persons:
-            # Use Person objects with type CONTRIBUTING
-            target = [p for p in src.persons if p.type == 'CONTRIBUTING']
+            # Transform Person objects with type CONTRIBUTING to Contributor dictionaries
+            target = []
+            for p in src.persons:
+              try:
+                if p.type == 'CONTRIBUTING':
+                  # Build name from first, middle, last
+                  name_parts = []
+                  if p.first_name:
+                    name_parts.append(p.first_name)
+                  if p.middle_name:
+                    name_parts.append(p.middle_name)
+                  if p.last_name:
+                    name_parts.append(p.last_name)
+                  name = ' '.join(name_parts) if name_parts else None
+                  
+                  # Build Contributor dictionary
+                  contributor = {}
+                  if name:
+                    contributor['name'] = name
+                  
+                  # Add email (take first if multiple)
+                  if p.email and len(p.email) > 0:
+                    contributor['email'] = p.email[0]
+                  
+                  # Add ORCID if present
+                  if p.orcid:
+                    contributor['orcid'] = p.orcid
+                  
+                  # Add affiliation (take first if multiple)
+                  if p.affiliations and len(p.affiliations) > 0:
+                    aff = p.affiliations[0]
+                    if aff.name:
+                      contributor['affiliation'] = aff.name
+                  
+                  # Add contributor type if present
+                  if p.contributor_type:
+                    contributor['contributorType'] = p.contributor_type
+                  
+                  if name:  # Only add if we have a name
+                    target.append(contributor)
+              except Exception as e:
+                pass
+            target = target if target else None
           else:
             target = None
       funding:
