@@ -1,9 +1,63 @@
 """I/O utilities for brc_schema"""
 
+import logging
 import sys
 from typing import Any, Optional, Union
 
 from linkml_runtime.dumpers import yaml_dumper
+
+logger = logging.getLogger(__name__)
+
+
+def sanitize_for_yaml(data: Any, path: str = "root") -> Any:
+    """
+    Sanitize data structures to ensure they can be serialized to YAML.
+
+    Recursively traverses data structures and replaces any objects that cannot
+    be serialized to YAML (like LinkML dynamic objects) with empty strings,
+    while logging warnings about what was replaced.
+
+    :param data: The data to sanitize
+    :type data: Any
+    :param path: The current path in the data structure (for logging), defaults to "root"
+    :type path: str
+    :return: Sanitized data that can be safely serialized to YAML
+    :rtype: Any
+    """
+    # Handle None, primitives (str, int, float, bool)
+    if data is None or isinstance(data, (str, int, float, bool)):
+        return data
+
+    # Handle lists
+    if isinstance(data, list):
+        return [sanitize_for_yaml(item, f"{path}[{i}]") for i, item in enumerate(data)]
+
+    # Handle dictionaries
+    if isinstance(data, dict):
+        return {key: sanitize_for_yaml(value, f"{path}.{key}") for key, value in data.items()}
+
+    # Handle objects that have a representation starting with '<' (like LinkML dynamic objects)
+    obj_repr = repr(data)
+    if obj_repr.startswith('<') and obj_repr.endswith('>'):
+        # This is likely an unparseable object
+        logger.warning(
+            f"Encountered non-serializable object at {path}: {obj_repr}. "
+            f"Type: {type(data).__name__}. Replacing with empty string."
+        )
+        return ""
+
+    # Try to detect other non-serializable objects
+    # Check if it's a custom class instance (not a built-in type)
+    if hasattr(data, '__dict__') and not isinstance(data, type):
+        logger.warning(
+            f"Encountered potential non-serializable object at {path}: {obj_repr}. "
+            f"Type: {type(data).__name__}. Replacing with empty string."
+        )
+        return ""
+
+    # If we get here, try to return the data as-is and let YAML dumper handle it
+    # This covers cases like tuples, sets, etc. that might be serializable
+    return data
 
 
 def dump_output(
@@ -26,7 +80,9 @@ def dump_output(
 
     text_dump = output_data
     if output_format == "yaml":
-        text_dump = yaml_dumper.dumps(output_data)
+        # Sanitize data before YAML serialization to avoid errors with non-serializable objects
+        sanitized_data = sanitize_for_yaml(output_data)
+        text_dump = yaml_dumper.dumps(sanitized_data)
     elif output_format == "str" or output_format is None:
         if isinstance(output_data, str):
             text_dump = output_data
