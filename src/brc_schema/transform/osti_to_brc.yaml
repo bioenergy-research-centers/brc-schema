@@ -239,15 +239,17 @@ class_derivations:
               try:
                 # Skip contract number types
                 if identifier.type not in ['CN_DOE', 'CN_NONDOE', 'CN']:
-                  # Format as CURIE if possible, or just use the value
-                  if identifier.type == 'RN':
-                    # Research Number - format as BIOPROJECT CURIE
-                    target.append(f"BIOPROJECT:{identifier.value}")
-                  elif identifier.type == 'DOI':
-                    target.append(f"doi:{identifier.value}")
-                  else:
-                    # For other types, just use the value
-                    target.append(identifier.value)
+                  # Skip identifiers with None or "None" values
+                  if identifier.value and str(identifier.value).lower() != 'none':
+                    # Format as CURIE if possible, or just use the value
+                    if identifier.type == 'RN':
+                      # Research Number - format as BIOPROJECT CURIE
+                      target.append(f"BIOPROJECT:{identifier.value}")
+                    elif identifier.type == 'DOI':
+                      target.append(f"doi:{identifier.value}")
+                    else:
+                      # For other types, just use the value
+                      target.append(identifier.value)
               except:
                 pass
             target = target if target else None

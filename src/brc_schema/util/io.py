@@ -60,6 +60,38 @@ def sanitize_for_yaml(data: Any, path: str = "root") -> Any:
     return data
 
 
+def remove_none_values(data: Any) -> Any:
+    """
+    Remove None values from dictionaries and lists recursively.
+
+    This function helps create cleaner output by excluding fields that have None values,
+    which is especially useful for optional fields that don't have meaningful data.
+
+    :param data: The data to process
+    :type data: Any
+    :return: Data with None values removed from dictionaries
+    :rtype: Any
+    """
+    if data is None:
+        return None
+
+    if isinstance(data, dict):
+        # Only include key-value pairs where value is not None
+        result = {}
+        for key, value in data.items():
+            cleaned_value = remove_none_values(value)
+            if cleaned_value is not None:
+                result[key] = cleaned_value
+        return result
+
+    if isinstance(data, list):
+        # Remove None values from lists and recursively clean remaining items
+        return [remove_none_values(item) for item in data if item is not None]
+
+    # For all other types, return as-is
+    return data
+
+
 def dump_output(
     output_data: Union[dict[str, Any], list[Any], str],
     output_format: Optional[str] = None,
@@ -82,11 +114,15 @@ def dump_output(
     # Sanitize before dumping for either format to avoid dynamic objects
     if output_format == "yaml":
         sanitized_data = sanitize_for_yaml(output_data)
-        text_dump = yaml_dumper.dumps(sanitized_data)
+        # Remove None values for cleaner output
+        cleaned_data = remove_none_values(sanitized_data)
+        text_dump = yaml_dumper.dumps(cleaned_data)
     elif output_format == "json":
         sanitized_data = sanitize_for_yaml(output_data)
+        # Remove None values for cleaner output
+        cleaned_data = remove_none_values(sanitized_data)
         # Use LinkML's JSON dumper to preserve LinkML-specific structures
-        text_dump = json_dumper.dumps(sanitized_data)
+        text_dump = json_dumper.dumps(cleaned_data)
     elif output_format == "str" or output_format is None:
         if isinstance(output_data, str):
             text_dump = output_data
