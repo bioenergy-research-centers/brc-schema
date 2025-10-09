@@ -43,7 +43,7 @@ def main(verbose: int) -> None:
     "--output",
     type=click.Path(path_type=Path),
     required=True,
-    help="Output YAML file path"
+    help="Output file path (YAML or JSON, determined by extension)"
 )
 @click.argument("input_data")
 def transform(
@@ -56,9 +56,13 @@ def transform(
 
     If input data is not in YAML format, it will be converted to YAML first.
 
-    Example:
+    Output format is determined by the file extension: .json for JSON, otherwise YAML.
+
+    Examples:
 
         brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
+
+        brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti_form.json
 
     """
     logger.info(
@@ -100,7 +104,11 @@ def transform(
         raise ValueError(f"Unknown transformation type {tx_type}")
 
     tr_obj = do_transform(tr, input_obj, source_type)
-    dump_output(tr_obj, "yaml", str(output))
+
+    # Infer output format from file extension
+    output_format = "json" if str(output).endswith(".json") else "yaml"
+
+    dump_output(tr_obj, output_format, str(output))
 
 
 @main.command()

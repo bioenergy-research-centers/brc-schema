@@ -4,7 +4,7 @@ import logging
 import sys
 from typing import Any, Optional, Union
 
-from linkml_runtime.dumpers import yaml_dumper
+from linkml_runtime.dumpers import yaml_dumper, json_dumper
 
 logger = logging.getLogger(__name__)
 
@@ -79,10 +79,14 @@ def dump_output(
     """
 
     text_dump = output_data
+    # Sanitize before dumping for either format to avoid dynamic objects
     if output_format == "yaml":
-        # Sanitize data before YAML serialization to avoid errors with non-serializable objects
         sanitized_data = sanitize_for_yaml(output_data)
         text_dump = yaml_dumper.dumps(sanitized_data)
+    elif output_format == "json":
+        sanitized_data = sanitize_for_yaml(output_data)
+        # Use LinkML's JSON dumper to preserve LinkML-specific structures
+        text_dump = json_dumper.dumps(sanitized_data)
     elif output_format == "str" or output_format is None:
         if isinstance(output_data, str):
             text_dump = output_data
