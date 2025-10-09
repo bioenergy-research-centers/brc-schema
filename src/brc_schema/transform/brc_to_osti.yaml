@@ -3,9 +3,168 @@ title: brc_to_osti
 source_schema: brc_schema
 target_schema: osti_schema
 
+enum_derivations:
+  BRCEnum:
+    populated_from: BRCEnum
+
 class_derivations:
   records:
     populated_from: DatasetCollection
     slot_derivations:
       records:
         populated_from: datasets
+
+  Record:
+    populated_from: Dataset
+    slot_derivations:
+      osti_id:
+        expr: |
+          # Extract OSTI ID from identifier field
+          if src.identifier and 'osti.gov/biblio/' in src.identifier:
+            # Extract ID from URL like "https://www.osti.gov/biblio/2439925"
+            target = src.identifier.split('/')[-1]
+          else:
+            target = None
+      title:
+        populated_from: title
+      description:
+        populated_from: description
+      publication_date:
+        populated_from: date
+      doi:
+        expr: |
+          # Extract DOI from bibliographicCitation field
+          if src.bibliographicCitation and 'doi.org/' in src.bibliographicCitation:
+            # Extract DOI from URL like "https://doi.org/10.25983/2439925"
+            target = src.bibliographicCitation.split('doi.org/')[-1]
+          else:
+            target = None
+      site_ownership_code:
+        populated_from: brc
+        expr: |
+          # Direct mapping from brc field
+          if src.brc:
+            target = src.brc
+          else:
+            target = None
+      keywords:
+        expr: |
+          # Combine keywords back into comma-separated strings
+          if src.keywords and isinstance(src.keywords, list):
+            target = [', '.join(src.keywords)]
+          else:
+            target = None
+      site_url:
+        populated_from: dataset_url
+      workflow_status:
+        expr: |
+          # Map active status back to workflow_status
+          if src.active:
+            target = 'R'  # Released
+          else:
+            target = 'P'  # Pending or other status
+      persons:
+        expr: |
+          target = []
+          
+          # Add creators as AUTHOR type persons
+          if src.creator:
+            for creator in src.creator:
+              person = {'type': 'AUTHOR'}
+              if creator.name:
+                name_parts = creator.name.split()
+                person['first_name'] = name_parts[0] if name_parts else 'Unknown'
+                person['last_name'] = name_parts[-1] if len(name_parts) > 1 else 'Unknown'
+                if len(name_parts) > 2:
+                  person['middle_name'] = ' '.join(name_parts[1:-1])
+              else:
+                person['first_name'] = 'Unknown'
+                person['last_name'] = 'Unknown'
+              
+              if creator.email:
+                person['email'] = [creator.email]
+              if creator.orcid:
+                person['orcid'] = creator.orcid
+              if creator.affiliation:
+                person['affiliations'] = [{'name': creator.affiliation}]
+              
+              target.append(person)
+          
+          # Add contributors as CONTRIBUTING type persons
+          if src.contributors:
+            for contributor in src.contributors:
+              person = {'type': 'CONTRIBUTING'}
+              if contributor.name:
+                name_parts = contributor.name.split()
+                person['first_name'] = name_parts[0] if name_parts else 'Unknown'
+                person['last_name'] = name_parts[-1] if len(name_parts) > 1 else 'Unknown'
+                if len(name_parts) > 2:
+                  person['middle_name'] = ' '.join(name_parts[1:-1])
+              else:
+                person['first_name'] = 'Unknown'
+                person['last_name'] = 'Unknown'
+              
+              if contributor.email:
+                person['email'] = [contributor.email]
+              if contributor.orcid:
+                person['orcid'] = contributor.orcid
+              if contributor.affiliation:
+                person['affiliations'] = [{'name': contributor.affiliation}]
+              if contributor.contributorType:
+                person['contributor_type'] = contributor.contributorType
+              
+              target.append(person)
+          
+          target = target if target else None
+      organizations:
+        expr: |
+          if src.funding:
+            target = []
+            for funding in src.funding:
+              if funding.fundingOrganization:
+                org = {'type': 'SPONSOR'}
+                if funding.fundingOrganization.organizationName:
+                  org['name'] = funding.fundingOrganization.organizationName
+                if funding.fundingOrganization.organizationIdentifier:
+                  org['uris'] = [funding.fundingOrganization.organizationIdentifier]
+                target.append(org)
+            target = target if target else None
+          else:
+            target = None
+      identifiers:
+        expr: |
+          target = []
+          
+          # Add related IDs if present
+          if src.has_related_ids:
+            for related_id in src.has_related_ids:
+              if isinstance(related_id, str):
+                if related_id.startswith('BIOPROJECT:'):
+                  # Extract the project ID
+                  project_id = related_id.replace('BIOPROJECT:', '')
+                  # Skip if project_id is None or "None"
+                  if project_id and str(project_id).lower() != 'none':
+                    target.append({'type': 'RN', 'value': project_id})
+                elif related_id.startswith('doi:'):
+                  # Extract DOI
+                  doi = related_id.replace('doi:', '')
+                  if doi and str(doi).lower() != 'none':
+                    target.append({'type': 'DOI', 'value': doi})
+                else:
+                  # Generic identifier
+                  if related_id and str(related_id).lower() != 'none':
+                    target.append({'type': 'OTHER', 'value': related_id})
+          
+          # Add BRC contract mapping back to DOE contract numbers
+          if src.brc:
+            brc_to_contract = {
+              'CABBI': 'SC0018420',
+              'GLBRC': 'SC0018409', 
+              'CBI': 'AC36-08GO28308',
+              'JBEI': 'AC02-05CH11231'
+            }
+            contract_num = brc_to_contract.get(src.brc)
+            if contract_num:
+              target.append({'type': 'CN_DOE', 'value': contract_num})
+          
+          target = target if target else None

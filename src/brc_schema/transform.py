@@ -22,7 +22,7 @@ def set_up_transformer(tr_type: str) -> ObjectTransformer:
     elif tr_type == "brc_to_osti":
         obj_tr.source_schemaview = SchemaView(str(BRC_SCHEMA_PATH))
         obj_tr.target_schemaview = SchemaView(str(OSTI_SCHEMA_PATH))
-        obj_tr.load_transformer_specification(OSTI_TO_BRC_TR_PATH)
+        obj_tr.load_transformer_specification(BRC_TO_OSTI_TR_PATH)
     return obj_tr
 
 
@@ -32,7 +32,7 @@ def do_transform(
     source_type: str,
 ) -> dict:
     """Perform the transformation."""
-    #tr.index(input_obj, source_type)
+    # tr.index(input_obj, source_type)
     try:
         tr_obj = tr.map_object(input_obj, source_type)
     except ValueError as e:
