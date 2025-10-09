@@ -545,3 +545,92 @@ class TestTransformations:
         # Second dataset should exist despite missing osti_id
         dataset2 = result['datasets'][1]
         assert dataset2['title'] == "Dataset 2"
+
+    def test_has_related_ids_field_handling(self, tmp_path):
+        """Test that has_related_ids field is excluded when no valid related IDs exist."""
+        # Test case 1: No related IDs (field should be omitted)
+        data_no_related_ids = {
+            "records": [{
+                "osti_id": "12345",
+                "title": "Dataset No Related IDs",
+                "identifiers": [
+                    {"type": "RN", "value": "None"},  # Invalid value
+                    # Contract number (excluded)
+                    {"type": "CN_DOE", "value": "SC0018420"}
+                ]
+            }]
+        }
+
+        # Test case 2: Valid related IDs (field should be included)
+        data_with_related_ids = {
+            "records": [{
+                "osti_id": "12346",
+                "title": "Dataset with Related IDs",
+                "identifiers": [
+                    {"type": "RN", "value": "PRJNA1228652"},  # Valid bioproject
+                    # Contract number (excluded)
+                    {"type": "CN_DOE", "value": "SC0018409"}
+                ]
+            }]
+        }
+
+        # Test no related IDs case
+        input_file1 = tmp_path / "no_related_ids.json"
+        with open(input_file1, 'w') as f:
+            json.dump(data_no_related_ids, f)
+
+        output_file1 = tmp_path / "no_related_ids_output.json"
+
+        test_args1 = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file1),
+            str(input_file1)
+        ]
+
+        with patch.object(sys, 'argv', test_args1):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        assert output_file1.exists()
+
+        with open(output_file1, 'r') as f:
+            result1 = json.load(f)
+
+        dataset1 = result1['datasets'][0]
+        # has_related_ids should not be present when there are no valid related IDs
+        assert 'has_related_ids' not in dataset1
+
+        # Test valid related IDs case
+        input_file2 = tmp_path / "with_related_ids.json"
+        with open(input_file2, 'w') as f:
+            json.dump(data_with_related_ids, f)
+
+        output_file2 = tmp_path / "with_related_ids_output.json"
+
+        test_args2 = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file2),
+            str(input_file2)
+        ]
+
+        with patch.object(sys, 'argv', test_args2):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        assert output_file2.exists()
+
+        with open(output_file2, 'r') as f:
+            result2 = json.load(f)
+
+        dataset2 = result2['datasets'][0]
+        # has_related_ids should be present with valid data
+        assert 'has_related_ids' in dataset2
+        assert isinstance(dataset2['has_related_ids'], list)
+        assert len(dataset2['has_related_ids']) == 1
+        assert dataset2['has_related_ids'][0] == 'BIOPROJECT:PRJNA1228652'

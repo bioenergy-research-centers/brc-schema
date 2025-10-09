@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from brc_schema.util.io import dump_output, sanitize_for_yaml
+from brc_schema.util.io import dump_output, sanitize_for_yaml, remove_none_values
 
 
 class TestSanitizeForYaml:
@@ -441,3 +441,110 @@ class TestIntegration:
         finally:
             if json_path:
                 Path(json_path).unlink(missing_ok=True)
+
+
+class TestRemoveNoneValues:
+    """Test the remove_none_values function."""
+
+    def test_primitives_unchanged(self):
+        """Test that primitive types pass through unchanged."""
+        assert remove_none_values("test") == "test"
+        assert remove_none_values(42) == 42
+        assert remove_none_values(3.14) == 3.14
+        assert remove_none_values(True) is True
+        assert remove_none_values(False) is False
+        assert remove_none_values(None) is None
+
+    def test_dict_none_values_removed(self):
+        """Test that None values are removed from dictionaries."""
+        input_data = {
+            "keep_string": "value",
+            "keep_number": 42,
+            "remove_none": None,
+            "keep_false": False,
+            "keep_empty_list": [],
+            "remove_none_nested": {
+                "nested_keep": "value",
+                "nested_remove": None
+            }
+        }
+
+        expected = {
+            "keep_string": "value",
+            "keep_number": 42,
+            "keep_false": False,
+            "keep_empty_list": [],
+            "remove_none_nested": {
+                "nested_keep": "value"
+            }
+        }
+
+        result = remove_none_values(input_data)
+        assert result == expected
+
+    def test_list_none_values_removed(self):
+        """Test that None values are removed from lists."""
+        input_data = ["keep", None, 42, None, "also keep", [None, "nested"]]
+        expected = ["keep", 42, "also keep", ["nested"]]
+
+        result = remove_none_values(input_data)
+        assert result == expected
+
+    def test_nested_structures(self):
+        """Test complex nested structures with None values."""
+        input_data = {
+            "datasets": [
+                {
+                    "title": "Dataset 1",
+                    "description": None,
+                    "keywords": ["keyword1", "keyword2"],
+                    "has_related_ids": None,
+                    "creator": None
+                },
+                {
+                    "title": "Dataset 2",
+                    "description": "Valid description",
+                    "keywords": None,
+                    "has_related_ids": ["BIOPROJECT:123"],
+                    "metadata": {
+                        "valid_field": "keep",
+                        "empty_field": None
+                    }
+                }
+            ],
+            "empty_field": None
+        }
+
+        expected = {
+            "datasets": [
+                {
+                    "title": "Dataset 1",
+                    "keywords": ["keyword1", "keyword2"]
+                },
+                {
+                    "title": "Dataset 2",
+                    "description": "Valid description",
+                    "has_related_ids": ["BIOPROJECT:123"],
+                    "metadata": {
+                        "valid_field": "keep"
+                    }
+                }
+            ]
+        }
+
+        result = remove_none_values(input_data)
+        assert result == expected
+
+    def test_empty_dict_preserved(self):
+        """Test that empty dictionaries are preserved (not None)."""
+        input_data = {
+            "empty_dict": {},
+            "none_field": None
+        }
+
+        expected = {
+            "empty_dict": {}
+        }
+
+        result = remove_none_values(input_data)
+        assert result == expected
