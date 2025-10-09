@@ -65,6 +65,23 @@ class_derivations:
             target = None
       keywords:
         populated_from: keywords
+        expr: |
+          if src.keywords:
+            result = []
+            for item in src.keywords:
+              if isinstance(item, str):
+                # Split comma-separated keywords
+                for keyword in item.split(','):
+                  keyword = keyword.strip()
+                  if keyword:
+                    result.append(keyword)
+              else:
+                # Handle non-string items
+                if item:
+                  result.append(str(item))
+            target = result if result else None
+          else:
+            target = None
       creator:
         expr: |
           if src.persons:
