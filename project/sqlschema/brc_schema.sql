@@ -201,7 +201,7 @@ CREATE TABLE "Dataset_species" (
 	PRIMARY KEY ("Dataset_uid", species_id),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
-);CREATE INDEX "ix_Dataset_species_species_id" ON "Dataset_species" (species_id);CREATE INDEX "ix_Dataset_species_Dataset_uid" ON "Dataset_species" ("Dataset_uid");
+);CREATE INDEX "ix_Dataset_species_Dataset_uid" ON "Dataset_species" ("Dataset_uid");CREATE INDEX "ix_Dataset_species_species_id" ON "Dataset_species" (species_id);
 CREATE TABLE "Dataset_plasmid_features" (
 	"Dataset_uid" INTEGER,
 	plasmid_features_uid INTEGER,
@@ -228,7 +228,7 @@ CREATE TABLE "Dataset_funding" (
 	PRIMARY KEY ("Dataset_uid", funding_id),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
-);CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
+);CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
 	promoters TEXT,

@@ -2495,7 +2495,7 @@
   "source_file": "brc_schema.yaml",
   "source_file_date": "2025-09-03T15:16:56",
   "source_file_size": 22025,
-  "generation_date": "2025-10-08T15:57:16",
+  "generation_date": "2025-10-09T12:21:46",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
