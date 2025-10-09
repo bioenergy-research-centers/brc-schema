@@ -1,0 +1,254 @@
+"""Wrappers for calling the E-Link API through its own module."""
+
+import json
+import logging
+import os
+from datetime import date, datetime
+from pathlib import Path
+from typing import List, Union, Optional, Dict, Any
+
+from elinkapi import Elink
+
+logger = logging.getLogger(__name__)
+
+OSTI_DOI_PREFIX = "10.11578/"
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles date and datetime objects."""
+
+    def default(self, obj):
+        if isinstance(obj, (date, datetime)):
+            return obj.isoformat()
+        return super().default(obj)
+
+
+class OSTIRecordRetriever:
+    """Retrieve records from OSTI E-Link 2.0 API."""
+
+    def __init__(self, api_key: Optional[str] = None):
+        """
+        Initialize the OSTI record retriever.
+
+        Args:
+            api_key: Optional API key for authentication. If not provided,
+                    will attempt to use OSTI_API_KEY environment variable.
+        """
+        # Use provided API key, or try to get from environment
+        token = api_key or os.environ.get('OSTI_API_KEY')
+        self.api = Elink(token=token)
+
+        if token:
+            logger.debug("Initialized with authentication token")
+        else:
+            logger.warning(
+                "No API key provided - some records may not be accessible")
+
+    def get_record_by_osti_id(self, osti_id: Union[int, str]) -> Optional[Dict[str, Any]]:
+        """
+        Retrieve a single record by OSTI ID.
+
+        Args:
+            osti_id: The OSTI ID to retrieve (e.g., 2562995)
+
+        Returns:
+            Dictionary containing the record metadata, or None if not found
+        """
+        try:
+            logger.info(f"Retrieving record for OSTI ID: {osti_id}")
+            record = self.api.get_single_record(osti_id=str(osti_id))
+
+            if record:
+                # Convert Record object to dictionary
+                return self.api.record_to_dict(record)
+            else:
+                logger.warning(f"No record found for OSTI ID: {osti_id}")
+                return None
+
+        except Exception as e:
+            logger.error(f"Error retrieving OSTI ID {osti_id}: {e}")
+            return None
+
+    def get_record_by_doi(self, doi: str) -> Optional[Dict[str, Any]]:
+        """
+        Retrieve a single record by DOI.
+
+        Note: The E-Link API's get_single_record method only accepts OSTI IDs.
+        For DOIs in the format "10.11578/XXXXXXX", we extract the OSTI ID
+        from the last part. For other DOI formats, this method may not work.
+
+        Args:
+            doi: The DOI to retrieve (e.g., "10.11578/2584700")
+
+        Returns:
+            Dictionary containing the record metadata, or None if not found
+        """
+        try:
+            # Clean DOI if it includes the full URL
+            if doi.startswith('http'):
+                doi = doi.split('doi.org/')[-1]
+
+            logger.info(f"Retrieving record for DOI: {doi}")
+
+            # Extract OSTI ID from DOI
+            # OSTI DOIs typically follow the pattern: 10.11578/OSTI_ID
+            if doi.startswith(OSTI_DOI_PREFIX):
+                osti_id = doi.split('/')[-1]
+                logger.debug(f"Extracted OSTI ID {osti_id} from DOI {doi}")
+
+                # Use the OSTI ID retrieval method
+                return self.get_record_by_osti_id(osti_id)
+            else:
+                logger.warning(
+                    f"DOI {doi} does not follow the expected OSTI format (10.11578/XXXXXXX). "
+                    "Cannot extract OSTI ID. Consider using OSTI ID directly."
+                )
+                return None
+
+        except Exception as e:
+            logger.error(f"Error retrieving DOI {doi}: {e}")
+            return None
+
+    def get_records(
+        self,
+        osti_ids: Optional[List[Union[int, str]]] = None,
+        dois: Optional[List[str]] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve multiple records by OSTI IDs and/or DOIs.
+
+        In the case of duplicate records,
+        only one instance of each record will be returned.
+
+        Args:
+            osti_ids: List of OSTI IDs to retrieve
+            dois: List of DOIs to retrieve
+
+        Returns:
+            List of record dictionaries (duplicates removed)
+        """
+        records = []
+        seen_osti_ids = set()
+
+        # Retrieve records by OSTI ID
+        if osti_ids:
+            for osti_id in osti_ids:
+                osti_id_str = str(osti_id)
+                if osti_id_str not in seen_osti_ids:
+                    # Mark as seen before retrieval
+                    seen_osti_ids.add(osti_id_str)
+                    record = self.get_record_by_osti_id(osti_id)
+                    if record:
+                        records.append(record)
+
+        # Retrieve records by DOI
+        if dois:
+            for doi in dois:
+                # Extract OSTI ID from DOI if possible to check for duplicates
+                if doi.startswith('http'):
+                    doi_clean = doi.split('doi.org/')[-1]
+                else:
+                    doi_clean = doi
+
+                # Check if this is an OSTI DOI and extract the ID
+                if doi_clean.startswith(OSTI_DOI_PREFIX):
+                    osti_id_from_doi = doi_clean.split('/')[-1]
+                    if osti_id_from_doi in seen_osti_ids:
+                        logger.info(
+                            f"Skipping DOI {doi} - already retrieved as OSTI ID {osti_id_from_doi}")
+                        continue
+
+                record = self.get_record_by_doi(doi)
+                if record:
+                    # Extract OSTI ID from the retrieved record to track it
+                    if 'osti_id' in record:
+                        seen_osti_ids.add(str(record['osti_id']))
+                    records.append(record)
+
+        logger.info(f"Retrieved {len(records)} records total")
+        return records
+
+    def save_records_to_file(
+        self,
+        output_path: Union[str, Path],
+        osti_ids: Optional[List[Union[int, str]]] = None,
+        dois: Optional[List[str]] = None,
+        pretty: bool = True
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve records and save them to a JSON file.
+
+        Args:
+            output_path: Path to output JSON file
+            osti_ids: List of OSTI IDs to retrieve
+            dois: List of DOIs to retrieve
+            pretty: Whether to pretty-print the JSON (default: True)
+
+        Returns:
+            List of records written to file
+        """
+        records = self.get_records(osti_ids=osti_ids, dois=dois)
+
+        if not records:
+            logger.warning("No records retrieved to save")
+            records = []
+
+        # Create output structure matching OSTI schema
+        output_data = {
+            "records": records
+        }
+
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_path, 'w', encoding='utf-8') as f:
+            if pretty:
+                json.dump(output_data, f, indent=2,
+                          ensure_ascii=False, cls=DateTimeEncoder)
+            else:
+                json.dump(output_data, f, ensure_ascii=False,
+                          cls=DateTimeEncoder)
+
+        logger.info(f"Saved {len(records)} records to {output_path}")
+        return records
+
+
+def retrieve_osti_records(
+    osti_ids: Optional[List[Union[int, str]]] = None,
+    dois: Optional[List[str]] = None,
+    output_file: Optional[Union[str, Path]] = None,
+    api_key: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    Convenience function to retrieve OSTI records.
+
+    Note: DOIs must be in OSTI format (10.11578/XXXXXXX) where XXXXXXX is the OSTI ID.
+    Non-OSTI DOIs will be skipped with a warning.
+
+    Args:
+        osti_ids: List of OSTI IDs to retrieve
+        dois: List of DOIs to retrieve (must be in OSTI format: 10.11578/XXXXXXX)
+        output_file: Optional path to save records as JSON
+        api_key: Optional API key for authentication
+
+    Returns:
+        List of record dictionaries
+
+    Example:
+        >>> records = retrieve_osti_records(
+        ...     osti_ids=[2584700, 2574191],
+        ...     dois=["10.11578/2584700"],
+        ...     output_file="osti_records.json"
+        ... )
+    """
+    retriever = OSTIRecordRetriever(api_key=api_key)
+
+    if output_file:
+        # save_records_to_file returns the records it retrieved
+        return retriever.save_records_to_file(
+            output_path=output_file,
+            osti_ids=osti_ids,
+            dois=dois
+        )
+
+    return retriever.get_records(osti_ids=osti_ids, dois=dois)

@@ -34,6 +34,253 @@ Use the `make` command to generate project artefacts:
 * `make deploy`: deploys site
 </details>
 
+## CLI Commands
+
+The `brcschema` command-line interface provides tools for data retrieval and transformation.
+
+### Installation
+
+Install the package with its dependencies:
+
+```bash
+poetry install
+```
+
+### Available Commands
+
+**NOTE:** All CLI commands must be preceded by 
+
+```bash
+poetry run
+```
+
+or by first running the following:
+
+```bash
+eval $(poetry env activate)
+```
+
+to run the commands within the Poetry environment.
+
+If you encounter an error like `brcschema: command not found` then try running in the Poetry environment.
+
+#### `transform` - Transform data between OSTI and BRC formats
+
+Transform input data from OSTI format to BRC schema or vice-versa.
+
+```bash
+brcschema transform -T <transformation_type> -o <output_file> <input_file>
+```
+
+**Options:**
+- `-T, --tx-type`: Type of transformation. Either `osti_to_brc` or `brc_to_osti` (required)
+- `-o, --output PATH`: Output YAML file path (required)
+- `-v, --verbose`: Enable verbose logging (can be repeated for more verbosity)
+- `-q, --quiet`: Suppress output except errors
+
+**Examples:**
+
+```bash
+# Transform OSTI format to BRC schema
+brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
+
+# Transform BRC schema to OSTI format
+brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+```
+
+#### `retrieve-osti` - Retrieve records from OSTI E-Link API
+
+Retrieve records from the OSTI E-Link 2.0 API by OSTI ID or DOI.
+
+```bash
+brcschema retrieve-osti [OPTIONS] -o <output_file>
+```
+
+**Options:**
+- `--osti-ids TEXT`: One or more OSTI IDs to retrieve (can be repeated)
+- `--dois TEXT`: One or more DOIs to retrieve (must be in OSTI format: 10.11578/XXXXXXX)
+- `--osti-id-file PATH`: File containing OSTI IDs, one per line
+- `--doi-file PATH`: File containing DOIs, one per line
+- `-o, --output PATH`: Output JSON file path (required)
+- `--api-key TEXT`: OSTI API key for authentication
+- `--no-pretty`: Disable pretty-printing of JSON output
+- `-v, --verbose`: Enable verbose logging
+
+**Note:** DOIs must be in OSTI format (e.g., `10.11578/2584700`). The OSTI ID is extracted from the DOI. Non-OSTI DOIs will be skipped.
+
+**Examples:**
+
+```bash
+# Retrieve by OSTI IDs (use --osti-ids multiple times for multiple IDs)
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+
+# Retrieve a single OSTI ID
+brcschema retrieve-osti --osti-ids 2584700 -o records.json
+
+# Retrieve by DOIs (OSTI format only)
+brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+
+# Retrieve from ID file
+brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+
+# Mix of OSTI IDs and DOIs with authentication
+brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-key YOUR_KEY -o records.json
+
+# With verbose logging
+brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
+```
+
+### Complete Workflow Example
+
+Retrieve OSTI records and transform them to BRC format:
+
+```bash
+# Step 1: Retrieve OSTI records
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
+
+# Step 2: Transform to BRC format
+brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
+```
+
+## Using the OSTI E-Link API
+
+The package includes Python functions for retrieving records from the OSTI E-Link 2.0 API programmatically.
+
+### Authentication
+
+Many OSTI records require authentication. To access the API:
+
+1. **Register for an API key** at: https://www.osti.gov/user/register?appname=ELINK
+2. **Provide your API key** using one of these methods:
+
+   **Method 1: Environment variable (recommended)**
+   ```bash
+   export OSTI_API_KEY="your_api_key_here"
+   ```
+
+   **Method 2: Pass directly to Python functions**
+   ```python
+   from brc_schema.util.elink import OSTIRecordRetriever
+   
+   retriever = OSTIRecordRetriever(api_key="your_api_key_here")
+   ```
+
+   **Method 3: Command-line option**
+   ```bash
+   brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
+   ```
+
+### Python API Usage
+
+**Note:** When using DOIs, they must be in OSTI format (10.11578/XXXXXXX). The OSTI ID will be extracted from the DOI.
+
+#### Simple Retrieval
+
+```python
+from brc_schema.util.elink import retrieve_osti_records
+
+# Retrieve records and save to file
+records = retrieve_osti_records(
+    osti_ids=[2584700, 2574191],
+    dois=["10.11578/2584700"],  # OSTI format DOIs only
+    output_file="osti_records.json"
+)
+
+print(f"Retrieved {len(records)} records")
+```
+
+#### Class-Based Approach
+
+```python
+from brc_schema.util.elink import OSTIRecordRetriever
+
+# Initialize retriever (will use OSTI_API_KEY environment variable if available)
+retriever = OSTIRecordRetriever()
+
+# Or initialize with explicit API key
+retriever = OSTIRecordRetriever(api_key="your_api_key_here")
+
+# Retrieve single record by OSTI ID
+record = retriever.get_record_by_osti_id(2584700)
+if record:
+    print(f"Title: {record.get('title')}")
+
+# Retrieve single record by DOI (OSTI format only)
+record = retriever.get_record_by_doi("10.11578/2584700")
+
+# Retrieve multiple records
+records = retriever.get_records(
+    osti_ids=[2584700, 2574191],
+    dois=["10.11578/2584700"]
+)
+
+# Save records to file
+retriever.save_records_to_file(
+    output_path="output/osti_records.json",
+    osti_ids=[2584700, 2574191],
+    pretty=True
+)
+```
+
+#### Reading IDs from Files
+
+Create a text file with one ID per line (comments starting with `#` are ignored):
+
+```text
+# Example OSTI IDs
+2562995
+2574191
+1807585
+```
+
+Then retrieve:
+
+```bash
+brcschema retrieve-osti --osti-id-file my_ids.txt -o records.json
+```
+
+Or in Python:
+
+```python
+from pathlib import Path
+
+def read_ids_from_file(file_path):
+    with open(file_path, 'r') as f:
+        return [line.strip() for line in f 
+                if line.strip() and not line.strip().startswith('#')]
+
+ids = read_ids_from_file('my_ids.txt')
+records = retrieve_osti_records(osti_ids=ids, output_file="records.json")
+```
+
+### Output Format
+
+Retrieved records are saved in JSON format following the OSTI schema structure:
+
+```json
+{
+  "records": [
+    {
+      "osti_id": "2562995",
+      "title": "Example Dataset Title",
+      "description": "Dataset description...",
+      "doi": "10.1002/aesr.202500034",
+      "persons": [...],
+      "publication_date": "2024-01-15",
+      ...
+    }
+  ]
+}
+```
+
+This format can be directly used with the `transform` command to convert to BRC schema.
+
+### Additional Documentation
+
+For more detailed information:
+- [OSTI E-Link Integration Documentation](docs/osti_elink_integration.md)
+- [OSTI E-Link 2.0 API Documentation](https://www.osti.gov/elink2api/)
+
 ## Credits
 
 This project was made with

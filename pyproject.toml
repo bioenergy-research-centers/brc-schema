@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "brc_schema"
-version = "0.1.4"
+version = "0.1.5"
 description = "Bioenergy Research Centers (BRC) Schema"
 authors = ["J. Harry Caufield <jhc@lbl.gov>", "Chris Mungall <cjmungall@lbl.gov>"]
 license = "BSD-3"
@@ -8,8 +8,11 @@ readme = "README.md"
 include = ["README.md", "src/brc_schema/schema", "project"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<=3.13"
 linkml-runtime = "^1.7.0"
+linkml-map = ">0.3.8"
+linkml = ">1.7.11rc1"
+elinkapi = "^0.5.3"
 
 [tool.poetry-dynamic-versioning]
 enable = false
@@ -17,10 +20,12 @@ vcs = "git"
 style = "pep440"
 
 [tool.poetry.group.dev.dependencies]
-linkml = "^1.7.11rc1"
 mkdocs-material = ">8.2.8"
 mkdocs-mermaid2-plugin = ">0.6.0"
 schemasheets = "^0.1.14"
+
+[tool.poetry.scripts]
+brcschema = "brc_schema.cli:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]

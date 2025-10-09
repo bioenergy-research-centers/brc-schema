@@ -1,0 +1,357 @@
+id: https://w3id.org/brc/osti_to_brc
+title: osti_to_brc
+source_schema: osti_schema
+target_schema: brc_schema
+
+class_derivations:
+  DatasetCollection:
+    populated_from: records
+    slot_derivations:
+      datasets:
+        populated_from: records
+
+  Dataset:
+    populated_from: Record
+    slot_derivations:
+      brc:
+        expr: |
+          # Check site_ownership_code first (direct passthrough)
+          if src.site_ownership_code:
+            target = src.site_ownership_code
+          else:
+            # Map DOE contract numbers to BRC values
+            # Check multiple possible locations for the contract number
+            contract_map = {
+              'SC0018420': 'CABBI',
+              'SC0018409': 'GLBRC',
+              'AC36-08GO28308': 'CBI',
+              'AC02-05CH11231': 'JBEI'
+            }
+            
+            contract_num = None
+            
+            # Check doe_contract_number field (deprecated but may be present)
+            if src.doe_contract_number:
+              contract_num = src.doe_contract_number
+            # Check contract_number field (deprecated but may be present)
+            elif src.contract_number:
+              contract_num = src.contract_number
+            # Check identifiers list for CN_DOE type
+            elif src.identifiers:
+              for identifier in src.identifiers:
+                if identifier.type == 'CN_DOE':
+                  contract_num = identifier.value
+                  break
+            
+            # Map to BRC value if found in our mapping
+            target = contract_map.get(contract_num, None) if contract_num else None
+      title:
+        populated_from: title
+      description:
+        populated_from: description
+      date:
+        populated_from: publication_date
+      identifier:
+        expr: |
+          if src.osti_id:
+            target = f"https://www.osti.gov/biblio/{src.osti_id}"
+          else:
+            target = None
+      bibliographicCitation:
+        expr: |
+          if src.doi:
+            target = 'https://doi.org/' + src.doi
+          else:
+            target = None
+      keywords:
+        populated_from: keywords
+        expr: |
+          if src.keywords:
+            result = []
+            for item in src.keywords:
+              if isinstance(item, str):
+                # Split comma-separated keywords
+                for keyword in item.split(','):
+                  keyword = keyword.strip()
+                  if keyword:
+                    result.append(keyword)
+              else:
+                # Handle non-string items
+                if item:
+                  result.append(str(item))
+            target = result if result else None
+          else:
+            target = None
+      creator:
+        expr: |
+          if src.persons:
+            # Transform Person objects with type AUTHOR to Individual dictionaries
+            target = []
+            for p in src.persons:
+              try:
+                if p.type == 'AUTHOR':
+                  # Build name from first, middle, last
+                  name_parts = []
+                  if p.first_name:
+                    name_parts.append(p.first_name)
+                  if p.middle_name:
+                    name_parts.append(p.middle_name)
+                  if p.last_name:
+                    name_parts.append(p.last_name)
+                  name = ' '.join(name_parts) if name_parts else None
+                  
+                  # Build Individual dictionary
+                  individual = {}
+                  if name:
+                    individual['name'] = name
+                  
+                  # Add email (take first if multiple)
+                  if p.email and len(p.email) > 0:
+                    individual['email'] = p.email[0]
+                  
+                  # Add ORCID if present
+                  if p.orcid:
+                    individual['orcid'] = p.orcid
+                  
+                  # Add affiliation (take first if multiple)
+                  if p.affiliations and len(p.affiliations) > 0:
+                    aff = p.affiliations[0]
+                    if aff.name:
+                      individual['affiliation'] = aff.name
+                  
+                  # Set primary contact (first author is primary)
+                  individual['primaryContact'] = len(target) == 0
+                  
+                  if name:  # Only add if we have a name
+                    target.append(individual)
+              except Exception as e:
+                pass
+            target = target if target else None
+          elif src.authors:
+            # Coerce string list to Individual objects
+            target = [{'name': author, 'primaryContact': False} for author in src.authors]
+            # Set first author as primary contact if available
+            if target:
+              target[0]['primaryContact'] = True
+          else:
+            target = None
+      contributors:
+        expr: |
+          if src.persons:
+            # Transform Person objects with type CONTRIBUTING to Contributor dictionaries
+            target = []
+            for p in src.persons:
+              try:
+                if p.type == 'CONTRIBUTING':
+                  # Build name from first, middle, last
+                  name_parts = []
+                  if p.first_name:
+                    name_parts.append(p.first_name)
+                  if p.middle_name:
+                    name_parts.append(p.middle_name)
+                  if p.last_name:
+                    name_parts.append(p.last_name)
+                  name = ' '.join(name_parts) if name_parts else None
+                  
+                  # Build Contributor dictionary
+                  contributor = {}
+                  if name:
+                    contributor['name'] = name
+                  
+                  # Add email (take first if multiple)
+                  if p.email and len(p.email) > 0:
+                    contributor['email'] = p.email[0]
+                  
+                  # Add ORCID if present
+                  if p.orcid:
+                    contributor['orcid'] = p.orcid
+                  
+                  # Add affiliation (take first if multiple)
+                  if p.affiliations and len(p.affiliations) > 0:
+                    aff = p.affiliations[0]
+                    if aff.name:
+                      contributor['affiliation'] = aff.name
+                  
+                  # Add contributor type if present
+                  if p.contributor_type:
+                    contributor['contributorType'] = p.contributor_type
+                  
+                  if name:  # Only add if we have a name
+                    target.append(contributor)
+              except Exception as e:
+                pass
+            target = target if target else None
+          else:
+            target = None
+      funding:
+        expr: |
+          if src.organizations:
+            # Filter SPONSOR organizations and transform to Funding objects
+            target = []
+            for org in src.organizations:
+              try:
+                if org.type == 'SPONSOR':
+                  funding_obj = {
+                    'fundingOrganization': {
+                      'organizationName': org.name
+                    }
+                  }
+                  # Try to add ROR ID if available
+                  try:
+                    if org.ror_id:
+                      funding_obj['fundingOrganization']['ror_id'] = org.ror_id
+                  except:
+                    pass
+                  # Try to extract award numbers and URIs from identifiers
+                  try:
+                    for identifier in org.identifiers:
+                      # Award number from CN_DOE, CN_NONDOE, or AWARD_DOI
+                      if identifier.type in ['CN_DOE', 'CN_NONDOE', 'AWARD_DOI'] and 'awardNumber' not in funding_obj:
+                        funding_obj['awardNumber'] = identifier.value
+                      # Award URI from AWARD_DOI
+                      if identifier.type == 'AWARD_DOI' and 'awardURI' not in funding_obj:
+                        funding_obj['awardURI'] = f"doi:{identifier.value}"
+                  except:
+                    pass
+                  target.append(funding_obj)
+              except:
+                pass
+            target = target if target else None
+          else:
+            target = None
+      relatedItem:
+        populated_from: related_identifiers
+      #datasetType:
+      #  populated_from: product_type
+      dataset_url:
+        populated_from: site_url
+      active:
+        expr: |
+          # Set active to True if workflow_status is 'R' (Released)
+          target = src.workflow_status == 'R' if src.workflow_status else False
+      has_related_ids:
+        expr: |
+          if src.identifiers:
+            # Extract identifiers that are NOT contract numbers (CN_DOE, CN_NONDOE, CN)
+            # These represent related IDs in other repositories
+            target = []
+            for identifier in src.identifiers:
+              try:
+                # Skip contract number types
+                if identifier.type not in ['CN_DOE', 'CN_NONDOE', 'CN']:
+                  # Skip identifiers with None or "None" values
+                  if identifier.value and str(identifier.value).lower() != 'none':
+                    # Format as CURIE if possible, or just use the value
+                    if identifier.type == 'RN':
+                      # Research Number - format as BIOPROJECT CURIE
+                      target.append(f"BIOPROJECT:{identifier.value}")
+                    elif identifier.type == 'DOI':
+                      target.append(f"doi:{identifier.value}")
+                    else:
+                      # For other types, just use the value
+                      target.append(identifier.value)
+              except:
+                pass
+            target = target if target else None
+          else:
+            target = None
+
+  Individual:
+    populated_from: Person
+    slot_derivations:
+      name:
+        expr: |
+          if src.middle_name:
+            target = src.first_name + ' ' + src.middle_name + ' ' + src.last_name
+          else:
+            target = src.first_name + ' ' + src.last_name
+      email:
+        expr: |
+          if src.email and len(src.email) > 0:
+            target = src.email[0]
+          else:
+            target = None
+      primaryContact:
+        expr: "src.type == 'AUTHOR'"
+      affiliation:
+        populated_from: affiliations
+      orcid:
+        populated_from: orcid
+
+  Contributor:
+    populated_from: Person
+    slot_derivations:
+      name:
+        expr: |
+          if src.middle_name:
+            target = src.first_name + ' ' + src.middle_name + ' ' + src.last_name
+          else:
+            target = src.first_name + ' ' + src.last_name
+      email:
+        expr: |
+          if src.email and len(src.email) > 0:
+            target = src.email[0]
+          else:
+            target = None
+      affiliation:
+        populated_from: affiliations
+      orcid:
+        populated_from: orcid
+      contributorType:
+        populated_from: contributor_type
+
+  BRCOrganization:
+    populated_from: Affiliation
+    slot_derivations:
+      organizationName:
+        populated_from: name
+      ror_id:
+        populated_from: ror_id
+
+  Funding:
+    populated_from: Organization
+    slot_derivations:
+      fundingOrganization:
+        expr: |
+          # Create a BRCOrganization from the Organization
+          target = {'organizationName': src.name}
+          if src.ror_id:
+            target['ror_id'] = src.ror_id
+      awardNumber:
+        expr: |
+          if src.identifiers:
+            # Extract award numbers from identifiers
+            awards = [id.value for id in src.identifiers if id.type in ['AWARD_DOI', 'CN_DOE', 'CN_NONDOE']]
+            target = awards[0] if awards else None
+          else:
+            target = None
+      awardTitle:
+        expr: "None"
+      awardURI:
+        expr: |
+          if src.identifiers:
+            # Extract DOI awards and format as URI
+            dois = [id.value for id in src.identifiers if id.type == 'AWARD_DOI']
+            target = 'doi:' + dois[0] if dois else None
+          else:
+            target = None
+
+  RelatedItem:
+    populated_from: RelatedIdentifier
+    slot_derivations:
+      title:
+        expr: "None"
+      relatedItemIdentifier:
+        populated_from: value
+      relatedItemType:
+        expr: |
+          # Map OSTI identifier types to BRC CitedItemType
+          # This is a basic mapping; may need refinement
+          type_map = {
+            'DOI': 'JournalArticle',
+            'URL': 'Webpage',
+            'URI': 'Webpage',
+            'arXiv': 'Preprint',
+            'ISBN': 'Book'
+          }
+          target = type_map.get(src.type, None)

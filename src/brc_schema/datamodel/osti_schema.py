@@ -1,1774 +1,2234 @@
-from __future__ import annotations 
+# Auto generated from osti_schema.yaml by pythongen.py version: 0.0.1
+# Generation date: 2025-10-02T11:31:12
+# Schema: osti_schema
+#
+# id: https://w3id.org/brc/osti_schema
+# description: This schema is a LinkML representation of the OSTI Submission Metadata schema, as described here: https://www.osti.gov/elink2api/ and here: https://www.osti.gov/elink2api/record-schema OSTI uses the E-Link API infrastructure. This schema corresponds to the E-Link 2.0 API (2.6.2). It also contains some deprecated fields to support backward compatibility with older records (e.g., article_type has been replaced by product_type, but some records still use the former).
+# license: https://creativecommons.org/publicdomain/zero/1.0/
 
+import dataclasses
 import re
-import sys
+from dataclasses import dataclass
 from datetime import (
     date,
     datetime,
     time
 )
-from decimal import Decimal 
-from enum import Enum 
 from typing import (
     Any,
     ClassVar,
-    Literal,
+    Dict,
+    List,
     Optional,
     Union
 )
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    RootModel,
-    field_validator
+from jsonasobj2 import (
+    JsonObj,
+    as_dict
+)
+from linkml_runtime.linkml_model.meta import (
+    EnumDefinition,
+    PermissibleValue,
+    PvFormulaOptions
+)
+from linkml_runtime.utils.curienamespace import CurieNamespace
+from linkml_runtime.utils.enumerations import EnumDefinitionImpl
+from linkml_runtime.utils.formatutils import (
+    camelcase,
+    sfx,
+    underscore
+)
+from linkml_runtime.utils.metamodelcore import (
+    bnode,
+    empty_dict,
+    empty_list
+)
+from linkml_runtime.utils.slot import Slot
+from linkml_runtime.utils.yamlutils import (
+    YAMLRoot,
+    extended_float,
+    extended_int,
+    extended_str
+)
+from rdflib import (
+    Namespace,
+    URIRef
 )
 
+from linkml_runtime.linkml_model.types import Boolean, Datetime, Float, Integer, String
+from linkml_runtime.utils.metamodelcore import Bool, XSDDateTime
 
-metamodel_version = "None"
-version = "2.6.0"
+metamodel_version = "1.7.0"
+version = "2.6.2"
+
+# Namespaces
+LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+OSTI = CurieNamespace('osti', 'https://www.osti.gov/biblio/')
+DEFAULT_ = OSTI
 
 
-class ConfiguredBaseModel(BaseModel):
-    model_config = ConfigDict(
-        validate_assignment = True,
-        validate_default = True,
-        extra = "forbid",
-        arbitrary_types_allowed = True,
-        use_enum_values = True,
-        strict = False,
-    )
+# Types
+
+# Class references
+class RecordOstiId(extended_int):
     pass
 
 
-
-
-class LinkMLMeta(RootModel):
-    root: dict[str, Any] = {}
-    model_config = ConfigDict(frozen=True)
-
-    def __getattr__(self, key:str):
-        return getattr(self.root, key)
-
-    def __getitem__(self, key:str):
-        return self.root[key]
-
-    def __setitem__(self, key:str, value):
-        self.root[key] = value
-
-    def __contains__(self, key:str) -> bool:
-        return key in self.root
-
-
-linkml_meta = LinkMLMeta({'default_prefix': 'osti',
-     'default_range': 'string',
-     'description': 'This schema is a LinkML representation of the OSTI Submission '
-                    'Metadata schema, as described here: '
-                    'https://www.osti.gov/elink2api/ and here: '
-                    'https://www.osti.gov/elink2api/record-schema OSTI uses the '
-                    'E-Link API infrastructure. This schema corresponds to the '
-                    'E-Link 2.0 API (2.6.0).',
-     'id': 'https://w3id.org/brc/osti_schema',
-     'imports': ['linkml:types'],
-     'name': 'osti_schema',
-     'prefixes': {'linkml': {'prefix_prefix': 'linkml',
-                             'prefix_reference': 'https://w3id.org/linkml/'},
-                  'osti': {'prefix_prefix': 'osti',
-                           'prefix_reference': 'https://www.osti.gov/biblio/'}},
-     'source_file': 'src/brc_schema/schema/osti_schema.yaml',
-     'title': 'LinkML schema of OSTI Submission Metadata'} )
-
-class ContributorType(str, Enum):
-    """
-    Describes the type of contribution to the work.  Required for Persons or Organizations of CONTRIBUTING type.
-    """
-    Chair = "Chair"
-    DataCollector = "DataCollector"
-    """
-    Person/institution responsible for finding or gathering data under the guidelines of the author(s) or Principal Investigator.
-    """
-    DataCurator = "DataCurator"
-    """
-    Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted.
-    """
-    DataManager = "DataManager"
-    """
-    Person (or organization with a staff of data managers, such as a data centre) responsible for maintaining the finished resource.
-    """
-    Distributor = "Distributor"
-    """
-    Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form.
-    """
-    Editor = "Editor"
-    """
-    A person who oversees the details related to the publication format of the resource.
-    """
-    HostingInstitution = "HostingInstitution"
-    """
-    The organization allowing the resource to be available on the internet.
-    """
-    Producer = "Producer"
-    """
-    Typically a person or organization responsible for the artistry and form of a media product.
-    """
-    ProjectLeader = "ProjectLeader"
-    """
-    Person officially designated as head of project team instrumental in the work necessary to development of the resource.
-    """
-    ProjectManager = "ProjectManager"
-    """
-    Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams.
-    """
-    ProjectMember = "ProjectMember"
-    """
-    Person on the membership list of a designated project/project team.
-    """
-    RegistrationAgency = "RegistrationAgency"
-    """
-    Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility.
-    """
-    RegistrationAuthority = "RegistrationAuthority"
-    """
-    A standards-setting body from which Registration Agencies obtain official recognition and guidance.
-    """
-    RelatedPerson = "RelatedPerson"
-    """
-    Person with no specifically defined role in the development of the resource, but who is someone the author wishes to recognize.
-    """
-    Reviewer = "Reviewer"
-    ReviewAssistant = "ReviewAssistant"
-    ReviewerExternal = "ReviewerExternal"
-    RightsHolder = "RightsHolder"
-    """
-    Person or institution owning or managing property rights, including intellectual property rights over the resource.
-    """
-    StatsReviewer = "StatsReviewer"
-    Supervisor = "Supervisor"
-    """
-    Designated administrator over one or more groups working to produce a resource or over one or more steps of development process.
-    """
-    Translator = "Translator"
-    WorkPackageLeader = "WorkPackageLeader"
-    """
-    A Work Package is a recognized data product, not all of which is included in publication.
-    """
-    Other = "Other"
-    """
-    Any person or institution making a significant contribution, but whose contribution does not "fit".
-    """
-
-
-class RelatedIdentifierType(str, Enum):
-    """
-    Identify the type of this related identifier
-
-    """
-    ARK = "ARK"
-    arXiv = "arXiv"
-    bibcode = "bibcode"
-    DOI = "DOI"
-    EAN13 = "EAN13"
-    EISSN = "EISSN"
-    IGSN = "IGSN"
-    ISBN = "ISBN"
-    ISSN = "ISSN"
-    ISTC = "ISTC"
-    Handle = "Handle"
-    LISSN = "LISSN"
-    LSID = "LSID"
-    OTHER = "OTHER"
-    PMCID = "PMCID"
-    PMID = "PMID"
-    PURL = "PURL"
-    UPC = "UPC"
-    URI = "URI"
-    URL = "URL"
-    URN = "URN"
-    UUID = "UUID"
-    w3id = "w3id"
-
-
-class RelationType(str, Enum):
-    """
-    Indicates the relationship between this identifier and the source record.
-
-    """
-    BasedOnData = "BasedOnData"
-    Cites = "Cites"
-    """
-    indicates that A includes B in a citation
-    """
-    Compiles = "Compiles"
-    """
-    indicates B is the result of a compile or creation event using A
-    """
-    Continues = "Continues"
-    """
-    indicates A is a continuation of the work B
-    """
-    Describes = "Describes"
-    Documents = "Documents"
-    """
-    indicates A is documentation about B
-    """
-    Finances = "Finances"
-    HasComment = "HasComment"
-    HasDerivation = "HasDerivation"
-    HasMetadata = "HasMetadata"
-    """
-    indicates resource A has additional metadata B
-    """
-    HasPart = "HasPart"
-    """
-    indicates A includes the part B
-    """
-    HasRelatedMaterial = "HasRelatedMaterial"
-    HasReply = "HasReply"
-    HasReview = "HasReview"
-    HasVersion = "HasVersion"
-    IsBasedOn = "IsBasedOn"
-    IsBasisFor = "IsBasisFor"
-    IsCitedBy = "IsCitedBy"
-    """
-    indicates that B includes A in a citation
-    """
-    IsCommentOn = "IsCommentOn"
-    IsCompiledBy = "IsCompiledBy"
-    """
-    indicates B is used to compile or create A
-    """
-    IsContinuedBy = "IsContinuedBy"
-    """
-    indicates A is continued by the work B
-    """
-    IsDataBasisFor = "IsDataBasisFor"
-    IsDerivedFrom = "IsDerivedFrom"
-    """
-    indicates B is a source upon which A is based
-    """
-    IsDescribedBy = "IsDescribedBy"
-    IsDocumentedBy = "IsDocumentedBy"
-    """
-    indicates B is documentation about/explaining A
-    """
-    IsFinancedBy = "IsFinancedBy"
-    IsIdenticalTo = "IsIdenticalTo"
-    """
-    indicates that A is identical to B, for use when there is a need to register two separate instances of the same resource
-    """
-    IsMetadataFor = "IsMetadataFor"
-    """
-    indicates additional metadata A for a resource B
-    """
-    IsNewVersionOf = "IsNewVersionOf"
-    """
-    indicates A is a new edition of B, where the new edition has been modified or updated
-    """
-    IsObsoletedBy = "IsObsoletedBy"
-    """
-    indicates that A is obsoleted by B
-    """
-    IsOriginalFormOf = "IsOriginalFormOf"
-    """
-    indicates A is the original form of B
-    """
-    IsPartOf = "IsPartOf"
-    """
-    indicates A is a portion of B; may be used for elements of a series
-    """
-    IsPreviousVersionOf = "IsPreviousVersionOf"
-    """
-    indicates A is a previous edition of B
-    """
-    IsReferencedBy = "IsReferencedBy"
-    """
-    indicates A is used as a source of information by B
-    """
-    IsRelatedMaterial = "IsRelatedMaterial"
-    IsReplyTo = "IsReplyTo"
-    IsRequiredBy = "IsRequiredBy"
-    IsReviewedBy = "IsReviewedBy"
-    """
-    indicates that A is reviewed by B
-    """
-    IsReviewOf = "IsReviewOf"
-    IsSourceOf = "IsSourceOf"
-    """
-    indicates A is a source upon which B is based
-    """
-    IsSupplementedBy = "IsSupplementedBy"
-    """
-    indicates that B is a supplement to A
-    """
-    IsSupplementTo = "IsSupplementTo"
-    """
-    indicates that A is a supplement to B
-    """
-    IsVariantFormOf = "IsVariantFormOf"
-    """
-    indicates A is a variant or different form of B, e.g. calculated or calibrated form or different packaging
-    """
-    IsVersionOf = "IsVersionOf"
-    Obsoletes = "Obsoletes"
-    """
-    indicates that A obsoletes B
-    """
-    References = "References"
-    """
-    indicates B is used as a source of information for A
-    """
-    Requires = "Requires"
-    Reviews = "Reviews"
-    """
-    indicates that A is a review of B
-    """
-
-
-class WorkflowStatusEnum(str, Enum):
-    """
-    The workflow status of the record.
-    """
-    R = "R"
-    """
-    Fully released
-    """
-    SA = "SA"
-    """
-    Saved
-    """
-    SR = "SR"
-    """
-    Submitted to releasing official
-    """
-    SO = "SO"
-    """
-    Submitted to OSTI awaiting validation
-    """
-    SF = "SF"
-    """
-    Submitted to OSTI and failed validation
-    """
-    SX = "SX"
-    """
-    Submitted to OSTI and failed to release
-    """
-    SV = "SV"
-    """
-    Submitted to OSTI and failed validation
-    """
-    X = "X"
-    """
-    Error Status
-    """
-    D = "D"
-    """
-    Deleted:
-    """
-
-
-class AccessLimitationsEnum(str, Enum):
-    """
-    Access limitation codes to describe the distribution rules and limitations for this work.
-
-    """
-    UNL = "UNL"
-    """
-    Unlimited announcement
-    """
-    OPN = "OPN"
-    """
-    OpenNET; requires opn_declassified_status, opn_declassified_date, identifier of type OPN_ACC
-    """
-    CPY = "CPY"
-    """
-    Copyright restriction on part or all of the contents of this product
-    """
-    OUO = "OUO"
-    """
-    Official use only
-    """
-    PROT = "PROT"
-    """
-    Protected data (e.g., CRADA); requires prot_flag and pdouo_exemption_number; OTHER requires prot_data_other
-    """
-    PDOUO = "PDOUO"
-    """
-    Program-determined OUO; requires pdouo_exemption_number
-    """
-    ECI = "ECI"
-    """
-    Export-controlled information; requires pdouo_exemption_number
-    """
-    PDSH = "PDSH"
-    """
-    Protected Data Sensitive Homeland
-    """
-    USO = "USO"
-    """
-    US Only
-    """
-    LRD = "LRD"
-    """
-    Limited Rights Data; requires pdouo_exemption_number
-    """
-    NAT = "NAT"
-    """
-    National Security
-    """
-    NNPI = "NNPI"
-    """
-    Naval Navigation Propulsion Info
-    """
-    INTL = "INTL"
-    """
-    International data
-    """
-    PROP = "PROP"
-    """
-    Proprietary
-    """
-    PAT = "PAT"
-    """
-    Patented information; requires pdouo_exemption_number
-    """
-    OTHR = "OTHR"
-    """
-    Other
-    """
-    CUI = "CUI"
-    """
-    Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other
-    """
-
-
-class CollectionTypeEnum(str, Enum):
-    """
-    The OSTI collection type originally creating this record.
-    """
-    DOE_LAB = "DOE_LAB"
-    DOE_GRANT = "DOE_GRANT"
-    CHORUS = "CHORUS"
-
-
-class IdentifierType(str, Enum):
-    """
-    Describe the type of identifier
-    """
-    AUTH_REV = "AUTH_REV"
-    CN_DOE = "CN_DOE"
-    CN_NONDOE = "CN_NONDOE"
-    CODEN = "CODEN"
-    DOE_DOCKET = "DOE_DOCKET"
-    """
-    DOE Docket number, used for documents submitted to the DOE Electronic Docket Room (e-Docket Room) system.
-    """
-    EDB = "EDB"
-    ETDE_RN = "ETDE_RN"
-    INIS_RN = "INIS_RN"
-    ISBN = "ISBN"
-    """
-    International Standard Book Number
-    """
-    ISSN = "ISSN"
-    """
-    International Standard Serial Number
-    """
-    LEGACY = "LEGACY"
-    NSA = "NSA"
-    OPN_ACC = "OPN_ACC"
-    OTHER_ID = "OTHER_ID"
-    PATENT = "PATENT"
-    """
-    Patent number
-    """
-    PROJ_ID = "PROJ_ID"
-    """
-    Project identifier
-    """
-    PROP_REV = "PROP_REV"
-    REF = "REF"
-    REL_TRN = "REL_TRN"
-    RN = "RN"
-    TRN = "TRN"
-    TVI = "TVI"
-    USER_VER = "USER_VER"
-    WORK_AUTH = "WORK_AUTH"
-    WORK_PROP = "WORK_PROP"
-
-
-class MediaLocationEnum(str, Enum):
-    """
-    Indicates if a media file is stored locally or off-site.
-    """
-    L = "L"
-    """
-    Local
-    """
-    O = "O"
-    """
-    Off-Site
-    """
-
-
-class OrganizationType(str, Enum):
-    """
-    Indicates type of organization.
-    """
-    AUTHOR = "AUTHOR"
-    CONTRIBUTING = "CONTRIBUTING"
-    RESEARCHING = "RESEARCHING"
-    SPONSOR = "SPONSOR"
-
-
-class OrganizationIdentifierType(str, Enum):
-    """
-    Describe the type of identifier.
-    """
-    AWARD_DOI = "AWARD_DOI"
-    CN_DOE = "CN_DOE"
-    CN_NONDOE = "CN_NONDOE"
-
-
-class PersonType(str, Enum):
-    """
-    Indicates type of person.
-    """
-    AUTHOR = "AUTHOR"
-    """
-    Authors are the main scientists or researchers involved in creating, authoring, or producing the research output/scientific and technical information resource.
-    """
-    RELEASE = "RELEASE"
-    """
-    Releasing Official
-    """
-    CONTACT = "CONTACT"
-    """
-    Contact Information Persons of these types require at least one valid email address be specified.
-    """
-    CONTRIBUTING = "CONTRIBUTING"
-    """
-    Contributors are people who may have been involved in acquiring resources, collecting data, analyzing resources, developing methodologies, validating information, visualizing data, or otherwise contributing to the output, but would not be considered authors. (A valid contributor_type is required.)
-    """
-    PROT_CE = "PROT_CE"
-    """
-    Protected Data Courtesy Email Information Persons of these types require at least one valid email address be specified.
-    """
-    PROT_RO = "PROT_RO"
-    """
-    Protected Data Actual Releasing Official This field is only applicable to Grantee records that are protected by submitting with the "PROT" access limitation.
-    """
-    SBIZ_PI = "SBIZ_PI"
-    """
-    SBIR/STTR Principal Investigator Persons of these types require at least one valid email address be specified.
-    """
-    SBIZ_BO = "SBIZ_BO"
-    """
-    SBIR/STTR Business Official Business official persons require exactly two valid email addresses be specified.
-    """
-
-
-class ProductType(str, Enum):
-    """
-    Define the type of product represented by this metadata information. Values presented *in italics* are considered Legacy types.
-    """
-    AR = "AR"
-    """
-    Accomplishment Report
-    """
-    B = "B"
-    """
-    Book
-    """
-    CO = "CO"
-    """
-    Conference
-    """
-    DA = "DA"
-    """
-    Dataset
-    """
-    FS = "FS"
-    """
-    Factsheet
-    """
-    JA = "JA"
-    """
-    Journal Article
-    """
-    MI = "MI"
-    """
-    Miscellaneous
-    """
-    OT = "OT"
-    """
-    Other
-    """
-    P = "P"
-    """
-    Patent
-    """
-    PD = "PD"
-    """
-    Program Document
-    """
-    SM = "SM"
-    """
-    Software Manual
-    """
-    TD = "TD"
-    """
-    Thesis/Dissertation
-    """
-    TR = "TR"
-    """
-    Technical Report
-    """
-    PA = "PA"
-    """
-    Patent Application
-    """
-
-
-class GeolocationType(str, Enum):
-    POINT = "POINT"
-    BOX = "BOX"
-    POLYGON = "POLYGON"
-
-
-
-class Records(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Records(YAMLRoot):
     """
     A list of Record metadata.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema', 'tree_root': True})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    records: Optional[list[int]] = Field(default=None, description="""List of records in the collection.""", json_schema_extra = { "linkml_meta": {'alias': 'records', 'domain_of': ['records']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Records"]
+    class_class_curie: ClassVar[str] = "osti:Records"
+    class_name: ClassVar[str] = "records"
+    class_model_uri: ClassVar[URIRef] = OSTI.Records
+
+    records: Optional[Union[Union[int, RecordOstiId], list[Union[int, RecordOstiId]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if not isinstance(self.records, list):
+            self.records = [self.records] if self.records is not None else []
+        self.records = [v if isinstance(v, RecordOstiId) else RecordOstiId(v) for v in self.records]
+
+        super().__post_init__(**kwargs)
 
 
-class Record(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Record(YAMLRoot):
     """
-    Defines the bibliographic metadata about a particular work or record. Depending on product type, various elements are permitted, not permitted, or required.
+    Defines the bibliographic metadata about a particular work or record. Depending on product type, various elements
+    are permitted, not permitted, or required.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    osti_id: int = Field(default=..., description="""Unique identifier for OSTI record, only required for updates.""", json_schema_extra = { "linkml_meta": {'alias': 'osti_id',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': '9999'}]} })
-    identifiers: Optional[list[Identifier]] = Field(default=None, description="""List of identifying numbers related to this record""", json_schema_extra = { "linkml_meta": {'alias': 'identifiers', 'domain_of': ['Record', 'Organization']} })
-    issue: Optional[str] = Field(default=None, description="""Issue number for journals or other applicable products if any.""", json_schema_extra = { "linkml_meta": {'alias': 'issue', 'domain_of': ['Record'], 'examples': [{'value': '44'}]} })
-    journal_license_url: Optional[str] = Field(default=None, description="""URL for information regarding the journal license for information""", json_schema_extra = { "linkml_meta": {'alias': 'journal_license_url',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'https://journal-publishers.com/license/3.02/text'}]} })
-    journal_name: Optional[str] = Field(default=None, description="""Name of journal publishing this information""", json_schema_extra = { "linkml_meta": {'alias': 'journal_name',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Proceedings of the National Academy of Sciences'}]} })
-    journal_open_access_flag: Optional[str] = Field(default=None, description="""Indicates if the journal article is available in an open access journal, indicated as Y for open, N for not, or left blank/omitted if not applicable or unknown status.""", json_schema_extra = { "linkml_meta": {'alias': 'journal_open_access_flag',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'N'}]} })
-    journal_type: Optional[str] = Field(default=None, description="""Specific sub-type of the journal article.  For product type JA only. Further qualifies the type of record.""", json_schema_extra = { "linkml_meta": {'alias': 'journal_type',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'AM'}]} })
-    revision: Optional[int] = Field(default=None, description="""Revision number (sequence) for this record.""", json_schema_extra = { "linkml_meta": {'alias': 'revision',
-         'domain_of': ['Record', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': '1'}]} })
-    workflow_status: Optional[WorkflowStatusEnum] = Field(default=None, description="""Workflow status of current revision of record.""", json_schema_extra = { "linkml_meta": {'alias': 'workflow_status',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'SO'}]} })
-    access_limitations: list[AccessLimitationsEnum] = Field(default=..., description="""Access limitation codes to describe the distribution rules and limitations for this work.""", json_schema_extra = { "linkml_meta": {'alias': 'access_limitations',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': 'UNL'}, {'value': 'OPN'}]} })
-    access_limitation_other: Optional[str] = Field(default=None, description="""Additional information about access limitation for this record, if needed. Required for CUI or PDOUO designations in access limitation. May contain information about the following: Special handling instructions, Copyright restrictions, Other criteria pertinent to the review, access limitation, announcement, and/or restriction of this STI product.""", json_schema_extra = { "linkml_meta": {'alias': 'access_limitation_other',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Restricted to US Distribution Only by DOE Order.'}]} })
-    added_by: Optional[int] = Field(default=None, description="""E-Link user ID that initially entered this record. Value internally maintained by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'added_by',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': '28931'}]} })
-    announcement_codes: Optional[list[str]] = Field(default=None, description="""List of announcement codes for this record.""", json_schema_extra = { "linkml_meta": {'alias': 'announcement_codes',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'EDB'}, {'value': 'INIS'}]} })
-    edition: Optional[str] = Field(default=None, description="""Edition number, as applicable to Books or other products.""", json_schema_extra = { "linkml_meta": {'alias': 'edition', 'domain_of': ['Record'], 'examples': [{'value': '2023'}]} })
-    volume: Optional[str] = Field(default=None, description="""A volume number as applicable, usually for journals or books.""", json_schema_extra = { "linkml_meta": {'alias': 'volume', 'domain_of': ['Record'], 'examples': [{'value': '1'}]} })
-    collection_type: Optional[CollectionTypeEnum] = Field(default=None, description="""Indicates the OSTI collection type originally creating this record. Maintained internally by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'collection_type',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'DOE_LAB'}]} })
-    conference_information: Optional[str] = Field(default=None, description="""\"Describes the conference pertaining to this record, if any; usually name and / or location the event took place.\"\"""", json_schema_extra = { "linkml_meta": {'alias': 'conference_information',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'ApacheCON 2019 discussion panel'}]} })
-    conference_type: Optional[str] = Field(default=None, description="""Code representing the type of conference-related work of this record. Generally, only applicable to CO type submissions.""", json_schema_extra = { "linkml_meta": {'alias': 'conference_type',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'O'}]} })
-    contract_award_date: Optional[datetime ] = Field(default=None, description="""Date contract for this record was awarded.""", json_schema_extra = { "linkml_meta": {'alias': 'contract_award_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2012-02-19T00:00:00.000Z'}]} })
-    country_publication_code: Optional[str] = Field(default=None, description="""Country of publication for this record""", json_schema_extra = { "linkml_meta": {'alias': 'country_publication_code',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'US'}]} })
-    date_metadata_added: Optional[datetime ] = Field(default=None, description="""Date record first entered the OSTI system. Value internally maintained by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'date_metadata_added',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2023-09-22T18:31:32.043Z'}]} })
-    date_metadata_updated: Optional[datetime ] = Field(default=None, description="""Date of this revision of the record. Value internally maintained by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'date_metadata_updated',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2020-04-02T12:33:17.553Z'}]} })
-    date_submitted_to_osti_first: Optional[datetime ] = Field(default=None, description="""Date record was first submitted to OSTI for publication. Maintained internally by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'date_submitted_to_osti_first',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2019-04-04T08:25:12.234Z'}]} })
-    date_submitted_to_osti_last: Optional[datetime ] = Field(default=None, description="""Most recent date record information was submitted to OSTI. Maintained internally by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'date_submitted_to_osti_last',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2018-05-04T11:44:23.864Z'}]} })
-    title: str = Field(default=..., description="""Title of record.  For Book Chapters, the title of the chapter.""", json_schema_extra = { "linkml_meta": {'alias': 'title',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Sample document title'}]} })
-    description: Optional[str] = Field(default=None, description="""Description or abstract for this record. Required to have a value for grantee submissions.""", json_schema_extra = { "linkml_meta": {'alias': 'description',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Information about a particular record, report, or '
-                                'other document, or executive summary or abstract of '
-                                'same.'}]} })
-    descriptors: Optional[list[str]] = Field(default=None, description="""List of descriptor codes for this record""", json_schema_extra = { "linkml_meta": {'alias': 'descriptors',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'ATMOSPHERE'}, {'value': 'ELECTRONS'}]} })
-    doe_funded_flag: Optional[str] = Field(default=None, description="""Indicates if the record is primarily DOE-funded. Indicate Y for Yes, N for no, or leave blank/omit if unknown status.""", json_schema_extra = { "linkml_meta": {'alias': 'doe_funded_flag',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Y'}]} })
-    doi: Optional[str] = Field(default=None, description="""The DOI for this record, if any.  Enter value if previously assigned a DOI for the record from an outside service.  If not supplied, OSTI may assign a DOI for the work for certain applicable record types.""", json_schema_extra = { "linkml_meta": {'alias': 'doi',
-         'domain_of': ['Record'],
-         'examples': [{'value': '10.5072/2020/238479ax'}]} })
-    doi_infix: Optional[str] = Field(default=None, description="""\"Any customized infix value for the DOI used when generating a DOI reference. The following characters should be avoided in the infix value: ;/?:@&=+$,.\"""", json_schema_extra = { "linkml_meta": {'alias': 'doi_infix',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Climate2019'}]} })
-    edited_by: Optional[int] = Field(default=None, description="""OSTI user ID making this revision of the metadata record. Value internally maintained by E-Link.""", json_schema_extra = { "linkml_meta": {'alias': 'edited_by',
-         'domain_of': ['Record'],
-         'examples': [{'value': '112389'}]} })
-    edit_reason: Optional[str] = Field(default=None, description="""Value provided by user editing a record describing the reason for the edit.""", json_schema_extra = { "linkml_meta": {'alias': 'edit_reason',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Modified title and authors.'}]} })
-    edit_source: Optional[str] = Field(default=None, description="""Value determined based on type of edit and user performing the association.""", json_schema_extra = { "linkml_meta": {'alias': 'edit_source',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'NORMAL_WEBFORM'}]} })
-    format_information: Optional[str] = Field(default=None, description="""Information about the format of the product, including any operating system or program requirements for use of the data, as applicable.""", json_schema_extra = { "linkml_meta": {'alias': 'format_information',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Originally Word Perfect 4.2 document'}]} })
-    media_embargo_sunset_date: Optional[str] = Field(default=None, description="""Indicates date on which the document embargo ends, if applicable.""", json_schema_extra = { "linkml_meta": {'alias': 'media_embargo_sunset_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '7/6/2022'}]} })
-    publication_date: datetime  = Field(default=..., description="""Date of publication of this record.  For Thesis/Dissertation records, this may also be the completion date of the Thesis.  For Patents, the date the patent was issued or approved.""", json_schema_extra = { "linkml_meta": {'alias': 'publication_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2009-06-12T00:00:00.000Z'}]} })
-    publication_date_text: Optional[str] = Field(default=None, description="""String representation of the publication date (e.g., Summer 2001)""", json_schema_extra = { "linkml_meta": {'alias': 'publication_date_text',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Winter 2012'}]} })
-    publisher_information: Optional[str] = Field(default=None, description="""Publisher-specific information if applicable""", json_schema_extra = { "linkml_meta": {'alias': 'publisher_information',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'University Press, Volume III Spring 2001'}]} })
-    related_doc_info: Optional[str] = Field(default=None, description="""Additional information regarding the document.  Considered historical or deprecated information, provided for access to historical data. This field is NOT recommended for new submissions.""", json_schema_extra = { "linkml_meta": {'alias': 'related_doc_info',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Reprint Spring 2012'}]} })
-    keywords: Optional[list[str]] = Field(default=None, description="""Concise set of key words for this record""", json_schema_extra = { "linkml_meta": {'alias': 'keywords',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'NUCLEAR'}, {'value': 'REACTIONS'}]} })
-    languages: Optional[list[str]] = Field(default=None, description="""Language codes for this record""", json_schema_extra = { "linkml_meta": {'alias': 'languages',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'English'}]} })
-    audit_logs: Optional[list[AuditLog]] = Field(default=None, description="""Listing of any audit logs of actions taken and worker interactions performed on this metadata revision, if any.""", json_schema_extra = { "linkml_meta": {'alias': 'audit_logs', 'domain_of': ['Record']} })
-    media: Optional[list[MediaSet]] = Field(default=None, description="""Listing of any media and files associated with this record, along with various metadata information and status data for each.  Empty if no media is currently associated with this record.""", json_schema_extra = { "linkml_meta": {'alias': 'media', 'domain_of': ['Record']} })
-    opn_addressee: Optional[str] = Field(default=None, description="""For OpenNET records, the addressee information""", json_schema_extra = { "linkml_meta": {'alias': 'opn_addressee',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Forestall Bldg A-113'}]} })
-    opn_declassified_date: Optional[str] = Field(default=None, description="""For OpenNET records, the date information was declassified""", json_schema_extra = { "linkml_meta": {'alias': 'opn_declassified_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '03/02/2018'}]} })
-    opn_declassified_status: Optional[str] = Field(default=None, description="""For OpenNET records, status of declassification of information""", json_schema_extra = { "linkml_meta": {'alias': 'opn_declassified_status',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'N'}]} })
-    opn_document_categories: Optional[list[str]] = Field(default=None, description="""For OpenNET records, list of any document categories pertaining to this record""", json_schema_extra = { "linkml_meta": {'alias': 'opn_document_categories',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Chemistry'}, {'value': 'Geothermal'}]} })
-    opn_document_location: Optional[str] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'opn_document_location',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'US Department of Science, Office 201'}]} })
-    opn_fieldoffice_acronym_code: Optional[str] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'opn_fieldoffice_acronym_code',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'THX-1138'}]} })
-    organizations: Optional[list[Organization]] = Field(default=None, description="""List of organizations related to this record. For submissions, at least SPONSOR and RESEARCHING organization is required.""", json_schema_extra = { "linkml_meta": {'alias': 'organizations', 'domain_of': ['Record']} })
-    other_information: Optional[list[str]] = Field(default=None, description="""Information useful to include in published announcements which is not suited for other fields.""", json_schema_extra = { "linkml_meta": {'alias': 'other_information',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Published in Nature, Fall 2012'}]} })
-    ouo_release_date: Optional[str] = Field(default=None, description="""Date of OUO access limitation expiration if applicable.""", json_schema_extra = { "linkml_meta": {'alias': 'ouo_release_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '1997-05-09 10:23:44'}]} })
-    paper_flag: Optional[bool] = Field(default=None, description="""Indicates if OSTI has or had a paper copy of this product.""", json_schema_extra = { "linkml_meta": {'alias': 'paper_flag',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'true'}]} })
-    patent_assignee: Optional[str] = Field(default=None, description="""The holder of property rights to a patent.""", json_schema_extra = { "linkml_meta": {'alias': 'patent_assignee',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'United Property Holdings, LLC'}]} })
-    patent_file_date: Optional[datetime ] = Field(default=None, description="""Date patent was filed with US Patent Office.""", json_schema_extra = { "linkml_meta": {'alias': 'patent_file_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2018-04-08T00:00:00.000Z'}]} })
-    patent_priority_date: Optional[datetime ] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'patent_priority_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2004-07-12T00:00:00.000Z'}]} })
-    pdouo_exemption_number: Optional[str] = Field(default=None, description="""Exception number for PDOUO access limitation records. Multiple values may be delimited by semi-colons.""", json_schema_extra = { "linkml_meta": {'alias': 'pdouo_exemption_number',
-         'domain_of': ['Record'],
-         'examples': [{'value': '278324'}]} })
-    persons: Optional[list[Person]] = Field(default=None, description="""List of persons (authors, contributors, etc.) related to this record. For submissions, at least one AUTHOR or CONTRIBUTING Person, along with a RELEASE contact, is required.""", json_schema_extra = { "linkml_meta": {'alias': 'persons', 'domain_of': ['Record']} })
-    product_size: Optional[str] = Field(default=None, description="""Information regarding physical size of media or report, if applicable.""", json_schema_extra = { "linkml_meta": {'alias': 'product_size',
-         'domain_of': ['Record'],
-         'examples': [{'value': '227 pages'}]} })
-    product_type: Optional[ProductType] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'product_type', 'domain_of': ['Record']} })
-    product_type_other: Optional[str] = Field(default=None, description="""Additional information for 'OTHER' product types.  Required if 'OT' product type is specified for this record.""", json_schema_extra = { "linkml_meta": {'alias': 'product_type_other',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Preprint'}]} })
-    prot_flag: Optional[str] = Field(default=None, description="""Indicates the type of protected data described by this record. PROT must be specified in the access limitations.""", json_schema_extra = { "linkml_meta": {'alias': 'prot_flag',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'EPACT'}]} })
-    prot_data_other: Optional[str] = Field(default=None, description="""Information regarding why the information is protected if not a CRADA product.""", json_schema_extra = { "linkml_meta": {'alias': 'prot_data_other',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'PROTECTED'}]} })
-    prot_release_date: Optional[datetime ] = Field(default=None, description="""The date on which data protections for this record will end.""", json_schema_extra = { "linkml_meta": {'alias': 'prot_release_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2023-07-23T00:00:00.000Z'}]} })
-    availability: Optional[str] = Field(default=None, description="""Describes record's availibility information.""", json_schema_extra = { "linkml_meta": {'alias': 'availability',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Also available at '
-                                'https://sample.com/document/report.pdf'}]} })
-    subject_category_code: Optional[list[str]] = Field(default=None, description="""Set two-character subject category code values for this record""", json_schema_extra = { "linkml_meta": {'alias': 'subject_category_code',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2'}, {'value': '31'}]} })
-    subject_category_code_legacy: Optional[list[str]] = Field(default=None, description="""Any legacy or historical subject category codes for this report""", json_schema_extra = { "linkml_meta": {'alias': 'subject_category_code_legacy',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Political Science'},
-                      {'value': 'Geosciences'},
-                      {'value': 'Physics'}]} })
-    related_identifiers: Optional[list[RelatedIdentifier]] = Field(default=None, description="""List of related identifiers connected to this record""", json_schema_extra = { "linkml_meta": {'alias': 'related_identifiers', 'domain_of': ['Record']} })
-    released_to_osti_date: Optional[datetime ] = Field(default=None, description="""Date record information was released to OSTI, as entered by releasing official.""", json_schema_extra = { "linkml_meta": {'alias': 'released_to_osti_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2019-06-03T00:00:00.000Z'}]} })
-    releasing_official_comments: Optional[str] = Field(default=None, description="""Any comments made by the releasing official on the record.""", json_schema_extra = { "linkml_meta": {'alias': 'releasing_official_comments',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'Final report due January 2021.'}]} })
-    report_period_end_date: Optional[datetime ] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'report_period_end_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2023-01-14T00:00:00.000Z'}]} })
-    report_period_start_date: Optional[datetime ] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'report_period_start_date',
-         'domain_of': ['Record'],
-         'examples': [{'value': '2023-01-05T00:00:00.000Z'}]} })
-    report_types: Optional[list[str]] = Field(default=None, description="""The type(s) of information or frequency of reporting of information in this report.""", json_schema_extra = { "linkml_meta": {'alias': 'report_types',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'F'}, {'value': 'B'}]} })
-    report_type_other: Optional[str] = Field(default=None, description="""Detail information about 'Other' report types.""", json_schema_extra = { "linkml_meta": {'alias': 'report_type_other',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'OTHERVALUE'}]} })
-    sbiz_flag: Optional[str] = Field(default=None, description="""Indicates if this metadata is SBIR or STTR related.""", json_schema_extra = { "linkml_meta": {'alias': 'sbiz_flag',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'SBIR'}, {'value': 'STTR'}]} })
-    sbiz_phase: Optional[str] = Field(default=None, description="""A three-character field constrained to 'I', 'II', 'IIA', 'IIB', or 'III' indicating the phase of this SBIR/STTR report.""", json_schema_extra = { "linkml_meta": {'alias': 'sbiz_phase', 'domain_of': ['Record'], 'examples': [{'value': 'IIB'}]} })
-    sbiz_previous_contract_number: Optional[str] = Field(default=None, description="""The previous SBIR/STTR contract number if a Phase III SBIR/STTR report.""", json_schema_extra = { "linkml_meta": {'alias': 'sbiz_previous_contract_number',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'SMPL-2023-1291'}]} })
-    sbiz_release_date: Optional[datetime ] = Field(default=None, description="""Date data protections on this SBIR/STTR record will expire.""", json_schema_extra = { "linkml_meta": {'alias': 'sbiz_release_date', 'domain_of': ['Record']} })
-    site_ownership_code: Optional[str] = Field(default=None, description="""Code of the DOE site submitting this document""", json_schema_extra = { "linkml_meta": {'alias': 'site_ownership_code',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'BNL'}]} })
-    site_unique_id: Optional[str] = Field(default=None, description="""Site-specified unique accession number for this record""", json_schema_extra = { "linkml_meta": {'alias': 'site_unique_id',
-         'domain_of': ['Record'],
-         'examples': [{'value': '89345'}]} })
-    site_url: Optional[str] = Field(default=None, description="""(DATASET product type only) The URL of the data set landing page, containing links to data set content or additional information as required.""", json_schema_extra = { "linkml_meta": {'alias': 'site_url', 'domain_of': ['Record']} })
-    source_input_type: Optional[str] = Field(default=None, description="""Value determined by submission type at record creation time. Defines how E-Link record was first entered into the system.""", json_schema_extra = { "linkml_meta": {'alias': 'source_input_type',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'DOE_GRANT_WEBFORM'}]} })
-    source_edit_type: Optional[str] = Field(default=None, description="""Value determined by submission type for each edit or revision of a record. Changes on a per-revision basis.""", json_schema_extra = { "linkml_meta": {'alias': 'source_edit_type',
-         'domain_of': ['Record'],
-         'examples': [{'value': 'DOE_LAB_API'}]} })
-    geolocations: Optional[list[Geolocation]] = Field(default=None, description="""List of geolocation references for this record.""", json_schema_extra = { "linkml_meta": {'alias': 'geolocations', 'domain_of': ['Record']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Record"]
+    class_class_curie: ClassVar[str] = "osti:Record"
+    class_name: ClassVar[str] = "Record"
+    class_model_uri: ClassVar[URIRef] = OSTI.Record
 
-    @field_validator('issue')
-    def pattern_issue(cls, v):
-        pattern=re.compile(r"^.{0,80}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid issue format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid issue format: {v}"
-            raise ValueError(err_msg)
-        return v
+    osti_id: Union[int, RecordOstiId] = None
+    access_limitations: Union[Union[str, "AccessLimitationsEnum"], list[Union[str, "AccessLimitationsEnum"]]] = None
+    title: str = None
+    publication_date: Union[str, XSDDateTime] = None
+    identifiers: Optional[Union[Union[dict, "Identifier"], list[Union[dict, "Identifier"]]]] = empty_list()
+    issue: Optional[str] = None
+    journal_license_url: Optional[str] = None
+    journal_name: Optional[str] = None
+    journal_open_access_flag: Optional[str] = None
+    journal_type: Optional[str] = None
+    revision: Optional[int] = None
+    workflow_status: Optional[Union[str, "WorkflowStatusEnum"]] = None
+    access_limitation_other: Optional[str] = None
+    added_by: Optional[int] = None
+    added_by_email: Optional[str] = None
+    added_by_name: Optional[str] = None
+    announcement_codes: Optional[Union[str, list[str]]] = empty_list()
+    edition: Optional[str] = None
+    volume: Optional[str] = None
+    collection_type: Optional[Union[str, "CollectionTypeEnum"]] = None
+    conference_information: Optional[str] = None
+    conference_type: Optional[str] = None
+    contract_award_date: Optional[Union[str, XSDDateTime]] = None
+    country_publication_code: Optional[str] = None
+    date_metadata_added: Optional[Union[str, XSDDateTime]] = None
+    date_metadata_updated: Optional[Union[str, XSDDateTime]] = None
+    date_submitted_to_osti_first: Optional[Union[str, XSDDateTime]] = None
+    date_submitted_to_osti_last: Optional[Union[str, XSDDateTime]] = None
+    date_released_first: Optional[Union[str, XSDDateTime]] = None
+    date_released_last: Optional[Union[str, XSDDateTime]] = None
+    description: Optional[str] = None
+    descriptors: Optional[Union[str, list[str]]] = empty_list()
+    doe_funded_flag: Optional[str] = None
+    doi: Optional[str] = None
+    doi_infix: Optional[str] = None
+    edited_by: Optional[int] = None
+    edited_by_email: Optional[str] = None
+    edited_by_name: Optional[str] = None
+    edit_reason: Optional[str] = None
+    edit_source: Optional[str] = None
+    format_information: Optional[str] = None
+    media_embargo_sunset_date: Optional[str] = None
+    publication_date_text: Optional[str] = None
+    publisher_information: Optional[str] = None
+    related_doc_info: Optional[str] = None
+    keywords: Optional[Union[str, list[str]]] = empty_list()
+    languages: Optional[Union[str, list[str]]] = empty_list()
+    audit_logs: Optional[Union[Union[dict, "AuditLog"], list[Union[dict, "AuditLog"]]]] = empty_list()
+    media: Optional[Union[Union[dict, "MediaSet"], list[Union[dict, "MediaSet"]]]] = empty_list()
+    opn_addressee: Optional[str] = None
+    opn_declassified_date: Optional[str] = None
+    opn_declassified_status: Optional[str] = None
+    opn_document_categories: Optional[Union[str, list[str]]] = empty_list()
+    opn_document_location: Optional[str] = None
+    opn_fieldoffice_acronym_code: Optional[str] = None
+    organizations: Optional[Union[Union[dict, "Organization"], list[Union[dict, "Organization"]]]] = empty_list()
+    other_information: Optional[Union[str, list[str]]] = empty_list()
+    ouo_release_date: Optional[str] = None
+    paper_flag: Optional[Union[bool, Bool]] = None
+    hidden_flag: Optional[Union[bool, Bool]] = None
+    sensitivity_flag: Optional[str] = None
+    doe_supported_flag: Optional[Union[bool, Bool]] = None
+    peer_reviewed_flag: Optional[Union[bool, Bool]] = None
+    patent_assignee: Optional[str] = None
+    patent_file_date: Optional[Union[str, XSDDateTime]] = None
+    patent_priority_date: Optional[Union[str, XSDDateTime]] = None
+    pdouo_exemption_number: Optional[str] = None
+    persons: Optional[Union[Union[dict, "Person"], list[Union[dict, "Person"]]]] = empty_list()
+    product_size: Optional[str] = None
+    product_type: Optional[Union[str, "ProductType"]] = None
+    product_type_other: Optional[str] = None
+    prot_flag: Optional[str] = None
+    prot_data_other: Optional[str] = None
+    prot_release_date: Optional[Union[str, XSDDateTime]] = None
+    availability: Optional[str] = None
+    subject_category_code: Optional[Union[str, list[str]]] = empty_list()
+    subject_category_code_legacy: Optional[Union[str, list[str]]] = empty_list()
+    related_identifiers: Optional[Union[Union[dict, "RelatedIdentifier"], list[Union[dict, "RelatedIdentifier"]]]] = empty_list()
+    released_to_osti_date: Optional[Union[str, XSDDateTime]] = None
+    releasing_official_comments: Optional[str] = None
+    report_period_end_date: Optional[Union[str, XSDDateTime]] = None
+    report_period_start_date: Optional[Union[str, XSDDateTime]] = None
+    report_types: Optional[Union[str, list[str]]] = empty_list()
+    report_type_other: Optional[str] = None
+    sbiz_flag: Optional[str] = None
+    sbiz_phase: Optional[str] = None
+    sbiz_previous_contract_number: Optional[str] = None
+    sbiz_release_date: Optional[Union[str, XSDDateTime]] = None
+    site_ownership_code: Optional[str] = None
+    site_unique_id: Optional[str] = None
+    site_url: Optional[str] = None
+    source_input_type: Optional[str] = None
+    source_edit_type: Optional[str] = None
+    geolocations: Optional[Union[Union[dict, "Geolocation"], list[Union[dict, "Geolocation"]]]] = empty_list()
+    article_type: Optional[str] = None
+    authors: Optional[Union[str, list[str]]] = empty_list()
+    conference_info: Optional[str] = None
+    contract_number: Optional[str] = None
+    country_publication: Optional[str] = None
+    doe_contract_number: Optional[str] = None
+    entry_date: Optional[Union[str, XSDDateTime]] = None
+    identifier: Optional[Union[str, list[str]]] = empty_list()
+    language: Optional[Union[str, list[str]]] = empty_list()
+    links: Optional[Union[str, list[str]]] = empty_list()
+    other_identifiers: Optional[Union[str, list[str]]] = empty_list()
+    other_number: Optional[Union[str, list[str]]] = empty_list()
+    report_number: Optional[Union[str, list[str]]] = empty_list()
+    research_orgs: Optional[Union[str, list[str]]] = empty_list()
+    sponsor_orgs: Optional[Union[str, list[str]]] = empty_list()
+    subjects: Optional[Union[str, list[str]]] = empty_list()
+    journal_issn: Optional[str] = None
+    journal_issue: Optional[str] = None
+    journal_volume: Optional[str] = None
+    publisher: Optional[str] = None
+    relation: Optional[str] = None
 
-    @field_validator('journal_license_url')
-    def pattern_journal_license_url(cls, v):
-        pattern=re.compile(r"^.{0,255}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid journal_license_url format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid journal_license_url format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.osti_id):
+            self.MissingRequiredField("osti_id")
+        if not isinstance(self.osti_id, RecordOstiId):
+            self.osti_id = RecordOstiId(self.osti_id)
 
-    @field_validator('journal_name')
-    def pattern_journal_name(cls, v):
-        pattern=re.compile(r"^.{0,250}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid journal_name format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid journal_name format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self._is_empty(self.access_limitations):
+            self.MissingRequiredField("access_limitations")
+        if not isinstance(self.access_limitations, list):
+            self.access_limitations = [self.access_limitations] if self.access_limitations is not None else []
+        self.access_limitations = [v if isinstance(v, AccessLimitationsEnum) else AccessLimitationsEnum(v) for v in self.access_limitations]
 
-    @field_validator('journal_open_access_flag')
-    def pattern_journal_open_access_flag(cls, v):
-        pattern=re.compile(r"^.{0,1}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid journal_open_access_flag format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid journal_open_access_flag format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self._is_empty(self.title):
+            self.MissingRequiredField("title")
+        if not isinstance(self.title, str):
+            self.title = str(self.title)
 
-    @field_validator('journal_type')
-    def pattern_journal_type(cls, v):
-        pattern=re.compile(r"^.{0,2}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid journal_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid journal_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self._is_empty(self.publication_date):
+            self.MissingRequiredField("publication_date")
+        if not isinstance(self.publication_date, XSDDateTime):
+            self.publication_date = XSDDateTime(self.publication_date)
 
-    @field_validator('access_limitations')
-    def pattern_access_limitations(cls, v):
-        pattern=re.compile(r"^.{0,5}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid access_limitations format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid access_limitations format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if not isinstance(self.identifiers, list):
+            self.identifiers = [self.identifiers] if self.identifiers is not None else []
+        self.identifiers = [v if isinstance(v, Identifier) else Identifier(**as_dict(v)) for v in self.identifiers]
 
-    @field_validator('edition')
-    def pattern_edition(cls, v):
-        pattern=re.compile(r"^.{0,10}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid edition format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid edition format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.issue is not None and not isinstance(self.issue, str):
+            self.issue = str(self.issue)
 
-    @field_validator('volume')
-    def pattern_volume(cls, v):
-        pattern=re.compile(r"^.{0,68}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid volume format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid volume format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.journal_license_url is not None and not isinstance(self.journal_license_url, str):
+            self.journal_license_url = str(self.journal_license_url)
 
-    @field_validator('conference_type')
-    def pattern_conference_type(cls, v):
-        pattern=re.compile(r"^.{0,1}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid conference_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid conference_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.journal_name is not None and not isinstance(self.journal_name, str):
+            self.journal_name = str(self.journal_name)
 
-    @field_validator('country_publication_code')
-    def pattern_country_publication_code(cls, v):
-        pattern=re.compile(r"^.{0,5}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid country_publication_code format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid country_publication_code format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.journal_open_access_flag is not None and not isinstance(self.journal_open_access_flag, str):
+            self.journal_open_access_flag = str(self.journal_open_access_flag)
 
-    @field_validator('doe_funded_flag')
-    def pattern_doe_funded_flag(cls, v):
-        pattern=re.compile(r"^.{0,1}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid doe_funded_flag format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid doe_funded_flag format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.journal_type is not None and not isinstance(self.journal_type, str):
+            self.journal_type = str(self.journal_type)
 
-    @field_validator('publisher_information')
-    def pattern_publisher_information(cls, v):
-        pattern=re.compile(r"^.{0,400}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid publisher_information format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid publisher_information format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.revision is not None and not isinstance(self.revision, int):
+            self.revision = int(self.revision)
 
-    @field_validator('related_doc_info')
-    def pattern_related_doc_info(cls, v):
-        pattern=re.compile(r"^.{0,2255}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid related_doc_info format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid related_doc_info format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.workflow_status is not None and not isinstance(self.workflow_status, WorkflowStatusEnum):
+            self.workflow_status = WorkflowStatusEnum(self.workflow_status)
 
-    @field_validator('opn_fieldoffice_acronym_code')
-    def pattern_opn_fieldoffice_acronym_code(cls, v):
-        pattern=re.compile(r"^.{0,10}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid opn_fieldoffice_acronym_code format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid opn_fieldoffice_acronym_code format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.access_limitation_other is not None and not isinstance(self.access_limitation_other, str):
+            self.access_limitation_other = str(self.access_limitation_other)
 
-    @field_validator('product_size')
-    def pattern_product_size(cls, v):
-        pattern=re.compile(r"^.{0,50}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid product_size format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid product_size format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.added_by is not None and not isinstance(self.added_by, int):
+            self.added_by = int(self.added_by)
 
-    @field_validator('product_type')
-    def pattern_product_type(cls, v):
-        pattern=re.compile(r"^.{0,2}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid product_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid product_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.added_by_email is not None and not isinstance(self.added_by_email, str):
+            self.added_by_email = str(self.added_by_email)
 
-    @field_validator('product_type_other')
-    def pattern_product_type_other(cls, v):
-        pattern=re.compile(r"^.{0,200}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid product_type_other format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid product_type_other format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.added_by_name is not None and not isinstance(self.added_by_name, str):
+            self.added_by_name = str(self.added_by_name)
 
-    @field_validator('prot_flag')
-    def pattern_prot_flag(cls, v):
-        pattern=re.compile(r"^.{0,5}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid prot_flag format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid prot_flag format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if not isinstance(self.announcement_codes, list):
+            self.announcement_codes = [self.announcement_codes] if self.announcement_codes is not None else []
+        self.announcement_codes = [v if isinstance(v, str) else str(v) for v in self.announcement_codes]
 
-    @field_validator('prot_data_other')
-    def pattern_prot_data_other(cls, v):
-        pattern=re.compile(r"^.{0,80}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid prot_data_other format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid prot_data_other format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.edition is not None and not isinstance(self.edition, str):
+            self.edition = str(self.edition)
 
-    @field_validator('subject_category_code')
-    def pattern_subject_category_code(cls, v):
-        pattern=re.compile(r"^.{0,2}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid subject_category_code format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid subject_category_code format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.volume is not None and not isinstance(self.volume, str):
+            self.volume = str(self.volume)
 
-    @field_validator('report_type_other')
-    def pattern_report_type_other(cls, v):
-        pattern=re.compile(r"^.{0,80}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid report_type_other format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid report_type_other format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.collection_type is not None and not isinstance(self.collection_type, CollectionTypeEnum):
+            self.collection_type = CollectionTypeEnum(self.collection_type)
 
-    @field_validator('sbiz_flag')
-    def pattern_sbiz_flag(cls, v):
-        pattern=re.compile(r"^.{0,6}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid sbiz_flag format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid sbiz_flag format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.conference_information is not None and not isinstance(self.conference_information, str):
+            self.conference_information = str(self.conference_information)
 
-    @field_validator('sbiz_phase')
-    def pattern_sbiz_phase(cls, v):
-        pattern=re.compile(r"^.{0,3}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid sbiz_phase format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid sbiz_phase format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.conference_type is not None and not isinstance(self.conference_type, str):
+            self.conference_type = str(self.conference_type)
 
-    @field_validator('sbiz_previous_contract_number')
-    def pattern_sbiz_previous_contract_number(cls, v):
-        pattern=re.compile(r"^.{0,14}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid sbiz_previous_contract_number format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid sbiz_previous_contract_number format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.contract_award_date is not None and not isinstance(self.contract_award_date, XSDDateTime):
+            self.contract_award_date = XSDDateTime(self.contract_award_date)
 
-    @field_validator('site_ownership_code')
-    def pattern_site_ownership_code(cls, v):
-        pattern=re.compile(r"^.{0,10}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid site_ownership_code format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid site_ownership_code format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.country_publication_code is not None and not isinstance(self.country_publication_code, str):
+            self.country_publication_code = str(self.country_publication_code)
+
+        if self.date_metadata_added is not None and not isinstance(self.date_metadata_added, XSDDateTime):
+            self.date_metadata_added = XSDDateTime(self.date_metadata_added)
+
+        if self.date_metadata_updated is not None and not isinstance(self.date_metadata_updated, XSDDateTime):
+            self.date_metadata_updated = XSDDateTime(self.date_metadata_updated)
+
+        if self.date_submitted_to_osti_first is not None and not isinstance(self.date_submitted_to_osti_first, XSDDateTime):
+            self.date_submitted_to_osti_first = XSDDateTime(self.date_submitted_to_osti_first)
+
+        if self.date_submitted_to_osti_last is not None and not isinstance(self.date_submitted_to_osti_last, XSDDateTime):
+            self.date_submitted_to_osti_last = XSDDateTime(self.date_submitted_to_osti_last)
+
+        if self.date_released_first is not None and not isinstance(self.date_released_first, XSDDateTime):
+            self.date_released_first = XSDDateTime(self.date_released_first)
+
+        if self.date_released_last is not None and not isinstance(self.date_released_last, XSDDateTime):
+            self.date_released_last = XSDDateTime(self.date_released_last)
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if not isinstance(self.descriptors, list):
+            self.descriptors = [self.descriptors] if self.descriptors is not None else []
+        self.descriptors = [v if isinstance(v, str) else str(v) for v in self.descriptors]
+
+        if self.doe_funded_flag is not None and not isinstance(self.doe_funded_flag, str):
+            self.doe_funded_flag = str(self.doe_funded_flag)
+
+        if self.doi is not None and not isinstance(self.doi, str):
+            self.doi = str(self.doi)
+
+        if self.doi_infix is not None and not isinstance(self.doi_infix, str):
+            self.doi_infix = str(self.doi_infix)
+
+        if self.edited_by is not None and not isinstance(self.edited_by, int):
+            self.edited_by = int(self.edited_by)
+
+        if self.edited_by_email is not None and not isinstance(self.edited_by_email, str):
+            self.edited_by_email = str(self.edited_by_email)
+
+        if self.edited_by_name is not None and not isinstance(self.edited_by_name, str):
+            self.edited_by_name = str(self.edited_by_name)
+
+        if self.edit_reason is not None and not isinstance(self.edit_reason, str):
+            self.edit_reason = str(self.edit_reason)
+
+        if self.edit_source is not None and not isinstance(self.edit_source, str):
+            self.edit_source = str(self.edit_source)
+
+        if self.format_information is not None and not isinstance(self.format_information, str):
+            self.format_information = str(self.format_information)
+
+        if self.media_embargo_sunset_date is not None and not isinstance(self.media_embargo_sunset_date, str):
+            self.media_embargo_sunset_date = str(self.media_embargo_sunset_date)
+
+        if self.publication_date_text is not None and not isinstance(self.publication_date_text, str):
+            self.publication_date_text = str(self.publication_date_text)
+
+        if self.publisher_information is not None and not isinstance(self.publisher_information, str):
+            self.publisher_information = str(self.publisher_information)
+
+        if self.related_doc_info is not None and not isinstance(self.related_doc_info, str):
+            self.related_doc_info = str(self.related_doc_info)
+
+        if not isinstance(self.keywords, list):
+            self.keywords = [self.keywords] if self.keywords is not None else []
+        self.keywords = [v if isinstance(v, str) else str(v) for v in self.keywords]
+
+        if not isinstance(self.languages, list):
+            self.languages = [self.languages] if self.languages is not None else []
+        self.languages = [v if isinstance(v, str) else str(v) for v in self.languages]
+
+        if not isinstance(self.audit_logs, list):
+            self.audit_logs = [self.audit_logs] if self.audit_logs is not None else []
+        self.audit_logs = [v if isinstance(v, AuditLog) else AuditLog(**as_dict(v)) for v in self.audit_logs]
+
+        if not isinstance(self.media, list):
+            self.media = [self.media] if self.media is not None else []
+        self.media = [v if isinstance(v, MediaSet) else MediaSet(**as_dict(v)) for v in self.media]
+
+        if self.opn_addressee is not None and not isinstance(self.opn_addressee, str):
+            self.opn_addressee = str(self.opn_addressee)
+
+        if self.opn_declassified_date is not None and not isinstance(self.opn_declassified_date, str):
+            self.opn_declassified_date = str(self.opn_declassified_date)
+
+        if self.opn_declassified_status is not None and not isinstance(self.opn_declassified_status, str):
+            self.opn_declassified_status = str(self.opn_declassified_status)
+
+        if not isinstance(self.opn_document_categories, list):
+            self.opn_document_categories = [self.opn_document_categories] if self.opn_document_categories is not None else []
+        self.opn_document_categories = [v if isinstance(v, str) else str(v) for v in self.opn_document_categories]
+
+        if self.opn_document_location is not None and not isinstance(self.opn_document_location, str):
+            self.opn_document_location = str(self.opn_document_location)
+
+        if self.opn_fieldoffice_acronym_code is not None and not isinstance(self.opn_fieldoffice_acronym_code, str):
+            self.opn_fieldoffice_acronym_code = str(self.opn_fieldoffice_acronym_code)
+
+        self._normalize_inlined_as_dict(slot_name="organizations", slot_type=Organization, key_name="type", keyed=False)
+
+        if not isinstance(self.other_information, list):
+            self.other_information = [self.other_information] if self.other_information is not None else []
+        self.other_information = [v if isinstance(v, str) else str(v) for v in self.other_information]
+
+        if self.ouo_release_date is not None and not isinstance(self.ouo_release_date, str):
+            self.ouo_release_date = str(self.ouo_release_date)
+
+        if self.paper_flag is not None and not isinstance(self.paper_flag, Bool):
+            self.paper_flag = Bool(self.paper_flag)
+
+        if self.hidden_flag is not None and not isinstance(self.hidden_flag, Bool):
+            self.hidden_flag = Bool(self.hidden_flag)
+
+        if self.sensitivity_flag is not None and not isinstance(self.sensitivity_flag, str):
+            self.sensitivity_flag = str(self.sensitivity_flag)
+
+        if self.doe_supported_flag is not None and not isinstance(self.doe_supported_flag, Bool):
+            self.doe_supported_flag = Bool(self.doe_supported_flag)
+
+        if self.peer_reviewed_flag is not None and not isinstance(self.peer_reviewed_flag, Bool):
+            self.peer_reviewed_flag = Bool(self.peer_reviewed_flag)
+
+        if self.patent_assignee is not None and not isinstance(self.patent_assignee, str):
+            self.patent_assignee = str(self.patent_assignee)
+
+        if self.patent_file_date is not None and not isinstance(self.patent_file_date, XSDDateTime):
+            self.patent_file_date = XSDDateTime(self.patent_file_date)
+
+        if self.patent_priority_date is not None and not isinstance(self.patent_priority_date, XSDDateTime):
+            self.patent_priority_date = XSDDateTime(self.patent_priority_date)
+
+        if self.pdouo_exemption_number is not None and not isinstance(self.pdouo_exemption_number, str):
+            self.pdouo_exemption_number = str(self.pdouo_exemption_number)
+
+        self._normalize_inlined_as_dict(slot_name="persons", slot_type=Person, key_name="type", keyed=False)
+
+        if self.product_size is not None and not isinstance(self.product_size, str):
+            self.product_size = str(self.product_size)
+
+        if self.product_type is not None and not isinstance(self.product_type, ProductType):
+            self.product_type = ProductType(self.product_type)
+
+        if self.product_type_other is not None and not isinstance(self.product_type_other, str):
+            self.product_type_other = str(self.product_type_other)
+
+        if self.prot_flag is not None and not isinstance(self.prot_flag, str):
+            self.prot_flag = str(self.prot_flag)
+
+        if self.prot_data_other is not None and not isinstance(self.prot_data_other, str):
+            self.prot_data_other = str(self.prot_data_other)
+
+        if self.prot_release_date is not None and not isinstance(self.prot_release_date, XSDDateTime):
+            self.prot_release_date = XSDDateTime(self.prot_release_date)
+
+        if self.availability is not None and not isinstance(self.availability, str):
+            self.availability = str(self.availability)
+
+        if not isinstance(self.subject_category_code, list):
+            self.subject_category_code = [self.subject_category_code] if self.subject_category_code is not None else []
+        self.subject_category_code = [v if isinstance(v, str) else str(v) for v in self.subject_category_code]
+
+        if not isinstance(self.subject_category_code_legacy, list):
+            self.subject_category_code_legacy = [self.subject_category_code_legacy] if self.subject_category_code_legacy is not None else []
+        self.subject_category_code_legacy = [v if isinstance(v, str) else str(v) for v in self.subject_category_code_legacy]
+
+        self._normalize_inlined_as_dict(slot_name="related_identifiers", slot_type=RelatedIdentifier, key_name="type", keyed=False)
+
+        if self.released_to_osti_date is not None and not isinstance(self.released_to_osti_date, XSDDateTime):
+            self.released_to_osti_date = XSDDateTime(self.released_to_osti_date)
+
+        if self.releasing_official_comments is not None and not isinstance(self.releasing_official_comments, str):
+            self.releasing_official_comments = str(self.releasing_official_comments)
+
+        if self.report_period_end_date is not None and not isinstance(self.report_period_end_date, XSDDateTime):
+            self.report_period_end_date = XSDDateTime(self.report_period_end_date)
+
+        if self.report_period_start_date is not None and not isinstance(self.report_period_start_date, XSDDateTime):
+            self.report_period_start_date = XSDDateTime(self.report_period_start_date)
+
+        if not isinstance(self.report_types, list):
+            self.report_types = [self.report_types] if self.report_types is not None else []
+        self.report_types = [v if isinstance(v, str) else str(v) for v in self.report_types]
+
+        if self.report_type_other is not None and not isinstance(self.report_type_other, str):
+            self.report_type_other = str(self.report_type_other)
+
+        if self.sbiz_flag is not None and not isinstance(self.sbiz_flag, str):
+            self.sbiz_flag = str(self.sbiz_flag)
+
+        if self.sbiz_phase is not None and not isinstance(self.sbiz_phase, str):
+            self.sbiz_phase = str(self.sbiz_phase)
+
+        if self.sbiz_previous_contract_number is not None and not isinstance(self.sbiz_previous_contract_number, str):
+            self.sbiz_previous_contract_number = str(self.sbiz_previous_contract_number)
+
+        if self.sbiz_release_date is not None and not isinstance(self.sbiz_release_date, XSDDateTime):
+            self.sbiz_release_date = XSDDateTime(self.sbiz_release_date)
+
+        if self.site_ownership_code is not None and not isinstance(self.site_ownership_code, str):
+            self.site_ownership_code = str(self.site_ownership_code)
+
+        if self.site_unique_id is not None and not isinstance(self.site_unique_id, str):
+            self.site_unique_id = str(self.site_unique_id)
+
+        if self.site_url is not None and not isinstance(self.site_url, str):
+            self.site_url = str(self.site_url)
+
+        if self.source_input_type is not None and not isinstance(self.source_input_type, str):
+            self.source_input_type = str(self.source_input_type)
+
+        if self.source_edit_type is not None and not isinstance(self.source_edit_type, str):
+            self.source_edit_type = str(self.source_edit_type)
+
+        self._normalize_inlined_as_dict(slot_name="geolocations", slot_type=Geolocation, key_name="points", keyed=False)
+
+        if self.article_type is not None and not isinstance(self.article_type, str):
+            self.article_type = str(self.article_type)
+
+        if not isinstance(self.authors, list):
+            self.authors = [self.authors] if self.authors is not None else []
+        self.authors = [v if isinstance(v, str) else str(v) for v in self.authors]
+
+        if self.conference_info is not None and not isinstance(self.conference_info, str):
+            self.conference_info = str(self.conference_info)
+
+        if self.contract_number is not None and not isinstance(self.contract_number, str):
+            self.contract_number = str(self.contract_number)
+
+        if self.country_publication is not None and not isinstance(self.country_publication, str):
+            self.country_publication = str(self.country_publication)
+
+        if self.doe_contract_number is not None and not isinstance(self.doe_contract_number, str):
+            self.doe_contract_number = str(self.doe_contract_number)
+
+        if self.entry_date is not None and not isinstance(self.entry_date, XSDDateTime):
+            self.entry_date = XSDDateTime(self.entry_date)
+
+        if not isinstance(self.identifier, list):
+            self.identifier = [self.identifier] if self.identifier is not None else []
+        self.identifier = [v if isinstance(v, str) else str(v) for v in self.identifier]
+
+        if not isinstance(self.language, list):
+            self.language = [self.language] if self.language is not None else []
+        self.language = [v if isinstance(v, str) else str(v) for v in self.language]
+
+        if not isinstance(self.links, list):
+            self.links = [self.links] if self.links is not None else []
+        self.links = [v if isinstance(v, str) else str(v) for v in self.links]
+
+        if not isinstance(self.other_identifiers, list):
+            self.other_identifiers = [self.other_identifiers] if self.other_identifiers is not None else []
+        self.other_identifiers = [v if isinstance(v, str) else str(v) for v in self.other_identifiers]
+
+        if not isinstance(self.other_number, list):
+            self.other_number = [self.other_number] if self.other_number is not None else []
+        self.other_number = [v if isinstance(v, str) else str(v) for v in self.other_number]
+
+        if not isinstance(self.report_number, list):
+            self.report_number = [self.report_number] if self.report_number is not None else []
+        self.report_number = [v if isinstance(v, str) else str(v) for v in self.report_number]
+
+        if not isinstance(self.research_orgs, list):
+            self.research_orgs = [self.research_orgs] if self.research_orgs is not None else []
+        self.research_orgs = [v if isinstance(v, str) else str(v) for v in self.research_orgs]
+
+        if not isinstance(self.sponsor_orgs, list):
+            self.sponsor_orgs = [self.sponsor_orgs] if self.sponsor_orgs is not None else []
+        self.sponsor_orgs = [v if isinstance(v, str) else str(v) for v in self.sponsor_orgs]
+
+        if not isinstance(self.subjects, list):
+            self.subjects = [self.subjects] if self.subjects is not None else []
+        self.subjects = [v if isinstance(v, str) else str(v) for v in self.subjects]
+
+        if self.journal_issn is not None and not isinstance(self.journal_issn, str):
+            self.journal_issn = str(self.journal_issn)
+
+        if self.journal_issue is not None and not isinstance(self.journal_issue, str):
+            self.journal_issue = str(self.journal_issue)
+
+        if self.journal_volume is not None and not isinstance(self.journal_volume, str):
+            self.journal_volume = str(self.journal_volume)
+
+        if self.publisher is not None and not isinstance(self.publisher, str):
+            self.publisher = str(self.publisher)
+
+        if self.relation is not None and not isinstance(self.relation, str):
+            self.relation = str(self.relation)
+
+        super().__post_init__(**kwargs)
 
 
-class RelatedIdentifier(ConfiguredBaseModel):
+@dataclass(repr=False)
+class RelatedIdentifier(YAMLRoot):
     """
     Identifies other resources that are related in some manner to this record
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: RelatedIdentifierType = Field(default=..., description="""Identify the type of this related identifier""", json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person'],
-         'examples': [{'value': 'DOI'}]} })
-    relation: RelationType = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'relation', 'domain_of': ['RelatedIdentifier']} })
-    value: str = Field(default=..., description="""The value of the identifier""", json_schema_extra = { "linkml_meta": {'alias': 'value',
-         'domain_of': ['RelatedIdentifier', 'Identifier', 'OrganizationIdentifier'],
-         'examples': [{'value': '10.11578/2020/28383'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["RelatedIdentifier"]
+    class_class_curie: ClassVar[str] = "osti:RelatedIdentifier"
+    class_name: ClassVar[str] = "RelatedIdentifier"
+    class_model_uri: ClassVar[URIRef] = OSTI.RelatedIdentifier
 
-    @field_validator('relation')
-    def pattern_relation(cls, v):
-        pattern=re.compile(r"^.{0,20}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid relation format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid relation format: {v}"
-            raise ValueError(err_msg)
-        return v
+    type: Union[str, "RelatedIdentifierType"] = None
+    relation: Union[str, "RelationType"] = None
+    value: str = None
 
-    @field_validator('value')
-    def pattern_value(cls, v):
-        pattern=re.compile(r"^.{0,2000}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid value format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid value format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, RelatedIdentifierType):
+            self.type = RelatedIdentifierType(self.type)
+
+        if self._is_empty(self.relation):
+            self.MissingRequiredField("relation")
+        if not isinstance(self.relation, RelationType):
+            self.relation = RelationType(self.relation)
+
+        if self._is_empty(self.value):
+            self.MissingRequiredField("value")
+        if not isinstance(self.value, str):
+            self.value = str(self.value)
+
+        super().__post_init__(**kwargs)
 
 
-class Geolocation(ConfiguredBaseModel):
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+@dataclass(repr=False)
+class Geolocation(YAMLRoot):
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: Optional[GeolocationType] = Field(default=None, description="""Describes the shape of this geolocation attribute. (Optional, type may be determined by examination of the points.) Single point in 'points' indicates this is a POINT; two points, indicating NW and SE location, indicate a BOX; any other number of points is assumed to be a POLYGON.  Note that POLYGONs should begin and end on the same point, in order to properly express a 'closed polygon' shape.""", json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person'],
-         'examples': [{'value': 'POINT'}]} })
-    label: Optional[str] = Field(default=None, description="""Optional place name for this location or set of geolocation points.""", json_schema_extra = { "linkml_meta": {'alias': 'label',
-         'domain_of': ['Geolocation'],
-         'examples': [{'value': 'Maryland coastal waters'}]} })
-    points: list[Point] = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'points', 'domain_of': ['Geolocation']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Geolocation"]
+    class_class_curie: ClassVar[str] = "osti:Geolocation"
+    class_name: ClassVar[str] = "Geolocation"
+    class_model_uri: ClassVar[URIRef] = OSTI.Geolocation
 
+    points: Union[Union[dict, "Point"], list[Union[dict, "Point"]]] = None
+    type: Optional[Union[str, "GeolocationType"]] = None
+    label: Optional[str] = None
 
-class Point(ConfiguredBaseModel):
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.points):
+            self.MissingRequiredField("points")
+        self._normalize_inlined_as_dict(slot_name="points", slot_type=Point, key_name="latitude", keyed=False)
 
-    latitude: float = Field(default=..., description="""Latitude of this point in the geolocation; limited to -90 to 90, inclusive.""", ge=-90, le=90, json_schema_extra = { "linkml_meta": {'alias': 'latitude',
-         'domain_of': ['point'],
-         'examples': [{'value': '38.75096'}]} })
-    longitude: float = Field(default=..., description="""Longitude of this point in the geolocation; limited to -180 to 180, inclusive.""", ge=-180, le=180, json_schema_extra = { "linkml_meta": {'alias': 'longitude',
-         'domain_of': ['point'],
-         'examples': [{'value': '-76.51239'}]} })
+        if self.type is not None and not isinstance(self.type, GeolocationType):
+            self.type = GeolocationType(self.type)
+
+        if self.label is not None and not isinstance(self.label, str):
+            self.label = str(self.label)
+
+        super().__post_init__(**kwargs)
 
 
-class Identifier(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Point(YAMLRoot):
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OSTI["Point"]
+    class_class_curie: ClassVar[str] = "osti:Point"
+    class_name: ClassVar[str] = "point"
+    class_model_uri: ClassVar[URIRef] = OSTI.Point
+
+    latitude: float = None
+    longitude: float = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.latitude):
+            self.MissingRequiredField("latitude")
+        if not isinstance(self.latitude, float):
+            self.latitude = float(self.latitude)
+
+        if self._is_empty(self.longitude):
+            self.MissingRequiredField("longitude")
+        if not isinstance(self.longitude, float):
+            self.longitude = float(self.longitude)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Identifier(YAMLRoot):
     """
-    Values of various identifying numbers, such as DOE contract number, product numbers, ISBN, ISSN, and other various forms of identifying markings or numbers pertaining to the product or metadata.
+    Values of various identifying numbers, such as DOE contract number, product numbers, ISBN, ISSN, and other various
+    forms of identifying markings or numbers pertaining to the product or metadata.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: Optional[IdentifierType] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person']} })
-    value: Optional[str] = Field(default=None, description="""Value of this identifier""", json_schema_extra = { "linkml_meta": {'alias': 'value',
-         'domain_of': ['RelatedIdentifier', 'Identifier', 'OrganizationIdentifier'],
-         'examples': [{'value': '9234782'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Identifier"]
+    class_class_curie: ClassVar[str] = "osti:Identifier"
+    class_name: ClassVar[str] = "Identifier"
+    class_model_uri: ClassVar[URIRef] = OSTI.Identifier
 
-    @field_validator('value')
-    def pattern_value(cls, v):
-        pattern=re.compile(r"^.{0,100}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid value format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid value format: {v}"
-            raise ValueError(err_msg)
-        return v
+    type: Optional[Union[str, "IdentifierType"]] = None
+    value: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.type is not None and not isinstance(self.type, IdentifierType):
+            self.type = IdentifierType(self.type)
+
+        if self.value is not None and not isinstance(self.value, str):
+            self.value = str(self.value)
+
+        super().__post_init__(**kwargs)
 
 
-class AuditLog(ConfiguredBaseModel):
+@dataclass(repr=False)
+class AuditLog(YAMLRoot):
     """
     Indicates status and information about back-end processing on a given metadata record.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: Optional[str] = Field(default=None, description="""Indicates the source of the status message, generally the backend process performing the action in question.""", json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person'],
-         'examples': [{'value': 'VALIDATOR'}]} })
-    audit_date: Optional[datetime ] = Field(default=None, description="""Timestamp of the operation detailed in this audit log.""", json_schema_extra = { "linkml_meta": {'alias': 'audit_date',
-         'domain_of': ['AuditLog'],
-         'examples': [{'value': '2024-11-04T15:08:44.438Z'}]} })
-    status: Optional[str] = Field(default=None, description="""Indicates state or notification level of worker action detailed in this audit log.  Generally SUCCESS or FAIL, but may additionally indicate INFO, WARN, or ERROR status messages.""", json_schema_extra = { "linkml_meta": {'alias': 'status',
-         'domain_of': ['AuditLog', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': 'SUCCESS'}]} })
-    messages: Optional[list[str]] = Field(default=None, description="""One or more messages pertaining to the action taken or results of worker processing for this audit log.""", json_schema_extra = { "linkml_meta": {'alias': 'messages',
-         'domain_of': ['AuditLog'],
-         'examples': [{'value': 'Validation Successful.'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["AuditLog"]
+    class_class_curie: ClassVar[str] = "osti:AuditLog"
+    class_name: ClassVar[str] = "AuditLog"
+    class_model_uri: ClassVar[URIRef] = OSTI.AuditLog
+
+    type: Optional[str] = None
+    audit_date: Optional[Union[str, XSDDateTime]] = None
+    status: Optional[str] = None
+    messages: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.type is not None and not isinstance(self.type, str):
+            self.type = str(self.type)
+
+        if self.audit_date is not None and not isinstance(self.audit_date, XSDDateTime):
+            self.audit_date = XSDDateTime(self.audit_date)
+
+        if self.status is not None and not isinstance(self.status, str):
+            self.status = str(self.status)
+
+        if not isinstance(self.messages, list):
+            self.messages = [self.messages] if self.messages is not None else []
+        self.messages = [v if isinstance(v, str) else str(v) for v in self.messages]
+
+        super().__post_init__(**kwargs)
 
 
-class MediaSet(ConfiguredBaseModel):
+@dataclass(repr=False)
+class MediaSet(YAMLRoot):
     """
-    Metadata about files associated with this product.  Summarizes the main media file associated with this product, usually an off-site URL or PDF uploaded to OSTI, with its state, URL if applicable, and other identifying state information pertaining to the media files as a group. Each media set is uniquely identified by its `MEDIA_ID` value.
+    Metadata about files associated with this product. Summarizes the main media file associated with this product,
+    usually an off-site URL or PDF uploaded to OSTI, with its state, URL if applicable, and other identifying state
+    information pertaining to the media files as a group. Each media set is uniquely identified by its `MEDIA_ID`
+    value.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    media_id: Optional[int] = Field(default=None, description="""Unique ID for this MEDIA SET.""", json_schema_extra = { "linkml_meta": {'alias': 'media_id',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': '233743'}]} })
-    revision: Optional[int] = Field(default=None, description="""Revision number of this media association set.""", json_schema_extra = { "linkml_meta": {'alias': 'revision',
-         'domain_of': ['Record', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': '3'}]} })
-    access_limitations: Optional[list[AccessLimitationsEnum]] = Field(default=None, description="""Access limitations are inherited from the parent metadata record at time of association.""", json_schema_extra = { "linkml_meta": {'alias': 'access_limitations',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': 'UNL'}]} })
-    osti_id: Optional[int] = Field(default=None, description="""Links to Record OSTI_ID value for a Media Set.""", json_schema_extra = { "linkml_meta": {'alias': 'osti_id',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': '99238'}]} })
-    status: Optional[str] = Field(default=None, description="""Indicate the current processing of the media file set.""", json_schema_extra = { "linkml_meta": {'alias': 'status',
-         'domain_of': ['AuditLog', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': 'P'}]} })
-    added_by: Optional[int] = Field(default=None, description="""Indicates user ID that added this media set.""", json_schema_extra = { "linkml_meta": {'alias': 'added_by',
-         'domain_of': ['Record', 'MediaSet'],
-         'examples': [{'value': '34582'}]} })
-    document_page_count: Optional[int] = Field(default=None, description="""Number of pages, if applicable, found in the processing of this file.""", json_schema_extra = { "linkml_meta": {'alias': 'document_page_count',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': '23'}]} })
-    mime_type: Optional[str] = Field(default=None, description="""MIME type description of the file content of this media file. This value is set by OSTI media processing.""", json_schema_extra = { "linkml_meta": {'alias': 'mime_type',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': 'application/pdf'}]} })
-    media_title: Optional[str] = Field(default=None, description="""Optional title provided for the given media set.""", json_schema_extra = { "linkml_meta": {'alias': 'media_title',
-         'domain_of': ['MediaSet'],
-         'examples': [{'value': 'PDF of technical report content'}]} })
-    media_location: Optional[MediaLocationEnum] = Field(default=None, description="""Indicates if this media set's main content is LOCAL or OFF-SITE.""", json_schema_extra = { "linkml_meta": {'alias': 'media_location',
-         'domain_of': ['MediaSet'],
-         'examples': [{'value': 'L'}]} })
-    media_source: Optional[str] = Field(default=None, description="""Indicates the initial primary source of the media set.""", json_schema_extra = { "linkml_meta": {'alias': 'media_source',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': 'MEDIA_API_UPLOAD'}]} })
-    date_added: Optional[datetime ] = Field(default=None, description="""Date this media set was first created. (UTC)""", json_schema_extra = { "linkml_meta": {'alias': 'date_added',
-         'domain_of': ['MediaSet'],
-         'examples': [{'value': '1992-03-08T11:23:44.123+00:00'}]} })
-    date_updated: Optional[datetime ] = Field(default=None, description="""Date this media set was most recently modified. (UTC)""", json_schema_extra = { "linkml_meta": {'alias': 'date_updated',
-         'domain_of': ['MediaSet'],
-         'examples': [{'value': '2009-11-05T08:33:12.231+00:00'}]} })
-    date_valid_end: Optional[datetime ] = Field(default=None, description="""If present, date and time when media association was removed or replaced. (UTC)""", json_schema_extra = { "linkml_meta": {'alias': 'date_valid_end',
-         'domain_of': ['MediaSet'],
-         'examples': [{'value': '2021-02-15T12:32:11.332+00:00'}]} })
-    files: Optional[list[MediaFile]] = Field(default=None, description="""Array of all files, including original submission of file or URL along with any derived files during processing of media.""", json_schema_extra = { "linkml_meta": {'alias': 'files', 'domain_of': ['MediaSet']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["MediaSet"]
+    class_class_curie: ClassVar[str] = "osti:MediaSet"
+    class_name: ClassVar[str] = "MediaSet"
+    class_model_uri: ClassVar[URIRef] = OSTI.MediaSet
 
-    @field_validator('access_limitations')
-    def pattern_access_limitations(cls, v):
-        pattern=re.compile(r"^.{0,5}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid access_limitations format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid access_limitations format: {v}"
-            raise ValueError(err_msg)
-        return v
+    media_id: Optional[int] = None
+    revision: Optional[int] = None
+    access_limitations: Optional[Union[Union[str, "AccessLimitationsEnum"], list[Union[str, "AccessLimitationsEnum"]]]] = empty_list()
+    osti_id: Optional[int] = None
+    status: Optional[str] = None
+    added_by: Optional[int] = None
+    document_page_count: Optional[int] = None
+    mime_type: Optional[str] = None
+    media_title: Optional[str] = None
+    media_location: Optional[Union[str, "MediaLocationEnum"]] = None
+    media_source: Optional[str] = None
+    date_added: Optional[Union[str, XSDDateTime]] = None
+    date_updated: Optional[Union[str, XSDDateTime]] = None
+    date_valid_end: Optional[Union[str, XSDDateTime]] = None
+    files: Optional[Union[Union[dict, "MediaFile"], list[Union[dict, "MediaFile"]]]] = empty_list()
 
-    @field_validator('media_title')
-    def pattern_media_title(cls, v):
-        pattern=re.compile(r"^.{0,500}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid media_title format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid media_title format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.media_id is not None and not isinstance(self.media_id, int):
+            self.media_id = int(self.media_id)
+
+        if self.revision is not None and not isinstance(self.revision, int):
+            self.revision = int(self.revision)
+
+        if not isinstance(self.access_limitations, list):
+            self.access_limitations = [self.access_limitations] if self.access_limitations is not None else []
+        self.access_limitations = [v if isinstance(v, AccessLimitationsEnum) else AccessLimitationsEnum(v) for v in self.access_limitations]
+
+        if self.osti_id is not None and not isinstance(self.osti_id, int):
+            self.osti_id = int(self.osti_id)
+
+        if self.status is not None and not isinstance(self.status, str):
+            self.status = str(self.status)
+
+        if self.added_by is not None and not isinstance(self.added_by, int):
+            self.added_by = int(self.added_by)
+
+        if self.document_page_count is not None and not isinstance(self.document_page_count, int):
+            self.document_page_count = int(self.document_page_count)
+
+        if self.mime_type is not None and not isinstance(self.mime_type, str):
+            self.mime_type = str(self.mime_type)
+
+        if self.media_title is not None and not isinstance(self.media_title, str):
+            self.media_title = str(self.media_title)
+
+        if self.media_location is not None and not isinstance(self.media_location, MediaLocationEnum):
+            self.media_location = MediaLocationEnum(self.media_location)
+
+        if self.media_source is not None and not isinstance(self.media_source, str):
+            self.media_source = str(self.media_source)
+
+        if self.date_added is not None and not isinstance(self.date_added, XSDDateTime):
+            self.date_added = XSDDateTime(self.date_added)
+
+        if self.date_updated is not None and not isinstance(self.date_updated, XSDDateTime):
+            self.date_updated = XSDDateTime(self.date_updated)
+
+        if self.date_valid_end is not None and not isinstance(self.date_valid_end, XSDDateTime):
+            self.date_valid_end = XSDDateTime(self.date_valid_end)
+
+        if not isinstance(self.files, list):
+            self.files = [self.files] if self.files is not None else []
+        self.files = [v if isinstance(v, MediaFile) else MediaFile(**as_dict(v)) for v in self.files]
+
+        super().__post_init__(**kwargs)
 
 
-class MediaFile(ConfiguredBaseModel):
+@dataclass(repr=False)
+class MediaFile(YAMLRoot):
     """
-    Metadata information pertaining to a particular media resource associated with this product.  Contains information about its disposition, content, and processing state.  Each individual file is uniquely identified by its `MEDIA_FILE_ID` value.
+    Metadata information pertaining to a particular media resource associated with this product. Contains information
+    about its disposition, content, and processing state. Each individual file is uniquely identified by its
+    `MEDIA_FILE_ID` value.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    media_file_id: Optional[int] = Field(default=None, description="""Unique identifier for a given MEDIA FILE.""", json_schema_extra = { "linkml_meta": {'alias': 'media_file_id',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '983445'}]} })
-    media_id: Optional[int] = Field(default=None, description="""Link to parent MEDIA SET ID.""", json_schema_extra = { "linkml_meta": {'alias': 'media_id',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': '233743'}]} })
-    checksum: Optional[str] = Field(default=None, description="""Calculated hash or checksum value of the physical file as applicable, from media processing.""", json_schema_extra = { "linkml_meta": {'alias': 'checksum',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '85a88fc60dab52214508631f3dd93f1ada3e6e8cd00d09a58608054d8e5ded38'}]} })
-    revision: Optional[int] = Field(default=None, description="""Revision number of this media file, associated with the MEDIA SET""", json_schema_extra = { "linkml_meta": {'alias': 'revision',
-         'domain_of': ['Record', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': '1'}]} })
-    parent_media_file_id: Optional[int] = Field(default=None, description="""If non-zero, indicates unique MEDIA FILE ID this MEDIA FILE is derived from.""", json_schema_extra = { "linkml_meta": {'alias': 'parent_media_file_id',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '0'}]} })
-    status: Optional[str] = Field(default=None, description="""Indiciates current processing status for this MEDIA FILE. Other values may indicate awaiting additional processing, such as 'OCR', pending text processing.""", json_schema_extra = { "linkml_meta": {'alias': 'status',
-         'domain_of': ['AuditLog', 'MediaSet', 'MediaFile'],
-         'examples': [{'value': 'DONE'}]} })
-    media_type: Optional[str] = Field(default=None, description="""Indicates TYPE of media file, detected or set during media processing.""", json_schema_extra = { "linkml_meta": {'alias': 'media_type',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': 'T'}]} })
-    url_type: Optional[MediaLocationEnum] = Field(default=None, description="""Indicates if the file is LOCALLY HOSTED ('L') or OFF-SITE URL ('O').""", json_schema_extra = { "linkml_meta": {'alias': 'url_type', 'domain_of': ['MediaFile'], 'examples': [{'value': 'L'}]} })
-    url: Optional[str] = Field(default=None, description="""Either the file name for local files, or URL path to off-site resource.""", json_schema_extra = { "linkml_meta": {'alias': 'url',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': 'report.pdf'}]} })
-    mime_type: Optional[str] = Field(default=None, description="""Mime type describing the MEDIA FILE content.""", json_schema_extra = { "linkml_meta": {'alias': 'mime_type',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': 'application/pdf'}]} })
-    added_by_user_id: Optional[int] = Field(default=None, description="""Indicates the E-Link USER ID that attached this MEDIA FILE.""", json_schema_extra = { "linkml_meta": {'alias': 'added_by_user_id',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '118678'}]} })
-    media_source: Optional[str] = Field(default=None, description="""Describes method of file production or association with this media set.""", json_schema_extra = { "linkml_meta": {'alias': 'media_source',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': 'TEXT_FILE_EXTRACTION'}]} })
-    file_size_bytes: Optional[int] = Field(default=None, description="""If local file, the file size in bytes.""", json_schema_extra = { "linkml_meta": {'alias': 'file_size_bytes',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '993834'}]} })
-    duration_seconds: Optional[int] = Field(default=None, description="""For audio-visual media, the duration of the resource in seconds.""", json_schema_extra = { "linkml_meta": {'alias': 'duration_seconds',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '77'}]} })
-    document_page_count: Optional[int] = Field(default=None, description="""For document-based media, the number of printed pages if applicable.""", json_schema_extra = { "linkml_meta": {'alias': 'document_page_count',
-         'domain_of': ['MediaSet', 'MediaFile'],
-         'examples': [{'value': '22'}]} })
-    subtitle_tracks: Optional[int] = Field(default=None, description="""Indicates the number of subtitle tracks for audio-visual media.""", json_schema_extra = { "linkml_meta": {'alias': 'subtitle_tracks',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '2'}]} })
-    video_tracks: Optional[int] = Field(default=None, description="""Indicates the number of video tracks in audio-visual media.""", json_schema_extra = { "linkml_meta": {'alias': 'video_tracks',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '1'}]} })
-    pdf_version: Optional[str] = Field(default=None, description="""For PDF media files, indicates the version of PDF.""", json_schema_extra = { "linkml_meta": {'alias': 'pdf_version',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '1.5'}]} })
-    pdfa_conformance: Optional[str] = Field(default=None, description="""For PDF media that is PDF/A compliant, the conformance level, generally A, B, or U.""", json_schema_extra = { "linkml_meta": {'alias': 'pdfa_conformance',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': 'A'}]} })
-    pdfa_part: Optional[str] = Field(default=None, description="""For PDF media that is PDF/A compliant, the level of compliance, as a value between 1 and 4.""", json_schema_extra = { "linkml_meta": {'alias': 'pdfa_part', 'domain_of': ['MediaFile'], 'examples': [{'value': '1'}]} })
-    pdfua_part: Optional[str] = Field(default=None, description="""For PDF media that is PDF/UA compliant, its compliance level, generally 1 or 2.""", json_schema_extra = { "linkml_meta": {'alias': 'pdfua_part',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '2'}]} })
-    date_file_added: Optional[datetime ] = Field(default=None, description="""Indicates the date and time this media file was created.""", json_schema_extra = { "linkml_meta": {'alias': 'date_file_added',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '2012-08-33T15:33:22.504+00:00'}]} })
-    date_file_updated: Optional[datetime ] = Field(default=None, description="""Indicates the last date and time this media file was modified.""", json_schema_extra = { "linkml_meta": {'alias': 'date_file_updated',
-         'domain_of': ['MediaFile'],
-         'examples': [{'value': '2013-04-22T18:33:28.234+00:00'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["MediaFile"]
+    class_class_curie: ClassVar[str] = "osti:MediaFile"
+    class_name: ClassVar[str] = "MediaFile"
+    class_model_uri: ClassVar[URIRef] = OSTI.MediaFile
 
-    @field_validator('media_type')
-    def pattern_media_type(cls, v):
-        pattern=re.compile(r"^.{0,1}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid media_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid media_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+    media_file_id: Optional[int] = None
+    media_id: Optional[int] = None
+    checksum: Optional[str] = None
+    revision: Optional[int] = None
+    parent_media_file_id: Optional[int] = None
+    status: Optional[str] = None
+    media_type: Optional[str] = None
+    url_type: Optional[Union[str, "MediaLocationEnum"]] = None
+    url: Optional[str] = None
+    mime_type: Optional[str] = None
+    added_by_user_id: Optional[int] = None
+    media_source: Optional[str] = None
+    file_size_bytes: Optional[int] = None
+    duration_seconds: Optional[int] = None
+    document_page_count: Optional[int] = None
+    subtitle_tracks: Optional[int] = None
+    video_tracks: Optional[int] = None
+    pdf_version: Optional[str] = None
+    pdfa_conformance: Optional[str] = None
+    pdfa_part: Optional[str] = None
+    pdfua_part: Optional[str] = None
+    processing_exceptions: Optional[str] = None
+    date_file_added: Optional[Union[str, XSDDateTime]] = None
+    date_file_updated: Optional[Union[str, XSDDateTime]] = None
 
-    @field_validator('url_type')
-    def pattern_url_type(cls, v):
-        pattern=re.compile(r"^.{0,1}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid url_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid url_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.media_file_id is not None and not isinstance(self.media_file_id, int):
+            self.media_file_id = int(self.media_file_id)
 
-    @field_validator('url')
-    def pattern_url(cls, v):
-        pattern=re.compile(r"^.{0,255}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid url format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid url format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.media_id is not None and not isinstance(self.media_id, int):
+            self.media_id = int(self.media_id)
+
+        if self.checksum is not None and not isinstance(self.checksum, str):
+            self.checksum = str(self.checksum)
+
+        if self.revision is not None and not isinstance(self.revision, int):
+            self.revision = int(self.revision)
+
+        if self.parent_media_file_id is not None and not isinstance(self.parent_media_file_id, int):
+            self.parent_media_file_id = int(self.parent_media_file_id)
+
+        if self.status is not None and not isinstance(self.status, str):
+            self.status = str(self.status)
+
+        if self.media_type is not None and not isinstance(self.media_type, str):
+            self.media_type = str(self.media_type)
+
+        if self.url_type is not None and not isinstance(self.url_type, MediaLocationEnum):
+            self.url_type = MediaLocationEnum(self.url_type)
+
+        if self.url is not None and not isinstance(self.url, str):
+            self.url = str(self.url)
+
+        if self.mime_type is not None and not isinstance(self.mime_type, str):
+            self.mime_type = str(self.mime_type)
+
+        if self.added_by_user_id is not None and not isinstance(self.added_by_user_id, int):
+            self.added_by_user_id = int(self.added_by_user_id)
+
+        if self.media_source is not None and not isinstance(self.media_source, str):
+            self.media_source = str(self.media_source)
+
+        if self.file_size_bytes is not None and not isinstance(self.file_size_bytes, int):
+            self.file_size_bytes = int(self.file_size_bytes)
+
+        if self.duration_seconds is not None and not isinstance(self.duration_seconds, int):
+            self.duration_seconds = int(self.duration_seconds)
+
+        if self.document_page_count is not None and not isinstance(self.document_page_count, int):
+            self.document_page_count = int(self.document_page_count)
+
+        if self.subtitle_tracks is not None and not isinstance(self.subtitle_tracks, int):
+            self.subtitle_tracks = int(self.subtitle_tracks)
+
+        if self.video_tracks is not None and not isinstance(self.video_tracks, int):
+            self.video_tracks = int(self.video_tracks)
+
+        if self.pdf_version is not None and not isinstance(self.pdf_version, str):
+            self.pdf_version = str(self.pdf_version)
+
+        if self.pdfa_conformance is not None and not isinstance(self.pdfa_conformance, str):
+            self.pdfa_conformance = str(self.pdfa_conformance)
+
+        if self.pdfa_part is not None and not isinstance(self.pdfa_part, str):
+            self.pdfa_part = str(self.pdfa_part)
+
+        if self.pdfua_part is not None and not isinstance(self.pdfua_part, str):
+            self.pdfua_part = str(self.pdfua_part)
+
+        if self.processing_exceptions is not None and not isinstance(self.processing_exceptions, str):
+            self.processing_exceptions = str(self.processing_exceptions)
+
+        if self.date_file_added is not None and not isinstance(self.date_file_added, XSDDateTime):
+            self.date_file_added = XSDDateTime(self.date_file_added)
+
+        if self.date_file_updated is not None and not isinstance(self.date_file_updated, XSDDateTime):
+            self.date_file_updated = XSDDateTime(self.date_file_updated)
+
+        super().__post_init__(**kwargs)
 
 
-class Organization(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Organization(YAMLRoot):
     """
-    Describes a particular organization associated with the bibliographic record. Organizations may be author collaborations, sponsors, research laboratories, or contributors to the work, as indicated by their associated type. For identification purposes, at least one of either 'name' or 'ror_id' is required for validation.  If ROR ID is specified, it will be validated against the ROR authority at OSTI.
+    Describes a particular organization associated with the bibliographic record. Organizations may be author
+    collaborations, sponsors, research laboratories, or contributors to the work, as indicated by their associated
+    type. For identification purposes, at least one of either 'name' or 'ror_id' is required for validation. If ROR ID
+    is specified, it will be validated against the ROR authority at OSTI.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: OrganizationType = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person']} })
-    name: str = Field(default=..., description="""Name of the organization""", json_schema_extra = { "linkml_meta": {'alias': 'name',
-         'domain_of': ['Organization', 'Affiliation'],
-         'examples': [{'value': 'Quantum Physics of America, Inc.'}]} })
-    contributor_type: Optional[ContributorType] = Field(default=None, description="""Indicate the contribution made by this Organization.  Required for CONTRIBUTING 'type'.""", json_schema_extra = { "linkml_meta": {'alias': 'contributor_type',
-         'domain_of': ['Organization', 'Person'],
-         'examples': [{'value': 'DataCollector'}]} })
-    ror_id: Optional[str] = Field(default=None, description="""ROR ID for this organization, if any. This value will be validated against the ROR authority.""", json_schema_extra = { "linkml_meta": {'alias': 'ror_id',
-         'domain_of': ['Organization', 'Affiliation'],
-         'examples': [{'value': '31478740'}]} })
-    identifiers: Optional[list[OrganizationIdentifier]] = Field(default=None, description="""List of any identifiers for this Organization.  Only applicable to Sponsoring organizations.""", json_schema_extra = { "linkml_meta": {'alias': 'identifiers', 'domain_of': ['Record', 'Organization']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Organization"]
+    class_class_curie: ClassVar[str] = "osti:Organization"
+    class_name: ClassVar[str] = "Organization"
+    class_model_uri: ClassVar[URIRef] = OSTI.Organization
 
-    @field_validator('type')
-    def pattern_type(cls, v):
-        pattern=re.compile(r"^.{0,20}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid type format: {v}"
-            raise ValueError(err_msg)
-        return v
+    type: Union[str, "OrganizationType"] = None
+    name: str = None
+    contributor_type: Optional[Union[str, "ContributorType"]] = None
+    ror_id: Optional[str] = None
+    identifiers: Optional[Union[Union[dict, "OrganizationIdentifier"], list[Union[dict, "OrganizationIdentifier"]]]] = empty_list()
 
-    @field_validator('name')
-    def pattern_name(cls, v):
-        pattern=re.compile(r"^.{0,800}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid name format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid name format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, OrganizationType):
+            self.type = OrganizationType(self.type)
 
-    @field_validator('contributor_type')
-    def pattern_contributor_type(cls, v):
-        pattern=re.compile(r"^.{0,25}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid contributor_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid contributor_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.contributor_type is not None and not isinstance(self.contributor_type, ContributorType):
+            self.contributor_type = ContributorType(self.contributor_type)
+
+        if self.ror_id is not None and not isinstance(self.ror_id, str):
+            self.ror_id = str(self.ror_id)
+
+        self._normalize_inlined_as_dict(slot_name="identifiers", slot_type=OrganizationIdentifier, key_name="type", keyed=False)
+
+        super().__post_init__(**kwargs)
 
 
-class OrganizationIdentifier(ConfiguredBaseModel):
+@dataclass(repr=False)
+class OrganizationIdentifier(YAMLRoot):
     """
-    One or more identifying numbers or references associated with this organization.  Please note that only sponsoring organizations may have associated identifier values.
+    One or more identifying numbers or references associated with this organization. Please note that only sponsoring
+    organizations may have associated identifier values.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: OrganizationIdentifierType = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person'],
-         'examples': [{'value': 'AWARD_DOI'}]} })
-    value: str = Field(default=..., description="""Indicates the value of this identifier.  May be validated according to its particular type.""", json_schema_extra = { "linkml_meta": {'alias': 'value',
-         'domain_of': ['RelatedIdentifier', 'Identifier', 'OrganizationIdentifier'],
-         'examples': [{'value': '10.11578/289342'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["OrganizationIdentifier"]
+    class_class_curie: ClassVar[str] = "osti:OrganizationIdentifier"
+    class_name: ClassVar[str] = "OrganizationIdentifier"
+    class_model_uri: ClassVar[URIRef] = OSTI.OrganizationIdentifier
 
-    @field_validator('type')
-    def pattern_type(cls, v):
-        pattern=re.compile(r"^.{0,20}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid type format: {v}"
-            raise ValueError(err_msg)
-        return v
+    type: Union[str, "OrganizationIdentifierType"] = None
+    value: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, OrganizationIdentifierType):
+            self.type = OrganizationIdentifierType(self.type)
+
+        if self._is_empty(self.value):
+            self.MissingRequiredField("value")
+        if not isinstance(self.value, str):
+            self.value = str(self.value)
+
+        super().__post_init__(**kwargs)
 
 
-class Person(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Person(YAMLRoot):
     """
     Information about a particular person involved in the production or maintenance of this record
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    type: PersonType = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'type',
-         'domain_of': ['RelatedIdentifier',
-                       'Geolocation',
-                       'Identifier',
-                       'AuditLog',
-                       'Organization',
-                       'OrganizationIdentifier',
-                       'Person']} })
-    first_name: Optional[str] = Field(default=None, description="""First (or 'Given') name of the person""", json_schema_extra = { "linkml_meta": {'alias': 'first_name',
-         'domain_of': ['Person'],
-         'examples': [{'value': 'Sample'}]} })
-    middle_name: Optional[str] = Field(default=None, description="""Middle name or initial of the person""", json_schema_extra = { "linkml_meta": {'alias': 'middle_name', 'domain_of': ['Person'], 'examples': [{'value': 'Q.'}]} })
-    last_name: Optional[str] = Field(default=None, description="""Last (or 'Family') name of this person""", json_schema_extra = { "linkml_meta": {'alias': 'last_name',
-         'domain_of': ['Person'],
-         'examples': [{'value': 'Person'}]} })
-    email: Optional[list[str]] = Field(default=None, description="""List of any email address(es) associated with this person. Email addresses are validated to be well-formed.""", json_schema_extra = { "linkml_meta": {'alias': 'email',
-         'domain_of': ['Person'],
-         'examples': [{'value': 'persons@sample.org'}]} })
-    orcid: Optional[str] = Field(default=None, description="""ORCID (https://orcid.org/) value for this person. ORCID values, if provided, must be of valid format.""", json_schema_extra = { "linkml_meta": {'alias': 'orcid',
-         'domain_of': ['Person'],
-         'examples': [{'value': '0000-0001-2345-6789'}]} })
-    phone: Optional[str] = Field(default=None, description="""Contact phone number for this person, if available. If provided, must be a valid phone number expression.""", json_schema_extra = { "linkml_meta": {'alias': 'phone',
-         'domain_of': ['Person'],
-         'examples': [{'value': '(555) 860-9923'}]} })
-    osti_user_id: Optional[int] = Field(default=None, description="""OSTI-assigned identifier for this person, if any""", json_schema_extra = { "linkml_meta": {'alias': 'osti_user_id', 'domain_of': ['Person']} })
-    contributor_type: Optional[ContributorType] = Field(default=None, json_schema_extra = { "linkml_meta": {'alias': 'contributor_type', 'domain_of': ['Organization', 'Person']} })
-    affiliations: Optional[list[Affiliation]] = Field(default=None, description="""List of any affiliations for this person.  At least one of either 'name' and/or 'ror_id' is required; if ROR ID is provided, the value will be validated against the OSTI ROR authority.""", json_schema_extra = { "linkml_meta": {'alias': 'affiliations', 'domain_of': ['Person']} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Person"]
+    class_class_curie: ClassVar[str] = "osti:Person"
+    class_name: ClassVar[str] = "Person"
+    class_model_uri: ClassVar[URIRef] = OSTI.Person
 
-    @field_validator('type')
-    def pattern_type(cls, v):
-        pattern=re.compile(r"^.{0,20}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid type format: {v}"
-            raise ValueError(err_msg)
-        return v
+    type: Union[str, "PersonType"] = None
+    first_name: Optional[str] = None
+    middle_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[Union[str, list[str]]] = empty_list()
+    orcid: Optional[str] = None
+    phone: Optional[str] = None
+    osti_user_id: Optional[int] = None
+    contributor_type: Optional[Union[str, "ContributorType"]] = None
+    affiliations: Optional[Union[Union[dict, "Affiliation"], list[Union[dict, "Affiliation"]]]] = empty_list()
 
-    @field_validator('first_name')
-    def pattern_first_name(cls, v):
-        pattern=re.compile(r"^.{0,50}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid first_name format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid first_name format: {v}"
-            raise ValueError(err_msg)
-        return v
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, PersonType):
+            self.type = PersonType(self.type)
 
-    @field_validator('middle_name')
-    def pattern_middle_name(cls, v):
-        pattern=re.compile(r"^.{0,50}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid middle_name format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid middle_name format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.first_name is not None and not isinstance(self.first_name, str):
+            self.first_name = str(self.first_name)
 
-    @field_validator('last_name')
-    def pattern_last_name(cls, v):
-        pattern=re.compile(r"^.{0,60}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid last_name format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid last_name format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.middle_name is not None and not isinstance(self.middle_name, str):
+            self.middle_name = str(self.middle_name)
 
-    @field_validator('phone')
-    def pattern_phone(cls, v):
-        pattern=re.compile(r"^.{0,30}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid phone format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid phone format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if self.last_name is not None and not isinstance(self.last_name, str):
+            self.last_name = str(self.last_name)
 
-    @field_validator('contributor_type')
-    def pattern_contributor_type(cls, v):
-        pattern=re.compile(r"^.{0,25}$")
-        if isinstance(v, list):
-            for element in v:
-                if isinstance(element, str) and not pattern.match(element):
-                    err_msg = f"Invalid contributor_type format: {element}"
-                    raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
-            err_msg = f"Invalid contributor_type format: {v}"
-            raise ValueError(err_msg)
-        return v
+        if not isinstance(self.email, list):
+            self.email = [self.email] if self.email is not None else []
+        self.email = [v if isinstance(v, str) else str(v) for v in self.email]
+
+        if self.orcid is not None and not isinstance(self.orcid, str):
+            self.orcid = str(self.orcid)
+
+        if self.phone is not None and not isinstance(self.phone, str):
+            self.phone = str(self.phone)
+
+        if self.osti_user_id is not None and not isinstance(self.osti_user_id, int):
+            self.osti_user_id = int(self.osti_user_id)
+
+        if self.contributor_type is not None and not isinstance(self.contributor_type, ContributorType):
+            self.contributor_type = ContributorType(self.contributor_type)
+
+        if not isinstance(self.affiliations, list):
+            self.affiliations = [self.affiliations] if self.affiliations is not None else []
+        self.affiliations = [v if isinstance(v, Affiliation) else Affiliation(**as_dict(v)) for v in self.affiliations]
+
+        super().__post_init__(**kwargs)
 
 
-class Affiliation(ConfiguredBaseModel):
+@dataclass(repr=False)
+class Affiliation(YAMLRoot):
     """
     An affiliation for a person, such as an organization or institution.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/brc/osti_schema'})
+    _inherited_slots: ClassVar[list[str]] = []
 
-    name: Optional[str] = Field(default=None, description="""Name of the institution or laboratory with which this person is affiliated.""", json_schema_extra = { "linkml_meta": {'alias': 'name',
-         'domain_of': ['Organization', 'Affiliation'],
-         'examples': [{'value': 'Dutch Industries Research Laboratory, Oakland, CA'}]} })
-    ror_id: Optional[str] = Field(default=None, description="""ROR ID of this affiliation, if any.  Will be validated against ROR organization authority if present.""", json_schema_extra = { "linkml_meta": {'alias': 'ror_id',
-         'domain_of': ['Organization', 'Affiliation'],
-         'examples': [{'value': '02x0wxr53'}]} })
+    class_class_uri: ClassVar[URIRef] = OSTI["Affiliation"]
+    class_class_curie: ClassVar[str] = "osti:Affiliation"
+    class_name: ClassVar[str] = "Affiliation"
+    class_model_uri: ClassVar[URIRef] = OSTI.Affiliation
+
+    name: Optional[str] = None
+    ror_id: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.ror_id is not None and not isinstance(self.ror_id, str):
+            self.ror_id = str(self.ror_id)
+
+        super().__post_init__(**kwargs)
 
 
-# Model rebuild
-# see https://pydantic-docs.helpmanual.io/usage/models/#rebuilding-a-model
-Records.model_rebuild()
-Record.model_rebuild()
-RelatedIdentifier.model_rebuild()
-Geolocation.model_rebuild()
-Point.model_rebuild()
-Identifier.model_rebuild()
-AuditLog.model_rebuild()
-MediaSet.model_rebuild()
-MediaFile.model_rebuild()
-Organization.model_rebuild()
-OrganizationIdentifier.model_rebuild()
-Person.model_rebuild()
-Affiliation.model_rebuild()
+# Enumerations
+class ContributorType(EnumDefinitionImpl):
+    """
+    Describes the type of contribution to the work.  Required for Persons or Organizations of CONTRIBUTING type.
+    """
+    Chair = PermissibleValue(text="Chair")
+    DataCollector = PermissibleValue(
+        text="DataCollector",
+        description="""Person/institution responsible for finding or gathering data under the guidelines of the author(s) or Principal Investigator.""")
+    DataCurator = PermissibleValue(
+        text="DataCurator",
+        description="""Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted.""")
+    DataManager = PermissibleValue(
+        text="DataManager",
+        description="""Person (or organization with a staff of data managers, such as a data centre) responsible for maintaining the finished resource.""")
+    Distributor = PermissibleValue(
+        text="Distributor",
+        description="""Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form.""")
+    Editor = PermissibleValue(
+        text="Editor",
+        description="A person who oversees the details related to the publication format of the resource.")
+    HostingInstitution = PermissibleValue(
+        text="HostingInstitution",
+        description="The organization allowing the resource to be available on the internet.")
+    Producer = PermissibleValue(
+        text="Producer",
+        description="Typically a person or organization responsible for the artistry and form of a media product.")
+    ProjectLeader = PermissibleValue(
+        text="ProjectLeader",
+        description="""Person officially designated as head of project team instrumental in the work necessary to development of the resource.""")
+    ProjectManager = PermissibleValue(
+        text="ProjectManager",
+        description="""Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams.""")
+    ProjectMember = PermissibleValue(
+        text="ProjectMember",
+        description="Person on the membership list of a designated project/project team.")
+    RegistrationAgency = PermissibleValue(
+        text="RegistrationAgency",
+        description="""Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility.""")
+    RegistrationAuthority = PermissibleValue(
+        text="RegistrationAuthority",
+        description="""A standards-setting body from which Registration Agencies obtain official recognition and guidance.""")
+    RelatedPerson = PermissibleValue(
+        text="RelatedPerson",
+        description="""Person with no specifically defined role in the development of the resource, but who is someone the author wishes to recognize.""")
+    Reviewer = PermissibleValue(text="Reviewer")
+    ReviewAssistant = PermissibleValue(text="ReviewAssistant")
+    ReviewerExternal = PermissibleValue(text="ReviewerExternal")
+    RightsHolder = PermissibleValue(
+        text="RightsHolder",
+        description="""Person or institution owning or managing property rights, including intellectual property rights over the resource.""")
+    StatsReviewer = PermissibleValue(text="StatsReviewer")
+    Supervisor = PermissibleValue(
+        text="Supervisor",
+        description="""Designated administrator over one or more groups working to produce a resource or over one or more steps of development process.""")
+    Translator = PermissibleValue(text="Translator")
+    WorkPackageLeader = PermissibleValue(
+        text="WorkPackageLeader",
+        description="A Work Package is a recognized data product, not all of which is included in publication.")
+    Other = PermissibleValue(
+        text="Other",
+        description="""Any person or institution making a significant contribution, but whose contribution does not \"fit\".""")
+
+    _defn = EnumDefinition(
+        name="ContributorType",
+        description="""Describes the type of contribution to the work.  Required for Persons or Organizations of CONTRIBUTING type.""",
+    )
+
+class RelatedIdentifierType(EnumDefinitionImpl):
+    """
+    Identify the type of this related identifier
+    """
+    ARK = PermissibleValue(text="ARK")
+    arXiv = PermissibleValue(text="arXiv")
+    bibcode = PermissibleValue(text="bibcode")
+    DOI = PermissibleValue(text="DOI")
+    EAN13 = PermissibleValue(text="EAN13")
+    EISSN = PermissibleValue(text="EISSN")
+    IGSN = PermissibleValue(text="IGSN")
+    ISBN = PermissibleValue(text="ISBN")
+    ISSN = PermissibleValue(text="ISSN")
+    ISTC = PermissibleValue(text="ISTC")
+    Handle = PermissibleValue(text="Handle")
+    LISSN = PermissibleValue(text="LISSN")
+    LSID = PermissibleValue(text="LSID")
+    OTHER = PermissibleValue(text="OTHER")
+    PMCID = PermissibleValue(text="PMCID")
+    PMID = PermissibleValue(text="PMID")
+    PURL = PermissibleValue(text="PURL")
+    UPC = PermissibleValue(text="UPC")
+    URI = PermissibleValue(text="URI")
+    URL = PermissibleValue(text="URL")
+    URN = PermissibleValue(text="URN")
+    UUID = PermissibleValue(text="UUID")
+    w3id = PermissibleValue(text="w3id")
+
+    _defn = EnumDefinition(
+        name="RelatedIdentifierType",
+        description="""Identify the type of this related identifier""",
+    )
+
+class RelationType(EnumDefinitionImpl):
+    """
+    Indicates the relationship between this identifier and the source record.
+    """
+    BasedOnData = PermissibleValue(text="BasedOnData")
+    Cites = PermissibleValue(
+        text="Cites",
+        description="indicates that A includes B in a citation")
+    Compiles = PermissibleValue(
+        text="Compiles",
+        description="indicates B is the result of a compile or creation event using A")
+    Continues = PermissibleValue(
+        text="Continues",
+        description="indicates A is a continuation of the work B")
+    Describes = PermissibleValue(text="Describes")
+    Documents = PermissibleValue(
+        text="Documents",
+        description="indicates A is documentation about B")
+    Finances = PermissibleValue(text="Finances")
+    HasComment = PermissibleValue(text="HasComment")
+    HasDerivation = PermissibleValue(text="HasDerivation")
+    HasMetadata = PermissibleValue(
+        text="HasMetadata",
+        description="indicates resource A has additional metadata B")
+    HasPart = PermissibleValue(
+        text="HasPart",
+        description="indicates A includes the part B")
+    HasRelatedMaterial = PermissibleValue(text="HasRelatedMaterial")
+    HasReply = PermissibleValue(text="HasReply")
+    HasReview = PermissibleValue(text="HasReview")
+    HasVersion = PermissibleValue(text="HasVersion")
+    IsBasedOn = PermissibleValue(text="IsBasedOn")
+    IsBasisFor = PermissibleValue(text="IsBasisFor")
+    IsCitedBy = PermissibleValue(
+        text="IsCitedBy",
+        description="indicates that B includes A in a citation")
+    IsCommentOn = PermissibleValue(text="IsCommentOn")
+    IsCompiledBy = PermissibleValue(
+        text="IsCompiledBy",
+        description="indicates B is used to compile or create A")
+    IsContinuedBy = PermissibleValue(
+        text="IsContinuedBy",
+        description="indicates A is continued by the work B")
+    IsDataBasisFor = PermissibleValue(text="IsDataBasisFor")
+    IsDerivedFrom = PermissibleValue(
+        text="IsDerivedFrom",
+        description="indicates B is a source upon which A is based")
+    IsDescribedBy = PermissibleValue(text="IsDescribedBy")
+    IsDocumentedBy = PermissibleValue(
+        text="IsDocumentedBy",
+        description="indicates B is documentation about/explaining A")
+    IsFinancedBy = PermissibleValue(text="IsFinancedBy")
+    IsIdenticalTo = PermissibleValue(
+        text="IsIdenticalTo",
+        description="""indicates that A is identical to B, for use when there is a need to register two separate instances of the same resource""")
+    IsMetadataFor = PermissibleValue(
+        text="IsMetadataFor",
+        description="indicates additional metadata A for a resource B")
+    IsNewVersionOf = PermissibleValue(
+        text="IsNewVersionOf",
+        description="indicates A is a new edition of B, where the new edition has been modified or updated")
+    IsObsoletedBy = PermissibleValue(
+        text="IsObsoletedBy",
+        description="indicates that A is obsoleted by B")
+    IsOriginalFormOf = PermissibleValue(
+        text="IsOriginalFormOf",
+        description="indicates A is the original form of B")
+    IsPartOf = PermissibleValue(
+        text="IsPartOf",
+        description="indicates A is a portion of B; may be used for elements of a series")
+    IsPreviousVersionOf = PermissibleValue(
+        text="IsPreviousVersionOf",
+        description="indicates A is a previous edition of B")
+    IsReferencedBy = PermissibleValue(
+        text="IsReferencedBy",
+        description="indicates A is used as a source of information by B")
+    IsRelatedMaterial = PermissibleValue(text="IsRelatedMaterial")
+    IsReplyTo = PermissibleValue(text="IsReplyTo")
+    IsRequiredBy = PermissibleValue(text="IsRequiredBy")
+    IsReviewedBy = PermissibleValue(
+        text="IsReviewedBy",
+        description="indicates that A is reviewed by B")
+    IsReviewOf = PermissibleValue(text="IsReviewOf")
+    IsSourceOf = PermissibleValue(
+        text="IsSourceOf",
+        description="indicates A is a source upon which B is based")
+    IsSupplementedBy = PermissibleValue(
+        text="IsSupplementedBy",
+        description="indicates that B is a supplement to A")
+    IsSupplementTo = PermissibleValue(
+        text="IsSupplementTo",
+        description="indicates that A is a supplement to B")
+    IsVariantFormOf = PermissibleValue(
+        text="IsVariantFormOf",
+        description="""indicates A is a variant or different form of B, e.g. calculated or calibrated form or different packaging""")
+    IsVersionOf = PermissibleValue(text="IsVersionOf")
+    Obsoletes = PermissibleValue(
+        text="Obsoletes",
+        description="indicates that A obsoletes B")
+    References = PermissibleValue(
+        text="References",
+        description="indicates B is used as a source of information for A")
+    Requires = PermissibleValue(text="Requires")
+    Reviews = PermissibleValue(
+        text="Reviews",
+        description="indicates that A is a review of B")
+
+    _defn = EnumDefinition(
+        name="RelationType",
+        description="""Indicates the relationship between this identifier and the source record.""",
+    )
+
+class WorkflowStatusEnum(EnumDefinitionImpl):
+    """
+    The workflow status of the record.
+    """
+    R = PermissibleValue(
+        text="R",
+        description="Fully released")
+    SA = PermissibleValue(
+        text="SA",
+        description="Saved")
+    SR = PermissibleValue(
+        text="SR",
+        description="Submitted to releasing official")
+    SO = PermissibleValue(
+        text="SO",
+        description="Submitted to OSTI awaiting validation")
+    SF = PermissibleValue(
+        text="SF",
+        description="Submitted to OSTI and failed validation")
+    SX = PermissibleValue(
+        text="SX",
+        description="Submitted to OSTI and failed to release")
+    SV = PermissibleValue(
+        text="SV",
+        description="Submitted to OSTI and failed validation")
+    X = PermissibleValue(
+        text="X",
+        description="Error Status")
+    D = PermissibleValue(
+        text="D",
+        description="Deleted:")
+
+    _defn = EnumDefinition(
+        name="WorkflowStatusEnum",
+        description="The workflow status of the record.",
+    )
+
+class AccessLimitationsEnum(EnumDefinitionImpl):
+    """
+    Access limitation codes to describe the distribution rules and limitations for this work.
+    """
+    UNL = PermissibleValue(
+        text="UNL",
+        description="Unlimited announcement")
+    OPN = PermissibleValue(
+        text="OPN",
+        description="OpenNET; requires opn_declassified_status, opn_declassified_date, identifier of type OPN_ACC")
+    CPY = PermissibleValue(
+        text="CPY",
+        description="Copyright restriction on part or all of the contents of this product")
+    OUO = PermissibleValue(
+        text="OUO",
+        description="Official use only")
+    PROT = PermissibleValue(
+        text="PROT",
+        description="""Protected data (e.g., CRADA); requires prot_flag and pdouo_exemption_number; OTHER requires prot_data_other""")
+    PDOUO = PermissibleValue(
+        text="PDOUO",
+        description="Program-determined OUO; requires pdouo_exemption_number")
+    ECI = PermissibleValue(
+        text="ECI",
+        description="Export-controlled information; requires pdouo_exemption_number")
+    PDSH = PermissibleValue(
+        text="PDSH",
+        description="Protected Data Sensitive Homeland")
+    USO = PermissibleValue(
+        text="USO",
+        description="US Only")
+    LRD = PermissibleValue(
+        text="LRD",
+        description="Limited Rights Data; requires pdouo_exemption_number")
+    NAT = PermissibleValue(
+        text="NAT",
+        description="National Security")
+    NNPI = PermissibleValue(
+        text="NNPI",
+        description="Naval Navigation Propulsion Info")
+    INTL = PermissibleValue(
+        text="INTL",
+        description="International data")
+    PROP = PermissibleValue(
+        text="PROP",
+        description="Proprietary")
+    PAT = PermissibleValue(
+        text="PAT",
+        description="Patented information; requires pdouo_exemption_number")
+    OTHR = PermissibleValue(
+        text="OTHR",
+        description="Other")
+    CUI = PermissibleValue(
+        text="CUI",
+        description="""Controlled Unclassified Information; include specific or basic categories/controls in access_limitation_other""")
+
+    _defn = EnumDefinition(
+        name="AccessLimitationsEnum",
+        description="""Access limitation codes to describe the distribution rules and limitations for this work.""",
+    )
+
+class CollectionTypeEnum(EnumDefinitionImpl):
+    """
+    The OSTI collection type originally creating this record.
+    """
+    DOE_LAB = PermissibleValue(text="DOE_LAB")
+    DOE_GRANT = PermissibleValue(text="DOE_GRANT")
+    CHORUS = PermissibleValue(text="CHORUS")
+
+    _defn = EnumDefinition(
+        name="CollectionTypeEnum",
+        description="The OSTI collection type originally creating this record.",
+    )
+
+class IdentifierType(EnumDefinitionImpl):
+    """
+    Describe the type of identifier
+    """
+    AUTH_REV = PermissibleValue(text="AUTH_REV")
+    CN_DOE = PermissibleValue(text="CN_DOE")
+    CN_NONDOE = PermissibleValue(text="CN_NONDOE")
+    CODEN = PermissibleValue(text="CODEN")
+    DOE_DOCKET = PermissibleValue(
+        text="DOE_DOCKET",
+        description="""DOE Docket number, used for documents submitted to the DOE Electronic Docket Room (e-Docket Room) system.""")
+    EDB = PermissibleValue(text="EDB")
+    ETDE_RN = PermissibleValue(text="ETDE_RN")
+    INIS_RN = PermissibleValue(text="INIS_RN")
+    ISBN = PermissibleValue(
+        text="ISBN",
+        description="International Standard Book Number")
+    ISSN = PermissibleValue(
+        text="ISSN",
+        description="International Standard Serial Number")
+    LEGACY = PermissibleValue(text="LEGACY")
+    NSA = PermissibleValue(text="NSA")
+    OPN_ACC = PermissibleValue(text="OPN_ACC")
+    OTHER_ID = PermissibleValue(text="OTHER_ID")
+    PATENT = PermissibleValue(
+        text="PATENT",
+        description="Patent number")
+    PROJ_ID = PermissibleValue(
+        text="PROJ_ID",
+        description="Project identifier")
+    PROP_REV = PermissibleValue(text="PROP_REV")
+    REF = PermissibleValue(text="REF")
+    REL_TRN = PermissibleValue(text="REL_TRN")
+    RN = PermissibleValue(text="RN")
+    TRN = PermissibleValue(text="TRN")
+    TVI = PermissibleValue(text="TVI")
+    USER_VER = PermissibleValue(text="USER_VER")
+    WORK_AUTH = PermissibleValue(text="WORK_AUTH")
+    WORK_PROP = PermissibleValue(text="WORK_PROP")
+
+    _defn = EnumDefinition(
+        name="IdentifierType",
+        description="Describe the type of identifier",
+    )
+
+class MediaLocationEnum(EnumDefinitionImpl):
+    """
+    Indicates if a media file is stored locally or off-site.
+    """
+    L = PermissibleValue(
+        text="L",
+        description="Local")
+    O = PermissibleValue(
+        text="O",
+        description="Off-Site")
+
+    _defn = EnumDefinition(
+        name="MediaLocationEnum",
+        description="Indicates if a media file is stored locally or off-site.",
+    )
+
+class OrganizationType(EnumDefinitionImpl):
+    """
+    Indicates type of organization.
+    """
+    AUTHOR = PermissibleValue(text="AUTHOR")
+    CONTRIBUTING = PermissibleValue(text="CONTRIBUTING")
+    RESEARCHING = PermissibleValue(text="RESEARCHING")
+    SPONSOR = PermissibleValue(text="SPONSOR")
+
+    _defn = EnumDefinition(
+        name="OrganizationType",
+        description="Indicates type of organization.",
+    )
+
+class OrganizationIdentifierType(EnumDefinitionImpl):
+    """
+    Describe the type of identifier.
+    """
+    AWARD_DOI = PermissibleValue(text="AWARD_DOI")
+    CN_DOE = PermissibleValue(text="CN_DOE")
+    CN_NONDOE = PermissibleValue(text="CN_NONDOE")
+
+    _defn = EnumDefinition(
+        name="OrganizationIdentifierType",
+        description="Describe the type of identifier.",
+    )
+
+class PersonType(EnumDefinitionImpl):
+    """
+    Indicates type of person.
+    """
+    AUTHOR = PermissibleValue(
+        text="AUTHOR",
+        description="""Authors are the main scientists or researchers involved in creating, authoring, or producing the research output/scientific and technical information resource.""")
+    RELEASE = PermissibleValue(
+        text="RELEASE",
+        description="Releasing Official")
+    CONTACT = PermissibleValue(
+        text="CONTACT",
+        description="""Contact Information Persons of these types require at least one valid email address be specified.""")
+    CONTRIBUTING = PermissibleValue(
+        text="CONTRIBUTING",
+        description="""Contributors are people who may have been involved in acquiring resources, collecting data, analyzing resources, developing methodologies, validating information, visualizing data, or otherwise contributing to the output, but would not be considered authors. (A valid contributor_type is required.)""")
+    PROT_CE = PermissibleValue(
+        text="PROT_CE",
+        description="""Protected Data Courtesy Email Information Persons of these types require at least one valid email address be specified.""")
+    PROT_RO = PermissibleValue(
+        text="PROT_RO",
+        description="""Protected Data Actual Releasing Official This field is only applicable to Grantee records that are protected by submitting with the \"PROT\" access limitation.""")
+    SBIZ_PI = PermissibleValue(
+        text="SBIZ_PI",
+        description="""SBIR/STTR Principal Investigator Persons of these types require at least one valid email address be specified.""")
+    SBIZ_BO = PermissibleValue(
+        text="SBIZ_BO",
+        description="""SBIR/STTR Business Official Business official persons require exactly two valid email addresses be specified.""")
+
+    _defn = EnumDefinition(
+        name="PersonType",
+        description="Indicates type of person.",
+    )
+
+class ProductType(EnumDefinitionImpl):
+    """
+    Define the type of product represented by this metadata information. Values presented *in italics* are considered
+    Legacy types.
+    """
+    AR = PermissibleValue(
+        text="AR",
+        description="Accomplishment Report")
+    B = PermissibleValue(
+        text="B",
+        description="Book")
+    CO = PermissibleValue(
+        text="CO",
+        description="Conference")
+    DA = PermissibleValue(
+        text="DA",
+        description="Dataset")
+    FS = PermissibleValue(
+        text="FS",
+        description="Factsheet")
+    JA = PermissibleValue(
+        text="JA",
+        description="Journal Article")
+    MI = PermissibleValue(
+        text="MI",
+        description="Miscellaneous")
+    OT = PermissibleValue(
+        text="OT",
+        description="Other")
+    P = PermissibleValue(
+        text="P",
+        description="Patent")
+    PD = PermissibleValue(
+        text="PD",
+        description="Program Document")
+    SM = PermissibleValue(
+        text="SM",
+        description="Software Manual")
+    TD = PermissibleValue(
+        text="TD",
+        description="Thesis/Dissertation")
+    TR = PermissibleValue(
+        text="TR",
+        description="Technical Report")
+    PA = PermissibleValue(
+        text="PA",
+        description="Patent Application")
+
+    _defn = EnumDefinition(
+        name="ProductType",
+        description="""Define the type of product represented by this metadata information. Values presented *in italics* are considered Legacy types.""",
+    )
+
+class GeolocationType(EnumDefinitionImpl):
+
+    POINT = PermissibleValue(text="POINT")
+    BOX = PermissibleValue(text="BOX")
+    POLYGON = PermissibleValue(text="POLYGON")
+
+    _defn = EnumDefinition(
+        name="GeolocationType",
+    )
+
+# Slots
+class slots:
+    pass
+
+slots.records__records = Slot(uri=OSTI.records, name="records__records", curie=OSTI.curie('records'),
+                   model_uri=OSTI.records__records, domain=None, range=Optional[Union[Union[int, RecordOstiId], list[Union[int, RecordOstiId]]]])
+
+slots.record__osti_id = Slot(uri=OSTI.osti_id, name="record__osti_id", curie=OSTI.curie('osti_id'),
+                   model_uri=OSTI.record__osti_id, domain=None, range=URIRef)
+
+slots.record__identifiers = Slot(uri=OSTI.identifiers, name="record__identifiers", curie=OSTI.curie('identifiers'),
+                   model_uri=OSTI.record__identifiers, domain=None, range=Optional[Union[Union[dict, Identifier], list[Union[dict, Identifier]]]])
+
+slots.record__issue = Slot(uri=OSTI.issue, name="record__issue", curie=OSTI.curie('issue'),
+                   model_uri=OSTI.record__issue, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,80}$'))
+
+slots.record__journal_license_url = Slot(uri=OSTI.journal_license_url, name="record__journal_license_url", curie=OSTI.curie('journal_license_url'),
+                   model_uri=OSTI.record__journal_license_url, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,255}$'))
+
+slots.record__journal_name = Slot(uri=OSTI.journal_name, name="record__journal_name", curie=OSTI.curie('journal_name'),
+                   model_uri=OSTI.record__journal_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,250}$'))
+
+slots.record__journal_open_access_flag = Slot(uri=OSTI.journal_open_access_flag, name="record__journal_open_access_flag", curie=OSTI.curie('journal_open_access_flag'),
+                   model_uri=OSTI.record__journal_open_access_flag, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1}$'))
+
+slots.record__journal_type = Slot(uri=OSTI.journal_type, name="record__journal_type", curie=OSTI.curie('journal_type'),
+                   model_uri=OSTI.record__journal_type, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2}$'))
+
+slots.record__revision = Slot(uri=OSTI.revision, name="record__revision", curie=OSTI.curie('revision'),
+                   model_uri=OSTI.record__revision, domain=None, range=Optional[int])
+
+slots.record__workflow_status = Slot(uri=OSTI.workflow_status, name="record__workflow_status", curie=OSTI.curie('workflow_status'),
+                   model_uri=OSTI.record__workflow_status, domain=None, range=Optional[Union[str, "WorkflowStatusEnum"]])
+
+slots.record__access_limitations = Slot(uri=OSTI.access_limitations, name="record__access_limitations", curie=OSTI.curie('access_limitations'),
+                   model_uri=OSTI.record__access_limitations, domain=None, range=Union[Union[str, "AccessLimitationsEnum"], list[Union[str, "AccessLimitationsEnum"]]],
+                   pattern=re.compile(r'^.{0,5}$'))
+
+slots.record__access_limitation_other = Slot(uri=OSTI.access_limitation_other, name="record__access_limitation_other", curie=OSTI.curie('access_limitation_other'),
+                   model_uri=OSTI.record__access_limitation_other, domain=None, range=Optional[str])
+
+slots.record__added_by = Slot(uri=OSTI.added_by, name="record__added_by", curie=OSTI.curie('added_by'),
+                   model_uri=OSTI.record__added_by, domain=None, range=Optional[int])
+
+slots.record__added_by_email = Slot(uri=OSTI.added_by_email, name="record__added_by_email", curie=OSTI.curie('added_by_email'),
+                   model_uri=OSTI.record__added_by_email, domain=None, range=Optional[str])
+
+slots.record__added_by_name = Slot(uri=OSTI.added_by_name, name="record__added_by_name", curie=OSTI.curie('added_by_name'),
+                   model_uri=OSTI.record__added_by_name, domain=None, range=Optional[str])
+
+slots.record__announcement_codes = Slot(uri=OSTI.announcement_codes, name="record__announcement_codes", curie=OSTI.curie('announcement_codes'),
+                   model_uri=OSTI.record__announcement_codes, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__edition = Slot(uri=OSTI.edition, name="record__edition", curie=OSTI.curie('edition'),
+                   model_uri=OSTI.record__edition, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,10}$'))
+
+slots.record__volume = Slot(uri=OSTI.volume, name="record__volume", curie=OSTI.curie('volume'),
+                   model_uri=OSTI.record__volume, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,68}$'))
+
+slots.record__collection_type = Slot(uri=OSTI.collection_type, name="record__collection_type", curie=OSTI.curie('collection_type'),
+                   model_uri=OSTI.record__collection_type, domain=None, range=Optional[Union[str, "CollectionTypeEnum"]])
+
+slots.record__conference_information = Slot(uri=OSTI.conference_information, name="record__conference_information", curie=OSTI.curie('conference_information'),
+                   model_uri=OSTI.record__conference_information, domain=None, range=Optional[str])
+
+slots.record__conference_type = Slot(uri=OSTI.conference_type, name="record__conference_type", curie=OSTI.curie('conference_type'),
+                   model_uri=OSTI.record__conference_type, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1}$'))
+
+slots.record__contract_award_date = Slot(uri=OSTI.contract_award_date, name="record__contract_award_date", curie=OSTI.curie('contract_award_date'),
+                   model_uri=OSTI.record__contract_award_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__country_publication_code = Slot(uri=OSTI.country_publication_code, name="record__country_publication_code", curie=OSTI.curie('country_publication_code'),
+                   model_uri=OSTI.record__country_publication_code, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,5}$'))
+
+slots.record__date_metadata_added = Slot(uri=OSTI.date_metadata_added, name="record__date_metadata_added", curie=OSTI.curie('date_metadata_added'),
+                   model_uri=OSTI.record__date_metadata_added, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__date_metadata_updated = Slot(uri=OSTI.date_metadata_updated, name="record__date_metadata_updated", curie=OSTI.curie('date_metadata_updated'),
+                   model_uri=OSTI.record__date_metadata_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__date_submitted_to_osti_first = Slot(uri=OSTI.date_submitted_to_osti_first, name="record__date_submitted_to_osti_first", curie=OSTI.curie('date_submitted_to_osti_first'),
+                   model_uri=OSTI.record__date_submitted_to_osti_first, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__date_submitted_to_osti_last = Slot(uri=OSTI.date_submitted_to_osti_last, name="record__date_submitted_to_osti_last", curie=OSTI.curie('date_submitted_to_osti_last'),
+                   model_uri=OSTI.record__date_submitted_to_osti_last, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__date_released_first = Slot(uri=OSTI.date_released_first, name="record__date_released_first", curie=OSTI.curie('date_released_first'),
+                   model_uri=OSTI.record__date_released_first, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__date_released_last = Slot(uri=OSTI.date_released_last, name="record__date_released_last", curie=OSTI.curie('date_released_last'),
+                   model_uri=OSTI.record__date_released_last, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__title = Slot(uri=OSTI.title, name="record__title", curie=OSTI.curie('title'),
+                   model_uri=OSTI.record__title, domain=None, range=str)
+
+slots.record__description = Slot(uri=OSTI.description, name="record__description", curie=OSTI.curie('description'),
+                   model_uri=OSTI.record__description, domain=None, range=Optional[str])
+
+slots.record__descriptors = Slot(uri=OSTI.descriptors, name="record__descriptors", curie=OSTI.curie('descriptors'),
+                   model_uri=OSTI.record__descriptors, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__doe_funded_flag = Slot(uri=OSTI.doe_funded_flag, name="record__doe_funded_flag", curie=OSTI.curie('doe_funded_flag'),
+                   model_uri=OSTI.record__doe_funded_flag, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1}$'))
+
+slots.record__doi = Slot(uri=OSTI.doi, name="record__doi", curie=OSTI.curie('doi'),
+                   model_uri=OSTI.record__doi, domain=None, range=Optional[str])
+
+slots.record__doi_infix = Slot(uri=OSTI.doi_infix, name="record__doi_infix", curie=OSTI.curie('doi_infix'),
+                   model_uri=OSTI.record__doi_infix, domain=None, range=Optional[str])
+
+slots.record__edited_by = Slot(uri=OSTI.edited_by, name="record__edited_by", curie=OSTI.curie('edited_by'),
+                   model_uri=OSTI.record__edited_by, domain=None, range=Optional[int])
+
+slots.record__edited_by_email = Slot(uri=OSTI.edited_by_email, name="record__edited_by_email", curie=OSTI.curie('edited_by_email'),
+                   model_uri=OSTI.record__edited_by_email, domain=None, range=Optional[str])
+
+slots.record__edited_by_name = Slot(uri=OSTI.edited_by_name, name="record__edited_by_name", curie=OSTI.curie('edited_by_name'),
+                   model_uri=OSTI.record__edited_by_name, domain=None, range=Optional[str])
+
+slots.record__edit_reason = Slot(uri=OSTI.edit_reason, name="record__edit_reason", curie=OSTI.curie('edit_reason'),
+                   model_uri=OSTI.record__edit_reason, domain=None, range=Optional[str])
+
+slots.record__edit_source = Slot(uri=OSTI.edit_source, name="record__edit_source", curie=OSTI.curie('edit_source'),
+                   model_uri=OSTI.record__edit_source, domain=None, range=Optional[str])
+
+slots.record__format_information = Slot(uri=OSTI.format_information, name="record__format_information", curie=OSTI.curie('format_information'),
+                   model_uri=OSTI.record__format_information, domain=None, range=Optional[str])
+
+slots.record__media_embargo_sunset_date = Slot(uri=OSTI.media_embargo_sunset_date, name="record__media_embargo_sunset_date", curie=OSTI.curie('media_embargo_sunset_date'),
+                   model_uri=OSTI.record__media_embargo_sunset_date, domain=None, range=Optional[str])
+
+slots.record__publication_date = Slot(uri=OSTI.publication_date, name="record__publication_date", curie=OSTI.curie('publication_date'),
+                   model_uri=OSTI.record__publication_date, domain=None, range=Union[str, XSDDateTime])
+
+slots.record__publication_date_text = Slot(uri=OSTI.publication_date_text, name="record__publication_date_text", curie=OSTI.curie('publication_date_text'),
+                   model_uri=OSTI.record__publication_date_text, domain=None, range=Optional[str])
+
+slots.record__publisher_information = Slot(uri=OSTI.publisher_information, name="record__publisher_information", curie=OSTI.curie('publisher_information'),
+                   model_uri=OSTI.record__publisher_information, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,400}$'))
+
+slots.record__related_doc_info = Slot(uri=OSTI.related_doc_info, name="record__related_doc_info", curie=OSTI.curie('related_doc_info'),
+                   model_uri=OSTI.record__related_doc_info, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2255}$'))
+
+slots.record__keywords = Slot(uri=OSTI.keywords, name="record__keywords", curie=OSTI.curie('keywords'),
+                   model_uri=OSTI.record__keywords, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__languages = Slot(uri=OSTI.languages, name="record__languages", curie=OSTI.curie('languages'),
+                   model_uri=OSTI.record__languages, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__audit_logs = Slot(uri=OSTI.audit_logs, name="record__audit_logs", curie=OSTI.curie('audit_logs'),
+                   model_uri=OSTI.record__audit_logs, domain=None, range=Optional[Union[Union[dict, AuditLog], list[Union[dict, AuditLog]]]])
+
+slots.record__media = Slot(uri=OSTI.media, name="record__media", curie=OSTI.curie('media'),
+                   model_uri=OSTI.record__media, domain=None, range=Optional[Union[Union[dict, MediaSet], list[Union[dict, MediaSet]]]])
+
+slots.record__opn_addressee = Slot(uri=OSTI.opn_addressee, name="record__opn_addressee", curie=OSTI.curie('opn_addressee'),
+                   model_uri=OSTI.record__opn_addressee, domain=None, range=Optional[str])
+
+slots.record__opn_declassified_date = Slot(uri=OSTI.opn_declassified_date, name="record__opn_declassified_date", curie=OSTI.curie('opn_declassified_date'),
+                   model_uri=OSTI.record__opn_declassified_date, domain=None, range=Optional[str])
+
+slots.record__opn_declassified_status = Slot(uri=OSTI.opn_declassified_status, name="record__opn_declassified_status", curie=OSTI.curie('opn_declassified_status'),
+                   model_uri=OSTI.record__opn_declassified_status, domain=None, range=Optional[str])
+
+slots.record__opn_document_categories = Slot(uri=OSTI.opn_document_categories, name="record__opn_document_categories", curie=OSTI.curie('opn_document_categories'),
+                   model_uri=OSTI.record__opn_document_categories, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__opn_document_location = Slot(uri=OSTI.opn_document_location, name="record__opn_document_location", curie=OSTI.curie('opn_document_location'),
+                   model_uri=OSTI.record__opn_document_location, domain=None, range=Optional[str])
+
+slots.record__opn_fieldoffice_acronym_code = Slot(uri=OSTI.opn_fieldoffice_acronym_code, name="record__opn_fieldoffice_acronym_code", curie=OSTI.curie('opn_fieldoffice_acronym_code'),
+                   model_uri=OSTI.record__opn_fieldoffice_acronym_code, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,10}$'))
+
+slots.record__organizations = Slot(uri=OSTI.organizations, name="record__organizations", curie=OSTI.curie('organizations'),
+                   model_uri=OSTI.record__organizations, domain=None, range=Optional[Union[Union[dict, Organization], list[Union[dict, Organization]]]])
+
+slots.record__other_information = Slot(uri=OSTI.other_information, name="record__other_information", curie=OSTI.curie('other_information'),
+                   model_uri=OSTI.record__other_information, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__ouo_release_date = Slot(uri=OSTI.ouo_release_date, name="record__ouo_release_date", curie=OSTI.curie('ouo_release_date'),
+                   model_uri=OSTI.record__ouo_release_date, domain=None, range=Optional[str])
+
+slots.record__paper_flag = Slot(uri=OSTI.paper_flag, name="record__paper_flag", curie=OSTI.curie('paper_flag'),
+                   model_uri=OSTI.record__paper_flag, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.record__hidden_flag = Slot(uri=OSTI.hidden_flag, name="record__hidden_flag", curie=OSTI.curie('hidden_flag'),
+                   model_uri=OSTI.record__hidden_flag, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.record__sensitivity_flag = Slot(uri=OSTI.sensitivity_flag, name="record__sensitivity_flag", curie=OSTI.curie('sensitivity_flag'),
+                   model_uri=OSTI.record__sensitivity_flag, domain=None, range=Optional[str])
+
+slots.record__doe_supported_flag = Slot(uri=OSTI.doe_supported_flag, name="record__doe_supported_flag", curie=OSTI.curie('doe_supported_flag'),
+                   model_uri=OSTI.record__doe_supported_flag, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.record__peer_reviewed_flag = Slot(uri=OSTI.peer_reviewed_flag, name="record__peer_reviewed_flag", curie=OSTI.curie('peer_reviewed_flag'),
+                   model_uri=OSTI.record__peer_reviewed_flag, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.record__patent_assignee = Slot(uri=OSTI.patent_assignee, name="record__patent_assignee", curie=OSTI.curie('patent_assignee'),
+                   model_uri=OSTI.record__patent_assignee, domain=None, range=Optional[str])
+
+slots.record__patent_file_date = Slot(uri=OSTI.patent_file_date, name="record__patent_file_date", curie=OSTI.curie('patent_file_date'),
+                   model_uri=OSTI.record__patent_file_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__patent_priority_date = Slot(uri=OSTI.patent_priority_date, name="record__patent_priority_date", curie=OSTI.curie('patent_priority_date'),
+                   model_uri=OSTI.record__patent_priority_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__pdouo_exemption_number = Slot(uri=OSTI.pdouo_exemption_number, name="record__pdouo_exemption_number", curie=OSTI.curie('pdouo_exemption_number'),
+                   model_uri=OSTI.record__pdouo_exemption_number, domain=None, range=Optional[str])
+
+slots.record__persons = Slot(uri=OSTI.persons, name="record__persons", curie=OSTI.curie('persons'),
+                   model_uri=OSTI.record__persons, domain=None, range=Optional[Union[Union[dict, Person], list[Union[dict, Person]]]])
+
+slots.record__product_size = Slot(uri=OSTI.product_size, name="record__product_size", curie=OSTI.curie('product_size'),
+                   model_uri=OSTI.record__product_size, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.record__product_type = Slot(uri=OSTI.product_type, name="record__product_type", curie=OSTI.curie('product_type'),
+                   model_uri=OSTI.record__product_type, domain=None, range=Optional[Union[str, "ProductType"]],
+                   pattern=re.compile(r'^.{0,2}$'))
+
+slots.record__product_type_other = Slot(uri=OSTI.product_type_other, name="record__product_type_other", curie=OSTI.curie('product_type_other'),
+                   model_uri=OSTI.record__product_type_other, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,200}$'))
+
+slots.record__prot_flag = Slot(uri=OSTI.prot_flag, name="record__prot_flag", curie=OSTI.curie('prot_flag'),
+                   model_uri=OSTI.record__prot_flag, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,5}$'))
+
+slots.record__prot_data_other = Slot(uri=OSTI.prot_data_other, name="record__prot_data_other", curie=OSTI.curie('prot_data_other'),
+                   model_uri=OSTI.record__prot_data_other, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,80}$'))
+
+slots.record__prot_release_date = Slot(uri=OSTI.prot_release_date, name="record__prot_release_date", curie=OSTI.curie('prot_release_date'),
+                   model_uri=OSTI.record__prot_release_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__availability = Slot(uri=OSTI.availability, name="record__availability", curie=OSTI.curie('availability'),
+                   model_uri=OSTI.record__availability, domain=None, range=Optional[str])
+
+slots.record__subject_category_code = Slot(uri=OSTI.subject_category_code, name="record__subject_category_code", curie=OSTI.curie('subject_category_code'),
+                   model_uri=OSTI.record__subject_category_code, domain=None, range=Optional[Union[str, list[str]]],
+                   pattern=re.compile(r'^.{0,2}$'))
+
+slots.record__subject_category_code_legacy = Slot(uri=OSTI.subject_category_code_legacy, name="record__subject_category_code_legacy", curie=OSTI.curie('subject_category_code_legacy'),
+                   model_uri=OSTI.record__subject_category_code_legacy, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__related_identifiers = Slot(uri=OSTI.related_identifiers, name="record__related_identifiers", curie=OSTI.curie('related_identifiers'),
+                   model_uri=OSTI.record__related_identifiers, domain=None, range=Optional[Union[Union[dict, RelatedIdentifier], list[Union[dict, RelatedIdentifier]]]])
+
+slots.record__released_to_osti_date = Slot(uri=OSTI.released_to_osti_date, name="record__released_to_osti_date", curie=OSTI.curie('released_to_osti_date'),
+                   model_uri=OSTI.record__released_to_osti_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__releasing_official_comments = Slot(uri=OSTI.releasing_official_comments, name="record__releasing_official_comments", curie=OSTI.curie('releasing_official_comments'),
+                   model_uri=OSTI.record__releasing_official_comments, domain=None, range=Optional[str])
+
+slots.record__report_period_end_date = Slot(uri=OSTI.report_period_end_date, name="record__report_period_end_date", curie=OSTI.curie('report_period_end_date'),
+                   model_uri=OSTI.record__report_period_end_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__report_period_start_date = Slot(uri=OSTI.report_period_start_date, name="record__report_period_start_date", curie=OSTI.curie('report_period_start_date'),
+                   model_uri=OSTI.record__report_period_start_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__report_types = Slot(uri=OSTI.report_types, name="record__report_types", curie=OSTI.curie('report_types'),
+                   model_uri=OSTI.record__report_types, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__report_type_other = Slot(uri=OSTI.report_type_other, name="record__report_type_other", curie=OSTI.curie('report_type_other'),
+                   model_uri=OSTI.record__report_type_other, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,80}$'))
+
+slots.record__sbiz_flag = Slot(uri=OSTI.sbiz_flag, name="record__sbiz_flag", curie=OSTI.curie('sbiz_flag'),
+                   model_uri=OSTI.record__sbiz_flag, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,6}$'))
+
+slots.record__sbiz_phase = Slot(uri=OSTI.sbiz_phase, name="record__sbiz_phase", curie=OSTI.curie('sbiz_phase'),
+                   model_uri=OSTI.record__sbiz_phase, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,3}$'))
+
+slots.record__sbiz_previous_contract_number = Slot(uri=OSTI.sbiz_previous_contract_number, name="record__sbiz_previous_contract_number", curie=OSTI.curie('sbiz_previous_contract_number'),
+                   model_uri=OSTI.record__sbiz_previous_contract_number, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,14}$'))
+
+slots.record__sbiz_release_date = Slot(uri=OSTI.sbiz_release_date, name="record__sbiz_release_date", curie=OSTI.curie('sbiz_release_date'),
+                   model_uri=OSTI.record__sbiz_release_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__site_ownership_code = Slot(uri=OSTI.site_ownership_code, name="record__site_ownership_code", curie=OSTI.curie('site_ownership_code'),
+                   model_uri=OSTI.record__site_ownership_code, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,10}$'))
+
+slots.record__site_unique_id = Slot(uri=OSTI.site_unique_id, name="record__site_unique_id", curie=OSTI.curie('site_unique_id'),
+                   model_uri=OSTI.record__site_unique_id, domain=None, range=Optional[str])
+
+slots.record__site_url = Slot(uri=OSTI.site_url, name="record__site_url", curie=OSTI.curie('site_url'),
+                   model_uri=OSTI.record__site_url, domain=None, range=Optional[str])
+
+slots.record__source_input_type = Slot(uri=OSTI.source_input_type, name="record__source_input_type", curie=OSTI.curie('source_input_type'),
+                   model_uri=OSTI.record__source_input_type, domain=None, range=Optional[str])
+
+slots.record__source_edit_type = Slot(uri=OSTI.source_edit_type, name="record__source_edit_type", curie=OSTI.curie('source_edit_type'),
+                   model_uri=OSTI.record__source_edit_type, domain=None, range=Optional[str])
+
+slots.record__geolocations = Slot(uri=OSTI.geolocations, name="record__geolocations", curie=OSTI.curie('geolocations'),
+                   model_uri=OSTI.record__geolocations, domain=None, range=Optional[Union[Union[dict, Geolocation], list[Union[dict, Geolocation]]]])
+
+slots.record__article_type = Slot(uri=OSTI.article_type, name="record__article_type", curie=OSTI.curie('article_type'),
+                   model_uri=OSTI.record__article_type, domain=None, range=Optional[str])
+
+slots.record__authors = Slot(uri=OSTI.authors, name="record__authors", curie=OSTI.curie('authors'),
+                   model_uri=OSTI.record__authors, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__conference_info = Slot(uri=OSTI.conference_info, name="record__conference_info", curie=OSTI.curie('conference_info'),
+                   model_uri=OSTI.record__conference_info, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,255}$'))
+
+slots.record__contract_number = Slot(uri=OSTI.contract_number, name="record__contract_number", curie=OSTI.curie('contract_number'),
+                   model_uri=OSTI.record__contract_number, domain=None, range=Optional[str])
+
+slots.record__country_publication = Slot(uri=OSTI.country_publication, name="record__country_publication", curie=OSTI.curie('country_publication'),
+                   model_uri=OSTI.record__country_publication, domain=None, range=Optional[str])
+
+slots.record__doe_contract_number = Slot(uri=OSTI.doe_contract_number, name="record__doe_contract_number", curie=OSTI.curie('doe_contract_number'),
+                   model_uri=OSTI.record__doe_contract_number, domain=None, range=Optional[str])
+
+slots.record__entry_date = Slot(uri=OSTI.entry_date, name="record__entry_date", curie=OSTI.curie('entry_date'),
+                   model_uri=OSTI.record__entry_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.record__identifier = Slot(uri=OSTI.identifier, name="record__identifier", curie=OSTI.curie('identifier'),
+                   model_uri=OSTI.record__identifier, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__language = Slot(uri=OSTI.language, name="record__language", curie=OSTI.curie('language'),
+                   model_uri=OSTI.record__language, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__links = Slot(uri=OSTI.links, name="record__links", curie=OSTI.curie('links'),
+                   model_uri=OSTI.record__links, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__other_identifiers = Slot(uri=OSTI.other_identifiers, name="record__other_identifiers", curie=OSTI.curie('other_identifiers'),
+                   model_uri=OSTI.record__other_identifiers, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__other_number = Slot(uri=OSTI.other_number, name="record__other_number", curie=OSTI.curie('other_number'),
+                   model_uri=OSTI.record__other_number, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__report_number = Slot(uri=OSTI.report_number, name="record__report_number", curie=OSTI.curie('report_number'),
+                   model_uri=OSTI.record__report_number, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__research_orgs = Slot(uri=OSTI.research_orgs, name="record__research_orgs", curie=OSTI.curie('research_orgs'),
+                   model_uri=OSTI.record__research_orgs, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__sponsor_orgs = Slot(uri=OSTI.sponsor_orgs, name="record__sponsor_orgs", curie=OSTI.curie('sponsor_orgs'),
+                   model_uri=OSTI.record__sponsor_orgs, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__subjects = Slot(uri=OSTI.subjects, name="record__subjects", curie=OSTI.curie('subjects'),
+                   model_uri=OSTI.record__subjects, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__journal_issn = Slot(uri=OSTI.journal_issn, name="record__journal_issn", curie=OSTI.curie('journal_issn'),
+                   model_uri=OSTI.record__journal_issn, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,9}$'))
+
+slots.record__journal_issue = Slot(uri=OSTI.journal_issue, name="record__journal_issue", curie=OSTI.curie('journal_issue'),
+                   model_uri=OSTI.record__journal_issue, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,80}$'))
+
+slots.record__journal_volume = Slot(uri=OSTI.journal_volume, name="record__journal_volume", curie=OSTI.curie('journal_volume'),
+                   model_uri=OSTI.record__journal_volume, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,68}$'))
+
+slots.record__publisher = Slot(uri=OSTI.publisher, name="record__publisher", curie=OSTI.curie('publisher'),
+                   model_uri=OSTI.record__publisher, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,400}$'))
+
+slots.record__relation = Slot(uri=OSTI.relation, name="record__relation", curie=OSTI.curie('relation'),
+                   model_uri=OSTI.record__relation, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,20}$'))
+
+slots.relatedIdentifier__type = Slot(uri=OSTI.type, name="relatedIdentifier__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.relatedIdentifier__type, domain=None, range=Union[str, "RelatedIdentifierType"])
+
+slots.relatedIdentifier__relation = Slot(uri=OSTI.relation, name="relatedIdentifier__relation", curie=OSTI.curie('relation'),
+                   model_uri=OSTI.relatedIdentifier__relation, domain=None, range=Union[str, "RelationType"],
+                   pattern=re.compile(r'^.{0,20}$'))
+
+slots.relatedIdentifier__value = Slot(uri=OSTI.value, name="relatedIdentifier__value", curie=OSTI.curie('value'),
+                   model_uri=OSTI.relatedIdentifier__value, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,2000}$'))
+
+slots.geolocation__type = Slot(uri=OSTI.type, name="geolocation__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.geolocation__type, domain=None, range=Optional[Union[str, "GeolocationType"]])
+
+slots.geolocation__label = Slot(uri=OSTI.label, name="geolocation__label", curie=OSTI.curie('label'),
+                   model_uri=OSTI.geolocation__label, domain=None, range=Optional[str])
+
+slots.geolocation__points = Slot(uri=OSTI.points, name="geolocation__points", curie=OSTI.curie('points'),
+                   model_uri=OSTI.geolocation__points, domain=None, range=Union[Union[dict, Point], list[Union[dict, Point]]])
+
+slots.point__latitude = Slot(uri=OSTI.latitude, name="point__latitude", curie=OSTI.curie('latitude'),
+                   model_uri=OSTI.point__latitude, domain=None, range=float)
+
+slots.point__longitude = Slot(uri=OSTI.longitude, name="point__longitude", curie=OSTI.curie('longitude'),
+                   model_uri=OSTI.point__longitude, domain=None, range=float)
+
+slots.identifier__type = Slot(uri=OSTI.type, name="identifier__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.identifier__type, domain=None, range=Optional[Union[str, "IdentifierType"]])
+
+slots.identifier__value = Slot(uri=OSTI.value, name="identifier__value", curie=OSTI.curie('value'),
+                   model_uri=OSTI.identifier__value, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,100}$'))
+
+slots.auditLog__type = Slot(uri=OSTI.type, name="auditLog__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.auditLog__type, domain=None, range=Optional[str])
+
+slots.auditLog__audit_date = Slot(uri=OSTI.audit_date, name="auditLog__audit_date", curie=OSTI.curie('audit_date'),
+                   model_uri=OSTI.auditLog__audit_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.auditLog__status = Slot(uri=OSTI.status, name="auditLog__status", curie=OSTI.curie('status'),
+                   model_uri=OSTI.auditLog__status, domain=None, range=Optional[str])
+
+slots.auditLog__messages = Slot(uri=OSTI.messages, name="auditLog__messages", curie=OSTI.curie('messages'),
+                   model_uri=OSTI.auditLog__messages, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.mediaSet__media_id = Slot(uri=OSTI.media_id, name="mediaSet__media_id", curie=OSTI.curie('media_id'),
+                   model_uri=OSTI.mediaSet__media_id, domain=None, range=Optional[int])
+
+slots.mediaSet__revision = Slot(uri=OSTI.revision, name="mediaSet__revision", curie=OSTI.curie('revision'),
+                   model_uri=OSTI.mediaSet__revision, domain=None, range=Optional[int])
+
+slots.mediaSet__access_limitations = Slot(uri=OSTI.access_limitations, name="mediaSet__access_limitations", curie=OSTI.curie('access_limitations'),
+                   model_uri=OSTI.mediaSet__access_limitations, domain=None, range=Optional[Union[Union[str, "AccessLimitationsEnum"], list[Union[str, "AccessLimitationsEnum"]]]],
+                   pattern=re.compile(r'^.{0,5}$'))
+
+slots.mediaSet__osti_id = Slot(uri=OSTI.osti_id, name="mediaSet__osti_id", curie=OSTI.curie('osti_id'),
+                   model_uri=OSTI.mediaSet__osti_id, domain=None, range=Optional[int])
+
+slots.mediaSet__status = Slot(uri=OSTI.status, name="mediaSet__status", curie=OSTI.curie('status'),
+                   model_uri=OSTI.mediaSet__status, domain=None, range=Optional[str])
+
+slots.mediaSet__added_by = Slot(uri=OSTI.added_by, name="mediaSet__added_by", curie=OSTI.curie('added_by'),
+                   model_uri=OSTI.mediaSet__added_by, domain=None, range=Optional[int])
+
+slots.mediaSet__document_page_count = Slot(uri=OSTI.document_page_count, name="mediaSet__document_page_count", curie=OSTI.curie('document_page_count'),
+                   model_uri=OSTI.mediaSet__document_page_count, domain=None, range=Optional[int])
+
+slots.mediaSet__mime_type = Slot(uri=OSTI.mime_type, name="mediaSet__mime_type", curie=OSTI.curie('mime_type'),
+                   model_uri=OSTI.mediaSet__mime_type, domain=None, range=Optional[str])
+
+slots.mediaSet__media_title = Slot(uri=OSTI.media_title, name="mediaSet__media_title", curie=OSTI.curie('media_title'),
+                   model_uri=OSTI.mediaSet__media_title, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,500}$'))
+
+slots.mediaSet__media_location = Slot(uri=OSTI.media_location, name="mediaSet__media_location", curie=OSTI.curie('media_location'),
+                   model_uri=OSTI.mediaSet__media_location, domain=None, range=Optional[Union[str, "MediaLocationEnum"]])
+
+slots.mediaSet__media_source = Slot(uri=OSTI.media_source, name="mediaSet__media_source", curie=OSTI.curie('media_source'),
+                   model_uri=OSTI.mediaSet__media_source, domain=None, range=Optional[str])
+
+slots.mediaSet__date_added = Slot(uri=OSTI.date_added, name="mediaSet__date_added", curie=OSTI.curie('date_added'),
+                   model_uri=OSTI.mediaSet__date_added, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__date_updated = Slot(uri=OSTI.date_updated, name="mediaSet__date_updated", curie=OSTI.curie('date_updated'),
+                   model_uri=OSTI.mediaSet__date_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__date_valid_end = Slot(uri=OSTI.date_valid_end, name="mediaSet__date_valid_end", curie=OSTI.curie('date_valid_end'),
+                   model_uri=OSTI.mediaSet__date_valid_end, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__files = Slot(uri=OSTI.files, name="mediaSet__files", curie=OSTI.curie('files'),
+                   model_uri=OSTI.mediaSet__files, domain=None, range=Optional[Union[Union[dict, MediaFile], list[Union[dict, MediaFile]]]])
+
+slots.mediaFile__media_file_id = Slot(uri=OSTI.media_file_id, name="mediaFile__media_file_id", curie=OSTI.curie('media_file_id'),
+                   model_uri=OSTI.mediaFile__media_file_id, domain=None, range=Optional[int])
+
+slots.mediaFile__media_id = Slot(uri=OSTI.media_id, name="mediaFile__media_id", curie=OSTI.curie('media_id'),
+                   model_uri=OSTI.mediaFile__media_id, domain=None, range=Optional[int])
+
+slots.mediaFile__checksum = Slot(uri=OSTI.checksum, name="mediaFile__checksum", curie=OSTI.curie('checksum'),
+                   model_uri=OSTI.mediaFile__checksum, domain=None, range=Optional[str])
+
+slots.mediaFile__revision = Slot(uri=OSTI.revision, name="mediaFile__revision", curie=OSTI.curie('revision'),
+                   model_uri=OSTI.mediaFile__revision, domain=None, range=Optional[int])
+
+slots.mediaFile__parent_media_file_id = Slot(uri=OSTI.parent_media_file_id, name="mediaFile__parent_media_file_id", curie=OSTI.curie('parent_media_file_id'),
+                   model_uri=OSTI.mediaFile__parent_media_file_id, domain=None, range=Optional[int])
+
+slots.mediaFile__status = Slot(uri=OSTI.status, name="mediaFile__status", curie=OSTI.curie('status'),
+                   model_uri=OSTI.mediaFile__status, domain=None, range=Optional[str])
+
+slots.mediaFile__media_type = Slot(uri=OSTI.media_type, name="mediaFile__media_type", curie=OSTI.curie('media_type'),
+                   model_uri=OSTI.mediaFile__media_type, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,1}$'))
+
+slots.mediaFile__url_type = Slot(uri=OSTI.url_type, name="mediaFile__url_type", curie=OSTI.curie('url_type'),
+                   model_uri=OSTI.mediaFile__url_type, domain=None, range=Optional[Union[str, "MediaLocationEnum"]],
+                   pattern=re.compile(r'^.{0,1}$'))
+
+slots.mediaFile__url = Slot(uri=OSTI.url, name="mediaFile__url", curie=OSTI.curie('url'),
+                   model_uri=OSTI.mediaFile__url, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,255}$'))
+
+slots.mediaFile__mime_type = Slot(uri=OSTI.mime_type, name="mediaFile__mime_type", curie=OSTI.curie('mime_type'),
+                   model_uri=OSTI.mediaFile__mime_type, domain=None, range=Optional[str])
+
+slots.mediaFile__added_by_user_id = Slot(uri=OSTI.added_by_user_id, name="mediaFile__added_by_user_id", curie=OSTI.curie('added_by_user_id'),
+                   model_uri=OSTI.mediaFile__added_by_user_id, domain=None, range=Optional[int])
+
+slots.mediaFile__media_source = Slot(uri=OSTI.media_source, name="mediaFile__media_source", curie=OSTI.curie('media_source'),
+                   model_uri=OSTI.mediaFile__media_source, domain=None, range=Optional[str])
+
+slots.mediaFile__file_size_bytes = Slot(uri=OSTI.file_size_bytes, name="mediaFile__file_size_bytes", curie=OSTI.curie('file_size_bytes'),
+                   model_uri=OSTI.mediaFile__file_size_bytes, domain=None, range=Optional[int])
+
+slots.mediaFile__duration_seconds = Slot(uri=OSTI.duration_seconds, name="mediaFile__duration_seconds", curie=OSTI.curie('duration_seconds'),
+                   model_uri=OSTI.mediaFile__duration_seconds, domain=None, range=Optional[int])
+
+slots.mediaFile__document_page_count = Slot(uri=OSTI.document_page_count, name="mediaFile__document_page_count", curie=OSTI.curie('document_page_count'),
+                   model_uri=OSTI.mediaFile__document_page_count, domain=None, range=Optional[int])
+
+slots.mediaFile__subtitle_tracks = Slot(uri=OSTI.subtitle_tracks, name="mediaFile__subtitle_tracks", curie=OSTI.curie('subtitle_tracks'),
+                   model_uri=OSTI.mediaFile__subtitle_tracks, domain=None, range=Optional[int])
+
+slots.mediaFile__video_tracks = Slot(uri=OSTI.video_tracks, name="mediaFile__video_tracks", curie=OSTI.curie('video_tracks'),
+                   model_uri=OSTI.mediaFile__video_tracks, domain=None, range=Optional[int])
+
+slots.mediaFile__pdf_version = Slot(uri=OSTI.pdf_version, name="mediaFile__pdf_version", curie=OSTI.curie('pdf_version'),
+                   model_uri=OSTI.mediaFile__pdf_version, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfa_conformance = Slot(uri=OSTI.pdfa_conformance, name="mediaFile__pdfa_conformance", curie=OSTI.curie('pdfa_conformance'),
+                   model_uri=OSTI.mediaFile__pdfa_conformance, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfa_part = Slot(uri=OSTI.pdfa_part, name="mediaFile__pdfa_part", curie=OSTI.curie('pdfa_part'),
+                   model_uri=OSTI.mediaFile__pdfa_part, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfua_part = Slot(uri=OSTI.pdfua_part, name="mediaFile__pdfua_part", curie=OSTI.curie('pdfua_part'),
+                   model_uri=OSTI.mediaFile__pdfua_part, domain=None, range=Optional[str])
+
+slots.mediaFile__processing_exceptions = Slot(uri=OSTI.processing_exceptions, name="mediaFile__processing_exceptions", curie=OSTI.curie('processing_exceptions'),
+                   model_uri=OSTI.mediaFile__processing_exceptions, domain=None, range=Optional[str])
+
+slots.mediaFile__date_file_added = Slot(uri=OSTI.date_file_added, name="mediaFile__date_file_added", curie=OSTI.curie('date_file_added'),
+                   model_uri=OSTI.mediaFile__date_file_added, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaFile__date_file_updated = Slot(uri=OSTI.date_file_updated, name="mediaFile__date_file_updated", curie=OSTI.curie('date_file_updated'),
+                   model_uri=OSTI.mediaFile__date_file_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.organization__type = Slot(uri=OSTI.type, name="organization__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.organization__type, domain=None, range=Union[str, "OrganizationType"],
+                   pattern=re.compile(r'^.{0,20}$'))
+
+slots.organization__name = Slot(uri=OSTI.name, name="organization__name", curie=OSTI.curie('name'),
+                   model_uri=OSTI.organization__name, domain=None, range=str,
+                   pattern=re.compile(r'^.{0,800}$'))
+
+slots.organization__contributor_type = Slot(uri=OSTI.contributor_type, name="organization__contributor_type", curie=OSTI.curie('contributor_type'),
+                   model_uri=OSTI.organization__contributor_type, domain=None, range=Optional[Union[str, "ContributorType"]],
+                   pattern=re.compile(r'^.{0,25}$'))
+
+slots.organization__ror_id = Slot(uri=OSTI.ror_id, name="organization__ror_id", curie=OSTI.curie('ror_id'),
+                   model_uri=OSTI.organization__ror_id, domain=None, range=Optional[str])
+
+slots.organization__identifiers = Slot(uri=OSTI.identifiers, name="organization__identifiers", curie=OSTI.curie('identifiers'),
+                   model_uri=OSTI.organization__identifiers, domain=None, range=Optional[Union[Union[dict, OrganizationIdentifier], list[Union[dict, OrganizationIdentifier]]]])
+
+slots.organizationIdentifier__type = Slot(uri=OSTI.type, name="organizationIdentifier__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.organizationIdentifier__type, domain=None, range=Union[str, "OrganizationIdentifierType"],
+                   pattern=re.compile(r'^.{0,20}$'))
+
+slots.organizationIdentifier__value = Slot(uri=OSTI.value, name="organizationIdentifier__value", curie=OSTI.curie('value'),
+                   model_uri=OSTI.organizationIdentifier__value, domain=None, range=str)
+
+slots.person__type = Slot(uri=OSTI.type, name="person__type", curie=OSTI.curie('type'),
+                   model_uri=OSTI.person__type, domain=None, range=Union[str, "PersonType"],
+                   pattern=re.compile(r'^.{0,20}$'))
+
+slots.person__first_name = Slot(uri=OSTI.first_name, name="person__first_name", curie=OSTI.curie('first_name'),
+                   model_uri=OSTI.person__first_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.person__middle_name = Slot(uri=OSTI.middle_name, name="person__middle_name", curie=OSTI.curie('middle_name'),
+                   model_uri=OSTI.person__middle_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,50}$'))
+
+slots.person__last_name = Slot(uri=OSTI.last_name, name="person__last_name", curie=OSTI.curie('last_name'),
+                   model_uri=OSTI.person__last_name, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,60}$'))
+
+slots.person__email = Slot(uri=OSTI.email, name="person__email", curie=OSTI.curie('email'),
+                   model_uri=OSTI.person__email, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.person__orcid = Slot(uri=OSTI.orcid, name="person__orcid", curie=OSTI.curie('orcid'),
+                   model_uri=OSTI.person__orcid, domain=None, range=Optional[str])
+
+slots.person__phone = Slot(uri=OSTI.phone, name="person__phone", curie=OSTI.curie('phone'),
+                   model_uri=OSTI.person__phone, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,30}$'))
+
+slots.person__osti_user_id = Slot(uri=OSTI.osti_user_id, name="person__osti_user_id", curie=OSTI.curie('osti_user_id'),
+                   model_uri=OSTI.person__osti_user_id, domain=None, range=Optional[int])
+
+slots.person__contributor_type = Slot(uri=OSTI.contributor_type, name="person__contributor_type", curie=OSTI.curie('contributor_type'),
+                   model_uri=OSTI.person__contributor_type, domain=None, range=Optional[Union[str, "ContributorType"]],
+                   pattern=re.compile(r'^.{0,25}$'))
+
+slots.person__affiliations = Slot(uri=OSTI.affiliations, name="person__affiliations", curie=OSTI.curie('affiliations'),
+                   model_uri=OSTI.person__affiliations, domain=None, range=Optional[Union[Union[dict, Affiliation], list[Union[dict, Affiliation]]]])
+
+slots.affiliation__name = Slot(uri=OSTI.name, name="affiliation__name", curie=OSTI.curie('name'),
+                   model_uri=OSTI.affiliation__name, domain=None, range=Optional[str])
+
+slots.affiliation__ror_id = Slot(uri=OSTI.ror_id, name="affiliation__ror_id", curie=OSTI.curie('ror_id'),
+                   model_uri=OSTI.affiliation__ror_id, domain=None, range=Optional[str])
 
