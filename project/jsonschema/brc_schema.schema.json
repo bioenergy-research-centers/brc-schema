@@ -623,6 +623,8 @@
                 "AmeriFlux",
                 "Bio-Protocol",
                 "Dryad",
+                "EDI Data Portal",
+                "European Nucleotide Archive",
                 "FigShare",
                 "GenBank",
                 "GEO",
@@ -632,6 +634,7 @@
                 "ICE",
                 "Illinois Data Bank",
                 "iProX",
+                "JGI Data Portal",
                 "JGI Gold",
                 "JGI Genome Portal",
                 "jPOST",
@@ -640,11 +643,13 @@
                 "National Microbiome Data Collaborative",
                 "NCBI BioProject",
                 "NCBI SRA",
+                "Open Science Framework",
                 "ORNL DAAC",
                 "OSTI",
                 "PanoramaPublic",
                 "PedtideAtlas",
                 "PRIDE",
+                "Princeton Data Commons",
                 "Protein Data Bank",
                 "The Cambridge Crystallographic Data Centre",
                 "Zenodo"
@@ -679,5 +684,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.5"
+    "version": "0.1.6"
 }

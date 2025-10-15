@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-10-09T12:21:47
+# Generation date: 2025-10-15T18:31:45
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.5"
+version = "0.1.6"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -806,6 +806,14 @@ class RepositoryEnum(EnumDefinitionImpl):
                 text="Bio-Protocol",
                 description="Bio-Protocol",
                 meaning=ROR["04pvg6f08"]))
+        setattr(cls, "EDI Data Portal",
+            PermissibleValue(
+                text="EDI Data Portal",
+                description="Environmental Data Initiative Data Portal"))
+        setattr(cls, "European Nucleotide Archive",
+            PermissibleValue(
+                text="European Nucleotide Archive",
+                description="European Nucleotide Archive"))
         setattr(cls, "GLBRC Sustainability",
             PermissibleValue(
                 text="GLBRC Sustainability",
@@ -818,6 +826,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="Illinois Data Bank",
                 description="Illinois Data Bank"))
+        setattr(cls, "JGI Data Portal",
+            PermissibleValue(
+                text="JGI Data Portal",
+                description="Joint Genome Institute Data Portal"))
         setattr(cls, "JGI Gold",
             PermissibleValue(
                 text="JGI Gold",
@@ -844,10 +856,18 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="NCBI SRA",
                 description="\"National Center for Biotechnology Information Sequence Read Archive\""))
+        setattr(cls, "Open Science Framework",
+            PermissibleValue(
+                text="Open Science Framework",
+                description="Open Science Framework"))
         setattr(cls, "ORNL DAAC",
             PermissibleValue(
                 text="ORNL DAAC",
                 description="\"Oak Ridge National Laboratory Distributed Active Archive Center\""))
+        setattr(cls, "Princeton Data Commons",
+            PermissibleValue(
+                text="Princeton Data Commons",
+                description="Princeton Data Commons"))
         setattr(cls, "Protein Data Bank",
             PermissibleValue(
                 text="Protein Data Bank",

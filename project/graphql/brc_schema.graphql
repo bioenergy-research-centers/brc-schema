@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.5
+# version: 0.1.6
 enum AnalysisType
   {
     affinity_purification
@@ -80,6 +80,8 @@ enum RepositoryEnum
     AmeriFlux
     Bio__HYPHEN_MINUS__Protocol
     Dryad
+    EDI_Data_Portal
+    European_Nucleotide_Archive
     FigShare
     GenBank
     GEO
@@ -89,6 +91,7 @@ enum RepositoryEnum
     ICE
     Illinois_Data_Bank
     iProX
+    JGI_Data_Portal
     JGI_Gold
     JGI_Genome_Portal
     jPOST
@@ -97,11 +100,13 @@ enum RepositoryEnum
     National_Microbiome_Data_Collaborative
     NCBI_BioProject
     NCBI_SRA
+    Open_Science_Framework
     ORNL_DAAC
     OSTI
     PanoramaPublic
     PedtideAtlas
     PRIDE
+    Princeton_Data_Commons
     Protein_Data_Bank
     The_Cambridge_Crystallographic_Data_Centre
     Zenodo
