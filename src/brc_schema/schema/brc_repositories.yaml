@@ -77,6 +77,14 @@ enums:
         see_also:
           - https://datadryad.org/
         meaning: ror:00x6h5n95
+      EDI Data Portal:
+        description: "Environmental Data Initiative Data Portal"
+        see_also:
+          - https://portal.edirepository.org/nis/home.jsp
+      European Nucleotide Archive:
+        description: "European Nucleotide Archive"
+        see_also:
+          - https://www.ebi.ac.uk/ena
       FigShare:
         description: "FigShare"
         see_also:
@@ -118,6 +126,10 @@ enums:
         description: "Integrated Proteome Resources"
         see_also:
           - http://www.iprox.org/
+      JGI Data Portal:
+        description: "Joint Genome Institute Data Portal"
+        see_also:
+          - https://data.jgi.doe.gov/
       JGI Gold:
         description: "Joint Genome Institute Genome OnLine Database"
         see_also:
@@ -156,6 +168,10 @@ enums:
         see_also:
           - https://www.ncbi.nlm.nih.gov/sra/
           - https://bioregistry.io/registry/insdc.sra
+      Open Science Framework:
+        description: "Open Science Framework"
+        see_also:
+          - https://osf.io/
       ORNL DAAC:
         description: >-
           "Oak Ridge National Laboratory Distributed Active Archive Center"
@@ -178,6 +194,10 @@ enums:
         description: "PRoteomics IDEntifications database"
         see_also:
           - https://www.ebi.ac.uk/pride/
+      Princeton Data Commons:
+        description: "Princeton Data Commons"
+        see_also:
+          - https://datacommons.princeton.edu/
       Protein Data Bank:
         description: "RCSB Protein Data Bank"
         see_also:
