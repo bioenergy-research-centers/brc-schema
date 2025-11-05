@@ -65,6 +65,10 @@ subsets:
       These repositories may require a login to access and
       download some data, depending on the specific dataset
       or resource being accessed.
+  requires_login_for_download:
+    description: >-
+      These repositories allow public access to view metadata
+      about datasets, but require a login to download the actual data.
 
   # The following subsets denote categories for repositories
   # based on their content.
@@ -114,16 +118,22 @@ enums:
         description: "European Nucleotide Archive"
         see_also:
           - https://www.ebi.ac.uk/ena
+        in_subset:
+          - sequence
       FigShare:
         description: "FigShare"
         see_also:
           - https://figshare.com/
         meaning: ror:041mxqs23
+        in_subset:
+          - general_purpose
       GenBank:
         description: "GenBank"
         see_also:
           - https://www.ncbi.nlm.nih.gov/genbank/
           - https://bioregistry.io/registry/genbank
+        in_subset:
+          - sequence
       GEO:
         description: "Gene Expression Omnibus"
         see_also:
@@ -132,33 +142,49 @@ enums:
         description: "GitHub"
         see_also:
           - https://github.com/
+        in_subset:
+          - general_purpose
       GLBRC Sustainability:
         description: >-
           "Great Lakes Bioenergy Research Center Sustainability Data Catalog"
         see_also:
           - https://data.sustainability.glbrc.org/
+        in_subset:
+          - requires_login_for_download
       Iowa State University FigShare:
         description: "Iowa State University FigShare"
         see_also:
           - https://iastate.figshare.com/
+        in_subset:
+          - general_purpose
       ICE:
         description: "Inventory of Composable Elements"
         see_also:
           - https://ice.jbei.org/
         in_subset:
           - requires_login
+          - sequence
       Illinois Data Bank:
         description: "Illinois Data Bank"
         see_also:
           - https://databank.illinois.edu/
+        in_subset:
+          - general_purpose
+      # iProX requires using the IBM Aspera Connect client for data download
       iProX:
         description: "Integrated Proteome Resources"
         see_also:
           - http://www.iprox.org/
+        in_subset:
+          - requires_login
+          - sequence
       JGI Data Portal:
         description: "Joint Genome Institute Data Portal"
         see_also:
           - https://data.jgi.doe.gov/
+        in_subset:
+          - requires_login_for_download
+          - sequence
       JGI Gold:
         description: "Joint Genome Institute Genome OnLine Database"
         see_also:
