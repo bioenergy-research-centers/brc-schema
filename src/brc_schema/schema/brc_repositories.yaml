@@ -84,6 +84,14 @@ subsets:
     description: >-
       These repositories specialize in sequence data,
       such as genomic, transcriptomic, and proteomic sequences.
+  proteomics:
+    description: >-
+      These repositories specialize in proteomics data,
+      such as mass spectrometry and protein identification data.
+  structure:
+    description: >-
+      These repositories specialize in structural data,
+      such as protein structures and crystallographic data.
 
   deprecated:
     description: >-
@@ -182,6 +190,7 @@ enums:
         in_subset:
           - requires_login
           - sequence
+          - proteomics
       # Some files are archived and may not be immediately available for download
       JGI Data Portal:
         description: "Joint Genome Institute Data Portal"
@@ -210,12 +219,14 @@ enums:
           - https://jpostdb.org/
         in_subset:
           - sequence
+          - proteomics
       MassIVE:
         description: "Mass Spectrometry Interactive Virtual Environment"
         see_also:
           - https://massive.ucsd.edu/ProteoSAFe/static/massive.jsp
         in_subset:
           - sequence
+          - proteomics
       Mendeley Data:
         description: "Mendeley Data"
         see_also:
@@ -255,6 +266,8 @@ enums:
           "Oak Ridge National Laboratory Distributed Active Archive Center"
         see_also:
           - https://daac.ornl.gov/
+        in_subset:
+          - requires_login_for_download
       OSTI:
         description: "Office of Scientific and Technical Information"
         see_also:
@@ -267,28 +280,47 @@ enums:
         description: "Panorama Public"
         see_also:
           - https://panoramaweb.org/
+        in_subset:
+          - sequence
+          - proteomics
+          - requires_login_some
       PedtideAtlas:
         description: "PeptideAtlas"
         see_also:
           - http://www.peptideatlas.org/
+        in_subset:
+          - proteomics
       PRIDE:
         description: "PRoteomics IDEntifications database"
         see_also:
           - https://www.ebi.ac.uk/pride/
+        in_subset:
+          - proteomics
       Princeton Data Commons:
         description: "Princeton Data Commons"
         see_also:
           - https://datacommons.princeton.edu/
+        in_subset:
+          - general_purpose
       Protein Data Bank:
         description: "RCSB Protein Data Bank"
         see_also:
           - https://www.rcsb.org/
+        in_subset:
+          - sequence
+          - structure
       The Cambridge Crystallographic Data Centre:
         description: "The Cambridge Crystallographic Data Centre"
         see_also:
           - https://www.ccdc.cam.ac.uk/
         meaning: ror:00zbfm828
+        in_subset:
+          - sequence
+          - structure
+          - requires_login_some
       Zenodo:
         description: "Zenodo"
         see_also:
           - https://zenodo.org/
+        in_subset:
+          - general_purpose
