@@ -76,6 +76,10 @@ subsets:
     description: >-
       These repositories specialize in text-based data,
       such as protocols, publications, and documents.
+  sequence:
+    description: >-
+      These repositories specialize in sequence data,
+      such as genomic, transcriptomic, and proteomic sequences.
 
 
 enums:
