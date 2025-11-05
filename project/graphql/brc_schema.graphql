@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.6
+# version: 0.1.7
 enum AnalysisType
   {
     affinity_purification
@@ -126,25 +126,25 @@ type Contributor
     email: String
     primaryContact: Boolean
     affiliation: String
-    orcid: Uriorcurie
+    orcid: String
     contributorType: ContributorTypeCodes
   }
 
 type Dataset
   {
-    id: Uriorcurie
+    id: String
     active: Boolean
     alert: Boolean
     title: String!
-    date: Date!
+    date: String!
     creator: [Individual]!
     contributors: [Contributor]
     brc: BRCEnum!
     additionalBrcs: [BRCEnum]
     repository: RepositoryEnum
-    bibliographicCitation: Uri
+    bibliographicCitation: String
     identifier: String!
-    hasRelatedIds: [Uriorcurie]
+    hasRelatedIds: [String]
     species: [Organism]
     plasmidFeatures: [Plasmid]
     analysisType: String
@@ -154,7 +154,7 @@ type Dataset
     keywords: [String]
     datasetName: String
     funding: [Funding]
-    datasetUrl: Uri
+    datasetUrl: String
   }
 
 type DatasetCollection
@@ -168,7 +168,7 @@ type Funding
     fundingOrganization: BRCOrganization
     awardNumber: String
     awardTitle: String
-    awardURI: Uriorcurie
+    awardURI: String
   }
 
 type Individual
@@ -177,13 +177,13 @@ type Individual
     email: String
     primaryContact: Boolean
     affiliation: String
-    orcid: Uriorcurie
+    orcid: String
   }
 
 type Organism
   {
     scientificName: String
-    nCBITaxID: Integer
+    nCBITaxID: Int
   }
 
 type Plasmid
@@ -202,5 +202,5 @@ type RelatedItem
   {
     title: String
     relatedItemType: CitedItemType
-    relatedItemIdentifier: Uriorcurie
+    relatedItemIdentifier: String
   }

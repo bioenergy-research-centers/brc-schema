@@ -49,15 +49,54 @@ default_range: string
 imports:
   - linkml:types
 
-# TODO: Set up repositories as a class instead of an enum
 
 subsets:
-  requires_login:
+
+  # The following subsets can be used to group repositories
+  # based on their access requirements.
+  # If a repository is not listed in any subset, it is assumed
+  # to be publicly accessible without login.
+  requires_login_all:
     description: >-
-      These repositories require a login to access data.
-      This does not include resources in which data may
-      be private or restricted, but rather those that
-      require a login to access any data.
+      These repositories require a login to access and
+      download any data.
+  requires_login_some:
+    description: >-
+      These repositories may require a login to access and
+      download some data, depending on the specific dataset
+      or resource being accessed.
+  requires_login_for_download:
+    description: >-
+      These repositories allow public access to view metadata
+      about datasets, but require a login to download the actual data.
+
+  # The following subsets denote categories for repositories
+  # based on their content.
+  general_purpose:
+    description: >-
+      These repositories are general-purpose data repositories,
+      suitable for a wide range of scientific data types.
+  text:
+    description: >-
+      These repositories specialize in text-based data,
+      such as protocols, publications, and documents.
+  sequence:
+    description: >-
+      These repositories specialize in sequence data,
+      such as genomic, transcriptomic, and proteomic sequences.
+  proteomics:
+    description: >-
+      These repositories specialize in proteomics data,
+      such as mass spectrometry and protein identification data.
+  structure:
+    description: >-
+      These repositories specialize in structural data,
+      such as protein structures and crystallographic data.
+
+  deprecated:
+    description: >-
+      These repositories are deprecated and may have been
+      replaced by newer repositories.
 
 enums:
   RepositoryEnum:
@@ -67,16 +106,22 @@ enums:
         description: "AmeriFlux"
         see_also:
           - https://ameriflux.lbl.gov/
+        in_subset:
+          - requires_login
       Bio-Protocol:
         description: "Bio-Protocol"
         see_also:
           - https://bio-protocol.org/
         meaning: ror:04pvg6f08
+        in_subset:
+          - text
       Dryad:
         description: "Dryad"
         see_also:
           - https://datadryad.org/
         meaning: ror:00x6h5n95
+        in_subset:
+          - general_purpose
       EDI Data Portal:
         description: "Environmental Data Initiative Data Portal"
         see_also:
@@ -85,16 +130,22 @@ enums:
         description: "European Nucleotide Archive"
         see_also:
           - https://www.ebi.ac.uk/ena
+        in_subset:
+          - sequence
       FigShare:
         description: "FigShare"
         see_also:
           - https://figshare.com/
         meaning: ror:041mxqs23
+        in_subset:
+          - general_purpose
       GenBank:
         description: "GenBank"
         see_also:
           - https://www.ncbi.nlm.nih.gov/genbank/
           - https://bioregistry.io/registry/genbank
+        in_subset:
+          - sequence
       GEO:
         description: "Gene Expression Omnibus"
         see_also:
@@ -103,61 +154,98 @@ enums:
         description: "GitHub"
         see_also:
           - https://github.com/
+        in_subset:
+          - general_purpose
       GLBRC Sustainability:
         description: >-
           "Great Lakes Bioenergy Research Center Sustainability Data Catalog"
         see_also:
           - https://data.sustainability.glbrc.org/
+        in_subset:
+          - requires_login_for_download
       Iowa State University FigShare:
         description: "Iowa State University FigShare"
         see_also:
           - https://iastate.figshare.com/
+        in_subset:
+          - general_purpose
       ICE:
         description: "Inventory of Composable Elements"
         see_also:
           - https://ice.jbei.org/
         in_subset:
           - requires_login
+          - sequence
       Illinois Data Bank:
         description: "Illinois Data Bank"
         see_also:
           - https://databank.illinois.edu/
+        in_subset:
+          - general_purpose
       iProX:
         description: "Integrated Proteome Resources"
         see_also:
           - http://www.iprox.org/
+        in_subset:
+          - requires_login
+          - sequence
+          - proteomics
+        comments:
+          - "Data download requires the IBM Aspera Connect client."
       JGI Data Portal:
         description: "Joint Genome Institute Data Portal"
         see_also:
           - https://data.jgi.doe.gov/
+        in_subset:
+          - requires_login_for_download
+          - sequence
+        comments:
+          - "Some files are archived and may not be immediately available for download."
       JGI Gold:
         description: "Joint Genome Institute Genome OnLine Database"
         see_also:
           - https://gold.jgi.doe.gov/
           - https://bioregistry.io/registry/gold
+        in_subset:
+          - sequence
       JGI Genome Portal:
         description: "Joint Genome Institute Genome Portal"
         see_also:
           - https://genome.jgi.doe.gov/
+        in_subset:
+          - sequence
+          - deprecated
+        comments:
+          - "The Genome Portal is reaching end of life and will be replaced by the new application JGI Data Portal."
       jPOST:
         description: "Japan ProteOme STandard Repository/Database"
         see_also:
           - https://jpostdb.org/
+        in_subset:
+          - sequence
+          - proteomics
       MassIVE:
         description: "Mass Spectrometry Interactive Virtual Environment"
         see_also:
           - https://massive.ucsd.edu/ProteoSAFe/static/massive.jsp
+        in_subset:
+          - sequence
+          - proteomics
       Mendeley Data:
         description: "Mendeley Data"
         see_also:
           - https://data.mendeley.com/
         meaning: ror:01t2a8a42
+        in_subset:
+          - general_purpose
       National Microbiome Data Collaborative:
         description: >-
           "National Microbiome Data Collaborative"
         see_also:
           - https://microbiomedata.org/
         meaning: ror:05cwx3318
+        in_subset:
+          - sequence
       NCBI BioProject:
         description: "National Center for Biotechnology Information BioProject"
         see_also:
@@ -168,46 +256,75 @@ enums:
         see_also:
           - https://www.ncbi.nlm.nih.gov/sra/
           - https://bioregistry.io/registry/insdc.sra
+        in_subset:
+          - sequence
       Open Science Framework:
         description: "Open Science Framework"
         see_also:
           - https://osf.io/
+        in_subset:
+          - general_purpose
+          - text
       ORNL DAAC:
         description: >-
           "Oak Ridge National Laboratory Distributed Active Archive Center"
         see_also:
           - https://daac.ornl.gov/
+        in_subset:
+          - requires_login_for_download
       OSTI:
         description: "Office of Scientific and Technical Information"
         see_also:
           - https://www.osti.gov/biblio/
         meaning: ror:031478740
+        in_subset:
+          - general_purpose
+          - text
       PanoramaPublic:
         description: "Panorama Public"
         see_also:
           - https://panoramaweb.org/
+        in_subset:
+          - sequence
+          - proteomics
+          - requires_login_some
       PedtideAtlas:
         description: "PeptideAtlas"
         see_also:
           - http://www.peptideatlas.org/
+        in_subset:
+          - proteomics
       PRIDE:
         description: "PRoteomics IDEntifications database"
         see_also:
           - https://www.ebi.ac.uk/pride/
+        in_subset:
+          - proteomics
       Princeton Data Commons:
         description: "Princeton Data Commons"
         see_also:
           - https://datacommons.princeton.edu/
+        in_subset:
+          - general_purpose
       Protein Data Bank:
         description: "RCSB Protein Data Bank"
         see_also:
           - https://www.rcsb.org/
+        in_subset:
+          - sequence
+          - structure
       The Cambridge Crystallographic Data Centre:
         description: "The Cambridge Crystallographic Data Centre"
         see_also:
           - https://www.ccdc.cam.ac.uk/
         meaning: ror:00zbfm828
+        in_subset:
+          - sequence
+          - structure
+          - requires_login_some
       Zenodo:
         description: "Zenodo"
         see_also:
           - https://zenodo.org/
+        in_subset:
+          - general_purpose
