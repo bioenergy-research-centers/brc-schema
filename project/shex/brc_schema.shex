@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.6
+# version: 0.1.7
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
