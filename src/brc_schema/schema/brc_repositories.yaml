@@ -49,15 +49,34 @@ default_range: string
 imports:
   - linkml:types
 
-# TODO: Set up repositories as a class instead of an enum
 
 subsets:
-  requires_login:
+
+  # The following subsets can be used to group repositories
+  # based on their access requirements.
+  # If a repository is not listed in any subset, it is assumed
+  # to be publicly accessible without login.
+  requires_login_all:
     description: >-
-      These repositories require a login to access data.
-      This does not include resources in which data may
-      be private or restricted, but rather those that
-      require a login to access any data.
+      These repositories require a login to access and
+      download any data.
+  requires_login_some:
+    description: >-
+      These repositories may require a login to access and
+      download some data, depending on the specific dataset
+      or resource being accessed.
+
+  # The following subsets denote categories for repositories
+  # based on their content.
+  general_purpose:
+    description: >-
+      These repositories are general-purpose data repositories,
+      suitable for a wide range of scientific data types.
+  text:
+    description: >-
+      These repositories specialize in text-based data,
+      such as protocols, publications, and documents.
+
 
 enums:
   RepositoryEnum:
@@ -67,16 +86,22 @@ enums:
         description: "AmeriFlux"
         see_also:
           - https://ameriflux.lbl.gov/
+        in_subset:
+          - requires_login
       Bio-Protocol:
         description: "Bio-Protocol"
         see_also:
           - https://bio-protocol.org/
         meaning: ror:04pvg6f08
+        in_subset:
+          - text
       Dryad:
         description: "Dryad"
         see_also:
           - https://datadryad.org/
         meaning: ror:00x6h5n95
+        in_subset:
+          - general_purpose
       EDI Data Portal:
         description: "Environmental Data Initiative Data Portal"
         see_also:
