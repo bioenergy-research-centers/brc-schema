@@ -182,7 +182,6 @@ enums:
           - https://databank.illinois.edu/
         in_subset:
           - general_purpose
-      # iProX requires using the IBM Aspera Connect client for data download
       iProX:
         description: "Integrated Proteome Resources"
         see_also:
@@ -191,7 +190,8 @@ enums:
           - requires_login
           - sequence
           - proteomics
-      # Some files are archived and may not be immediately available for download
+        comments:
+          - "Data download requires the IBM Aspera Connect client."
       JGI Data Portal:
         description: "Joint Genome Institute Data Portal"
         see_also:
@@ -199,6 +199,8 @@ enums:
         in_subset:
           - requires_login_for_download
           - sequence
+        comments:
+          - "Some files are archived and may not be immediately available for download."
       JGI Gold:
         description: "Joint Genome Institute Genome OnLine Database"
         see_also:
@@ -213,6 +215,8 @@ enums:
         in_subset:
           - sequence
           - deprecated
+        comments:
+          - "The Genome Portal is reaching end of life and will be replaced by the new application JGI Data Portal."
       jPOST:
         description: "Japan ProteOme STandard Repository/Database"
         see_also:
