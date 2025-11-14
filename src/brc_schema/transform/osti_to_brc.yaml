@@ -9,6 +9,11 @@ class_derivations:
     slot_derivations:
       datasets:
         populated_from: records
+      # The schema version must correspond to the BRC schema version
+      # This is a static value here but is updated when the BRC schema
+      # is updated
+      schema_version:
+        expr: "'0.1.7'"
 
   Dataset:
     populated_from: Record
