@@ -1,0 +1,13 @@
+# Test CLI with multiple IDs using correct syntax
+
+# This works - repeat the option for each ID:
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o test.json
+
+# This also works - single ID:
+brcschema retrieve-osti --osti-ids 2584700 -o test.json
+
+# This works - multiple DOIs:
+brcschema retrieve-osti --dois 10.11578/2584700 --dois 10.11578/2574191 -o test.json
+
+# This works - mixing options:
+brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2574191 -o test.json

@@ -1,0 +1,212 @@
+{
+  "records": [
+    {
+      "osti_id": 2439925,
+      "workflow_status": "R",
+      "access_limitations": [
+        "UNL"
+      ],
+      "country_publication_code": "US",
+      "doe_supported_flag": false,
+      "doi": "10.25983/2439925",
+      "edit_reason": "API metadata update.",
+      "keywords": [
+        "Lignin structure, HSQC, poplar, CELF, CBP, CBI"
+      ],
+      "languages": [
+        "English"
+      ],
+      "paper_flag": false,
+      "peer_reviewed_flag": false,
+      "product_type": "DA",
+      "publication_date": "2024-09-09",
+      "site_ownership_code": "CBI",
+      "title": "Two-dimensional heteronuclear single quantum coherence (HSQC) NMR spectra of lignin isolated from Populus trichocarpa residues after CELF pretreatment and CBP fermentation",
+      "description": "Here we present a curated dataset of a series of two-dimensional heteronuclear single quantum coherence (HSQC) nuclear magnetic resonance (NMR) spectra of lignin isolated from a woody energy crop (Populus trichocarpa) residues after co-solvent enhanced lignocellulosic fractionation (CELF) pretreatment and consolidated bioprocessing (CBP) process. The natural poplar variant GW-9947 from the Center for Bioenergy Innovation (CBI) was used. The poplar was knife milled and passed through a 1 mm sieve. The CELF pretreatment was performed in a Parr autoclave reactor with 7.5 wt % solids loading, 0.5 wt% H2SO4 as catalyst at 150°C with 15, 25 and 30 minutes, respectively. Tetrahydrofuran was added in a 1:1 mass ratio with water as the pretreatment solvent. The residues from CELF pretreatment were then subjected to CBP using the bacterium C. thermocellum DSM 1313. CBP fermentations were performed at 60 °C in a shaker at 50 grams/L solids loadings. Lignin was isolated from the pretreated samples after ball-milling in a porcelain jar with ceramic balls via Retsch PM 200 at 580 rpm for 2.5 h followed by enzymatic hydrolysis in acetate buffer (pH 4.8, 50 °C) for 48 h. The lignin samples were characterized using 13C–1H HSQC experiments which were performed in a Bruker Avance III HD 500 MHz NMR spectrometer operating at a frequency of 125.12 MHz for the 13C nucleus. A standard Bruker pulse sequence was used on a Prodigy platform cryoprobe. The dry lignin samples were dissolved in deuterated dimethylsulfoxide for HSQC experiments. The spectra were acquired under the following acquisition conditions: 210 ppm spectral width in F1 (13C) dimension with 256 data points and 11 ppm spectral width in F2 (1H) dimension with 1024 data points, a 90° pulse, a one bond C–H coupling constant of 145 Hz, a 1.0 s pulse delay, and 64 scans. All the data was processed using the TopSpin 3.6 software (Bruker BioSpin). The NMR spectra provides structural characteristics information about lignin remaining in solids after CELF (150 °C with 15, 25 and 30 minutes) process and C. thermocellum CBP.",
+      "identifiers": [
+        {
+          "type": "RN",
+          "value": "None"
+        },
+        {
+          "type": "CN_DOE",
+          "value": "AC05-00OR22725"
+        }
+      ],
+      "persons": [
+        {
+          "type": "AUTHOR",
+          "first_name": "Yunqiao",
+          "middle_name": "",
+          "last_name": "Pu",
+          "email": [
+            "puy1@ornl.gov"
+          ],
+          "affiliations": [
+            {
+              "name": "University of Tennessee, Knoxville"
+            },
+            {
+              "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)"
+            }
+          ]
+        },
+        {
+          "type": "AUTHOR",
+          "first_name": "Priyanka",
+          "middle_name": "",
+          "last_name": "Singh",
+          "affiliations": [
+            {
+              "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)"
+            }
+          ]
+        },
+        {
+          "type": "AUTHOR",
+          "first_name": "Charles",
+          "middle_name": "",
+          "last_name": "Cai",
+          "affiliations": [
+            {
+              "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)"
+            }
+          ]
+        },
+        {
+          "type": "AUTHOR",
+          "first_name": "Charles",
+          "middle_name": "",
+          "last_name": "Wyman",
+          "affiliations": [
+            {
+              "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)"
+            }
+          ]
+        },
+        {
+          "type": "AUTHOR",
+          "first_name": "Art",
+          "middle_name": "",
+          "last_name": "Ragauskas",
+          "affiliations": [
+            {
+              "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)"
+            }
+          ]
+        }
+      ],
+      "organizations": [
+        {
+          "type": "SPONSOR",
+          "name": "USDOE Office of Science (SC), Biological and Environmental Research (BER). Biological Systems Science (BSS)",
+          "identifiers": []
+        },
+        {
+          "type": "RESEARCHING",
+          "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States)",
+          "identifiers": []
+        }
+      ],
+      "related_identifiers": [],
+      "site_url": "https://labkey.ornl.gov/labkey/CBI/ragauskas/Public Data/NMR_Spectra_Populus_Trichocarpa/project-begin.view?",
+      "revision": 9,
+      "added_by": 234000,
+      "edited_by": 106701,
+      "collection_type": "DOE_LAB",
+      "date_metadata_added": "2024-09-09T13:05:52.764000+00:00",
+      "date_metadata_updated": "2025-10-08T14:55:01.938000+00:00",
+      "date_submitted_to_osti_first": "2024-09-09T13:05:52.710000+00:00",
+      "date_submitted_to_osti_last": "2025-10-08T14:55:01.947000+00:00",
+      "date_released_first": "2024-10-15T02:05:04.353000+00:00",
+      "date_released_last": "2025-10-08T14:55:03.024000+00:00",
+      "sensitivity_flag": "U",
+      "hidden_flag": false,
+      "media": [
+        {
+          "media_id": 2121168,
+          "revision": 3,
+          "osti_id": 2439925,
+          "status": "C",
+          "document_page_count": 1,
+          "mime_type": "text/html",
+          "media_location": "O",
+          "media_source": "DOE2416WEB",
+          "date_added": "2024-10-14T17:27:22.714000+00:00",
+          "date_updated": "2024-10-15T02:05:02.043000+00:00",
+          "files": [
+            {
+              "media_file_id": 11948204,
+              "media_id": 2121168,
+              "revision": 3,
+              "status": "DONE",
+              "media_type": "O",
+              "url_type": "O",
+              "url": "https://labkey.ornl.gov/labkey/CBI/ragauskas/Public Data/NMR_Spectra_Populus_Trichocarpa/project-begin.view?",
+              "mime_type": "text/html",
+              "media_source": "DOE2416WEB",
+              "date_file_added": "2024-10-14T17:27:22.714000+00:00",
+              "date_file_updated": "2024-10-15T02:05:01.678000+00:00"
+            },
+            {
+              "media_file_id": 11948554,
+              "media_id": 2121168,
+              "revision": 3,
+              "status": "DONE",
+              "media_type": "C",
+              "url_type": "L",
+              "document_page_count": 1,
+              "file_size_bytes": 10888,
+              "duration_seconds": 0,
+              "mime_type": "text/html",
+              "media_source": "OFF_SITE_DOWNLOAD",
+              "date_file_added": "2024-10-15T02:05:01.690000+00:00",
+              "date_file_updated": "2024-10-15T02:05:02.054000+00:00"
+            },
+            {
+              "media_file_id": 11948555,
+              "media_id": 2121168,
+              "revision": 3,
+              "status": "DONE",
+              "media_type": "T",
+              "url_type": "L",
+              "document_page_count": 1,
+              "file_size_bytes": 1707,
+              "duration_seconds": 0,
+              "mime_type": "text/plain",
+              "media_source": "TEXT_EXTRACTION",
+              "date_file_added": "2024-10-15T02:05:02.043000+00:00",
+              "date_file_updated": "2024-10-15T02:05:02.049000+00:00"
+            }
+          ]
+        }
+      ],
+      "audit_logs": [
+        {
+          "messages": [
+            "Revision passed validation."
+          ],
+          "status": "SUCCESS",
+          "type": "VALIDATOR",
+          "audit_date": "2025-10-08T14:55:02.022000+00:00"
+        },
+        {
+          "messages": [
+            "Release successful."
+          ],
+          "status": "SUCCESS",
+          "type": "RELEASER",
+          "audit_date": "2025-10-08T14:55:03.045000+00:00"
+        },
+        {
+          "messages": [
+            "DOI has been successfully updated at DataCite."
+          ],
+          "status": "INFO",
+          "type": "DOI",
+          "audit_date": "2025-10-08T14:55:05.308000+00:00"
+        }
+      ]
+    }
+  ]
+}
