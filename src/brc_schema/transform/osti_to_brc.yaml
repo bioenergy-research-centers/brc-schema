@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: "'0.1.7'"
+        expr: '0.1.7'
 
   Dataset:
     populated_from: Record
