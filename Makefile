@@ -122,6 +122,7 @@ gen-examples:
 # generates all project files
 
 gen-project: $(PYMODEL)
+	$(RUN) python scripts/update_transform_version.py
 	$(RUN) gen-project ${CONFIG_YAML} -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(PYMODEL)
 
 

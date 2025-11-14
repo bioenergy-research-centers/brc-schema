@@ -1,0 +1,129 @@
+records:
+- osti_id: 2584699
+  workflow_status: R
+  access_limitations:
+  - UNL
+  country_publication_code: US
+  doe_supported_flag: false
+  doi: 10.11578/2584699
+  edit_reason: API record creation.
+  languages:
+  - English
+  paper_flag: false
+  peer_reviewed_flag: false
+  product_type: DA
+  publication_date: '2025-02-26'
+  site_ownership_code: GLBRC
+  title: A small number of point mutations confer formate tolerance in <em>Shewanella
+    oneidensis</em>
+  description: Several strains of formate-tolerant <em>Shewanella oneidensis</em>
+    were evolved through continuous subculturing in minimal lactate media with increasing
+    concentrations of formate over time.
+  identifiers:
+  - type: RN
+    value: PRJNA1228652
+  - type: CN_DOE
+    value: SC0018409
+  persons: []
+  organizations:
+  - type: SPONSOR
+    name: USDOE Office of Science (SC), Biological and Environmental Research (BER)
+    identifiers:
+    - type: CN_DOE
+      value: SC0018409
+  - type: RESEARCHING
+    name: Great Lakes Bioenergy Research Center (GLBRC) (GLBRC)
+    identifiers: []
+  - type: AUTHOR
+    name: Great Lakes Bioenergy Research Center
+    identifiers: []
+  - type: AUTHOR
+    name: Michigan State University
+    identifiers: []
+  related_identifiers: []
+  site_url: https://www.ncbi.nlm.nih.gov/bioproject/
+  revision: 1
+  added_by: 238145
+  edited_by: 238145
+  collection_type: DOE_LAB
+  date_metadata_added: '2025-08-25T20:55:45.865000+00:00'
+  date_metadata_updated: '2025-08-25T20:55:45.865000+00:00'
+  date_submitted_to_osti_first: '2025-08-25T20:55:45.588000+00:00'
+  date_submitted_to_osti_last: '2025-08-25T20:55:45.588000+00:00'
+  date_released_first: '2025-08-25T20:55:49.671000+00:00'
+  date_released_last: '2025-08-25T20:55:49.671000+00:00'
+  sensitivity_flag: U
+  hidden_flag: false
+  media:
+  - media_id: 2268112
+    revision: 1
+    osti_id: 2584699
+    status: C
+    document_page_count: 0
+    mime_type: text/xml
+    media_title: ''
+    media_location: O
+    media_source: ELINK_2_API
+    date_added: '2025-08-25T20:55:45.865000+00:00'
+    date_updated: '2025-08-25T20:55:48.791000+00:00'
+    files:
+    - media_file_id: 12405141
+      media_id: 2268112
+      revision: 1
+      status: DONE
+      processing_exceptions: ''
+      media_type: O
+      url_type: O
+      url: https://www.ncbi.nlm.nih.gov/bioproject/
+      duration_seconds: 0
+      subtitle_tracks: 0
+      video_tracks: 0
+      mime_type: text/xml
+      date_file_added: '2025-08-25T20:55:46.131000+00:00'
+      date_file_updated: '2025-08-25T20:55:48.359000+00:00'
+    - media_file_id: 12405142
+      media_id: 2268112
+      revision: 1
+      parent_media_file_id: 12405141
+      status: DONE
+      media_type: C
+      url_type: L
+      document_page_count: 0
+      file_size_bytes: 34805
+      mime_type: text/xml
+      media_source: OFF_SITE_DOWNLOAD
+      date_file_added: '2025-08-25T20:55:48.353000+00:00'
+      date_file_updated: '2025-08-25T20:55:48.789000+00:00'
+    - media_file_id: 12405143
+      media_id: 2268112
+      revision: 1
+      parent_media_file_id: 12405142
+      status: DONE
+      media_type: T
+      url_type: L
+      file_size_bytes: 5670
+      mime_type: text/plain
+      media_source: TEXT_EXTRACTION
+      date_file_added: '2025-08-25T20:55:48.785000+00:00'
+      date_file_updated: '2025-08-25T20:55:48.785000+00:00'
+  audit_logs:
+  - messages:
+    - Revision passed validation.
+    status: SUCCESS
+    type: VALIDATOR
+    audit_date: '2025-08-25T20:55:46.920000+00:00'
+  - messages:
+    - Required media is missing or not yet complete.
+    status: FAIL
+    type: RELEASER
+    audit_date: '2025-08-25T20:55:47.666000+00:00'
+  - messages:
+    - Release successful.
+    status: SUCCESS
+    type: RELEASER
+    audit_date: '2025-08-25T20:55:49.681000+00:00'
+  - messages:
+    - DOI has been successfully registered at DataCite.
+    status: INFO
+    type: DOI
+    audit_date: '2025-08-25T20:55:51.920000+00:00'

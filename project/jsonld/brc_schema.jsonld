@@ -2702,9 +2702,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2025-11-05T16:14:01",
+  "source_file_date": "2025-11-14T11:01:02",
   "source_file_size": 22025,
-  "generation_date": "2025-11-05T16:46:20",
+  "generation_date": "2025-11-14T11:01:12",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

@@ -1,0 +1,19 @@
+datasets:
+- brc: GLBRC
+  title: A small number of point mutations confer formate tolerance in <em>Shewanella
+    oneidensis</em>
+  description: Several strains of formate-tolerant <em>Shewanella oneidensis</em>
+    were evolved through continuous subculturing in minimal lactate media with increasing
+    concentrations of formate over time.
+  date: '2025-02-26'
+  identifier: https://www.osti.gov/biblio/2584699
+  bibliographicCitation: https://doi.org/10.11578/2584699
+  funding:
+  - fundingOrganization:
+      organizationName: USDOE Office of Science (SC), Biological and Environmental
+        Research (BER)
+    awardNumber: SC0018409
+  dataset_url: https://www.ncbi.nlm.nih.gov/bioproject/
+  active: true
+  has_related_ids:
+  - BIOPROJECT:PRJNA1228652
