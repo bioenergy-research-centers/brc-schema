@@ -17,6 +17,14 @@ class_derivations:
   Record:
     populated_from: Dataset
     slot_derivations:
+      access_limitations:
+        expr: |
+          # Required field set to 'Unlimited announcement'
+          target = ['UNL']
+      product_type:
+        expr: |
+          # Required field set to 'Dataset'
+          target = 'DA'
       osti_id:
         expr: |
           # Extract OSTI ID from identifier field
@@ -48,21 +56,20 @@ class_derivations:
           else:
             target = None
       keywords:
-        expr: |
-          # Combine keywords back into comma-separated strings
-          if src.keywords and isinstance(src.keywords, list):
-            target = [', '.join(src.keywords)]
-          else:
-            target = None
+        populated_from: keywords
       site_url:
-        populated_from: dataset_url
+        expr: |
+          if src.dataset_url:
+            target = src.dataset_url
+          else:
+            target = src.bibliographicCitation
       workflow_status:
         expr: |
           # Map active status back to workflow_status
           if src.active:
             target = 'R'  # Released
           else:
-            target = 'P'  # Pending or other status
+            target = 'SR'  # Pending or other status
       persons:
         expr: |
           target = []
@@ -130,7 +137,34 @@ class_derivations:
                 target.append(org)
             target = target if target else None
           else:
-            target = None
+            # Default sponsor mapping to BER if not defined for dataset. Assumes all records are BER data!
+            target = [{
+                  'type': 'SPONSOR',
+                  'name': 'USDOE Office of Science (SC), Biological and Environmental Research (BER)'
+              }]
+            # Add BRC contract mapping back to DOE contract numbers. Same data used in identifiers field
+            if src.brc:
+              brc_to_contract = {
+                'CABBI': 'SC0018420',
+                'GLBRC': 'SC0018409', 
+                'CBI': 'AC36-08GO28308',
+                'JBEI': 'AC02-05CH11231'
+              }
+              contract_num = brc_to_contract.get(src.brc)
+              if contract_num:
+                target[0]['identifiers'] = [{'type': 'CN_DOE', 'value': contract_num}]
+  
+          # Add originating research org
+          if src.brc:
+            brc_to_org = {
+              'CABBI': {'type': 'RESEARCHING', 'name': 'Center for Advanced Bioenergy and Bioproduct Innovation (CABBI), Urbana, IL (United States)'},
+              'CBI':  {'type': 'RESEARCHING', 'name': 'Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States)'},
+              'GLBRC':  {'type': 'RESEARCHING', 'name': 'Great Lakes Bioenergy Research Center (GLBRC), Madison, WI (United States)', 'ror_id': '01ca2by25'}, 
+              'JBEI':  {'type': 'RESEARCHING', 'name': 'Joint Bioenergy Institute (JBEI), Emeryville, CA (United States)', 'ror_id': '03ww55028'}
+            }
+            org_entry = brc_to_org.get(src.brc)
+            if org_entry:
+              target.append(org_entry)
       identifiers:
         expr: |
           target = []
@@ -153,8 +187,12 @@ class_derivations:
                 else:
                   # Generic identifier
                   if related_id and str(related_id).lower() != 'none':
-                    target.append({'type': 'OTHER', 'value': related_id})
+                    target.append({'type': 'OTHER_ID', 'value': related_id})
           
+          # Add brc record identifier
+          if src.identifier:
+            target.append({'type': 'OTHER_ID', 'value': src.identifier})
+
           # Add BRC contract mapping back to DOE contract numbers
           if src.brc:
             brc_to_contract = {
