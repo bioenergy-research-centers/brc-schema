@@ -482,7 +482,7 @@ class OSTIRecordTransmitter:
                 logger.error(f"Error processing empty record {idx}.")
 
             # Skip records matching filter value
-            if self.skip_urls and record.get('site_url') and self.skip_urls.casefold() in record.get('site_url').casefold():
+            if self.skip_urls and record.get('site_url') and self.skip_urls.casefold() in record.get('site_url', '').casefold():
                 logger.info(
                     f"Skipping record matching '{self.skip_urls}'. Site URL: '{record.get('site_url')}', Title: '{record['title']}'")
                 self.summary.add_skip(idx, record)
