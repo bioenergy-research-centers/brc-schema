@@ -257,17 +257,13 @@ class MultipleMatchesError(Exception):
 
 
 class TransmitSummary:
-    new_count: int = 0
-    update_count: int = 0
-    fail_count: int = 0
-    skip_count: int = 0
-    pass_records: list = []
-    fail_records: list = []
-
-    def add_fail(self, index, record, error):
-        self.fail_count += 1
-        self.fail_records.append(
-            {"index": index, "record": record, "error": error, })
+    def __init__(self):
+        self.new_count: int = 0
+        self.update_count: int = 0
+        self.fail_count: int = 0
+        self.skip_count: int = 0
+        self.pass_records: list = []
+        self.fail_records: list = []
 
     def add_new(self, index, record):
         self.new_count += 1
@@ -276,6 +272,11 @@ class TransmitSummary:
     def add_update(self, index, record):
         self.update_count += 1
         self.pass_records.append({"index": index, "record": record})
+
+    def add_fail(self, index, record, error):
+        self.fail_count += 1
+        self.fail_records.append(
+            {"index": index, "record": record, "error": error})
 
     def add_skip(self, index, record):
         self.skip_count += 1
