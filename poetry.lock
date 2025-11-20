@@ -4028,4 +4028,4 @@ docs = ["linkml"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<=3.13"
-content-hash = "cbf1b8b5d53137054904bf6bcdf98d3504291632d1fde13f48d1ffbab67c77a9"
+content-hash = "a87ff56be36ed4fa104cb311aa0266b17dfc125a51bcb3d6a166134c7040f34e"

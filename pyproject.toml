@@ -23,7 +23,7 @@ style = "pep440"
 mkdocs-material = ">8.2.8"
 mkdocs-mermaid2-plugin = ">0.6.0"
 schemasheets = "^0.1.14"
-pytest = "^9.0.0"
+pytest = ">8.0.0"
 
 [tool.poetry.scripts]
 brcschema = "brc_schema.cli:main"
