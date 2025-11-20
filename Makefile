@@ -148,7 +148,7 @@ test-schema:
 	$(RUN) gen-project ${CONFIG_YAML} -d tmp $(SOURCE_SCHEMA_PATH)
 
 test-python:
-	$(RUN) python -m unittest discover
+	$(RUN) pytest tests/ -v
 
 lint:
 	$(RUN) linkml-lint $(SOURCE_SCHEMA_PATH)
