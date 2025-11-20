@@ -307,11 +307,11 @@ class OSTIRecordTransmitter:
         """
         # Use provided API key, or try to get from environment
         self.api = _init_api(api_key, api_url)
-        self.dry_run = dry_run
-        self.record_limit = None
-        self.skip_urls = ""
-        self.new_only = False
-        self.summary = TransmitSummary()
+        self.dry_run: bool = dry_run
+        self.record_limit: Optional[int] = None
+        self.skip_urls: str = ""
+        self.new_only: bool = False
+        self.summary: TransmitSummary = TransmitSummary()
 
     def _process_unique_record_query(self, query, search_attribute, record_data, raise_on_multiple=False):
         if query.total_rows == 1:
