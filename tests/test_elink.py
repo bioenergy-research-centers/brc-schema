@@ -204,103 +204,78 @@ class TestTransmitSummary:
     def test_init(self):
         """Test TransmitSummary initialization."""
         summary = TransmitSummary()
-        # Note: Due to class-level mutable defaults, counts might be shared
-        # This is a known issue in the implementation
-        assert hasattr(summary, 'new_count')
-        assert hasattr(summary, 'update_count')
-        assert hasattr(summary, 'fail_count')
-        assert hasattr(summary, 'skip_count')
-        assert hasattr(summary, 'pass_records')
-        assert hasattr(summary, 'fail_records')
+        assert summary.new_count == 0
+        assert summary.update_count == 0
+        assert summary.fail_count == 0
+        assert summary.skip_count == 0
+        assert summary.pass_records == []
+        assert summary.fail_records == []
 
     def test_add_new(self):
         """Test adding a new record to summary."""
         summary = TransmitSummary()
-        initial_count = summary.new_count
-        initial_pass_len = len(summary.pass_records)
-        
         test_record = {"title": "Test", "osti_id": 123}
         summary.add_new(0, test_record)
         
-        assert summary.new_count == initial_count + 1
-        assert len(summary.pass_records) == initial_pass_len + 1
-        assert summary.pass_records[-1]["index"] == 0
-        assert summary.pass_records[-1]["record"] == test_record
+        assert summary.new_count == 1
+        assert len(summary.pass_records) == 1
+        assert summary.pass_records[0]["index"] == 0
+        assert summary.pass_records[0]["record"] == test_record
 
     def test_add_update(self):
         """Test adding an updated record to summary."""
         summary = TransmitSummary()
-        initial_count = summary.update_count
-        initial_pass_len = len(summary.pass_records)
-        
         test_record = {"title": "Test", "osti_id": 123}
         summary.add_update(1, test_record)
         
-        assert summary.update_count == initial_count + 1
-        assert len(summary.pass_records) == initial_pass_len + 1
+        assert summary.update_count == 1
+        assert len(summary.pass_records) == 1
 
     def test_add_fail(self):
         """Test adding a failed record to summary."""
         summary = TransmitSummary()
-        initial_count = summary.fail_count
-        initial_fail_len = len(summary.fail_records)
-        
         test_record = {"title": "Test"}
         error_msg = "Test error"
         summary.add_fail(2, test_record, error_msg)
         
-        assert summary.fail_count == initial_count + 1
-        assert len(summary.fail_records) == initial_fail_len + 1
-        assert summary.fail_records[-1]["index"] == 2
-        assert summary.fail_records[-1]["error"] == error_msg
+        assert summary.fail_count == 1
+        assert len(summary.fail_records) == 1
+        assert summary.fail_records[0]["index"] == 2
+        assert summary.fail_records[0]["error"] == error_msg
 
     def test_add_skip(self):
         """Test adding a skipped record to summary."""
         summary = TransmitSummary()
-        initial_count = summary.skip_count
-        
         test_record = {"title": "Test"}
         summary.add_skip(3, test_record)
         
-        assert summary.skip_count == initial_count + 1
+        assert summary.skip_count == 1
 
     def test_message(self):
         """Test summary message generation."""
         summary = TransmitSummary()
-        # Record initial state
-        initial_new = summary.new_count
-        initial_update = summary.update_count
-        initial_fail = summary.fail_count
-        initial_skip = summary.skip_count
-        
-        # Add records
         summary.add_new(0, {})
         summary.add_update(1, {})
         summary.add_fail(2, {}, "error")
         summary.add_skip(3, {})
         
         message = summary.message()
-        assert f"New: {initial_new + 1}" in message
-        assert f"Updated: {initial_update + 1}" in message
-        assert f"Failed: {initial_fail + 1}" in message
-        assert f"Skipped: {initial_skip + 1}" in message
+        assert "New: 1" in message
+        assert "Updated: 1" in message
+        assert "Failed: 1" in message
+        assert "Skipped: 1" in message
 
     def test_failures(self):
         """Test failures list generation."""
         summary = TransmitSummary()
-        initial_fail_len = len(summary.fail_records)
-        
         test_record = {"title": "Test Title", "doi": "10.1234/test"}
-        summary.add_fail(99, test_record, "Test error message")
+        summary.add_fail(0, test_record, "Test error message")
         
         failures = summary.failures()
-        # Check that at least one more failure was added
-        assert len(failures) >= initial_fail_len + 1
-        # Find our specific failure
-        our_failure = [f for f in failures if "Record Index: (99)" in f]
-        assert len(our_failure) == 1
-        assert "Test error message" in our_failure[0]
-        assert "Test Title" in our_failure[0]
+        assert len(failures) == 1
+        assert "Record Index: (0)" in failures[0]
+        assert "Test error message" in failures[0]
+        assert "Test Title" in failures[0]
 
 
 class TestMultipleMatchesError:
