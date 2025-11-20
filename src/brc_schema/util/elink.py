@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import List, Union, Optional, Dict, Any
 
 from elinkapi import Elink, Record, exceptions
-from pydantic import ValidationError
 
 logger = logging.getLogger(__name__)
 
@@ -103,8 +102,6 @@ class OSTIRecordRetriever:
         except Exception as e:
             logger.error(f"Error retrieving DOI {doi}: {e}")
             return None
-
-        
 
     def get_records(
         self,
@@ -250,11 +247,14 @@ def retrieve_osti_records(
 
     return retriever.get_records(osti_ids=osti_ids, dois=dois)
 
+
 class MultipleMatchesError(Exception):
     """Raised when more than one existing matching record is found while attempting to transmit record data."""
+
     def __init__(self, count):
         self.count = count
         super().__init__(f"Expected 0 or 1 match, found {count}")
+
 
 class TransmitSummary:
     new_count: int = 0
@@ -266,19 +266,20 @@ class TransmitSummary:
 
     def add_fail(self, index, record, error):
         self.fail_count += 1
-        self.fail_records.append({"index": index,"record": record,"error": error,})
+        self.fail_records.append(
+            {"index": index, "record": record, "error": error, })
 
     def add_new(self, index, record):
         self.new_count += 1
         self.pass_records.append({"index": index, "record": record})
- 
+
     def add_update(self, index, record):
         self.update_count += 1
         self.pass_records.append({"index": index, "record": record})
 
     def add_skip(self, index, record):
         self.skip_count += 1
-    
+
     def message(self):
         return f"Transmit Summary - New: {self.new_count}, Updated: {self.update_count}, Skipped: {self.skip_count}, Failed: {self.fail_count}"
 
@@ -287,14 +288,16 @@ class TransmitSummary:
         for f in self.fail_records:
             idx = f.get("index", "?")
             error = f.get("error", "unknown")
-            record = f.get("record",{})
-            failure_data.append(f"Transmit Failure - Record Index: ({idx}),  Error: {error}, Record: doi='{record.get("doi","?")}'; identifiers='{record.get("identifiers","?")}'; title='{record.get("title","?")}'")
+            record = f.get("record", {})
+            failure_data.append(
+                f"Transmit Failure - Record Index: ({idx}),  Error: {error}, Record: doi='{record.get("doi", "?")}'; identifiers='{record.get("identifiers", "?")}'; title='{record.get("title", "?")}'")
         return failure_data
+
 
 class OSTIRecordTransmitter:
     """Transmit records into OSTI using E-Link 2.0 API."""
 
-    def __init__(self, api_key: Optional[str] = None, api_url: Optional[str] = None, dry_run: bool=False):
+    def __init__(self, api_key: Optional[str] = None, api_url: Optional[str] = None, dry_run: bool = False):
         """
         Initialize the OSTI record transmitter.
 
@@ -309,20 +312,23 @@ class OSTIRecordTransmitter:
         self.skip_urls = ""
         self.new_only = False
         self.summary = TransmitSummary()
-    
+
     def _process_unique_record_query(self, query, search_attribute, record_data, raise_on_multiple=False):
         if query.total_rows == 1:
             return query.data[0].osti_id
         elif query.total_rows > 1:
-            logger.info(f"Multiple existing matches found for record by {search_attribute}: '{record_data}'. Total Existing Matches: {query.total_rows}")
+            logger.info(
+                f"Multiple existing matches found for record by {search_attribute}: '{record_data}'. Total Existing Matches: {query.total_rows}")
             # Output found records for inspection
             for idx, osti_record in enumerate(query):
-                logger.info(f"\t -- Existing Match - OSTI ID: {osti_record.osti_id}, {search_attribute} : {repr(getattr(osti_record,search_attribute,"?"))}")
+                logger.info(
+                    f"\t -- Existing Match - OSTI ID: {osti_record.osti_id}, {search_attribute} : {repr(getattr(osti_record, search_attribute, "?"))}")
                 if idx > 9:
-                    logger.info(f"\t -- ... Existing Match Output Truncated ...")
+                    logger.info(
+                        f"\t -- ... Existing Match Output Truncated ...")
                     break
             if raise_on_multiple:
-              raise MultipleMatchesError(query.total_rows)
+                raise MultipleMatchesError(query.total_rows)
         else:
             return None
 
@@ -333,7 +339,7 @@ class OSTIRecordTransmitter:
 
         Args:
           record_data: A Record with data to lookup.
-        
+
         Returns:
           OSTI identifier for the single uniquely found record, or None.
 
@@ -343,11 +349,13 @@ class OSTIRecordTransmitter:
         # try matching unique doi
         if new_record.doi:
             query = self.api.query_records(
-                        product_type = new_record.product_type,
-                        site_ownership_code = new_record.site_ownership_code,
-                        doi = new_record.doi,
-                    )
-            new_osti_id = self._process_unique_record_query(query, 'doi', new_record.doi, True) # raise errors if duplicate DOI found. Should not be possible unless record doi is invalid/incomplete
+                product_type=new_record.product_type,
+                site_ownership_code=new_record.site_ownership_code,
+                doi=new_record.doi,
+            )
+            # raise errors if duplicate DOI found. Should not be possible unless record doi is invalid/incomplete
+            new_osti_id = self._process_unique_record_query(
+                query, 'doi', new_record.doi, True)
             if new_osti_id:
                 return new_osti_id
 
@@ -357,21 +365,23 @@ class OSTIRecordTransmitter:
                 if identifier.type != 'OTHER_ID':
                     continue
                 query = self.api.query_records(
-                    product_type = new_record.product_type,
-                    site_ownership_code = new_record.site_ownership_code,
-                    identifiers = identifier.value,
+                    product_type=new_record.product_type,
+                    site_ownership_code=new_record.site_ownership_code,
+                    identifiers=identifier.value,
                 )
-                new_osti_id = self._process_unique_record_query(query, 'identifiers', identifier.value, False) # Try next lookup without error
+                new_osti_id = self._process_unique_record_query(
+                    query, 'identifiers', identifier.value, False)  # Try next lookup without error
                 if new_osti_id:
                     return new_osti_id
-    
+
         # try matching unique title
         query = self.api.query_records(
-                    product_type = new_record.product_type,
-                    site_ownership_code = new_record.site_ownership_code,
-                    title = new_record.title,
-                )
-        return self._process_unique_record_query(query, 'title', new_record.title, True) # Last check, raise errors if multiple items found
+            product_type=new_record.product_type,
+            site_ownership_code=new_record.site_ownership_code,
+            title=new_record.title,
+        )
+        # Last check, raise errors if multiple items found
+        return self._process_unique_record_query(query, 'title', new_record.title, True)
 
     def transmit_osti_record(
         self,
@@ -380,16 +390,16 @@ class OSTIRecordTransmitter:
     ) -> Optional[Record]:
         """
         Function to create a single OSTI record.
-        
+
         Uses the Elink Record Pydantic model to validate and then POST to the Elink API.
 
 
         Args:
             record_data: A dictionary of data for the new record.
-            
+
         Returns:
             Record object saved to OSTI.
-        
+
         Example:
             >>> record_json = {
             ...     "title": "A Dissertation Title",
@@ -418,25 +428,30 @@ class OSTIRecordTransmitter:
         # Records with osti_id get updated
         if new_record.osti_id:
             if self.dry_run:
-                logger.warning(f"Dry Run: skipping update for existing record (counted as an 'update' in summary) ({new_record.osti_id}):' {new_record.title}'")
+                logger.warning(
+                    f"Dry Run: skipping update for existing record (counted as an 'update' in summary) ({new_record.osti_id}):' {new_record.title}'")
                 saved_record = new_record
             elif self.new_only:
-                logger.warning(f"New Only: skipping update for existing record (counted as 'update' in summary) ({new_record.osti_id}):' {new_record.title}'")
+                logger.warning(
+                    f"New Only: skipping update for existing record (counted as 'update' in summary) ({new_record.osti_id}):' {new_record.title}'")
                 saved_record = new_record
             else:
-                logger.info(f"Updating existing record ({new_record.osti_id}):' {new_record.title}'")
-                saved_record = self.api.update_record(new_record.osti_id, new_record, "submit")
+                logger.info(
+                    f"Updating existing record ({new_record.osti_id}):' {new_record.title}'")
+                saved_record = self.api.update_record(
+                    new_record.osti_id, new_record, "submit")
             self.summary.add_update(index, record_data)
         # Records without osti_id get created
         else:
             if self.dry_run:
-                logger.warning(f"dry run, skipping save for new record: '{new_record.title}'")
+                logger.warning(
+                    f"dry run, skipping save for new record: '{new_record.title}'")
                 saved_record = new_record
             else:
                 logger.info(f"Saving new record: '{new_record.title}'")
                 saved_record = self.api.post_new_record(new_record, "submit")
             self.summary.add_new(index, record_data)
-        
+
         return saved_record
 
     def post_records(
@@ -448,15 +463,15 @@ class OSTIRecordTransmitter:
 
         Args:
           records: List of OSTI formatted record dictionaries
-        
+
         Returns:
           A TransmitSummary instance
         """
         self.summary = TransmitSummary()
-         # Handle missing or empty list
+        # Handle missing or empty list
         if not records:
             return self.summary
-        
+
         for idx, record in enumerate(records):
             if self.record_limit and idx >= self.record_limit:
                 break
@@ -465,28 +480,40 @@ class OSTIRecordTransmitter:
             exceptions.APIException.errors = []
             if not record:
                 logger.error(f"Error processing empty record {idx}.")
-            
+
             # Skip records matching filter value
             if self.skip_urls and record.get('site_url') and self.skip_urls.casefold() in record.get('site_url').casefold():
-                logger.info(f"Skipping record matching '{self.skip_urls}'. Site URL: '{record.get('site_url')}', Title: '{record['title']}'")
+                logger.info(
+                    f"Skipping record matching '{self.skip_urls}'. Site URL: '{record.get('site_url')}', Title: '{record['title']}'")
                 self.summary.add_skip(idx, record)
                 continue
-            
+
             try:
                 result = self.transmit_osti_record(record, idx)
             except exceptions.BadRequestException as ve:
-                logger.error(f"Error Transmitting new Record: {ve.message}\n{ve.errors}")
-                self.summary.add_fail(idx, record, f"{ve.message}\n{ve.errors}")
+                logger.error(
+                    f"Error Transmitting new Record: {ve.message}\n{ve.errors}")
+                self.summary.add_fail(
+                    idx, record, f"{ve.message}\n{ve.errors}")
             except MultipleMatchesError as e:
                 self.summary.add_fail(idx, record, f"{repr(e)}")
-            except ValidationError as e:
-                # Output pydantic validation errors
-                self.summary.add_fail(idx, record, f"Invalid Record: {repr(e)}")
+            except ValueError as e:
+                # Catch validation errors (including pydantic ValidationError which inherits from ValueError)
+                # This handles Record model validation errors from elinkapi
+                error_name = type(e).__name__
+                if error_name == 'ValidationError':
+                    self.summary.add_fail(
+                        idx, record, f"Invalid Record: {repr(e)}")
+                else:
+                    self.summary.add_fail(
+                        idx, record, f"Value error: {repr(e)}")
             except Exception as e:
-                self.summary.add_fail(idx, record, f"Unexpected exception transmitting record {repr(e)}")
+                self.summary.add_fail(
+                    idx, record, f"Unexpected exception transmitting record {repr(e)}")
             else:
                 if not result:
-                  self.summary.add_fail(idx, record, f"Unknown error: Transmit attempt returned {repr(result)}")
+                    self.summary.add_fail(
+                        idx, record, f"Unknown error: Transmit attempt returned {repr(result)}")
 
         return self.summary
 
