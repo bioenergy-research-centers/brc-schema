@@ -179,21 +179,21 @@ def convert_json_to_yaml(json_file_path: str, wrap_in_records: bool = True) -> s
         Path to the newly created YAML file
     """
     import yaml
-    
+
     # Load JSON data
     with open(json_file_path) as file:
         input_obj = yaml.safe_load(file)
-    
+
     # Wrap the input in a records container only if it's a plain list
     if wrap_in_records and isinstance(input_obj, list):
         wrapped_obj = {"records": input_obj}
     else:
         # Already wrapped (e.g., {"records": [...]}) or wrapping not requested
         wrapped_obj = input_obj
-    
+
     # Create output path
     yaml_path = json_file_path.rsplit(".", 1)[0] + ".yaml"
-    
+
     # Write to YAML file
     with open(yaml_path, "w", encoding="utf-8") as yaml_file:
         yaml.safe_dump(
@@ -203,5 +203,5 @@ def convert_json_to_yaml(json_file_path: str, wrap_in_records: bool = True) -> s
             allow_unicode=True,
             default_flow_style=False
         )
-    
+
     return yaml_path

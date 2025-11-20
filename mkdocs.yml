@@ -23,6 +23,7 @@ plugins:
   - mermaid2
 nav:
   - Index: index.md
+  - CLI Usage: cli.md
   - About: about.md
 site_url: https://bioenergy-research-centers.github.io/brc-schema
 repo_url: https://github.com/bioenergy-research-centers/brc-schema

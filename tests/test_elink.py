@@ -174,7 +174,8 @@ class TestOSTIRecordTransmitter:
 
     def test_init_with_api_url(self):
         """Test initialization with custom API URL."""
-        transmitter = OSTIRecordTransmitter(api_url="https://test.example.com/api")
+        transmitter = OSTIRecordTransmitter(
+            api_url="https://test.example.com/api")
         assert transmitter.api is not None
 
     @pytest.mark.integration
@@ -195,7 +196,8 @@ class TestOSTIRecordTransmitter:
 
         # In dry run mode, it should count as a new record but not actually create it
         assert isinstance(summary, TransmitSummary)
-        assert summary.new_count + summary.update_count + summary.fail_count + summary.skip_count > 0
+        assert summary.new_count + summary.update_count + \
+            summary.fail_count + summary.skip_count > 0
 
 
 class TestTransmitSummary:
@@ -216,7 +218,7 @@ class TestTransmitSummary:
         summary = TransmitSummary()
         test_record = {"title": "Test", "osti_id": 123}
         summary.add_new(0, test_record)
-        
+
         assert summary.new_count == 1
         assert len(summary.pass_records) == 1
         assert summary.pass_records[0]["index"] == 0
@@ -227,7 +229,7 @@ class TestTransmitSummary:
         summary = TransmitSummary()
         test_record = {"title": "Test", "osti_id": 123}
         summary.add_update(1, test_record)
-        
+
         assert summary.update_count == 1
         assert len(summary.pass_records) == 1
 
@@ -237,7 +239,7 @@ class TestTransmitSummary:
         test_record = {"title": "Test"}
         error_msg = "Test error"
         summary.add_fail(2, test_record, error_msg)
-        
+
         assert summary.fail_count == 1
         assert len(summary.fail_records) == 1
         assert summary.fail_records[0]["index"] == 2
@@ -248,7 +250,7 @@ class TestTransmitSummary:
         summary = TransmitSummary()
         test_record = {"title": "Test"}
         summary.add_skip(3, test_record)
-        
+
         assert summary.skip_count == 1
 
     def test_message(self):
@@ -258,7 +260,7 @@ class TestTransmitSummary:
         summary.add_update(1, {})
         summary.add_fail(2, {}, "error")
         summary.add_skip(3, {})
-        
+
         message = summary.message()
         assert "New: 1" in message
         assert "Updated: 1" in message
@@ -270,7 +272,7 @@ class TestTransmitSummary:
         summary = TransmitSummary()
         test_record = {"title": "Test Title", "doi": "10.1234/test"}
         summary.add_fail(0, test_record, "Test error message")
-        
+
         failures = summary.failures()
         assert len(failures) == 1
         assert "Record Index: (0)" in failures[0]
