@@ -290,8 +290,11 @@ class TransmitSummary:
             idx = f.get("index", "?")
             error = f.get("error", "unknown")
             record = f.get("record", {})
+            doi = record.get('doi', '?')
+            identifiers = record.get('identifiers', '?')
+            title = record.get('title', '?')
             failure_data.append(
-                f"Transmit Failure - Record Index: ({idx}),  Error: {error}, Record: doi='{record.get("doi", "?")}'; identifiers='{record.get("identifiers", "?")}'; title='{record.get("title", "?")}'")
+                f"Transmit Failure - Record Index: ({idx}),  Error: {error}, Record: doi='{doi}'; identifiers='{identifiers}'; title='{title}'")
         return failure_data
 
 

@@ -300,8 +300,9 @@ def transmit_osti(
     logger.warning(summary.message())
 
     if summary.fail_count > 0:
+        failures_text = "\n".join(summary.failures())
         logger.info(
-            f"\n=== FAILURE Details ===\n{"\n".join(summary.failures())}")
+            f"\n=== FAILURE Details ===\n{failures_text}")
 
 
 if __name__ == "__main__":
