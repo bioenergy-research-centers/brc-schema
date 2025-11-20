@@ -8,7 +8,7 @@ import click
 import yaml
 
 from brc_schema.transform import set_up_transformer, do_transform
-from brc_schema.util.io import dump_output
+from brc_schema.util.io import dump_output, read_ids_from_file
 from brc_schema.util.elink import OSTIRecordRetriever, OSTIRecordTransmitter
 
 tx_type_option = click.option(
@@ -165,13 +165,13 @@ def retrieve_osti(
     all_osti_ids = list(osti_ids)
     if osti_id_file:
         logger.info(f"Reading OSTI IDs from {osti_id_file}")
-        all_osti_ids.extend(_read_ids_from_file(osti_id_file))
+        all_osti_ids.extend(read_ids_from_file(osti_id_file))
 
     # Collect DOIs
     all_dois = list(dois)
     if doi_file:
         logger.info(f"Reading DOIs from {doi_file}")
-        all_dois.extend(_read_ids_from_file(doi_file))
+        all_dois.extend(read_ids_from_file(doi_file))
 
     # Validate input
     if not all_osti_ids and not all_dois:
@@ -279,45 +279,30 @@ def transmit_osti(
 
     with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
-    
+
     if not input_obj['records']:
         logger.error(f"Error processing file. No records found.\n{input_obj}")
     # Initialize transmitter
-    transmitter = OSTIRecordTransmitter(api_key=api_key, api_url=api_url, dry_run=dry_run)
+    transmitter = OSTIRecordTransmitter(
+        api_key=api_key, api_url=api_url, dry_run=dry_run)
     # apply options
     if limit:
-        transmitter.record_limit=limit
+        transmitter.record_limit = limit
     if skip_url:
-        transmitter.skip_urls=skip_url
+        transmitter.skip_urls = skip_url
     if new_only:
-        logger.warning("--new-only enabled. Existing records will not be updated.")
-        transmitter.new_only=new_only
-    
+        logger.warning(
+            "--new-only enabled. Existing records will not be updated.")
+        transmitter.new_only = new_only
+
     summary = transmitter.post_records(input_obj['records'])
     # Output details
-    logger.warning( summary.message() )
+    logger.warning(summary.message())
 
     if summary.fail_count > 0:
-        logger.info(f"\n=== FAILURE Details ===\n{"\n".join(summary.failures())}")
+        logger.info(
+            f"\n=== FAILURE Details ===\n{"\n".join(summary.failures())}")
 
-def _read_ids_from_file(file_path: Path) -> List[str]:
-    """
-    Read IDs (OSTI IDs or DOIs) from a file, one per line.
-
-    Lines starting with # are treated as comments and ignored.
-
-    Args:
-        file_path: Path to file containing IDs
-
-    Returns:
-        List of IDs (as strings)
-    """
-    with open(file_path, 'r') as f:
-        return [
-            line.strip()
-            for line in f
-            if line.strip() and not line.strip().startswith('#')
-        ]
 
 def _yaml_from_json_file(json_file_path: str) -> str:
     # convert JSON to YAML
@@ -332,11 +317,12 @@ def _yaml_from_json_file(json_file_path: str) -> str:
     yaml_path = json_file_path.rsplit(".", 1)[0] + ".yaml"
     with open(yaml_path, "w", encoding="utf-8") as yaml_file:
         yaml.safe_dump(data=wrapped_obj,
-                        stream=yaml_file,
-                        sort_keys=False,
-                        allow_unicode=True,
-                        default_flow_style=False)
+                       stream=yaml_file,
+                       sort_keys=False,
+                       allow_unicode=True,
+                       default_flow_style=False)
     return yaml_path
+
 
 if __name__ == "__main__":
     main()

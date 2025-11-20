@@ -2,7 +2,8 @@
 
 import logging
 import sys
-from typing import Any, Optional, Union
+from pathlib import Path
+from typing import Any, List, Optional, Union
 
 from linkml_runtime.dumpers import yaml_dumper, json_dumper
 
@@ -141,3 +142,23 @@ def dump_output(
 
     with open(file_path, "w", encoding="utf-8") as fh:
         fh.write(text_dump)
+
+
+def read_ids_from_file(file_path: Path) -> List[str]:
+    """
+    Read IDs (OSTI IDs or DOIs) from a file, one per line.
+
+    Lines starting with # are treated as comments and ignored.
+
+    Args:
+        file_path: Path to file containing IDs
+
+    Returns:
+        List of IDs (as strings)
+    """
+    with open(file_path, 'r') as f:
+        return [
+            line.strip()
+            for line in f
+            if line.strip() and not line.strip().startswith('#')
+        ]
