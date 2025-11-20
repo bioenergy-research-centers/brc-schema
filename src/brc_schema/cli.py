@@ -8,7 +8,7 @@ import click
 import yaml
 
 from brc_schema.transform import set_up_transformer, do_transform
-from brc_schema.util.io import dump_output, read_ids_from_file
+from brc_schema.util.io import dump_output, read_ids_from_file, convert_json_to_yaml
 from brc_schema.util.elink import OSTIRecordRetriever, OSTIRecordTransmitter
 
 tx_type_option = click.option(
@@ -75,7 +75,7 @@ def transform(
     if input_data.endswith(".yaml") or input_data.endswith(".yml"):
         pass
     elif input_data.endswith(".json"):
-        input_data = _yaml_from_json_file(input_data)
+        input_data = convert_json_to_yaml(input_data)
 
     with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
@@ -275,7 +275,7 @@ def transmit_osti(
     if input_data.endswith(".yaml") or input_data.endswith(".yml"):
         pass
     elif input_data.endswith(".json"):
-        input_data = _yaml_from_json_file(input_data)
+        input_data = convert_json_to_yaml(input_data)
 
     with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
@@ -302,26 +302,6 @@ def transmit_osti(
     if summary.fail_count > 0:
         logger.info(
             f"\n=== FAILURE Details ===\n{"\n".join(summary.failures())}")
-
-
-def _yaml_from_json_file(json_file_path: str) -> str:
-    # convert JSON to YAML
-    with open(json_file_path) as file:
-        input_obj = yaml.safe_load(file)
-    # Wrap the input in a records container only if it's a plain list
-    if isinstance(input_obj, list):
-        wrapped_obj = {"records": input_obj}
-    else:
-        # Already wrapped (e.g., {"records": [...]})
-        wrapped_obj = input_obj
-    yaml_path = json_file_path.rsplit(".", 1)[0] + ".yaml"
-    with open(yaml_path, "w", encoding="utf-8") as yaml_file:
-        yaml.safe_dump(data=wrapped_obj,
-                       stream=yaml_file,
-                       sort_keys=False,
-                       allow_unicode=True,
-                       default_flow_style=False)
-    return yaml_path
 
 
 if __name__ == "__main__":
