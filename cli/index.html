@@ -1,0 +1,1210 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/cli/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../about/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>CLI Usage - brc-schema</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cli-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="brc-schema" class="md-header__button md-logo" aria-label="brc-schema" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            brc-schema
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI Usage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bioenergy-research-centers/brc-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="brc-schema" class="md-nav__button md-logo" aria-label="brc-schema" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    brc-schema
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bioenergy-research-centers/brc-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Usage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-osti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        retrieve-osti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transmit-osti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transmit-osti
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting API Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-api-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting API URL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-workflow-retrieve-transform-and-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Workflow: Retrieve, Transform, and Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-with-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Processing with Dry Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-osti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        retrieve-osti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transmit-osti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transmit-osti
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting API Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-api-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting API URL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-workflow-retrieve-transform-and-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Workflow: Retrieve, Transform, and Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-with-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Processing with Dry Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cli-documentation">CLI Documentation</h1>
+<p>The <code>brcschema</code> command-line interface provides tools for transforming data between BRC and OSTI schemas, and for interacting with the OSTI E-Link 2.0 API.</p>
+<h2 id="installation">Installation</h2>
+<p>After installing the package with <code>poetry install</code>, the <code>brcschema</code> command will be available.</p>
+<p>Precede commands with <code>poetry run</code>.</p>
+<h2 id="global-options">Global Options</h2>
+<p>All commands support the following global options:</p>
+<ul>
+<li><code>-v, --verbose</code>: Increase verbosity (can be used multiple times: <code>-v</code> for INFO, <code>-vv</code> for DEBUG)</li>
+</ul>
+<h2 id="commands">Commands</h2>
+<h3 id="transform"><code>transform</code></h3>
+<p>Transform data between OSTI format and BRC schema format.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-bash">brcschema transform -T &lt;transformation_type&gt; -o &lt;output_file&gt; &lt;input_file&gt;
+</code></pre>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>-T, --tx-type</code> <strong>(required)</strong>: Type of transformation</li>
+<li><code>osti_to_brc</code>: Convert OSTI schema to BRC schema</li>
+<li><code>brc_to_osti</code>: Convert BRC schema to OSTI schema</li>
+<li><code>-o, --output</code> <strong>(required)</strong>: Output file path (format determined by extension: <code>.json</code> or <code>.yaml</code>)</li>
+</ul>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>input_data</code>: Path to input file (JSON or YAML)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-bash"># Transform OSTI format to BRC schema (YAML output)
+brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
+
+# Transform OSTI format to BRC schema (JSON output)
+brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti_form.json
+
+# Transform BRC schema to OSTI format
+brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+</code></pre>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Input files can be in JSON or YAML format</li>
+<li>JSON input is automatically converted to YAML for processing</li>
+<li>Output format is determined by the file extension</li>
+</ul>
+<hr />
+<h3 id="retrieve-osti"><code>retrieve-osti</code></h3>
+<p>Retrieve metadata records from the OSTI E-Link 2.0 API using OSTI IDs or DOIs.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-bash">brcschema retrieve-osti [OPTIONS] -o &lt;output_file&gt;
+</code></pre>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>--osti-ids</code>: OSTI ID to retrieve (can be specified multiple times)</li>
+<li><code>--dois</code>: DOI to retrieve (can be specified multiple times)</li>
+<li><code>--osti-id-file</code>: Path to file containing OSTI IDs (one per line)</li>
+<li><code>--doi-file</code>: Path to file containing DOIs (one per line)</li>
+<li><code>-o, --output</code> <strong>(required)</strong>: Output JSON file path</li>
+<li><code>--api-key</code>: OSTI API key (alternatively set <code>OSTI_API_KEY</code> environment variable)</li>
+<li><code>--no-pretty</code>: Disable pretty-printing of JSON output</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-bash"># Retrieve by single OSTI ID
+brcschema retrieve-osti --osti-ids 2584700 -o records.json
+
+# Retrieve multiple OSTI IDs
+brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+
+# Retrieve by DOI (OSTI format)
+brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+
+# Retrieve from ID file
+brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+
+# Mix OSTI IDs and DOIs
+brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
+
+# With API key
+brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
+</code></pre>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>At least one OSTI ID or DOI must be provided</li>
+<li>You can mix different input methods (command-line options and files)</li>
+<li>Retrieved records are saved in OSTI schema format (JSON)</li>
+<li>API key is optional but may be required for certain records or rate limits</li>
+</ul>
+<hr />
+<h3 id="transmit-osti"><code>transmit-osti</code></h3>
+<p>Transmit metadata records to OSTI E-Link 2.0 API, creating new records or updating existing ones.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-bash">brcschema transmit-osti [OPTIONS] &lt;input_file&gt;
+</code></pre>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>--api-key</code>: OSTI API key (alternatively set <code>OSTI_API_KEY</code> environment variable)</li>
+<li><code>--api-url</code>: OSTI API URL (alternatively set <code>OSTI_API_URL</code> environment variable)</li>
+<li>Defaults to production URL if not specified</li>
+<li>For development/testing: <code>https://review.osti.gov/elink2api/</code></li>
+<li><code>-d, --dry-run</code>: Test processing and validation without making persistent changes</li>
+<li><code>-n, --new-only</code>: Only create new records; skip updates to existing records</li>
+<li><code>--skip-url</code>: Skip records containing specified string in <code>site_url</code> field</li>
+<li><code>-v, --verbose</code>: Enable INFO-level logging</li>
+<li><code>-l, --limit</code>: Maximum number of records to process (useful for testing)</li>
+</ul>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>input_data</code>: Path to input file containing records in OSTI format (JSON or YAML)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-bash"># Basic transmission
+brcschema transmit-osti data_in_osti_form.yaml
+
+# Dry run to test without making changes
+brcschema transmit-osti --dry-run data_in_osti_form.json
+
+# Only create new records (don't update existing)
+brcschema transmit-osti --new-only data_in_osti_form.yaml
+
+# Test with first 10 records only
+brcschema transmit-osti --dry-run --limit 10 data_in_osti_form.yaml
+
+# Skip GitHub repositories
+brcschema transmit-osti --skip-url github data_in_osti_form.yaml
+
+# Use development API
+brcschema transmit-osti --api-url https://review.osti.gov/elink2api/ data_in_osti_form.yaml
+
+# Verbose output with API key
+brcschema transmit-osti -v --api-key YOUR_API_KEY data_in_osti_form.yaml
+</code></pre>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Input files must contain a <code>records</code> key with an array of record objects</li>
+<li>The command checks for existing records using identifiers before creating new ones</li>
+<li>JSON input is automatically converted to YAML for processing</li>
+<li>A summary is displayed showing counts of new, updated, failed, and skipped records</li>
+<li>Failed records are logged with error details</li>
+</ul>
+<hr />
+<h2 id="authentication">Authentication</h2>
+<p>Several commands interact with the OSTI E-Link 2.0 API and may require authentication:</p>
+<h3 id="setting-api-key">Setting API Key</h3>
+<p>You can provide the API key in two ways:</p>
+<ol>
+<li><strong>Command-line option</strong>: Use <code>--api-key YOUR_API_KEY</code></li>
+<li><strong>Environment variable</strong>: Set <code>OSTI_API_KEY=YOUR_API_KEY</code></li>
+</ol>
+<p>Example:</p>
+<pre><code class="language-bash"># Using environment variable (recommended for security)
+export OSTI_API_KEY=&quot;your-api-key-here&quot;
+brcschema retrieve-osti --osti-ids 2584700 -o records.json
+
+# Using command-line option
+brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
+</code></pre>
+<h3 id="setting-api-url">Setting API URL</h3>
+<p>For testing or development environments:</p>
+<ol>
+<li><strong>Command-line option</strong>: Use <code>--api-url https://review.osti.gov/elink2api/</code></li>
+<li><strong>Environment variable</strong>: Set <code>OSTI_API_URL=https://review.osti.gov/elink2api/</code></li>
+</ol>
+<hr />
+<h2 id="file-formats">File Formats</h2>
+<h3 id="input-files">Input Files</h3>
+<p>The CLI accepts both JSON and YAML formats for input files:</p>
+<p><strong>YAML Example</strong> (<code>records.yaml</code>):</p>
+<pre><code class="language-yaml">records:
+  - title: &quot;Example Dataset&quot;
+    doi: &quot;10.11578/1234567&quot;
+    description: &quot;A sample dataset&quot;
+    # ... other fields
+</code></pre>
+<p><strong>JSON Example</strong> (<code>records.json</code>):</p>
+<pre><code class="language-json">{
+  &quot;records&quot;: [
+    {
+      &quot;title&quot;: &quot;Example Dataset&quot;,
+      &quot;doi&quot;: &quot;10.11578/1234567&quot;,
+      &quot;description&quot;: &quot;A sample dataset&quot;
+    }
+  ]
+}
+</code></pre>
+<h3 id="id-files">ID Files</h3>
+<p>When using <code>--osti-id-file</code> or <code>--doi-file</code>, provide one identifier per line:</p>
+<p><strong>Example</strong> (<code>ids.txt</code>):</p>
+<pre><code>2584700
+2574191
+2573456
+</code></pre>
+<hr />
+<h2 id="workflows">Workflows</h2>
+<h3 id="complete-workflow-retrieve-transform-and-update">Complete Workflow: Retrieve, Transform, and Update</h3>
+<pre><code class="language-bash"># Step 1: Retrieve records from OSTI
+brcschema retrieve-osti --osti-ids 2584700 -o osti_records.json
+
+# Step 2: Transform to BRC schema
+brcschema transform -T osti_to_brc -o brc_records.yaml osti_records.json
+
+# Step 3: [Edit brc_records.yaml as needed]
+
+# Step 4: Transform back to OSTI format
+brcschema transform -T brc_to_osti -o updated_osti.yaml brc_records.yaml
+
+# Step 5: Test transmission with dry-run
+brcschema transmit-osti --dry-run updated_osti.yaml
+
+# Step 6: Transmit to OSTI
+brcschema transmit-osti updated_osti.yaml
+</code></pre>
+<h3 id="batch-processing-with-dry-run">Batch Processing with Dry Run</h3>
+<pre><code class="language-bash"># Test with a small subset first
+brcschema transmit-osti --dry-run --limit 5 large_dataset.yaml
+
+# If successful, process all records
+brcschema transmit-osti large_dataset.yaml
+</code></pre>
+<hr />
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li><strong>No records found</strong>: Ensure your input file has a <code>records</code> key with an array</li>
+<li><strong>Authentication errors</strong>: Verify your API key is correct and has appropriate permissions</li>
+<li><strong>Validation errors</strong>: Check that your records conform to the OSTI schema</li>
+<li><strong>Multiple matches</strong>: If identifiers match multiple records, the operation will fail for that record</li>
+</ol>
+<h3 id="debugging">Debugging</h3>
+<p>Use verbose mode to see detailed logging:</p>
+<pre><code class="language-bash"># Single verbose flag for INFO level
+brcschema -v transmit-osti data.yaml
+
+# Double verbose flag for DEBUG level
+brcschema -vv transmit-osti data.yaml
+</code></pre>
+<p>Use dry-run mode to test without making changes:</p>
+<pre><code class="language-bash">brcschema transmit-osti --dry-run -v data.yaml
+</code></pre>
+<h2 id="getting-help">Getting Help</h2>
+<p>For help with any command:</p>
+<pre><code class="language-bash"># General help
+brcschema --help
+
+# Command-specific help
+brcschema transform --help
+brcschema retrieve-osti --help
+brcschema transmit-osti --help
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
