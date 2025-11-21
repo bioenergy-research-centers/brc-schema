@@ -325,8 +325,9 @@ class OSTIRecordTransmitter:
                 f"Multiple existing matches found for record by {search_attribute}: '{record_data}'. Total Existing Matches: {query.total_rows}")
             # Output found records for inspection
             for idx, osti_record in enumerate(query):
+                attr_value = repr(getattr(osti_record, search_attribute, "?"))
                 logger.info(
-                    f"\t -- Existing Match - OSTI ID: {osti_record.osti_id}, {search_attribute} : {repr(getattr(osti_record, search_attribute, "?"))}")
+                    f"\t -- Existing Match - OSTI ID: {osti_record.osti_id}, {search_attribute} : {attr_value}")
                 if idx > 9:
                     logger.info(
                         f"\t -- ... Existing Match Output Truncated ...")
