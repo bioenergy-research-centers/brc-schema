@@ -8,8 +8,8 @@ import click
 import yaml
 
 from brc_schema.transform import set_up_transformer, do_transform
-from brc_schema.util.io import dump_output
-from brc_schema.util.elink import OSTIRecordRetriever
+from brc_schema.util.io import dump_output, read_ids_from_file, convert_json_to_yaml
+from brc_schema.util.elink import OSTIRecordRetriever, OSTIRecordTransmitter
 
 tx_type_option = click.option(
     "-T",
@@ -75,23 +75,7 @@ def transform(
     if input_data.endswith(".yaml") or input_data.endswith(".yml"):
         pass
     elif input_data.endswith(".json"):
-        # convert JSON to YAML
-        with open(input_data) as file:
-            input_obj = yaml.safe_load(file)
-        # Wrap the input in a records container only if it's a plain list
-        if isinstance(input_obj, list):
-            wrapped_obj = {"records": input_obj}
-        else:
-            # Already wrapped (e.g., {"records": [...]})
-            wrapped_obj = input_obj
-        yaml_path = input_data.rsplit(".", 1)[0] + ".yaml"
-        with open(yaml_path, "w", encoding="utf-8") as yaml_file:
-            yaml.safe_dump(data=wrapped_obj,
-                           stream=yaml_file,
-                           sort_keys=False,
-                           allow_unicode=True,
-                           default_flow_style=False)
-        input_data = yaml_path
+        input_data = convert_json_to_yaml(input_data)
 
     with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
@@ -181,13 +165,13 @@ def retrieve_osti(
     all_osti_ids = list(osti_ids)
     if osti_id_file:
         logger.info(f"Reading OSTI IDs from {osti_id_file}")
-        all_osti_ids.extend(_read_ids_from_file(osti_id_file))
+        all_osti_ids.extend(read_ids_from_file(osti_id_file))
 
     # Collect DOIs
     all_dois = list(dois)
     if doi_file:
         logger.info(f"Reading DOIs from {doi_file}")
-        all_dois.extend(_read_ids_from_file(doi_file))
+        all_dois.extend(read_ids_from_file(doi_file))
 
     # Validate input
     if not all_osti_ids and not all_dois:
@@ -221,24 +205,104 @@ def retrieve_osti(
         raise click.ClickException(str(e))
 
 
-def _read_ids_from_file(file_path: Path) -> List[str]:
+@main.command()
+@click.option(
+    "--api-key",
+    help="OSTI API key (optional, can also use OSTI_API_KEY environment variable)"
+)
+@click.option(
+    "--api-url",
+    help="OSTI API URL (optional, can also use OSTI_API_URL environment variable. If neither is set, defaults to production URL). For development use: 'https://review.osti.gov/elink2api/'"
+)
+@click.option(
+    "-d",
+    "--dry-run",
+    is_flag=True,
+    help="Test processing, record validation, and existing data queries without making any persistent changes."
+)
+@click.option(
+    "-n",
+    "--new-only",
+    is_flag=True,
+    help="Only create new records. Do not update existing records found using identifiers."
+)
+@click.option(
+    "--skip-url",
+    help="If provided, records with a site_url that contains provided value are skipped and not processed. For example, '--skip-url github'"
+)
+@click.option(
+    "-v",
+    "--verbose",
+    is_flag=True,
+    help="Increase log level to include INFO messages."
+)
+@click.option(
+    "-l",
+    "--limit",
+    type=int,
+    help="Restrict the number of records processed. Combine with --dry-run for testing subsets of data."
+)
+@click.argument("input_data")
+def transmit_osti(
+    input_data: str,
+    api_key: Optional[str],
+    api_url: Optional[str],
+    dry_run: bool,
+    verbose: bool,
+    new_only: bool,
+    limit: Optional[int],
+    skip_url: Optional[str]
+) -> None:
     """
-    Read IDs (OSTI IDs or DOIs) from a file, one per line.
+    Transmit input data to OSTI creating new Records.
 
-    Lines starting with # are treated as comments and ignored.
+    If input data is not in YAML format, it will be converted to YAML first.
 
-    Args:
-        file_path: Path to file containing IDs
+    Examples:
 
-    Returns:
-        List of IDs (as strings)
+        brcschema transmit-osti data_in_osti_form.yaml
+
+        brcschema transmit-osti data_in_osti_form.json
+
     """
-    with open(file_path, 'r') as f:
-        return [
-            line.strip()
-            for line in f
-            if line.strip() and not line.strip().startswith('#')
-        ]
+
+    if verbose:
+        logging.basicConfig(level=logging.INFO)
+
+    if dry_run:
+        logger.warning("Dry-run enabled, no data will be sent.")
+
+    if input_data.endswith(".yaml") or input_data.endswith(".yml"):
+        pass
+    elif input_data.endswith(".json"):
+        input_data = convert_json_to_yaml(input_data)
+
+    with open(input_data, encoding="utf-8") as file:
+        input_obj = yaml.safe_load(file)
+
+    if not input_obj['records']:
+        logger.error(f"Error processing file. No records found.\n{input_obj}")
+    # Initialize transmitter
+    transmitter = OSTIRecordTransmitter(
+        api_key=api_key, api_url=api_url, dry_run=dry_run)
+    # apply options
+    if limit:
+        transmitter.record_limit = limit
+    if skip_url:
+        transmitter.skip_urls = skip_url
+    if new_only:
+        logger.warning(
+            "--new-only enabled. Existing records will not be updated.")
+        transmitter.new_only = new_only
+
+    summary = transmitter.post_records(input_obj['records'])
+    # Output details
+    logger.warning(summary.message())
+
+    if summary.fail_count > 0:
+        failures_text = "\n".join(summary.failures())
+        logger.info(
+            f"\n=== FAILURE Details ===\n{failures_text}")
 
 
 if __name__ == "__main__":

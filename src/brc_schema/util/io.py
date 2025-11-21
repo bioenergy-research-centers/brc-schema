@@ -2,7 +2,8 @@
 
 import logging
 import sys
-from typing import Any, Optional, Union
+from pathlib import Path
+from typing import Any, List, Optional, Union
 
 from linkml_runtime.dumpers import yaml_dumper, json_dumper
 
@@ -141,3 +142,66 @@ def dump_output(
 
     with open(file_path, "w", encoding="utf-8") as fh:
         fh.write(text_dump)
+
+
+def read_ids_from_file(file_path: Path) -> List[str]:
+    """
+    Read IDs (OSTI IDs or DOIs) from a file, one per line.
+
+    Lines starting with # are treated as comments and ignored.
+
+    Args:
+        file_path: Path to file containing IDs
+
+    Returns:
+        List of IDs (as strings)
+    """
+    with open(file_path, 'r') as f:
+        return [
+            line.strip()
+            for line in f
+            if line.strip() and not line.strip().startswith('#')
+        ]
+
+
+def convert_json_to_yaml(json_file_path: str, wrap_in_records: bool = True) -> str:
+    """
+    Convert a JSON file to YAML format, optionally wrapping list data in a records container.
+
+    This is useful for converting OSTI API responses (which may be plain lists) into
+    the expected OSTI schema format with a records wrapper.
+
+    Args:
+        json_file_path: Path to the input JSON file
+        wrap_in_records: If True and data is a list, wraps it in {"records": [...]}
+
+    Returns:
+        Path to the newly created YAML file
+    """
+    import yaml
+
+    # Load JSON data
+    with open(json_file_path) as file:
+        input_obj = yaml.safe_load(file)
+
+    # Wrap the input in a records container only if it's a plain list
+    if wrap_in_records and isinstance(input_obj, list):
+        wrapped_obj = {"records": input_obj}
+    else:
+        # Already wrapped (e.g., {"records": [...]}) or wrapping not requested
+        wrapped_obj = input_obj
+
+    # Create output path
+    yaml_path = json_file_path.rsplit(".", 1)[0] + ".yaml"
+
+    # Write to YAML file
+    with open(yaml_path, "w", encoding="utf-8") as yaml_file:
+        yaml.safe_dump(
+            data=wrapped_obj,
+            stream=yaml_file,
+            sort_keys=False,
+            allow_unicode=True,
+            default_flow_style=False
+        )
+
+    return yaml_path

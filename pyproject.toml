@@ -23,6 +23,8 @@ style = "pep440"
 mkdocs-material = ">8.2.8"
 mkdocs-mermaid2-plugin = ">0.6.0"
 schemasheets = "^0.1.14"
+pytest = ">8.0.0"
+exceptiongroup = {version = "^1.2.0", python = "<3.11"}
 
 [tool.poetry.scripts]
 brcschema = "brc_schema.cli:main"
