@@ -494,6 +494,11 @@
 <td>GitHub</td>
 </tr>
 <tr>
+<td>GLBRC Land Atlas</td>
+<td>None</td>
+<td>"Great Lakes Bioenergy Research Center Land Use Data Atlas"</td>
+</tr>
+<tr>
 <td>GLBRC Sustainability</td>
 <td>None</td>
 <td>"Great Lakes Bioenergy Research Center Sustainability Data Catalog"</td>
@@ -547,6 +552,11 @@
 <td>Mendeley Data</td>
 <td>ror:01t2a8a42</td>
 <td>Mendeley Data</td>
+</tr>
+<tr>
+<td>MetaboLights</td>
+<td>None</td>
+<td>MetaboLights</td>
 </tr>
 <tr>
 <td>National Microbiome Data Collaborative</td>
@@ -706,6 +716,11 @@ permissible_values:
     - general_purpose
     see_also:
     - https://github.com/
+  GLBRC Land Atlas:
+    text: GLBRC Land Atlas
+    description: '&quot;Great Lakes Bioenergy Research Center Land Use Data Atlas&quot;'
+    see_also:
+    - https://atlas.glbrc.org/
   GLBRC Sustainability:
     text: GLBRC Sustainability
     description: '&quot;Great Lakes Bioenergy Research Center Sustainability Data Catalog&quot;'
@@ -799,12 +814,20 @@ permissible_values:
     - general_purpose
     see_also:
     - https://data.mendeley.com/
+  MetaboLights:
+    text: MetaboLights
+    description: MetaboLights
+    in_subset:
+    - metabolomics
+    see_also:
+    - https://www.ebi.ac.uk/metabolights/
   National Microbiome Data Collaborative:
     text: National Microbiome Data Collaborative
     description: '&quot;National Microbiome Data Collaborative&quot;'
     meaning: ror:05cwx3318
     in_subset:
     - sequence
+    - metabolomics
     see_also:
     - https://microbiomedata.org/
   NCBI BioProject:

@@ -2,394 +2,398 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/AnalysisType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/BRCEnum/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/BRCOrganization/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Boolean/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/CitedItemType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Contributor/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/ContributorTypeCodes/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Curie/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Dataset/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/DatasetCollection/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/DatasetTypeCodes/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Date/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/DateOrDatetime/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Datetime/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Decimal/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Deprecated/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Double/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Float/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Funding/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/GeneralPurpose/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Individual/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Integer/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Jsonpath/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Jsonpointer/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Metabolomics/</loc>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/NCBITaxID/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Ncname/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Nodeidentifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Objectidentifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Organism/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Plasmid/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Proteomics/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RelatedItem/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RepositoryEnum/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RequiresLoginAll/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RequiresLoginForDownload/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RequiresLoginSome/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/RorIdentifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Sequence/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Sparqlpath/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/String/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Structure/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Text/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Time/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Uri/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Uriorcurie/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/WikidataIdentifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/about/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/active/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/additional_brcs/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/affiliation/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/alert/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/analysisType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/awardNumber/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/awardTitle/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/awardURI/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/backbone/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/bibliographicCitation/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/brc/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/brc_schema/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/cli/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/contributorType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/contributors/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/creator/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/datasetName/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/datasetType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/dataset_url/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/datasets/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/date/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/description/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/email/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/funding/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/fundingOrganization/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/has_related_ids/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/host/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/id/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/identifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/keywords/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/name/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/orcid/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/organizationName/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/ori/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/parentOrganization/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/plasmid_features/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/primaryContact/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/promoters/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/relatedItem/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/relatedItemIdentifier/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/relatedItemType/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/replicates_in/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/repository/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/ror_id/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/schema_version/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/scientificName/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/selection_markers/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/species/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/title/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/wikidata_id/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2025-12-01</lastmod>
     </url>
 </urlset>
