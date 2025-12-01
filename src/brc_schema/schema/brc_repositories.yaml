@@ -156,6 +156,11 @@ enums:
           - https://github.com/
         in_subset:
           - general_purpose
+      GLBRC Land Atlas:
+        description: >-
+          "Great Lakes Bioenergy Research Center Land Use Data Atlas"
+        see_also:
+          - https://atlas.glbrc.org/
       GLBRC Sustainability:
         description: >-
           "Great Lakes Bioenergy Research Center Sustainability Data Catalog"
