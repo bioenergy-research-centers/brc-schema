@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.7
+# version: 0.1.8
 enum AnalysisType
   {
     affinity_purification
@@ -86,6 +86,7 @@ enum RepositoryEnum
     GenBank
     GEO
     GitHub
+    GLBRC_Land_Atlas
     GLBRC_Sustainability
     Iowa_State_University_FigShare
     ICE
@@ -97,6 +98,7 @@ enum RepositoryEnum
     jPOST
     MassIVE
     Mendeley_Data
+    MetaboLights
     National_Microbiome_Data_Collaborative
     NCBI_BioProject
     NCBI_SRA

@@ -84,6 +84,10 @@ subsets:
     description: >-
       These repositories specialize in sequence data,
       such as genomic, transcriptomic, and proteomic sequences.
+  metabolomics:
+    description: >-
+      These repositories specialize in metabolomics data,
+      such as small molecule profiles and metabolic pathways.
   proteomics:
     description: >-
       These repositories specialize in proteomics data,
@@ -156,6 +160,11 @@ enums:
           - https://github.com/
         in_subset:
           - general_purpose
+      GLBRC Land Atlas:
+        description: >-
+          "Great Lakes Bioenergy Research Center Land Use Data Atlas"
+        see_also:
+          - https://atlas.glbrc.org/
       GLBRC Sustainability:
         description: >-
           "Great Lakes Bioenergy Research Center Sustainability Data Catalog"
@@ -238,6 +247,12 @@ enums:
         meaning: ror:01t2a8a42
         in_subset:
           - general_purpose
+      MetaboLights:
+        description: "MetaboLights"
+        see_also:
+          - https://www.ebi.ac.uk/metabolights/
+        in_subset:
+          - metabolomics
       National Microbiome Data Collaborative:
         description: >-
           "National Microbiome Data Collaborative"
@@ -246,6 +261,7 @@ enums:
         meaning: ror:05cwx3318
         in_subset:
           - sequence
+          - metabolomics
       NCBI BioProject:
         description: "National Center for Biotechnology Information BioProject"
         see_also:

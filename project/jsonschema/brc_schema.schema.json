@@ -629,6 +629,7 @@
                 "GenBank",
                 "GEO",
                 "GitHub",
+                "GLBRC Land Atlas",
                 "GLBRC Sustainability",
                 "Iowa State University FigShare",
                 "ICE",
@@ -640,6 +641,7 @@
                 "jPOST",
                 "MassIVE",
                 "Mendeley Data",
+                "MetaboLights",
                 "National Microbiome Data Collaborative",
                 "NCBI BioProject",
                 "NCBI SRA",
@@ -684,5 +686,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.7"
+    "version": "0.1.8"
 }

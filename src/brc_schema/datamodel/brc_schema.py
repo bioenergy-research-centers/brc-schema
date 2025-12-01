@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-11-05T16:46:20
+# Generation date: 2025-12-01T17:39:11
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.7"
+version = "0.1.8"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -777,6 +777,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     MassIVE = PermissibleValue(
         text="MassIVE",
         description="Mass Spectrometry Interactive Virtual Environment")
+    MetaboLights = PermissibleValue(
+        text="MetaboLights",
+        description="MetaboLights")
     OSTI = PermissibleValue(
         text="OSTI",
         description="Office of Scientific and Technical Information",
@@ -814,6 +817,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="European Nucleotide Archive",
                 description="European Nucleotide Archive"))
+        setattr(cls, "GLBRC Land Atlas",
+            PermissibleValue(
+                text="GLBRC Land Atlas",
+                description="\"Great Lakes Bioenergy Research Center Land Use Data Atlas\""))
         setattr(cls, "GLBRC Sustainability",
             PermissibleValue(
                 text="GLBRC Sustainability",
