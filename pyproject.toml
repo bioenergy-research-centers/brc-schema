@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "brc_schema"
-version = "0.1.7"
+version = "0.1.9"
 description = "Bioenergy Research Centers (BRC) Schema"
 authors = ["J. Harry Caufield <jhc@lbl.gov>", "Chris Mungall <cjmungall@lbl.gov>"]
 license = "BSD-3"
