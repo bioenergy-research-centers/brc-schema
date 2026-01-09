@@ -280,6 +280,8 @@
 <div class="mermaid"> classDiagram
     class Dataset
     click Dataset href "../Dataset/"
+      Dataset : abstract
+
       Dataset : active
 
       Dataset : additional_brcs
@@ -536,6 +538,12 @@
 <td><a href="../description/">description</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>A detailed description of the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../abstract/">abstract</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>"A brief abstract summarizing the dataset</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -862,6 +870,17 @@ attributes:
     - Dataset
     - Plasmid
     range: string
+  abstract:
+    name: abstract
+    description: '"A brief abstract summarizing the dataset. This will generally be
+      longer and more detailed than the description but should not exceed a single
+      paragraph."'
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: schema:abstract
+    domain_of:
+    - Dataset
+    range: string
   relatedItem:
     name: relatedItem
     description: Related publications or items.
@@ -1175,6 +1194,19 @@ attributes:
     domain_of:
     - Dataset
     - Plasmid
+    range: string
+  abstract:
+    name: abstract
+    description: '"A brief abstract summarizing the dataset. This will generally be
+      longer and more detailed than the description but should not exceed a single
+      paragraph."'
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: schema:abstract
+    alias: abstract
+    owner: Dataset
+    domain_of:
+    - Dataset
     range: string
   relatedItem:
     name: relatedItem
