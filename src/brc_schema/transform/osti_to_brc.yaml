@@ -54,6 +54,8 @@ class_derivations:
         populated_from: title
       description:
         populated_from: description
+      abstract:
+        populated_from: description
       date:
         populated_from: publication_date
       identifier:
