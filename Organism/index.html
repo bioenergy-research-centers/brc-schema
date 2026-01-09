@@ -275,6 +275,8 @@
 
       Organism : scientificName
 
+      Organism : strains
+
 
 </div>
 <!-- no inheritance hierarchy -->
@@ -299,6 +301,12 @@
 <td><a href="../NCBITaxID/">NCBITaxID</a></td>
 <td>0..1 <br/> <a href="../Integer/">Integer</a></td>
 <td>NCBI taxonomy ID for the organism</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../strains/">strains</a></td>
+<td>* <br/> <a href="../String/">String</a></td>
+<td>Name of one or more strains of the organism</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -382,6 +390,15 @@ attributes:
     domain_of:
     - Organism
     range: integer
+  strains:
+    name: strains
+    description: Name of one or more strains of the organism.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Organism
+    range: string
+    multivalued: true
 
 </code></pre>
 </details>
@@ -411,6 +428,17 @@ attributes:
     domain_of:
     - Organism
     range: integer
+  strains:
+    name: strains
+    description: Name of one or more strains of the organism.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: strains
+    owner: Organism
+    domain_of:
+    - Organism
+    range: string
+    multivalued: true
 
 </code></pre>
 </details>
