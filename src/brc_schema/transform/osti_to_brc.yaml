@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: '0.1.8'
+        expr: '0.1.9'
 
   Dataset:
     populated_from: Record
@@ -53,6 +53,8 @@ class_derivations:
       title:
         populated_from: title
       description:
+        populated_from: description
+      abstract:
         populated_from: description
       date:
         populated_from: publication_date

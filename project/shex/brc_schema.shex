@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.8
+# version: 0.1.9
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -124,6 +124,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/DatasetTypeCodes#SM> <https://w3id.org/brc/DatasetTypeCodes#MM>
              <https://w3id.org/brc/DatasetTypeCodes#I> ] ? ;
           dcterms:description @linkml:String ? ;
+          schema1:abstract @linkml:String ? ;
           <relatedItem> @<RelatedItem> * ;
           dcat:keyword @linkml:String * ;
           <datasetName> @linkml:String ? ;

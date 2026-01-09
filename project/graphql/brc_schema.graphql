@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.8
+# version: 0.1.9
 enum AnalysisType
   {
     affinity_purification
@@ -152,6 +152,7 @@ type Dataset
     analysisType: String
     datasetType: DatasetTypeCodes
     description: String
+    abstract: String
     relatedItem: [RelatedItem]
     keywords: [String]
     datasetName: String

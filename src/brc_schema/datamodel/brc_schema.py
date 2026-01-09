@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-12-01T17:39:11
+# Generation date: 2026-01-09T13:05:32
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.8"
+version = "0.1.9"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -175,6 +175,7 @@ class Dataset(YAMLRoot):
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
     description: Optional[str] = None
+    abstract: Optional[str] = None
     relatedItem: Optional[Union[Union[dict, "RelatedItem"], list[Union[dict, "RelatedItem"]]]] = empty_list()
     keywords: Optional[Union[str, list[str]]] = empty_list()
     datasetName: Optional[str] = None
@@ -251,6 +252,9 @@ class Dataset(YAMLRoot):
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
+
+        if self.abstract is not None and not isinstance(self.abstract, str):
+            self.abstract = str(self.abstract)
 
         if not isinstance(self.relatedItem, list):
             self.relatedItem = [self.relatedItem] if self.relatedItem is not None else []
@@ -948,6 +952,9 @@ slots.dataset__datasetType = Slot(uri=BRC.datasetType, name="dataset__datasetTyp
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])
+
+slots.dataset__abstract = Slot(uri=SCHEMA.abstract, name="dataset__abstract", curie=SCHEMA.curie('abstract'),
+                   model_uri=BRC.dataset__abstract, domain=None, range=Optional[str])
 
 slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedItem", curie=BRC.curie('relatedItem'),
                    model_uri=BRC.dataset__relatedItem, domain=None, range=Optional[Union[Union[dict, RelatedItem], list[Union[dict, RelatedItem]]]])

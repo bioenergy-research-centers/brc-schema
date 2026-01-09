@@ -15,6 +15,7 @@
 --     * Slot: analysisType Description: The type of analysis performed on the dataset.
 --     * Slot: datasetType Description: High-level type of the main content of the dataset.
 --     * Slot: description Description: A detailed description of the dataset.
+--     * Slot: abstract Description: "A brief abstract summarizing the dataset. This will generally be longer and more detailed than the description but should not exceed a single paragraph."
 --     * Slot: datasetName Description: "Name of a overall dataset to which this data entry belongs."
 --     * Slot: dataset_url Description: URL for the dataset landing page.
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
@@ -135,6 +136,7 @@ CREATE TABLE "Dataset" (
 	"analysisType" TEXT,
 	"datasetType" VARCHAR(2),
 	description TEXT,
+	abstract TEXT,
 	"datasetName" TEXT,
 	dataset_url TEXT,
 	"DatasetCollection_id" INTEGER,
@@ -194,7 +196,7 @@ CREATE TABLE "Dataset_has_related_ids" (
 	has_related_ids TEXT,
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
-);CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
+);CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
 	species_id INTEGER,
@@ -215,20 +217,20 @@ CREATE TABLE "Dataset_relatedItem" (
 	PRIMARY KEY ("Dataset_uid", "relatedItem_id"),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY("relatedItem_id") REFERENCES "RelatedItem" (id)
-);CREATE INDEX "ix_Dataset_relatedItem_Dataset_uid" ON "Dataset_relatedItem" ("Dataset_uid");CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");
+);CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");CREATE INDEX "ix_Dataset_relatedItem_Dataset_uid" ON "Dataset_relatedItem" ("Dataset_uid");
 CREATE TABLE "Dataset_keywords" (
 	"Dataset_uid" INTEGER,
 	keywords TEXT,
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
-);CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
+);CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 CREATE TABLE "Dataset_funding" (
 	"Dataset_uid" INTEGER,
 	funding_id INTEGER,
 	PRIMARY KEY ("Dataset_uid", funding_id),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
-);CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
+);CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
 	promoters TEXT,
@@ -247,4 +249,4 @@ CREATE TABLE "Plasmid_selection_markers" (
 	selection_markers TEXT,
 	PRIMARY KEY ("Plasmid_uid", selection_markers),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
-);CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
+);CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
