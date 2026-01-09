@@ -187,6 +187,7 @@ type Organism
   {
     scientificName: String
     nCBITaxID: Int
+    strains: [String]
   }
 
 type Plasmid

@@ -168,7 +168,8 @@ linkml:Sparqlpath xsd:string
 
 <Organism> CLOSED {
     (  $<Organism_tes> (  <scientificName> @linkml:String ? ;
-          <NCBITaxID> @linkml:Integer ?
+          <NCBITaxID> @linkml:Integer ? ;
+          <strains> @linkml:String *
        ) ;
        rdf:type [ <Organism> ] ?
     )

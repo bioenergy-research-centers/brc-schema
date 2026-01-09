@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-01-09T13:05:32
+# Generation date: 2026-01-09T13:16:22
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -416,6 +416,7 @@ class Organism(YAMLRoot):
 
     scientificName: Optional[str] = None
     NCBITaxID: Optional[int] = None
+    strains: Optional[Union[str, list[str]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.scientificName is not None and not isinstance(self.scientificName, str):
@@ -423,6 +424,10 @@ class Organism(YAMLRoot):
 
         if self.NCBITaxID is not None and not isinstance(self.NCBITaxID, int):
             self.NCBITaxID = int(self.NCBITaxID)
+
+        if not isinstance(self.strains, list):
+            self.strains = [self.strains] if self.strains is not None else []
+        self.strains = [v if isinstance(v, str) else str(v) for v in self.strains]
 
         super().__post_init__(**kwargs)
 
@@ -1018,6 +1023,9 @@ slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__sc
 
 slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
                    model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
+
+slots.organism__strains = Slot(uri=BRC.strains, name="organism__strains", curie=BRC.curie('strains'),
+                   model_uri=BRC.organism__strains, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.plasmid__id = Slot(uri=BRC.id, name="plasmid__id", curie=BRC.curie('id'),
                    model_uri=BRC.plasmid__id, domain=None, range=Optional[str])
