@@ -173,6 +173,13 @@
             "additionalProperties": false,
             "description": "A body of structured information describing some topic or topics of interest. This includes metadata about the dataset.",
             "properties": {
+                "abstract": {
+                    "description": "\"A brief abstract summarizing the dataset. This will generally be longer and more detailed than the description but should not exceed a single paragraph.\"",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "active": {
                     "description": "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive.",
                     "type": [
@@ -686,5 +693,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.8"
+    "version": "0.1.9"
 }
