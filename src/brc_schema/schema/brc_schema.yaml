@@ -349,6 +349,10 @@ classes:
       NCBITaxID:
         range: integer
         description: "NCBI taxonomy ID for the organism."
+      strains:
+        range: string
+        multivalued: true
+        description: "Name of one or more strains of the organism."
 
   Plasmid:
     description: Description of plasmid or other molecular vector features.
