@@ -516,6 +516,16 @@
                         "string",
                         "null"
                     ]
+                },
+                "strains": {
+                    "description": "Name of one or more strains of the organism.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Organism",

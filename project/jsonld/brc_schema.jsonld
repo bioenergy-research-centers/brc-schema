@@ -1938,6 +1938,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "organism__strains",
+      "description": "Name of one or more strains of the organism.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/strains",
+      "alias": "strains",
+      "owner": "Organism",
+      "domain_of": [
+        "Organism"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "plasmid__id",
       "description": "Unique identifier for the plasmid. This must be unique within the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2621,7 +2635,8 @@
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
         "organism__scientificName",
-        "organism__NCBITaxID"
+        "organism__NCBITaxID",
+        "organism__strains"
       ],
       "slot_usage": {},
       "attributes": [
@@ -2635,6 +2650,13 @@
           "name": "NCBITaxID",
           "description": "NCBI taxonomy ID for the organism.",
           "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "strains",
+          "description": "Name of one or more strains of the organism.",
+          "range": "string",
+          "multivalued": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2751,9 +2773,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-01-09T13:05:05",
-  "source_file_size": 22306,
-  "generation_date": "2026-01-09T13:05:31",
+  "source_file_date": "2026-01-09T13:15:46",
+  "source_file_size": 22437,
+  "generation_date": "2026-01-09T13:16:22",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
