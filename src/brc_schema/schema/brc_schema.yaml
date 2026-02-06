@@ -208,6 +208,12 @@ classes:
           High-level topic area for the dataset. This is specific
           to the BRCs and is not intended to be an exhaustive list of topics.
         multivalued: true
+      theme:
+        range: DatasetThemeEnum
+        description: >-
+          High-level theme areas for the dataset. This is specific
+          to the research themes of the BRCs.
+        multivalued: true
       description:
         range: string
         description: "A detailed description of the dataset."
@@ -686,6 +692,19 @@ enums:
         description: >-
           Datasets related to process engineering, including
           process design, optimization, and control.
+  DatasetThemeEnum:
+    description: >-
+      High-level theme area for the dataset. This is specific
+      to the research themes of the BRCs.
+    permissible_values:
+      Feedstock Development:
+        description: Datasets related to feedstock development.
+      Deconstruction and Separation:
+        description: Datasets related to deconstruction and separation.
+      Conversion:
+        description: Datasets related to conversion processes.
+      Sustainability:
+        description: Datasets related to sustainability.
 
 types:
   ror_identifier:

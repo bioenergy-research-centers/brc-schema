@@ -352,6 +352,16 @@
                         "null"
                     ]
                 },
+                "theme": {
+                    "description": "High-level theme areas for the dataset. This is specific to the research themes of the BRCs.",
+                    "items": {
+                        "$ref": "#/$defs/DatasetThemeEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "title": {
                     "description": "The title of the dataset.",
                     "type": "string"
@@ -401,6 +411,17 @@
             },
             "title": "DatasetCollection",
             "type": "object"
+        },
+        "DatasetThemeEnum": {
+            "description": "High-level theme area for the dataset. This is specific to the research themes of the BRCs.",
+            "enum": [
+                "Feedstock Development",
+                "Deconstruction and Separation",
+                "Conversion",
+                "Sustainability"
+            ],
+            "title": "DatasetThemeEnum",
+            "type": "string"
         },
         "DatasetTopicEnum": {
             "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",

@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-06T16:27:11
+# Generation date: 2026-02-06T16:38:03
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -175,6 +175,7 @@ class Dataset(YAMLRoot):
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
     topic: Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]] = empty_list()
+    theme: Optional[Union[Union[str, "DatasetThemeEnum"], list[Union[str, "DatasetThemeEnum"]]]] = empty_list()
     description: Optional[str] = None
     abstract: Optional[str] = None
     relatedItem: Optional[Union[Union[dict, "RelatedItem"], list[Union[dict, "RelatedItem"]]]] = empty_list()
@@ -254,6 +255,10 @@ class Dataset(YAMLRoot):
         if not isinstance(self.topic, list):
             self.topic = [self.topic] if self.topic is not None else []
         self.topic = [v if isinstance(v, DatasetTopicEnum) else DatasetTopicEnum(v) for v in self.topic]
+
+        if not isinstance(self.theme, list):
+            self.theme = [self.theme] if self.theme is not None else []
+        self.theme = [v if isinstance(v, DatasetThemeEnum) else DatasetThemeEnum(v) for v in self.theme]
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
@@ -800,6 +805,33 @@ class DatasetTopicEnum(EnumDefinitionImpl):
                 text="Process Engineering",
                 description="""Datasets related to process engineering, including process design, optimization, and control."""))
 
+class DatasetThemeEnum(EnumDefinitionImpl):
+    """
+    High-level theme area for the dataset. This is specific to the research themes of the BRCs.
+    """
+    Conversion = PermissibleValue(
+        text="Conversion",
+        description="Datasets related to conversion processes.")
+    Sustainability = PermissibleValue(
+        text="Sustainability",
+        description="Datasets related to sustainability.")
+
+    _defn = EnumDefinition(
+        name="DatasetThemeEnum",
+        description="High-level theme area for the dataset. This is specific to the research themes of the BRCs.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Feedstock Development",
+            PermissibleValue(
+                text="Feedstock Development",
+                description="Datasets related to feedstock development."))
+        setattr(cls, "Deconstruction and Separation",
+            PermissibleValue(
+                text="Deconstruction and Separation",
+                description="Datasets related to deconstruction and separation."))
+
 class RepositoryEnum(EnumDefinitionImpl):
     """
     Repository where the dataset is stored.
@@ -1007,6 +1039,9 @@ slots.dataset__datasetType = Slot(uri=BRC.datasetType, name="dataset__datasetTyp
 
 slots.dataset__topic = Slot(uri=BRC.topic, name="dataset__topic", curie=BRC.curie('topic'),
                    model_uri=BRC.dataset__topic, domain=None, range=Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]])
+
+slots.dataset__theme = Slot(uri=BRC.theme, name="dataset__theme", curie=BRC.curie('theme'),
+                   model_uri=BRC.dataset__theme, domain=None, range=Optional[Union[Union[str, "DatasetThemeEnum"], list[Union[str, "DatasetThemeEnum"]]]])
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])

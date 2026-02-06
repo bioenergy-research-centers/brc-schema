@@ -130,6 +130,9 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/DatasetTopicEnum#Biomass%20%26%20Feedstock>
              <https://w3id.org/brc/DatasetTopicEnum#Bioenergy%20Production>
              <https://w3id.org/brc/DatasetTopicEnum#Process%20Engineering> ] * ;
+          <theme> [ <https://w3id.org/brc/DatasetThemeEnum#Feedstock%20Development>
+             <https://w3id.org/brc/DatasetThemeEnum#Deconstruction%20and%20Separation>
+             <https://w3id.org/brc/DatasetThemeEnum#Conversion> <https://w3id.org/brc/DatasetThemeEnum#Sustainability> ] * ;
           dcterms:description @linkml:String ? ;
           schema1:abstract @linkml:String ? ;
           <relatedItem> @<RelatedItem> * ;
