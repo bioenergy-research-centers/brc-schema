@@ -418,6 +418,17 @@
 
       Dataset : title
 
+      Dataset : topic
+
+
+
+
+
+        Dataset --&gt; "*" DatasetTopicEnum : topic
+        click DatasetTopicEnum href "../DatasetTopicEnum/"
+
+
+
 
 </div>
 <!-- no inheritance hierarchy -->
@@ -532,6 +543,12 @@
 <td><a href="../datasetType/">datasetType</a></td>
 <td>0..1 <br/> <a href="../DatasetTypeCodes/">DatasetTypeCodes</a></td>
 <td>High-level type of the main content of the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../topic/">topic</a></td>
+<td>* <br/> <a href="../DatasetTopicEnum/">DatasetTopicEnum</a></td>
+<td>High-level topic area for the dataset</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -858,6 +875,16 @@ attributes:
     domain_of:
     - Dataset
     range: DatasetTypeCodes
+  topic:
+    name: topic
+    description: High-level topic area for the dataset. This is specific to the BRCs
+      and is not intended to be an exhaustive list of topics.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: DatasetTopicEnum
+    multivalued: true
   description:
     name: description
     description: A detailed description of the dataset.
@@ -1181,6 +1208,18 @@ attributes:
     domain_of:
     - Dataset
     range: DatasetTypeCodes
+  topic:
+    name: topic
+    description: High-level topic area for the dataset. This is specific to the BRCs
+      and is not intended to be an exhaustive list of topics.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: topic
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: DatasetTopicEnum
+    multivalued: true
   description:
     name: description
     description: A detailed description of the dataset.
