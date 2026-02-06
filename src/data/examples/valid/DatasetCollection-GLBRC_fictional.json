@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.1.9",
+  "datasets": [
+    {
+      "id": "glbrc:dataset-field-2023",
+      "title": "GLBRC Field Trial Metabolomics 2023",
+      "date": "2023-08-30",
+      "creator": [
+        {
+          "name": "Avery Chen",
+          "email": "avery.chen@example.org",
+          "primaryContact": true,
+          "affiliation": "Great Lakes Bioenergy Research Center",
+          "orcid": "https://orcid.org/0000-0001-5566-7788"
+        },
+        {
+          "name": "Jordan Rivera",
+          "email": "jordan.rivera@example.org",
+          "primaryContact": false,
+          "affiliation": "Michigan State University"
+        }
+      ],
+      "contributors": [
+        {
+          "name": "Taylor Singh",
+          "email": "taylor.singh@example.org",
+          "contributorType": "DataManager",
+          "affiliation": "GLBRC Data Hub"
+        }
+      ],
+      "brc": "GLBRC",
+      "additional_brcs": ["CABBI"],
+      "active": true,
+      "alert": false,
+      "repository": "MetaboLights",
+      "bibliographicCitation": "https://example.org/glbrc/field-metabolomics-2023",
+      "identifier": "GLBRC_2023_010",
+      "has_related_ids": [
+        "BIOPROJECT:PRJNA800010",
+        "BIOSAMPLE:SAMN80001055"
+      ],
+      "species": [
+        {
+          "scientificName": "Panicum virgatum",
+          "NCBITaxID": 38727,
+          "strains": ["Alamo"]
+        },
+        {
+          "scientificName": "Miscanthus x giganteus",
+          "NCBITaxID": 131213
+        }
+      ],
+      "analysisType": "Expression profiling",
+      "datasetType": "SM",
+      "topic": [
+        "Plant Biology",
+        "Analytics & Methods"
+      ],
+      "themes": [
+        "Feedstock Development",
+        "Sustainability"
+      ],
+      "description": "Metabolite profiles from field-grown perennial grasses collected across seasonal timepoints.",
+      "abstract": "This dataset includes LC-MS metabolite abundances and associated environmental metadata for switchgrass and miscanthus field trials.",
+      "relatedItem": [
+        {
+          "title": "Seasonal Metabolomics of Perennial Grasses",
+          "relatedItemType": "JournalArticle",
+          "relatedItemIdentifier": "https://doi.org/10.1234/glbrc.2023.010"
+        },
+        {
+          "title": "GLBRC Field Trial Protocol",
+          "relatedItemType": "Webpage",
+          "relatedItemIdentifier": "https://example.org/protocols/glbrc-field-trial"
+        }
+      ],
+      "keywords": ["metabolomics", "field trials", "switchgrass", "miscanthus"],
+      "datasetName": "GLBRC Field Trial Series",
+      "funding": [
+        {
+          "fundingOrganization": {
+            "organizationName": "Great Lakes Bioenergy Research Center",
+            "ror_id": "ror:03ad39j10"
+          },
+          "awardNumber": "DE-FAKE-GLBRC-010",
+          "awardTitle": "Field-Scale Metabolomics",
+          "awardURI": "https://example.org/awards/de-fake-glbrc-010"
+        }
+      ],
+      "dataset_url": "https://example.org/datasets/glbrc-field-metabolomics-2023"
+    }
+  ]
+}

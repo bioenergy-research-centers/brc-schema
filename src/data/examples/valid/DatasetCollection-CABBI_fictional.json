@@ -1,0 +1,189 @@
+{
+  "schema_version": "0.1.9",
+  "datasets": [
+    {
+      "id": "cabbi:dataset-pretreat-2025",
+      "title": "CABBI Pretreatment Kinetics 2025",
+      "date": "2025-02-14",
+      "creator": [
+        {
+          "name": "Lena Morales",
+          "email": "lena.morales@example.org",
+          "primaryContact": true,
+          "affiliation": "Center for Advanced Bioenergy and Bioproducts Innovation",
+          "orcid": "https://orcid.org/0000-0003-1122-3344"
+        },
+        {
+          "name": "Evan Patel",
+          "email": "evan.patel@example.org",
+          "primaryContact": false,
+          "affiliation": "University of Illinois Urbana-Champaign"
+        }
+      ],
+      "contributors": [
+        {
+          "name": "Priya Nandakumar",
+          "email": "priya.n@example.org",
+          "contributorType": "DataCurator",
+          "affiliation": "CABBI Data Services"
+        }
+      ],
+      "brc": "CABBI",
+      "additional_brcs": ["GLBRC"],
+      "active": true,
+      "alert": false,
+      "repository": "Zenodo",
+      "bibliographicCitation": "https://example.org/cabbi/pretreatment-2025",
+      "identifier": "CABBI_2025_0001",
+      "has_related_ids": [
+        "BIOPROJECT:PRJNA900001",
+        "BIOSAMPLE:SAMN90000123"
+      ],
+      "species": [
+        {
+          "scientificName": "Populus trichocarpa",
+          "NCBITaxID": 3694,
+          "strains": ["Nisqually-1"]
+        }
+      ],
+      "analysisType": "image_analysis",
+      "datasetType": "ND",
+      "topic": [
+        "Biomass & Feedstock",
+        "Process Engineering"
+      ],
+      "themes": [
+        "Deconstruction and Separation",
+        "Sustainability"
+      ],
+      "description": "Time-resolved pretreatment measurements for poplar biomass under dilute-acid conditions.",
+      "abstract": "This dataset contains temperature, pH, and solubilized sugar profiles across multiple pretreatment runs used to model reaction kinetics for poplar biomass.",
+      "relatedItem": [
+        {
+          "title": "Modeling Dilute-Acid Pretreatment Kinetics",
+          "relatedItemType": "JournalArticle",
+          "relatedItemIdentifier": "https://doi.org/10.1234/cabbi.2025.001"
+        }
+      ],
+      "keywords": ["pretreatment", "kinetics", "poplar", "sugars"],
+      "datasetName": "CABBI Pretreatment Series",
+      "funding": [
+        {
+          "fundingOrganization": {
+            "organizationName": "U.S. Department of Energy",
+            "parentOrganization": {
+              "organizationName": "Office of Science"
+            },
+            "wikidata_id": "wikidata:Q188",
+            "ror_id": "ror:01bj3aw75"
+          },
+          "awardNumber": "DE-FAKE-12345",
+          "awardTitle": "Pretreatment Optimization for Biomass",
+          "awardURI": "https://example.org/awards/de-fake-12345"
+        }
+      ],
+      "dataset_url": "https://example.org/datasets/cabbi-pretreatment-2025"
+    },
+    {
+      "id": "cabbi:dataset-yeast-lib-2024",
+      "title": "CABBI Yeast Engineering Library",
+      "date": "2024-11-05",
+      "creator": [
+        {
+          "name": "Morgan Lee",
+          "email": "morgan.lee@example.org",
+          "primaryContact": true,
+          "affiliation": "CABBI Synthetic Biology Group",
+          "orcid": "https://orcid.org/0000-0002-7788-9900"
+        }
+      ],
+      "contributors": [
+        {
+          "name": "Hao Zhang",
+          "email": "hao.zhang@example.org",
+          "contributorType": "Researcher",
+          "affiliation": "CABBI Metabolic Engineering"
+        },
+        {
+          "name": "Sasha Ivanov",
+          "email": "sasha.ivanov@example.org",
+          "contributorType": "DataCollector",
+          "affiliation": "CABBI Experimental Core"
+        }
+      ],
+      "brc": "CABBI",
+      "additional_brcs": ["JBEI", "CBI"],
+      "active": true,
+      "alert": false,
+      "repository": "ICE",
+      "bibliographicCitation": "https://public-registry.jbei.org/folders/999",
+      "identifier": "CABBI_2024_0042",
+      "has_related_ids": [
+        "INSDC.SRA:SRP123456"
+      ],
+      "species": [
+        {
+          "scientificName": "Saccharomyces cerevisiae",
+          "NCBITaxID": 4932,
+          "strains": ["CEN.PK2-1C"]
+        }
+      ],
+      "plasmid_features": [
+        {
+          "id": "pCABBI-TEF1-GFP",
+          "description": "Constitutive GFP reporter under TEF1 promoter.",
+          "backbone": "pUC19",
+          "host": {
+            "scientificName": "Escherichia coli DH5alpha",
+            "NCBITaxID": 668369
+          },
+          "ori": "ColE1",
+          "promoters": ["TEF1", "PGK1"],
+          "replicates_in": [
+            {
+              "scientificName": "Escherichia coli DH5alpha",
+              "NCBITaxID": 668369
+            }
+          ],
+          "selection_markers": ["kan", "amp"]
+        }
+      ],
+      "analysisType": "shotgun_proteomics",
+      "datasetType": "GD",
+      "topic": [
+        "Genetic Engineering",
+        "Enzymes & Proteins"
+      ],
+      "themes": [
+        "Conversion"
+      ],
+      "description": "Characterization of a yeast strain library for cellulase expression.",
+      "abstract": "A collection of engineered yeast strains and plasmids with annotated constructs, promoter variants, and protein expression measurements.",
+      "relatedItem": [
+        {
+          "title": "Yeast Strain Library for Cellulase Screening",
+          "relatedItemType": "Dataset",
+          "relatedItemIdentifier": "https://example.org/datasets/yeast-library"
+        }
+      ],
+      "keywords": ["yeast", "cellulase", "plasmids", "protein expression"],
+      "datasetName": "CABBI Yeast Engineering Library",
+      "funding": [
+        {
+          "fundingOrganization": {
+            "organizationName": "National Science Foundation",
+            "parentOrganization": {
+              "organizationName": "Biological Sciences Directorate"
+            },
+            "wikidata_id": "wikidata:Q3049",
+            "ror_id": "ror:021nxhr62"
+          },
+          "awardNumber": "NSF-FAKE-2024-001",
+          "awardTitle": "Tools for High-Throughput Yeast Engineering",
+          "awardURI": "https://example.org/awards/nsf-fake-2024-001"
+        }
+      ],
+      "dataset_url": "https://example.org/datasets/cabbi-yeast-library-2024"
+    }
+  ]
+}

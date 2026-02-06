@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.9",
+  "datasets": [
+    {
+      "id": "cbi:dataset-consortia-2022",
+      "title": "CBI Microbial Consortia Genome Survey",
+      "date": "2022-05-12",
+      "creator": [
+        {
+          "name": "Noah Ahmed",
+          "email": "noah.ahmed@example.org",
+          "primaryContact": true,
+          "affiliation": "Center for Bioenergy Innovation",
+          "orcid": "https://orcid.org/0000-0002-1234-5678"
+        }
+      ],
+      "contributors": [
+        {
+          "name": "Riley Morgan",
+          "email": "riley.morgan@example.org",
+          "contributorType": "ProjectLeader",
+          "affiliation": "CBI Genomics Core"
+        },
+        {
+          "name": "Casey Brooks",
+          "email": "casey.brooks@example.org",
+          "contributorType": "DataCollector",
+          "affiliation": "CBI Sequencing Facility"
+        }
+      ],
+      "brc": "CBI",
+      "additional_brcs": ["JBEI"],
+      "active": true,
+      "alert": false,
+      "repository": "GenBank",
+      "bibliographicCitation": "https://example.org/cbi/microbial-consortia-2022",
+      "identifier": "CBI_2022_078",
+      "has_related_ids": [
+        "BIOPROJECT:PRJNA700078",
+        "INSDC.SRA:SRP700078"
+      ],
+      "species": [
+        {
+          "scientificName": "Clostridium thermocellum",
+          "NCBITaxID": 203119
+        },
+        {
+          "scientificName": "Thermoanaerobacterium saccharolyticum",
+          "NCBITaxID": 37910
+        }
+      ],
+      "analysisType": "Genomic - SNP calling",
+      "datasetType": "GD",
+      "topic": [
+        "Microbiology",
+        "Bioenergy Production"
+      ],
+      "themes": [
+        "Conversion",
+        "Sustainability"
+      ],
+      "description": "Whole-genome sequencing and variant analysis for lignocellulose-degrading microbial consortia.",
+      "abstract": "A set of assembled genomes, variant calls, and annotations for thermophilic consortia optimized for biomass conversion.",
+      "relatedItem": [
+        {
+          "title": "Genomic Insights into Thermophilic Consortia",
+          "relatedItemType": "Report",
+          "relatedItemIdentifier": "https://example.org/reports/thermophilic-consortia"
+        }
+      ],
+      "keywords": ["genomics", "consortia", "biomass conversion"],
+      "datasetName": "CBI Consortia Genomics",
+      "funding": [
+        {
+          "fundingOrganization": {
+            "organizationName": "Oak Ridge National Laboratory",
+            "ror_id": "ror:05s6h6e43",
+            "wikidata_id": "wikidata:Q1133583"
+          },
+          "awardNumber": "DE-FAKE-CBI-078",
+          "awardTitle": "Microbial Consortia for Biomass Conversion",
+          "awardURI": "https://example.org/awards/de-fake-cbi-078"
+        }
+      ],
+      "dataset_url": "https://example.org/datasets/cbi-consortia-2022"
+    }
+  ]
+}
