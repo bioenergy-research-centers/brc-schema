@@ -202,6 +202,12 @@ classes:
         description: "High-level type of the main content of the dataset."
         examples:
           - value: GD
+      topic:
+        range: DatasetTopicEnum
+        description: >-
+          High-level topic area for the dataset. This is specific
+          to the BRCs and is not intended to be an exhaustive list of topics.
+        multivalued: true
       description:
         range: string
         description: "A detailed description of the dataset."
@@ -639,6 +645,47 @@ enums:
           specific DOE instrument at one of the laboratories or user
           facilities. This creates a central Instrument record with a DOI to
           link out to related datasets.
+  DatasetTopicEnum:
+    description: >-
+      High-level topic area for the dataset. This is specific
+      to the BRCs and is not intended to be an exhaustive list of topics.
+    permissible_values:
+      Genetic Engineering:
+        description: >-
+          Datasets related to genetic engineering, including
+          design and construction of genetic constructs,
+          plasmids, and engineered organisms.
+      Plant Biology:
+        description: >-
+          Datasets related to plant biology, including
+          plant physiology, growth, and development.
+      Microbiology:
+        description: >-
+          Datasets related to microbiology, including
+          microbial physiology, growth, and development.
+      Analytics & Methods:
+        description: >-
+          Datasets related to analytical techniques and methods,
+          including mass spectrometry, chromatography, and other
+          experimental methods.
+      Enzymes & Proteins:
+        description: >-
+          Datasets related to enzymes and proteins, including
+          enzyme characterization, protein structure, and
+          protein engineering.
+      Biomass & Feedstock:
+        description: >-
+          Datasets related to biomass and feedstock, including
+          feedstock characterization, biomass composition, and
+          biomass conversion.
+      Bioenergy Production:
+        description: >-
+          Datasets related to bioenergy production, including
+          biofuel production, bioprocessing, and bioenergy systems.
+      Process Engineering:
+        description: >-
+          Datasets related to process engineering, including
+          process design, optimization, and control.
 
 types:
   ror_identifier:
