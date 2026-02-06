@@ -3,7 +3,6 @@
 import json
 import logging
 import os
-import sys
 from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union, Optional, Dict, Any
