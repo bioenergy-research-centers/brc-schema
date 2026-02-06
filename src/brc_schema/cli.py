@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 
 import click
 import yaml
