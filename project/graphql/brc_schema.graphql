@@ -62,6 +62,14 @@ enum ContributorTypeCodes
     Other
   }
 
+enum DatasetThemeEnum
+  {
+    Feedstock_Development
+    Deconstruction_and_Separation
+    Conversion
+    Sustainability
+  }
+
 enum DatasetTopicEnum
   {
     Genetic_Engineering
@@ -164,6 +172,7 @@ type Dataset
     analysisType: String
     datasetType: DatasetTypeCodes
     topic: [DatasetTopicEnum]
+    theme: [DatasetThemeEnum]
     description: String
     abstract: String
     relatedItem: [RelatedItem]

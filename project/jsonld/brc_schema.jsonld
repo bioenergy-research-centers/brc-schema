@@ -873,6 +873,30 @@
       ]
     },
     {
+      "name": "DatasetThemeEnum",
+      "definition_uri": "https://w3id.org/brc/DatasetThemeEnum",
+      "description": "High-level theme area for the dataset. This is specific to the research themes of the BRCs.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "permissible_values": [
+        {
+          "text": "Feedstock Development",
+          "description": "Datasets related to feedstock development."
+        },
+        {
+          "text": "Deconstruction and Separation",
+          "description": "Datasets related to deconstruction and separation."
+        },
+        {
+          "text": "Conversion",
+          "description": "Datasets related to conversion processes."
+        },
+        {
+          "text": "Sustainability",
+          "description": "Datasets related to sustainability."
+        }
+      ]
+    },
+    {
       "name": "RepositoryEnum",
       "definition_uri": "https://w3id.org/brc/RepositoryEnum",
       "description": "Repository where the dataset is stored.",
@@ -1605,6 +1629,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__theme",
+      "description": "High-level theme areas for the dataset. This is specific to the research themes of the BRCs.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/theme",
+      "alias": "theme",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "DatasetThemeEnum",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__description",
       "description": "A detailed description of the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2236,6 +2274,7 @@
         "dataset__analysisType",
         "dataset__datasetType",
         "dataset__topic",
+        "dataset__theme",
         "dataset__description",
         "dataset__abstract",
         "dataset__relatedItem",
@@ -2409,6 +2448,13 @@
           "name": "topic",
           "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
           "range": "DatasetTopicEnum",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "theme",
+          "description": "High-level theme areas for the dataset. This is specific to the research themes of the BRCs.",
+          "range": "DatasetThemeEnum",
           "multivalued": true,
           "@type": "SlotDefinition"
         },
@@ -2835,9 +2881,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-02-06T16:26:34",
-  "source_file_size": 24367,
-  "generation_date": "2026-02-06T16:27:10",
+  "source_file_date": "2026-02-06T16:37:32",
+  "source_file_size": 25105,
+  "generation_date": "2026-02-06T16:38:02",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
