@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-01-09T13:16:22
+# Generation date: 2026-02-06T16:27:11
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -174,6 +174,7 @@ class Dataset(YAMLRoot):
     plasmid_features: Optional[Union[Union[dict, "Plasmid"], list[Union[dict, "Plasmid"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
+    topic: Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]] = empty_list()
     description: Optional[str] = None
     abstract: Optional[str] = None
     relatedItem: Optional[Union[Union[dict, "RelatedItem"], list[Union[dict, "RelatedItem"]]]] = empty_list()
@@ -249,6 +250,10 @@ class Dataset(YAMLRoot):
 
         if self.datasetType is not None and not isinstance(self.datasetType, DatasetTypeCodes):
             self.datasetType = DatasetTypeCodes(self.datasetType)
+
+        if not isinstance(self.topic, list):
+            self.topic = [self.topic] if self.topic is not None else []
+        self.topic = [v if isinstance(v, DatasetTopicEnum) else DatasetTopicEnum(v) for v in self.topic]
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
@@ -750,6 +755,51 @@ class DatasetTypeCodes(EnumDefinitionImpl):
         description="""High-level type of the main content of the dataset, following OSTI categories. See https://www.osti.gov/elink/F2416instruct.jsp""",
     )
 
+class DatasetTopicEnum(EnumDefinitionImpl):
+    """
+    High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list
+    of topics.
+    """
+    Microbiology = PermissibleValue(
+        text="Microbiology",
+        description="Datasets related to microbiology, including microbial physiology, growth, and development.")
+
+    _defn = EnumDefinition(
+        name="DatasetTopicEnum",
+        description="""High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.""",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Genetic Engineering",
+            PermissibleValue(
+                text="Genetic Engineering",
+                description="""Datasets related to genetic engineering, including design and construction of genetic constructs, plasmids, and engineered organisms."""))
+        setattr(cls, "Plant Biology",
+            PermissibleValue(
+                text="Plant Biology",
+                description="""Datasets related to plant biology, including plant physiology, growth, and development."""))
+        setattr(cls, "Analytics & Methods",
+            PermissibleValue(
+                text="Analytics & Methods",
+                description="""Datasets related to analytical techniques and methods, including mass spectrometry, chromatography, and other experimental methods."""))
+        setattr(cls, "Enzymes & Proteins",
+            PermissibleValue(
+                text="Enzymes & Proteins",
+                description="""Datasets related to enzymes and proteins, including enzyme characterization, protein structure, and protein engineering."""))
+        setattr(cls, "Biomass & Feedstock",
+            PermissibleValue(
+                text="Biomass & Feedstock",
+                description="""Datasets related to biomass and feedstock, including feedstock characterization, biomass composition, and biomass conversion."""))
+        setattr(cls, "Bioenergy Production",
+            PermissibleValue(
+                text="Bioenergy Production",
+                description="""Datasets related to bioenergy production, including biofuel production, bioprocessing, and bioenergy systems."""))
+        setattr(cls, "Process Engineering",
+            PermissibleValue(
+                text="Process Engineering",
+                description="""Datasets related to process engineering, including process design, optimization, and control."""))
+
 class RepositoryEnum(EnumDefinitionImpl):
     """
     Repository where the dataset is stored.
@@ -954,6 +1004,9 @@ slots.dataset__analysisType = Slot(uri=BRC.analysisType, name="dataset__analysis
 
 slots.dataset__datasetType = Slot(uri=BRC.datasetType, name="dataset__datasetType", curie=BRC.curie('datasetType'),
                    model_uri=BRC.dataset__datasetType, domain=None, range=Optional[Union[str, "DatasetTypeCodes"]])
+
+slots.dataset__topic = Slot(uri=BRC.topic, name="dataset__topic", curie=BRC.curie('topic'),
+                   model_uri=BRC.dataset__topic, domain=None, range=Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]])
 
 slots.dataset__description = Slot(uri=DCTERMS.description, name="dataset__description", curie=DCTERMS.curie('description'),
                    model_uri=BRC.dataset__description, domain=None, range=Optional[str])

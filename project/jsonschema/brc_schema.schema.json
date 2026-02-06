@@ -355,6 +355,16 @@
                 "title": {
                     "description": "The title of the dataset.",
                     "type": "string"
+                },
+                "topic": {
+                    "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
+                    "items": {
+                        "$ref": "#/$defs/DatasetTopicEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -391,6 +401,21 @@
             },
             "title": "DatasetCollection",
             "type": "object"
+        },
+        "DatasetTopicEnum": {
+            "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
+            "enum": [
+                "Genetic Engineering",
+                "Plant Biology",
+                "Microbiology",
+                "Analytics & Methods",
+                "Enzymes & Proteins",
+                "Biomass & Feedstock",
+                "Bioenergy Production",
+                "Process Engineering"
+            ],
+            "title": "DatasetTopicEnum",
+            "type": "string"
         },
         "DatasetTypeCodes": {
             "description": "High-level type of the main content of the dataset, following OSTI categories. See https://www.osti.gov/elink/F2416instruct.jsp",

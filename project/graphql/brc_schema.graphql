@@ -62,6 +62,18 @@ enum ContributorTypeCodes
     Other
   }
 
+enum DatasetTopicEnum
+  {
+    Genetic_Engineering
+    Plant_Biology
+    Microbiology
+    Analytics___AMPERSAND___Methods
+    Enzymes___AMPERSAND___Proteins
+    Biomass___AMPERSAND___Feedstock
+    Bioenergy_Production
+    Process_Engineering
+  }
+
 enum DatasetTypeCodes
   {
     AS
@@ -151,6 +163,7 @@ type Dataset
     plasmidFeatures: [Plasmid]
     analysisType: String
     datasetType: DatasetTypeCodes
+    topic: [DatasetTopicEnum]
     description: String
     abstract: String
     relatedItem: [RelatedItem]

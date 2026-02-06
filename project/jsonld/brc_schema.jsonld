@@ -833,6 +833,46 @@
       ]
     },
     {
+      "name": "DatasetTopicEnum",
+      "definition_uri": "https://w3id.org/brc/DatasetTopicEnum",
+      "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "permissible_values": [
+        {
+          "text": "Genetic Engineering",
+          "description": "Datasets related to genetic engineering, including design and construction of genetic constructs, plasmids, and engineered organisms."
+        },
+        {
+          "text": "Plant Biology",
+          "description": "Datasets related to plant biology, including plant physiology, growth, and development."
+        },
+        {
+          "text": "Microbiology",
+          "description": "Datasets related to microbiology, including microbial physiology, growth, and development."
+        },
+        {
+          "text": "Analytics & Methods",
+          "description": "Datasets related to analytical techniques and methods, including mass spectrometry, chromatography, and other experimental methods."
+        },
+        {
+          "text": "Enzymes & Proteins",
+          "description": "Datasets related to enzymes and proteins, including enzyme characterization, protein structure, and protein engineering."
+        },
+        {
+          "text": "Biomass & Feedstock",
+          "description": "Datasets related to biomass and feedstock, including feedstock characterization, biomass composition, and biomass conversion."
+        },
+        {
+          "text": "Bioenergy Production",
+          "description": "Datasets related to bioenergy production, including biofuel production, bioprocessing, and bioenergy systems."
+        },
+        {
+          "text": "Process Engineering",
+          "description": "Datasets related to process engineering, including process design, optimization, and control."
+        }
+      ]
+    },
+    {
       "name": "RepositoryEnum",
       "definition_uri": "https://w3id.org/brc/RepositoryEnum",
       "description": "Repository where the dataset is stored.",
@@ -1551,6 +1591,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__topic",
+      "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/topic",
+      "alias": "topic",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "DatasetTopicEnum",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__description",
       "description": "A detailed description of the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2181,6 +2235,7 @@
         "dataset__plasmid_features",
         "dataset__analysisType",
         "dataset__datasetType",
+        "dataset__topic",
         "dataset__description",
         "dataset__abstract",
         "dataset__relatedItem",
@@ -2348,6 +2403,13 @@
             }
           ],
           "range": "DatasetTypeCodes",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "topic",
+          "description": "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.",
+          "range": "DatasetTopicEnum",
+          "multivalued": true,
           "@type": "SlotDefinition"
         },
         {
@@ -2773,9 +2835,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-01-09T13:15:46",
-  "source_file_size": 22437,
-  "generation_date": "2026-01-09T13:16:22",
+  "source_file_date": "2026-02-06T16:26:34",
+  "source_file_size": 24367,
+  "generation_date": "2026-02-06T16:27:10",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
