@@ -40,6 +40,7 @@ message Dataset
  repeated  plasmid plasmidFeatures = 0
   string analysisType = 0
   datasetTypeCodes datasetType = 0
+ repeated  datasetTopicEnum topic = 0
   string description = 0
   string abstract = 0
  repeated  relatedItem relatedItem = 0
