@@ -45,6 +45,10 @@
          <lastmod>2026-02-06</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/DatasetThemeEnum/</loc>
+         <lastmod>2026-02-06</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/DatasetTopicEnum/</loc>
          <lastmod>2026-02-06</lastmod>
     </url>
@@ -398,6 +402,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/strains/</loc>
+         <lastmod>2026-02-06</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/theme/</loc>
          <lastmod>2026-02-06</lastmod>
     </url>
     <url>

@@ -416,6 +416,17 @@
 
 
 
+      Dataset : theme
+
+
+
+
+
+        Dataset --&gt; "*" DatasetThemeEnum : theme
+        click DatasetThemeEnum href "../DatasetThemeEnum/"
+
+
+
       Dataset : title
 
       Dataset : topic
@@ -549,6 +560,12 @@
 <td><a href="../topic/">topic</a></td>
 <td>* <br/> <a href="../DatasetTopicEnum/">DatasetTopicEnum</a></td>
 <td>High-level topic area for the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../theme/">theme</a></td>
+<td>* <br/> <a href="../DatasetThemeEnum/">DatasetThemeEnum</a></td>
+<td>High-level theme areas for the dataset</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -885,6 +902,16 @@ attributes:
     - Dataset
     range: DatasetTopicEnum
     multivalued: true
+  theme:
+    name: theme
+    description: High-level theme areas for the dataset. This is specific to the research
+      themes of the BRCs.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: DatasetThemeEnum
+    multivalued: true
   description:
     name: description
     description: A detailed description of the dataset.
@@ -1219,6 +1246,18 @@ attributes:
     domain_of:
     - Dataset
     range: DatasetTopicEnum
+    multivalued: true
+  theme:
+    name: theme
+    description: High-level theme areas for the dataset. This is specific to the research
+      themes of the BRCs.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: theme
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: DatasetThemeEnum
     multivalued: true
   description:
     name: description

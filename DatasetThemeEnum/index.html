@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/title/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/DatasetThemeEnum/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: title - brc-schema</title>
+        <title>Enum: DatasetThemeEnum - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-title" class="md-skip">
+        <a href="#enum-datasetthemeenum" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: title
+              Enum: DatasetThemeEnum
             
           </span>
         </div>
@@ -355,10 +355,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
+  <a href="#permissible-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Applicable Classes
+        Permissible Values
       
     </span>
   </a>
@@ -366,10 +366,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
+  <a href="#slots" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Properties
+        Slots
       
     </span>
   </a>
@@ -385,16 +385,22 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mappings
+        Schema Source
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -429,66 +435,82 @@
   
 
 
-<h1 id="slot-title">Slot: title</h1>
-<p>URI: <a href="https://w3id.org/brc/title">brc:title</a>
-Alias: title</p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
+<h1 id="enum-datasetthemeenum">Enum: DatasetThemeEnum</h1>
+<p><em>High-level theme area for the dataset. This is specific to the research themes of the BRCs.</em></p>
+<p>URI: <a href="https://w3id.org/brc/DatasetThemeEnum">brc:DatasetThemeEnum</a></p>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feedstock Development</td>
+<td>None</td>
+<td>Datasets related to feedstock development</td>
+</tr>
+<tr>
+<td>Deconstruction and Separation</td>
+<td>None</td>
+<td>Datasets related to deconstruction and separation</td>
+</tr>
+<tr>
+<td>Conversion</td>
+<td>None</td>
+<td>Datasets related to conversion processes</td>
+</tr>
+<tr>
+<td>Sustainability</td>
+<td>None</td>
+<td>Datasets related to sustainability</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
-<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../RelatedItem/">RelatedItem</a></td>
-<td>A related publication or item, including cited publications</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>A body of structured information describing some topic or topics of interest</td>
-<td>no</td>
+<td><a href="../theme/">theme</a></td>
+<td>High-level theme areas for the dataset</td>
 </tr>
 </tbody>
 </table>
-<h2 id="properties">Properties</h2>
-<ul>
-<li>Range: <a href="../String/">String</a></li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>brc:title</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:title</td>
-</tr>
-</tbody>
-</table>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/brc/brc_schema</li>
+</ul>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: title
-alias: title
-domain_of:
-- Dataset
-- RelatedItem
-range: string
+<pre><code class="language-yaml">name: DatasetThemeEnum
+description: High-level theme area for the dataset. This is specific to the research
+  themes of the BRCs.
+from_schema: https://w3id.org/brc/brc_schema
+rank: 1000
+permissible_values:
+  Feedstock Development:
+    text: Feedstock Development
+    description: Datasets related to feedstock development.
+  Deconstruction and Separation:
+    text: Deconstruction and Separation
+    description: Datasets related to deconstruction and separation.
+  Conversion:
+    text: Conversion
+    description: Datasets related to conversion processes.
+  Sustainability:
+    text: Sustainability
+    description: Datasets related to sustainability.
 
 </code></pre>
 
