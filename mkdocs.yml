@@ -22,8 +22,11 @@ plugins:
   - search
   - mermaid2
 nav:
-  - Index: index.md
+  - Getting Started: getting_started.md
   - CLI Usage: cli.md
+  - OSTI E-Link Integration: osti_elink_integration.md
+  - Updating the Schema: update_schema.md
+  - Schema Reference: index.md
   - About: about.md
 site_url: https://bioenergy-research-centers.github.io/brc-schema
 repo_url: https://github.com/bioenergy-research-centers/brc-schema
