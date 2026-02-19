@@ -1,5 +1,9 @@
 .idea
-/docs/
+/docs/*
+!/docs/cli.md
+!/docs/update_schema.md
+!/docs/getting_started.md
+!/docs/osti_elink_integration.md
 /project/docs/
 /tmp/
 
