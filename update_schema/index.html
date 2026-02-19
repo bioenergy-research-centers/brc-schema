@@ -1,0 +1,993 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/update_schema/">
+      
+      
+        <link rel="prev" href="../osti_elink_integration/">
+      
+      
+        <link rel="next" href="..">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Updating the Schema - brc-schema</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#updating-the-brc-schema" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="brc-schema" class="md-header__button md-logo" aria-label="brc-schema" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            brc-schema
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Updating the Schema
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bioenergy-research-centers/brc-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="brc-schema" class="md-nav__button md-logo" aria-label="brc-schema" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    brc-schema
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bioenergy-research-centers/brc-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../osti_elink_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSTI E-Link Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating the Schema
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating the Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#howto-updating-bioenergyorg-repo-to-a-new-schema-version-in-21-easy-steps-and-19-sub-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HOWTO: Updating bioenergy.org repo to a new schema version in 21 easy steps (and 19 sub-steps).
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HOWTO: Updating bioenergy.org repo to a new schema version in 21 easy steps (and 19 sub-steps).">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-adding-new-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1. Adding new schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-user-interface-updates-to-support-new-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2. User Interface updates to support new schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-retiring-unused-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3. Retiring unused schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#howto-updating-bioenergyorg-repo-to-a-new-schema-version-in-21-easy-steps-and-19-sub-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HOWTO: Updating bioenergy.org repo to a new schema version in 21 easy steps (and 19 sub-steps).
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HOWTO: Updating bioenergy.org repo to a new schema version in 21 easy steps (and 19 sub-steps).">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-adding-new-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1. Adding new schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-user-interface-updates-to-support-new-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2. User Interface updates to support new schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-retiring-unused-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3. Retiring unused schemas.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="updating-the-brc-schema">Updating the BRC Schema</h1>
+<p>This page describes how to update the schema used on bioenergy.org to a new version.</p>
+<p>AKA</p>
+<h2 id="howto-updating-bioenergyorg-repo-to-a-new-schema-version-in-21-easy-steps-and-19-sub-steps">HOWTO: Updating bioenergy.org repo to a new schema version in 21 easy steps (and 19 sub-steps).</h2>
+<p><strong>Example:</strong> Issue <a href="https://github.com/bioenergy-research-centers/bioenergy.org/issues/166">#166</a> (Update to new version of BRC Schema - v0.1.8)</p>
+<p>In a new branch (already created for issue_166) from bioenergy.org/main:</p>
+<pre><code>git fetch
+git checkout issue_166
+git pull
+</code></pre>
+<h3 id="phase-1-adding-new-schemas">Phase 1. Adding new schemas.</h3>
+<ol>
+<li>
+<p>Build and run the import locally from your new branch before you make any code changes.</p>
+<p>a. Delete any local docker containers for the bioenergy.org PostgreSQL instance and app (I just do this via Docker Desktop). <em>We do this because we need a clean database to load the feeds into.</em></p>
+<p>b. In one shell, start the database docker image and build/run the server:</p>
+<p><code>docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 6432:5432 postgres
+docker-compose up --build</code></p>
+<p>c. When the server is up and running (you'll see <code>Server is running on port 8080.</code>), run the import code in a different shell (and save the output to a file for later). <em>This gives us a reference point that we can use later for contrasting records that pass/fail validation against the existing schemas.</em>
+<code>docker compose run api node scripts/import_datafeeds.js 2&gt;&amp;1 &gt; import_datafeeds_before.txt</code></p>
+<p>d. Then shut down your instances (I just do this via Docker Desktop).</p>
+</li>
+<li>
+<p>Locate the latest (in this case version 0.1.8) Raw JSON schema in the <a href="https://github.com/bioenergy-research-centers/brc-schema">brc-schema repo</a>:</p>
+<ul>
+<li>Here is the HTML view of the latest JSON schema:
+https://github.com/bioenergy-research-centers/brc-schema/blob/main/project/jsonschema/brc_schema.schema.json</li>
+<li>And this is the Raw version of that schema to be copied into your new branch:
+https://github.com/bioenergy-research-centers/brc-schema/raw/refs/heads/main/project/jsonschema/brc_schema.schema.json</li>
+</ul>
+</li>
+<li>
+<p>Create a new file for this version in the <code>api/app/schemas</code> folder of your new branch:</p>
+<p><strong>Example:</strong> <code>api/app/schemas/brc_schema_0.1.8.json</code></p>
+</li>
+<li>
+<p>Paste the contents of the Raw JSON schema into the new file you created.</p>
+</li>
+<li>
+<p>Add an entry for this schema to <code>api/app/schemas/schema_list.json</code>:</p>
+<p><strong>Example:</strong> Add this before the closing bracket in the file:
+<code>,{
+    "version": "0.1.8",
+    "filename": "brc_schema_0.1.8.json",
+    "supported": false
+}</code></p>
+<p><strong>Note:</strong> The <code>supported: false</code> flag is used by <code>api/app/models/index.js</code>, which adds a scope to the Dataset model that restricts queries to only those schema versions that are supported by current version of the User Interface code. This decouples schema updates from UI development by allowing BRC data feeds to update to use newer versions of the schema before the UI code supports it. This prevents UI development from blocking schema updates. Essentially, the UI developers can catch up to the latest schema whenever it is convenient (or whenever actual data is available to test with). So, in this case, since we are adding a new schema for which we don't yet have any data, we want to set the supported flag to false because we don't know if contains any breaking changes for the UI. This will enable BRCs to update their feeds to the latest schema version and allows the records to be loaded into the database without breaking the UI.</p>
+</li>
+<li>
+<p>Determine which schema versions are in use by the current feeds.</p>
+<p>The 4 BRC feeds will be using older versions of the schema (pre-0.1.8 in this case) and may, in fact, each be using different versions of the schema.</p>
+<p>At the time of writing this (December 4, 2025):
+- JBEI uses schema_version 0.1.2
+- CABBI uses schema_version 0.1.1
+- CBI uses schema_version 0.1.4
+- GLBRC uses schema_version 0.1.7</p>
+<p>The feed URLs are defined in <code>api/app/config/datafeeds.json</code>, so you can check for those versions by opening each of those URLs and looking at the first line of the file, where schema_version is defined.</p>
+</li>
+<li>
+<p>Test the new schema against all of the current feeds.</p>
+<p>So now we know that schema versions 0.1.1, 0.1.2, 0.1.4, and 0.1.7 are currently in use.
+But we need to validate each of these feeds against schema version 0.1.8.</p>
+<p>This next step is a bit janky, but this is the easiest/quickest way I've found to check for problems with the new schema.</p>
+<p>What we are doing is (temporarily) overwriting the contents of the the schema files currently in use:</p>
+<ul>
+<li><code>api/app/schemas/brc_schema_0.1.1.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.2.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.4.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.7.json</code></li>
+</ul>
+<p>with the contents of the new schema:</p>
+<ul>
+<li><code>api/app/schemas/brc_schema_0.1.8.json</code></li>
+</ul>
+<p>a. Copy the contents of your new schema file (<code>api/app/schemas/brc_schema_0.1.8.json</code> in this example).</p>
+<p>b. Paste that schema into the schema files corresponding to any schemas currently in use by the data feeds.</p>
+<p><strong>Note:</strong> The rest of this is much like the first time we ran the export, except we're saving the import results to a different file.</p>
+<p>c. Delete any local docker containers for the bioenergy.org PostgreSQL instance and app (I just do this via Docker Desktop). <em>Again, we do this because we need a clean database to load the feeds into.</em></p>
+<p>d. In one shell, start the database docker image and build/run the server:</p>
+<p><code>docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 6432:5432 postgres
+docker-compose up --build</code></p>
+<p>e. When the server is up and running (you'll see <code>Server is running on port 8080.</code>), run the import code in a different shell (and save the output to a different filename this time):</p>
+<p><code>docker compose run api node scripts/import_datafeeds.js 2&gt;&amp;1 &gt; import_datafeeds_after.txt</code></p>
+<p>This time, the import will validate each BRC against schema 0.1.8 (even though the feeds specify other versions).</p>
+<p>f. <strong>Important:</strong> After that import is completed, undo those changes to the old schema files to revert them to their original version (e.g., using <code>Ctrl-Z</code> on Windows). <em>We definitely don't want to commit changes to those older schema files - those changes were for running the above test only.</em></p>
+</li>
+<li>
+<p>Compare the results of the earlier import to that of the new import.</p>
+<p>Look specifically at the pass/fail results at the bottom of these files:</p>
+<p><code>import_datafeeds_before.txt</code>:
+<code>Data Import Summary: {
+  'https://bioenergy.org/JBEI/jbei.json': { valid: 265, invalid: 0 },
+  'https://cabbitools.igb.illinois.edu/brc/cabbi.json': { valid: 207, invalid: 0 },
+  'https://fair.ornl.gov/CBI/cbi.json': { valid: 35, invalid: 0 },
+  'https://fair-data.glbrc.org/glbrc.json': { valid: 189, invalid: 24 }
+}</code></p>
+<p><code>import_datafeeds_after.txt</code>:
+<code>Data Import Summary: {
+  'https://bioenergy.org/JBEI/jbei.json': { valid: 265, invalid: 0 },
+  'https://cabbitools.igb.illinois.edu/brc/cabbi.json': { valid: 207, invalid: 0 },
+  'https://fair.ornl.gov/CBI/cbi.json': { valid: 35, invalid: 0 },
+  'https://fair-data.glbrc.org/glbrc.json': { valid: 191, invalid: 22 }
+}</code>
+In these results, we see that the feeds validate at least as well with the new schema (lower set of validation results) as they do with the older schemas (upper set of validation results). If there are any expected changes in the number of records that fail validation, you can have a closer look at those records, which will be logged in these files.</p>
+</li>
+<li>
+<p>If the goal was simply to add a new schema, and you are satisfied that feeds are importing and validating as expected, you may now commit your changes to the following files and create a PR:</p>
+<ul>
+<li><code>api/app/schemas/brc_schema_0.1.8.json</code></li>
+<li><code>api/app/schemas/schema_list.json</code></li>
+</ul>
+<p>For reference, I usually paste the contents of the before and after files as a comment to the PR so that a reviewer has something they can look at and/or replicate.</p>
+</li>
+</ol>
+<h3 id="phase-2-user-interface-updates-to-support-new-schemas">Phase 2. User Interface updates to support new schemas.</h3>
+<p>Presuming that the PR has been merged for the schema update, the latest version of the app has been deployed to production, and there at least one data feed has switched over to using a new schema (version 0.1.8 in this example), the User Interface may now be tested to see if the new schema breaks any UI components, or if new UI fields need to be added.</p>
+<ol>
+<li>
+<p>Continuing our version 0.1.8 example, we first check out the main branch (or create a new branch from main if we will be implementing changes).</p>
+</li>
+<li>
+<p>Enable the new schema in the User Interface.
+    Remember that supported flag we set (<code>api/app/schemas/schema_list.json</code>) when we added the new schema (v0.1.8)?
+    <code>{
+        "version": "0.1.8",
+        "filename": "brc_schema_0.1.8.json",
+        "supported": false
+    }</code>
+    Since we're now working on the UI, we want to set that flag to <code>true</code> so that data sets conforming to schema 0.1.8 show up in the user interface:
+    <code>{
+        "version": "0.1.8",
+        "filename": "brc_schema_0.1.8.json",
+        "supported": true
+    }</code></p>
+</li>
+<li>
+<p>Adding support for a new schema in the User Interface.</p>
+<p>In the UI code, add schema 0.1.8 to the version component map (<code>client/src/views/datasets/versionComponentMap.js</code>). I'll outline a few different cases (A - D) below as examples.</p>
+<p>For breaking changes, new views are implemented so that old dataset (e.g., 0.0.4 - 0.0.8) and newer data sets (e.g., 0.1.0 - 0.1.7) can be supported by the app at the same time. We had an instance of that a few months ago, where we had the following views:
+- <code>client/src/views/datasets/Dataset_0_0_8.vue</code>
+- <code>client/src/views/datasets/Dataset_0_1_0.vue</code></p>
+<p>The new view (in that case) was created to support a change in the cardinality or depth of some field (I don't recall which one). The version number in the names indicate "schema 0.0.8 compatible" and "schema 0.1.0 compatible" respectively. Other than that, the version number doesn't really indicate the first or last version that is supported by the view. <strong>Note:</strong> We never used schema versions 0.0.6, 0.0.9, 0.1.5-0.1.6.</p>
+<p><strong>A. Multiple views are needed for schemas that contain breaking changes.</strong></p>
+<p>In that scenario outlined above, we would have seen the following in <code>versionComponentMap.js</code>:
+```
+import Dataset_0_0_8 from "./Dataset_0_0_8.vue";
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.0.4', '0.0.5', '0.0.7', '0.0.8'], component: Dataset_0_0_8 },
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2'], component: Dataset_0_1_0 }
+];
+<code>``
+But after all of the data feeds had updated to schema 0.1.0 (or later), we were able to remove support for those older schemas (and thus also remove the older</code>Dataset_0_0_8` view that was no longer in use.</p>
+<p><strong>B. Sometimes only a single view is necessary.</strong></p>
+<p>The <code>versionComponentMap.js</code> now looks like this, where we only need a single view to support all schemas currently in use:
+```
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 }
+];
+```</p>
+<p><strong>C. Testing a new schema for breaking changes in the UI.</strong></p>
+<p>When testing the existing UI view (<code>Dataset_0_1_0.vue</code>) with version 0.1.8, simply add that version to the latest view:
+```
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7', '0.1.8'], component: Dataset_0_1_0 }
+];
+```</p>
+<p><strong>D. Adding support for a new view to accommodate a breaking change.</strong></p>
+<p>As in case A above, if you discover that schema 0.1.8 contains a breaking change, then you would instead create a new view, like this:
+```
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+<code>``
+Then, of course, copy</code>client/src/views/datasets/Dataset_0_1_0.vue<code>to</code>client/src/views/datasets/Dataset_0_1_8.vue<code>and modify</code>Dataset_0_1_8.vue` to handle whatever breaking changes were introduced in schema 0.1.8.</p>
+<p><strong>Note:</strong> The <code>default</code> schema was introduced when we added support for schema 0.1.8. This version of the schema was the first to require the BRC data feeds to indicate which schema_version they were intended to comply with. Since each BRC adopted this schema version at a different time, we introduced the concept of a <code>default</code> view that would be applied if a data feed did not have a <code>schema_version</code> field. This, then, is a relic that will likely be removed at some point in the future.</p>
+</li>
+<li>
+<p>Build the app and run the import against a clean database instance.</p>
+<p>a. Delete any local docker containers for the bioenergy.org PostgreSQL instance and app (I just do this via Docker Desktop). <em>We do this because we need a clean database to load the feeds into.</em></p>
+<p>b. In one shell, start the database docker image and build/run the server:</p>
+<p><code>docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 6432:5432 postgres
+docker-compose up --build</code></p>
+<p>c. When the server is up and running (you'll see <code>Server is running on port 8080.</code>), run the import code in a different shell:</p>
+<p><code>docker compose run api node scripts/import_datafeeds.js 2&gt;&amp;1 &gt; import_datafeeds.txt</code></p>
+</li>
+<li>
+<p>Testing the UI for compatibility with an existing view or a new view.</p>
+<p>Test the (un-modified) user interface to see whether records corresponding to schema 0.1.8 break the user interface.</p>
+<p>This involves viewing one of what are usually a handful of new records that prompted the schema change. These records are usually indicated in the issue that prompted the schema change in the brc-schema repo. If there are any questions about which records you should be examining, consult with the maintainer of the brc-schema repo.</p>
+</li>
+<li>
+<p>If/when everything looks correct, commit your changes and create a PR:</p>
+<ul>
+<li><code>api/app/schemas/schema_list.json</code> (if you changed a <code>supported</code> flag for a schema)</li>
+<li><code>client/src/views/datasets/versionComponentMap.js</code></li>
+<li><code>client/src/views/datasets/Dataset_0_1_8.vue</code> (i.e., if you needed to create a new for schema 0.1.8)</li>
+</ul>
+</li>
+</ol>
+<h3 id="phase-3-retiring-unused-schemas">Phase 3. Retiring unused schemas.</h3>
+<ol>
+<li>
+<p>Determine which schemas can be retired.</p>
+<p>If you recall, back in Phase 1 step 6, you checked which schemas are currently in use and found that among the four data feeds, schema versions 0.1.1, 0.1.2, 0.1.4, and 0.1.7 were in use. In Phase 1 steps 3-5 and Phase 2 steps 11-12 you added server support for schema 0.1.8. Let's assume that GLBRC updated their data feed to version 0.1.8, so that the following schemas are now in use:</p>
+<ul>
+<li>0.1.1</li>
+<li>0.1.2</li>
+<li>0.1.4</li>
+<li>0.1.8</li>
+</ul>
+<p>You can, of course, check which schemas are in use at any given time using the URLs in <code>api/app/config/datafeeds.json</code>. But let's assume specifically the above 4 schemas are the ones in use, and that schema 0.1.8 required a new UI view to be implemented (this would be Phase 2 case 12 D above), so the current <code>api/app/schemas/schema_list.json</code> looks like this:</p>
+<p><code>[{
+    "version": "0.1.0",
+    "filename": "brc_schema_0.1.0.json",
+    "supported": true
+},{
+    "version": "0.1.1",
+    "filename": "brc_schema_0.1.1.json",
+    "supported": true
+},{
+    "version": "0.1.2",
+    "filename": "brc_schema_0.1.2.json",
+    "supported": true
+},{
+    "version": "0.1.3",
+    "filename": "brc_schema_0.1.3.json",
+    "supported": true
+},{
+    "version": "0.1.4",
+    "filename": "brc_schema_0.1.4.json",
+    "supported": true
+},{
+    "version": "0.1.7",
+    "filename": "brc_schema_0.1.7.json",
+    "supported": true
+},{
+    "version": "0.1.8",
+    "filename": "brc_schema_0.1.8.json",
+    "supported": true
+}
+]</code></p>
+<p>and the current <code>versionComponentMap.js</code> looks like this:</p>
+<p>```
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+```</p>
+</li>
+<li>
+<p>Remove UI support for unused schemas.</p>
+<p>a. Update the version component map.</p>
+<p>In <code>client/src/views/datasets/versionComponentMap.js</code> simply remove any references to schemas that are not in use. In our example we would remove schemas 0.1.0, 0.1.3, and 0.1.7:
+```
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
+<p>const versionMappings = [
+  { versions: ['default', '0.1.1', '0.1.2', '0.1.4'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+```</p>
+<p>b. Remove references to any unused views.</p>
+<p>If we were removing a view, we'd be deleting the import and the corresponding element of the version mappings array.
+<strong>Note:</strong> In this example, we still have three schemas using the <code>Dataset_0_1_0</code> view and one schema using the <code>Dataset_0_1_8</code> view, so there is nothing for us to do this time.</p>
+<p>c. Delete the .vue file for any unused views.</p>
+<pre><code>**Note:** In this example, both views are still in use, so we need to keep both `client/src/views/datasets/Dataset_0_1_0.vue` and `client/src/views/datasets/Dataset_0_1_0.vue`.
+</code></pre>
+</li>
+<li>
+<p>Remove server support for any unused schemas.</p>
+<p>Continuing the same example...</p>
+<p>a. Remove references to any unused schemas from <code>api/app/schemas/schema_list.json</code>.</p>
+<p>For our example, that would look like this:</p>
+<p><code>[{
+    "version": "0.1.1",
+    "filename": "brc_schema_0.1.1.json",
+    "supported": true
+},{
+    "version": "0.1.2",
+    "filename": "brc_schema_0.1.2.json",
+    "supported": true
+},{
+    "version": "0.1.4",
+    "filename": "brc_schema_0.1.4.json",
+    "supported": true
+},{
+    "version": "0.1.8",
+    "filename": "brc_schema_0.1.8.json",
+    "supported": true
+}
+]</code></p>
+<p>b. Delete any unused schema files.</p>
+<p>In our example, we would delete:</p>
+<ul>
+<li><code>api/app/schemas/brc_schema_0.1.0.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.3.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.7.json</code></li>
+</ul>
+</li>
+<li>
+<p>Build and test the import (same as Phase 2 step 13).</p>
+</li>
+<li>
+<p>Test the User Interface (same as Phase 2 step 14).</p>
+</li>
+<li>
+<p>Commit the changed files and create a PR.</p>
+<ul>
+<li><code>api/app/schemas/brc_schema_0.1.0.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.3.json</code></li>
+<li><code>api/app/schemas/brc_schema_0.1.7.json</code></li>
+<li><code>api/app/schemas/schema_list.json</code></li>
+<li><code>client/src/views/datasets/versionComponentMap.js</code></li>
+<li>and, of course, any .vue files that are no longer need (nothing to do for this example)</li>
+</ul>
+</li>
+</ol>
+<p>That's it. You're done!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

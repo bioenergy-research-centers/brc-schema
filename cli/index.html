@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/cli/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../getting_started/">
       
       
-        <link rel="next" href="../about/">
+        <link rel="next" href="../osti_elink_integration/">
       
       
         
@@ -258,14 +258,14 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../getting_started/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Index
+    Getting Started
   
 
     
@@ -598,6 +598,87 @@
   
   
     <li class="md-nav__item">
+      <a href="../osti_elink_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSTI E-Link Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../update_schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating the Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../about/" class="md-nav__link">
         
   
@@ -907,7 +988,10 @@
 <p>The <code>brcschema</code> command-line interface provides tools for transforming data between BRC and OSTI schemas, and for interacting with the OSTI E-Link 2.0 API.</p>
 <h2 id="installation">Installation</h2>
 <p>After installing the package with <code>poetry install</code>, the <code>brcschema</code> command will be available.</p>
-<p>Precede commands with <code>poetry run</code>.</p>
+<p>Precede commands with <code>poetry run</code>, or activate the Poetry environment first:</p>
+<pre><code class="language-bash">eval &quot;$(poetry env activate)&quot;
+</code></pre>
+<p>If you see <code>brcschema: command not found</code>, run the command in the Poetry environment.</p>
 <h2 id="global-options">Global Options</h2>
 <p>All commands support the following global options:</p>
 <ul>
@@ -986,6 +1070,7 @@ brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KE
 <li>At least one OSTI ID or DOI must be provided</li>
 <li>You can mix different input methods (command-line options and files)</li>
 <li>Retrieved records are saved in OSTI schema format (JSON)</li>
+<li>DOIs must be OSTI-style (<code>10.11578/&lt;osti_id&gt;</code>); other DOI formats are skipped</li>
 <li>API key is optional but may be required for certain records or rate limits</li>
 </ul>
 <hr />
@@ -1063,6 +1148,7 @@ brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KE
 <li><strong>Command-line option</strong>: Use <code>--api-url https://review.osti.gov/elink2api/</code></li>
 <li><strong>Environment variable</strong>: Set <code>OSTI_API_URL=https://review.osti.gov/elink2api/</code></li>
 </ol>
+<p>For Python usage examples, see <a href="../osti_elink_integration/">OSTI E-Link Integration</a>.</p>
 <hr />
 <h2 id="file-formats">File Formats</h2>
 <h3 id="input-files">Input Files</h3>

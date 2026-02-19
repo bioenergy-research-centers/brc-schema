@@ -8,9 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/schema_version/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/osti_elink_integration/">
       
       
+        <link rel="prev" href="../cli/">
+      
+      
+        <link rel="next" href="../update_schema/">
       
       
         
@@ -21,7 +25,7 @@
     
     
       
-        <title>Slot: schema_version - brc-schema</title>
+        <title>OSTI E-Link Integration - brc-schema</title>
       
     
     
@@ -72,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-schema_version" class="md-skip">
+        <a href="#osti-e-link-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: schema_version
+              OSTI E-Link Integration
             
           </span>
         </div>
@@ -305,10 +309,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../osti_elink_integration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSTI E-Link Integration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -324,6 +355,142 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-identifier-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Identifier Formats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-api-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python API Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convenience-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenience Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-based-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class-Based Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-ids-from-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading IDs from Text Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -436,10 +603,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
+  <a href="#supported-identifier-formats" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Applicable Classes
+        Supported Identifier Formats
       
     </span>
   </a>
@@ -447,10 +614,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
+  <a href="#authentication" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Properties
+        Authentication
       
     </span>
   </a>
@@ -458,10 +625,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#cli-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Examples
+        CLI Examples
       
     </span>
   </a>
@@ -469,22 +636,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#identifier-and-mapping-information" class="md-nav__link">
+  <a href="#python-api-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Identifier and Mapping Information
+        Python API Examples
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+    <nav class="md-nav" aria-label="Python API Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
+  <a href="#convenience-function" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Schema Source
+        Convenience Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-based-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class-Based Usage
       
     </span>
   </a>
@@ -497,10 +675,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
+  <a href="#reading-ids-from-text-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mappings
+        Reading IDs from Text Files
       
     </span>
   </a>
@@ -508,10 +686,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#linkml-source" class="md-nav__link">
+  <a href="#output-format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        LinkML Source
+        Output Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
       
     </span>
   </a>
@@ -538,88 +738,107 @@
   
 
 
-<h1 id="slot-schema_version">Slot: schema_version</h1>
-<p><em>Version of the schema used for the collection.</em></p>
-<p>URI: <a href="https://w3id.org/brc/schema_version">brc:schema_version</a>
-Alias: schema_version</p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Modifies Slot</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../DatasetCollection/">DatasetCollection</a></td>
-<td>Container class for defining a collection of datasets</td>
-<td>no</td>
-</tr>
-</tbody>
-</table>
-<h2 id="properties">Properties</h2>
+<h1 id="osti-e-link-integration">OSTI E-Link Integration</h1>
+<p>This project includes both CLI commands and Python utilities for working with the OSTI E-Link 2.0 API.</p>
+<h2 id="supported-identifier-formats">Supported Identifier Formats</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>OSTI IDs: <code>2584700</code></li>
+<li>OSTI DOIs: <code>10.11578/2584700</code></li>
 </ul>
-<h2 id="examples">Examples</h2>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.1.1</td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>brc:schema_version</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:schema_version</td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkml-source">LinkML Source</h2>
-<details>
-
-<pre><code class="language-yaml">name: schema_version
-description: Version of the schema used for the collection.
-examples:
-- value: 0.1.1
-from_schema: https://w3id.org/brc/brc_schema
-rank: 1000
-alias: schema_version
-owner: DatasetCollection
-domain_of:
-- DatasetCollection
-range: string
-
+<p>Only OSTI-style DOIs (<code>10.11578/...</code>) can be resolved by the retriever. Non-OSTI DOI formats are skipped with a warning.</p>
+<h2 id="authentication">Authentication</h2>
+<p>Some records require authentication.</p>
+<p>You can provide an API key with any of these methods:</p>
+<ol>
+<li>Environment variable (recommended):</li>
+</ol>
+<p><code>bash
+   export OSTI_API_KEY="your_api_key_here"</code></p>
+<ol>
+<li>CLI option:</li>
+</ol>
+<p><code>bash
+   poetry run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json</code></p>
+<ol>
+<li>Python API:</li>
+</ol>
+<p>```python
+   from brc_schema.util.elink import OSTIRecordRetriever</p>
+<p>retriever = OSTIRecordRetriever(api_key="your_api_key_here")
+   ```</p>
+<h2 id="cli-examples">CLI Examples</h2>
+<p>Use <code>poetry run</code> (or activate your Poetry shell) for commands below.</p>
+<p>Retrieve by OSTI IDs:</p>
+<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 </code></pre>
+<p>Retrieve by DOI:</p>
+<pre><code class="language-bash">poetry run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+</code></pre>
+<p>Read IDs from files:</p>
+<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+poetry run brcschema retrieve-osti --doi-file dois.txt -o records.json
+</code></pre>
+<p>Mix OSTI IDs and DOIs:</p>
+<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
+</code></pre>
+<h2 id="python-api-examples">Python API Examples</h2>
+<h3 id="convenience-function">Convenience Function</h3>
+<pre><code class="language-python">from brc_schema.util.elink import retrieve_osti_records
 
-</details>
+records = retrieve_osti_records(
+    osti_ids=[2584700, 2574191],
+    dois=[&quot;10.11578/2584700&quot;],
+    output_file=&quot;osti_records.json&quot;
+)
+
+print(f&quot;Retrieved {len(records)} records&quot;)
+</code></pre>
+<h3 id="class-based-usage">Class-Based Usage</h3>
+<pre><code class="language-python">from brc_schema.util.elink import OSTIRecordRetriever
+
+retriever = OSTIRecordRetriever()  # reads OSTI_API_KEY from environment if present
+
+record = retriever.get_record_by_osti_id(2584700)
+record_by_doi = retriever.get_record_by_doi(&quot;10.11578/2584700&quot;)
+
+records = retriever.get_records(
+    osti_ids=[2584700, 2574191],
+    dois=[&quot;10.11578/2584700&quot;]
+)
+
+retriever.save_records_to_file(
+    output_path=&quot;output/osti_records.json&quot;,
+    osti_ids=[2584700, 2574191],
+    pretty=True
+)
+</code></pre>
+<h2 id="reading-ids-from-text-files">Reading IDs from Text Files</h2>
+<p>For <code>--osti-id-file</code> and <code>--doi-file</code>, use one identifier per line. Blank lines and lines starting with <code>#</code> are ignored.</p>
+<p>Example <code>ids.txt</code>:</p>
+<pre><code class="language-text"># OSTI IDs
+2584700
+2574191
+</code></pre>
+<h2 id="output-format">Output Format</h2>
+<p>Retrieved records are written in OSTI-schema-style JSON:</p>
+<pre><code class="language-json">{
+  &quot;records&quot;: [
+    {
+      &quot;osti_id&quot;: &quot;2584700&quot;,
+      &quot;title&quot;: &quot;Example Dataset Title&quot;
+    }
+  ]
+}
+</code></pre>
+<h2 id="related-pages">Related Pages</h2>
+<ul>
+<li><a href="../cli/">CLI Usage</a></li>
+<li><a href="../update_schema/">Updating the Schema</a></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.osti.gov/elink2api/">OSTI E-Link 2.0 API documentation</a></li>
+</ul>
 
 
 
