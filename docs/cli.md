@@ -6,7 +6,13 @@ The `brcschema` command-line interface provides tools for transforming data betw
 
 After installing the package with `poetry install`, the `brcschema` command will be available.
 
-Precede commands with `poetry run`.
+Precede commands with `poetry run`, or activate the Poetry environment first:
+
+```bash
+eval "$(poetry env activate)"
+```
+
+If you see `brcschema: command not found`, run the command in the Poetry environment.
 
 ## Global Options
 
@@ -105,6 +111,7 @@ brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KE
 - At least one OSTI ID or DOI must be provided
 - You can mix different input methods (command-line options and files)
 - Retrieved records are saved in OSTI schema format (JSON)
+- DOIs must be OSTI-style (`10.11578/<osti_id>`); other DOI formats are skipped
 - API key is optional but may be required for certain records or rate limits
 
 ---
@@ -198,6 +205,8 @@ For testing or development environments:
 
 1. **Command-line option**: Use `--api-url https://review.osti.gov/elink2api/`
 2. **Environment variable**: Set `OSTI_API_URL=https://review.osti.gov/elink2api/`
+
+For Python usage examples, see [OSTI E-Link Integration](osti_elink_integration.md).
 
 ---
 
