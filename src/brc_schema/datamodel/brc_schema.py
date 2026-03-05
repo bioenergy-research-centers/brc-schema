@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-06T16:38:03
+# Generation date: 2026-03-05T13:20:37
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.9"
+version = "0.1.11"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -936,6 +936,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="JGI Genome Portal",
                 description="Joint Genome Institute Genome Portal"))
+        setattr(cls, "JGI MycoCosm",
+            PermissibleValue(
+                text="JGI MycoCosm",
+                description="Joint Genome Institute MycoCosm"))
         setattr(cls, "Mendeley Data",
             PermissibleValue(
                 text="Mendeley Data",
@@ -970,6 +974,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="Protein Data Bank",
                 description="RCSB Protein Data Bank"))
+        setattr(cls, "Protocols.io",
+            PermissibleValue(
+                text="Protocols.io",
+                description="Protocols.io"))
         setattr(cls, "The Cambridge Crystallographic Data Centre",
             PermissibleValue(
                 text="The Cambridge Crystallographic Data Centre",

@@ -226,6 +226,12 @@ enums:
           - deprecated
         comments:
           - "The Genome Portal is reaching end of life and will be replaced by the new application JGI Data Portal."
+      JGI MycoCosm:
+        description: "Joint Genome Institute MycoCosm"
+        see_also:
+          - https://mycocosm.jgi.doe.gov/mycocosm/home
+        in_subset:
+          - sequence
       jPOST:
         description: "Japan ProteOme STandard Repository/Database"
         see_also:
@@ -329,6 +335,12 @@ enums:
         in_subset:
           - sequence
           - structure
+      Protocols.io:
+        description: "Protocols.io"
+        see_also:
+          - https://www.protocols.io/
+        in_subset:
+          - text
       The Cambridge Crystallographic Data Centre:
         description: "The Cambridge Crystallographic Data Centre"
         see_also:
