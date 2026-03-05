@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.9
+# version: 0.1.11
 enum AnalysisType
   {
     affinity_purification
@@ -115,6 +115,7 @@ enum RepositoryEnum
     JGI_Data_Portal
     JGI_Gold
     JGI_Genome_Portal
+    JGI_MycoCosm
     jPOST
     MassIVE
     Mendeley_Data
@@ -130,6 +131,7 @@ enum RepositoryEnum
     PRIDE
     Princeton_Data_Commons
     Protein_Data_Bank
+    Protocols__FULL_STOP__io
     The_Cambridge_Crystallographic_Data_Centre
     Zenodo
   }
