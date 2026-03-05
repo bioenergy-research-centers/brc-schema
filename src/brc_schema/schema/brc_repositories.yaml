@@ -335,6 +335,12 @@ enums:
         in_subset:
           - sequence
           - structure
+      Protocols.io:
+        description: "Protocols.io"
+        see_also:
+          - https://www.protocols.io/
+        in_subset:
+          - text
       The Cambridge Crystallographic Data Centre:
         description: "The Cambridge Crystallographic Data Centre"
         see_also:
