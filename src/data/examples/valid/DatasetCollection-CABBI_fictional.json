@@ -52,7 +52,7 @@
         "Biomass & Feedstock",
         "Process Engineering"
       ],
-      "themes": [
+      "theme": [
         "Deconstruction and Separation",
         "Sustainability"
       ],
@@ -154,7 +154,7 @@
         "Genetic Engineering",
         "Enzymes & Proteins"
       ],
-      "themes": [
+      "theme": [
         "Conversion"
       ],
       "description": "Characterization of a yeast strain library for cellulase expression.",
