@@ -280,8 +280,25 @@ def transmit_osti(
     with open(input_data, encoding="utf-8") as file:
         input_obj = yaml.safe_load(file)
 
+    if not isinstance(input_obj, dict):
+        raise click.ClickException(
+            "Invalid input format: expected a top-level object containing a 'records' list."
+        )
+
+    if 'records' not in input_obj:
+        raise click.ClickException(
+            "Invalid input format: missing required top-level 'records' field."
+        )
+
+    if not isinstance(input_obj['records'], list):
+        raise click.ClickException(
+            "Invalid input format: top-level 'records' field must be a list."
+        )
+
     if not input_obj['records']:
-        logger.error(f"Error processing file. No records found.\n{input_obj}")
+        raise click.ClickException(
+            "No records found: top-level 'records' list is empty."
+        )
     # Initialize transmitter
     transmitter = OSTIRecordTransmitter(
         api_key=api_key, api_url=api_url, dry_run=dry_run)
