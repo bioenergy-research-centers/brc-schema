@@ -178,6 +178,28 @@ class TestOSTIRecordTransmitter:
             api_url="https://test.example.com/api")
         assert transmitter.api is not None
 
+    def test_post_records_handles_none_record_with_skip_filter(self):
+        """None records should fail cleanly instead of crashing."""
+        transmitter = OSTIRecordTransmitter(dry_run=True)
+        transmitter.skip_urls = "github"
+
+        summary = transmitter.post_records([None])
+
+        assert summary.fail_count == 1
+        assert summary.skip_count == 0
+        assert "expected dict, got NoneType" in summary.fail_records[0]["error"]
+
+    def test_post_records_handles_non_dict_record_with_skip_filter(self):
+        """Non-dict records should fail cleanly instead of crashing."""
+        transmitter = OSTIRecordTransmitter(dry_run=True)
+        transmitter.skip_urls = "github"
+
+        summary = transmitter.post_records(["not-a-dict"])
+
+        assert summary.fail_count == 1
+        assert summary.skip_count == 0
+        assert "expected dict, got str" in summary.fail_records[0]["error"]
+
     @pytest.mark.integration
     @skip_if_no_api_key
     def test_transmit_dry_run(self):

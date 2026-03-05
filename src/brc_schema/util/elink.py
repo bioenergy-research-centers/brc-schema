@@ -482,13 +482,21 @@ class OSTIRecordTransmitter:
             logger.info(f"Processing Record Index: {idx}")
             # clear the shared exception list for this request.
             exceptions.APIException.errors = []
+
+            if not isinstance(record, dict):
+                logger.error(
+                    f"Error processing invalid record {idx}: expected dict, got {type(record).__name__}.")
+                self.summary.add_fail(
+                    idx, record, f"Invalid record type: expected dict, got {type(record).__name__}")
+                continue
+
             if not record:
                 logger.error(f"Error processing empty record {idx}.")
 
             # Skip records matching filter value
             if self.skip_urls and record.get('site_url') and self.skip_urls.casefold() in record.get('site_url', '').casefold():
                 logger.info(
-                    f"Skipping record matching '{self.skip_urls}'. Site URL: '{record.get('site_url')}', Title: '{record['title']}'")
+                    f"Skipping record matching '{self.skip_urls}'. Site URL: '{record.get('site_url')}', Title: '{record.get('title', '?')}'")
                 self.summary.add_skip(idx, record)
                 continue
 
