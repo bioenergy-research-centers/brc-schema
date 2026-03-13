@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.11
+# version: 0.1.12
 enum AnalysisType
   {
     affinity_purification
@@ -127,7 +127,7 @@ enum RepositoryEnum
     ORNL_DAAC
     OSTI
     PanoramaPublic
-    PedtideAtlas
+    PeptideAtlas
     PRIDE
     Princeton_Data_Commons
     Protein_Data_Bank

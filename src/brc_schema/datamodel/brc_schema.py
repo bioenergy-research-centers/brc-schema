@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-05T13:20:37
+# Generation date: 2026-03-13T14:20:25
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Ur
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
 
 metamodel_version = "1.7.0"
-version = "0.1.11"
+version = "0.1.12"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -134,9 +134,7 @@ class DatasetCollection(YAMLRoot):
     schema_version: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.datasets, list):
-            self.datasets = [self.datasets] if self.datasets is not None else []
-        self.datasets = [v if isinstance(v, Dataset) else Dataset(**as_dict(v)) for v in self.datasets]
+        self._normalize_inlined_as_list(slot_name="datasets", slot_type=Dataset, key_name="title", keyed=False)
 
         if self.schema_version is not None and not isinstance(self.schema_version, str):
             self.schema_version = str(self.schema_version)
@@ -878,8 +876,8 @@ class RepositoryEnum(EnumDefinitionImpl):
     PanoramaPublic = PermissibleValue(
         text="PanoramaPublic",
         description="Panorama Public")
-    PedtideAtlas = PermissibleValue(
-        text="PedtideAtlas",
+    PeptideAtlas = PermissibleValue(
+        text="PeptideAtlas",
         description="PeptideAtlas")
     PRIDE = PermissibleValue(
         text="PRIDE",
