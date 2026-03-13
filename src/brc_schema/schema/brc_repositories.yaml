@@ -310,7 +310,7 @@ enums:
           - sequence
           - proteomics
           - requires_login_some
-      PedtideAtlas:
+      PeptideAtlas:
         description: "PeptideAtlas"
         see_also:
           - http://www.peptideatlas.org/
