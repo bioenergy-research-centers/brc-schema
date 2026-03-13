@@ -713,7 +713,7 @@
                 "ORNL DAAC",
                 "OSTI",
                 "PanoramaPublic",
-                "PedtideAtlas",
+                "PeptideAtlas",
                 "PRIDE",
                 "Princeton Data Commons",
                 "Protein Data Bank",
@@ -751,5 +751,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.11"
+    "version": "0.1.12"
 }

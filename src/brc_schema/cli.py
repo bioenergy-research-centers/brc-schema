@@ -7,7 +7,7 @@ from typing import Optional
 import click
 import yaml
 
-from brc_schema.transform import set_up_transformer, do_transform
+from brc_schema.transform import TransformationError, set_up_transformer, do_transform
 from brc_schema.util.io import dump_output, read_ids_from_file, convert_json_to_yaml
 from brc_schema.util.elink import OSTIRecordRetriever, OSTIRecordTransmitter
 
@@ -87,7 +87,10 @@ def transform(
     else:
         raise ValueError(f"Unknown transformation type {tx_type}")
 
-    tr_obj = do_transform(tr, input_obj, source_type)
+    try:
+        tr_obj = do_transform(tr, input_obj, source_type)
+    except TransformationError as e:
+        raise click.ClickException(str(e)) from e
 
     # Infer output format from file extension
     output_format = "json" if str(output).endswith(".json") else "yaml"
@@ -303,7 +306,7 @@ def transmit_osti(
     transmitter = OSTIRecordTransmitter(
         api_key=api_key, api_url=api_url, dry_run=dry_run)
     # apply options
-    if limit:
+    if limit is not None:
         transmitter.record_limit = limit
     if skip_url:
         transmitter.skip_urls = skip_url

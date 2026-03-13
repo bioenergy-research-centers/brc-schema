@@ -1,15 +1,23 @@
 '''Transform OSTI metadata to BRC schema or vice-versa'''
 
-import sys
+from pathlib import Path
 
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_runtime import SchemaView
 
 
-BRC_SCHEMA_PATH = "src/brc_schema/schema/brc_schema.yaml"
-OSTI_SCHEMA_PATH = "src/brc_schema/schema/osti_schema.yaml"
-BRC_TO_OSTI_TR_PATH = "src/brc_schema/transform/brc_to_osti.yaml"
-OSTI_TO_BRC_TR_PATH = "src/brc_schema/transform/osti_to_brc.yaml"
+MODULE_DIR = Path(__file__).resolve().parent
+SCHEMA_DIR = MODULE_DIR / "schema"
+TRANSFORM_DIR = MODULE_DIR / "transform"
+
+BRC_SCHEMA_PATH = SCHEMA_DIR / "brc_schema.yaml"
+OSTI_SCHEMA_PATH = SCHEMA_DIR / "osti_schema.yaml"
+BRC_TO_OSTI_TR_PATH = TRANSFORM_DIR / "brc_to_osti.yaml"
+OSTI_TO_BRC_TR_PATH = TRANSFORM_DIR / "osti_to_brc.yaml"
+
+
+class TransformationError(ValueError):
+    """Raised when an object transformation cannot be completed."""
 
 
 def set_up_transformer(tr_type: str) -> ObjectTransformer:
@@ -36,5 +44,5 @@ def do_transform(
     try:
         tr_obj = tr.map_object(input_obj, source_type)
     except ValueError as e:
-        sys.exit(f"Error during transformation: {e}")
+        raise TransformationError(f"Error during transformation: {e}") from e
     return tr_obj

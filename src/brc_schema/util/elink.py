@@ -477,7 +477,7 @@ class OSTIRecordTransmitter:
             return self.summary
 
         for idx, record in enumerate(records):
-            if self.record_limit and idx >= self.record_limit:
+            if self.record_limit is not None and idx >= self.record_limit:
                 break
             logger.info(f"Processing Record Index: {idx}")
             # clear the shared exception list for this request.

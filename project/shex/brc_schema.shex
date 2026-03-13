@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.11
+# version: 0.1.12
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -109,7 +109,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#MetaboLights> ror:05cwx3318
              <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject> <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA>
              <https://w3id.org/brc/RepositoryEnum#Open%20Science%20Framework> <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC>
-             ror:031478740 <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PedtideAtlas>
+             ror:031478740 <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PeptideAtlas>
              <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Princeton%20Data%20Commons>
              <https://w3id.org/brc/RepositoryEnum#Protein%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#Protocols.io>
              ror:00zbfm828 <https://w3id.org/brc/RepositoryEnum#Zenodo> ] ? ;
