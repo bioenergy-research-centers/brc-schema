@@ -306,7 +306,7 @@ def transmit_osti(
     transmitter = OSTIRecordTransmitter(
         api_key=api_key, api_url=api_url, dry_run=dry_run)
     # apply options
-    if limit:
+    if limit is not None:
         transmitter.record_limit = limit
     if skip_url:
         transmitter.skip_urls = skip_url

@@ -200,6 +200,27 @@ class TestOSTIRecordTransmitter:
         assert summary.skip_count == 0
         assert "expected dict, got str" in summary.fail_records[0]["error"]
 
+    def test_post_records_with_zero_limit_processes_no_records(self, monkeypatch):
+        """A zero record limit should prevent any records from being processed."""
+        transmitter = OSTIRecordTransmitter(dry_run=True)
+        transmitter.record_limit = 0
+        processed_indexes = []
+
+        def fake_transmit(record, index):
+            processed_indexes.append(index)
+            return record
+
+        monkeypatch.setattr(transmitter, "transmit_osti_record", fake_transmit)
+
+        summary = transmitter.post_records(
+            [{"title": "Test", "product_type": "GD"}])
+
+        assert processed_indexes == []
+        assert summary.new_count == 0
+        assert summary.update_count == 0
+        assert summary.fail_count == 0
+        assert summary.skip_count == 0
+
     @pytest.mark.integration
     @skip_if_no_api_key
     def test_transmit_dry_run(self):
