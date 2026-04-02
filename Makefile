@@ -14,7 +14,7 @@ else
 include .env.public
 endif
 
-RUN = poetry run
+RUN = uv run
 SCHEMA_NAME = $(LINKML_SCHEMA_NAME)
 SOURCE_SCHEMA_PATH = $(LINKML_SCHEMA_SOURCE_PATH)
 SOURCE_SCHEMA_DIR = $(dir $(SOURCE_SCHEMA_PATH))
@@ -81,7 +81,7 @@ setup: check-config git-init install gen-project gen-examples gendoc git-add git
 
 # install any dependencies required for building
 install:
-	poetry install
+	uv sync
 .PHONY: install
 
 # ---
@@ -101,7 +101,7 @@ update-template:
 
 # todo: consider pinning to template
 update-linkml:
-	poetry add -D linkml@latest
+	uv lock --upgrade-package linkml
 
 # EXPERIMENTAL
 create-data-harmonizer:
