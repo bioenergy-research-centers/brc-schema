@@ -1,37 +1,50 @@
-[tool.poetry]
+[project]
 name = "brc_schema"
 version = "0.1.12"
 description = "Bioenergy Research Centers (BRC) Schema"
-authors = ["J. Harry Caufield <jhc@lbl.gov>", "Chris Mungall <cjmungall@lbl.gov>"]
-license = "BSD-3"
 readme = "README.md"
-include = ["README.md", "src/brc_schema/schema", "project"]
+authors = [
+    { name = "J. Harry Caufield", email = "jhc@lbl.gov" },
+    { name = "Chris Mungall", email = "cjmungall@lbl.gov" },
+]
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=3.9,<=3.13"
+dependencies = [
+    "elinkapi>=0.5.3,<0.6.0",
+    "linkml>1.9.4",
+    "linkml-map>0.3.8",
+    "linkml-runtime>1.7.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<=3.13"
-linkml-runtime = ">1.7.0"
-linkml-map = ">0.3.8"
-linkml = ">1.9.4"
-elinkapi = "^0.5.3"
+[project.optional-dependencies]
+docs = [
+    "mkdocs-material>8.2.8",
+    "mkdocs-mermaid2-plugin>0.6.0",
+]
 
-[tool.poetry-dynamic-versioning]
-enable = false
-vcs = "git"
-style = "pep440"
-
-[tool.poetry.group.dev.dependencies]
-mkdocs-material = ">8.2.8"
-mkdocs-mermaid2-plugin = ">0.6.0"
-schemasheets = "^0.1.14"
-pytest = ">8.0.0"
-exceptiongroup = {version = "^1.2.0", python = "<3.11"}
-
-[tool.poetry.scripts]
+[project.scripts]
 brcschema = "brc_schema.cli:main"
 
-[build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
-build-backend = "poetry_dynamic_versioning.backend"
+[dependency-groups]
+dev = [
+    "exceptiongroup>=1.2.0,<2; python_version < '3.11'",
+    "mkdocs-material>8.2.8",
+    "mkdocs-mermaid2-plugin>0.6.0",
+    "pytest>8.0.0",
+    "schemasheets>=0.1.14,<0.2.0",
+]
 
-[tool.poetry.extras]
-docs = ["linkml", "mkdocs-material", "mkdocs-mermaid2-plugin"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/project",
+    "/src/brc_schema",
+    "/README.md",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/brc_schema"]
