@@ -30,17 +30,17 @@ This directory contains all tests for the brc-schema project.
 
 Run all Python tests:
 ```bash
-poetry run pytest
+uv run pytest
 ```
 
 Run specific test file:
 ```bash
-poetry run pytest tests/test_transforms.py
+uv run pytest tests/test_transforms.py
 ```
 
 Run with verbose output:
 ```bash
-poetry run pytest -v
+uv run pytest -v
 ```
 
 ### Integration Tests
