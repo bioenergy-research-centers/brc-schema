@@ -34,16 +34,45 @@ Use the `make` command to generate project artefacts:
 * `make deploy`: deploys site
 </details>
 
+## Using uv
+
+This repository uses [`uv`](https://docs.astral.sh/uv/) as its Python package and project manager.
+In this project, `uv` replaces Poetry and is used to:
+
+- create and manage the local virtual environment in `.venv/`
+- install dependencies from `pyproject.toml` and the checked-in `uv.lock`
+- run project commands inside the managed environment with `uv run`
+
+### Installing uv
+
+The recommended installation method is Astral's standalone installer:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Other supported options include:
+
+- `brew install uv`
+- `pipx install uv`
+- `pip install uv`
+
+Confirm that `uv` is available:
+
+```bash
+uv --version
+```
+
 ## CLI Commands
 
 The `brcschema` command-line interface provides tools for data retrieval and transformation.
 
 ### Installation
 
-Install the package with its dependencies:
+Sync the project environment from `pyproject.toml` and `uv.lock`:
 
 ```bash
-poetry install
+uv sync
 ```
 
 ### Available Commands
@@ -51,25 +80,23 @@ poetry install
 **NOTE:** All CLI commands must be preceded by 
 
 ```bash
-poetry run
+uv run
 ```
 
-or by first running the following:
+or by first activating the local virtual environment:
 
 ```bash
-eval $(poetry env activate)
+source .venv/bin/activate
 ```
 
-to run the commands within the Poetry environment.
-
-If you encounter an error like `brcschema: command not found` then try running in the Poetry environment.
+If you encounter an error like `brcschema: command not found`, run the command with `uv run` or activate `.venv` first.
 
 #### `transform` - Transform data between OSTI and BRC formats
 
 Transform input data from OSTI format to BRC schema or vice-versa.
 
 ```bash
-brcschema transform -T <transformation_type> -o <output_file> <input_file>
+uv run brcschema transform -T <transformation_type> -o <output_file> <input_file>
 ```
 
 **Options:**
@@ -82,10 +109,10 @@ brcschema transform -T <transformation_type> -o <output_file> <input_file>
 
 ```bash
 # Transform OSTI format to BRC schema
-brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
+uv run brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
 
 # Transform BRC schema to OSTI format
-brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+uv run brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
 ```
 
 #### `retrieve-osti` - Retrieve records from OSTI E-Link API
@@ -93,7 +120,7 @@ brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.y
 Retrieve records from the OSTI E-Link 2.0 API by OSTI ID or DOI.
 
 ```bash
-brcschema retrieve-osti [OPTIONS] -o <output_file>
+uv run brcschema retrieve-osti [OPTIONS] -o <output_file>
 ```
 
 **Options:**
@@ -112,22 +139,22 @@ brcschema retrieve-osti [OPTIONS] -o <output_file>
 
 ```bash
 # Retrieve by OSTI IDs (use --osti-ids multiple times for multiple IDs)
-brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 
 # Retrieve a single OSTI ID
-brcschema retrieve-osti --osti-ids 2584700 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json
 
 # Retrieve by DOIs (OSTI format only)
-brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+uv run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 
 # Retrieve from ID file
-brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+uv run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
 
 # Mix of OSTI IDs and DOIs with authentication
-brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-key YOUR_KEY -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-key YOUR_KEY -o records.json
 
 # With verbose logging
-brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
+uv run brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
 ```
 
 ### Complete Workflow Example
@@ -136,10 +163,10 @@ Retrieve OSTI records and transform them to BRC format:
 
 ```bash
 # Step 1: Retrieve OSTI records
-brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
 
 # Step 2: Transform to BRC format
-brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
+uv run brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
 ```
 
 ## Using the OSTI E-Link API
@@ -167,7 +194,7 @@ Many OSTI records require authentication. To access the API:
 
    **Method 3: Command-line option**
    ```bash
-   brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
+   uv run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
    ```
 
 ### Python API Usage
