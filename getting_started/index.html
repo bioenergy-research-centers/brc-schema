@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -621,13 +621,24 @@
 <li>Bioenergy data portal: <a href="https://bioenergy.org/">https://bioenergy.org/</a></li>
 </ul>
 <h2 id="installation">Installation</h2>
-<pre><code class="language-bash">poetry install
+<p>This repository uses <a href="https://docs.astral.sh/uv/"><code>uv</code></a> to manage the project environment.
+Here, <code>uv</code> is responsible for creating <code>.venv/</code>, installing dependencies from <code>pyproject.toml</code>
+and <code>uv.lock</code>, and running commands in that environment.</p>
+<p>Install <code>uv</code> first. The recommended method is:</p>
+<pre><code class="language-bash">curl -LsSf https://astral.sh/uv/install.sh | sh
 </code></pre>
-<p>Run CLI commands with <code>poetry run</code>:</p>
-<pre><code class="language-bash">poetry run brcschema --help
+<p>You can also install it with <code>brew install uv</code>, <code>pipx install uv</code>, or <code>pip install uv</code>.</p>
+<p>Then verify the installation:</p>
+<pre><code class="language-bash">uv --version
 </code></pre>
-<p>Or activate the Poetry environment once per shell:</p>
-<pre><code class="language-bash">eval &quot;$(poetry env activate)&quot;
+<p>Finally, sync the project environment:</p>
+<pre><code class="language-bash">uv sync
+</code></pre>
+<p>Run CLI commands with <code>uv run</code>:</p>
+<pre><code class="language-bash">uv run brcschema --help
+</code></pre>
+<p>Or activate the local virtual environment once per shell:</p>
+<pre><code class="language-bash">source .venv/bin/activate
 brcschema --help
 </code></pre>
 <h2 id="repository-layout">Repository Layout</h2>
@@ -652,11 +663,11 @@ brcschema --help
 </ul>
 <h2 id="quick-workflow">Quick Workflow</h2>
 <p>Retrieve OSTI records and transform them into BRC format:</p>
-<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
-poetry run brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
+<pre><code class="language-bash">uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
+uv run brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
 </code></pre>
 <p>Transform BRC data back to OSTI format:</p>
-<pre><code class="language-bash">poetry run brcschema transform -T brc_to_osti -o osti_records.yaml brc_datasets.yaml
+<pre><code class="language-bash">uv run brcschema transform -T brc_to_osti -o osti_records.yaml brc_datasets.yaml
 </code></pre>
 <h2 id="related-documentation">Related Documentation</h2>
 <ul>

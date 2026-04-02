@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -758,7 +758,7 @@
 <li>CLI option:</li>
 </ol>
 <p><code>bash
-   poetry run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json</code></p>
+   uv run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json</code></p>
 <ol>
 <li>Python API:</li>
 </ol>
@@ -767,19 +767,19 @@
 <p>retriever = OSTIRecordRetriever(api_key="your_api_key_here")
    ```</p>
 <h2 id="cli-examples">CLI Examples</h2>
-<p>Use <code>poetry run</code> (or activate your Poetry shell) for commands below.</p>
+<p>Use <code>uv run</code> (or activate <code>.venv</code>) for commands below.</p>
 <p>Retrieve by OSTI IDs:</p>
-<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+<pre><code class="language-bash">uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 </code></pre>
 <p>Retrieve by DOI:</p>
-<pre><code class="language-bash">poetry run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+<pre><code class="language-bash">uv run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 </code></pre>
 <p>Read IDs from files:</p>
-<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
-poetry run brcschema retrieve-osti --doi-file dois.txt -o records.json
+<pre><code class="language-bash">uv run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+uv run brcschema retrieve-osti --doi-file dois.txt -o records.json
 </code></pre>
 <p>Mix OSTI IDs and DOIs:</p>
-<pre><code class="language-bash">poetry run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
+<pre><code class="language-bash">uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
 </code></pre>
 <h2 id="python-api-examples">Python API Examples</h2>
 <h3 id="convenience-function">Convenience Function</h3>
