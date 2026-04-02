@@ -4,20 +4,20 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FIXTURES_DIR="$SCRIPT_DIR/fixtures"
 
-echo '�� Testing JSON and YAML transform outputs...'
+echo 'Testing JSON and YAML transform outputs...'
 
 # Test JSON output
-poetry run brcschema transform -T osti_to_brc -o /tmp/validation_test.json "$FIXTURES_DIR/2439925.json" > /dev/null 2>&1
+uv run brcschema transform -T osti_to_brc -o /tmp/validation_test.json "$FIXTURES_DIR/2439925.json" > /dev/null 2>&1
 json_size=$(wc -c < /tmp/validation_test.json)
 echo "✓ JSON output: ${json_size} bytes"
 
 # Test YAML output 
-poetry run brcschema transform -T osti_to_brc -o /tmp/validation_test.yaml "$FIXTURES_DIR/2439925.json" > /dev/null 2>&1
+uv run brcschema transform -T osti_to_brc -o /tmp/validation_test.yaml "$FIXTURES_DIR/2439925.json" > /dev/null 2>&1
 yaml_size=$(wc -c < /tmp/validation_test.yaml)
 echo "✓ YAML output: ${yaml_size} bytes"
 
 # Validate both are parseable
-python3 <<'EOF'
+uv run python <<'EOF'
 import json, yaml
 with open("/tmp/validation_test.json") as f: 
     j = json.load(f)

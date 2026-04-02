@@ -7,20 +7,40 @@ This repository contains the Bioenergy Research Center (BRC) schema and tooling 
 
 ## Installation
 
+This repository uses [`uv`](https://docs.astral.sh/uv/) to manage the project environment.
+Here, `uv` is responsible for creating `.venv/`, installing dependencies from `pyproject.toml`
+and `uv.lock`, and running commands in that environment.
+
+Install `uv` first. The recommended method is:
+
 ```bash
-poetry install
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Run CLI commands with `poetry run`:
+You can also install it with `brew install uv`, `pipx install uv`, or `pip install uv`.
+
+Then verify the installation:
 
 ```bash
-poetry run brcschema --help
+uv --version
 ```
 
-Or activate the Poetry environment once per shell:
+Finally, sync the project environment:
 
 ```bash
-eval "$(poetry env activate)"
+uv sync
+```
+
+Run CLI commands with `uv run`:
+
+```bash
+uv run brcschema --help
+```
+
+Or activate the local virtual environment once per shell:
+
+```bash
+source .venv/bin/activate
 brcschema --help
 ```
 
@@ -49,14 +69,14 @@ brcschema --help
 Retrieve OSTI records and transform them into BRC format:
 
 ```bash
-poetry run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
-poetry run brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o osti_records.json
+uv run brcschema transform -T osti_to_brc -o brc_datasets.yaml osti_records.json
 ```
 
 Transform BRC data back to OSTI format:
 
 ```bash
-poetry run brcschema transform -T brc_to_osti -o osti_records.yaml brc_datasets.yaml
+uv run brcschema transform -T brc_to_osti -o osti_records.yaml brc_datasets.yaml
 ```
 
 ## Related Documentation

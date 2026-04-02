@@ -25,11 +25,11 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install Poetry.
-        run: pipx install poetry
+      - name: Install uv.
+        run: python -m pip install uv==0.7.11
 
       - name: Install dependencies.
-        run: poetry install -E docs
+        run: uv sync --python 3.9 --extra docs --no-dev
 
       - name: Build documentation.
         run: |

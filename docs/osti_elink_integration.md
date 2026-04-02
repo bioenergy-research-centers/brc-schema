@@ -24,7 +24,7 @@ You can provide an API key with any of these methods:
 2. CLI option:
 
    ```bash
-   poetry run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
+   uv run brcschema retrieve-osti --api-key "your_api_key_here" --osti-ids 2584700 -o records.json
    ```
 
 3. Python API:
@@ -37,31 +37,31 @@ You can provide an API key with any of these methods:
 
 ## CLI Examples
 
-Use `poetry run` (or activate your Poetry shell) for commands below.
+Use `uv run` (or activate `.venv`) for commands below.
 
 Retrieve by OSTI IDs:
 
 ```bash
-poetry run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 ```
 
 Retrieve by DOI:
 
 ```bash
-poetry run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+uv run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 ```
 
 Read IDs from files:
 
 ```bash
-poetry run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
-poetry run brcschema retrieve-osti --doi-file dois.txt -o records.json
+uv run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+uv run brcschema retrieve-osti --doi-file dois.txt -o records.json
 ```
 
 Mix OSTI IDs and DOIs:
 
 ```bash
-poetry run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
 ```
 
 ## Python API Examples

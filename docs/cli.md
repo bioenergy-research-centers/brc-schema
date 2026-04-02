@@ -4,15 +4,33 @@ The `brcschema` command-line interface provides tools for transforming data betw
 
 ## Installation
 
-After installing the package with `poetry install`, the `brcschema` command will be available.
+This repository uses [`uv`](https://docs.astral.sh/uv/) instead of Poetry.
+In this project, `uv` creates the local `.venv`, installs dependencies from `pyproject.toml`
+and `uv.lock`, and runs CLI commands inside that environment.
 
-Precede commands with `poetry run`, or activate the Poetry environment first:
+Install `uv` first:
 
 ```bash
-eval "$(poetry env activate)"
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-If you see `brcschema: command not found`, run the command in the Poetry environment.
+You can also use `brew install uv`, `pipx install uv`, or `pip install uv`.
+
+Then sync the project environment:
+
+```bash
+uv sync
+```
+
+After syncing, the `brcschema` command will be available through `uv run`.
+
+Precede commands with `uv run`, or activate the local virtual environment first:
+
+```bash
+source .venv/bin/activate
+```
+
+If you see `brcschema: command not found`, run the command with `uv run` or activate `.venv` first.
 
 ## Global Options
 
@@ -29,7 +47,7 @@ Transform data between OSTI format and BRC schema format.
 **Usage:**
 
 ```bash
-brcschema transform -T <transformation_type> -o <output_file> <input_file>
+uv run brcschema transform -T <transformation_type> -o <output_file> <input_file>
 ```
 
 **Options:**
@@ -47,13 +65,13 @@ brcschema transform -T <transformation_type> -o <output_file> <input_file>
 
 ```bash
 # Transform OSTI format to BRC schema (YAML output)
-brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
+uv run brcschema transform -T osti_to_brc -o data_out_brc_form.yaml data_in_osti_form.yaml
 
 # Transform OSTI format to BRC schema (JSON output)
-brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti_form.json
+uv run brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti_form.json
 
 # Transform BRC schema to OSTI format
-brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+uv run brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
 ```
 
 **Notes:**
@@ -71,7 +89,7 @@ Retrieve metadata records from the OSTI E-Link 2.0 API using OSTI IDs or DOIs.
 **Usage:**
 
 ```bash
-brcschema retrieve-osti [OPTIONS] -o <output_file>
+uv run brcschema retrieve-osti [OPTIONS] -o <output_file>
 ```
 
 **Options:**
@@ -88,22 +106,22 @@ brcschema retrieve-osti [OPTIONS] -o <output_file>
 
 ```bash
 # Retrieve by single OSTI ID
-brcschema retrieve-osti --osti-ids 2584700 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json
 
 # Retrieve multiple OSTI IDs
-brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --osti-ids 2574191 -o records.json
 
 # Retrieve by DOI (OSTI format)
-brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
+uv run brcschema retrieve-osti --dois 10.11578/2584700 -o records.json
 
 # Retrieve from ID file
-brcschema retrieve-osti --osti-id-file ids.txt -o records.json
+uv run brcschema retrieve-osti --osti-id-file ids.txt -o records.json
 
 # Mix OSTI IDs and DOIs
-brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
 
 # With API key
-brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
+uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
 ```
 
 **Notes:**
@@ -123,7 +141,7 @@ Transmit metadata records to OSTI E-Link 2.0 API, creating new records or updati
 **Usage:**
 
 ```bash
-brcschema transmit-osti [OPTIONS] <input_file>
+uv run brcschema transmit-osti [OPTIONS] <input_file>
 ```
 
 **Options:**
@@ -146,25 +164,25 @@ brcschema transmit-osti [OPTIONS] <input_file>
 
 ```bash
 # Basic transmission
-brcschema transmit-osti data_in_osti_form.yaml
+uv run brcschema transmit-osti data_in_osti_form.yaml
 
 # Dry run to test without making changes
-brcschema transmit-osti --dry-run data_in_osti_form.json
+uv run brcschema transmit-osti --dry-run data_in_osti_form.json
 
 # Only create new records (don't update existing)
-brcschema transmit-osti --new-only data_in_osti_form.yaml
+uv run brcschema transmit-osti --new-only data_in_osti_form.yaml
 
 # Test with first 10 records only
-brcschema transmit-osti --dry-run --limit 10 data_in_osti_form.yaml
+uv run brcschema transmit-osti --dry-run --limit 10 data_in_osti_form.yaml
 
 # Skip GitHub repositories
-brcschema transmit-osti --skip-url github data_in_osti_form.yaml
+uv run brcschema transmit-osti --skip-url github data_in_osti_form.yaml
 
 # Use development API
-brcschema transmit-osti --api-url https://review.osti.gov/elink2api/ data_in_osti_form.yaml
+uv run brcschema transmit-osti --api-url https://review.osti.gov/elink2api/ data_in_osti_form.yaml
 
 # Verbose output with API key
-brcschema transmit-osti -v --api-key YOUR_API_KEY data_in_osti_form.yaml
+uv run brcschema transmit-osti -v --api-key YOUR_API_KEY data_in_osti_form.yaml
 ```
 
 **Notes:**
@@ -193,10 +211,10 @@ Example:
 ```bash
 # Using environment variable (recommended for security)
 export OSTI_API_KEY="your-api-key-here"
-brcschema retrieve-osti --osti-ids 2584700 -o records.json
+uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json
 
 # Using command-line option
-brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
+uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR_API_KEY
 ```
 
 ### Setting API URL

@@ -9,7 +9,7 @@ This script automatically synchronizes the `schema_version` value in the OSTI to
 The script is automatically run as part of the `make gen-project` target. It can also be run manually:
 
 ```bash
-poetry run python scripts/update_transform_version.py
+uv run python scripts/update_transform_version.py
 ```
 
 ### How it works
