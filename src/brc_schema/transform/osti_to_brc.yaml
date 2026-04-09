@@ -353,12 +353,17 @@ class_derivations:
       relatedItemType:
         expr: |
           # Map OSTI identifier types to BRC CitedItemType
-          # This is a basic mapping; may need refinement
-          type_map = {
-            'DOI': 'JournalArticle',
-            'URL': 'Webpage',
-            'URI': 'Webpage',
-            'arXiv': 'Preprint',
-            'ISBN': 'Book'
-          }
-          target = type_map.get(src.type, None)
+          # Note: must use if/elif rather than a dict.get() lookup because
+          # the restricted expression evaluator (simpleeval) returns the raw
+          # dict literal for multi-line dict-assignment expressions instead of
+          # failing, causing the entire type_map to be written as the value.
+          if src.type == 'DOI':
+            target = 'JournalArticle'
+          elif src.type in ('URL', 'URI'):
+            target = 'Webpage'
+          elif src.type == 'arXiv':
+            target = 'Preprint'
+          elif src.type == 'ISBN':
+            target = 'Book'
+          else:
+            target = None
