@@ -8,12 +8,12 @@ description: >-
   and here:
   https://www.osti.gov/elink2api/record-schema
   OSTI uses the E-Link API infrastructure.
-  This schema corresponds to the E-Link 2.0 API (2.6.2).
+  This schema corresponds to the E-Link 2.0 API (2.11.0).
   It also contains some deprecated fields to support
   backward compatibility with older records (e.g., article_type
   has been replaced by product_type, but some records still
   use the former).
-version: "2.6.2"
+version: "2.11.0"
 prefixes:
   linkml: https://w3id.org/linkml/
   osti: https://www.osti.gov/biblio/
@@ -147,6 +147,12 @@ classes:
         range: string
         examples:
           - value: "Neal Ensor"
+      added_by_pams_user_id:
+        description: >-
+          (PAMS Only) PAMS registered user ID that entered this record.
+        range: string
+        examples:
+          - value: "3ab33f88-7699-44c9-9668-a370c09646e5"
       announcement_codes:
         description: >-
           List of announcement codes for this record.
@@ -192,12 +198,33 @@ classes:
         examples:
           - value: "O"
         pattern: "^.{0,1}$"
+      conference_title:
+        description: >-
+          Title of the conference.
+        range: string
+        examples:
+          - value: "ApacheCON 2019 Developer Conference"
+        pattern: "^.{0,2000}$"
+      conference_location:
+        description: >-
+          Location of the conference.
+        range: string
+        examples:
+          - value: "Atlanta, GA"
+        pattern: "^.{0,2000}$"
+      conference_date:
+        description: >-
+          Date conference took place.
+        range: string
+        examples:
+          - value: "13-15 October 2026"
+        pattern: "^.{0,200}$"
       contract_award_date:
         description: >-
           Date contract for this record was awarded.
-        range: datetime
+        range: date
         examples:
-          - value: "2012-02-19T00:00:00.000Z"
+          - value: "2012-02-19"
       country_publication_code:
         description: >-
           Country of publication for this record
@@ -205,6 +232,19 @@ classes:
         examples:
           - value: "US"
         pattern: "^.{0,5}$"
+      dataset_type:
+        description: >-
+          If submitted dataset is Instrument-based data, you may specify
+          "Instrument" in this field.
+        range: DatasetTypeEnum
+        examples:
+          - value: "Instrument"
+      dataset_content:
+        description: >-
+          Optional for datasets, to describe the content or basis of the
+          information contained within this data set.
+        range: string
+        pattern: "^.{0,2000}$"
       date_metadata_added:
         description: >-
           Date record first entered the OSTI system. Value internally
@@ -322,6 +362,10 @@ classes:
         range: string
         examples:
           - value: "Mark Harrison"
+      edited_by_pams_user_id:
+        description: >-
+          (PAMS Only) PAMS user ID that created this revision of the metadata record.
+        range: string
       edit_reason:
         description: >-
           Value provided by user editing a record describing the reason for the edit.
@@ -355,10 +399,10 @@ classes:
           Date of publication of this record.  For Thesis/Dissertation records,
           this may also be the completion date of the Thesis.  For Patents, the
           date the patent was issued or approved.
-        range: datetime
+        range: date
         required: true
         examples:
-          - value: "2009-06-12T00:00:00.000Z"
+          - value: "2009-06-12"
       publication_date_text:
         description: >-
           String representation of the publication date (e.g., Summer 2001)
@@ -372,6 +416,13 @@ classes:
         examples:
           - value: "University Press, Volume III Spring 2001"
         pattern: "^.{0,400}$"
+      record_category:
+        description: >-
+          Value calculated by OSTI for application distribution for most recently
+          released revision of this record. Maintained internally by E-Link.
+        range: integer
+        examples:
+          - value: "100"
       related_doc_info:
         # deprecated: true
         description: >-
@@ -512,13 +563,13 @@ classes:
       patent_file_date:
         description: >-
           Date patent was filed with US Patent Office.
-        range: datetime
+        range: date
         examples:
-          - value: "2018-04-08T00:00:00.000Z"
+          - value: "2018-04-08"
       patent_priority_date:
-        range: datetime
+        range: date
         examples:
-          - value: "2004-07-12T00:00:00.000Z"
+          - value: "2004-07-12"
       pdouo_exemption_number:
         description: >-
           Exception number for PDOUO access limitation records.
@@ -570,9 +621,9 @@ classes:
       prot_release_date:
         description: >-
           The date on which data protections for this record will end.
-        range: datetime
+        range: date
         examples:
-          - value: "2023-07-23T00:00:00.000Z"
+          - value: "2023-07-23"
       availability:
         description: >-
           Describes record's availibility information.
@@ -606,9 +657,9 @@ classes:
         description: >-
           Date record information was released to OSTI, as entered
           by releasing official.
-        range: datetime
+        range: date
         examples:
-          - value: "2019-06-03T00:00:00.000Z"
+          - value: "2019-06-03"
       releasing_official_comments:
         description: >-
           Any comments made by the releasing official on the record.
@@ -616,13 +667,13 @@ classes:
         examples:
           - value: "Final report due January 2021."
       report_period_end_date:
-        range: datetime
+        range: date
         examples:
-          - value: "2023-01-14T00:00:00.000Z"
+          - value: "2023-01-14"
       report_period_start_date:
-        range: datetime
+        range: date
         examples:
-          - value: "2023-01-05T00:00:00.000Z"
+          - value: "2023-01-05"
       report_types:
         description: >-
           The type(s) of information or frequency of reporting of
@@ -666,7 +717,7 @@ classes:
       sbiz_release_date:
         description: >-
           Date data protections on this SBIR/STTR record will expire.
-        range: datetime
+        range: date
       site_ownership_code:
         description: >-
           Code of the DOE site submitting this document
@@ -1566,6 +1617,7 @@ enums:
       ProjectMember:
         description: >-
           Person on the membership list of a designated project/project team.
+      Reader:
       RegistrationAgency:
         description: >-
           Institution officially appointed by a Registration Authority to handle
@@ -1607,6 +1659,7 @@ enums:
       ARK:
       arXiv:
       bibcode:
+      CSTR:
       DOI:
       EAN13:
       EISSN:
@@ -1621,6 +1674,7 @@ enums:
       PMCID:
       PMID:
       PURL:
+      RRID:
       UPC:
       URI:
       URL:
@@ -1796,6 +1850,14 @@ enums:
       DOE_GRANT:
       CHORUS:
 
+  DatasetTypeEnum:
+    description: >-
+      Special classification details for dataset records.
+    permissible_values:
+      Instrument:
+        description: >-
+          Instrument-based data.
+
   IdentifierType:
     # Note: descriptions are specific to this version of the schema
     # and are not from the original source
@@ -1833,6 +1895,7 @@ enums:
       REF:
       REL_TRN:
       RN:
+      SCL:
       TRN:
       TVI:
       USER_VER:
