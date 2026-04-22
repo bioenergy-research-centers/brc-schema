@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-13T14:20:25
+# Generation date: 2026-04-02T13:52:44
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -181,6 +181,7 @@ class Dataset(YAMLRoot):
     datasetName: Optional[str] = None
     funding: Optional[Union[Union[dict, "Funding"], list[Union[dict, "Funding"]]]] = empty_list()
     dataset_url: Optional[Union[str, URI]] = None
+    category: Optional[Union[Union[str, "CategoryEnum"], list[Union[str, "CategoryEnum"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.title):
@@ -281,6 +282,10 @@ class Dataset(YAMLRoot):
 
         if self.dataset_url is not None and not isinstance(self.dataset_url, URI):
             self.dataset_url = URI(self.dataset_url)
+
+        if not isinstance(self.category, list):
+            self.category = [self.category] if self.category is not None else []
+        self.category = [v if isinstance(v, CategoryEnum) else CategoryEnum(v) for v in self.category]
 
         super().__post_init__(**kwargs)
 
@@ -830,6 +835,50 @@ class DatasetThemeEnum(EnumDefinitionImpl):
                 text="Deconstruction and Separation",
                 description="Datasets related to deconstruction and separation."))
 
+class CategoryEnum(EnumDefinitionImpl):
+    """
+    Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.
+    """
+    Microbiology = PermissibleValue(
+        text="Microbiology",
+        description="Datasets related to microbiology, including microbial physiology, growth, and development.")
+
+    _defn = EnumDefinition(
+        name="CategoryEnum",
+        description="""Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.""",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Genetic Engineering",
+            PermissibleValue(
+                text="Genetic Engineering",
+                description="""Datasets related to genetic engineering, including design and construction of genetic constructs, plasmids, and engineered organisms."""))
+        setattr(cls, "Analytics & Methods",
+            PermissibleValue(
+                text="Analytics & Methods",
+                description="""Datasets related to analytical techniques and methods, including mass spectrometry, chromatography, and other experimental methods."""))
+        setattr(cls, "Plant Biology",
+            PermissibleValue(
+                text="Plant Biology",
+                description="""Datasets related to plant biology, including plant physiology, growth, and development."""))
+        setattr(cls, "Enzymes & Proteins",
+            PermissibleValue(
+                text="Enzymes & Proteins",
+                description="""Datasets related to enzymes and proteins, including enzyme characterization, protein structure, and protein engineering."""))
+        setattr(cls, "Process Engineering",
+            PermissibleValue(
+                text="Process Engineering",
+                description="""Datasets related to process engineering, including process design, optimization, and control."""))
+        setattr(cls, "Bioenergy Production",
+            PermissibleValue(
+                text="Bioenergy Production",
+                description="""Datasets related to bioenergy production, including biofuel production, bioprocessing, and bioenergy systems."""))
+        setattr(cls, "Biomass & Feedstock",
+            PermissibleValue(
+                text="Biomass & Feedstock",
+                description="""Datasets related to biomass and feedstock, including feedstock characterization, biomass composition, and biomass conversion."""))
+
 class RepositoryEnum(EnumDefinitionImpl):
     """
     Repository where the dataset is stored.
@@ -1069,6 +1118,9 @@ slots.dataset__funding = Slot(uri=BRC.funding, name="dataset__funding", curie=BR
 
 slots.dataset__dataset_url = Slot(uri=SCHEMA.url, name="dataset__dataset_url", curie=SCHEMA.curie('url'),
                    model_uri=BRC.dataset__dataset_url, domain=None, range=Optional[Union[str, URI]])
+
+slots.dataset__category = Slot(uri=BRC.category, name="dataset__category", curie=BRC.curie('category'),
+                   model_uri=BRC.dataset__category, domain=None, range=Optional[Union[Union[str, "CategoryEnum"], list[Union[str, "CategoryEnum"]]]])
 
 slots.individual__name = Slot(uri=SCHEMA.name, name="individual__name", curie=SCHEMA.curie('name'),
                    model_uri=BRC.individual__name, domain=None, range=Optional[str])

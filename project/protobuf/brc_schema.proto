@@ -49,6 +49,7 @@ message Dataset
   string datasetName = 0
  repeated  funding funding = 0
   uri datasetUrl = 0
+ repeated  categoryEnum category = 0
  }
 // Container class for defining a collection of datasets.
 message DatasetCollection

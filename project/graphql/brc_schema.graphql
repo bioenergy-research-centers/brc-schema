@@ -22,6 +22,18 @@ enum BRCEnum
     JBEI
   }
 
+enum CategoryEnum
+  {
+    Genetic_Engineering
+    Microbiology
+    Analytics___AMPERSAND___Methods
+    Plant_Biology
+    Enzymes___AMPERSAND___Proteins
+    Process_Engineering
+    Bioenergy_Production
+    Biomass___AMPERSAND___Feedstock
+  }
+
 enum CitedItemType
   {
     JournalArticle
@@ -182,6 +194,7 @@ type Dataset
     datasetName: String
     funding: [Funding]
     datasetUrl: String
+    category: [CategoryEnum]
   }
 
 type DatasetCollection

@@ -253,6 +253,10 @@ classes:
         slot_uri: schema:url
         exact_mappings:
           - osti:site_url
+      category:
+        range: CategoryEnum
+        description: "Category of the dataset. This is specific to the BRCs."
+        multivalued: true
 
   Individual:
     description: An individual involved in the dataset.
@@ -705,6 +709,48 @@ enums:
         description: Datasets related to conversion processes.
       Sustainability:
         description: Datasets related to sustainability.
+  CategoryEnum:
+    description: >-
+      Category of the dataset. This is specific to the BRCs and is not intended
+      to be an exhaustive list of categories.
+    permissible_values:
+      Genetic Engineering:
+        description: >-
+          Datasets related to genetic engineering, including
+          design and construction of genetic constructs,
+          plasmids, and engineered organisms.
+      Microbiology:
+        description: >-
+          Datasets related to microbiology, including
+          microbial physiology, growth, and development.
+      Analytics & Methods:
+        description: >-
+          Datasets related to analytical techniques and methods,
+          including mass spectrometry, chromatography, and other
+          experimental methods.
+      Plant Biology:
+        description: >-
+          Datasets related to plant biology, including
+          plant physiology, growth, and development.
+      Enzymes & Proteins:
+        description: >-
+          Datasets related to enzymes and proteins, including
+          enzyme characterization, protein structure, and
+          protein engineering.
+      Process Engineering:
+        description: >-
+          Datasets related to process engineering, including
+          process design, optimization, and control.
+      Bioenergy Production:
+        description: >-
+          Datasets related to bioenergy production, including
+          biofuel production, bioprocessing, and bioenergy systems.
+      Biomass & Feedstock:
+        description: >-
+          Datasets related to biomass and feedstock, including
+          feedstock characterization, biomass composition, and
+          biomass conversion.
+
 
 types:
   ror_identifier:

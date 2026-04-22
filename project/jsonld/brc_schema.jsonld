@@ -897,6 +897,46 @@
       ]
     },
     {
+      "name": "CategoryEnum",
+      "definition_uri": "https://w3id.org/brc/CategoryEnum",
+      "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "permissible_values": [
+        {
+          "text": "Genetic Engineering",
+          "description": "Datasets related to genetic engineering, including design and construction of genetic constructs, plasmids, and engineered organisms."
+        },
+        {
+          "text": "Microbiology",
+          "description": "Datasets related to microbiology, including microbial physiology, growth, and development."
+        },
+        {
+          "text": "Analytics & Methods",
+          "description": "Datasets related to analytical techniques and methods, including mass spectrometry, chromatography, and other experimental methods."
+        },
+        {
+          "text": "Plant Biology",
+          "description": "Datasets related to plant biology, including plant physiology, growth, and development."
+        },
+        {
+          "text": "Enzymes & Proteins",
+          "description": "Datasets related to enzymes and proteins, including enzyme characterization, protein structure, and protein engineering."
+        },
+        {
+          "text": "Process Engineering",
+          "description": "Datasets related to process engineering, including process design, optimization, and control."
+        },
+        {
+          "text": "Bioenergy Production",
+          "description": "Datasets related to bioenergy production, including biofuel production, bioprocessing, and bioenergy systems."
+        },
+        {
+          "text": "Biomass & Feedstock",
+          "description": "Datasets related to biomass and feedstock, including feedstock characterization, biomass composition, and biomass conversion."
+        }
+      ]
+    },
+    {
       "name": "RepositoryEnum",
       "definition_uri": "https://w3id.org/brc/RepositoryEnum",
       "description": "Repository where the dataset is stored.",
@@ -1783,6 +1823,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__category",
+      "description": "Category of the dataset. This is specific to the BRCs.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/category",
+      "alias": "category",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "CategoryEnum",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "individual__name",
       "description": "Name of the individual.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2301,7 +2355,8 @@
         "dataset__keywords",
         "dataset__datasetName",
         "dataset__funding",
-        "dataset__dataset_url"
+        "dataset__dataset_url",
+        "dataset__category"
       ],
       "slot_usage": {},
       "attributes": [
@@ -2535,6 +2590,13 @@
           ],
           "slot_uri": "schema:url",
           "range": "uri",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "category",
+          "description": "Category of the dataset. This is specific to the BRCs.",
+          "range": "CategoryEnum",
+          "multivalued": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2901,9 +2963,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-03-13T14:20:20",
-  "source_file_size": 25106,
-  "generation_date": "2026-03-13T14:20:25",
+  "source_file_date": "2026-04-02T13:52:32",
+  "source_file_size": 26932,
+  "generation_date": "2026-04-02T13:52:43",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
