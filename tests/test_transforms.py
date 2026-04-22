@@ -815,3 +815,56 @@ class TestTransformations:
             identifier['type'] == 'AWARD_DOI' and identifier['value'] == '10.11578/award123'
             for identifier in sponsor_org['identifiers']
         )
+
+    def test_brc_to_osti_non_doe_award_number_uses_cn_nondoe(self, tmp_path):
+        """Generic funding awards should not be forced into CN_DOE."""
+        test_data = {
+            "datasets": [{
+                "title": "Non DOE Award Dataset",
+                "date": "2024-02-01",
+                "identifier": "https://example.org/datasets/non-doe-award",
+                "brc": "GLBRC",
+                "creator": [{
+                    "name": "Jane Doe",
+                    "primaryContact": True
+                }],
+                "funding": [{
+                    "fundingOrganization": {
+                        "organizationName": "National Science Foundation"
+                    },
+                    "awardNumber": "NSF-1234567"
+                }]
+            }]
+        }
+
+        input_file = tmp_path / "brc_non_doe_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "osti_non_doe_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'brc_to_osti',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        sponsor_org = next(org for org in result['records'][0]['organizations'] if org['type'] == 'SPONSOR')
+        assert any(
+            identifier['type'] == 'CN_NONDOE' and identifier['value'] == 'NSF-1234567'
+            for identifier in sponsor_org['identifiers']
+        )
+        assert not any(
+            identifier['type'] == 'CN_DOE' and identifier['value'] == 'NSF-1234567'
+            for identifier in sponsor_org['identifiers']
+        )

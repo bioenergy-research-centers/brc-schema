@@ -1,6 +1,7 @@
 '''Transform OSTI metadata to BRC schema or vice-versa'''
 
 from pathlib import Path
+import re
 
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils import eval_utils
@@ -87,6 +88,29 @@ def _brc_research_org(brc):
             "ror_id": "03ww55028",
         },
     }.get(brc)
+
+
+def _osti_award_identifier_type(award_number):
+    if not award_number:
+        return None
+
+    normalized = str(award_number).strip().upper()
+    known_doe_contracts = {contract.upper() for contract in [
+        "SC0018420",
+        "SC0018409",
+        "AC36-08GO28308",
+        "AC02-05CH11231",
+    ]}
+
+    if normalized in known_doe_contracts:
+        return "CN_DOE"
+    if normalized.startswith("DE-"):
+        return "CN_DOE"
+    if re.match(r"^SC\d+$", normalized):
+        return "CN_DOE"
+    if re.match(r"^[A-Z]{2}\d{2}-\d{2}[A-Z]{2}\d+$", normalized):
+        return "CN_DOE"
+    return "CN_NONDOE"
 
 
 def _dedupe(items):
@@ -362,7 +386,7 @@ def build_osti_organizations(funding, brc):
             identifiers.append({"type": "AWARD_DOI", "value": str(award_uri).replace("doi:", "", 1)})
         award_number = _attr(fund, "awardNumber")
         if award_number:
-            identifiers.append({"type": "CN_DOE", "value": award_number})
+            identifiers.append({"type": _osti_award_identifier_type(award_number), "value": award_number})
         if identifiers:
             organization["identifiers"] = identifiers
         organizations.append(organization)
