@@ -5,10 +5,38 @@ import sys
 from unittest.mock import patch
 
 from brc_schema.cli import main
+from brc_schema.transform import build_osti_persons
 
 
 class TestTransformations:
     """Test transformation functionality."""
+
+    def test_build_osti_persons_preserves_single_token_names(self):
+        """Single-token names should be preserved without synthetic surname values."""
+        persons = build_osti_persons(
+            [{"name": "Cher", "email": "cher@example.org"}],
+            [{"name": "Prince", "contributorType": "DataManager"}]
+        )
+
+        assert persons == [
+            {
+                "type": "AUTHOR",
+                "last_name": "Cher",
+                "email": ["cher@example.org"],
+            },
+            {
+                "type": "CONTRIBUTING",
+                "last_name": "Prince",
+                "contributor_type": "DataManager",
+            },
+        ]
+
+    def test_build_osti_persons_skips_blank_names(self):
+        """Blank names should be omitted instead of emitting placeholder values."""
+        assert build_osti_persons(
+            [{"name": "   "}],
+            [{"name": None}]
+        ) is None
 
     def test_keywords_comma_splitting(self, tmp_path):
         """Test that keywords are properly split from comma-delimited strings."""

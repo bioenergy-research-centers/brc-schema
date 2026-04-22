@@ -49,11 +49,13 @@ def _full_name(first_name=None, middle_name=None, last_name=None):
 
 
 def _split_name(name):
-    parts = str(name).split() if name else []
+    parts = str(name).strip().split() if name else []
     if not parts:
-        return "Unknown", None, "Unknown"
+        return None, None, None
+    if len(parts) == 1:
+        return None, None, parts[0]
     first_name = parts[0]
-    last_name = parts[-1] if len(parts) > 1 else "Unknown"
+    last_name = parts[-1]
     middle_name = " ".join(parts[1:-1]) if len(parts) > 2 else None
     return first_name, middle_name, last_name
 
@@ -333,7 +335,13 @@ def build_osti_persons(creators, contributors):
     for creator in _as_list(creators):
         name = _attr(creator, "name")
         first_name, middle_name, last_name = _split_name(name)
-        person = {"type": "AUTHOR", "first_name": first_name, "last_name": last_name}
+        if not any([first_name, middle_name, last_name]):
+            continue
+        person = {"type": "AUTHOR"}
+        if first_name:
+            person["first_name"] = first_name
+        if last_name:
+            person["last_name"] = last_name
         if middle_name:
             person["middle_name"] = middle_name
         email = _attr(creator, "email")
@@ -350,7 +358,13 @@ def build_osti_persons(creators, contributors):
     for contributor in _as_list(contributors):
         name = _attr(contributor, "name")
         first_name, middle_name, last_name = _split_name(name)
-        person = {"type": "CONTRIBUTING", "first_name": first_name, "last_name": last_name}
+        if not any([first_name, middle_name, last_name]):
+            continue
+        person = {"type": "CONTRIBUTING"}
+        if first_name:
+            person["first_name"] = first_name
+        if last_name:
+            person["last_name"] = last_name
         if middle_name:
             person["middle_name"] = middle_name
         email = _attr(contributor, "email")
