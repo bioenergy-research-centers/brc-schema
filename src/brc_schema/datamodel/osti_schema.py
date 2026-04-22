@@ -1,9 +1,9 @@
 # Auto generated from osti_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-10-02T11:31:12
+# Generation date: 2026-04-22T18:37:43
 # Schema: osti_schema
 #
 # id: https://w3id.org/brc/osti_schema
-# description: This schema is a LinkML representation of the OSTI Submission Metadata schema, as described here: https://www.osti.gov/elink2api/ and here: https://www.osti.gov/elink2api/record-schema OSTI uses the E-Link API infrastructure. This schema corresponds to the E-Link 2.0 API (2.6.2). It also contains some deprecated fields to support backward compatibility with older records (e.g., article_type has been replaced by product_type, but some records still use the former).
+# description: This schema is a LinkML representation of the OSTI Submission Metadata schema, as described here: https://www.osti.gov/elink2api/ and here: https://www.osti.gov/elink2api/record-schema OSTI uses the E-Link API infrastructure. This schema corresponds to the E-Link 2.0 API (2.11.0). It also contains some deprecated fields to support backward compatibility with older records (e.g., article_type has been replaced by product_type, but some records still use the former).
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 
 import dataclasses
@@ -56,11 +56,11 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Datetime, Float, Integer, String
-from linkml_runtime.utils.metamodelcore import Bool, XSDDateTime
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Float, Integer, String
+from linkml_runtime.utils.metamodelcore import Bool, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "2.6.2"
+version = "2.11.0"
 
 # Namespaces
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
@@ -113,7 +113,7 @@ class Record(YAMLRoot):
     osti_id: Union[int, RecordOstiId] = None
     access_limitations: Union[Union[str, "AccessLimitationsEnum"], list[Union[str, "AccessLimitationsEnum"]]] = None
     title: str = None
-    publication_date: Union[str, XSDDateTime] = None
+    publication_date: Union[str, XSDDate] = None
     identifiers: Optional[Union[Union[dict, "Identifier"], list[Union[dict, "Identifier"]]]] = empty_list()
     issue: Optional[str] = None
     journal_license_url: Optional[str] = None
@@ -126,14 +126,20 @@ class Record(YAMLRoot):
     added_by: Optional[int] = None
     added_by_email: Optional[str] = None
     added_by_name: Optional[str] = None
+    added_by_pams_user_id: Optional[str] = None
     announcement_codes: Optional[Union[str, list[str]]] = empty_list()
     edition: Optional[str] = None
     volume: Optional[str] = None
     collection_type: Optional[Union[str, "CollectionTypeEnum"]] = None
     conference_information: Optional[str] = None
     conference_type: Optional[str] = None
-    contract_award_date: Optional[Union[str, XSDDateTime]] = None
+    conference_title: Optional[str] = None
+    conference_location: Optional[str] = None
+    conference_date: Optional[str] = None
+    contract_award_date: Optional[Union[str, XSDDate]] = None
     country_publication_code: Optional[str] = None
+    dataset_type: Optional[Union[str, "DatasetTypeEnum"]] = None
+    dataset_content: Optional[str] = None
     date_metadata_added: Optional[Union[str, XSDDateTime]] = None
     date_metadata_updated: Optional[Union[str, XSDDateTime]] = None
     date_submitted_to_osti_first: Optional[Union[str, XSDDateTime]] = None
@@ -148,12 +154,14 @@ class Record(YAMLRoot):
     edited_by: Optional[int] = None
     edited_by_email: Optional[str] = None
     edited_by_name: Optional[str] = None
+    edited_by_pams_user_id: Optional[str] = None
     edit_reason: Optional[str] = None
     edit_source: Optional[str] = None
     format_information: Optional[str] = None
     media_embargo_sunset_date: Optional[str] = None
     publication_date_text: Optional[str] = None
     publisher_information: Optional[str] = None
+    record_category: Optional[int] = None
     related_doc_info: Optional[str] = None
     keywords: Optional[Union[str, list[str]]] = empty_list()
     languages: Optional[Union[str, list[str]]] = empty_list()
@@ -174,8 +182,8 @@ class Record(YAMLRoot):
     doe_supported_flag: Optional[Union[bool, Bool]] = None
     peer_reviewed_flag: Optional[Union[bool, Bool]] = None
     patent_assignee: Optional[str] = None
-    patent_file_date: Optional[Union[str, XSDDateTime]] = None
-    patent_priority_date: Optional[Union[str, XSDDateTime]] = None
+    patent_file_date: Optional[Union[str, XSDDate]] = None
+    patent_priority_date: Optional[Union[str, XSDDate]] = None
     pdouo_exemption_number: Optional[str] = None
     persons: Optional[Union[Union[dict, "Person"], list[Union[dict, "Person"]]]] = empty_list()
     product_size: Optional[str] = None
@@ -183,21 +191,21 @@ class Record(YAMLRoot):
     product_type_other: Optional[str] = None
     prot_flag: Optional[str] = None
     prot_data_other: Optional[str] = None
-    prot_release_date: Optional[Union[str, XSDDateTime]] = None
+    prot_release_date: Optional[Union[str, XSDDate]] = None
     availability: Optional[str] = None
     subject_category_code: Optional[Union[str, list[str]]] = empty_list()
     subject_category_code_legacy: Optional[Union[str, list[str]]] = empty_list()
     related_identifiers: Optional[Union[Union[dict, "RelatedIdentifier"], list[Union[dict, "RelatedIdentifier"]]]] = empty_list()
-    released_to_osti_date: Optional[Union[str, XSDDateTime]] = None
+    released_to_osti_date: Optional[Union[str, XSDDate]] = None
     releasing_official_comments: Optional[str] = None
-    report_period_end_date: Optional[Union[str, XSDDateTime]] = None
-    report_period_start_date: Optional[Union[str, XSDDateTime]] = None
+    report_period_end_date: Optional[Union[str, XSDDate]] = None
+    report_period_start_date: Optional[Union[str, XSDDate]] = None
     report_types: Optional[Union[str, list[str]]] = empty_list()
     report_type_other: Optional[str] = None
     sbiz_flag: Optional[str] = None
     sbiz_phase: Optional[str] = None
     sbiz_previous_contract_number: Optional[str] = None
-    sbiz_release_date: Optional[Union[str, XSDDateTime]] = None
+    sbiz_release_date: Optional[Union[str, XSDDate]] = None
     site_ownership_code: Optional[str] = None
     site_unique_id: Optional[str] = None
     site_url: Optional[str] = None
@@ -245,8 +253,8 @@ class Record(YAMLRoot):
 
         if self._is_empty(self.publication_date):
             self.MissingRequiredField("publication_date")
-        if not isinstance(self.publication_date, XSDDateTime):
-            self.publication_date = XSDDateTime(self.publication_date)
+        if not isinstance(self.publication_date, XSDDate):
+            self.publication_date = XSDDate(self.publication_date)
 
         if not isinstance(self.identifiers, list):
             self.identifiers = [self.identifiers] if self.identifiers is not None else []
@@ -285,6 +293,9 @@ class Record(YAMLRoot):
         if self.added_by_name is not None and not isinstance(self.added_by_name, str):
             self.added_by_name = str(self.added_by_name)
 
+        if self.added_by_pams_user_id is not None and not isinstance(self.added_by_pams_user_id, str):
+            self.added_by_pams_user_id = str(self.added_by_pams_user_id)
+
         if not isinstance(self.announcement_codes, list):
             self.announcement_codes = [self.announcement_codes] if self.announcement_codes is not None else []
         self.announcement_codes = [v if isinstance(v, str) else str(v) for v in self.announcement_codes]
@@ -304,11 +315,26 @@ class Record(YAMLRoot):
         if self.conference_type is not None and not isinstance(self.conference_type, str):
             self.conference_type = str(self.conference_type)
 
-        if self.contract_award_date is not None and not isinstance(self.contract_award_date, XSDDateTime):
-            self.contract_award_date = XSDDateTime(self.contract_award_date)
+        if self.conference_title is not None and not isinstance(self.conference_title, str):
+            self.conference_title = str(self.conference_title)
+
+        if self.conference_location is not None and not isinstance(self.conference_location, str):
+            self.conference_location = str(self.conference_location)
+
+        if self.conference_date is not None and not isinstance(self.conference_date, str):
+            self.conference_date = str(self.conference_date)
+
+        if self.contract_award_date is not None and not isinstance(self.contract_award_date, XSDDate):
+            self.contract_award_date = XSDDate(self.contract_award_date)
 
         if self.country_publication_code is not None and not isinstance(self.country_publication_code, str):
             self.country_publication_code = str(self.country_publication_code)
+
+        if self.dataset_type is not None and not isinstance(self.dataset_type, DatasetTypeEnum):
+            self.dataset_type = DatasetTypeEnum(self.dataset_type)
+
+        if self.dataset_content is not None and not isinstance(self.dataset_content, str):
+            self.dataset_content = str(self.dataset_content)
 
         if self.date_metadata_added is not None and not isinstance(self.date_metadata_added, XSDDateTime):
             self.date_metadata_added = XSDDateTime(self.date_metadata_added)
@@ -353,6 +379,9 @@ class Record(YAMLRoot):
         if self.edited_by_name is not None and not isinstance(self.edited_by_name, str):
             self.edited_by_name = str(self.edited_by_name)
 
+        if self.edited_by_pams_user_id is not None and not isinstance(self.edited_by_pams_user_id, str):
+            self.edited_by_pams_user_id = str(self.edited_by_pams_user_id)
+
         if self.edit_reason is not None and not isinstance(self.edit_reason, str):
             self.edit_reason = str(self.edit_reason)
 
@@ -370,6 +399,9 @@ class Record(YAMLRoot):
 
         if self.publisher_information is not None and not isinstance(self.publisher_information, str):
             self.publisher_information = str(self.publisher_information)
+
+        if self.record_category is not None and not isinstance(self.record_category, int):
+            self.record_category = int(self.record_category)
 
         if self.related_doc_info is not None and not isinstance(self.related_doc_info, str):
             self.related_doc_info = str(self.related_doc_info)
@@ -409,7 +441,7 @@ class Record(YAMLRoot):
         if self.opn_fieldoffice_acronym_code is not None and not isinstance(self.opn_fieldoffice_acronym_code, str):
             self.opn_fieldoffice_acronym_code = str(self.opn_fieldoffice_acronym_code)
 
-        self._normalize_inlined_as_dict(slot_name="organizations", slot_type=Organization, key_name="type", keyed=False)
+        self._normalize_inlined_as_list(slot_name="organizations", slot_type=Organization, key_name="type", keyed=False)
 
         if not isinstance(self.other_information, list):
             self.other_information = [self.other_information] if self.other_information is not None else []
@@ -436,16 +468,16 @@ class Record(YAMLRoot):
         if self.patent_assignee is not None and not isinstance(self.patent_assignee, str):
             self.patent_assignee = str(self.patent_assignee)
 
-        if self.patent_file_date is not None and not isinstance(self.patent_file_date, XSDDateTime):
-            self.patent_file_date = XSDDateTime(self.patent_file_date)
+        if self.patent_file_date is not None and not isinstance(self.patent_file_date, XSDDate):
+            self.patent_file_date = XSDDate(self.patent_file_date)
 
-        if self.patent_priority_date is not None and not isinstance(self.patent_priority_date, XSDDateTime):
-            self.patent_priority_date = XSDDateTime(self.patent_priority_date)
+        if self.patent_priority_date is not None and not isinstance(self.patent_priority_date, XSDDate):
+            self.patent_priority_date = XSDDate(self.patent_priority_date)
 
         if self.pdouo_exemption_number is not None and not isinstance(self.pdouo_exemption_number, str):
             self.pdouo_exemption_number = str(self.pdouo_exemption_number)
 
-        self._normalize_inlined_as_dict(slot_name="persons", slot_type=Person, key_name="type", keyed=False)
+        self._normalize_inlined_as_list(slot_name="persons", slot_type=Person, key_name="type", keyed=False)
 
         if self.product_size is not None and not isinstance(self.product_size, str):
             self.product_size = str(self.product_size)
@@ -462,8 +494,8 @@ class Record(YAMLRoot):
         if self.prot_data_other is not None and not isinstance(self.prot_data_other, str):
             self.prot_data_other = str(self.prot_data_other)
 
-        if self.prot_release_date is not None and not isinstance(self.prot_release_date, XSDDateTime):
-            self.prot_release_date = XSDDateTime(self.prot_release_date)
+        if self.prot_release_date is not None and not isinstance(self.prot_release_date, XSDDate):
+            self.prot_release_date = XSDDate(self.prot_release_date)
 
         if self.availability is not None and not isinstance(self.availability, str):
             self.availability = str(self.availability)
@@ -476,19 +508,19 @@ class Record(YAMLRoot):
             self.subject_category_code_legacy = [self.subject_category_code_legacy] if self.subject_category_code_legacy is not None else []
         self.subject_category_code_legacy = [v if isinstance(v, str) else str(v) for v in self.subject_category_code_legacy]
 
-        self._normalize_inlined_as_dict(slot_name="related_identifiers", slot_type=RelatedIdentifier, key_name="type", keyed=False)
+        self._normalize_inlined_as_list(slot_name="related_identifiers", slot_type=RelatedIdentifier, key_name="type", keyed=False)
 
-        if self.released_to_osti_date is not None and not isinstance(self.released_to_osti_date, XSDDateTime):
-            self.released_to_osti_date = XSDDateTime(self.released_to_osti_date)
+        if self.released_to_osti_date is not None and not isinstance(self.released_to_osti_date, XSDDate):
+            self.released_to_osti_date = XSDDate(self.released_to_osti_date)
 
         if self.releasing_official_comments is not None and not isinstance(self.releasing_official_comments, str):
             self.releasing_official_comments = str(self.releasing_official_comments)
 
-        if self.report_period_end_date is not None and not isinstance(self.report_period_end_date, XSDDateTime):
-            self.report_period_end_date = XSDDateTime(self.report_period_end_date)
+        if self.report_period_end_date is not None and not isinstance(self.report_period_end_date, XSDDate):
+            self.report_period_end_date = XSDDate(self.report_period_end_date)
 
-        if self.report_period_start_date is not None and not isinstance(self.report_period_start_date, XSDDateTime):
-            self.report_period_start_date = XSDDateTime(self.report_period_start_date)
+        if self.report_period_start_date is not None and not isinstance(self.report_period_start_date, XSDDate):
+            self.report_period_start_date = XSDDate(self.report_period_start_date)
 
         if not isinstance(self.report_types, list):
             self.report_types = [self.report_types] if self.report_types is not None else []
@@ -506,8 +538,8 @@ class Record(YAMLRoot):
         if self.sbiz_previous_contract_number is not None and not isinstance(self.sbiz_previous_contract_number, str):
             self.sbiz_previous_contract_number = str(self.sbiz_previous_contract_number)
 
-        if self.sbiz_release_date is not None and not isinstance(self.sbiz_release_date, XSDDateTime):
-            self.sbiz_release_date = XSDDateTime(self.sbiz_release_date)
+        if self.sbiz_release_date is not None and not isinstance(self.sbiz_release_date, XSDDate):
+            self.sbiz_release_date = XSDDate(self.sbiz_release_date)
 
         if self.site_ownership_code is not None and not isinstance(self.site_ownership_code, str):
             self.site_ownership_code = str(self.site_ownership_code)
@@ -524,7 +556,9 @@ class Record(YAMLRoot):
         if self.source_edit_type is not None and not isinstance(self.source_edit_type, str):
             self.source_edit_type = str(self.source_edit_type)
 
-        self._normalize_inlined_as_dict(slot_name="geolocations", slot_type=Geolocation, key_name="points", keyed=False)
+        if not isinstance(self.geolocations, list):
+            self.geolocations = [self.geolocations] if self.geolocations is not None else []
+        self.geolocations = [v if isinstance(v, Geolocation) else Geolocation(**as_dict(v)) for v in self.geolocations]
 
         if self.article_type is not None and not isinstance(self.article_type, str):
             self.article_type = str(self.article_type)
@@ -653,7 +687,7 @@ class Geolocation(YAMLRoot):
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.points):
             self.MissingRequiredField("points")
-        self._normalize_inlined_as_dict(slot_name="points", slot_type=Point, key_name="latitude", keyed=False)
+        self._normalize_inlined_as_list(slot_name="points", slot_type=Point, key_name="latitude", keyed=False)
 
         if self.type is not None and not isinstance(self.type, GeolocationType):
             self.type = GeolocationType(self.type)
@@ -985,7 +1019,7 @@ class Organization(YAMLRoot):
         if self.ror_id is not None and not isinstance(self.ror_id, str):
             self.ror_id = str(self.ror_id)
 
-        self._normalize_inlined_as_dict(slot_name="identifiers", slot_type=OrganizationIdentifier, key_name="type", keyed=False)
+        self._normalize_inlined_as_list(slot_name="identifiers", slot_type=OrganizationIdentifier, key_name="type", keyed=False)
 
         super().__post_init__(**kwargs)
 
@@ -1142,6 +1176,7 @@ class ContributorType(EnumDefinitionImpl):
     ProjectMember = PermissibleValue(
         text="ProjectMember",
         description="Person on the membership list of a designated project/project team.")
+    Reader = PermissibleValue(text="Reader")
     RegistrationAgency = PermissibleValue(
         text="RegistrationAgency",
         description="""Institution officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility.""")
@@ -1181,6 +1216,7 @@ class RelatedIdentifierType(EnumDefinitionImpl):
     ARK = PermissibleValue(text="ARK")
     arXiv = PermissibleValue(text="arXiv")
     bibcode = PermissibleValue(text="bibcode")
+    CSTR = PermissibleValue(text="CSTR")
     DOI = PermissibleValue(text="DOI")
     EAN13 = PermissibleValue(text="EAN13")
     EISSN = PermissibleValue(text="EISSN")
@@ -1195,6 +1231,7 @@ class RelatedIdentifierType(EnumDefinitionImpl):
     PMCID = PermissibleValue(text="PMCID")
     PMID = PermissibleValue(text="PMID")
     PURL = PermissibleValue(text="PURL")
+    RRID = PermissibleValue(text="RRID")
     UPC = PermissibleValue(text="UPC")
     URI = PermissibleValue(text="URI")
     URL = PermissibleValue(text="URL")
@@ -1430,6 +1467,19 @@ class CollectionTypeEnum(EnumDefinitionImpl):
         description="The OSTI collection type originally creating this record.",
     )
 
+class DatasetTypeEnum(EnumDefinitionImpl):
+    """
+    Special classification details for dataset records.
+    """
+    Instrument = PermissibleValue(
+        text="Instrument",
+        description="Instrument-based data.")
+
+    _defn = EnumDefinition(
+        name="DatasetTypeEnum",
+        description="Special classification details for dataset records.",
+    )
+
 class IdentifierType(EnumDefinitionImpl):
     """
     Describe the type of identifier
@@ -1464,6 +1514,7 @@ class IdentifierType(EnumDefinitionImpl):
     REF = PermissibleValue(text="REF")
     REL_TRN = PermissibleValue(text="REL_TRN")
     RN = PermissibleValue(text="RN")
+    SCL = PermissibleValue(text="SCL")
     TRN = PermissibleValue(text="TRN")
     TVI = PermissibleValue(text="TVI")
     USER_VER = PermissibleValue(text="USER_VER")
@@ -1670,6 +1721,9 @@ slots.record__added_by_email = Slot(uri=OSTI.added_by_email, name="record__added
 slots.record__added_by_name = Slot(uri=OSTI.added_by_name, name="record__added_by_name", curie=OSTI.curie('added_by_name'),
                    model_uri=OSTI.record__added_by_name, domain=None, range=Optional[str])
 
+slots.record__added_by_pams_user_id = Slot(uri=OSTI.added_by_pams_user_id, name="record__added_by_pams_user_id", curie=OSTI.curie('added_by_pams_user_id'),
+                   model_uri=OSTI.record__added_by_pams_user_id, domain=None, range=Optional[str])
+
 slots.record__announcement_codes = Slot(uri=OSTI.announcement_codes, name="record__announcement_codes", curie=OSTI.curie('announcement_codes'),
                    model_uri=OSTI.record__announcement_codes, domain=None, range=Optional[Union[str, list[str]]])
 
@@ -1691,12 +1745,31 @@ slots.record__conference_type = Slot(uri=OSTI.conference_type, name="record__con
                    model_uri=OSTI.record__conference_type, domain=None, range=Optional[str],
                    pattern=re.compile(r'^.{0,1}$'))
 
+slots.record__conference_title = Slot(uri=OSTI.conference_title, name="record__conference_title", curie=OSTI.curie('conference_title'),
+                   model_uri=OSTI.record__conference_title, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2000}$'))
+
+slots.record__conference_location = Slot(uri=OSTI.conference_location, name="record__conference_location", curie=OSTI.curie('conference_location'),
+                   model_uri=OSTI.record__conference_location, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2000}$'))
+
+slots.record__conference_date = Slot(uri=OSTI.conference_date, name="record__conference_date", curie=OSTI.curie('conference_date'),
+                   model_uri=OSTI.record__conference_date, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,200}$'))
+
 slots.record__contract_award_date = Slot(uri=OSTI.contract_award_date, name="record__contract_award_date", curie=OSTI.curie('contract_award_date'),
-                   model_uri=OSTI.record__contract_award_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__contract_award_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__country_publication_code = Slot(uri=OSTI.country_publication_code, name="record__country_publication_code", curie=OSTI.curie('country_publication_code'),
                    model_uri=OSTI.record__country_publication_code, domain=None, range=Optional[str],
                    pattern=re.compile(r'^.{0,5}$'))
+
+slots.record__dataset_type = Slot(uri=OSTI.dataset_type, name="record__dataset_type", curie=OSTI.curie('dataset_type'),
+                   model_uri=OSTI.record__dataset_type, domain=None, range=Optional[Union[str, "DatasetTypeEnum"]])
+
+slots.record__dataset_content = Slot(uri=OSTI.dataset_content, name="record__dataset_content", curie=OSTI.curie('dataset_content'),
+                   model_uri=OSTI.record__dataset_content, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.{0,2000}$'))
 
 slots.record__date_metadata_added = Slot(uri=OSTI.date_metadata_added, name="record__date_metadata_added", curie=OSTI.curie('date_metadata_added'),
                    model_uri=OSTI.record__date_metadata_added, domain=None, range=Optional[Union[str, XSDDateTime]])
@@ -1744,6 +1817,9 @@ slots.record__edited_by_email = Slot(uri=OSTI.edited_by_email, name="record__edi
 slots.record__edited_by_name = Slot(uri=OSTI.edited_by_name, name="record__edited_by_name", curie=OSTI.curie('edited_by_name'),
                    model_uri=OSTI.record__edited_by_name, domain=None, range=Optional[str])
 
+slots.record__edited_by_pams_user_id = Slot(uri=OSTI.edited_by_pams_user_id, name="record__edited_by_pams_user_id", curie=OSTI.curie('edited_by_pams_user_id'),
+                   model_uri=OSTI.record__edited_by_pams_user_id, domain=None, range=Optional[str])
+
 slots.record__edit_reason = Slot(uri=OSTI.edit_reason, name="record__edit_reason", curie=OSTI.curie('edit_reason'),
                    model_uri=OSTI.record__edit_reason, domain=None, range=Optional[str])
 
@@ -1757,7 +1833,7 @@ slots.record__media_embargo_sunset_date = Slot(uri=OSTI.media_embargo_sunset_dat
                    model_uri=OSTI.record__media_embargo_sunset_date, domain=None, range=Optional[str])
 
 slots.record__publication_date = Slot(uri=OSTI.publication_date, name="record__publication_date", curie=OSTI.curie('publication_date'),
-                   model_uri=OSTI.record__publication_date, domain=None, range=Union[str, XSDDateTime])
+                   model_uri=OSTI.record__publication_date, domain=None, range=Union[str, XSDDate])
 
 slots.record__publication_date_text = Slot(uri=OSTI.publication_date_text, name="record__publication_date_text", curie=OSTI.curie('publication_date_text'),
                    model_uri=OSTI.record__publication_date_text, domain=None, range=Optional[str])
@@ -1765,6 +1841,9 @@ slots.record__publication_date_text = Slot(uri=OSTI.publication_date_text, name=
 slots.record__publisher_information = Slot(uri=OSTI.publisher_information, name="record__publisher_information", curie=OSTI.curie('publisher_information'),
                    model_uri=OSTI.record__publisher_information, domain=None, range=Optional[str],
                    pattern=re.compile(r'^.{0,400}$'))
+
+slots.record__record_category = Slot(uri=OSTI.record_category, name="record__record_category", curie=OSTI.curie('record_category'),
+                   model_uri=OSTI.record__record_category, domain=None, range=Optional[int])
 
 slots.record__related_doc_info = Slot(uri=OSTI.related_doc_info, name="record__related_doc_info", curie=OSTI.curie('related_doc_info'),
                    model_uri=OSTI.record__related_doc_info, domain=None, range=Optional[str],
@@ -1829,10 +1908,10 @@ slots.record__patent_assignee = Slot(uri=OSTI.patent_assignee, name="record__pat
                    model_uri=OSTI.record__patent_assignee, domain=None, range=Optional[str])
 
 slots.record__patent_file_date = Slot(uri=OSTI.patent_file_date, name="record__patent_file_date", curie=OSTI.curie('patent_file_date'),
-                   model_uri=OSTI.record__patent_file_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__patent_file_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__patent_priority_date = Slot(uri=OSTI.patent_priority_date, name="record__patent_priority_date", curie=OSTI.curie('patent_priority_date'),
-                   model_uri=OSTI.record__patent_priority_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__patent_priority_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__pdouo_exemption_number = Slot(uri=OSTI.pdouo_exemption_number, name="record__pdouo_exemption_number", curie=OSTI.curie('pdouo_exemption_number'),
                    model_uri=OSTI.record__pdouo_exemption_number, domain=None, range=Optional[str])
@@ -1861,7 +1940,7 @@ slots.record__prot_data_other = Slot(uri=OSTI.prot_data_other, name="record__pro
                    pattern=re.compile(r'^.{0,80}$'))
 
 slots.record__prot_release_date = Slot(uri=OSTI.prot_release_date, name="record__prot_release_date", curie=OSTI.curie('prot_release_date'),
-                   model_uri=OSTI.record__prot_release_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__prot_release_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__availability = Slot(uri=OSTI.availability, name="record__availability", curie=OSTI.curie('availability'),
                    model_uri=OSTI.record__availability, domain=None, range=Optional[str])
@@ -1877,16 +1956,16 @@ slots.record__related_identifiers = Slot(uri=OSTI.related_identifiers, name="rec
                    model_uri=OSTI.record__related_identifiers, domain=None, range=Optional[Union[Union[dict, RelatedIdentifier], list[Union[dict, RelatedIdentifier]]]])
 
 slots.record__released_to_osti_date = Slot(uri=OSTI.released_to_osti_date, name="record__released_to_osti_date", curie=OSTI.curie('released_to_osti_date'),
-                   model_uri=OSTI.record__released_to_osti_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__released_to_osti_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__releasing_official_comments = Slot(uri=OSTI.releasing_official_comments, name="record__releasing_official_comments", curie=OSTI.curie('releasing_official_comments'),
                    model_uri=OSTI.record__releasing_official_comments, domain=None, range=Optional[str])
 
 slots.record__report_period_end_date = Slot(uri=OSTI.report_period_end_date, name="record__report_period_end_date", curie=OSTI.curie('report_period_end_date'),
-                   model_uri=OSTI.record__report_period_end_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__report_period_end_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__report_period_start_date = Slot(uri=OSTI.report_period_start_date, name="record__report_period_start_date", curie=OSTI.curie('report_period_start_date'),
-                   model_uri=OSTI.record__report_period_start_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__report_period_start_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__report_types = Slot(uri=OSTI.report_types, name="record__report_types", curie=OSTI.curie('report_types'),
                    model_uri=OSTI.record__report_types, domain=None, range=Optional[Union[str, list[str]]])
@@ -1908,7 +1987,7 @@ slots.record__sbiz_previous_contract_number = Slot(uri=OSTI.sbiz_previous_contra
                    pattern=re.compile(r'^.{0,14}$'))
 
 slots.record__sbiz_release_date = Slot(uri=OSTI.sbiz_release_date, name="record__sbiz_release_date", curie=OSTI.curie('sbiz_release_date'),
-                   model_uri=OSTI.record__sbiz_release_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=OSTI.record__sbiz_release_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.record__site_ownership_code = Slot(uri=OSTI.site_ownership_code, name="record__site_ownership_code", curie=OSTI.curie('site_ownership_code'),
                    model_uri=OSTI.record__site_ownership_code, domain=None, range=Optional[str],
@@ -2231,4 +2310,3 @@ slots.affiliation__name = Slot(uri=OSTI.name, name="affiliation__name", curie=OS
 
 slots.affiliation__ror_id = Slot(uri=OSTI.ror_id, name="affiliation__ror_id", curie=OSTI.curie('ror_id'),
                    model_uri=OSTI.affiliation__ror_id, domain=None, range=Optional[str])
-

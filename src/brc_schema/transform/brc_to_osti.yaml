@@ -18,191 +18,47 @@ class_derivations:
     populated_from: Dataset
     slot_derivations:
       access_limitations:
-        expr: |
-          # Required field set to 'Unlimited announcement'
-          target = ['UNL']
+        expr: "['UNL']"
       product_type:
-        expr: |
-          # Required field set to 'Dataset'
-          target = 'DA'
+        expr: "'DA'"
       osti_id:
-        expr: |
-          # Extract OSTI ID from identifier field
-          if src.identifier and 'osti.gov/biblio/' in src.identifier:
-            # Extract ID from URL like "https://www.osti.gov/biblio/2439925"
-            target = src.identifier.split('/')[-1]
-          else:
-            target = None
+        expr: "identifier.split('/')[-1] if identifier and 'osti.gov/biblio/' in identifier else None"
       title:
         populated_from: title
       description:
         populated_from: description
       publication_date:
-        populated_from: date
+        expr: "date if date else None"
+      released_to_osti_date:
+        expr: "date if date else None"
       doi:
-        expr: |
-          # Extract DOI from bibliographicCitation field
-          if src.bibliographicCitation and 'doi.org/' in src.bibliographicCitation:
-            # Extract DOI from URL like "https://doi.org/10.25983/2439925"
-            target = src.bibliographicCitation.split('doi.org/')[-1]
-          else:
-            target = None
+        expr: "bibliographicCitation.split('doi.org/')[-1] if bibliographicCitation and 'doi.org/' in bibliographicCitation else (str(bibliographicCitation).replace('doi:', '', 1) if bibliographicCitation and str(bibliographicCitation).startswith('doi:') else None)"
       site_ownership_code:
         populated_from: brc
-        expr: |
-          # Direct mapping from brc field
-          if src.brc:
-            target = src.brc
-          else:
-            target = None
+        expr: "brc if brc else None"
       keywords:
         populated_from: keywords
       site_url:
-        expr: |
-          if src.dataset_url:
-            target = src.dataset_url
-          else:
-            target = src.bibliographicCitation
+        expr: "build_osti_site_url(dataset_url, identifier)"
+      links:
+        expr: "build_osti_links(dataset_url, identifier)"
       workflow_status:
-        expr: |
-          # Map active status back to workflow_status
-          if src.active:
-            target = 'R'  # Released
-          else:
-            target = 'SR'  # Pending or other status
+        expr: "'R' if active else 'SR'"
+      authors:
+        expr: "build_osti_authors(creator)"
       persons:
-        expr: |
-          target = []
-          
-          # Add creators as AUTHOR type persons
-          if src.creator:
-            for creator in src.creator:
-              person = {'type': 'AUTHOR'}
-              if creator.name:
-                name_parts = creator.name.split()
-                person['first_name'] = name_parts[0] if name_parts else 'Unknown'
-                person['last_name'] = name_parts[-1] if len(name_parts) > 1 else 'Unknown'
-                if len(name_parts) > 2:
-                  person['middle_name'] = ' '.join(name_parts[1:-1])
-              else:
-                person['first_name'] = 'Unknown'
-                person['last_name'] = 'Unknown'
-              
-              if creator.email:
-                person['email'] = [creator.email]
-              if creator.orcid:
-                person['orcid'] = creator.orcid
-              if creator.affiliation:
-                person['affiliations'] = [{'name': creator.affiliation}]
-              
-              target.append(person)
-          
-          # Add contributors as CONTRIBUTING type persons
-          if src.contributors:
-            for contributor in src.contributors:
-              person = {'type': 'CONTRIBUTING'}
-              if contributor.name:
-                name_parts = contributor.name.split()
-                person['first_name'] = name_parts[0] if name_parts else 'Unknown'
-                person['last_name'] = name_parts[-1] if len(name_parts) > 1 else 'Unknown'
-                if len(name_parts) > 2:
-                  person['middle_name'] = ' '.join(name_parts[1:-1])
-              else:
-                person['first_name'] = 'Unknown'
-                person['last_name'] = 'Unknown'
-              
-              if contributor.email:
-                person['email'] = [contributor.email]
-              if contributor.orcid:
-                person['orcid'] = contributor.orcid
-              if contributor.affiliation:
-                person['affiliations'] = [{'name': contributor.affiliation}]
-              if contributor.contributorType:
-                person['contributor_type'] = contributor.contributorType
-              
-              target.append(person)
-          
-          target = target if target else None
+        expr: "build_osti_persons(creator, contributors)"
       organizations:
-        expr: |
-          if src.funding:
-            target = []
-            for funding in src.funding:
-              if funding.fundingOrganization:
-                org = {'type': 'SPONSOR'}
-                if funding.fundingOrganization.organizationName:
-                  org['name'] = funding.fundingOrganization.organizationName
-                if funding.fundingOrganization.organizationIdentifier:
-                  org['uris'] = [funding.fundingOrganization.organizationIdentifier]
-                target.append(org)
-            target = target if target else None
-          else:
-            # Default sponsor mapping to BER if not defined for dataset. Assumes all records are BER data!
-            target = [{
-                  'type': 'SPONSOR',
-                  'name': 'USDOE Office of Science (SC), Biological and Environmental Research (BER)'
-              }]
-            # Add BRC contract mapping back to DOE contract numbers. Same data used in identifiers field
-            if src.brc:
-              brc_to_contract = {
-                'CABBI': 'SC0018420',
-                'GLBRC': 'SC0018409', 
-                'CBI': 'AC36-08GO28308',
-                'JBEI': 'AC02-05CH11231'
-              }
-              contract_num = brc_to_contract.get(src.brc)
-              if contract_num:
-                target[0]['identifiers'] = [{'type': 'CN_DOE', 'value': contract_num}]
-  
-          # Add originating research org
-          if src.brc:
-            brc_to_org = {
-              'CABBI': {'type': 'RESEARCHING', 'name': 'Center for Advanced Bioenergy and Bioproduct Innovation (CABBI), Urbana, IL (United States)'},
-              'CBI':  {'type': 'RESEARCHING', 'name': 'Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States)'},
-              'GLBRC':  {'type': 'RESEARCHING', 'name': 'Great Lakes Bioenergy Research Center (GLBRC), Madison, WI (United States)', 'ror_id': '01ca2by25'}, 
-              'JBEI':  {'type': 'RESEARCHING', 'name': 'Joint Bioenergy Institute (JBEI), Emeryville, CA (United States)', 'ror_id': '03ww55028'}
-            }
-            org_entry = brc_to_org.get(src.brc)
-            if org_entry:
-              target.append(org_entry)
+        expr: "build_osti_organizations(funding, brc)"
+      sponsor_orgs:
+        expr: "build_osti_sponsor_orgs(funding, brc)"
+      research_orgs:
+        expr: "build_osti_research_orgs(brc)"
       identifiers:
-        expr: |
-          target = []
-          
-          # Add related IDs if present
-          if src.has_related_ids:
-            for related_id in src.has_related_ids:
-              if isinstance(related_id, str):
-                if related_id.startswith('BIOPROJECT:'):
-                  # Extract the project ID
-                  project_id = related_id.replace('BIOPROJECT:', '')
-                  # Skip if project_id is None or "None"
-                  if project_id and str(project_id).lower() != 'none':
-                    target.append({'type': 'RN', 'value': project_id})
-                elif related_id.startswith('doi:'):
-                  # Extract DOI
-                  doi = related_id.replace('doi:', '')
-                  if doi and str(doi).lower() != 'none':
-                    target.append({'type': 'DOI', 'value': doi})
-                else:
-                  # Generic identifier
-                  if related_id and str(related_id).lower() != 'none':
-                    target.append({'type': 'OTHER_ID', 'value': related_id})
-          
-          # Add brc record identifier
-          if src.identifier:
-            target.append({'type': 'OTHER_ID', 'value': src.identifier})
-
-          # Add BRC contract mapping back to DOE contract numbers
-          if src.brc:
-            brc_to_contract = {
-              'CABBI': 'SC0018420',
-              'GLBRC': 'SC0018409', 
-              'CBI': 'AC36-08GO28308',
-              'JBEI': 'AC02-05CH11231'
-            }
-            contract_num = brc_to_contract.get(src.brc)
-            if contract_num:
-              target.append({'type': 'CN_DOE', 'value': contract_num})
-          
-          target = target if target else None
+        expr: "build_osti_identifiers(has_related_ids, identifier, brc)"
+      related_identifiers:
+        expr: "build_osti_related_identifiers(has_related_ids)"
+      doe_contract_number:
+        expr: "brc_contract(brc)"
+      contract_number:
+        expr: "brc_contract(brc)"

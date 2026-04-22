@@ -68,6 +68,21 @@
             "title": "BRCOrganization",
             "type": "object"
         },
+        "CategoryEnum": {
+            "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
+            "enum": [
+                "Genetic Engineering",
+                "Microbiology",
+                "Analytics & Methods",
+                "Plant Biology",
+                "Enzymes & Proteins",
+                "Process Engineering",
+                "Bioenergy Production",
+                "Biomass & Feedstock"
+            ],
+            "title": "CategoryEnum",
+            "type": "string"
+        },
         "CitedItemType": {
             "description": "Type of cited item, e.g., journal article.",
             "enum": [
@@ -229,6 +244,16 @@
                 "brc": {
                     "$ref": "#/$defs/BRCEnum",
                     "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
+                },
+                "category": {
+                    "description": "Category of the dataset. This is specific to the BRCs.",
+                    "items": {
+                        "$ref": "#/$defs/CategoryEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "contributors": {
                     "description": "Contributors to the dataset who are not necessarily authors.",

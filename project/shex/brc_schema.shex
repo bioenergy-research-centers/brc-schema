@@ -140,7 +140,12 @@ linkml:Sparqlpath xsd:string
           dcat:keyword @linkml:String * ;
           <datasetName> @linkml:String ? ;
           <funding> @<Funding> * ;
-          schema1:url @linkml:Uri ?
+          schema1:url @linkml:Uri ? ;
+          <category> [ <https://w3id.org/brc/CategoryEnum#Genetic%20Engineering> <https://w3id.org/brc/CategoryEnum#Microbiology>
+             <https://w3id.org/brc/CategoryEnum#Analytics%20%26%20Methods> <https://w3id.org/brc/CategoryEnum#Plant%20Biology>
+             <https://w3id.org/brc/CategoryEnum#Enzymes%20%26%20Proteins> <https://w3id.org/brc/CategoryEnum#Process%20Engineering>
+             <https://w3id.org/brc/CategoryEnum#Bioenergy%20Production>
+             <https://w3id.org/brc/CategoryEnum#Biomass%20%26%20Feedstock> ] *
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )

@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: '0.1.12'
+        expr: '"0.1.12"'
 
   Dataset:
     populated_from: Record
@@ -57,7 +57,7 @@ class_derivations:
       abstract:
         populated_from: description
       date:
-        populated_from: publication_date
+        expr: "publication_date if publication_date else entry_date"
       identifier:
         expr: |
           if src.osti_id:
@@ -71,197 +71,23 @@ class_derivations:
           else:
             target = None
       keywords:
-        populated_from: keywords
-        expr: |
-          if src.keywords:
-            result = []
-            for item in src.keywords:
-              if isinstance(item, str):
-                # Split comma-separated keywords
-                for keyword in item.split(','):
-                  keyword = keyword.strip()
-                  if keyword:
-                    result.append(keyword)
-              else:
-                # Handle non-string items
-                if item:
-                  result.append(str(item))
-            target = result if result else None
-          else:
-            target = None
+        expr: "build_brc_keywords(keywords, subjects)"
       creator:
-        expr: |
-          if src.persons:
-            # Transform Person objects with type AUTHOR to Individual dictionaries
-            target = []
-            for p in src.persons:
-              try:
-                if p.type == 'AUTHOR':
-                  # Build name from first, middle, last
-                  name_parts = []
-                  if p.first_name:
-                    name_parts.append(p.first_name)
-                  if p.middle_name:
-                    name_parts.append(p.middle_name)
-                  if p.last_name:
-                    name_parts.append(p.last_name)
-                  name = ' '.join(name_parts) if name_parts else None
-                  
-                  # Build Individual dictionary
-                  individual = {}
-                  if name:
-                    individual['name'] = name
-                  
-                  # Add email (take first if multiple)
-                  if p.email and len(p.email) > 0:
-                    individual['email'] = p.email[0]
-                  
-                  # Add ORCID if present
-                  if p.orcid:
-                    individual['orcid'] = p.orcid
-                  
-                  # Add affiliation (take first if multiple)
-                  if p.affiliations and len(p.affiliations) > 0:
-                    aff = p.affiliations[0]
-                    if aff.name:
-                      individual['affiliation'] = aff.name
-                  
-                  # Set primary contact (first author is primary)
-                  individual['primaryContact'] = len(target) == 0
-                  
-                  if name:  # Only add if we have a name
-                    target.append(individual)
-              except Exception as e:
-                pass
-            target = target if target else None
-          elif src.authors:
-            # Coerce string list to Individual objects
-            target = [{'name': author, 'primaryContact': False} for author in src.authors]
-            # Set first author as primary contact if available
-            if target:
-              target[0]['primaryContact'] = True
-          else:
-            target = None
+        expr: "build_brc_creators(persons, authors, organizations)"
       contributors:
-        expr: |
-          if src.persons:
-            # Transform Person objects with type CONTRIBUTING to Contributor dictionaries
-            target = []
-            for p in src.persons:
-              try:
-                if p.type == 'CONTRIBUTING':
-                  # Build name from first, middle, last
-                  name_parts = []
-                  if p.first_name:
-                    name_parts.append(p.first_name)
-                  if p.middle_name:
-                    name_parts.append(p.middle_name)
-                  if p.last_name:
-                    name_parts.append(p.last_name)
-                  name = ' '.join(name_parts) if name_parts else None
-                  
-                  # Build Contributor dictionary
-                  contributor = {}
-                  if name:
-                    contributor['name'] = name
-                  
-                  # Add email (take first if multiple)
-                  if p.email and len(p.email) > 0:
-                    contributor['email'] = p.email[0]
-                  
-                  # Add ORCID if present
-                  if p.orcid:
-                    contributor['orcid'] = p.orcid
-                  
-                  # Add affiliation (take first if multiple)
-                  if p.affiliations and len(p.affiliations) > 0:
-                    aff = p.affiliations[0]
-                    if aff.name:
-                      contributor['affiliation'] = aff.name
-                  
-                  # Add contributor type if present
-                  if p.contributor_type:
-                    contributor['contributorType'] = p.contributor_type
-                  
-                  if name:  # Only add if we have a name
-                    target.append(contributor)
-              except Exception as e:
-                pass
-            target = target if target else None
-          else:
-            target = None
+        expr: "build_brc_contributors(persons, organizations)"
       funding:
-        expr: |
-          if src.organizations:
-            # Filter SPONSOR organizations and transform to Funding objects
-            target = []
-            for org in src.organizations:
-              try:
-                if org.type == 'SPONSOR':
-                  funding_obj = {
-                    'fundingOrganization': {
-                      'organizationName': org.name
-                    }
-                  }
-                  # Try to add ROR ID if available
-                  try:
-                    if org.ror_id:
-                      funding_obj['fundingOrganization']['ror_id'] = org.ror_id
-                  except:
-                    pass
-                  # Try to extract award numbers and URIs from identifiers
-                  try:
-                    for identifier in org.identifiers:
-                      # Award number from CN_DOE, CN_NONDOE, or AWARD_DOI
-                      if identifier.type in ['CN_DOE', 'CN_NONDOE', 'AWARD_DOI'] and 'awardNumber' not in funding_obj:
-                        funding_obj['awardNumber'] = identifier.value
-                      # Award URI from AWARD_DOI
-                      if identifier.type == 'AWARD_DOI' and 'awardURI' not in funding_obj:
-                        funding_obj['awardURI'] = f"doi:{identifier.value}"
-                  except:
-                    pass
-                  target.append(funding_obj)
-              except:
-                pass
-            target = target if target else None
-          else:
-            target = None
+        expr: "build_brc_funding(organizations, sponsor_orgs)"
       relatedItem:
         populated_from: related_identifiers
       #datasetType:
       #  populated_from: product_type
       dataset_url:
-        populated_from: site_url
+        expr: "build_brc_dataset_url(site_url, links)"
       active:
-        expr: |
-          # Set active to True if workflow_status is 'R' (Released)
-          target = src.workflow_status == 'R' if src.workflow_status else False
+        expr: "workflow_status == 'R' if workflow_status else False"
       has_related_ids:
-        expr: |
-          if src.identifiers:
-            # Extract identifiers that are NOT contract numbers (CN_DOE, CN_NONDOE, CN)
-            # These represent related IDs in other repositories
-            target = []
-            for identifier in src.identifiers:
-              try:
-                # Skip contract number types
-                if identifier.type not in ['CN_DOE', 'CN_NONDOE', 'CN']:
-                  # Skip identifiers with None or "None" values
-                  if identifier.value and str(identifier.value).lower() != 'none':
-                    # Format as CURIE if possible, or just use the value
-                    if identifier.type == 'RN':
-                      # Research Number - format as BIOPROJECT CURIE
-                      target.append(f"BIOPROJECT:{identifier.value}")
-                    elif identifier.type == 'DOI':
-                      target.append(f"doi:{identifier.value}")
-                    else:
-                      # For other types, just use the value
-                      target.append(identifier.value)
-              except:
-                pass
-            target = target if target else None
-          else:
-            target = None
+        expr: "build_brc_has_related_ids(identifiers, related_identifiers, identifier, other_identifiers, other_number, report_number)"
 
   Individual:
     populated_from: Person

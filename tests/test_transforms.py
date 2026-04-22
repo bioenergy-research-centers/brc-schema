@@ -5,10 +5,38 @@ import sys
 from unittest.mock import patch
 
 from brc_schema.cli import main
+from brc_schema.transform import build_osti_persons
 
 
 class TestTransformations:
     """Test transformation functionality."""
+
+    def test_build_osti_persons_preserves_single_token_names(self):
+        """Single-token names should be preserved without synthetic surname values."""
+        persons = build_osti_persons(
+            [{"name": "Cher", "email": "cher@example.org"}],
+            [{"name": "Prince", "contributorType": "DataManager"}]
+        )
+
+        assert persons == [
+            {
+                "type": "AUTHOR",
+                "last_name": "Cher",
+                "email": ["cher@example.org"],
+            },
+            {
+                "type": "CONTRIBUTING",
+                "last_name": "Prince",
+                "contributor_type": "DataManager",
+            },
+        ]
+
+    def test_build_osti_persons_skips_blank_names(self):
+        """Blank names should be omitted instead of emitting placeholder values."""
+        assert build_osti_persons(
+            [{"name": "   "}],
+            [{"name": None}]
+        ) is None
 
     def test_keywords_comma_splitting(self, tmp_path):
         """Test that keywords are properly split from comma-delimited strings."""
@@ -634,3 +662,237 @@ class TestTransformations:
         assert isinstance(dataset2['has_related_ids'], list)
         assert len(dataset2['has_related_ids']) == 1
         assert dataset2['has_related_ids'][0] == 'BIOPROJECT:PRJNA1228652'
+
+    def test_legacy_osti_fields_transform(self, tmp_path):
+        """Legacy E-Link v1-style fields should still map into BRC output."""
+        test_data = {
+            "records": [{
+                "osti_id": "99999",
+                "title": "Legacy Dataset",
+                "publication_date": "2024-05-01",
+                "authors": ["Jane Doe", "Data Steward"],
+                "subjects": ["legacy keyword, migrated metadata"],
+                "links": ["https://example.org/datasets/legacy-99999"],
+                "sponsor_orgs": ["Legacy Sponsor Office"],
+                "doe_contract_number": "SC0018420",
+                "other_identifiers": ["LEG-12345"]
+            }]
+        }
+
+        input_file = tmp_path / "legacy_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "legacy_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        dataset = result['datasets'][0]
+        assert dataset['brc'] == 'CABBI'
+        assert dataset['dataset_url'] == "https://example.org/datasets/legacy-99999"
+        assert dataset['keywords'] == ['legacy keyword', 'migrated metadata']
+        assert dataset['creator'][0]['name'] == 'Jane Doe'
+        assert dataset['creator'][0]['primaryContact'] is True
+        assert dataset['creator'][1]['name'] == 'Data Steward'
+        assert dataset['funding'][0]['fundingOrganization']['organizationName'] == 'Legacy Sponsor Office'
+        assert dataset['has_related_ids'] == ['LEG-12345']
+
+    def test_author_organizations_fallback_to_creator(self, tmp_path):
+        """Current OSTI records with only AUTHOR organizations should still produce creators."""
+        test_data = {
+            "records": [{
+                "osti_id": "2584699",
+                "title": "Organization Authored Dataset",
+                "publication_date": "2025-02-26",
+                "site_ownership_code": "GLBRC",
+                "persons": [],
+                "organizations": [
+                    {"type": "AUTHOR", "name": "Great Lakes Bioenergy Research Center"},
+                    {"type": "AUTHOR", "name": "Michigan State University"}
+                ]
+            }]
+        }
+
+        input_file = tmp_path / "org_authors_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "org_authors_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        dataset = result['datasets'][0]
+        assert dataset['creator'][0]['name'] == 'Great Lakes Bioenergy Research Center'
+        assert dataset['creator'][0]['primaryContact'] is True
+        assert dataset['creator'][1]['name'] == 'Michigan State University'
+        assert dataset['creator'][1]['primaryContact'] is False
+
+    def test_brc_to_osti_emits_current_and_legacy_fields(self, tmp_path):
+        """BRC to OSTI should emit current E-Link 2 fields plus selected legacy aliases."""
+        test_data = {
+            "datasets": [{
+                "title": "Roundtrip Dataset",
+                "date": "2024-01-15",
+                "identifier": "https://example.org/datasets/abc123",
+                "bibliographicCitation": "https://doi.org/10.9999/example.dataset",
+                "brc": "GLBRC",
+                "creator": [{
+                    "name": "Jane Q Doe",
+                    "email": "jane@example.org",
+                    "affiliation": "Michigan State University",
+                    "primaryContact": True
+                }],
+                "contributors": [{
+                    "name": "Bob Smith",
+                    "contributorType": "DataManager"
+                }],
+                "funding": [{
+                    "fundingOrganization": {
+                        "organizationName": "Example Funding Office",
+                        "ror_id": "ror:01ca2by25"
+                    },
+                    "awardNumber": "SC0018409",
+                    "awardURI": "doi:10.11578/award123"
+                }],
+                "dataset_url": "https://example.org/datasets/abc123",
+                "has_related_ids": [
+                    "BIOPROJECT:PRJNA123456",
+                    "doi:10.8888/related.doi"
+                ],
+                "active": True
+            }]
+        }
+
+        input_file = tmp_path / "brc_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "osti_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'brc_to_osti',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        record = result['records'][0]
+        assert record['publication_date'] == '2024-01-15'
+        assert record['released_to_osti_date'] == '2024-01-15'
+        assert record['site_url'] == 'https://example.org/datasets/abc123'
+        assert record['links'] == ['https://example.org/datasets/abc123']
+        assert record['authors'] == ['Jane Q Doe']
+        assert record['doe_contract_number'] == 'SC0018409'
+        assert record['contract_number'] == 'SC0018409'
+        assert any(
+            identifier['type'] == 'CN_DOE' and identifier['value'] == 'SC0018409'
+            for identifier in record['identifiers']
+        )
+        assert any(
+            related_identifier['type'] == 'DOI'
+            and related_identifier['relation'] == 'References'
+            and related_identifier['value'] == '10.8888/related.doi'
+            for related_identifier in record['related_identifiers']
+        )
+        assert any(
+            related_identifier['type'] == 'URL'
+            and related_identifier['value'] == 'https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA123456'
+            for related_identifier in record['related_identifiers']
+        )
+        sponsor_org = next(org for org in record['organizations'] if org['type'] == 'SPONSOR')
+        assert sponsor_org['name'] == 'Example Funding Office'
+        assert sponsor_org['ror_id'] == '01ca2by25'
+        assert any(
+            identifier['type'] == 'AWARD_DOI' and identifier['value'] == '10.11578/award123'
+            for identifier in sponsor_org['identifiers']
+        )
+
+    def test_brc_to_osti_non_doe_award_number_uses_cn_nondoe(self, tmp_path):
+        """Generic funding awards should not be forced into CN_DOE."""
+        test_data = {
+            "datasets": [{
+                "title": "Non DOE Award Dataset",
+                "date": "2024-02-01",
+                "identifier": "https://example.org/datasets/non-doe-award",
+                "brc": "GLBRC",
+                "creator": [{
+                    "name": "Jane Doe",
+                    "primaryContact": True
+                }],
+                "funding": [{
+                    "fundingOrganization": {
+                        "organizationName": "National Science Foundation"
+                    },
+                    "awardNumber": "NSF-1234567"
+                }]
+            }]
+        }
+
+        input_file = tmp_path / "brc_non_doe_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "osti_non_doe_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'brc_to_osti',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        sponsor_org = next(org for org in result['records'][0]['organizations'] if org['type'] == 'SPONSOR')
+        assert any(
+            identifier['type'] == 'CN_NONDOE' and identifier['value'] == 'NSF-1234567'
+            for identifier in sponsor_org['identifiers']
+        )
+        assert not any(
+            identifier['type'] == 'CN_DOE' and identifier['value'] == 'NSF-1234567'
+            for identifier in sponsor_org['identifiers']
+        )
