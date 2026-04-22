@@ -348,6 +348,17 @@
 
 
 
+      Dataset : category
+
+
+
+
+
+        Dataset --&gt; "*" CategoryEnum : category
+        click CategoryEnum href "../CategoryEnum/"
+
+
+
       Dataset : contributors
 
 
@@ -644,6 +655,12 @@
 <td><a href="../dataset_url/">dataset_url</a></td>
 <td>0..1 <br/> <a href="../Uri/">Uri</a></td>
 <td>URL for the dataset landing page</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../category/">category</a></td>
+<td>* <br/> <a href="../CategoryEnum/">CategoryEnum</a></td>
+<td>Category of the dataset</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -1021,6 +1038,15 @@ attributes:
     domain_of:
     - Dataset
     range: uri
+  category:
+    name: category
+    description: Category of the dataset. This is specific to the BRCs.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: CategoryEnum
+    multivalued: true
 class_uri: schema:Dataset
 
 </code></pre>
@@ -1382,6 +1408,17 @@ attributes:
     domain_of:
     - Dataset
     range: uri
+  category:
+    name: category
+    description: Category of the dataset. This is specific to the BRCs.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: category
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: CategoryEnum
+    multivalued: true
 class_uri: schema:Dataset
 
 </code></pre>
