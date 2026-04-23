@@ -116,10 +116,12 @@ enum RepositoryEnum
     JGI_Gold
     JGI_Genome_Portal
     JGI_MycoCosm
+    JGI_Phytozome
     jPOST
     MassIVE
     Mendeley_Data
     MetaboLights
+    Metabolomics_Workbench
     National_Microbiome_Data_Collaborative
     NCBI_BioProject
     NCBI_SRA

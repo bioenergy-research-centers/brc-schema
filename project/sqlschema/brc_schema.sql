@@ -265,8 +265,8 @@ CREATE TABLE "Organism_strains" (
 	PRIMARY KEY ("Organism_id", strains),
 	FOREIGN KEY("Organism_id") REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Organism_strains_strains" ON "Organism_strains" (strains);
 CREATE INDEX "ix_Organism_strains_Organism_id" ON "Organism_strains" ("Organism_id");
+CREATE INDEX "ix_Organism_strains_strains" ON "Organism_strains" (strains);
 
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL,
@@ -319,8 +319,8 @@ CREATE TABLE "Dataset_additional_brcs" (
 	PRIMARY KEY ("Dataset_uid", additional_brcs),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 
 CREATE TABLE "Dataset_has_related_ids" (
 	"Dataset_uid" INTEGER,
@@ -348,8 +348,8 @@ CREATE TABLE "Dataset_plasmid_features" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(plasmid_features_uid) REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 CREATE INDEX "ix_Dataset_plasmid_features_Dataset_uid" ON "Dataset_plasmid_features" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 
 CREATE TABLE "Dataset_topic" (
 	"Dataset_uid" INTEGER,
@@ -375,8 +375,8 @@ CREATE TABLE "Dataset_category" (
 	PRIMARY KEY ("Dataset_uid", category),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
+CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -404,8 +404,8 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
-CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
+CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -423,8 +423,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
+CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -432,8 +432,8 @@ CREATE TABLE "Plasmid_selection_markers" (
 	PRIMARY KEY ("Plasmid_uid", selection_markers),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
 CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
 
 CREATE TABLE "MediaFile" (
 	id INTEGER NOT NULL,

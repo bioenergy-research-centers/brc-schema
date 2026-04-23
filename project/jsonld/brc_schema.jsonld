@@ -1103,6 +1103,17 @@
           ]
         },
         {
+          "text": "JGI Phytozome",
+          "description": "Joint Genome Institute Phytozome",
+          "in_subset": [
+            "sequence",
+            "requires_login_for_download"
+          ],
+          "see_also": [
+            "https://phytozome-next.jgi.doe.gov/"
+          ]
+        },
+        {
           "text": "jPOST",
           "description": "Japan ProteOme STandard Repository/Database",
           "in_subset": [
@@ -1143,6 +1154,16 @@
           ],
           "see_also": [
             "https://www.ebi.ac.uk/metabolights/"
+          ]
+        },
+        {
+          "text": "Metabolomics Workbench",
+          "description": "Metabolomics Workbench",
+          "in_subset": [
+            "metabolomics"
+          ],
+          "see_also": [
+            "https://www.metabolomicsworkbench.org/"
           ]
         },
         {
@@ -4031,9 +4052,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-04-23T15:23:36",
+  "source_file_date": "2026-04-23T15:30:35",
   "source_file_size": 32211,
-  "generation_date": "2026-04-23T15:23:51",
+  "generation_date": "2026-04-23T17:33:20",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
