@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.12
+# version: 0.1.13
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -141,11 +141,23 @@ linkml:Sparqlpath xsd:string
           <datasetName> @linkml:String ? ;
           <funding> @<Funding> * ;
           schema1:url @linkml:Uri ? ;
-          <category> [ <https://w3id.org/brc/CategoryEnum#Genetic%20Engineering> <https://w3id.org/brc/CategoryEnum#Microbiology>
-             <https://w3id.org/brc/CategoryEnum#Analytics%20%26%20Methods> <https://w3id.org/brc/CategoryEnum#Plant%20Biology>
-             <https://w3id.org/brc/CategoryEnum#Enzymes%20%26%20Proteins> <https://w3id.org/brc/CategoryEnum#Process%20Engineering>
-             <https://w3id.org/brc/CategoryEnum#Bioenergy%20Production>
-             <https://w3id.org/brc/CategoryEnum#Biomass%20%26%20Feedstock> ] *
+          <issue> @linkml:String ? ;
+          <journal_license_url> @linkml:String ? ;
+          <journal_name> @linkml:String ? ;
+          <journal_open_access_flag> @linkml:String ? ;
+          <journal_type> @linkml:String ? ;
+          <journal_issn> @linkml:String ? ;
+          <volume> @linkml:String ? ;
+          <publication_date_text> @linkml:String ? ;
+          <publisher_information> @linkml:String ? ;
+          <country_publication_code> @linkml:String ? ;
+          <country_publication> @linkml:String ? ;
+          <conference_information> @linkml:String ? ;
+          <conference_type> @linkml:String ? ;
+          <conference_title> @linkml:String ? ;
+          <conference_location> @linkml:String ? ;
+          <conference_date> @linkml:String ? ;
+          <media> @<MediaSet> *
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )
@@ -181,6 +193,50 @@ linkml:Sparqlpath xsd:string
        )
     } OR @<Contributor>
 )
+
+<MediaFile> CLOSED {
+    (  $<MediaFile_tes> (  <media_file_id> @linkml:Integer ? ;
+          <media_id> @linkml:Integer ? ;
+          <checksum> @linkml:String ? ;
+          <revision> @linkml:Integer ? ;
+          <parent_media_file_id> @linkml:Integer ? ;
+          <media_type> @linkml:String ? ;
+          <url> @linkml:String ? ;
+          <mime_type> @linkml:String ? ;
+          <media_source> @linkml:String ? ;
+          <file_size_bytes> @linkml:Integer ? ;
+          <duration_seconds> @linkml:Integer ? ;
+          <document_page_count> @linkml:Integer ? ;
+          <subtitle_tracks> @linkml:Integer ? ;
+          <video_tracks> @linkml:Integer ? ;
+          <pdf_version> @linkml:String ? ;
+          <pdfa_conformance> @linkml:String ? ;
+          <pdfa_part> @linkml:String ? ;
+          <pdfua_part> @linkml:String ? ;
+          <date_file_added> @linkml:Datetime ? ;
+          <date_file_updated> @linkml:Datetime ?
+       ) ;
+       rdf:type [ <MediaFile> ] ?
+    )
+}
+
+<MediaSet> CLOSED {
+    (  $<MediaSet_tes> (  <media_id> @linkml:Integer ? ;
+          <revision> @linkml:Integer ? ;
+          <access_limitations> @linkml:String * ;
+          <osti_id> @linkml:Integer ? ;
+          <document_page_count> @linkml:Integer ? ;
+          <mime_type> @linkml:String ? ;
+          <media_title> @linkml:String ? ;
+          <media_source> @linkml:String ? ;
+          <date_added> @linkml:Datetime ? ;
+          <date_updated> @linkml:Datetime ? ;
+          <date_valid_end> @linkml:Datetime ? ;
+          <files> @<MediaFile> *
+       ) ;
+       rdf:type [ <MediaSet> ] ?
+    )
+}
 
 <Organism> CLOSED {
     (  $<Organism_tes> (  <scientificName> @linkml:String ? ;

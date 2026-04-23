@@ -18,6 +18,22 @@
 --     * Slot: abstract Description: "A brief abstract summarizing the dataset. This will generally be longer and more detailed than the description but should not exceed a single paragraph."
 --     * Slot: datasetName Description: "Name of a overall dataset to which this data entry belongs."
 --     * Slot: dataset_url Description: URL for the dataset landing page.
+--     * Slot: issue Description: Issue number for a journal or other venue, if applicable.
+--     * Slot: journal_license_url Description: URL for information regarding the journal license.
+--     * Slot: journal_name Description: Name of the journal publishing this information.
+--     * Slot: journal_open_access_flag Description: Indicates whether the journal is open access.
+--     * Slot: journal_type Description: Specific sub-type of the journal article.
+--     * Slot: journal_issn Description: International Standard Serial Number for the journal, if known.
+--     * Slot: volume Description: Volume number for a journal or book, if applicable.
+--     * Slot: publication_date_text Description: Textual representation of the publication date, if used.
+--     * Slot: publisher_information Description: Publisher-specific information, if applicable.
+--     * Slot: country_publication_code Description: Country code for the publication venue, if applicable.
+--     * Slot: country_publication Description: Human-readable country of publication, if available.
+--     * Slot: conference_information Description: General conference information related to the dataset.
+--     * Slot: conference_type Description: Code representing the type of conference-related work.
+--     * Slot: conference_title Description: Title of the conference.
+--     * Slot: conference_location Description: Location of the conference.
+--     * Slot: conference_date Description: Date or date range for the conference.
 --     * Slot: DatasetCollection_id Description: Autocreated FK slot
 -- # Class: Individual Description: An individual involved in the dataset.
 --     * Slot: id
@@ -64,6 +80,42 @@
 --     * Slot: title Description: Title of the related item.
 --     * Slot: relatedItemType Description: Type of the related item, e.g., JournalArticle.
 --     * Slot: relatedItemIdentifier Description: Identifier or URL for the related item.
+-- # Class: MediaSet Description: Metadata about a group of files associated with this dataset. This mirrors the OSTI media-set structure to preserve package-level details.
+--     * Slot: id
+--     * Slot: media_id Description: Unique identifier for this media set.
+--     * Slot: revision Description: Revision number of this media set.
+--     * Slot: osti_id Description: OSTI record identifier linked to this media set, if any.
+--     * Slot: document_page_count Description: Number of pages detected in the media set, if applicable.
+--     * Slot: mime_type Description: MIME type description for the primary media content.
+--     * Slot: media_title Description: Optional title for the media set.
+--     * Slot: media_source Description: Primary source of the media set.
+--     * Slot: date_added Description: Date the media set was first created.
+--     * Slot: date_updated Description: Date the media set was most recently modified.
+--     * Slot: date_valid_end Description: Date when the media association ended, if applicable.
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+-- # Class: MediaFile Description: Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file structure to preserve file-level details.
+--     * Slot: id
+--     * Slot: media_file_id Description: Unique identifier for this media file.
+--     * Slot: media_id Description: Identifier of the parent media set.
+--     * Slot: checksum Description: Checksum value for the file, if known.
+--     * Slot: revision Description: Revision number of this media file.
+--     * Slot: parent_media_file_id Description: Identifier of the parent media file, if this file is derived.
+--     * Slot: media_type Description: Type code for this media file.
+--     * Slot: url Description: Local file name or off-site URL.
+--     * Slot: mime_type Description: MIME type describing this media file.
+--     * Slot: media_source Description: Method of file production or association.
+--     * Slot: file_size_bytes Description: File size in bytes, if applicable.
+--     * Slot: duration_seconds Description: Duration in seconds for audio-visual media.
+--     * Slot: document_page_count Description: Page count for document-based media, if applicable.
+--     * Slot: subtitle_tracks Description: Number of subtitle tracks for audio-visual media.
+--     * Slot: video_tracks Description: Number of video tracks for audio-visual media.
+--     * Slot: pdf_version Description: PDF version, if this file is a PDF.
+--     * Slot: pdfa_conformance Description: PDF/A conformance level, if applicable.
+--     * Slot: pdfa_part Description: PDF/A part number, if applicable.
+--     * Slot: pdfua_part Description: PDF/UA part number, if applicable.
+--     * Slot: date_file_added Description: Date this media file was created.
+--     * Slot: date_file_updated Description: Date this media file was last modified.
+--     * Slot: MediaSet_id Description: Autocreated FK slot
 -- # Class: Dataset_additional_brcs
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: additional_brcs Description: Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.
@@ -91,9 +143,6 @@
 -- # Class: Dataset_funding
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: funding_id Description: Funding source(s) for the dataset.
--- # Class: Dataset_category
---     * Slot: Dataset_uid Description: Autocreated FK slot
---     * Slot: category Description: Category of the dataset. This is specific to the BRCs.
 -- # Class: Organism_strains
 --     * Slot: Organism_id Description: Autocreated FK slot
 --     * Slot: strains Description: Name of one or more strains of the organism.
@@ -106,6 +155,9 @@
 -- # Class: Plasmid_selection_markers
 --     * Slot: Plasmid_uid Description: Autocreated FK slot
 --     * Slot: selection_markers Description: Selection markers for the plasmid, e.g, kan.
+-- # Class: MediaSet_access_limitations
+--     * Slot: MediaSet_id Description: Autocreated FK slot
+--     * Slot: access_limitations Description: Access limitation codes associated with this media set.
 
 CREATE TABLE "DatasetCollection" (
 	id INTEGER NOT NULL,
@@ -159,6 +211,22 @@ CREATE TABLE "Dataset" (
 	abstract TEXT,
 	"datasetName" TEXT,
 	dataset_url TEXT,
+	issue TEXT,
+	journal_license_url TEXT,
+	journal_name TEXT,
+	journal_open_access_flag TEXT,
+	journal_type TEXT,
+	journal_issn TEXT,
+	volume TEXT,
+	publication_date_text TEXT,
+	publisher_information TEXT,
+	country_publication_code TEXT,
+	country_publication TEXT,
+	conference_information TEXT,
+	conference_type TEXT,
+	conference_title TEXT,
+	conference_location TEXT,
+	conference_date TEXT,
 	"DatasetCollection_id" INTEGER,
 	PRIMARY KEY (uid),
 	FOREIGN KEY("DatasetCollection_id") REFERENCES "DatasetCollection" (id)
@@ -224,14 +292,32 @@ CREATE TABLE "Contributor" (
 );
 CREATE INDEX "ix_Contributor_id" ON "Contributor" (id);
 
+CREATE TABLE "MediaSet" (
+	id INTEGER NOT NULL,
+	media_id INTEGER,
+	revision INTEGER,
+	osti_id INTEGER,
+	document_page_count INTEGER,
+	mime_type TEXT,
+	media_title TEXT,
+	media_source TEXT,
+	date_added DATETIME,
+	date_updated DATETIME,
+	date_valid_end DATETIME,
+	"Dataset_uid" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE INDEX "ix_MediaSet_id" ON "MediaSet" (id);
+
 CREATE TABLE "Dataset_additional_brcs" (
 	"Dataset_uid" INTEGER,
 	additional_brcs VARCHAR(5),
 	PRIMARY KEY ("Dataset_uid", additional_brcs),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
+CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
 
 CREATE TABLE "Dataset_has_related_ids" (
 	"Dataset_uid" INTEGER,
@@ -239,8 +325,8 @@ CREATE TABLE "Dataset_has_related_ids" (
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
+CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
@@ -277,8 +363,8 @@ CREATE TABLE "Dataset_theme" (
 	PRIMARY KEY ("Dataset_uid", theme),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_theme_theme" ON "Dataset_theme" (theme);
 CREATE INDEX "ix_Dataset_theme_Dataset_uid" ON "Dataset_theme" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_theme_theme" ON "Dataset_theme" (theme);
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -296,8 +382,8 @@ CREATE TABLE "Dataset_keywords" (
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
+CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 
 CREATE TABLE "Dataset_funding" (
 	"Dataset_uid" INTEGER,
@@ -309,23 +395,14 @@ CREATE TABLE "Dataset_funding" (
 CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 
-CREATE TABLE "Dataset_category" (
-	"Dataset_uid" INTEGER,
-	category VARCHAR(20),
-	PRIMARY KEY ("Dataset_uid", category),
-	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
-);
-CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
-CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
-
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
 	promoters TEXT,
 	PRIMARY KEY ("Plasmid_uid", promoters),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
 CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
 
 CREATE TABLE "Plasmid_replicates_in" (
 	"Plasmid_uid" INTEGER,
@@ -334,8 +411,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
+CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -345,3 +422,40 @@ CREATE TABLE "Plasmid_selection_markers" (
 );
 CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
 CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
+
+CREATE TABLE "MediaFile" (
+	id INTEGER NOT NULL,
+	media_file_id INTEGER,
+	media_id INTEGER,
+	checksum TEXT,
+	revision INTEGER,
+	parent_media_file_id INTEGER,
+	media_type TEXT,
+	url TEXT,
+	mime_type TEXT,
+	media_source TEXT,
+	file_size_bytes INTEGER,
+	duration_seconds INTEGER,
+	document_page_count INTEGER,
+	subtitle_tracks INTEGER,
+	video_tracks INTEGER,
+	pdf_version TEXT,
+	pdfa_conformance TEXT,
+	pdfa_part TEXT,
+	pdfua_part TEXT,
+	date_file_added DATETIME,
+	date_file_updated DATETIME,
+	"MediaSet_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("MediaSet_id") REFERENCES "MediaSet" (id)
+);
+CREATE INDEX "ix_MediaFile_id" ON "MediaFile" (id);
+
+CREATE TABLE "MediaSet_access_limitations" (
+	"MediaSet_id" INTEGER,
+	access_limitations TEXT,
+	PRIMARY KEY ("MediaSet_id", access_limitations),
+	FOREIGN KEY("MediaSet_id") REFERENCES "MediaSet" (id)
+);
+CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");
+CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);

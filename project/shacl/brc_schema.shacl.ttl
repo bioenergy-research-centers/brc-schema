@@ -18,17 +18,17 @@ brc:DatasetCollection a sh:NodeShape ;
     rdfs:comment "Container class for defining a collection of datasets." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class schema1:Dataset ;
-            sh:description "List of datasets in the collection." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path brc:datasets ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Version of the schema used for the collection." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:schema_version ] ;
+            sh:path brc:schema_version ],
+        [ sh:class schema1:Dataset ;
+            sh:description "List of datasets in the collection." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path brc:datasets ] ;
     sh:targetClass brc:DatasetCollection .
 
 schema1:Dataset a sh:NodeShape ;
@@ -36,86 +36,40 @@ schema1:Dataset a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+            sh:description "Textual representation of the publication date, if used." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 23 ;
-            sh:path brc:datasetName ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "URL for the dataset landing page." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 25 ;
-            sh:path schema1:url ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:alert ],
-        [ sh:datatype xsd:string ;
-            sh:description "The title of the dataset." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path dcterms:title ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 12 ;
-            sh:path brc:has_related_ids ],
-        [ sh:datatype xsd:date ;
-            sh:description "The date the dataset was created or published." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path dcterms:date ],
-        [ sh:description "The primary Bioenergy Research Center affiliation. This is a single BRC name." ;
-            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 7 ;
-            sh:path prov:wasAttributedTo ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for the dataset." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 11 ;
-            sh:path schema1:identifier ],
-        [ sh:class brc:Contributor ;
-            sh:description "Contributors to the dataset who are not necessarily authors." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path brc:contributors ],
-        [ sh:class brc:Organism ;
-            sh:description "Species information for the organism(s) studied." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 13 ;
-            sh:path brc:species ],
-        [ sh:class brc:Funding ;
-            sh:description "Funding source(s) for the dataset." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 24 ;
-            sh:path brc:funding ],
-        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
-            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
-            sh:order 8 ;
-            sh:path prov:wasAttributedTo ],
+            sh:order 33 ;
+            sh:path brc:publication_date_text ],
         [ sh:class schema1:Person ;
             sh:description "List of creators involved in the dataset, where one must be the primary contact." ;
             sh:minCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 5 ;
             sh:path dcterms:creator ],
+        [ sh:datatype xsd:string ;
+            sh:description "Location of the conference." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 40 ;
+            sh:path brc:conference_location ],
+        [ sh:datatype xsd:string ;
+            sh:description "Title of the conference." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 39 ;
+            sh:path brc:conference_title ],
+        [ sh:datatype xsd:string ;
+            sh:description "Issue number for a journal or other venue, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path brc:issue ],
+        [ sh:class brc:RelatedItem ;
+            sh:description "Related publications or items." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 21 ;
+            sh:path brc:relatedItem ],
         [ sh:defaultValue "not specified"^^xsd:string ;
             sh:description "The type of analysis performed on the dataset." ;
             sh:maxCount 1 ;
@@ -123,44 +77,191 @@ schema1:Dataset a sh:NodeShape ;
                         sh:nodeKind sh:Literal ] ) ;
             sh:order 15 ;
             sh:path brc:analysisType ],
-        [ sh:description "Category of the dataset. This is specific to the BRCs." ;
-            sh:in ( "Genetic Engineering" "Microbiology" "Analytics & Methods" "Plant Biology" "Enzymes & Proteins" "Process Engineering" "Bioenergy Production" "Biomass & Feedstock" ) ;
-            sh:order 26 ;
-            sh:path brc:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "URL for information regarding the journal license." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path brc:journal_license_url ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "\"Related identifiers for the dataset. These should be identifiers to records in other repositories, and these records may be the same data or components of the dataset.\"" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path brc:has_related_ids ],
+        [ sh:datatype xsd:string ;
+            sh:description "Keywords associated with the dataset." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path dcat:keyword ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"A brief abstract summarizing the dataset. This will generally be longer and more detailed than the description but should not exceed a single paragraph.\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path schema1:abstract ],
+        [ sh:datatype xsd:string ;
+            sh:description "\"Name of a overall dataset to which this data entry belongs.\"" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path brc:datasetName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Indicates whether the journal is open access." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path brc:journal_open_access_flag ],
+        [ sh:datatype xsd:string ;
+            sh:description "Specific sub-type of the journal article." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path brc:journal_type ],
+        [ sh:class brc:Contributor ;
+            sh:description "Contributors to the dataset who are not necessarily authors." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path brc:contributors ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "Unique identifier for the dataset, assigned prior to inclusion in bioenergy.org." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:identifier ],
+        [ sh:description "Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
+            sh:order 8 ;
+            sh:path prov:wasAttributedTo ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the journal publishing this information." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path brc:journal_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for the dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path schema1:identifier ],
+        [ sh:description "High-level theme areas for the dataset. This is specific to the research themes of the BRCs." ;
+            sh:in ( "Feedstock Development" "Deconstruction and Separation" "Conversion" "Sustainability" ) ;
+            sh:order 18 ;
+            sh:path brc:theme ],
+        [ sh:description "High-level type of the main content of the dataset." ;
+            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+            sh:maxCount 1 ;
+            sh:order 16 ;
+            sh:path brc:datasetType ],
+        [ sh:class brc:Organism ;
+            sh:description "Species information for the organism(s) studied." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path brc:species ],
+        [ sh:description "The primary Bioenergy Research Center affiliation. This is a single BRC name." ;
+            sh:in ( "CABBI" "CBI" "GLBRC" "JBEI" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 7 ;
+            sh:path prov:wasAttributedTo ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URL for the dataset landing page." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path schema1:url ],
+        [ sh:description "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics." ;
+            sh:in ( "Genetic Engineering" "Plant Biology" "Microbiology" "Analytics & Methods" "Enzymes & Proteins" "Biomass & Feedstock" "Bioenergy Production" "Process Engineering" ) ;
+            sh:order 17 ;
+            sh:path brc:topic ],
+        [ sh:datatype xsd:string ;
+            sh:description "Date or date range for the conference." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 41 ;
+            sh:path brc:conference_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "General conference information related to the dataset." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 37 ;
+            sh:path brc:conference_information ],
+        [ sh:datatype xsd:string ;
+            sh:description "International Standard Serial Number for the journal, if known." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path brc:journal_issn ],
+        [ sh:class brc:MediaSet ;
+            sh:description "Media bundles and file-package metadata associated with the dataset." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 42 ;
+            sh:path brc:media ],
         [ sh:class brc:Plasmid ;
             sh:description "Description of plasmid features, if applicable. This is a multivalued field." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 14 ;
             sh:path brc:plasmid_features ],
-        [ sh:description "High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics." ;
-            sh:in ( "Genetic Engineering" "Plant Biology" "Microbiology" "Analytics & Methods" "Enzymes & Proteins" "Biomass & Feedstock" "Bioenergy Production" "Process Engineering" ) ;
-            sh:order 17 ;
-            sh:path brc:topic ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:alert ],
+        [ sh:datatype xsd:string ;
+            sh:description "Country code for the publication venue, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path brc:country_publication_code ],
+        [ sh:datatype xsd:string ;
+            sh:description "Code representing the type of conference-related work." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 38 ;
+            sh:path brc:conference_type ],
         [ sh:datatype xsd:anyURI ;
             sh:description "Citation for the dataset." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 10 ;
             sh:path dcterms:bibliographicCitation ],
-        [ sh:description "High-level theme areas for the dataset. This is specific to the research themes of the BRCs." ;
-            sh:in ( "Feedstock Development" "Deconstruction and Separation" "Conversion" "Sustainability" ) ;
-            sh:order 18 ;
-            sh:path brc:theme ],
         [ sh:datatype xsd:string ;
-            sh:description "Keywords associated with the dataset." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 22 ;
-            sh:path dcat:keyword ],
-        [ sh:class brc:RelatedItem ;
-            sh:description "Related publications or items." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 21 ;
-            sh:path brc:relatedItem ],
-        [ sh:description "High-level type of the main content of the dataset." ;
-            sh:in ( "AS" "GD" "IM" "ND" "IP" "FP" "SM" "MM" "I" ) ;
+            sh:description "Human-readable country of publication, if available." ;
             sh:maxCount 1 ;
-            sh:order 16 ;
-            sh:path brc:datasetType ],
+            sh:nodeKind sh:Literal ;
+            sh:order 36 ;
+            sh:path brc:country_publication ],
+        [ sh:class brc:Funding ;
+            sh:description "Funding source(s) for the dataset." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 24 ;
+            sh:path brc:funding ],
+        [ sh:datatype xsd:string ;
+            sh:description "Volume number for a journal or book, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path brc:volume ],
+        [ sh:datatype xsd:date ;
+            sh:description "The date the dataset was created or published." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dcterms:date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Publisher-specific information, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 34 ;
+            sh:path brc:publisher_information ],
+        [ sh:description "The repository where the dataset is stored." ;
+            sh:in ( "AmeriFlux" ror:04pvg6f08 ror:00x6h5n95 "EDI Data Portal" "European Nucleotide Archive" ror:041mxqs23 "GenBank" "GEO" "GitHub" "GLBRC Land Atlas" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Data Portal" "JGI Gold" "JGI Genome Portal" "JGI MycoCosm" "jPOST" "MassIVE" ror:01t2a8a42 "MetaboLights" ror:05cwx3318 "NCBI BioProject" "NCBI SRA" "Open Science Framework" "ORNL DAAC" ror:031478740 "PanoramaPublic" "PeptideAtlas" "PRIDE" "Princeton Data Commons" "Protein Data Bank" "Protocols.io" ror:00zbfm828 "Zenodo" ) ;
+            sh:maxCount 1 ;
+            sh:order 9 ;
+            sh:path brc:repository ],
         [ sh:datatype xsd:string ;
             sh:description "A detailed description of the dataset." ;
             sh:maxCount 1 ;
@@ -168,100 +269,96 @@ schema1:Dataset a sh:NodeShape ;
             sh:order 19 ;
             sh:path dcterms:description ],
         [ sh:datatype xsd:string ;
-            sh:description "\"A brief abstract summarizing the dataset. This will generally be longer and more detailed than the description but should not exceed a single paragraph.\"" ;
+            sh:description "The title of the dataset." ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 20 ;
-            sh:path schema1:abstract ],
+            sh:order 3 ;
+            sh:path dcterms:title ],
         [ sh:datatype xsd:boolean ;
             sh:defaultValue true ;
             sh:description "Indicates whether the dataset is active or inactive. This is a boolean field - true indicates active, false indicates inactive." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:active ],
-        [ sh:description "The repository where the dataset is stored." ;
-            sh:in ( "AmeriFlux" ror:04pvg6f08 ror:00x6h5n95 "EDI Data Portal" "European Nucleotide Archive" ror:041mxqs23 "GenBank" "GEO" "GitHub" "GLBRC Land Atlas" "GLBRC Sustainability" "Iowa State University FigShare" "ICE" "Illinois Data Bank" "iProX" "JGI Data Portal" "JGI Gold" "JGI Genome Portal" "JGI MycoCosm" "jPOST" "MassIVE" ror:01t2a8a42 "MetaboLights" ror:05cwx3318 "NCBI BioProject" "NCBI SRA" "Open Science Framework" "ORNL DAAC" ror:031478740 "PanoramaPublic" "PeptideAtlas" "PRIDE" "Princeton Data Commons" "Protein Data Bank" "Protocols.io" ror:00zbfm828 "Zenodo" ) ;
-            sh:maxCount 1 ;
-            sh:order 9 ;
-            sh:path brc:repository ] ;
+            sh:path brc:active ] ;
     sh:targetClass schema1:Dataset .
 
 schema1:Person a sh:NodeShape ;
     rdfs:comment "An individual involved in the dataset." ;
     sh:closed true ;
-    sh:ignoredProperties ( rdf:type brc:contributorType ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Name of the individual." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:anyURI ;
+    sh:ignoredProperties ( brc:contributorType rdf:type ) ;
+    sh:property [ sh:datatype xsd:anyURI ;
             sh:description "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
             sh:path brc:orcid ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indicates if the individual is a primary contact." ;
+        [ sh:description "Affiliation of the individual." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path brc:primaryContact ],
+            sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
+                        sh:nodeKind sh:Literal ] ) ;
+            sh:order 3 ;
+            sh:path brc:affiliation ],
         [ sh:datatype xsd:string ;
             sh:description "Email address of the individual." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path schema1:email ],
-        [ sh:description "Affiliation of the individual." ;
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the individual." ;
             sh:maxCount 1 ;
-            sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
-                        sh:nodeKind sh:Literal ] ) ;
-            sh:order 3 ;
-            sh:path brc:affiliation ] ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if the individual is a primary contact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:primaryContact ] ;
     sh:targetClass schema1:Person .
 
 brc:Contributor a sh:NodeShape ;
     rdfs:comment "An individual who contributed to the dataset in some manner, not necessarily as an author." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:boolean ;
-            sh:description "Indicates if the individual is a primary contact." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:primaryContact ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Email address of the individual." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path schema1:email ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of the individual." ;
+        [ sh:description "Affiliation of the individual." ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:name ],
-        [ sh:description "The contribution type." ;
-            sh:in ( "ContactPerson" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Researcher" "ResearchGroup" "RightsHolder" "Sponsor" "Supervisor" "WorkPackageLeader" "Other" ) ;
-            sh:maxCount 1 ;
-            sh:order 0 ;
-            sh:path brc:contributorType ],
+            sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
+                        sh:nodeKind sh:Literal ] ) ;
+            sh:order 4 ;
+            sh:path brc:affiliation ],
         [ sh:datatype xsd:anyURI ;
             sh:description "ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path brc:orcid ],
-        [ sh:description "Affiliation of the individual." ;
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the individual." ;
             sh:maxCount 1 ;
-            sh:or ( [ sh:class brc:BRCOrganization ] [ sh:datatype xsd:string ;
-                        sh:nodeKind sh:Literal ] ) ;
-            sh:order 4 ;
-            sh:path brc:affiliation ] ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Indicates if the individual is a primary contact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:primaryContact ],
+        [ sh:description "The contribution type." ;
+            sh:in ( "ContactPerson" "DataCollector" "DataCurator" "DataManager" "Distributor" "Editor" "HostingInstitution" "Producer" "ProjectLeader" "ProjectManager" "ProjectMember" "RegistrationAgency" "RegistrationAuthority" "RelatedPerson" "Researcher" "ResearchGroup" "RightsHolder" "Sponsor" "Supervisor" "WorkPackageLeader" "Other" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path brc:contributorType ] ;
     sh:targetClass brc:Contributor .
 
 brc:Funding a sh:NodeShape ;
@@ -269,6 +366,18 @@ brc:Funding a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "Title of the award." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:awardTitle ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URI for the award. This may be a DOI. Include prefix." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:awardURI ],
+        [ sh:datatype xsd:string ;
             sh:description "Award number from the funding entity." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -279,42 +388,220 @@ brc:Funding a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 0 ;
-            sh:path brc:fundingOrganization ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "URI for the award. This may be a DOI. Include prefix." ;
+            sh:path brc:fundingOrganization ] ;
+    sh:targetClass brc:Funding .
+
+brc:MediaFile a sh:NodeShape ;
+    rdfs:comment "Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file structure to preserve file-level details." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "Page count for document-based media, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path brc:document_page_count ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Number of video tracks for audio-visual media." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path brc:video_tracks ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Revision number of this media file." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
-            sh:path brc:awardURI ],
+            sh:path brc:revision ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Number of subtitle tracks for audio-visual media." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path brc:subtitle_tracks ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date this media file was last modified." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path brc:date_file_updated ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Identifier of the parent media file, if this file is derived." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path brc:parent_media_file_id ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Duration in seconds for audio-visual media." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path brc:duration_seconds ],
         [ sh:datatype xsd:string ;
-            sh:description "Title of the award." ;
+            sh:description "PDF version, if this file is a PDF." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path brc:pdf_version ],
+        [ sh:datatype xsd:string ;
+            sh:description "Method of file production or association." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path brc:media_source ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Identifier of the parent media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:media_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Type code for this media file." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path brc:media_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "PDF/A conformance level, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path brc:pdfa_conformance ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique identifier for this media file." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path brc:media_file_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum value for the file, if known." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
-            sh:path brc:awardTitle ] ;
-    sh:targetClass brc:Funding .
+            sh:path brc:checksum ],
+        [ sh:datatype xsd:string ;
+            sh:description "PDF/UA part number, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path brc:pdfua_part ],
+        [ sh:datatype xsd:string ;
+            sh:description "Local file name or off-site URL." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path brc:url ],
+        [ sh:datatype xsd:integer ;
+            sh:description "File size in bytes, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path brc:file_size_bytes ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date this media file was created." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path brc:date_file_added ],
+        [ sh:datatype xsd:string ;
+            sh:description "PDF/A part number, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path brc:pdfa_part ],
+        [ sh:datatype xsd:string ;
+            sh:description "MIME type describing this media file." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path brc:mime_type ] ;
+    sh:targetClass brc:MediaFile .
+
+brc:MediaSet a sh:NodeShape ;
+    rdfs:comment "Metadata about a group of files associated with this dataset. This mirrors the OSTI media-set structure to preserve package-level details." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Primary source of the media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path brc:media_source ],
+        [ sh:datatype xsd:string ;
+            sh:description "Optional title for the media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path brc:media_title ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Number of pages detected in the media set, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path brc:document_page_count ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date the media set was most recently modified." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path brc:date_updated ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique identifier for this media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path brc:media_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "MIME type description for the primary media content." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path brc:mime_type ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date when the media association ended, if applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path brc:date_valid_end ],
+        [ sh:datatype xsd:string ;
+            sh:description "Access limitation codes associated with this media set." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path brc:access_limitations ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date the media set was first created." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path brc:date_added ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Revision number of this media set." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path brc:revision ],
+        [ sh:class brc:MediaFile ;
+            sh:description "Files associated with this media set." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path brc:files ],
+        [ sh:datatype xsd:integer ;
+            sh:description "OSTI record identifier linked to this media set, if any." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:osti_id ] ;
+    sh:targetClass brc:MediaSet .
 
 brc:Plasmid a sh:NodeShape ;
     rdfs:comment "Description of plasmid or other molecular vector features." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Origin of replication for the plasmid, e.g., ColE1." ;
-            sh:maxCount 1 ;
+            sh:description "Selection markers for the plasmid, e.g, kan." ;
             sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path brc:ori ],
-        [ sh:class brc:Organism ;
-            sh:description "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path brc:host ],
-        [ sh:datatype xsd:string ;
-            sh:description "Promoters for the plasmid, e.g., T7." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path brc:promoters ],
+            sh:order 7 ;
+            sh:path brc:selection_markers ],
         [ sh:datatype xsd:string ;
             sh:description "Unique identifier for the plasmid. This must be unique within the dataset." ;
             sh:maxCount 1 ;
@@ -328,10 +615,21 @@ brc:Plasmid a sh:NodeShape ;
             sh:order 2 ;
             sh:path brc:backbone ],
         [ sh:class brc:Organism ;
+            sh:description "Host organism for the plasmid, e.g., E. coli. Includes both the scientific name and NCBI Taxonomy ID." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path brc:host ],
+        [ sh:class brc:Organism ;
             sh:description "Organism(s) in which the plasmid replicates. Includes both the scientific name and NCBI Taxonomy ID." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 6 ;
             sh:path brc:replicates_in ],
+        [ sh:datatype xsd:string ;
+            sh:description "Promoters for the plasmid, e.g., T7." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path brc:promoters ],
         [ sh:datatype xsd:string ;
             sh:description "Description of the plasmid, including any relevant features not captured in other fields." ;
             sh:maxCount 1 ;
@@ -339,10 +637,11 @@ brc:Plasmid a sh:NodeShape ;
             sh:order 1 ;
             sh:path brc:description ],
         [ sh:datatype xsd:string ;
-            sh:description "Selection markers for the plasmid, e.g, kan." ;
+            sh:description "Origin of replication for the plasmid, e.g., ColE1." ;
+            sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path brc:selection_markers ] ;
+            sh:order 4 ;
+            sh:path brc:ori ] ;
     sh:targetClass brc:Plasmid .
 
 brc:RelatedItem a sh:NodeShape ;
@@ -355,17 +654,17 @@ brc:RelatedItem a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path brc:relatedItemIdentifier ],
-        [ sh:description "Type of the related item, e.g., JournalArticle." ;
-            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path brc:relatedItemType ],
         [ sh:datatype xsd:string ;
             sh:description "Title of the related item." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path dcterms:title ] ;
+            sh:path dcterms:title ],
+        [ sh:description "Type of the related item, e.g., JournalArticle." ;
+            sh:in ( IAO:0000013 schema1:book schema1:dataset IAO:0000010 schema1:thesis IAO:0000313 schema1:Publication schema1:PresentationDigitalDocument IAO:0000088 schema1:WebPage schema1:WebApplication ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path brc:relatedItemType ] ;
     sh:targetClass brc:RelatedItem .
 
 brc:Organism a sh:NodeShape ;
@@ -373,12 +672,6 @@ brc:Organism a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Scientific name of the organism." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path brc:scientificName ],
-        [ sh:datatype xsd:string ;
             sh:description "Name of one or more strains of the organism." ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
@@ -388,26 +681,20 @@ brc:Organism a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path brc:NCBITaxID ] ;
+            sh:path brc:NCBITaxID ],
+        [ sh:datatype xsd:string ;
+            sh:description "Scientific name of the organism." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path brc:scientificName ] ;
     sh:targetClass brc:Organism .
 
 brc:BRCOrganization a sh:NodeShape ;
     rdfs:comment "An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Name of the organization." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "ROR identifier for the organization." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path brc:ror_id ],
-        [ sh:class brc:BRCOrganization ;
+    sh:property [ sh:class brc:BRCOrganization ;
             sh:description "Higher-level parent of this organization." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
@@ -418,6 +705,18 @@ brc:BRCOrganization a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
-            sh:path brc:wikidata_id ] ;
+            sh:path brc:wikidata_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the organization." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "ROR identifier for the organization." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path brc:ror_id ] ;
     sh:targetClass brc:BRCOrganization .
 

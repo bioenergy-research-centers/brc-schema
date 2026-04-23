@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 0.1.12
+// version: 0.1.13
 // An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.
 message BRCOrganization
  {
@@ -49,7 +49,23 @@ message Dataset
   string datasetName = 0
  repeated  funding funding = 0
   uri datasetUrl = 0
- repeated  categoryEnum category = 0
+  string issue = 0
+  string journalLicenseUrl = 0
+  string journalName = 0
+  string journalOpenAccessFlag = 0
+  string journalType = 0
+  string journalIssn = 0
+  string volume = 0
+  string publicationDateText = 0
+  string publisherInformation = 0
+  string countryPublicationCode = 0
+  string countryPublication = 0
+  string conferenceInformation = 0
+  string conferenceType = 0
+  string conferenceTitle = 0
+  string conferenceLocation = 0
+  string conferenceDate = 0
+ repeated  mediaSet media = 0
  }
 // Container class for defining a collection of datasets.
 message DatasetCollection
@@ -73,6 +89,46 @@ message Individual
   boolean primaryContact = 0
   string affiliation = 0
   uriorcurie orcid = 0
+ }
+// Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file structure to preserve file-level details.
+message MediaFile
+ {
+  integer mediaFileId = 0
+  integer mediaId = 0
+  string checksum = 0
+  integer revision = 0
+  integer parentMediaFileId = 0
+  string mediaType = 0
+  string url = 0
+  string mimeType = 0
+  string mediaSource = 0
+  integer fileSizeBytes = 0
+  integer durationSeconds = 0
+  integer documentPageCount = 0
+  integer subtitleTracks = 0
+  integer videoTracks = 0
+  string pdfVersion = 0
+  string pdfaConformance = 0
+  string pdfaPart = 0
+  string pdfuaPart = 0
+  datetime dateFileAdded = 0
+  datetime dateFileUpdated = 0
+ }
+// Metadata about a group of files associated with this dataset. This mirrors the OSTI media-set structure to preserve package-level details.
+message MediaSet
+ {
+  integer mediaId = 0
+  integer revision = 0
+ repeated  string accessLimitations = 0
+  integer ostiId = 0
+  integer documentPageCount = 0
+  string mimeType = 0
+  string mediaTitle = 0
+  string mediaSource = 0
+  datetime dateAdded = 0
+  datetime dateUpdated = 0
+  datetime dateValidEnd = 0
+ repeated  mediaFile files = 0
  }
 // An organism studied in the dataset.
 message Organism

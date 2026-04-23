@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-02T13:52:44
+# Generation date: 2026-04-23T15:07:58
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -56,11 +56,11 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Date, Integer, String, Uri, Uriorcurie
-from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, String, Uri, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.1.12"
+version = "0.1.13"
 
 # Namespaces
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
@@ -181,7 +181,23 @@ class Dataset(YAMLRoot):
     datasetName: Optional[str] = None
     funding: Optional[Union[Union[dict, "Funding"], list[Union[dict, "Funding"]]]] = empty_list()
     dataset_url: Optional[Union[str, URI]] = None
-    category: Optional[Union[Union[str, "CategoryEnum"], list[Union[str, "CategoryEnum"]]]] = empty_list()
+    issue: Optional[str] = None
+    journal_license_url: Optional[str] = None
+    journal_name: Optional[str] = None
+    journal_open_access_flag: Optional[str] = None
+    journal_type: Optional[str] = None
+    journal_issn: Optional[str] = None
+    volume: Optional[str] = None
+    publication_date_text: Optional[str] = None
+    publisher_information: Optional[str] = None
+    country_publication_code: Optional[str] = None
+    country_publication: Optional[str] = None
+    conference_information: Optional[str] = None
+    conference_type: Optional[str] = None
+    conference_title: Optional[str] = None
+    conference_location: Optional[str] = None
+    conference_date: Optional[str] = None
+    media: Optional[Union[Union[dict, "MediaSet"], list[Union[dict, "MediaSet"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.title):
@@ -283,9 +299,57 @@ class Dataset(YAMLRoot):
         if self.dataset_url is not None and not isinstance(self.dataset_url, URI):
             self.dataset_url = URI(self.dataset_url)
 
-        if not isinstance(self.category, list):
-            self.category = [self.category] if self.category is not None else []
-        self.category = [v if isinstance(v, CategoryEnum) else CategoryEnum(v) for v in self.category]
+        if self.issue is not None and not isinstance(self.issue, str):
+            self.issue = str(self.issue)
+
+        if self.journal_license_url is not None and not isinstance(self.journal_license_url, str):
+            self.journal_license_url = str(self.journal_license_url)
+
+        if self.journal_name is not None and not isinstance(self.journal_name, str):
+            self.journal_name = str(self.journal_name)
+
+        if self.journal_open_access_flag is not None and not isinstance(self.journal_open_access_flag, str):
+            self.journal_open_access_flag = str(self.journal_open_access_flag)
+
+        if self.journal_type is not None and not isinstance(self.journal_type, str):
+            self.journal_type = str(self.journal_type)
+
+        if self.journal_issn is not None and not isinstance(self.journal_issn, str):
+            self.journal_issn = str(self.journal_issn)
+
+        if self.volume is not None and not isinstance(self.volume, str):
+            self.volume = str(self.volume)
+
+        if self.publication_date_text is not None and not isinstance(self.publication_date_text, str):
+            self.publication_date_text = str(self.publication_date_text)
+
+        if self.publisher_information is not None and not isinstance(self.publisher_information, str):
+            self.publisher_information = str(self.publisher_information)
+
+        if self.country_publication_code is not None and not isinstance(self.country_publication_code, str):
+            self.country_publication_code = str(self.country_publication_code)
+
+        if self.country_publication is not None and not isinstance(self.country_publication, str):
+            self.country_publication = str(self.country_publication)
+
+        if self.conference_information is not None and not isinstance(self.conference_information, str):
+            self.conference_information = str(self.conference_information)
+
+        if self.conference_type is not None and not isinstance(self.conference_type, str):
+            self.conference_type = str(self.conference_type)
+
+        if self.conference_title is not None and not isinstance(self.conference_title, str):
+            self.conference_title = str(self.conference_title)
+
+        if self.conference_location is not None and not isinstance(self.conference_location, str):
+            self.conference_location = str(self.conference_location)
+
+        if self.conference_date is not None and not isinstance(self.conference_date, str):
+            self.conference_date = str(self.conference_date)
+
+        if not isinstance(self.media, list):
+            self.media = [self.media] if self.media is not None else []
+        self.media = [v if isinstance(v, MediaSet) else MediaSet(**as_dict(v)) for v in self.media]
 
         super().__post_init__(**kwargs)
 
@@ -522,6 +586,172 @@ class RelatedItem(YAMLRoot):
 
         if self.relatedItemIdentifier is not None and not isinstance(self.relatedItemIdentifier, URIorCURIE):
             self.relatedItemIdentifier = URIorCURIE(self.relatedItemIdentifier)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class MediaSet(YAMLRoot):
+    """
+    Metadata about a group of files associated with this dataset. This mirrors the OSTI media-set structure to
+    preserve package-level details.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = BRC["MediaSet"]
+    class_class_curie: ClassVar[str] = "brc:MediaSet"
+    class_name: ClassVar[str] = "MediaSet"
+    class_model_uri: ClassVar[URIRef] = BRC.MediaSet
+
+    media_id: Optional[int] = None
+    revision: Optional[int] = None
+    access_limitations: Optional[Union[str, list[str]]] = empty_list()
+    osti_id: Optional[int] = None
+    document_page_count: Optional[int] = None
+    mime_type: Optional[str] = None
+    media_title: Optional[str] = None
+    media_source: Optional[str] = None
+    date_added: Optional[Union[str, XSDDateTime]] = None
+    date_updated: Optional[Union[str, XSDDateTime]] = None
+    date_valid_end: Optional[Union[str, XSDDateTime]] = None
+    files: Optional[Union[Union[dict, "MediaFile"], list[Union[dict, "MediaFile"]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.media_id is not None and not isinstance(self.media_id, int):
+            self.media_id = int(self.media_id)
+
+        if self.revision is not None and not isinstance(self.revision, int):
+            self.revision = int(self.revision)
+
+        if not isinstance(self.access_limitations, list):
+            self.access_limitations = [self.access_limitations] if self.access_limitations is not None else []
+        self.access_limitations = [v if isinstance(v, str) else str(v) for v in self.access_limitations]
+
+        if self.osti_id is not None and not isinstance(self.osti_id, int):
+            self.osti_id = int(self.osti_id)
+
+        if self.document_page_count is not None and not isinstance(self.document_page_count, int):
+            self.document_page_count = int(self.document_page_count)
+
+        if self.mime_type is not None and not isinstance(self.mime_type, str):
+            self.mime_type = str(self.mime_type)
+
+        if self.media_title is not None and not isinstance(self.media_title, str):
+            self.media_title = str(self.media_title)
+
+        if self.media_source is not None and not isinstance(self.media_source, str):
+            self.media_source = str(self.media_source)
+
+        if self.date_added is not None and not isinstance(self.date_added, XSDDateTime):
+            self.date_added = XSDDateTime(self.date_added)
+
+        if self.date_updated is not None and not isinstance(self.date_updated, XSDDateTime):
+            self.date_updated = XSDDateTime(self.date_updated)
+
+        if self.date_valid_end is not None and not isinstance(self.date_valid_end, XSDDateTime):
+            self.date_valid_end = XSDDateTime(self.date_valid_end)
+
+        if not isinstance(self.files, list):
+            self.files = [self.files] if self.files is not None else []
+        self.files = [v if isinstance(v, MediaFile) else MediaFile(**as_dict(v)) for v in self.files]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class MediaFile(YAMLRoot):
+    """
+    Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file
+    structure to preserve file-level details.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = BRC["MediaFile"]
+    class_class_curie: ClassVar[str] = "brc:MediaFile"
+    class_name: ClassVar[str] = "MediaFile"
+    class_model_uri: ClassVar[URIRef] = BRC.MediaFile
+
+    media_file_id: Optional[int] = None
+    media_id: Optional[int] = None
+    checksum: Optional[str] = None
+    revision: Optional[int] = None
+    parent_media_file_id: Optional[int] = None
+    media_type: Optional[str] = None
+    url: Optional[str] = None
+    mime_type: Optional[str] = None
+    media_source: Optional[str] = None
+    file_size_bytes: Optional[int] = None
+    duration_seconds: Optional[int] = None
+    document_page_count: Optional[int] = None
+    subtitle_tracks: Optional[int] = None
+    video_tracks: Optional[int] = None
+    pdf_version: Optional[str] = None
+    pdfa_conformance: Optional[str] = None
+    pdfa_part: Optional[str] = None
+    pdfua_part: Optional[str] = None
+    date_file_added: Optional[Union[str, XSDDateTime]] = None
+    date_file_updated: Optional[Union[str, XSDDateTime]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.media_file_id is not None and not isinstance(self.media_file_id, int):
+            self.media_file_id = int(self.media_file_id)
+
+        if self.media_id is not None and not isinstance(self.media_id, int):
+            self.media_id = int(self.media_id)
+
+        if self.checksum is not None and not isinstance(self.checksum, str):
+            self.checksum = str(self.checksum)
+
+        if self.revision is not None and not isinstance(self.revision, int):
+            self.revision = int(self.revision)
+
+        if self.parent_media_file_id is not None and not isinstance(self.parent_media_file_id, int):
+            self.parent_media_file_id = int(self.parent_media_file_id)
+
+        if self.media_type is not None and not isinstance(self.media_type, str):
+            self.media_type = str(self.media_type)
+
+        if self.url is not None and not isinstance(self.url, str):
+            self.url = str(self.url)
+
+        if self.mime_type is not None and not isinstance(self.mime_type, str):
+            self.mime_type = str(self.mime_type)
+
+        if self.media_source is not None and not isinstance(self.media_source, str):
+            self.media_source = str(self.media_source)
+
+        if self.file_size_bytes is not None and not isinstance(self.file_size_bytes, int):
+            self.file_size_bytes = int(self.file_size_bytes)
+
+        if self.duration_seconds is not None and not isinstance(self.duration_seconds, int):
+            self.duration_seconds = int(self.duration_seconds)
+
+        if self.document_page_count is not None and not isinstance(self.document_page_count, int):
+            self.document_page_count = int(self.document_page_count)
+
+        if self.subtitle_tracks is not None and not isinstance(self.subtitle_tracks, int):
+            self.subtitle_tracks = int(self.subtitle_tracks)
+
+        if self.video_tracks is not None and not isinstance(self.video_tracks, int):
+            self.video_tracks = int(self.video_tracks)
+
+        if self.pdf_version is not None and not isinstance(self.pdf_version, str):
+            self.pdf_version = str(self.pdf_version)
+
+        if self.pdfa_conformance is not None and not isinstance(self.pdfa_conformance, str):
+            self.pdfa_conformance = str(self.pdfa_conformance)
+
+        if self.pdfa_part is not None and not isinstance(self.pdfa_part, str):
+            self.pdfa_part = str(self.pdfa_part)
+
+        if self.pdfua_part is not None and not isinstance(self.pdfua_part, str):
+            self.pdfua_part = str(self.pdfua_part)
+
+        if self.date_file_added is not None and not isinstance(self.date_file_added, XSDDateTime):
+            self.date_file_added = XSDDateTime(self.date_file_added)
+
+        if self.date_file_updated is not None and not isinstance(self.date_file_updated, XSDDateTime):
+            self.date_file_updated = XSDDateTime(self.date_file_updated)
 
         super().__post_init__(**kwargs)
 
@@ -835,50 +1065,6 @@ class DatasetThemeEnum(EnumDefinitionImpl):
                 text="Deconstruction and Separation",
                 description="Datasets related to deconstruction and separation."))
 
-class CategoryEnum(EnumDefinitionImpl):
-    """
-    Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.
-    """
-    Microbiology = PermissibleValue(
-        text="Microbiology",
-        description="Datasets related to microbiology, including microbial physiology, growth, and development.")
-
-    _defn = EnumDefinition(
-        name="CategoryEnum",
-        description="""Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.""",
-    )
-
-    @classmethod
-    def _addvals(cls):
-        setattr(cls, "Genetic Engineering",
-            PermissibleValue(
-                text="Genetic Engineering",
-                description="""Datasets related to genetic engineering, including design and construction of genetic constructs, plasmids, and engineered organisms."""))
-        setattr(cls, "Analytics & Methods",
-            PermissibleValue(
-                text="Analytics & Methods",
-                description="""Datasets related to analytical techniques and methods, including mass spectrometry, chromatography, and other experimental methods."""))
-        setattr(cls, "Plant Biology",
-            PermissibleValue(
-                text="Plant Biology",
-                description="""Datasets related to plant biology, including plant physiology, growth, and development."""))
-        setattr(cls, "Enzymes & Proteins",
-            PermissibleValue(
-                text="Enzymes & Proteins",
-                description="""Datasets related to enzymes and proteins, including enzyme characterization, protein structure, and protein engineering."""))
-        setattr(cls, "Process Engineering",
-            PermissibleValue(
-                text="Process Engineering",
-                description="""Datasets related to process engineering, including process design, optimization, and control."""))
-        setattr(cls, "Bioenergy Production",
-            PermissibleValue(
-                text="Bioenergy Production",
-                description="""Datasets related to bioenergy production, including biofuel production, bioprocessing, and bioenergy systems."""))
-        setattr(cls, "Biomass & Feedstock",
-            PermissibleValue(
-                text="Biomass & Feedstock",
-                description="""Datasets related to biomass and feedstock, including feedstock characterization, biomass composition, and biomass conversion."""))
-
 class RepositoryEnum(EnumDefinitionImpl):
     """
     Repository where the dataset is stored.
@@ -1119,8 +1305,56 @@ slots.dataset__funding = Slot(uri=BRC.funding, name="dataset__funding", curie=BR
 slots.dataset__dataset_url = Slot(uri=SCHEMA.url, name="dataset__dataset_url", curie=SCHEMA.curie('url'),
                    model_uri=BRC.dataset__dataset_url, domain=None, range=Optional[Union[str, URI]])
 
-slots.dataset__category = Slot(uri=BRC.category, name="dataset__category", curie=BRC.curie('category'),
-                   model_uri=BRC.dataset__category, domain=None, range=Optional[Union[Union[str, "CategoryEnum"], list[Union[str, "CategoryEnum"]]]])
+slots.dataset__issue = Slot(uri=BRC.issue, name="dataset__issue", curie=BRC.curie('issue'),
+                   model_uri=BRC.dataset__issue, domain=None, range=Optional[str])
+
+slots.dataset__journal_license_url = Slot(uri=BRC.journal_license_url, name="dataset__journal_license_url", curie=BRC.curie('journal_license_url'),
+                   model_uri=BRC.dataset__journal_license_url, domain=None, range=Optional[str])
+
+slots.dataset__journal_name = Slot(uri=BRC.journal_name, name="dataset__journal_name", curie=BRC.curie('journal_name'),
+                   model_uri=BRC.dataset__journal_name, domain=None, range=Optional[str])
+
+slots.dataset__journal_open_access_flag = Slot(uri=BRC.journal_open_access_flag, name="dataset__journal_open_access_flag", curie=BRC.curie('journal_open_access_flag'),
+                   model_uri=BRC.dataset__journal_open_access_flag, domain=None, range=Optional[str])
+
+slots.dataset__journal_type = Slot(uri=BRC.journal_type, name="dataset__journal_type", curie=BRC.curie('journal_type'),
+                   model_uri=BRC.dataset__journal_type, domain=None, range=Optional[str])
+
+slots.dataset__journal_issn = Slot(uri=BRC.journal_issn, name="dataset__journal_issn", curie=BRC.curie('journal_issn'),
+                   model_uri=BRC.dataset__journal_issn, domain=None, range=Optional[str])
+
+slots.dataset__volume = Slot(uri=BRC.volume, name="dataset__volume", curie=BRC.curie('volume'),
+                   model_uri=BRC.dataset__volume, domain=None, range=Optional[str])
+
+slots.dataset__publication_date_text = Slot(uri=BRC.publication_date_text, name="dataset__publication_date_text", curie=BRC.curie('publication_date_text'),
+                   model_uri=BRC.dataset__publication_date_text, domain=None, range=Optional[str])
+
+slots.dataset__publisher_information = Slot(uri=BRC.publisher_information, name="dataset__publisher_information", curie=BRC.curie('publisher_information'),
+                   model_uri=BRC.dataset__publisher_information, domain=None, range=Optional[str])
+
+slots.dataset__country_publication_code = Slot(uri=BRC.country_publication_code, name="dataset__country_publication_code", curie=BRC.curie('country_publication_code'),
+                   model_uri=BRC.dataset__country_publication_code, domain=None, range=Optional[str])
+
+slots.dataset__country_publication = Slot(uri=BRC.country_publication, name="dataset__country_publication", curie=BRC.curie('country_publication'),
+                   model_uri=BRC.dataset__country_publication, domain=None, range=Optional[str])
+
+slots.dataset__conference_information = Slot(uri=BRC.conference_information, name="dataset__conference_information", curie=BRC.curie('conference_information'),
+                   model_uri=BRC.dataset__conference_information, domain=None, range=Optional[str])
+
+slots.dataset__conference_type = Slot(uri=BRC.conference_type, name="dataset__conference_type", curie=BRC.curie('conference_type'),
+                   model_uri=BRC.dataset__conference_type, domain=None, range=Optional[str])
+
+slots.dataset__conference_title = Slot(uri=BRC.conference_title, name="dataset__conference_title", curie=BRC.curie('conference_title'),
+                   model_uri=BRC.dataset__conference_title, domain=None, range=Optional[str])
+
+slots.dataset__conference_location = Slot(uri=BRC.conference_location, name="dataset__conference_location", curie=BRC.curie('conference_location'),
+                   model_uri=BRC.dataset__conference_location, domain=None, range=Optional[str])
+
+slots.dataset__conference_date = Slot(uri=BRC.conference_date, name="dataset__conference_date", curie=BRC.curie('conference_date'),
+                   model_uri=BRC.dataset__conference_date, domain=None, range=Optional[str])
+
+slots.dataset__media = Slot(uri=BRC.media, name="dataset__media", curie=BRC.curie('media'),
+                   model_uri=BRC.dataset__media, domain=None, range=Optional[Union[Union[dict, MediaSet], list[Union[dict, MediaSet]]]])
 
 slots.individual__name = Slot(uri=SCHEMA.name, name="individual__name", curie=SCHEMA.curie('name'),
                    model_uri=BRC.individual__name, domain=None, range=Optional[str])
@@ -1205,3 +1439,99 @@ slots.relatedItem__relatedItemType = Slot(uri=BRC.relatedItemType, name="related
 
 slots.relatedItem__relatedItemIdentifier = Slot(uri=BRC.relatedItemIdentifier, name="relatedItem__relatedItemIdentifier", curie=BRC.curie('relatedItemIdentifier'),
                    model_uri=BRC.relatedItem__relatedItemIdentifier, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.mediaSet__media_id = Slot(uri=BRC.media_id, name="mediaSet__media_id", curie=BRC.curie('media_id'),
+                   model_uri=BRC.mediaSet__media_id, domain=None, range=Optional[int])
+
+slots.mediaSet__revision = Slot(uri=BRC.revision, name="mediaSet__revision", curie=BRC.curie('revision'),
+                   model_uri=BRC.mediaSet__revision, domain=None, range=Optional[int])
+
+slots.mediaSet__access_limitations = Slot(uri=BRC.access_limitations, name="mediaSet__access_limitations", curie=BRC.curie('access_limitations'),
+                   model_uri=BRC.mediaSet__access_limitations, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.mediaSet__osti_id = Slot(uri=BRC.osti_id, name="mediaSet__osti_id", curie=BRC.curie('osti_id'),
+                   model_uri=BRC.mediaSet__osti_id, domain=None, range=Optional[int])
+
+slots.mediaSet__document_page_count = Slot(uri=BRC.document_page_count, name="mediaSet__document_page_count", curie=BRC.curie('document_page_count'),
+                   model_uri=BRC.mediaSet__document_page_count, domain=None, range=Optional[int])
+
+slots.mediaSet__mime_type = Slot(uri=BRC.mime_type, name="mediaSet__mime_type", curie=BRC.curie('mime_type'),
+                   model_uri=BRC.mediaSet__mime_type, domain=None, range=Optional[str])
+
+slots.mediaSet__media_title = Slot(uri=BRC.media_title, name="mediaSet__media_title", curie=BRC.curie('media_title'),
+                   model_uri=BRC.mediaSet__media_title, domain=None, range=Optional[str])
+
+slots.mediaSet__media_source = Slot(uri=BRC.media_source, name="mediaSet__media_source", curie=BRC.curie('media_source'),
+                   model_uri=BRC.mediaSet__media_source, domain=None, range=Optional[str])
+
+slots.mediaSet__date_added = Slot(uri=BRC.date_added, name="mediaSet__date_added", curie=BRC.curie('date_added'),
+                   model_uri=BRC.mediaSet__date_added, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__date_updated = Slot(uri=BRC.date_updated, name="mediaSet__date_updated", curie=BRC.curie('date_updated'),
+                   model_uri=BRC.mediaSet__date_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__date_valid_end = Slot(uri=BRC.date_valid_end, name="mediaSet__date_valid_end", curie=BRC.curie('date_valid_end'),
+                   model_uri=BRC.mediaSet__date_valid_end, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaSet__files = Slot(uri=BRC.files, name="mediaSet__files", curie=BRC.curie('files'),
+                   model_uri=BRC.mediaSet__files, domain=None, range=Optional[Union[Union[dict, MediaFile], list[Union[dict, MediaFile]]]])
+
+slots.mediaFile__media_file_id = Slot(uri=BRC.media_file_id, name="mediaFile__media_file_id", curie=BRC.curie('media_file_id'),
+                   model_uri=BRC.mediaFile__media_file_id, domain=None, range=Optional[int])
+
+slots.mediaFile__media_id = Slot(uri=BRC.media_id, name="mediaFile__media_id", curie=BRC.curie('media_id'),
+                   model_uri=BRC.mediaFile__media_id, domain=None, range=Optional[int])
+
+slots.mediaFile__checksum = Slot(uri=BRC.checksum, name="mediaFile__checksum", curie=BRC.curie('checksum'),
+                   model_uri=BRC.mediaFile__checksum, domain=None, range=Optional[str])
+
+slots.mediaFile__revision = Slot(uri=BRC.revision, name="mediaFile__revision", curie=BRC.curie('revision'),
+                   model_uri=BRC.mediaFile__revision, domain=None, range=Optional[int])
+
+slots.mediaFile__parent_media_file_id = Slot(uri=BRC.parent_media_file_id, name="mediaFile__parent_media_file_id", curie=BRC.curie('parent_media_file_id'),
+                   model_uri=BRC.mediaFile__parent_media_file_id, domain=None, range=Optional[int])
+
+slots.mediaFile__media_type = Slot(uri=BRC.media_type, name="mediaFile__media_type", curie=BRC.curie('media_type'),
+                   model_uri=BRC.mediaFile__media_type, domain=None, range=Optional[str])
+
+slots.mediaFile__url = Slot(uri=BRC.url, name="mediaFile__url", curie=BRC.curie('url'),
+                   model_uri=BRC.mediaFile__url, domain=None, range=Optional[str])
+
+slots.mediaFile__mime_type = Slot(uri=BRC.mime_type, name="mediaFile__mime_type", curie=BRC.curie('mime_type'),
+                   model_uri=BRC.mediaFile__mime_type, domain=None, range=Optional[str])
+
+slots.mediaFile__media_source = Slot(uri=BRC.media_source, name="mediaFile__media_source", curie=BRC.curie('media_source'),
+                   model_uri=BRC.mediaFile__media_source, domain=None, range=Optional[str])
+
+slots.mediaFile__file_size_bytes = Slot(uri=BRC.file_size_bytes, name="mediaFile__file_size_bytes", curie=BRC.curie('file_size_bytes'),
+                   model_uri=BRC.mediaFile__file_size_bytes, domain=None, range=Optional[int])
+
+slots.mediaFile__duration_seconds = Slot(uri=BRC.duration_seconds, name="mediaFile__duration_seconds", curie=BRC.curie('duration_seconds'),
+                   model_uri=BRC.mediaFile__duration_seconds, domain=None, range=Optional[int])
+
+slots.mediaFile__document_page_count = Slot(uri=BRC.document_page_count, name="mediaFile__document_page_count", curie=BRC.curie('document_page_count'),
+                   model_uri=BRC.mediaFile__document_page_count, domain=None, range=Optional[int])
+
+slots.mediaFile__subtitle_tracks = Slot(uri=BRC.subtitle_tracks, name="mediaFile__subtitle_tracks", curie=BRC.curie('subtitle_tracks'),
+                   model_uri=BRC.mediaFile__subtitle_tracks, domain=None, range=Optional[int])
+
+slots.mediaFile__video_tracks = Slot(uri=BRC.video_tracks, name="mediaFile__video_tracks", curie=BRC.curie('video_tracks'),
+                   model_uri=BRC.mediaFile__video_tracks, domain=None, range=Optional[int])
+
+slots.mediaFile__pdf_version = Slot(uri=BRC.pdf_version, name="mediaFile__pdf_version", curie=BRC.curie('pdf_version'),
+                   model_uri=BRC.mediaFile__pdf_version, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfa_conformance = Slot(uri=BRC.pdfa_conformance, name="mediaFile__pdfa_conformance", curie=BRC.curie('pdfa_conformance'),
+                   model_uri=BRC.mediaFile__pdfa_conformance, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfa_part = Slot(uri=BRC.pdfa_part, name="mediaFile__pdfa_part", curie=BRC.curie('pdfa_part'),
+                   model_uri=BRC.mediaFile__pdfa_part, domain=None, range=Optional[str])
+
+slots.mediaFile__pdfua_part = Slot(uri=BRC.pdfua_part, name="mediaFile__pdfua_part", curie=BRC.curie('pdfua_part'),
+                   model_uri=BRC.mediaFile__pdfua_part, domain=None, range=Optional[str])
+
+slots.mediaFile__date_file_added = Slot(uri=BRC.date_file_added, name="mediaFile__date_file_added", curie=BRC.curie('date_file_added'),
+                   model_uri=BRC.mediaFile__date_file_added, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.mediaFile__date_file_updated = Slot(uri=BRC.date_file_updated, name="mediaFile__date_file_updated", curie=BRC.curie('date_file_updated'),
+                   model_uri=BRC.mediaFile__date_file_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
