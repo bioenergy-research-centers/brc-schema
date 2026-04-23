@@ -22,7 +22,7 @@ def update_transform_version(transform_path: Path, version: str) -> None:
     
     # Pattern to match the schema_version expr line
     pattern = r"(      schema_version:\s*\n\s*expr:\s*)['\"].*['\"]"
-    replacement = rf'\1"\'{version}\'"'
+    replacement = r"\1" + f'"\'{version}\'"'
     
     new_content = re.sub(pattern, replacement, content)
     
