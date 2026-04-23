@@ -113,16 +113,32 @@
          "@id": "dcterms:bibliographicCitation"
       },
       "category": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
          "@id": "category"
+      },
+      "conference_date": {
+         "@id": "conference_date"
+      },
+      "conference_information": {
+         "@id": "conference_information"
+      },
+      "conference_location": {
+         "@id": "conference_location"
+      },
+      "conference_title": {
+         "@id": "conference_title"
+      },
+      "conference_type": {
+         "@id": "conference_type"
       },
       "contributors": {
          "@type": "@id",
          "@id": "contributors"
+      },
+      "country_publication": {
+         "@id": "country_publication"
+      },
+      "country_publication_code": {
+         "@id": "country_publication_code"
       },
       "creator": {
          "@type": "@id",
@@ -164,12 +180,40 @@
       "identifier": {
          "@id": "schema:identifier"
       },
+      "issue": {
+         "@id": "issue"
+      },
+      "journal_issn": {
+         "@id": "journal_issn"
+      },
+      "journal_license_url": {
+         "@id": "journal_license_url"
+      },
+      "journal_name": {
+         "@id": "journal_name"
+      },
+      "journal_open_access_flag": {
+         "@id": "journal_open_access_flag"
+      },
+      "journal_type": {
+         "@id": "journal_type"
+      },
       "keywords": {
          "@id": "dcat:keyword"
+      },
+      "media": {
+         "@type": "@id",
+         "@id": "media"
       },
       "plasmid_features": {
          "@type": "@id",
          "@id": "plasmid_features"
+      },
+      "publication_date_text": {
+         "@id": "publication_date_text"
+      },
+      "publisher_information": {
+         "@id": "publisher_information"
       },
       "relatedItem": {
          "@type": "@id",
@@ -205,6 +249,9 @@
             "meaning": "@id"
          },
          "@id": "topic"
+      },
+      "volume": {
+         "@id": "volume"
       },
       "datasets": {
          "@type": "@id",
@@ -244,6 +291,103 @@
       "primaryContact": {
          "@type": "xsd:boolean",
          "@id": "primaryContact"
+      },
+      "checksum": {
+         "@id": "checksum"
+      },
+      "date_file_added": {
+         "@type": "xsd:dateTime",
+         "@id": "date_file_added"
+      },
+      "date_file_updated": {
+         "@type": "xsd:dateTime",
+         "@id": "date_file_updated"
+      },
+      "document_page_count": {
+         "@type": "xsd:integer",
+         "@id": "document_page_count"
+      },
+      "duration_seconds": {
+         "@type": "xsd:integer",
+         "@id": "duration_seconds"
+      },
+      "file_size_bytes": {
+         "@type": "xsd:integer",
+         "@id": "file_size_bytes"
+      },
+      "media_file_id": {
+         "@type": "xsd:integer",
+         "@id": "media_file_id"
+      },
+      "media_id": {
+         "@type": "xsd:integer",
+         "@id": "media_id"
+      },
+      "media_source": {
+         "@id": "media_source"
+      },
+      "media_type": {
+         "@id": "media_type"
+      },
+      "mime_type": {
+         "@id": "mime_type"
+      },
+      "parent_media_file_id": {
+         "@type": "xsd:integer",
+         "@id": "parent_media_file_id"
+      },
+      "pdf_version": {
+         "@id": "pdf_version"
+      },
+      "pdfa_conformance": {
+         "@id": "pdfa_conformance"
+      },
+      "pdfa_part": {
+         "@id": "pdfa_part"
+      },
+      "pdfua_part": {
+         "@id": "pdfua_part"
+      },
+      "revision": {
+         "@type": "xsd:integer",
+         "@id": "revision"
+      },
+      "subtitle_tracks": {
+         "@type": "xsd:integer",
+         "@id": "subtitle_tracks"
+      },
+      "url": {
+         "@id": "url"
+      },
+      "video_tracks": {
+         "@type": "xsd:integer",
+         "@id": "video_tracks"
+      },
+      "access_limitations": {
+         "@id": "access_limitations"
+      },
+      "date_added": {
+         "@type": "xsd:dateTime",
+         "@id": "date_added"
+      },
+      "date_updated": {
+         "@type": "xsd:dateTime",
+         "@id": "date_updated"
+      },
+      "date_valid_end": {
+         "@type": "xsd:dateTime",
+         "@id": "date_valid_end"
+      },
+      "files": {
+         "@type": "@id",
+         "@id": "files"
+      },
+      "media_title": {
+         "@id": "media_title"
+      },
+      "osti_id": {
+         "@type": "xsd:integer",
+         "@id": "osti_id"
       },
       "NCBITaxID": {
          "@type": "xsd:integer",
@@ -304,6 +448,12 @@
       },
       "Individual": {
          "@id": "schema:Person"
+      },
+      "MediaFile": {
+         "@id": "MediaFile"
+      },
+      "MediaSet": {
+         "@id": "MediaSet"
       },
       "Organism": {
          "@id": "Organism"

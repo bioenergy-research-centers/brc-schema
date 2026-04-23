@@ -68,21 +68,6 @@
             "title": "BRCOrganization",
             "type": "object"
         },
-        "CategoryEnum": {
-            "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
-            "enum": [
-                "Genetic Engineering",
-                "Microbiology",
-                "Analytics & Methods",
-                "Plant Biology",
-                "Enzymes & Proteins",
-                "Process Engineering",
-                "Bioenergy Production",
-                "Biomass & Feedstock"
-            ],
-            "title": "CategoryEnum",
-            "type": "string"
-        },
         "CitedItemType": {
             "description": "Type of cited item, e.g., journal article.",
             "enum": [
@@ -246,12 +231,47 @@
                     "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
                 },
                 "category": {
-                    "description": "Category of the dataset. This is specific to the BRCs.",
+                    "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
                     "items": {
-                        "$ref": "#/$defs/CategoryEnum"
+                        "type": "string"
                     },
                     "type": [
                         "array",
+                        "null"
+                    ]
+                },
+                "conference_date": {
+                    "description": "Date or date range for the conference.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "conference_information": {
+                    "description": "General conference information related to the dataset.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "conference_location": {
+                    "description": "Location of the conference.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "conference_title": {
+                    "description": "Title of the conference.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "conference_type": {
+                    "description": "Code representing the type of conference-related work.",
+                    "type": [
+                        "string",
                         "null"
                     ]
                 },
@@ -262,6 +282,20 @@
                     },
                     "type": [
                         "array",
+                        "null"
+                    ]
+                },
+                "country_publication": {
+                    "description": "Human-readable country of publication, if available.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "country_publication_code": {
+                    "description": "Country code for the publication venue, if applicable.",
+                    "type": [
+                        "string",
                         "null"
                     ]
                 },
@@ -333,10 +367,62 @@
                     "description": "Unique identifier for the dataset.",
                     "type": "string"
                 },
+                "issue": {
+                    "description": "Issue number for a journal or other venue, if applicable.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal_issn": {
+                    "description": "International Standard Serial Number for the journal, if known.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal_license_url": {
+                    "description": "URL for information regarding the journal license.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal_name": {
+                    "description": "Name of the journal publishing this information.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal_open_access_flag": {
+                    "description": "Indicates whether the journal is open access.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal_type": {
+                    "description": "Specific sub-type of the journal article.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "keywords": {
                     "description": "Keywords associated with the dataset.",
                     "items": {
                         "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "media": {
+                    "description": "Media bundles and file-package metadata associated with the dataset.",
+                    "items": {
+                        "$ref": "#/$defs/MediaSet"
                     },
                     "type": [
                         "array",
@@ -350,6 +436,20 @@
                     },
                     "type": [
                         "array",
+                        "null"
+                    ]
+                },
+                "publication_date_text": {
+                    "description": "Textual representation of the publication date, if used.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "publisher_information": {
+                    "description": "Publisher-specific information, if applicable.",
+                    "type": [
+                        "string",
                         "null"
                     ]
                 },
@@ -398,6 +498,13 @@
                     },
                     "type": [
                         "array",
+                        "null"
+                    ]
+                },
+                "volume": {
+                    "description": "Volume number for a journal or book, if applicable.",
+                    "type": [
+                        "string",
                         "null"
                     ]
                 }
@@ -568,6 +675,257 @@
                 }
             },
             "title": "Individual",
+            "type": "object"
+        },
+        "MediaFile": {
+            "additionalProperties": false,
+            "description": "Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file structure to preserve file-level details.",
+            "properties": {
+                "checksum": {
+                    "description": "Checksum value for the file, if known.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "date_file_added": {
+                    "description": "Date this media file was created.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "date_file_updated": {
+                    "description": "Date this media file was last modified.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "document_page_count": {
+                    "description": "Page count for document-based media, if applicable.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "duration_seconds": {
+                    "description": "Duration in seconds for audio-visual media.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "file_size_bytes": {
+                    "description": "File size in bytes, if applicable.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "media_file_id": {
+                    "description": "Unique identifier for this media file.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "media_id": {
+                    "description": "Identifier of the parent media set.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "media_source": {
+                    "description": "Method of file production or association.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "media_type": {
+                    "description": "Type code for this media file.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "mime_type": {
+                    "description": "MIME type describing this media file.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parent_media_file_id": {
+                    "description": "Identifier of the parent media file, if this file is derived.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "pdf_version": {
+                    "description": "PDF version, if this file is a PDF.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pdfa_conformance": {
+                    "description": "PDF/A conformance level, if applicable.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pdfa_part": {
+                    "description": "PDF/A part number, if applicable.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pdfua_part": {
+                    "description": "PDF/UA part number, if applicable.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "revision": {
+                    "description": "Revision number of this media file.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "subtitle_tracks": {
+                    "description": "Number of subtitle tracks for audio-visual media.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Local file name or off-site URL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "video_tracks": {
+                    "description": "Number of video tracks for audio-visual media.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "title": "MediaFile",
+            "type": "object"
+        },
+        "MediaSet": {
+            "additionalProperties": false,
+            "description": "Metadata about a group of files associated with this dataset. This mirrors the OSTI media-set structure to preserve package-level details.",
+            "properties": {
+                "access_limitations": {
+                    "description": "Access limitation codes associated with this media set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "date_added": {
+                    "description": "Date the media set was first created.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "date_updated": {
+                    "description": "Date the media set was most recently modified.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "date_valid_end": {
+                    "description": "Date when the media association ended, if applicable.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "document_page_count": {
+                    "description": "Number of pages detected in the media set, if applicable.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "files": {
+                    "description": "Files associated with this media set.",
+                    "items": {
+                        "$ref": "#/$defs/MediaFile"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "media_id": {
+                    "description": "Unique identifier for this media set.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "media_source": {
+                    "description": "Primary source of the media set.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "media_title": {
+                    "description": "Optional title for the media set.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "mime_type": {
+                    "description": "MIME type description for the primary media content.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "osti_id": {
+                    "description": "OSTI record identifier linked to this media set, if any.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "revision": {
+                    "description": "Revision number of this media set.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "title": "MediaSet",
             "type": "object"
         },
         "Organism": {
@@ -776,5 +1134,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.12"
+    "version": "0.1.13"
 }

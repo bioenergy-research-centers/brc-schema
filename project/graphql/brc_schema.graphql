@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.12
+# version: 0.1.13
 enum AnalysisType
   {
     affinity_purification
@@ -20,18 +20,6 @@ enum BRCEnum
     CBI
     GLBRC
     JBEI
-  }
-
-enum CategoryEnum
-  {
-    Genetic_Engineering
-    Microbiology
-    Analytics___AMPERSAND___Methods
-    Plant_Biology
-    Enzymes___AMPERSAND___Proteins
-    Process_Engineering
-    Bioenergy_Production
-    Biomass___AMPERSAND___Feedstock
   }
 
 enum CitedItemType
@@ -187,6 +175,7 @@ type Dataset
     datasetType: DatasetTypeCodes
     topic: [DatasetTopicEnum]
     theme: [DatasetThemeEnum]
+    category: [String]
     description: String
     abstract: String
     relatedItem: [RelatedItem]
@@ -194,7 +183,23 @@ type Dataset
     datasetName: String
     funding: [Funding]
     datasetUrl: String
-    category: [CategoryEnum]
+    issue: String
+    journalLicenseUrl: String
+    journalName: String
+    journalOpenAccessFlag: String
+    journalType: String
+    journalIssn: String
+    volume: String
+    publicationDateText: String
+    publisherInformation: String
+    countryPublicationCode: String
+    countryPublication: String
+    conferenceInformation: String
+    conferenceType: String
+    conferenceTitle: String
+    conferenceLocation: String
+    conferenceDate: String
+    media: [MediaSet]
   }
 
 type DatasetCollection
@@ -218,6 +223,46 @@ type Individual
     primaryContact: Boolean
     affiliation: String
     orcid: String
+  }
+
+type MediaFile
+  {
+    mediaFileId: Int
+    mediaId: Int
+    checksum: String
+    revision: Int
+    parentMediaFileId: Int
+    mediaType: String
+    url: String
+    mimeType: String
+    mediaSource: String
+    fileSizeBytes: Int
+    durationSeconds: Int
+    documentPageCount: Int
+    subtitleTracks: Int
+    videoTracks: Int
+    pdfVersion: String
+    pdfaConformance: String
+    pdfaPart: String
+    pdfuaPart: String
+    dateFileAdded: String
+    dateFileUpdated: String
+  }
+
+type MediaSet
+  {
+    mediaId: Int
+    revision: Int
+    accessLimitations: [String]
+    ostiId: Int
+    documentPageCount: Int
+    mimeType: String
+    mediaTitle: String
+    mediaSource: String
+    dateAdded: String
+    dateUpdated: String
+    dateValidEnd: String
+    files: [MediaFile]
   }
 
 type Organism

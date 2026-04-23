@@ -755,6 +755,90 @@ class TestTransformations:
         assert dataset['creator'][1]['name'] == 'Michigan State University'
         assert dataset['creator'][1]['primaryContact'] is False
 
+    def test_osti_to_brc_maps_publication_venue_and_media(self, tmp_path):
+        """OSTI venue and media metadata should map into the expanded BRC schema."""
+        test_data = {
+            "records": [{
+                "osti_id": "24680",
+                "title": "Dataset with Venue and Media",
+                "publication_date": "2025-03-10",
+                "journal_name": "Bioenergy Data Journal",
+                "journal_license_url": "https://example.org/licenses/journal",
+                "journal_open_access_flag": "Y",
+                "journal_type": "AM",
+                "journal_issn": "1234-5678",
+                "journal_issue": "7",
+                "journal_volume": "12",
+                "publication_date_text": "Spring 2025",
+                "publisher": "Example University Press",
+                "conference_info": "Presented during BioenergyConf 2025",
+                "conference_type": "O",
+                "conference_title": "BioenergyConf 2025",
+                "conference_location": "Madison, WI",
+                "conference_date": "10-12 March 2025",
+                "country_publication_code": "US",
+                "country_publication": "United States",
+                "media": [{
+                    "media_id": 101,
+                    "revision": 2,
+                    "mime_type": "application/pdf",
+                    "media_title": "Primary package",
+                    "media_location": "O",
+                    "media_source": "OFFSITE",
+                    "files": [{
+                        "media_file_id": 202,
+                        "media_id": 101,
+                        "url": "https://example.org/files/report.pdf",
+                        "mime_type": "application/pdf",
+                        "file_size_bytes": 2048
+                    }]
+                }]
+            }]
+        }
+
+        input_file = tmp_path / "osti_venue_media_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "brc_venue_media_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        dataset = result['datasets'][0]
+        assert dataset['issue'] == '7'
+        assert dataset['journal_name'] == 'Bioenergy Data Journal'
+        assert dataset['journal_license_url'] == 'https://example.org/licenses/journal'
+        assert dataset['journal_open_access_flag'] == 'Y'
+        assert dataset['journal_type'] == 'AM'
+        assert dataset['journal_issn'] == '1234-5678'
+        assert dataset['volume'] == '12'
+        assert dataset['publication_date_text'] == 'Spring 2025'
+        assert dataset['publisher_information'] == 'Example University Press'
+        assert dataset['conference_information'] == 'Presented during BioenergyConf 2025'
+        assert dataset['conference_type'] == 'O'
+        assert dataset['conference_title'] == 'BioenergyConf 2025'
+        assert dataset['conference_location'] == 'Madison, WI'
+        assert dataset['conference_date'] == '10-12 March 2025'
+        assert dataset['country_publication_code'] == 'US'
+        assert dataset['country_publication'] == 'United States'
+        assert dataset['media'][0]['media_id'] == 101
+        assert dataset['media'][0]['files'][0]['media_file_id'] == 202
+        assert dataset['media'][0]['files'][0]['url'] == 'https://example.org/files/report.pdf'
+
     def test_brc_to_osti_emits_current_and_legacy_fields(self, tmp_path):
         """BRC to OSTI should emit current E-Link 2 fields plus selected legacy aliases."""
         test_data = {
@@ -843,6 +927,96 @@ class TestTransformations:
             identifier['type'] == 'AWARD_DOI' and identifier['value'] == '10.11578/award123'
             for identifier in sponsor_org['identifiers']
         )
+
+    def test_brc_to_osti_emits_publication_venue_and_media_fields(self, tmp_path):
+        """Expanded BRC venue and media metadata should map to current and legacy OSTI fields."""
+        test_data = {
+            "datasets": [{
+                "title": "Venue and Media Roundtrip",
+                "date": "2024-09-12",
+                "identifier": "https://example.org/datasets/venue-media",
+                "brc": "JBEI",
+                "creator": [{
+                    "name": "Jane Doe",
+                    "primaryContact": True
+                }],
+                "issue": "4",
+                "journal_license_url": "https://example.org/license",
+                "journal_name": "Journal of Bioenergy Metadata",
+                "journal_open_access_flag": "N",
+                "journal_type": "AM",
+                "journal_issn": "9876-5432",
+                "volume": "18",
+                "publication_date_text": "Fall 2024",
+                "publisher_information": "Metadata Press",
+                "conference_information": "Poster session at DOE Data Summit",
+                "conference_type": "P",
+                "conference_title": "DOE Data Summit",
+                "conference_location": "Berkeley, CA",
+                "conference_date": "September 2024",
+                "country_publication_code": "US",
+                "country_publication": "United States",
+                "media": [{
+                    "media_id": 301,
+                    "revision": 1,
+                    "media_title": "Landing page package",
+                    "files": [{
+                        "media_file_id": 401,
+                        "media_id": 301,
+                        "url": "package.zip",
+                        "mime_type": "application/zip",
+                        "file_size_bytes": 4096
+                    }]
+                }]
+            }]
+        }
+
+        input_file = tmp_path / "brc_venue_media_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "osti_venue_media_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'brc_to_osti',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        record = result['records'][0]
+        assert record['issue'] == '4'
+        assert record['journal_license_url'] == 'https://example.org/license'
+        assert record['journal_name'] == 'Journal of Bioenergy Metadata'
+        assert record['journal_open_access_flag'] == 'N'
+        assert record['journal_type'] == 'AM'
+        assert record['journal_issn'] == '9876-5432'
+        assert record['volume'] == '18'
+        assert record['journal_issue'] == '4'
+        assert record['journal_volume'] == '18'
+        assert record['publication_date_text'] == 'Fall 2024'
+        assert record['publisher_information'] == 'Metadata Press'
+        assert record['publisher'] == 'Metadata Press'
+        assert record['conference_information'] == 'Poster session at DOE Data Summit'
+        assert record['conference_info'] == 'Poster session at DOE Data Summit'
+        assert record['conference_type'] == 'P'
+        assert record['conference_title'] == 'DOE Data Summit'
+        assert record['conference_location'] == 'Berkeley, CA'
+        assert record['conference_date'] == 'September 2024'
+        assert record['country_publication_code'] == 'US'
+        assert record['country_publication'] == 'United States'
+        assert record['media'][0]['media_id'] == 301
+        assert record['media'][0]['files'][0]['media_file_id'] == 401
+        assert record['media'][0]['files'][0]['url'] == 'package.zip'
 
     def test_brc_to_osti_non_doe_award_number_uses_cn_nondoe(self, tmp_path):
         """Generic funding awards should not be forced into CN_DOE."""
