@@ -29,10 +29,38 @@ class_derivations:
         populated_from: description
       publication_date:
         expr: "date if date else None"
+      issue:
+        populated_from: issue
+      journal_license_url:
+        populated_from: journal_license_url
+      journal_name:
+        populated_from: journal_name
+      journal_open_access_flag:
+        populated_from: journal_open_access_flag
+      journal_type:
+        populated_from: journal_type
       released_to_osti_date:
         expr: "date if date else None"
+      volume:
+        populated_from: volume
+      publication_date_text:
+        populated_from: publication_date_text
+      publisher_information:
+        populated_from: publisher_information
+      country_publication_code:
+        populated_from: country_publication_code
       doi:
         expr: "bibliographicCitation.split('doi.org/')[-1] if bibliographicCitation and 'doi.org/' in bibliographicCitation else (str(bibliographicCitation).replace('doi:', '', 1) if bibliographicCitation and str(bibliographicCitation).startswith('doi:') else None)"
+      conference_information:
+        populated_from: conference_information
+      conference_type:
+        populated_from: conference_type
+      conference_title:
+        populated_from: conference_title
+      conference_location:
+        populated_from: conference_location
+      conference_date:
+        populated_from: conference_date
       site_ownership_code:
         populated_from: brc
         expr: "brc if brc else None"
@@ -58,7 +86,93 @@ class_derivations:
         expr: "build_osti_identifiers(has_related_ids, identifier, brc)"
       related_identifiers:
         expr: "build_osti_related_identifiers(has_related_ids)"
+      media:
+        populated_from: media
       doe_contract_number:
         expr: "brc_contract(brc)"
       contract_number:
         expr: "brc_contract(brc)"
+      conference_info:
+        expr: "conference_information if conference_information else None"
+      country_publication:
+        populated_from: country_publication
+      journal_issn:
+        populated_from: journal_issn
+      journal_issue:
+        expr: "issue if issue else None"
+      journal_volume:
+        expr: "volume if volume else None"
+      publisher:
+        expr: "publisher_information if publisher_information else None"
+
+  MediaSet:
+    populated_from: MediaSet
+    slot_derivations:
+      media_id:
+        populated_from: media_id
+      revision:
+        populated_from: revision
+      access_limitations:
+        populated_from: access_limitations
+      osti_id:
+        populated_from: osti_id
+      document_page_count:
+        populated_from: document_page_count
+      mime_type:
+        populated_from: mime_type
+      media_title:
+        populated_from: media_title
+      media_source:
+        populated_from: media_source
+      date_added:
+        populated_from: date_added
+      date_updated:
+        populated_from: date_updated
+      date_valid_end:
+        populated_from: date_valid_end
+      files:
+        populated_from: files
+
+  MediaFile:
+    populated_from: MediaFile
+    slot_derivations:
+      media_file_id:
+        populated_from: media_file_id
+      media_id:
+        populated_from: media_id
+      checksum:
+        populated_from: checksum
+      revision:
+        populated_from: revision
+      parent_media_file_id:
+        populated_from: parent_media_file_id
+      media_type:
+        populated_from: media_type
+      url:
+        populated_from: url
+      mime_type:
+        populated_from: mime_type
+      media_source:
+        populated_from: media_source
+      file_size_bytes:
+        populated_from: file_size_bytes
+      duration_seconds:
+        populated_from: duration_seconds
+      document_page_count:
+        populated_from: document_page_count
+      subtitle_tracks:
+        populated_from: subtitle_tracks
+      video_tracks:
+        populated_from: video_tracks
+      pdf_version:
+        populated_from: pdf_version
+      pdfa_conformance:
+        populated_from: pdfa_conformance
+      pdfa_part:
+        populated_from: pdfa_part
+      pdfua_part:
+        populated_from: pdfua_part
+      date_file_added:
+        populated_from: date_file_added
+      date_file_updated:
+        populated_from: date_file_updated

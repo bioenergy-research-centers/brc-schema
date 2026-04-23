@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: '"0.1.12"'
+        expr: '"0.1.13"'
 
   Dataset:
     populated_from: Record
@@ -58,6 +58,8 @@ class_derivations:
         populated_from: description
       date:
         expr: "publication_date if publication_date else entry_date"
+      issue:
+        expr: "issue if issue else journal_issue"
       identifier:
         expr: |
           if src.osti_id:
@@ -72,6 +74,36 @@ class_derivations:
             target = None
       keywords:
         expr: "build_brc_keywords(keywords, subjects)"
+      journal_license_url:
+        populated_from: journal_license_url
+      journal_name:
+        populated_from: journal_name
+      journal_open_access_flag:
+        populated_from: journal_open_access_flag
+      journal_type:
+        populated_from: journal_type
+      journal_issn:
+        populated_from: journal_issn
+      volume:
+        expr: "volume if volume else journal_volume"
+      publication_date_text:
+        populated_from: publication_date_text
+      publisher_information:
+        expr: "publisher_information if publisher_information else publisher"
+      country_publication_code:
+        populated_from: country_publication_code
+      country_publication:
+        populated_from: country_publication
+      conference_information:
+        expr: "conference_information if conference_information else conference_info"
+      conference_type:
+        populated_from: conference_type
+      conference_title:
+        populated_from: conference_title
+      conference_location:
+        populated_from: conference_location
+      conference_date:
+        populated_from: conference_date
       creator:
         expr: "build_brc_creators(persons, authors, organizations)"
       contributors:
@@ -80,6 +112,8 @@ class_derivations:
         expr: "build_brc_funding(organizations, sponsor_orgs)"
       relatedItem:
         populated_from: related_identifiers
+      media:
+        populated_from: media
       #datasetType:
       #  populated_from: product_type
       dataset_url:
@@ -88,6 +122,78 @@ class_derivations:
         expr: "workflow_status == 'R' if workflow_status else False"
       has_related_ids:
         expr: "build_brc_has_related_ids(identifiers, related_identifiers, identifier, other_identifiers, other_number, report_number)"
+
+  MediaSet:
+    populated_from: MediaSet
+    slot_derivations:
+      media_id:
+        populated_from: media_id
+      revision:
+        populated_from: revision
+      access_limitations:
+        populated_from: access_limitations
+      osti_id:
+        populated_from: osti_id
+      document_page_count:
+        populated_from: document_page_count
+      mime_type:
+        populated_from: mime_type
+      media_title:
+        populated_from: media_title
+      media_source:
+        populated_from: media_source
+      date_added:
+        populated_from: date_added
+      date_updated:
+        populated_from: date_updated
+      date_valid_end:
+        populated_from: date_valid_end
+      files:
+        populated_from: files
+
+  MediaFile:
+    populated_from: MediaFile
+    slot_derivations:
+      media_file_id:
+        populated_from: media_file_id
+      media_id:
+        populated_from: media_id
+      checksum:
+        populated_from: checksum
+      revision:
+        populated_from: revision
+      parent_media_file_id:
+        populated_from: parent_media_file_id
+      media_type:
+        populated_from: media_type
+      url:
+        populated_from: url
+      mime_type:
+        populated_from: mime_type
+      media_source:
+        populated_from: media_source
+      file_size_bytes:
+        populated_from: file_size_bytes
+      duration_seconds:
+        populated_from: duration_seconds
+      document_page_count:
+        populated_from: document_page_count
+      subtitle_tracks:
+        populated_from: subtitle_tracks
+      video_tracks:
+        populated_from: video_tracks
+      pdf_version:
+        populated_from: pdf_version
+      pdfa_conformance:
+        populated_from: pdfa_conformance
+      pdfa_part:
+        populated_from: pdfa_part
+      pdfua_part:
+        populated_from: pdfua_part
+      date_file_added:
+        populated_from: date_file_added
+      date_file_updated:
+        populated_from: date_file_updated
 
   Individual:
     populated_from: Person
