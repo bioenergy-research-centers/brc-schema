@@ -350,14 +350,15 @@
 
       Dataset : category
 
+      Dataset : conference_date
 
+      Dataset : conference_information
 
+      Dataset : conference_location
 
+      Dataset : conference_title
 
-        Dataset --&gt; "*" CategoryEnum : category
-        click CategoryEnum href "../CategoryEnum/"
-
-
+      Dataset : conference_type
 
       Dataset : contributors
 
@@ -369,6 +370,10 @@
         click Contributor href "../Contributor/"
 
 
+
+      Dataset : country_publication
+
+      Dataset : country_publication_code
 
       Dataset : creator
 
@@ -417,7 +422,30 @@
 
       Dataset : identifier
 
+      Dataset : issue
+
+      Dataset : journal_issn
+
+      Dataset : journal_license_url
+
+      Dataset : journal_name
+
+      Dataset : journal_open_access_flag
+
+      Dataset : journal_type
+
       Dataset : keywords
+
+      Dataset : media
+
+
+
+
+
+        Dataset --&gt; "*" MediaSet : media
+        click MediaSet href "../MediaSet/"
+
+
 
       Dataset : plasmid_features
 
@@ -429,6 +457,10 @@
         click Plasmid href "../Plasmid/"
 
 
+
+      Dataset : publication_date_text
+
+      Dataset : publisher_information
 
       Dataset : relatedItem
 
@@ -486,6 +518,8 @@
         click DatasetTopicEnum href "../DatasetTopicEnum/"
 
 
+
+      Dataset : volume
 
 
 </div>
@@ -616,6 +650,12 @@
 <td>direct</td>
 </tr>
 <tr>
+<td><a href="../category/">category</a></td>
+<td>* <br/> <a href="../String/">String</a></td>
+<td>Category of the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../description/">description</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>A detailed description of the dataset</td>
@@ -658,9 +698,105 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../category/">category</a></td>
-<td>* <br/> <a href="../CategoryEnum/">CategoryEnum</a></td>
-<td>Category of the dataset</td>
+<td><a href="../issue/">issue</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Issue number for a journal or other venue, if applicable</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../journal_license_url/">journal_license_url</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>URL for information regarding the journal license</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../journal_name/">journal_name</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Name of the journal publishing this information</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../journal_open_access_flag/">journal_open_access_flag</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Indicates whether the journal is open access</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../journal_type/">journal_type</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Specific sub-type of the journal article</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../journal_issn/">journal_issn</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>International Standard Serial Number for the journal, if known</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../volume/">volume</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Volume number for a journal or book, if applicable</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../publication_date_text/">publication_date_text</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Textual representation of the publication date, if used</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../publisher_information/">publisher_information</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Publisher-specific information, if applicable</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../country_publication_code/">country_publication_code</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Country code for the publication venue, if applicable</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../country_publication/">country_publication</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Human-readable country of publication, if available</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../conference_information/">conference_information</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>General conference information related to the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../conference_type/">conference_type</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Code representing the type of conference-related work</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../conference_title/">conference_title</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Title of the conference</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../conference_location/">conference_location</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Location of the conference</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../conference_date/">conference_date</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Date or date range for the conference</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../media/">media</a></td>
+<td>* <br/> <a href="../MediaSet/">MediaSet</a></td>
+<td>Media bundles and file-package metadata associated with the dataset</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -965,6 +1101,16 @@ attributes:
     - Dataset
     range: DatasetThemeEnum
     multivalued: true
+  category:
+    name: category
+    description: Category of the dataset. This is specific to the BRCs and is not
+      intended to be an exhaustive list of categories.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+    multivalued: true
   description:
     name: description
     description: A detailed description of the dataset.
@@ -1038,15 +1184,175 @@ attributes:
     domain_of:
     - Dataset
     range: uri
-  category:
-    name: category
-    description: Category of the dataset. This is specific to the BRCs.
+  issue:
+    name: issue
+    description: Issue number for a journal or other venue, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:issue
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  journal_license_url:
+    name: journal_license_url
+    description: URL for information regarding the journal license.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_license_url
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  journal_name:
+    name: journal_name
+    description: Name of the journal publishing this information.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_name
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  journal_open_access_flag:
+    name: journal_open_access_flag
+    description: Indicates whether the journal is open access.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_open_access_flag
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  journal_type:
+    name: journal_type
+    description: Specific sub-type of the journal article.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_type
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  journal_issn:
+    name: journal_issn
+    description: International Standard Serial Number for the journal, if known.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     domain_of:
     - Dataset
-    range: CategoryEnum
+    range: string
+  volume:
+    name: volume
+    description: Volume number for a journal or book, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:volume
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  publication_date_text:
+    name: publication_date_text
+    description: Textual representation of the publication date, if used.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:publication_date_text
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  publisher_information:
+    name: publisher_information
+    description: Publisher-specific information, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:publisher_information
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  country_publication_code:
+    name: country_publication_code
+    description: Country code for the publication venue, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:country_publication_code
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  country_publication:
+    name: country_publication
+    description: Human-readable country of publication, if available.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  conference_information:
+    name: conference_information
+    description: General conference information related to the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_information
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  conference_type:
+    name: conference_type
+    description: Code representing the type of conference-related work.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_type
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  conference_title:
+    name: conference_title
+    description: Title of the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_title
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  conference_location:
+    name: conference_location
+    description: Location of the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_location
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  conference_date:
+    name: conference_date
+    description: Date or date range for the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_date
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: string
+  media:
+    name: media
+    description: Media bundles and file-package metadata associated with the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:media
+    rank: 1000
+    domain_of:
+    - Dataset
+    range: MediaSet
     multivalued: true
+    inlined: true
+    inlined_as_list: true
 class_uri: schema:Dataset
 
 </code></pre>
@@ -1321,6 +1627,18 @@ attributes:
     - Dataset
     range: DatasetThemeEnum
     multivalued: true
+  category:
+    name: category
+    description: Category of the dataset. This is specific to the BRCs and is not
+      intended to be an exhaustive list of categories.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: category
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+    multivalued: true
   description:
     name: description
     description: A detailed description of the dataset.
@@ -1408,17 +1726,209 @@ attributes:
     domain_of:
     - Dataset
     range: uri
-  category:
-    name: category
-    description: Category of the dataset. This is specific to the BRCs.
+  issue:
+    name: issue
+    description: Issue number for a journal or other venue, if applicable.
     from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:issue
     rank: 1000
-    alias: category
+    alias: issue
     owner: Dataset
     domain_of:
     - Dataset
-    range: CategoryEnum
+    range: string
+  journal_license_url:
+    name: journal_license_url
+    description: URL for information regarding the journal license.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_license_url
+    rank: 1000
+    alias: journal_license_url
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  journal_name:
+    name: journal_name
+    description: Name of the journal publishing this information.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_name
+    rank: 1000
+    alias: journal_name
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  journal_open_access_flag:
+    name: journal_open_access_flag
+    description: Indicates whether the journal is open access.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_open_access_flag
+    rank: 1000
+    alias: journal_open_access_flag
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  journal_type:
+    name: journal_type
+    description: Specific sub-type of the journal article.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:journal_type
+    rank: 1000
+    alias: journal_type
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  journal_issn:
+    name: journal_issn
+    description: International Standard Serial Number for the journal, if known.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: journal_issn
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  volume:
+    name: volume
+    description: Volume number for a journal or book, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:volume
+    rank: 1000
+    alias: volume
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  publication_date_text:
+    name: publication_date_text
+    description: Textual representation of the publication date, if used.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:publication_date_text
+    rank: 1000
+    alias: publication_date_text
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  publisher_information:
+    name: publisher_information
+    description: Publisher-specific information, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:publisher_information
+    rank: 1000
+    alias: publisher_information
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  country_publication_code:
+    name: country_publication_code
+    description: Country code for the publication venue, if applicable.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:country_publication_code
+    rank: 1000
+    alias: country_publication_code
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  country_publication:
+    name: country_publication
+    description: Human-readable country of publication, if available.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: country_publication
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  conference_information:
+    name: conference_information
+    description: General conference information related to the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_information
+    rank: 1000
+    alias: conference_information
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  conference_type:
+    name: conference_type
+    description: Code representing the type of conference-related work.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_type
+    rank: 1000
+    alias: conference_type
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  conference_title:
+    name: conference_title
+    description: Title of the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_title
+    rank: 1000
+    alias: conference_title
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  conference_location:
+    name: conference_location
+    description: Location of the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_location
+    rank: 1000
+    alias: conference_location
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  conference_date:
+    name: conference_date
+    description: Date or date range for the conference.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:conference_date
+    rank: 1000
+    alias: conference_date
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+  media:
+    name: media
+    description: Media bundles and file-package metadata associated with the dataset.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:media
+    rank: 1000
+    alias: media
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: MediaSet
     multivalued: true
+    inlined: true
+    inlined_as_list: true
 class_uri: schema:Dataset
 
 </code></pre>

@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/CategoryEnum/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/checksum/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Enum: CategoryEnum - brc-schema</title>
+        <title>Slot: checksum - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#enum-categoryenum" class="md-skip">
+        <a href="#slot-checksum" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Enum: CategoryEnum
+              Slot: checksum
             
           </span>
         </div>
@@ -436,10 +436,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#permissible-values" class="md-nav__link">
+  <a href="#applicable-classes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Permissible Values
+        Applicable Classes
       
     </span>
   </a>
@@ -447,10 +447,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slots" class="md-nav__link">
+  <a href="#properties" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Slots
+        Properties
       
     </span>
   </a>
@@ -486,6 +486,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mappings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#linkml-source" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -516,122 +527,69 @@
   
 
 
-<h1 id="enum-categoryenum">Enum: CategoryEnum</h1>
-<p><em>Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.</em></p>
-<p>URI: <a href="https://w3id.org/brc/CategoryEnum">brc:CategoryEnum</a></p>
-<h2 id="permissible-values">Permissible Values</h2>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Genetic Engineering</td>
-<td>None</td>
-<td>Datasets related to genetic engineering, including design and construction of...</td>
-</tr>
-<tr>
-<td>Microbiology</td>
-<td>None</td>
-<td>Datasets related to microbiology, including microbial physiology, growth, and...</td>
-</tr>
-<tr>
-<td>Analytics &amp; Methods</td>
-<td>None</td>
-<td>Datasets related to analytical techniques and methods, including mass spectro...</td>
-</tr>
-<tr>
-<td>Plant Biology</td>
-<td>None</td>
-<td>Datasets related to plant biology, including plant physiology, growth, and de...</td>
-</tr>
-<tr>
-<td>Enzymes &amp; Proteins</td>
-<td>None</td>
-<td>Datasets related to enzymes and proteins, including enzyme characterization, ...</td>
-</tr>
-<tr>
-<td>Process Engineering</td>
-<td>None</td>
-<td>Datasets related to process engineering, including process design, optimizati...</td>
-</tr>
-<tr>
-<td>Bioenergy Production</td>
-<td>None</td>
-<td>Datasets related to bioenergy production, including biofuel production, biopr...</td>
-</tr>
-<tr>
-<td>Biomass &amp; Feedstock</td>
-<td>None</td>
-<td>Datasets related to biomass and feedstock, including feedstock characterizati...</td>
-</tr>
-</tbody>
-</table>
-<h2 id="slots">Slots</h2>
+<h1 id="slot-checksum">Slot: checksum</h1>
+<p><em>Checksum value for the file, if known.</em></p>
+<p>URI: <a href="https://w3id.org/brc/checksum">brc:checksum</a>
+Alias: checksum</p>
+<!-- no inheritance hierarchy -->
+
+<h2 id="applicable-classes">Applicable Classes</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
+<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../category/">category</a></td>
-<td>Category of the dataset</td>
+<td><a href="../MediaFile/">MediaFile</a></td>
+<td>Metadata about a particular file or off-site resource associated with a datas...</td>
+<td>no</td>
 </tr>
 </tbody>
 </table>
+<h2 id="properties">Properties</h2>
+<ul>
+<li>Range: <a href="../String/">String</a></li>
+</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/brc/brc_schema</li>
 </ul>
+<h2 id="mappings">Mappings</h2>
+<table>
+<thead>
+<tr>
+<th>Mapping Type</th>
+<th>Mapped Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self</td>
+<td>brc:checksum</td>
+</tr>
+<tr>
+<td>native</td>
+<td>brc:checksum</td>
+</tr>
+</tbody>
+</table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: CategoryEnum
-description: Category of the dataset. This is specific to the BRCs and is not intended
-  to be an exhaustive list of categories.
+<pre><code class="language-yaml">name: checksum
+description: Checksum value for the file, if known.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-permissible_values:
-  Genetic Engineering:
-    text: Genetic Engineering
-    description: Datasets related to genetic engineering, including design and construction
-      of genetic constructs, plasmids, and engineered organisms.
-  Microbiology:
-    text: Microbiology
-    description: Datasets related to microbiology, including microbial physiology,
-      growth, and development.
-  Analytics &amp; Methods:
-    text: Analytics &amp; Methods
-    description: Datasets related to analytical techniques and methods, including
-      mass spectrometry, chromatography, and other experimental methods.
-  Plant Biology:
-    text: Plant Biology
-    description: Datasets related to plant biology, including plant physiology, growth,
-      and development.
-  Enzymes &amp; Proteins:
-    text: Enzymes &amp; Proteins
-    description: Datasets related to enzymes and proteins, including enzyme characterization,
-      protein structure, and protein engineering.
-  Process Engineering:
-    text: Process Engineering
-    description: Datasets related to process engineering, including process design,
-      optimization, and control.
-  Bioenergy Production:
-    text: Bioenergy Production
-    description: Datasets related to bioenergy production, including biofuel production,
-      bioprocessing, and bioenergy systems.
-  Biomass &amp; Feedstock:
-    text: Biomass &amp; Feedstock
-    description: Datasets related to biomass and feedstock, including feedstock characterization,
-      biomass composition, and biomass conversion.
+alias: checksum
+owner: MediaFile
+domain_of:
+- MediaFile
+range: string
 
 </code></pre>
 

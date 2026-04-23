@@ -528,7 +528,7 @@
 
 
 <h1 id="slot-category">Slot: category</h1>
-<p><em>Category of the dataset. This is specific to the BRCs.</em></p>
+<p><em>Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.</em></p>
 <p>URI: <a href="https://w3id.org/brc/category">brc:category</a>
 Alias: category</p>
 <!-- no inheritance hierarchy -->
@@ -553,7 +553,7 @@ Alias: category</p>
 <h2 id="properties">Properties</h2>
 <ul>
 <li>
-<p>Range: <a href="../CategoryEnum/">CategoryEnum</a></p>
+<p>Range: <a href="../String/">String</a></p>
 </li>
 <li>
 <p>Multivalued: True</p>
@@ -587,14 +587,15 @@ Alias: category</p>
 <details>
 
 <pre><code class="language-yaml">name: category
-description: Category of the dataset. This is specific to the BRCs.
+description: Category of the dataset. This is specific to the BRCs and is not intended
+  to be an exhaustive list of categories.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 alias: category
 owner: Dataset
 domain_of:
 - Dataset
-range: CategoryEnum
+range: string
 multivalued: true
 
 </code></pre>
