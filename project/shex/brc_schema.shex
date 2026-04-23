@@ -134,6 +134,7 @@ linkml:Sparqlpath xsd:string
           <theme> [ <https://w3id.org/brc/DatasetThemeEnum#Feedstock%20Development>
              <https://w3id.org/brc/DatasetThemeEnum#Deconstruction%20and%20Separation>
              <https://w3id.org/brc/DatasetThemeEnum#Conversion> <https://w3id.org/brc/DatasetThemeEnum#Sustainability> ] * ;
+          <category> @linkml:String * ;
           dcterms:description @linkml:String ? ;
           schema1:abstract @linkml:String ? ;
           <relatedItem> @<RelatedItem> * ;

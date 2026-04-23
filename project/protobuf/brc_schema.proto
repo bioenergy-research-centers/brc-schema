@@ -42,6 +42,7 @@ message Dataset
   datasetTypeCodes datasetType = 0
  repeated  datasetTopicEnum topic = 0
  repeated  datasetThemeEnum theme = 0
+ repeated  string category = 0
   string description = 0
   string abstract = 0
  repeated  relatedItem relatedItem = 0

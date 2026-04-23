@@ -175,6 +175,7 @@ type Dataset
     datasetType: DatasetTypeCodes
     topic: [DatasetTopicEnum]
     theme: [DatasetThemeEnum]
+    category: [String]
     description: String
     abstract: String
     relatedItem: [RelatedItem]

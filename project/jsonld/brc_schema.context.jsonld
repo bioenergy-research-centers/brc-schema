@@ -112,6 +112,9 @@
          "@type": "xsd:anyURI",
          "@id": "dcterms:bibliographicCitation"
       },
+      "category": {
+         "@id": "category"
+      },
       "conference_date": {
          "@id": "conference_date"
       },

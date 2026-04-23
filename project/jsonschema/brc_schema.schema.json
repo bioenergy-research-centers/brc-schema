@@ -230,6 +230,16 @@
                     "$ref": "#/$defs/BRCEnum",
                     "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
                 },
+                "category": {
+                    "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "conference_date": {
                     "description": "Date or date range for the conference.",
                     "type": [

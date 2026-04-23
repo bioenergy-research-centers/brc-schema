@@ -1663,6 +1663,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__category",
+      "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/category",
+      "alias": "category",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__description",
       "description": "A detailed description of the dataset.",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2984,6 +2998,7 @@
         "dataset__datasetType",
         "dataset__topic",
         "dataset__theme",
+        "dataset__category",
         "dataset__description",
         "dataset__abstract",
         "dataset__relatedItem",
@@ -3181,6 +3196,13 @@
           "name": "theme",
           "description": "High-level theme areas for the dataset. This is specific to the research themes of the BRCs.",
           "range": "DatasetThemeEnum",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "category",
+          "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",
+          "range": "string",
           "multivalued": true,
           "@type": "SlotDefinition"
         },
@@ -4009,9 +4031,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-04-23T15:04:24",
-  "source_file_size": 31989,
-  "generation_date": "2026-04-23T15:07:57",
+  "source_file_date": "2026-04-23T15:23:36",
+  "source_file_size": 32211,
+  "generation_date": "2026-04-23T15:23:51",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
