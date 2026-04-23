@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-23T15:23:52
+# Generation date: 2026-04-23T17:33:20
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1178,11 +1178,19 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="JGI MycoCosm",
                 description="Joint Genome Institute MycoCosm"))
+        setattr(cls, "JGI Phytozome",
+            PermissibleValue(
+                text="JGI Phytozome",
+                description="Joint Genome Institute Phytozome"))
         setattr(cls, "Mendeley Data",
             PermissibleValue(
                 text="Mendeley Data",
                 description="Mendeley Data",
                 meaning=ROR["01t2a8a42"]))
+        setattr(cls, "Metabolomics Workbench",
+            PermissibleValue(
+                text="Metabolomics Workbench",
+                description="Metabolomics Workbench"))
         setattr(cls, "National Microbiome Data Collaborative",
             PermissibleValue(
                 text="National Microbiome Data Collaborative",
