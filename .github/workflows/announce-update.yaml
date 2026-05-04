@@ -2,24 +2,50 @@ name: Announce Schema Update
 
 on:
   workflow_dispatch:
+    inputs:
+      release_name:
+        description: Release name to announce
+        required: false
+      release_tag:
+        description: Release tag for the release notes link
+        required: false
   release:
     types: [published]
 
 permissions:
-  id-token: write
-  contents: write
-  checks: write
-  issues: write
+  contents: read
 
 jobs:
   announce-update:
     name: Announce Schema Update to bioenergy.org repo
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Create Issue
+      - name: Create bioenergy.org issue
+        env:
+          ANNOUNCEMENT_TOKEN: ${{ secrets.BIOENERGY_ORG_ISSUE_TOKEN || secrets.GH_TOKEN }}
+          RELEASE_NAME: ${{ github.event.release.name || inputs.release_name || github.ref_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag || github.ref_name }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
         run: |
-          curl -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-               -H "Content-Type: application/json" \
-              -d '{"title": "Update to new version of BRC Schema - ${{ github.event.release.name }}", "body": "A new schema update ( ${{ github.event.release.name }} ) has been made. Please review the changes and update this repo accordingly. [Release notes](https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.tag_name }})"}' \
-               https://api.github.com/repos/bioenergy-research-centers/bioenergy.org/issues
+          set -euo pipefail
+
+          if [[ -z "${ANNOUNCEMENT_TOKEN}" ]]; then
+            echo "::error::Set BIOENERGY_ORG_ISSUE_TOKEN, or the legacy GH_TOKEN secret, to a token with issues:write access for bioenergy-research-centers/bioenergy.org."
+            exit 1
+          fi
+
+          title="Update to new version of BRC Schema - ${RELEASE_NAME}"
+          body="A new schema update ( ${RELEASE_NAME} ) has been made. Please review the changes and update this repo accordingly. [Release notes](https://github.com/${SOURCE_REPOSITORY}/releases/tag/${RELEASE_TAG})"
+
+          jq -n \
+            --arg title "${title}" \
+            --arg body "${body}" \
+            '{title: $title, body: $body}' > issue-payload.json
+
+          curl --fail-with-body --silent --show-error \
+            -H "Authorization: Bearer ${ANNOUNCEMENT_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/json" \
+            --data @issue-payload.json \
+            https://api.github.com/repos/bioenergy-research-centers/bioenergy.org/issues
