@@ -132,6 +132,7 @@ Retrieved records are written in OSTI-schema-style JSON:
 ## Related Pages
 
 - [CLI Usage](cli.md)
+- [OSTI to/from xBRC Conversion](osti_xbrc_conversion.md)
 - [Updating the Schema](update_schema.md)
 
 ## References

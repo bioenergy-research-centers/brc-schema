@@ -83,5 +83,6 @@ uv run brcschema transform -T brc_to_osti -o osti_records.yaml brc_datasets.yaml
 
 - [CLI Usage](cli.md)
 - [OSTI E-Link Integration](osti_elink_integration.md)
+- [OSTI to/from xBRC Conversion](osti_xbrc_conversion.md)
 - [Updating the Schema](update_schema.md)
 - [Schema Reference](index.md)
