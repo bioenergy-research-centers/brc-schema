@@ -19,8 +19,28 @@
       "prefix_reference": "http://www.ncbi.nlm.nih.gov/biosample?term="
     },
     {
+      "prefix_prefix": "BERVO",
+      "prefix_reference": "https://w3id.org/bervo/BERVO_"
+    },
+    {
+      "prefix_prefix": "CHEBI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/CHEBI_"
+    },
+    {
+      "prefix_prefix": "ECTO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/ECTO_"
+    },
+    {
+      "prefix_prefix": "ENVO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/ENVO_"
+    },
+    {
       "prefix_prefix": "ERO",
       "prefix_reference": "http://purl.obolibrary.org/obo/ERO_"
+    },
+    {
+      "prefix_prefix": "GO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/GO_"
     },
     {
       "prefix_prefix": "IAO",
@@ -43,12 +63,24 @@
       "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
     },
     {
+      "prefix_prefix": "PATO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/PATO_"
+    },
+    {
+      "prefix_prefix": "PO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/PO_"
+    },
+    {
       "prefix_prefix": "SIO",
       "prefix_reference": "http://identifiers.org/sio/"
     },
     {
       "prefix_prefix": "UO",
       "prefix_reference": "http://purl.obolibrary.org/obo/UO_"
+    },
+    {
+      "prefix_prefix": "XCO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/XCO_"
     },
     {
       "prefix_prefix": "bald",
@@ -109,6 +141,10 @@
     {
       "prefix_prefix": "prov",
       "prefix_reference": "http://www.w3.org/ns/prov#"
+    },
+    {
+      "prefix_prefix": "rdfs",
+      "prefix_reference": "http://www.w3.org/2000/01/rdf-schema#"
     },
     {
       "prefix_prefix": "ror",
@@ -1770,6 +1806,25 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "dataset__ontology_annotations",
+      "description": "Structured ontology term annotations that align this dataset with controlled vocabulary or ontology classes.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "mappings": [
+        "http://purl.org/dc/terms/subject"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/subject",
+      "alias": "ontology_annotations",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "OntologyAnnotation",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "dataset__datasetName",
       "description": "\"Name of a overall dataset to which this data entry belongs.\"",
       "from_schema": "https://w3id.org/brc/brc_schema",
@@ -2165,6 +2220,73 @@
         "Individual"
       ],
       "range": "uriorcurie",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ontologyAnnotation__term_id",
+      "description": "Ontology term identifier in CURIE format, such as BERVO:8000232.",
+      "examples": [
+        {
+          "value": "BERVO:8000232",
+          "@type": "Example"
+        }
+      ],
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/term_id",
+      "identifier": true,
+      "alias": "term_id",
+      "owner": "OntologyAnnotation",
+      "domain_of": [
+        "OntologyAnnotation"
+      ],
+      "range": "uriorcurie",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ontologyAnnotation__preferred_name",
+      "description": "Preferred display name for this ontology annotation in BRC metadata.",
+      "examples": [
+        {
+          "value": "environmental variable",
+          "@type": "Example"
+        }
+      ],
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "mappings": [
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "slot_uri": "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "alias": "preferred_name",
+      "owner": "OntologyAnnotation",
+      "domain_of": [
+        "OntologyAnnotation"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ontologyAnnotation__canonical_name",
+      "description": "Canonical label used for this term in its source ontology.",
+      "examples": [
+        {
+          "value": "environmental variable",
+          "@type": "Example"
+        }
+      ],
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "mappings": [
+        "http://www.w3.org/2000/01/rdf-schema#label"
+      ],
+      "slot_uri": "http://www.w3.org/2000/01/rdf-schema#label",
+      "alias": "canonical_name",
+      "owner": "OntologyAnnotation",
+      "domain_of": [
+        "OntologyAnnotation"
+      ],
+      "range": "string",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -3024,6 +3146,7 @@
         "dataset__abstract",
         "dataset__relatedItem",
         "dataset__keywords",
+        "dataset__ontology_annotations",
         "dataset__datasetName",
         "dataset__funding",
         "dataset__dataset_url",
@@ -3261,6 +3384,15 @@
           "slot_uri": "dcat:keyword",
           "range": "string",
           "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "ontology_annotations",
+          "description": "Structured ontology term annotations that align this dataset with controlled vocabulary or ontology classes.",
+          "slot_uri": "dcterms:subject",
+          "range": "OntologyAnnotation",
+          "multivalued": true,
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
@@ -3503,6 +3635,64 @@
         }
       ],
       "class_uri": "http://schema.org/Person",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "OntologyAnnotation",
+      "definition_uri": "https://w3id.org/brc/OntologyAnnotation",
+      "description": "A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slots": [
+        "ontologyAnnotation__term_id",
+        "ontologyAnnotation__preferred_name",
+        "ontologyAnnotation__canonical_name"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "term_id",
+          "description": "Ontology term identifier in CURIE format, such as BERVO:8000232.",
+          "examples": [
+            {
+              "value": "BERVO:8000232",
+              "@type": "Example"
+            }
+          ],
+          "identifier": true,
+          "range": "uriorcurie",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "preferred_name",
+          "description": "Preferred display name for this ontology annotation in BRC metadata.",
+          "examples": [
+            {
+              "value": "environmental variable",
+              "@type": "Example"
+            }
+          ],
+          "slot_uri": "skos:prefLabel",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "canonical_name",
+          "description": "Canonical label used for this term in its source ontology.",
+          "examples": [
+            {
+              "value": "environmental variable",
+              "@type": "Example"
+            }
+          ],
+          "slot_uri": "rdfs:label",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/brc/OntologyAnnotation",
       "@type": "ClassDefinition"
     },
     {
@@ -4052,9 +4242,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-04-23T15:30:35",
-  "source_file_size": 32211,
-  "generation_date": "2026-04-23T17:33:20",
+  "source_file_date": "2026-05-04T14:06:52",
+  "source_file_size": 33923,
+  "generation_date": "2026-05-04T14:06:58",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

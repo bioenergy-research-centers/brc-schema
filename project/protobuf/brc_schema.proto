@@ -47,6 +47,7 @@ message Dataset
   string abstract = 0
  repeated  relatedItem relatedItem = 0
  repeated  string keywords = 0
+ repeated  ontologyAnnotation ontologyAnnotations = 0
   string datasetName = 0
  repeated  funding funding = 0
   uri datasetUrl = 0
@@ -130,6 +131,13 @@ message MediaSet
   datetime dateUpdated = 0
   datetime dateValidEnd = 0
  repeated  mediaFile files = 0
+ }
+// A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.
+message OntologyAnnotation
+ {
+  uriorcurie termId = 0
+  string preferredName = 0
+  string canonicalName = 0
  }
 // An organism studied in the dataset.
 message Organism

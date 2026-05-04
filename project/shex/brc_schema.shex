@@ -4,7 +4,9 @@ BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
 PREFIX ror: <https://ror.org/>
@@ -140,6 +142,7 @@ linkml:Sparqlpath xsd:string
           schema1:abstract @linkml:String ? ;
           <relatedItem> @<RelatedItem> * ;
           dcat:keyword @linkml:String * ;
+          dcterms:subject @<OntologyAnnotation> * ;
           <datasetName> @linkml:String ? ;
           <funding> @<Funding> * ;
           schema1:url @linkml:Uri ? ;
@@ -237,6 +240,14 @@ linkml:Sparqlpath xsd:string
           <files> @<MediaFile> *
        ) ;
        rdf:type [ <MediaSet> ] ?
+    )
+}
+
+<OntologyAnnotation> CLOSED {
+    (  $<OntologyAnnotation_tes> (  skos:prefLabel @linkml:String ;
+          rdfs:label @linkml:String
+       ) ;
+       rdf:type [ <OntologyAnnotation> ]
     )
 }
 
