@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.13
+# version: 0.1.14
 enum AnalysisType
   {
     affinity_purification
@@ -182,6 +182,7 @@ type Dataset
     abstract: String
     relatedItem: [RelatedItem]
     keywords: [String]
+    ontologyAnnotations: [OntologyAnnotation]
     datasetName: String
     funding: [Funding]
     datasetUrl: String
@@ -265,6 +266,13 @@ type MediaSet
     dateUpdated: String
     dateValidEnd: String
     files: [MediaFile]
+  }
+
+type OntologyAnnotation
+  {
+    termId: String!
+    preferredName: String!
+    canonicalName: String!
   }
 
 type Organism

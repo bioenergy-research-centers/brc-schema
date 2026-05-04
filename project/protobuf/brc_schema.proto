@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 0.1.13
+// version: 0.1.14
 // An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.
 message BRCOrganization
  {
@@ -47,6 +47,7 @@ message Dataset
   string abstract = 0
  repeated  relatedItem relatedItem = 0
  repeated  string keywords = 0
+ repeated  ontologyAnnotation ontologyAnnotations = 0
   string datasetName = 0
  repeated  funding funding = 0
   uri datasetUrl = 0
@@ -130,6 +131,13 @@ message MediaSet
   datetime dateUpdated = 0
   datetime dateValidEnd = 0
  repeated  mediaFile files = 0
+ }
+// A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.
+message OntologyAnnotation
+ {
+  uriorcurie termId = 0
+  string preferredName = 0
+  string canonicalName = 0
  }
 // An organism studied in the dataset.
 message Organism

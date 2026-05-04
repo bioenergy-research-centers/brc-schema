@@ -429,6 +429,16 @@
                         "null"
                     ]
                 },
+                "ontology_annotations": {
+                    "description": "Structured ontology term annotations that align this dataset with controlled vocabulary or ontology classes.",
+                    "items": {
+                        "$ref": "#/$defs/OntologyAnnotation"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "plasmid_features": {
                     "description": "Description of plasmid features, if applicable. This is a multivalued field.",
                     "items": {
@@ -928,6 +938,31 @@
             "title": "MediaSet",
             "type": "object"
         },
+        "OntologyAnnotation": {
+            "additionalProperties": false,
+            "description": "A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.",
+            "properties": {
+                "canonical_name": {
+                    "description": "Canonical label used for this term in its source ontology.",
+                    "type": "string"
+                },
+                "preferred_name": {
+                    "description": "Preferred display name for this ontology annotation in BRC metadata.",
+                    "type": "string"
+                },
+                "term_id": {
+                    "description": "Ontology term identifier in CURIE format, such as BERVO:8000232.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "term_id",
+                "preferred_name",
+                "canonical_name"
+            ],
+            "title": "OntologyAnnotation",
+            "type": "object"
+        },
         "Organism": {
             "additionalProperties": false,
             "description": "An organism studied in the dataset.",
@@ -1136,5 +1171,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.1.13"
+    "version": "0.1.14"
 }

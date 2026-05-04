@@ -43,6 +43,11 @@
 --     * Slot: affiliation Description: Affiliation of the individual.
 --     * Slot: orcid Description: ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.
 --     * Slot: Dataset_uid Description: Autocreated FK slot
+-- # Class: OntologyAnnotation Description: A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.
+--     * Slot: term_id Description: Ontology term identifier in CURIE format, such as BERVO:8000232.
+--     * Slot: preferred_name Description: Preferred display name for this ontology annotation in BRC metadata.
+--     * Slot: canonical_name Description: Canonical label used for this term in its source ontology.
+--     * Slot: Dataset_uid Description: Autocreated FK slot
 -- # Class: Contributor Description: An individual who contributed to the dataset in some manner, not necessarily as an author.
 --     * Slot: id
 --     * Slot: contributorType Description: The contribution type.
@@ -281,6 +286,16 @@ CREATE TABLE "Individual" (
 );
 CREATE INDEX "ix_Individual_id" ON "Individual" (id);
 
+CREATE TABLE "OntologyAnnotation" (
+	term_id TEXT NOT NULL,
+	preferred_name TEXT NOT NULL,
+	canonical_name TEXT NOT NULL,
+	"Dataset_uid" INTEGER,
+	PRIMARY KEY (term_id),
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE INDEX "ix_OntologyAnnotation_term_id" ON "OntologyAnnotation" (term_id);
+
 CREATE TABLE "Contributor" (
 	id INTEGER NOT NULL,
 	"contributorType" VARCHAR(21),
@@ -328,8 +343,8 @@ CREATE TABLE "Dataset_has_related_ids" (
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
 CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
 
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
@@ -338,8 +353,8 @@ CREATE TABLE "Dataset_species" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Dataset_species_Dataset_uid" ON "Dataset_species" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_species_species_id" ON "Dataset_species" (species_id);
+CREATE INDEX "ix_Dataset_species_Dataset_uid" ON "Dataset_species" ("Dataset_uid");
 
 CREATE TABLE "Dataset_plasmid_features" (
 	"Dataset_uid" INTEGER,
@@ -357,8 +372,8 @@ CREATE TABLE "Dataset_topic" (
 	PRIMARY KEY ("Dataset_uid", topic),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_topic_Dataset_uid" ON "Dataset_topic" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_topic_topic" ON "Dataset_topic" (topic);
+CREATE INDEX "ix_Dataset_topic_Dataset_uid" ON "Dataset_topic" ("Dataset_uid");
 
 CREATE TABLE "Dataset_theme" (
 	"Dataset_uid" INTEGER,
@@ -366,8 +381,8 @@ CREATE TABLE "Dataset_theme" (
 	PRIMARY KEY ("Dataset_uid", theme),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_theme_Dataset_uid" ON "Dataset_theme" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_theme_theme" ON "Dataset_theme" (theme);
+CREATE INDEX "ix_Dataset_theme_Dataset_uid" ON "Dataset_theme" ("Dataset_uid");
 
 CREATE TABLE "Dataset_category" (
 	"Dataset_uid" INTEGER,
@@ -375,8 +390,8 @@ CREATE TABLE "Dataset_category" (
 	PRIMARY KEY ("Dataset_uid", category),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -385,8 +400,8 @@ CREATE TABLE "Dataset_relatedItem" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY("relatedItem_id") REFERENCES "RelatedItem" (id)
 );
-CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");
 CREATE INDEX "ix_Dataset_relatedItem_Dataset_uid" ON "Dataset_relatedItem" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");
 
 CREATE TABLE "Dataset_keywords" (
 	"Dataset_uid" INTEGER,
@@ -394,8 +409,8 @@ CREATE TABLE "Dataset_keywords" (
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
+CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 
 CREATE TABLE "Dataset_funding" (
 	"Dataset_uid" INTEGER,
@@ -404,8 +419,8 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
-CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -423,8 +438,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -469,5 +484,5 @@ CREATE TABLE "MediaSet_access_limitations" (
 	PRIMARY KEY ("MediaSet_id", access_limitations),
 	FOREIGN KEY("MediaSet_id") REFERENCES "MediaSet" (id)
 );
-CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");
 CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);
+CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");

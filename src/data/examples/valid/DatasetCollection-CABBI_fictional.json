@@ -66,6 +66,13 @@
         }
       ],
       "keywords": ["pretreatment", "kinetics", "poplar", "sugars"],
+      "ontology_annotations": [
+        {
+          "term_id": "BERVO:8000232",
+          "preferred_name": "pretreatment condition",
+          "canonical_name": "Concept"
+        }
+      ],
       "datasetName": "CABBI Pretreatment Series",
       "funding": [
         {

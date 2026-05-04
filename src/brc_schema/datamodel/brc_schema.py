@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-23T17:33:20
+# Generation date: 2026-05-04T14:12:31
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,19 +60,27 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, 
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.1.13"
+version = "0.1.14"
 
 # Namespaces
+BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')
 BIOPROJECT = CurieNamespace('BIOPROJECT', 'https://www.ncbi.nlm.nih.gov/bioproject/?term=')
 BIOSAMPLE = CurieNamespace('BIOSAMPLE', 'http://www.ncbi.nlm.nih.gov/biosample?term=')
+CHEBI = CurieNamespace('CHEBI', 'http://purl.obolibrary.org/obo/CHEBI_')
+ECTO = CurieNamespace('ECTO', 'http://purl.obolibrary.org/obo/ECTO_')
+ENVO = CurieNamespace('ENVO', 'http://purl.obolibrary.org/obo/ENVO_')
 ERO = CurieNamespace('ERO', 'http://purl.obolibrary.org/obo/ERO_')
+GO = CurieNamespace('GO', 'http://purl.obolibrary.org/obo/GO_')
 IAO = CurieNamespace('IAO', 'http://purl.obolibrary.org/obo/IAO_')
 INSDC_SRA = CurieNamespace('INSDC_SRA', 'https://www.ncbi.nlm.nih.gov/sra/')
 MI = CurieNamespace('MI', 'http://purl.obolibrary.org/obo/MI_')
 NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
+PATO = CurieNamespace('PATO', 'http://purl.obolibrary.org/obo/PATO_')
+PO = CurieNamespace('PO', 'http://purl.obolibrary.org/obo/PO_')
 SIO = CurieNamespace('SIO', 'http://identifiers.org/sio/')
 UO = CurieNamespace('UO', 'http://purl.obolibrary.org/obo/UO_')
+XCO = CurieNamespace('XCO', 'http://purl.obolibrary.org/obo/XCO_')
 BALD = CurieNamespace('bald', 'https://www.opengis.net/def/binary-array-ld/')
 BIBO = CurieNamespace('bibo', 'http://purl.org/ontology/bibo/')
 BRC = CurieNamespace('brc', 'https://w3id.org/brc/')
@@ -88,6 +96,7 @@ OSLC = CurieNamespace('oslc', 'http://open-services.net/ns/core#')
 OSTI = CurieNamespace('osti', 'https://www.osti.gov/biblio/')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
 PROV = CurieNamespace('prov', 'http://www.w3.org/ns/prov#')
+RDFS = CurieNamespace('rdfs', 'http://www.w3.org/2000/01/rdf-schema#')
 ROR = CurieNamespace('ror', 'https://ror.org/')
 SCHEMA = CurieNamespace('schema', 'http://schema.org/')
 SKOS = CurieNamespace('skos', 'http://www.w3.org/2004/02/skos/core#')
@@ -115,7 +124,8 @@ class WikidataIdentifier(Uriorcurie):
 
 
 # Class references
-
+class OntologyAnnotationTermId(URIorCURIE):
+    pass
 
 
 @dataclass(repr=False)
@@ -179,6 +189,7 @@ class Dataset(YAMLRoot):
     abstract: Optional[str] = None
     relatedItem: Optional[Union[Union[dict, "RelatedItem"], list[Union[dict, "RelatedItem"]]]] = empty_list()
     keywords: Optional[Union[str, list[str]]] = empty_list()
+    ontology_annotations: Optional[Union[dict[Union[str, OntologyAnnotationTermId], Union[dict, "OntologyAnnotation"]], list[Union[dict, "OntologyAnnotation"]]]] = empty_dict()
     datasetName: Optional[str] = None
     funding: Optional[Union[Union[dict, "Funding"], list[Union[dict, "Funding"]]]] = empty_list()
     dataset_url: Optional[Union[str, URI]] = None
@@ -294,6 +305,8 @@ class Dataset(YAMLRoot):
             self.keywords = [self.keywords] if self.keywords is not None else []
         self.keywords = [v if isinstance(v, str) else str(v) for v in self.keywords]
 
+        self._normalize_inlined_as_list(slot_name="ontology_annotations", slot_type=OntologyAnnotation, key_name="term_id", keyed=True)
+
         if self.datasetName is not None and not isinstance(self.datasetName, str):
             self.datasetName = str(self.datasetName)
 
@@ -392,6 +405,42 @@ class Individual(YAMLRoot):
 
         if self.orcid is not None and not isinstance(self.orcid, URIorCURIE):
             self.orcid = URIorCURIE(self.orcid)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class OntologyAnnotation(YAMLRoot):
+    """
+    A structured reference to an ontology term used to annotate a dataset. This captures both the local display name
+    used in BRC metadata and the canonical label used by the source ontology.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = BRC["OntologyAnnotation"]
+    class_class_curie: ClassVar[str] = "brc:OntologyAnnotation"
+    class_name: ClassVar[str] = "OntologyAnnotation"
+    class_model_uri: ClassVar[URIRef] = BRC.OntologyAnnotation
+
+    term_id: Union[str, OntologyAnnotationTermId] = None
+    preferred_name: str = None
+    canonical_name: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.term_id):
+            self.MissingRequiredField("term_id")
+        if not isinstance(self.term_id, OntologyAnnotationTermId):
+            self.term_id = OntologyAnnotationTermId(self.term_id)
+
+        if self._is_empty(self.preferred_name):
+            self.MissingRequiredField("preferred_name")
+        if not isinstance(self.preferred_name, str):
+            self.preferred_name = str(self.preferred_name)
+
+        if self._is_empty(self.canonical_name):
+            self.MissingRequiredField("canonical_name")
+        if not isinstance(self.canonical_name, str):
+            self.canonical_name = str(self.canonical_name)
 
         super().__post_init__(**kwargs)
 
@@ -1312,6 +1361,9 @@ slots.dataset__relatedItem = Slot(uri=BRC.relatedItem, name="dataset__relatedIte
 slots.dataset__keywords = Slot(uri=DCAT.keyword, name="dataset__keywords", curie=DCAT.curie('keyword'),
                    model_uri=BRC.dataset__keywords, domain=None, range=Optional[Union[str, list[str]]])
 
+slots.dataset__ontology_annotations = Slot(uri=DCTERMS.subject, name="dataset__ontology_annotations", curie=DCTERMS.curie('subject'),
+                   model_uri=BRC.dataset__ontology_annotations, domain=None, range=Optional[Union[dict[Union[str, OntologyAnnotationTermId], Union[dict, OntologyAnnotation]], list[Union[dict, OntologyAnnotation]]]])
+
 slots.dataset__datasetName = Slot(uri=BRC.datasetName, name="dataset__datasetName", curie=BRC.curie('datasetName'),
                    model_uri=BRC.dataset__datasetName, domain=None, range=Optional[str])
 
@@ -1386,6 +1438,15 @@ slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affi
 
 slots.individual__orcid = Slot(uri=BRC.orcid, name="individual__orcid", curie=BRC.curie('orcid'),
                    model_uri=BRC.individual__orcid, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.ontologyAnnotation__term_id = Slot(uri=BRC.term_id, name="ontologyAnnotation__term_id", curie=BRC.curie('term_id'),
+                   model_uri=BRC.ontologyAnnotation__term_id, domain=None, range=URIRef)
+
+slots.ontologyAnnotation__preferred_name = Slot(uri=SKOS.prefLabel, name="ontologyAnnotation__preferred_name", curie=SKOS.curie('prefLabel'),
+                   model_uri=BRC.ontologyAnnotation__preferred_name, domain=None, range=str)
+
+slots.ontologyAnnotation__canonical_name = Slot(uri=RDFS.label, name="ontologyAnnotation__canonical_name", curie=RDFS.curie('label'),
+                   model_uri=BRC.ontologyAnnotation__canonical_name, domain=None, range=str)
 
 slots.contributor__contributorType = Slot(uri=BRC.contributorType, name="contributor__contributorType", curie=BRC.curie('contributorType'),
                    model_uri=BRC.contributor__contributorType, domain=None, range=Optional[Union[str, "ContributorTypeCodes"]])

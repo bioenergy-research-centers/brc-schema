@@ -1,6 +1,10 @@
 {
    "@context": {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "BERVO": {
+         "@id": "https://w3id.org/bervo/BERVO_",
+         "@prefix": true
+      },
       "BIOPROJECT": {
          "@id": "https://www.ncbi.nlm.nih.gov/bioproject/?term=",
          "@prefix": true
@@ -9,8 +13,24 @@
          "@id": "http://www.ncbi.nlm.nih.gov/biosample?term=",
          "@prefix": true
       },
+      "CHEBI": {
+         "@id": "http://purl.obolibrary.org/obo/CHEBI_",
+         "@prefix": true
+      },
+      "ECTO": {
+         "@id": "http://purl.obolibrary.org/obo/ECTO_",
+         "@prefix": true
+      },
+      "ENVO": {
+         "@id": "http://purl.obolibrary.org/obo/ENVO_",
+         "@prefix": true
+      },
       "ERO": {
          "@id": "http://purl.obolibrary.org/obo/ERO_",
+         "@prefix": true
+      },
+      "GO": {
+         "@id": "http://purl.obolibrary.org/obo/GO_",
          "@prefix": true
       },
       "IAO": {
@@ -30,9 +50,21 @@
          "@id": "http://purl.obolibrary.org/obo/OBI_",
          "@prefix": true
       },
+      "PATO": {
+         "@id": "http://purl.obolibrary.org/obo/PATO_",
+         "@prefix": true
+      },
+      "PO": {
+         "@id": "http://purl.obolibrary.org/obo/PO_",
+         "@prefix": true
+      },
       "SIO": "http://identifiers.org/sio/",
       "UO": {
          "@id": "http://purl.obolibrary.org/obo/UO_",
+         "@prefix": true
+      },
+      "XCO": {
+         "@id": "http://purl.obolibrary.org/obo/XCO_",
          "@prefix": true
       },
       "bald": "https://www.opengis.net/def/binary-array-ld/",
@@ -57,6 +89,7 @@
       "osti": "https://www.osti.gov/biblio/",
       "pav": "http://purl.org/pav/",
       "prov": "http://www.w3.org/ns/prov#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
       "ror": "https://ror.org/",
       "schema": "http://schema.org/",
       "skos": "http://www.w3.org/2004/02/skos/core#",
@@ -204,6 +237,10 @@
       "media": {
          "@type": "@id",
          "@id": "media"
+      },
+      "ontology_annotations": {
+         "@type": "@id",
+         "@id": "dcterms:subject"
       },
       "plasmid_features": {
          "@type": "@id",
@@ -389,6 +426,13 @@
          "@type": "xsd:integer",
          "@id": "osti_id"
       },
+      "canonical_name": {
+         "@id": "rdfs:label"
+      },
+      "preferred_name": {
+         "@id": "skos:prefLabel"
+      },
+      "term_id": "@id",
       "NCBITaxID": {
          "@type": "xsd:integer",
          "@id": "NCBITaxID"
@@ -454,6 +498,9 @@
       },
       "MediaSet": {
          "@id": "MediaSet"
+      },
+      "OntologyAnnotation": {
+         "@id": "OntologyAnnotation"
       },
       "Organism": {
          "@id": "Organism"
