@@ -137,6 +137,10 @@
          <lastmod>2026-05-04</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/OntologyAnnotation/</loc>
+         <lastmod>2026-05-04</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Organism/</loc>
          <lastmod>2026-05-04</lastmod>
     </url>
@@ -266,6 +270,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/brc_schema/</loc>
+         <lastmod>2026-05-04</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/canonical_name/</loc>
          <lastmod>2026-05-04</lastmod>
     </url>
     <url>
@@ -473,6 +481,10 @@
          <lastmod>2026-05-04</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/ontology_annotations/</loc>
+         <lastmod>2026-05-04</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/orcid/</loc>
          <lastmod>2026-05-04</lastmod>
     </url>
@@ -518,6 +530,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/plasmid_features/</loc>
+         <lastmod>2026-05-04</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/preferred_name/</loc>
          <lastmod>2026-05-04</lastmod>
     </url>
     <url>
@@ -586,6 +602,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/subtitle_tracks/</loc>
+         <lastmod>2026-05-04</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/term_id/</loc>
          <lastmod>2026-05-04</lastmod>
     </url>
     <url>

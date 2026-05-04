@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/affiliation/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/term_id/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: affiliation - brc-schema</title>
+        <title>Slot: term_id - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-affiliation" class="md-skip">
+        <a href="#slot-term_id" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: affiliation
+              Slot: term_id
             
           </span>
         </div>
@@ -458,6 +458,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -527,10 +538,10 @@
   
 
 
-<h1 id="slot-affiliation">Slot: affiliation</h1>
-<p><em>Affiliation of the individual.</em></p>
-<p>URI: <a href="https://w3id.org/brc/affiliation">brc:affiliation</a>
-Alias: affiliation</p>
+<h1 id="slot-term_id">Slot: term_id</h1>
+<p><em>Ontology term identifier in CURIE format, such as BERVO:8000232.</em></p>
+<p>URI: <a href="https://w3id.org/brc/term_id">brc:term_id</a>
+Alias: term_id</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -544,21 +555,34 @@ Alias: affiliation</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Individual/">Individual</a></td>
-<td>An individual involved in the dataset</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
+<td><a href="../OntologyAnnotation/">OntologyAnnotation</a></td>
+<td>A structured reference to an ontology term used to annotate a dataset</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a>&nbsp;or&nbsp;<br /><a href="../BRCOrganization/">BRCOrganization</a>&nbsp;or&nbsp;<br /><a href="../String/">String</a></li>
+<li>
+<p>Range: <a href="../Uriorcurie/">Uriorcurie</a></p>
+</li>
+<li>
+<p>Required: True</p>
+</li>
 </ul>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BERVO:8000232</td>
+</tr>
+</tbody>
+</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
@@ -575,29 +599,30 @@ Alias: affiliation</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:affiliation</td>
+<td>brc:term_id</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:affiliation</td>
+<td>brc:term_id</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: affiliation
-description: Affiliation of the individual.
+<pre><code class="language-yaml">name: term_id
+description: Ontology term identifier in CURIE format, such as BERVO:8000232.
+examples:
+- value: BERVO:8000232
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-alias: affiliation
-owner: Individual
+identifier: true
+alias: term_id
+owner: OntologyAnnotation
 domain_of:
-- Individual
-range: string
-any_of:
-- range: BRCOrganization
-- range: string
+- OntologyAnnotation
+range: uriorcurie
+required: true
 
 </code></pre>
 

@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/affiliation/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/canonical_name/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: affiliation - brc-schema</title>
+        <title>Slot: canonical_name - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-affiliation" class="md-skip">
+        <a href="#slot-canonical_name" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: affiliation
+              Slot: canonical_name
             
           </span>
         </div>
@@ -458,6 +458,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -527,10 +538,10 @@
   
 
 
-<h1 id="slot-affiliation">Slot: affiliation</h1>
-<p><em>Affiliation of the individual.</em></p>
-<p>URI: <a href="https://w3id.org/brc/affiliation">brc:affiliation</a>
-Alias: affiliation</p>
+<h1 id="slot-canonical_name">Slot: canonical_name</h1>
+<p><em>Canonical label used for this term in its source ontology.</em></p>
+<p>URI: <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a>
+Alias: canonical_name</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -544,21 +555,34 @@ Alias: affiliation</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Individual/">Individual</a></td>
-<td>An individual involved in the dataset</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Contributor/">Contributor</a></td>
-<td>An individual who contributed to the dataset in some manner, not necessarily ...</td>
+<td><a href="../OntologyAnnotation/">OntologyAnnotation</a></td>
+<td>A structured reference to an ontology term used to annotate a dataset</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a>&nbsp;or&nbsp;<br /><a href="../BRCOrganization/">BRCOrganization</a>&nbsp;or&nbsp;<br /><a href="../String/">String</a></li>
+<li>
+<p>Range: <a href="../String/">String</a></p>
+</li>
+<li>
+<p>Required: True</p>
+</li>
 </ul>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>environmental variable</td>
+</tr>
+</tbody>
+</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
@@ -575,29 +599,30 @@ Alias: affiliation</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>brc:affiliation</td>
+<td>rdfs:label</td>
 </tr>
 <tr>
 <td>native</td>
-<td>brc:affiliation</td>
+<td>brc:canonical_name</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: affiliation
-description: Affiliation of the individual.
+<pre><code class="language-yaml">name: canonical_name
+description: Canonical label used for this term in its source ontology.
+examples:
+- value: environmental variable
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
-alias: affiliation
-owner: Individual
+slot_uri: rdfs:label
+alias: canonical_name
+owner: OntologyAnnotation
 domain_of:
-- Individual
+- OntologyAnnotation
 range: string
-any_of:
-- range: BRCOrganization
-- range: string
+required: true
 
 </code></pre>
 

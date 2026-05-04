@@ -447,6 +447,17 @@
 
 
 
+      Dataset : ontology_annotations
+
+
+
+
+
+        Dataset --&gt; "*" OntologyAnnotation : ontology_annotations
+        click OntologyAnnotation href "../OntologyAnnotation/"
+
+
+
       Dataset : plasmid_features
 
 
@@ -677,6 +688,12 @@
 <td><a href="../keywords/">keywords</a></td>
 <td>* <br/> <a href="../String/">String</a></td>
 <td>Keywords associated with the dataset</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../ontology_annotations/">ontology_annotations</a></td>
+<td>* <br/> <a href="../OntologyAnnotation/">OntologyAnnotation</a></td>
+<td>Structured ontology term annotations that align this dataset with controlled ...</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -1156,6 +1173,19 @@ attributes:
     - Dataset
     range: string
     multivalued: true
+  ontology_annotations:
+    name: ontology_annotations
+    description: Structured ontology term annotations that align this dataset with
+      controlled vocabulary or ontology classes.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: dcterms:subject
+    domain_of:
+    - Dataset
+    range: OntologyAnnotation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   datasetName:
     name: datasetName
     description: '"Name of a overall dataset to which this data entry belongs."'
@@ -1692,6 +1722,21 @@ attributes:
     - Dataset
     range: string
     multivalued: true
+  ontology_annotations:
+    name: ontology_annotations
+    description: Structured ontology term annotations that align this dataset with
+      controlled vocabulary or ontology classes.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    slot_uri: dcterms:subject
+    alias: ontology_annotations
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: OntologyAnnotation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   datasetName:
     name: datasetName
     description: '"Name of a overall dataset to which this data entry belongs."'
