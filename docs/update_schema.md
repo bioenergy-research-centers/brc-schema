@@ -175,65 +175,72 @@ Presuming that the PR has been merged for the schema update, the latest version 
 
 12. Adding support for a new schema in the User Interface.
 
-    In the UI code, add schema 0.1.8 to the version component map (`client/src/views/datasets/versionComponentMap.js`). I'll outline a few different cases (A - D) below as examples.
+In the UI code, add schema 0.1.8 to the version component map (`client/src/views/datasets/versionComponentMap.js`). I'll outline a few different cases (A - D) below as examples.
 
-    For breaking changes, new views are implemented so that old dataset (e.g., 0.0.4 - 0.0.8) and newer data sets (e.g., 0.1.0 - 0.1.7) can be supported by the app at the same time. We had an instance of that a few months ago, where we had the following views:
-    - `client/src/views/datasets/Dataset_0_0_8.vue`
-    - `client/src/views/datasets/Dataset_0_1_0.vue`
+For breaking changes, new views are implemented so that old dataset (e.g., 0.0.4 - 0.0.8) and newer data sets (e.g., 0.1.0 - 0.1.7) can be supported by the app at the same time. We had an instance of that a few months ago, where we had the following views:
 
-    The new view (in that case) was created to support a change in the cardinality or depth of some field (I don't recall which one). The version number in the names indicate "schema 0.0.8 compatible" and "schema 0.1.0 compatible" respectively. Other than that, the version number doesn't really indicate the first or last version that is supported by the view. **Note:** We never used schema versions 0.0.6, 0.0.9, 0.1.5-0.1.6.
+- `client/src/views/datasets/Dataset_0_0_8.vue`
+- `client/src/views/datasets/Dataset_0_1_0.vue`
 
-    **A. Multiple views are needed for schemas that contain breaking changes.**
+The new view (in that case) was created to support a change in the cardinality or depth of some field (I don't recall which one). The version number in the names indicate "schema 0.0.8 compatible" and "schema 0.1.0 compatible" respectively. Other than that, the version number doesn't really indicate the first or last version that is supported by the view. **Note:** We never used schema versions 0.0.6, 0.0.9, 0.1.5-0.1.6.
 
-    In that scenario outlined above, we would have seen the following in `versionComponentMap.js`:
-    ```
-    import Dataset_0_0_8 from "./Dataset_0_0_8.vue";
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.0.4', '0.0.5', '0.0.7', '0.0.8'], component: Dataset_0_0_8 },
-      { versions: ['default', '0.1.0', '0.1.1', '0.1.2'], component: Dataset_0_1_0 }
-    ];
-    ```
-    But after all of the data feeds had updated to schema 0.1.0 (or later), we were able to remove support for those older schemas (and thus also remove the older `Dataset_0_0_8` view that was no longer in use.
+#### A. Multiple views are needed for schemas that contain breaking changes.
 
-    **B. Sometimes only a single view is necessary.**
+In that scenario outlined above, we would have seen the following in `versionComponentMap.js`:
 
-    The `versionComponentMap.js` now looks like this, where we only need a single view to support all schemas currently in use:
-    ```
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 }
-    ];
-    ```
+```javascript
+import Dataset_0_0_8 from "./Dataset_0_0_8.vue";
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
 
-    **C. Testing a new schema for breaking changes in the UI.**
+const versionMappings = [
+  { versions: ['default', '0.0.4', '0.0.5', '0.0.7', '0.0.8'], component: Dataset_0_0_8 },
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2'], component: Dataset_0_1_0 }
+];
+```
 
-    When testing the existing UI view (`Dataset_0_1_0.vue`) with version 0.1.8, simply add that version to the latest view:
-    ```
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7', '0.1.8'], component: Dataset_0_1_0 }
-    ];
-    ```
+But after all of the data feeds had updated to schema 0.1.0 (or later), we were able to remove support for those older schemas (and thus also remove the older `Dataset_0_0_8` view that was no longer in use.
 
-    **D. Adding support for a new view to accommodate a breaking change.**
+#### B. Sometimes only a single view is necessary.
 
-    As in case A above, if you discover that schema 0.1.8 contains a breaking change, then you would instead create a new view, like this:
-    ```
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
-      { versions: ['0.1.8'], component: Dataset_0_1_8 }
-    ];
-    ```
-    Then, of course, copy `client/src/views/datasets/Dataset_0_1_0.vue` to `client/src/views/datasets/Dataset_0_1_8.vue` and modify `Dataset_0_1_8.vue` to handle whatever breaking changes were introduced in schema 0.1.8.
+The `versionComponentMap.js` now looks like this, where we only need a single view to support all schemas currently in use:
 
-    **Note:** The `default` schema was introduced when we added support for schema 0.1.8. This version of the schema was the first to require the BRC data feeds to indicate which schema_version they were intended to comply with. Since each BRC adopted this schema version at a different time, we introduced the concept of a `default` view that would be applied if a data feed did not have a `schema_version` field. This, then, is a relic that will likely be removed at some point in the future.
+```javascript
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+
+const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 }
+];
+```
+
+#### C. Testing a new schema for breaking changes in the UI.
+
+When testing the existing UI view (`Dataset_0_1_0.vue`) with version 0.1.8, simply add that version to the latest view:
+
+```javascript
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+
+const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7', '0.1.8'], component: Dataset_0_1_0 }
+];
+```
+
+#### D. Adding support for a new view to accommodate a breaking change.
+
+As in case A above, if you discover that schema 0.1.8 contains a breaking change, then you would instead create a new view, like this:
+
+```javascript
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
+
+const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+```
+
+Then, of course, copy `client/src/views/datasets/Dataset_0_1_0.vue` to `client/src/views/datasets/Dataset_0_1_8.vue` and modify `Dataset_0_1_8.vue` to handle whatever breaking changes were introduced in schema 0.1.8.
+
+**Note:** The `default` schema was introduced when we added support for schema 0.1.8. This version of the schema was the first to require the BRC data feeds to indicate which schema_version they were intended to comply with. Since each BRC adopted this schema version at a different time, we introduced the concept of a `default` view that would be applied if a data feed did not have a `schema_version` field. This, then, is a relic that will likely be removed at some point in the future.
 
 13. Build the app and run the import against a clean database instance.
 
@@ -310,32 +317,33 @@ Presuming that the PR has been merged for the schema update, the latest version 
     ]
     ```
 
-    and the current `versionComponentMap.js` looks like this:
+and the current `versionComponentMap.js` looks like this:
 
-    ```
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
-      { versions: ['0.1.8'], component: Dataset_0_1_8 }
-    ];
-    ```
+```javascript
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
+
+const versionMappings = [
+  { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+```
 
 17. Remove UI support for unused schemas.
 
     a. Update the version component map.
 
-    In `client/src/views/datasets/versionComponentMap.js` simply remove any references to schemas that are not in use. In our example we would remove schemas 0.1.0, 0.1.3, and 0.1.7:
-    ```
-    import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-    import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
-    
-    const versionMappings = [
-      { versions: ['default', '0.1.1', '0.1.2', '0.1.4'], component: Dataset_0_1_0 },
-      { versions: ['0.1.8'], component: Dataset_0_1_8 }
-    ];
-    ```
+In `client/src/views/datasets/versionComponentMap.js` simply remove any references to schemas that are not in use. In our example we would remove schemas 0.1.0, 0.1.3, and 0.1.7:
+
+```javascript
+import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
+import Dataset_0_1_8 from "./Dataset_0_1_8.vue";
+
+const versionMappings = [
+  { versions: ['default', '0.1.1', '0.1.2', '0.1.4'], component: Dataset_0_1_0 },
+  { versions: ['0.1.8'], component: Dataset_0_1_8 }
+];
+```
 
     b. Remove references to any unused views.
 
