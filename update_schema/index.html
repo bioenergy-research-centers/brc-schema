@@ -430,6 +430,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Phase 2. User Interface updates to support new schemas.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-multiple-views-are-needed-for-schemas-that-contain-breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Multiple views are needed for schemas that contain breaking changes.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sometimes-only-a-single-view-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Sometimes only a single view is necessary.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-testing-a-new-schema-for-breaking-changes-in-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Testing a new schema for breaking changes in the UI.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-adding-support-for-a-new-view-to-accommodate-a-breaking-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Adding support for a new view to accommodate a breaking change.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -567,6 +617,56 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Phase 2. User Interface updates to support new schemas.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-multiple-views-are-needed-for-schemas-that-contain-breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Multiple views are needed for schemas that contain breaking changes.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sometimes-only-a-single-view-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Sometimes only a single view is necessary.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-testing-a-new-schema-for-breaking-changes-in-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Testing a new schema for breaking changes in the UI.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-adding-support-for-a-new-view-to-accommodate-a-breaking-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Adding support for a new view to accommodate a breaking change.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -722,7 +822,7 @@ In these results, we see that the feeds validate at least as well with the new s
 </ol>
 <h3 id="phase-2-user-interface-updates-to-support-new-schemas">Phase 2. User Interface updates to support new schemas.</h3>
 <p>Presuming that the PR has been merged for the schema update, the latest version of the app has been deployed to production, and there at least one data feed has switched over to using a new schema (version 0.1.8 in this example), the User Interface may now be tested to see if the new schema breaks any UI components, or if new UI fields need to be added.</p>
-<ol>
+<ol start="10">
 <li>
 <p>Continuing our version 0.1.8 example, we first check out the main branch (or create a new branch from main if we will be implementing changes).</p>
 </li>
@@ -743,51 +843,55 @@ In these results, we see that the feeds validate at least as well with the new s
 </li>
 <li>
 <p>Adding support for a new schema in the User Interface.</p>
+</li>
+</ol>
 <p>In the UI code, add schema 0.1.8 to the version component map (<code>client/src/views/datasets/versionComponentMap.js</code>). I'll outline a few different cases (A - D) below as examples.</p>
-<p>For breaking changes, new views are implemented so that old dataset (e.g., 0.0.4 - 0.0.8) and newer data sets (e.g., 0.1.0 - 0.1.7) can be supported by the app at the same time. We had an instance of that a few months ago, where we had the following views:
-- <code>client/src/views/datasets/Dataset_0_0_8.vue</code>
-- <code>client/src/views/datasets/Dataset_0_1_0.vue</code></p>
+<p>For breaking changes, new views are implemented so that old dataset (e.g., 0.0.4 - 0.0.8) and newer data sets (e.g., 0.1.0 - 0.1.7) can be supported by the app at the same time. We had an instance of that a few months ago, where we had the following views:</p>
+<ul>
+<li><code>client/src/views/datasets/Dataset_0_0_8.vue</code></li>
+<li><code>client/src/views/datasets/Dataset_0_1_0.vue</code></li>
+</ul>
 <p>The new view (in that case) was created to support a change in the cardinality or depth of some field (I don't recall which one). The version number in the names indicate "schema 0.0.8 compatible" and "schema 0.1.0 compatible" respectively. Other than that, the version number doesn't really indicate the first or last version that is supported by the view. <strong>Note:</strong> We never used schema versions 0.0.6, 0.0.9, 0.1.5-0.1.6.</p>
-<p><strong>A. Multiple views are needed for schemas that contain breaking changes.</strong></p>
-<p>In that scenario outlined above, we would have seen the following in <code>versionComponentMap.js</code>:
-```
-import Dataset_0_0_8 from "./Dataset_0_0_8.vue";
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
-<p>const versionMappings = [
+<h4 id="a-multiple-views-are-needed-for-schemas-that-contain-breaking-changes">A. Multiple views are needed for schemas that contain breaking changes.</h4>
+<p>In that scenario outlined above, we would have seen the following in <code>versionComponentMap.js</code>:</p>
+<pre><code class="language-javascript">import Dataset_0_0_8 from &quot;./Dataset_0_0_8.vue&quot;;
+import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.0.4', '0.0.5', '0.0.7', '0.0.8'], component: Dataset_0_0_8 },
   { versions: ['default', '0.1.0', '0.1.1', '0.1.2'], component: Dataset_0_1_0 }
 ];
-<code>``
-But after all of the data feeds had updated to schema 0.1.0 (or later), we were able to remove support for those older schemas (and thus also remove the older</code>Dataset_0_0_8` view that was no longer in use.</p>
-<p><strong>B. Sometimes only a single view is necessary.</strong></p>
-<p>The <code>versionComponentMap.js</code> now looks like this, where we only need a single view to support all schemas currently in use:
-```
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
-<p>const versionMappings = [
+</code></pre>
+<p>But after all of the data feeds had updated to schema 0.1.0 (or later), we were able to remove support for those older schemas (and thus also remove the older <code>Dataset_0_0_8</code> view that was no longer in use.</p>
+<h4 id="b-sometimes-only-a-single-view-is-necessary">B. Sometimes only a single view is necessary.</h4>
+<p>The <code>versionComponentMap.js</code> now looks like this, where we only need a single view to support all schemas currently in use:</p>
+<pre><code class="language-javascript">import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 }
 ];
-```</p>
-<p><strong>C. Testing a new schema for breaking changes in the UI.</strong></p>
-<p>When testing the existing UI view (<code>Dataset_0_1_0.vue</code>) with version 0.1.8, simply add that version to the latest view:
-```
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";</p>
-<p>const versionMappings = [
+</code></pre>
+<h4 id="c-testing-a-new-schema-for-breaking-changes-in-the-ui">C. Testing a new schema for breaking changes in the UI.</h4>
+<p>When testing the existing UI view (<code>Dataset_0_1_0.vue</code>) with version 0.1.8, simply add that version to the latest view:</p>
+<pre><code class="language-javascript">import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7', '0.1.8'], component: Dataset_0_1_0 }
 ];
-```</p>
-<p><strong>D. Adding support for a new view to accommodate a breaking change.</strong></p>
-<p>As in case A above, if you discover that schema 0.1.8 contains a breaking change, then you would instead create a new view, like this:
-```
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
-<p>const versionMappings = [
+</code></pre>
+<h4 id="d-adding-support-for-a-new-view-to-accommodate-a-breaking-change">D. Adding support for a new view to accommodate a breaking change.</h4>
+<p>As in case A above, if you discover that schema 0.1.8 contains a breaking change, then you would instead create a new view, like this:</p>
+<pre><code class="language-javascript">import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+import Dataset_0_1_8 from &quot;./Dataset_0_1_8.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
   { versions: ['0.1.8'], component: Dataset_0_1_8 }
 ];
-<code>``
-Then, of course, copy</code>client/src/views/datasets/Dataset_0_1_0.vue<code>to</code>client/src/views/datasets/Dataset_0_1_8.vue<code>and modify</code>Dataset_0_1_8.vue` to handle whatever breaking changes were introduced in schema 0.1.8.</p>
+</code></pre>
+<p>Then, of course, copy <code>client/src/views/datasets/Dataset_0_1_0.vue</code> to <code>client/src/views/datasets/Dataset_0_1_8.vue</code> and modify <code>Dataset_0_1_8.vue</code> to handle whatever breaking changes were introduced in schema 0.1.8.</p>
 <p><strong>Note:</strong> The <code>default</code> schema was introduced when we added support for schema 0.1.8. This version of the schema was the first to require the BRC data feeds to indicate which schema_version they were intended to comply with. Since each BRC adopted this schema version at a different time, we introduced the concept of a <code>default</code> view that would be applied if a data feed did not have a <code>schema_version</code> field. This, then, is a relic that will likely be removed at some point in the future.</p>
-</li>
+<ol start="13">
 <li>
 <p>Build the app and run the import against a clean database instance.</p>
 <p>a. Delete any local docker containers for the bioenergy.org PostgreSQL instance and app (I just do this via Docker Desktop). <em>We do this because we need a clean database to load the feeds into.</em></p>
@@ -812,7 +916,7 @@ docker-compose up --build</code></p>
 </li>
 </ol>
 <h3 id="phase-3-retiring-unused-schemas">Phase 3. Retiring unused schemas.</h3>
-<ol>
+<ol start="16">
 <li>
 <p>Determine which schemas can be retired.</p>
 <p>If you recall, back in Phase 1 step 6, you checked which schemas are currently in use and found that among the four data feeds, schema versions 0.1.1, 0.1.2, 0.1.4, and 0.1.7 were in use. In Phase 1 steps 3-5 and Phase 2 steps 11-12 you added server support for schema 0.1.8. Let's assume that GLBRC updated their data feed to version 0.1.8, so that the following schemas are now in use:</p>
@@ -853,35 +957,42 @@ docker-compose up --build</code></p>
     "supported": true
 }
 ]</code></p>
+</li>
+</ol>
 <p>and the current <code>versionComponentMap.js</code> looks like this:</p>
-<p>```
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
-<p>const versionMappings = [
+<pre><code class="language-javascript">import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+import Dataset_0_1_8 from &quot;./Dataset_0_1_8.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.1.4', '0.1.7'], component: Dataset_0_1_0 },
   { versions: ['0.1.8'], component: Dataset_0_1_8 }
 ];
-```</p>
-</li>
+</code></pre>
+<ol start="17">
 <li>
 <p>Remove UI support for unused schemas.</p>
 <p>a. Update the version component map.</p>
-<p>In <code>client/src/views/datasets/versionComponentMap.js</code> simply remove any references to schemas that are not in use. In our example we would remove schemas 0.1.0, 0.1.3, and 0.1.7:
-```
-import Dataset_0_1_0 from "./Dataset_0_1_0.vue";
-import Dataset_0_1_8 from "./Dataset_0_1_8.vue";</p>
-<p>const versionMappings = [
+</li>
+</ol>
+<p>In <code>client/src/views/datasets/versionComponentMap.js</code> simply remove any references to schemas that are not in use. In our example we would remove schemas 0.1.0, 0.1.3, and 0.1.7:</p>
+<pre><code class="language-javascript">import Dataset_0_1_0 from &quot;./Dataset_0_1_0.vue&quot;;
+import Dataset_0_1_8 from &quot;./Dataset_0_1_8.vue&quot;;
+
+const versionMappings = [
   { versions: ['default', '0.1.1', '0.1.2', '0.1.4'], component: Dataset_0_1_0 },
   { versions: ['0.1.8'], component: Dataset_0_1_8 }
 ];
-```</p>
-<p>b. Remove references to any unused views.</p>
-<p>If we were removing a view, we'd be deleting the import and the corresponding element of the version mappings array.
-<strong>Note:</strong> In this example, we still have three schemas using the <code>Dataset_0_1_0</code> view and one schema using the <code>Dataset_0_1_8</code> view, so there is nothing for us to do this time.</p>
-<p>c. Delete the .vue file for any unused views.</p>
-<pre><code>**Note:** In this example, both views are still in use, so we need to keep both `client/src/views/datasets/Dataset_0_1_0.vue` and `client/src/views/datasets/Dataset_0_1_0.vue`.
 </code></pre>
-</li>
+<pre><code>b. Remove references to any unused views.
+
+If we were removing a view, we'd be deleting the import and the corresponding element of the version mappings array.
+**Note:** In this example, we still have three schemas using the `Dataset_0_1_0` view and one schema using the `Dataset_0_1_8` view, so there is nothing for us to do this time.
+
+c. Delete the .vue file for any unused views.
+
+    **Note:** In this example, both views are still in use, so we need to keep both `client/src/views/datasets/Dataset_0_1_0.vue` and `client/src/views/datasets/Dataset_0_1_0.vue`.
+</code></pre>
+<ol start="18">
 <li>
 <p>Remove server support for any unused schemas.</p>
 <p>Continuing the same example...</p>
