@@ -21,6 +21,8 @@ theme:
 plugins:
   - search
   - mermaid2
+markdown_extensions:
+  - sane_lists
 nav:
   - Getting Started: getting_started.md
   - CLI Usage: cli.md
