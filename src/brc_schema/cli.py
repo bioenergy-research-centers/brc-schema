@@ -1,6 +1,7 @@
 """CLI for brc_schema"""
 
 import logging
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -206,6 +207,192 @@ def retrieve_osti(
     except Exception as e:
         logger.error(f"Error retrieving records: {e}", exc_info=True)
         raise click.ClickException(str(e))
+
+
+@main.command()
+@click.option(
+    "--site-code",
+    required=True,
+    help="DOE site ownership code to query, such as GLBRC, CBI, CABBI, or JBEI"
+)
+@click.option(
+    "--source",
+    "sources",
+    multiple=True,
+    type=click.Choice(["legacy", "elink2", "public"]),
+    help="OSTI source API to query. Repeat to use multiple sources. Defaults depend on available credentials."
+)
+@click.option(
+    "--product-type",
+    help="Optional OSTI product type filter"
+)
+@click.option(
+    "--entry-date-start",
+    help="Optional lower entry-date boundary. YYYY-MM-DD is converted to OSTI's MM/DD/YYYY query format."
+)
+@click.option(
+    "--entry-date-end",
+    help="Optional upper entry-date boundary. YYYY-MM-DD is converted to OSTI's MM/DD/YYYY query format."
+)
+@click.option(
+    "--rows",
+    type=int,
+    default=500,
+    show_default=True,
+    help="Rows requested from each source API"
+)
+@click.option(
+    "-l",
+    "--limit",
+    type=int,
+    help="Maximum records to keep from each source API"
+)
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(path_type=Path),
+    required=True,
+    help="Output JSON file path"
+)
+@click.option(
+    "--api-key",
+    help="OSTI E-Link 2.0 API key (optional, can also use OSTI_API_KEY environment variable)"
+)
+@click.option(
+    "--api-url",
+    help="OSTI E-Link 2.0 API URL (optional, can also use OSTI_API_URL environment variable)"
+)
+@click.option(
+    "--legacy-api-url",
+    help="Legacy E-Link 1 XML API URL (defaults to https://www.osti.gov/elink/2416api)"
+)
+@click.option(
+    "--legacy-username",
+    help="Legacy E-Link 1 username (optional, can also use OSTI_LEGACY_USERNAME)"
+)
+@click.option(
+    "--legacy-password",
+    help="Legacy E-Link 1 password (optional, can also use OSTI_LEGACY_PASSWORD)"
+)
+@click.option(
+    "--public-api-url",
+    help="Public OSTI.GOV record API URL (defaults to https://www.osti.gov/api/v1/records)"
+)
+@click.option(
+    "--no-pretty",
+    is_flag=True,
+    help="Disable pretty-printing of JSON output"
+)
+def retrieve_osti_site(
+    site_code: str,
+    sources: tuple,
+    product_type: Optional[str],
+    entry_date_start: Optional[str],
+    entry_date_end: Optional[str],
+    rows: int,
+    limit: Optional[int],
+    output: Path,
+    api_key: Optional[str],
+    api_url: Optional[str],
+    legacy_api_url: Optional[str],
+    legacy_username: Optional[str],
+    legacy_password: Optional[str],
+    public_api_url: Optional[str],
+    no_pretty: bool
+) -> None:
+    """
+    Retrieve OSTI records for a site code from OSTI source APIs.
+
+    The output contains a transform-compatible top-level "records" list plus
+    retrieval metadata that identifies the origin schema for each record.
+    """
+    if rows <= 0:
+        raise click.UsageError("--rows must be greater than zero")
+    if limit is not None and limit < 0:
+        raise click.UsageError("--limit cannot be negative")
+
+    has_elink2_auth = bool(api_key or os.environ.get("OSTI_API_KEY"))
+    has_legacy_auth = bool(
+        (legacy_username or os.environ.get("OSTI_LEGACY_USERNAME"))
+        and (legacy_password or os.environ.get("OSTI_LEGACY_PASSWORD"))
+    )
+    if sources:
+        selected_sources = tuple(dict.fromkeys(sources))
+        if (
+            not has_legacy_auth
+            and not has_elink2_auth
+            and selected_sources == ("public",)
+        ):
+            click.echo(
+                "No OSTI authentication provided; using public OSTI.GOV records only. "
+                "Results may exclude non-public legacy E-Link records.",
+                err=True,
+            )
+    elif has_legacy_auth and has_elink2_auth:
+        selected_sources = ("legacy", "elink2")
+    elif has_legacy_auth:
+        selected_sources = ("legacy",)
+    elif has_elink2_auth:
+        selected_sources = ("public", "elink2")
+        click.echo(
+            "No legacy E-Link 1 credentials provided; using public OSTI.GOV records "
+            "as the unauthenticated fallback. Results may exclude non-public "
+            "legacy E-Link records.",
+            err=True,
+        )
+    else:
+        selected_sources = ("public",)
+        click.echo(
+            "No OSTI authentication provided; using public OSTI.GOV records only. "
+            "Results may exclude non-public legacy E-Link records, and E-Link 2.0 "
+            "is skipped because it requires authentication.",
+            err=True,
+        )
+
+    if "elink2" in selected_sources and not has_elink2_auth:
+        raise click.UsageError(
+            "E-Link 2.0 retrieval requires --api-key or OSTI_API_KEY.")
+    if "legacy" in selected_sources and not has_legacy_auth:
+        raise click.UsageError(
+            "Legacy E-Link 1 retrieval requires --legacy-username/--legacy-password "
+            "or OSTI_LEGACY_USERNAME/OSTI_LEGACY_PASSWORD.")
+
+    retriever_kwargs = {
+        "api_key": api_key,
+        "api_url": api_url,
+        "initialize_elink2": "elink2" in selected_sources,
+        "legacy_username": legacy_username,
+        "legacy_password": legacy_password,
+    }
+    if legacy_api_url:
+        retriever_kwargs["legacy_api_url"] = legacy_api_url
+    if public_api_url:
+        retriever_kwargs["public_api_url"] = public_api_url
+    retriever = OSTIRecordRetriever(**retriever_kwargs)
+
+    try:
+        output_data = retriever.save_records_by_site_code_to_file(
+            output_path=output,
+            site_code=site_code,
+            sources=selected_sources,
+            product_type=product_type,
+            entry_date_start=entry_date_start,
+            entry_date_end=entry_date_end,
+            rows=rows,
+            limit=limit,
+            pretty=not no_pretty,
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving site-code records: {e}", exc_info=True)
+        raise click.ClickException(str(e)) from e
+
+    source_counts = ", ".join(
+        f"{source['api']}={source['record_count']}"
+        for source in output_data["retrieval_sources"]
+    )
+    click.echo(
+        f"✓ Retrieved {len(output_data['records'])} record(s) for {site_code.upper()} "
+        f"({source_counts}) and saved to {output}")
 
 
 @main.command()

@@ -157,6 +157,25 @@ uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-
 uv run brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
 ```
 
+#### `retrieve-osti-site` - Retrieve OSTI records by site code
+
+Retrieve records for a DOE site ownership code from legacy E-Link 1, E-Link 2.0, the public OSTI.GOV records API, or an authentication-dependent combination of those sources. The output keeps a top-level `records` list for transforms and adds `retrieval_sources` plus `record_origins` metadata so each record's source API and origin schema are explicit.
+
+```bash
+uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+```
+
+Useful options:
+
+- `--source legacy`, `--source elink2`, or `--source public`: restrict retrieval to one source API. Repeat the option to combine sources.
+- `--entry-date-start YYYY-MM-DD` and `--entry-date-end YYYY-MM-DD`: retrieve records in a date window.
+- `--product-type TEXT`: optionally restrict by OSTI product type.
+- `--limit N`: keep up to N records from each source.
+- `--api-key` or `OSTI_API_KEY`: required for E-Link 2.0 retrieval.
+- `--legacy-username`/`--legacy-password` or `OSTI_LEGACY_USERNAME`/`OSTI_LEGACY_PASSWORD`: required for legacy E-Link 1 retrieval.
+
+If no authentication is provided, the command warns and uses only the public OSTI.GOV records API, so results may exclude non-public legacy E-Link records and E-Link 2.0 is skipped. If only an E-Link 2.0 API key is available, the default sources are `public` and `elink2`. If both legacy and E-Link 2.0 credentials are available, the default sources are `legacy` and `elink2`.
+
 ### Complete Workflow Example
 
 Retrieve OSTI records and transform them to BRC format:

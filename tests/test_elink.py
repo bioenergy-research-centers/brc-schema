@@ -12,7 +12,9 @@ from brc_schema.util.elink import (
     OSTIRecordTransmitter,
     retrieve_osti_records,
     TransmitSummary,
-    MultipleMatchesError
+    MultipleMatchesError,
+    _format_osti_api_date,
+    _parse_legacy_elink_xml,
 )
 
 
@@ -36,6 +38,153 @@ class TestOSTIRecordRetriever:
         """Test initialization with API key."""
         retriever = OSTIRecordRetriever(api_key="test_key")
         assert retriever.api is not None
+
+    def test_retrieve_records_by_site_code_tracks_origin_schemas(self, monkeypatch):
+        """Combined site-code retrieval should keep records transform-compatible and traceable."""
+        retriever = OSTIRecordRetriever(api_key="test_key")
+
+        def fake_legacy_records(**kwargs):
+            return (
+                [{"osti_id": "111", "title": "Legacy record"}],
+                {
+                    "api": "legacy",
+                    "origin_schema": "osti_elink1_xml",
+                    "normalized_schema": "osti_schema",
+                    "query_params": {"site_input_code": "GLBRC"},
+                    "total_rows": 1,
+                    "record_count": 1,
+                },
+            )
+
+        def fake_elink2_records(**kwargs):
+            return (
+                [{"osti_id": 222, "title": "E-Link 2 record"}],
+                {
+                    "api": "elink2",
+                    "origin_schema": "osti_elink2_json",
+                    "normalized_schema": "osti_schema",
+                    "query_params": {"site_ownership_code": "GLBRC"},
+                    "total_rows": 1,
+                    "record_count": 1,
+                },
+            )
+
+        monkeypatch.setattr(retriever, "query_legacy_records", fake_legacy_records)
+        monkeypatch.setattr(retriever, "query_elink2_records", fake_elink2_records)
+
+        result = retriever.retrieve_records_by_site_code(
+            site_code="glbrc",
+            sources=("legacy", "elink2"),
+        )
+
+        assert result["source_query"]["site_code"] == "GLBRC"
+        assert result["records"] == [
+            {"osti_id": "111", "title": "Legacy record"},
+            {"osti_id": 222, "title": "E-Link 2 record"},
+        ]
+        assert result["record_origins"] == [
+            {
+                "record_index": 0,
+                "osti_id": "111",
+                "source": "legacy",
+                "origin_schema": "osti_elink1_xml",
+                "normalized_schema": "osti_schema",
+            },
+            {
+                "record_index": 1,
+                "osti_id": 222,
+                "source": "elink2",
+                "origin_schema": "osti_elink2_json",
+                "normalized_schema": "osti_schema",
+            },
+        ]
+
+    def test_query_legacy_records_uses_site_code_and_entry_dates(self, monkeypatch):
+        """Legacy API queries should use E-Link 1 query conventions."""
+        retriever = OSTIRecordRetriever(api_key="test_key")
+        captured = {}
+
+        def fake_query(params):
+            captured.update(params)
+            return (
+                [{"osti_id": "333", "title": "Legacy queried record"}],
+                {"total_rows": 7},
+            )
+
+        monkeypatch.setattr(retriever, "_query_legacy_api", fake_query)
+
+        records, metadata = retriever.query_legacy_records(
+            site_code="CBI",
+            product_type="Journal Article",
+            entry_date_start="2026-01-02",
+            entry_date_end="2026-02-03",
+            rows=500,
+            limit=10,
+        )
+
+        assert records == [{"osti_id": "333", "title": "Legacy queried record"}]
+        assert captured["site_input_code"] == "CBI"
+        assert captured["entry_date_start"] == "01/02/2026"
+        assert captured["entry_date_end"] == "02/03/2026"
+        assert captured["rows"] == 10
+        assert metadata["api"] == "legacy"
+        assert metadata["origin_schema"] == "osti_elink1_xml"
+        assert metadata["total_rows"] == 7
+        assert metadata["record_count"] == 1
+
+    def test_query_public_records_tracks_public_origin_schema(self, monkeypatch):
+        """Public fallback should be labeled separately from legacy E-Link 1."""
+        retriever = OSTIRecordRetriever(api_key="test_key")
+        captured = {}
+
+        def fake_query(params):
+            captured.update(params)
+            return (
+                [{"osti_id": "333", "title": "Public record"}],
+                {"total_rows": 7},
+            )
+
+        monkeypatch.setattr(retriever, "_query_public_api", fake_query)
+
+        records, metadata = retriever.query_public_records(
+            site_code="CBI",
+            entry_date_start="2026-01-02",
+            rows=500,
+            limit=10,
+        )
+
+        assert records == [{"osti_id": "333", "title": "Public record"}]
+        assert captured["site_ownership_code"] == "CBI"
+        assert captured["entry_date_start"] == "01/02/2026"
+        assert metadata["api"] == "public"
+        assert metadata["origin_schema"] == "osti_public_api_v1_json"
+
+    def test_parse_legacy_elink_xml_normalizes_common_fields(self):
+        """Legacy XML responses should become transform-friendly record dictionaries."""
+        records = _parse_legacy_elink_xml(
+            """
+            <records>
+              <record>
+                <osti_id>123</osti_id>
+                <site_input_code>CBI</site_input_code>
+                <contract_nos>AC36-08GO28308</contract_nos>
+                <originating_research_org>Oak Ridge National Laboratory</originating_research_org>
+              </record>
+            </records>
+            """
+        )
+
+        assert records == [{
+            "osti_id": "123",
+            "site_ownership_code": "CBI",
+            "doe_contract_number": "AC36-08GO28308",
+            "research_orgs": "Oak Ridge National Laboratory",
+        }]
+
+    def test_format_osti_api_date_accepts_iso_and_passthrough(self):
+        """CLI-friendly ISO dates should become OSTI API query dates."""
+        assert _format_osti_api_date("2026-01-02") == "01/02/2026"
+        assert _format_osti_api_date("01/02/2026") == "01/02/2026"
 
     @pytest.mark.integration
     @skip_if_no_api_key
