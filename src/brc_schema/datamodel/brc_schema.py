@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-04T14:12:31
+# Generation date: 2026-05-05T15:26:50
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, 
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.1.14"
+version = "0.1.15"
 
 # Namespaces
 BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')

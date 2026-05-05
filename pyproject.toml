@@ -1,6 +1,6 @@
 [project]
 name = "brc_schema"
-version = "0.1.14"
+version = "0.1.15"
 description = "Bioenergy Research Centers (BRC) Schema"
 readme = "README.md"
 authors = [
