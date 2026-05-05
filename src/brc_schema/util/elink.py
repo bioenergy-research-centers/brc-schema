@@ -6,12 +6,30 @@ import os
 from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union, Optional, Dict, Any
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 from elinkapi import Elink, Record, exceptions
 
 logger = logging.getLogger(__name__)
 
 OSTI_DOI_PREFIX = "10.11578/"
+OSTI_PUBLIC_API_RECORDS_URL = "https://www.osti.gov/api/v1/records"
+OSTI_ELINK2_ORIGIN_SCHEMA = "osti_elink2_json"
+OSTI_LEGACY_ORIGIN_SCHEMA = "osti_public_api_v1_json"
+OSTI_NORMALIZED_SCHEMA = "osti_schema"
+OSTI_SOURCE_METADATA = {
+    "elink2": {
+        "api": "elink2",
+        "origin_schema": OSTI_ELINK2_ORIGIN_SCHEMA,
+        "normalized_schema": OSTI_NORMALIZED_SCHEMA,
+    },
+    "legacy": {
+        "api": "legacy",
+        "origin_schema": OSTI_LEGACY_ORIGIN_SCHEMA,
+        "normalized_schema": OSTI_NORMALIZED_SCHEMA,
+    },
+}
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -26,7 +44,12 @@ class DateTimeEncoder(json.JSONEncoder):
 class OSTIRecordRetriever:
     """Retrieve records from OSTI E-Link 2.0 API."""
 
-    def __init__(self, api_key: Optional[str] = None, api_url: Optional[str] = None):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        api_url: Optional[str] = None,
+        legacy_api_url: str = OSTI_PUBLIC_API_RECORDS_URL,
+    ):
         """
         Initialize the OSTI record retriever.
 
@@ -36,6 +59,7 @@ class OSTIRecordRetriever:
         """
         # Use provided API key, or try to get from environment
         self.api = _init_api(api_key, api_url)
+        self.legacy_api_url = legacy_api_url
 
     def get_record_by_osti_id(self, osti_id: Union[int, str]) -> Optional[Dict[str, Any]]:
         """
@@ -161,6 +185,195 @@ class OSTIRecordRetriever:
         logger.info(f"Retrieved {len(records)} records total")
         return records
 
+    def query_elink2_records(
+        self,
+        site_code: str,
+        product_type: Optional[str] = None,
+        entry_date_start: Optional[str] = None,
+        entry_date_end: Optional[str] = None,
+        rows: int = 500,
+        limit: Optional[int] = None,
+    ) -> tuple[list[dict], dict]:
+        """Query E-Link 2.0 records for a submitting site code."""
+        params = {
+            "site_ownership_code": site_code,
+            "rows": rows,
+        }
+        if product_type:
+            params["product_type"] = product_type
+        if entry_date_start:
+            params["entry_date_start"] = _format_osti_api_date(entry_date_start)
+        if entry_date_end:
+            params["entry_date_end"] = _format_osti_api_date(entry_date_end)
+
+        query = self.api.query_records(**params)
+        records = []
+        for idx, record in enumerate(query):
+            if limit is not None and idx >= limit:
+                break
+            records.append(self.api.record_to_dict(record))
+
+        source_metadata = _source_metadata(
+            source="elink2",
+            query_params=params,
+            total_rows=query.total_rows,
+            record_count=len(records),
+        )
+        return records, source_metadata
+
+    def query_legacy_records(
+        self,
+        site_code: str,
+        product_type: Optional[str] = None,
+        entry_date_start: Optional[str] = None,
+        entry_date_end: Optional[str] = None,
+        rows: int = 500,
+        limit: Optional[int] = None,
+    ) -> tuple[list[dict], dict]:
+        """Query OSTI public API v1 records using legacy OSTI record fields."""
+        params = {
+            "site_ownership_code": site_code,
+            "rows": rows,
+            "sort": "entry_date",
+            "order": "desc",
+        }
+        if product_type:
+            params["product_type"] = product_type
+        if entry_date_start:
+            params["entry_date_start"] = _format_osti_api_date(entry_date_start)
+        if entry_date_end:
+            params["entry_date_end"] = _format_osti_api_date(entry_date_end)
+        if limit is not None:
+            params["rows"] = min(rows, limit)
+
+        records, response_metadata = self._query_legacy_api(params)
+        if limit is not None:
+            records = records[:limit]
+
+        source_metadata = _source_metadata(
+            source="legacy",
+            query_params=params,
+            total_rows=response_metadata.get("total_rows"),
+            record_count=len(records),
+        )
+        return records, source_metadata
+
+    def retrieve_records_by_site_code(
+        self,
+        site_code: str,
+        sources: tuple[str, ...] = ("legacy", "elink2"),
+        product_type: Optional[str] = None,
+        entry_date_start: Optional[str] = None,
+        entry_date_end: Optional[str] = None,
+        rows: int = 500,
+        limit: Optional[int] = None,
+    ) -> dict:
+        """Retrieve records for a site code from one or more OSTI source APIs."""
+        site_code = site_code.strip().upper()
+        records = []
+        record_origins = []
+        retrieval_sources = []
+
+        for source in sources:
+            if source == "legacy":
+                source_records, source_metadata = self.query_legacy_records(
+                    site_code=site_code,
+                    product_type=product_type,
+                    entry_date_start=entry_date_start,
+                    entry_date_end=entry_date_end,
+                    rows=rows,
+                    limit=limit,
+                )
+            elif source == "elink2":
+                source_records, source_metadata = self.query_elink2_records(
+                    site_code=site_code,
+                    product_type=product_type,
+                    entry_date_start=entry_date_start,
+                    entry_date_end=entry_date_end,
+                    rows=rows,
+                    limit=limit,
+                )
+            else:
+                raise ValueError(f"Unknown OSTI source API: {source}")
+
+            retrieval_sources.append(source_metadata)
+            origin_schema = source_metadata["origin_schema"]
+            for record in source_records:
+                record_origins.append(
+                    {
+                        "record_index": len(records),
+                        "osti_id": record.get("osti_id"),
+                        "source": source,
+                        "origin_schema": origin_schema,
+                        "normalized_schema": OSTI_NORMALIZED_SCHEMA,
+                    }
+                )
+                records.append(record)
+
+        return {
+            "source_query": {
+                "site_code": site_code,
+                "product_type": product_type,
+                "entry_date_start": entry_date_start,
+                "entry_date_end": entry_date_end,
+                "sources": list(sources),
+            },
+            "retrieval_sources": retrieval_sources,
+            "record_origins": record_origins,
+            "records": records,
+        }
+
+    def save_records_by_site_code_to_file(
+        self,
+        output_path: Union[str, Path],
+        site_code: str,
+        sources: tuple[str, ...] = ("legacy", "elink2"),
+        product_type: Optional[str] = None,
+        entry_date_start: Optional[str] = None,
+        entry_date_end: Optional[str] = None,
+        rows: int = 500,
+        limit: Optional[int] = None,
+        pretty: bool = True,
+    ) -> dict:
+        """Retrieve site-code records and save them with source-origin metadata."""
+        output_data = self.retrieve_records_by_site_code(
+            site_code=site_code,
+            sources=sources,
+            product_type=product_type,
+            entry_date_start=entry_date_start,
+            entry_date_end=entry_date_end,
+            rows=rows,
+            limit=limit,
+        )
+
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_path, 'w', encoding='utf-8') as f:
+            if pretty:
+                json.dump(output_data, f, indent=2,
+                          ensure_ascii=False, cls=DateTimeEncoder)
+            else:
+                json.dump(output_data, f, ensure_ascii=False,
+                          cls=DateTimeEncoder)
+
+        logger.info(
+            f"Saved {len(output_data['records'])} site-code record(s) to {output_path}")
+        return output_data
+
+    def _query_legacy_api(self, params: dict) -> tuple[list[dict], dict]:
+        query_url = f"{self.legacy_api_url}?{urlencode(params)}"
+        request = Request(query_url, headers={"Accept": "application/json"})
+        with urlopen(request) as response:
+            payload = response.read().decode("utf-8")
+            total_rows = response.headers.get("X-Total-Count")
+        records = json.loads(payload)
+        if isinstance(records, dict):
+            records = [records]
+        return records, {
+            "total_rows": int(total_rows) if total_rows is not None else None,
+        }
+
     def save_records_to_file(
         self,
         output_path: Union[str, Path],
@@ -245,6 +458,30 @@ def retrieve_osti_records(
         )
 
     return retriever.get_records(osti_ids=osti_ids, dois=dois)
+
+
+def _format_osti_api_date(value):
+    """Format ISO dates as the MM/DD/YYYY query dates accepted by OSTI APIs."""
+    if not value:
+        return None
+    value = str(value).strip()
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%d")
+    except ValueError:
+        return value
+    return parsed.strftime("%m/%d/%Y")
+
+
+def _source_metadata(source, query_params, total_rows, record_count):
+    metadata = dict(OSTI_SOURCE_METADATA[source])
+    metadata.update(
+        {
+            "query_params": {key: value for key, value in query_params.items() if value is not None},
+            "total_rows": total_rows,
+            "record_count": record_count,
+        }
+    )
+    return metadata
 
 
 class MultipleMatchesError(Exception):

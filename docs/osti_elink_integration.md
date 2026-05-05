@@ -64,6 +64,21 @@ Mix OSTI IDs and DOIs:
 uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
 ```
 
+Retrieve by BRC/site code from both source APIs:
+
+```bash
+uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+```
+
+Restrict retrieval to one source API when needed:
+
+```bash
+uv run brcschema retrieve-osti-site --site-code GLBRC --source legacy -o glbrc_legacy.json
+uv run brcschema retrieve-osti-site --site-code GLBRC --source elink2 -o glbrc_elink2.json
+```
+
+The site-code output includes `records` plus `retrieval_sources` and `record_origins`. `record_origins` identifies the source API and origin schema for each record index, such as `osti_public_api_v1_json` for legacy/public OSTI API records and `osti_elink2_json` for E-Link 2.0 records.
+
 ## Python API Examples
 
 ### Convenience Function

@@ -134,6 +134,55 @@ uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR
 
 ---
 
+### `retrieve-osti-site`
+
+Retrieve OSTI records for a DOE site ownership code from the legacy/public OSTI API, E-Link 2.0, or both.
+
+**Usage:**
+
+```bash
+uv run brcschema retrieve-osti-site --site-code <site_code> -o <output_file>
+```
+
+**Options:**
+
+- `--site-code` **(required)**: DOE site ownership code, such as `GLBRC`, `CBI`, `CABBI`, or `JBEI`
+- `--source`: Source API to query, either `legacy` or `elink2`; repeat to query both. If omitted, both are queried.
+- `--product-type`: Optional OSTI product type filter
+- `--entry-date-start`: Optional lower entry-date boundary. `YYYY-MM-DD` is converted to OSTI's `MM/DD/YYYY` query format.
+- `--entry-date-end`: Optional upper entry-date boundary. `YYYY-MM-DD` is converted to OSTI's `MM/DD/YYYY` query format.
+- `--rows`: Rows requested from each source API. Defaults to `500`.
+- `-l, --limit`: Maximum records to keep from each source API
+- `-o, --output` **(required)**: Output JSON file path
+- `--api-key`: E-Link 2.0 API key, alternatively set `OSTI_API_KEY`
+- `--api-url`: Optional E-Link 2.0 API URL
+- `--legacy-api-url`: Optional legacy/public OSTI record API URL
+- `--no-pretty`: Disable pretty-printing of JSON output
+
+**Examples:**
+
+```bash
+# Query both source APIs for GLBRC records
+uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+
+# Query only E-Link 2.0 for recently entered records
+uv run brcschema retrieve-osti-site --site-code GLBRC --source elink2 --entry-date-start 2026-01-01 -o glbrc_elink2.json
+
+# Query only legacy/public OSTI records
+uv run brcschema retrieve-osti-site --site-code CBI --source legacy --limit 100 -o cbi_legacy.json
+```
+
+**Output Metadata:**
+
+The output includes a transform-compatible top-level `records` list and additional metadata:
+
+- `retrieval_sources`: one entry per source API, including `api`, `origin_schema`, `normalized_schema`, query parameters, and counts
+- `record_origins`: one entry per record index, identifying the record's source API and origin schema
+
+This lets downstream scripts distinguish legacy/public OSTI API records (`osti_public_api_v1_json`) from E-Link 2.0 records (`osti_elink2_json`) while still feeding the same `records` list to `transform -T osti_to_brc`.
+
+---
+
 ### `transmit-osti`
 
 Transmit metadata records to OSTI E-Link 2.0 API, creating new records or updating existing ones.

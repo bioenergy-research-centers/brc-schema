@@ -157,6 +157,21 @@ uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 --api-
 uv run brcschema -vv retrieve-osti --osti-ids 2584700 -o records.json
 ```
 
+#### `retrieve-osti-site` - Retrieve OSTI records by site code
+
+Retrieve records for a DOE site ownership code from the legacy/public OSTI API, the E-Link 2.0 API, or both. The output keeps a top-level `records` list for transforms and adds `retrieval_sources` plus `record_origins` metadata so each record's source API and origin schema are explicit.
+
+```bash
+uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+```
+
+Useful options:
+
+- `--source legacy` or `--source elink2`: restrict retrieval to one source API. Repeat the option to use both; omitting it defaults to both.
+- `--entry-date-start YYYY-MM-DD` and `--entry-date-end YYYY-MM-DD`: retrieve records in a date window.
+- `--product-type TEXT`: optionally restrict by OSTI product type.
+- `--limit N`: keep up to N records from each source.
+
 ### Complete Workflow Example
 
 Retrieve OSTI records and transform them to BRC format:

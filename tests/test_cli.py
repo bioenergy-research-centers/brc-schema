@@ -63,3 +63,88 @@ def test_transmit_osti_limit_zero_is_respected(tmp_path, monkeypatch):
     assert result.exit_code == 0, result.output
     assert captured["record_limit"] == 0
     assert len(captured["records"]) == 1
+
+
+def test_retrieve_osti_site_defaults_to_both_sources(tmp_path, monkeypatch):
+    """retrieve-osti-site should query legacy and E-Link 2.0 by default."""
+    output_file = tmp_path / "site_records.json"
+    captured = {}
+
+    class FakeRetriever:
+        def __init__(self, api_key=None, api_url=None, legacy_api_url=None):
+            captured["api_key"] = api_key
+            captured["api_url"] = api_url
+            captured["legacy_api_url"] = legacy_api_url
+
+        def save_records_by_site_code_to_file(self, **kwargs):
+            captured.update(kwargs)
+            output_data = {
+                "retrieval_sources": [
+                    {"api": "legacy", "record_count": 1},
+                    {"api": "elink2", "record_count": 1},
+                ],
+                "records": [{"osti_id": "1"}, {"osti_id": 2}],
+            }
+            kwargs["output_path"].write_text(json.dumps(output_data), encoding="utf-8")
+            return output_data
+
+    monkeypatch.setattr("brc_schema.cli.OSTIRecordRetriever", FakeRetriever)
+
+    runner = CliRunner()
+    result = runner.invoke(
+        main,
+        [
+            "retrieve-osti-site",
+            "--site-code",
+            "glbrc",
+            "--entry-date-start",
+            "2026-01-01",
+            "--limit",
+            "3",
+            "-o",
+            str(output_file),
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert captured["site_code"] == "glbrc"
+    assert captured["sources"] == ("legacy", "elink2")
+    assert captured["entry_date_start"] == "2026-01-01"
+    assert captured["limit"] == 3
+    assert captured["pretty"] is True
+    assert "legacy=1, elink2=1" in result.output
+
+
+def test_retrieve_osti_site_allows_source_selection(tmp_path, monkeypatch):
+    """A caller can request only one origin API when needed."""
+    captured = {}
+
+    class FakeRetriever:
+        def __init__(self, **kwargs):
+            pass
+
+        def save_records_by_site_code_to_file(self, **kwargs):
+            captured.update(kwargs)
+            return {
+                "retrieval_sources": [{"api": "legacy", "record_count": 0}],
+                "records": [],
+            }
+
+    monkeypatch.setattr("brc_schema.cli.OSTIRecordRetriever", FakeRetriever)
+
+    runner = CliRunner()
+    result = runner.invoke(
+        main,
+        [
+            "retrieve-osti-site",
+            "--site-code",
+            "CBI",
+            "--source",
+            "legacy",
+            "-o",
+            str(tmp_path / "records.json"),
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert captured["sources"] == ("legacy",)

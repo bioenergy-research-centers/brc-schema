@@ -210,6 +210,124 @@ def retrieve_osti(
 
 @main.command()
 @click.option(
+    "--site-code",
+    required=True,
+    help="DOE site ownership code to query, such as GLBRC, CBI, CABBI, or JBEI"
+)
+@click.option(
+    "--source",
+    "sources",
+    multiple=True,
+    type=click.Choice(["legacy", "elink2"]),
+    help="OSTI source API to query. Repeat to use both. Defaults to both legacy and elink2."
+)
+@click.option(
+    "--product-type",
+    help="Optional OSTI product type filter"
+)
+@click.option(
+    "--entry-date-start",
+    help="Optional lower entry-date boundary. YYYY-MM-DD is converted to OSTI's MM/DD/YYYY query format."
+)
+@click.option(
+    "--entry-date-end",
+    help="Optional upper entry-date boundary. YYYY-MM-DD is converted to OSTI's MM/DD/YYYY query format."
+)
+@click.option(
+    "--rows",
+    type=int,
+    default=500,
+    show_default=True,
+    help="Rows requested from each source API"
+)
+@click.option(
+    "-l",
+    "--limit",
+    type=int,
+    help="Maximum records to keep from each source API"
+)
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(path_type=Path),
+    required=True,
+    help="Output JSON file path"
+)
+@click.option(
+    "--api-key",
+    help="OSTI E-Link 2.0 API key (optional, can also use OSTI_API_KEY environment variable)"
+)
+@click.option(
+    "--api-url",
+    help="OSTI E-Link 2.0 API URL (optional, can also use OSTI_API_URL environment variable)"
+)
+@click.option(
+    "--legacy-api-url",
+    help="Legacy/public OSTI record API URL (defaults to https://www.osti.gov/api/v1/records)"
+)
+@click.option(
+    "--no-pretty",
+    is_flag=True,
+    help="Disable pretty-printing of JSON output"
+)
+def retrieve_osti_site(
+    site_code: str,
+    sources: tuple,
+    product_type: Optional[str],
+    entry_date_start: Optional[str],
+    entry_date_end: Optional[str],
+    rows: int,
+    limit: Optional[int],
+    output: Path,
+    api_key: Optional[str],
+    api_url: Optional[str],
+    legacy_api_url: Optional[str],
+    no_pretty: bool
+) -> None:
+    """
+    Retrieve OSTI records for a site code from legacy and E-Link 2.0 APIs.
+
+    The output contains a transform-compatible top-level "records" list plus
+    retrieval metadata that identifies the origin schema for each record.
+    """
+    if rows <= 0:
+        raise click.UsageError("--rows must be greater than zero")
+    if limit is not None and limit < 0:
+        raise click.UsageError("--limit cannot be negative")
+
+    selected_sources = tuple(dict.fromkeys(sources or ("legacy", "elink2")))
+    retriever_kwargs = {"api_key": api_key, "api_url": api_url}
+    if legacy_api_url:
+        retriever_kwargs["legacy_api_url"] = legacy_api_url
+    retriever = OSTIRecordRetriever(**retriever_kwargs)
+
+    try:
+        output_data = retriever.save_records_by_site_code_to_file(
+            output_path=output,
+            site_code=site_code,
+            sources=selected_sources,
+            product_type=product_type,
+            entry_date_start=entry_date_start,
+            entry_date_end=entry_date_end,
+            rows=rows,
+            limit=limit,
+            pretty=not no_pretty,
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving site-code records: {e}", exc_info=True)
+        raise click.ClickException(str(e)) from e
+
+    source_counts = ", ".join(
+        f"{source['api']}={source['record_count']}"
+        for source in output_data["retrieval_sources"]
+    )
+    click.echo(
+        f"✓ Retrieved {len(output_data['records'])} record(s) for {site_code.upper()} "
+        f"({source_counts}) and saved to {output}")
+
+
+@main.command()
+@click.option(
     "--api-key",
     help="OSTI API key (optional, can also use OSTI_API_KEY environment variable)"
 )
