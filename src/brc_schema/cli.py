@@ -1,6 +1,7 @@
 """CLI for brc_schema"""
 
 import logging
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -218,8 +219,8 @@ def retrieve_osti(
     "--source",
     "sources",
     multiple=True,
-    type=click.Choice(["legacy", "elink2"]),
-    help="OSTI source API to query. Repeat to use both. Defaults to both legacy and elink2."
+    type=click.Choice(["legacy", "elink2", "public"]),
+    help="OSTI source API to query. Repeat to use multiple sources. Defaults depend on available credentials."
 )
 @click.option(
     "--product-type",
@@ -263,7 +264,19 @@ def retrieve_osti(
 )
 @click.option(
     "--legacy-api-url",
-    help="Legacy/public OSTI record API URL (defaults to https://www.osti.gov/api/v1/records)"
+    help="Legacy E-Link 1 XML API URL (defaults to https://www.osti.gov/elink/2416api)"
+)
+@click.option(
+    "--legacy-username",
+    help="Legacy E-Link 1 username (optional, can also use OSTI_LEGACY_USERNAME)"
+)
+@click.option(
+    "--legacy-password",
+    help="Legacy E-Link 1 password (optional, can also use OSTI_LEGACY_PASSWORD)"
+)
+@click.option(
+    "--public-api-url",
+    help="Public OSTI.GOV record API URL (defaults to https://www.osti.gov/api/v1/records)"
 )
 @click.option(
     "--no-pretty",
@@ -282,10 +295,13 @@ def retrieve_osti_site(
     api_key: Optional[str],
     api_url: Optional[str],
     legacy_api_url: Optional[str],
+    legacy_username: Optional[str],
+    legacy_password: Optional[str],
+    public_api_url: Optional[str],
     no_pretty: bool
 ) -> None:
     """
-    Retrieve OSTI records for a site code from legacy and E-Link 2.0 APIs.
+    Retrieve OSTI records for a site code from OSTI source APIs.
 
     The output contains a transform-compatible top-level "records" list plus
     retrieval metadata that identifies the origin schema for each record.
@@ -295,10 +311,63 @@ def retrieve_osti_site(
     if limit is not None and limit < 0:
         raise click.UsageError("--limit cannot be negative")
 
-    selected_sources = tuple(dict.fromkeys(sources or ("legacy", "elink2")))
-    retriever_kwargs = {"api_key": api_key, "api_url": api_url}
+    has_elink2_auth = bool(api_key or os.environ.get("OSTI_API_KEY"))
+    has_legacy_auth = bool(
+        (legacy_username or os.environ.get("OSTI_LEGACY_USERNAME"))
+        and (legacy_password or os.environ.get("OSTI_LEGACY_PASSWORD"))
+    )
+    if sources:
+        selected_sources = tuple(dict.fromkeys(sources))
+        if (
+            not has_legacy_auth
+            and not has_elink2_auth
+            and selected_sources == ("public",)
+        ):
+            click.echo(
+                "No OSTI authentication provided; using public OSTI.GOV records only. "
+                "Results may exclude non-public legacy E-Link records.",
+                err=True,
+            )
+    elif has_legacy_auth and has_elink2_auth:
+        selected_sources = ("legacy", "elink2")
+    elif has_legacy_auth:
+        selected_sources = ("legacy",)
+    elif has_elink2_auth:
+        selected_sources = ("public", "elink2")
+        click.echo(
+            "No legacy E-Link 1 credentials provided; using public OSTI.GOV records "
+            "as the unauthenticated fallback. Results may exclude non-public "
+            "legacy E-Link records.",
+            err=True,
+        )
+    else:
+        selected_sources = ("public",)
+        click.echo(
+            "No OSTI authentication provided; using public OSTI.GOV records only. "
+            "Results may exclude non-public legacy E-Link records, and E-Link 2.0 "
+            "is skipped because it requires authentication.",
+            err=True,
+        )
+
+    if "elink2" in selected_sources and not has_elink2_auth:
+        raise click.UsageError(
+            "E-Link 2.0 retrieval requires --api-key or OSTI_API_KEY.")
+    if "legacy" in selected_sources and not has_legacy_auth:
+        raise click.UsageError(
+            "Legacy E-Link 1 retrieval requires --legacy-username/--legacy-password "
+            "or OSTI_LEGACY_USERNAME/OSTI_LEGACY_PASSWORD.")
+
+    retriever_kwargs = {
+        "api_key": api_key,
+        "api_url": api_url,
+        "initialize_elink2": "elink2" in selected_sources,
+        "legacy_username": legacy_username,
+        "legacy_password": legacy_password,
+    }
     if legacy_api_url:
         retriever_kwargs["legacy_api_url"] = legacy_api_url
+    if public_api_url:
+        retriever_kwargs["public_api_url"] = public_api_url
     retriever = OSTIRecordRetriever(**retriever_kwargs)
 
     try:

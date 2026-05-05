@@ -136,7 +136,7 @@ uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR
 
 ### `retrieve-osti-site`
 
-Retrieve OSTI records for a DOE site ownership code from the legacy/public OSTI API, E-Link 2.0, or both.
+Retrieve OSTI records for a DOE site ownership code from legacy E-Link 1, E-Link 2.0, the public OSTI.GOV records API, or an authentication-dependent combination of those sources.
 
 **Usage:**
 
@@ -147,29 +147,37 @@ uv run brcschema retrieve-osti-site --site-code <site_code> -o <output_file>
 **Options:**
 
 - `--site-code` **(required)**: DOE site ownership code, such as `GLBRC`, `CBI`, `CABBI`, or `JBEI`
-- `--source`: Source API to query, either `legacy` or `elink2`; repeat to query both. If omitted, both are queried.
+- `--source`: Source API to query: `legacy`, `elink2`, or `public`; repeat to query more than one source.
 - `--product-type`: Optional OSTI product type filter
 - `--entry-date-start`: Optional lower entry-date boundary. `YYYY-MM-DD` is converted to OSTI's `MM/DD/YYYY` query format.
 - `--entry-date-end`: Optional upper entry-date boundary. `YYYY-MM-DD` is converted to OSTI's `MM/DD/YYYY` query format.
 - `--rows`: Rows requested from each source API. Defaults to `500`.
 - `-l, --limit`: Maximum records to keep from each source API
 - `-o, --output` **(required)**: Output JSON file path
-- `--api-key`: E-Link 2.0 API key, alternatively set `OSTI_API_KEY`
+- `--api-key`: E-Link 2.0 API key, alternatively set `OSTI_API_KEY`; required when `elink2` is selected
 - `--api-url`: Optional E-Link 2.0 API URL
-- `--legacy-api-url`: Optional legacy/public OSTI record API URL
+- `--legacy-api-url`: Optional legacy E-Link 1 XML API URL
+- `--legacy-username`: Legacy E-Link 1 username, alternatively set `OSTI_LEGACY_USERNAME`; required when `legacy` is selected
+- `--legacy-password`: Legacy E-Link 1 password, alternatively set `OSTI_LEGACY_PASSWORD`; required when `legacy` is selected
+- `--public-api-url`: Optional public OSTI.GOV record API URL
 - `--no-pretty`: Disable pretty-printing of JSON output
+
+Default source selection depends on available credentials. With no authentication, the command warns and uses only `public`, which can return only public/released OSTI.GOV records. With only an E-Link 2.0 API key, the command uses `public` and `elink2`. With both legacy E-Link 1 and E-Link 2.0 credentials, it uses `legacy` and `elink2`.
 
 **Examples:**
 
 ```bash
-# Query both source APIs for GLBRC records
+# Query the default sources for the credentials available in the environment
 uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
 
 # Query only E-Link 2.0 for recently entered records
 uv run brcschema retrieve-osti-site --site-code GLBRC --source elink2 --entry-date-start 2026-01-01 -o glbrc_elink2.json
 
-# Query only legacy/public OSTI records
-uv run brcschema retrieve-osti-site --site-code CBI --source legacy --limit 100 -o cbi_legacy.json
+# Query only legacy E-Link 1 records
+uv run brcschema retrieve-osti-site --site-code CBI --source legacy --legacy-username "$OSTI_LEGACY_USERNAME" --legacy-password "$OSTI_LEGACY_PASSWORD" --limit 100 -o cbi_legacy.json
+
+# Query only public OSTI.GOV records
+uv run brcschema retrieve-osti-site --site-code CBI --source public --limit 100 -o cbi_public.json
 ```
 
 **Output Metadata:**
@@ -179,7 +187,7 @@ The output includes a transform-compatible top-level `records` list and addition
 - `retrieval_sources`: one entry per source API, including `api`, `origin_schema`, `normalized_schema`, query parameters, and counts
 - `record_origins`: one entry per record index, identifying the record's source API and origin schema
 
-This lets downstream scripts distinguish legacy/public OSTI API records (`osti_public_api_v1_json`) from E-Link 2.0 records (`osti_elink2_json`) while still feeding the same `records` list to `transform -T osti_to_brc`.
+This lets downstream scripts distinguish legacy E-Link 1 records (`osti_elink1_xml`), public OSTI.GOV records (`osti_public_api_v1_json`), and E-Link 2.0 records (`osti_elink2_json`) while still feeding the same `records` list to `transform -T osti_to_brc`.
 
 ---
 
