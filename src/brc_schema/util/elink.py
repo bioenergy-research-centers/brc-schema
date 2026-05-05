@@ -18,14 +18,14 @@ logger = logging.getLogger(__name__)
 OSTI_DOI_PREFIX = "10.11578/"
 OSTI_PUBLIC_API_RECORDS_URL = "https://www.osti.gov/api/v1/records"
 OSTI_LEGACY_ELINK_API_URL = "https://www.osti.gov/elink/2416api"
-OSTI_ELINK2_ORIGIN_SCHEMA = "osti_elink2_json"
+OSTI_ELINK_ORIGIN_SCHEMA = "osti_elink2_json"
 OSTI_LEGACY_ORIGIN_SCHEMA = "osti_elink1_xml"
 OSTI_PUBLIC_ORIGIN_SCHEMA = "osti_public_api_v1_json"
 OSTI_NORMALIZED_SCHEMA = "osti_schema"
 OSTI_SOURCE_METADATA = {
     "elink2": {
         "api": "elink2",
-        "origin_schema": OSTI_ELINK2_ORIGIN_SCHEMA,
+        "origin_schema": OSTI_ELINK_ORIGIN_SCHEMA,
         "normalized_schema": OSTI_NORMALIZED_SCHEMA,
     },
     "legacy": {
