@@ -603,6 +603,10 @@ Alias: journal_issn</p>
 <td>native</td>
 <td>brc:journal_issn</td>
 </tr>
+<tr>
+<td>exact</td>
+<td>osti:journal_issn</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -611,6 +615,8 @@ Alias: journal_issn</p>
 <pre><code class="language-yaml">name: journal_issn
 description: International Standard Serial Number for the journal, if known.
 from_schema: https://w3id.org/brc/brc_schema
+exact_mappings:
+- osti:journal_issn
 rank: 1000
 alias: journal_issn
 owner: Dataset
