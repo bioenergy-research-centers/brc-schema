@@ -17,6 +17,24 @@ OSTI_SCHEMA_PATH = SCHEMA_DIR / "osti_schema.yaml"
 BRC_TO_OSTI_TR_PATH = TRANSFORM_DIR / "brc_to_osti.yaml"
 OSTI_TO_BRC_TR_PATH = TRANSFORM_DIR / "osti_to_brc.yaml"
 
+BRC_CONTRACTS = {
+    "SC0018420": "CABBI",
+    "SC0018409": "GLBRC",
+    "AC36-08GO28308": "CBI",
+    "AC02-05CH11231": "JBEI",
+}
+
+BRC_ALIASES = {
+    "CABBI": "CABBI",
+    "CENTER FOR ADVANCED BIOENERGY AND BIOPRODUCTS INNOVATION": "CABBI",
+    "CBI": "CBI",
+    "CENTER FOR BIOENERGY INNOVATION": "CBI",
+    "GLBRC": "GLBRC",
+    "GREAT LAKES BIOENERGY RESEARCH CENTER": "GLBRC",
+    "JBEI": "JBEI",
+    "JOINT BIOENERGY INSTITUTE": "JBEI",
+}
+
 
 def _attr(obj, name, default=None):
     if obj is None:
@@ -61,12 +79,7 @@ def _split_name(name):
 
 
 def _brc_contract(brc):
-    return {
-        "CABBI": "SC0018420",
-        "GLBRC": "SC0018409",
-        "CBI": "AC36-08GO28308",
-        "JBEI": "AC02-05CH11231",
-    }.get(brc)
+    return {brc_value: contract for contract, brc_value in BRC_CONTRACTS.items()}.get(brc)
 
 
 def _brc_research_org(brc):
@@ -123,6 +136,71 @@ def _dedupe(items):
     return deduped
 
 
+def _normalize_date(value):
+    if value is None:
+        return None
+    value = str(value).strip()
+    if not value:
+        return None
+    match = re.match(r"^(\d{4}-\d{2}-\d{2})", value)
+    if match:
+        return match.group(1)
+    return value
+
+
+def _normalize_doi(value):
+    if value is None:
+        return None
+    value = str(value).strip()
+    if not value:
+        return None
+    value = re.sub(r"^doi:\s*", "", value, flags=re.IGNORECASE)
+    value = re.sub(r"^https?://(?:dx\.)?doi\.org/", "", value, flags=re.IGNORECASE)
+    return value or None
+
+
+def _normalize_contract(value):
+    if value is None:
+        return None
+    value = str(value).strip().upper()
+    if not value:
+        return None
+    value = re.sub(r"\s+", "", value)
+    if value.startswith("DE-"):
+        value = value[3:]
+    elif value.startswith("DE") and len(value) > 2 and value[2:].startswith(("AC", "SC")):
+        value = value[2:]
+    return value
+
+
+def _contract_values(value):
+    values = []
+    for item in _as_list(value):
+        if item is None:
+            continue
+        for part in re.split(r"[,;|]", str(item)):
+            normalized = _normalize_contract(part)
+            if normalized:
+                values.append(normalized)
+    return values
+
+
+def _brc_from_text(value):
+    if value is None:
+        return None
+    value = str(value).strip().upper()
+    if not value:
+        return None
+    for alias, brc in BRC_ALIASES.items():
+        if alias == value:
+            return brc
+        if len(alias) <= 5 and re.search(rf"\b{re.escape(alias)}\b", value):
+            return brc
+        if len(alias) > 5 and alias in value:
+            return brc
+    return None
+
+
 def build_brc_keywords(keywords, subjects):
     source_keywords = keywords or subjects
     if not source_keywords:
@@ -137,6 +215,58 @@ def build_brc_keywords(keywords, subjects):
         elif item:
             result.append(str(item))
     return result or None
+
+
+def build_brc_date(publication_date, entry_date):
+    return _normalize_date(publication_date) or _normalize_date(entry_date)
+
+
+def build_brc_value(
+    site_ownership_code,
+    doe_contract_number,
+    contract_number,
+    identifiers,
+    organizations,
+    sponsor_orgs,
+    research_orgs,
+):
+    brc = _brc_from_text(site_ownership_code)
+    if brc:
+        return brc
+
+    contract_candidates = []
+    contract_candidates.extend(_contract_values(doe_contract_number))
+    contract_candidates.extend(_contract_values(contract_number))
+
+    for identifier in _as_list(identifiers):
+        id_type = _attr(identifier, "type")
+        id_value = _attr(identifier, "value")
+        if id_type in {"CN_DOE", "CN"}:
+            contract_candidates.extend(_contract_values(id_value))
+
+    for org in _as_list(organizations):
+        for identifier in _as_list(_attr(org, "identifiers")):
+            id_type = _attr(identifier, "type")
+            id_value = _attr(identifier, "value")
+            if id_type in {"CN_DOE", "CN"}:
+                contract_candidates.extend(_contract_values(id_value))
+
+    for contract in contract_candidates:
+        brc = BRC_CONTRACTS.get(contract)
+        if brc:
+            return brc
+
+    for values in [research_orgs, sponsor_orgs, organizations]:
+        for item in _as_list(values):
+            brc = _brc_from_text(_attr(item, "name", item))
+            if brc:
+                return brc
+    return None
+
+
+def build_brc_bibliographic_citation(doi):
+    normalized_doi = _normalize_doi(doi)
+    return f"https://doi.org/{normalized_doi}" if normalized_doi else None
 
 
 def build_brc_creators(persons, authors, organizations):
@@ -482,6 +612,9 @@ def _register_transform_functions():
     eval_utils.FUNCTIONS.update(
         {
             "brc_contract": _brc_contract,
+            "build_brc_date": build_brc_date,
+            "build_brc_value": build_brc_value,
+            "build_brc_bibliographic_citation": build_brc_bibliographic_citation,
             "build_brc_keywords": build_brc_keywords,
             "build_brc_creators": build_brc_creators,
             "build_brc_contributors": build_brc_contributors,
