@@ -304,6 +304,8 @@ classes:
       journal_issn:
         range: string
         description: "International Standard Serial Number for the journal, if known."
+        exact_mappings:
+          - osti:journal_issn
       volume:
         range: string
         description: "Volume number for a journal or book, if applicable."
@@ -327,6 +329,8 @@ classes:
       country_publication:
         range: string
         description: "Human-readable country of publication, if available."
+        exact_mappings:
+          - osti:country_publication
       conference_information:
         range: string
         description: "General conference information related to the dataset."
