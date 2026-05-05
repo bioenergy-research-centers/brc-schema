@@ -393,6 +393,110 @@ class TestTransformations:
             elif i == 4:  # Invalid identifiers
                 assert brc_value is None
 
+    def test_osti_to_brc_normalizes_cbi_dates_contracts_and_dois(self, tmp_path):
+        """CBI-style OSTI records should produce schema-valid dates, BRC values, and DOI URLs."""
+        test_data = {
+            "records": [
+                {
+                    "osti_id": "2352359",
+                    "title": "CBI Dataset with URL DOI",
+                    "publication_date": "2024-05-16T20:00:00Z",
+                    "doi": "https://doi.org/10.1186/s12934-024-02414-0",
+                    "identifiers": [
+                        {"type": "CN_DOE", "value": "DE-AC36-08GO28308"}
+                    ],
+                    "authors": ["Jane Doe"],
+                },
+                {
+                    "osti_id": "2202296",
+                    "title": "CBI Dataset with organization contract",
+                    "entry_date": "2023-10-13T20:00:00Z",
+                    "doi": "doi:10.1186/s13068-023-02393-1",
+                    "organizations": [
+                        {
+                            "type": "SPONSOR",
+                            "name": "USDOE Office of Science",
+                            "identifiers": [
+                                {"type": "CN_DOE", "value": "DEAC36-08GO28308"}
+                            ],
+                        }
+                    ],
+                    "authors": ["John Smith"],
+                },
+            ]
+        }
+
+        input_file = tmp_path / "cbi_osti_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "cbi_brc_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        first, second = result['datasets']
+        assert first['brc'] == 'CBI'
+        assert first['date'] == '2024-05-16'
+        assert first['bibliographicCitation'] == 'https://doi.org/10.1186/s12934-024-02414-0'
+        assert second['brc'] == 'CBI'
+        assert second['date'] == '2023-10-13'
+        assert second['bibliographicCitation'] == 'https://doi.org/10.1186/s13068-023-02393-1'
+
+    def test_osti_to_brc_infers_brc_from_organization_aliases(self, tmp_path):
+        """Current OSTI organization text should be usable when contract fields are absent."""
+        test_data = {
+            "records": [{
+                "osti_id": "12345",
+                "title": "Dataset with CBI organization text",
+                "publication_date": "2024-01-01",
+                "organizations": [
+                    {
+                        "type": "AUTHOR",
+                        "name": "Oak Ridge National Laboratory (ORNL), Oak Ridge, TN (United States). Center for Bioenergy Innovation (CBI)",
+                    }
+                ],
+                "authors": ["Jane Doe"],
+            }]
+        }
+
+        input_file = tmp_path / "cbi_org_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "cbi_org_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        assert result['datasets'][0]['brc'] == 'CBI'
+
     def test_fallback_authors_field(self, tmp_path):
         """Test fallback to authors field when persons is not available."""
         data_with_authors = {

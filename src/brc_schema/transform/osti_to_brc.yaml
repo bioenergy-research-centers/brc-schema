@@ -19,37 +19,7 @@ class_derivations:
     populated_from: Record
     slot_derivations:
       brc:
-        expr: |
-          # Check site_ownership_code first (direct passthrough)
-          if src.site_ownership_code:
-            target = src.site_ownership_code
-          else:
-            # Map DOE contract numbers to BRC values
-            # Check multiple possible locations for the contract number
-            contract_map = {
-              'SC0018420': 'CABBI',
-              'SC0018409': 'GLBRC',
-              'AC36-08GO28308': 'CBI',
-              'AC02-05CH11231': 'JBEI'
-            }
-            
-            contract_num = None
-            
-            # Check doe_contract_number field (deprecated but may be present)
-            if src.doe_contract_number:
-              contract_num = src.doe_contract_number
-            # Check contract_number field (deprecated but may be present)
-            elif src.contract_number:
-              contract_num = src.contract_number
-            # Check identifiers list for CN_DOE type
-            elif src.identifiers:
-              for identifier in src.identifiers:
-                if identifier.type == 'CN_DOE':
-                  contract_num = identifier.value
-                  break
-            
-            # Map to BRC value if found in our mapping
-            target = contract_map.get(contract_num, None) if contract_num else None
+        expr: "build_brc_value(site_ownership_code, doe_contract_number, contract_number, identifiers, organizations, sponsor_orgs, research_orgs)"
       title:
         populated_from: title
       description:
@@ -57,7 +27,7 @@ class_derivations:
       abstract:
         populated_from: description
       date:
-        expr: "publication_date if publication_date else entry_date"
+        expr: "build_brc_date(publication_date, entry_date)"
       issue:
         expr: "issue if issue else journal_issue"
       identifier:
@@ -67,11 +37,7 @@ class_derivations:
           else:
             target = None
       bibliographicCitation:
-        expr: |
-          if src.doi:
-            target = 'https://doi.org/' + src.doi
-          else:
-            target = None
+        expr: "build_brc_bibliographic_citation(doi)"
       keywords:
         expr: "build_brc_keywords(keywords, subjects)"
       journal_license_url:
