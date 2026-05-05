@@ -808,6 +808,16 @@ uv run brcschema retrieve-osti --doi-file dois.txt -o records.json
 <p>Mix OSTI IDs and DOIs:</p>
 <pre><code class="language-bash">uv run brcschema retrieve-osti --osti-ids 2584700 --dois 10.11578/2584700 -o records.json
 </code></pre>
+<p>Retrieve by BRC/site code from the default sources for the credentials available in the environment:</p>
+<pre><code class="language-bash">uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+</code></pre>
+<p>With no authentication, this command warns and uses only the public OSTI.GOV records API, which can return only public/released records. E-Link 2.0 retrieval requires <code>OSTI_API_KEY</code>, and legacy E-Link 1 retrieval requires <code>OSTI_LEGACY_USERNAME</code> plus <code>OSTI_LEGACY_PASSWORD</code>.</p>
+<p>Restrict retrieval to one source API when needed:</p>
+<pre><code class="language-bash">uv run brcschema retrieve-osti-site --site-code GLBRC --source legacy --legacy-username &quot;$OSTI_LEGACY_USERNAME&quot; --legacy-password &quot;$OSTI_LEGACY_PASSWORD&quot; -o glbrc_legacy.json
+uv run brcschema retrieve-osti-site --site-code GLBRC --source elink2 -o glbrc_elink2.json
+uv run brcschema retrieve-osti-site --site-code GLBRC --source public -o glbrc_public.json
+</code></pre>
+<p>The site-code output includes <code>records</code> plus <code>retrieval_sources</code> and <code>record_origins</code>. <code>record_origins</code> identifies the source API and origin schema for each record index, such as <code>osti_elink1_xml</code> for legacy E-Link 1 records, <code>osti_public_api_v1_json</code> for public OSTI.GOV records, and <code>osti_elink2_json</code> for E-Link 2.0 records.</p>
 <h2 id="python-api-examples">Python API Examples</h2>
 <h3 id="convenience-function">Convenience Function</h3>
 <pre><code class="language-python">from brc_schema.util.elink import retrieve_osti_records

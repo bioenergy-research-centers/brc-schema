@@ -401,6 +401,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#retrieve-osti-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        retrieve-osti-site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#transmit-osti" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -809,6 +820,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#retrieve-osti-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        retrieve-osti-site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#transmit-osti" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1110,6 +1132,51 @@ uv run brcschema retrieve-osti --osti-ids 2584700 -o records.json --api-key YOUR
 <li>DOIs must be OSTI-style (<code>10.11578/&lt;osti_id&gt;</code>); other DOI formats are skipped</li>
 <li>API key is optional but may be required for certain records or rate limits</li>
 </ul>
+<hr />
+<h3 id="retrieve-osti-site"><code>retrieve-osti-site</code></h3>
+<p>Retrieve OSTI records for a DOE site ownership code from legacy E-Link 1, E-Link 2.0, the public OSTI.GOV records API, or an authentication-dependent combination of those sources.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-bash">uv run brcschema retrieve-osti-site --site-code &lt;site_code&gt; -o &lt;output_file&gt;
+</code></pre>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>--site-code</code> <strong>(required)</strong>: DOE site ownership code, such as <code>GLBRC</code>, <code>CBI</code>, <code>CABBI</code>, or <code>JBEI</code></li>
+<li><code>--source</code>: Source API to query: <code>legacy</code>, <code>elink2</code>, or <code>public</code>; repeat to query more than one source.</li>
+<li><code>--product-type</code>: Optional OSTI product type filter</li>
+<li><code>--entry-date-start</code>: Optional lower entry-date boundary. <code>YYYY-MM-DD</code> is converted to OSTI's <code>MM/DD/YYYY</code> query format.</li>
+<li><code>--entry-date-end</code>: Optional upper entry-date boundary. <code>YYYY-MM-DD</code> is converted to OSTI's <code>MM/DD/YYYY</code> query format.</li>
+<li><code>--rows</code>: Rows requested from each source API. Defaults to <code>500</code>.</li>
+<li><code>-l, --limit</code>: Maximum records to keep from each source API</li>
+<li><code>-o, --output</code> <strong>(required)</strong>: Output JSON file path</li>
+<li><code>--api-key</code>: E-Link 2.0 API key, alternatively set <code>OSTI_API_KEY</code>; required when <code>elink2</code> is selected</li>
+<li><code>--api-url</code>: Optional E-Link 2.0 API URL</li>
+<li><code>--legacy-api-url</code>: Optional legacy E-Link 1 XML API URL</li>
+<li><code>--legacy-username</code>: Legacy E-Link 1 username, alternatively set <code>OSTI_LEGACY_USERNAME</code>; required when <code>legacy</code> is selected</li>
+<li><code>--legacy-password</code>: Legacy E-Link 1 password, alternatively set <code>OSTI_LEGACY_PASSWORD</code>; required when <code>legacy</code> is selected</li>
+<li><code>--public-api-url</code>: Optional public OSTI.GOV record API URL</li>
+<li><code>--no-pretty</code>: Disable pretty-printing of JSON output</li>
+</ul>
+<p>Default source selection depends on available credentials. With no authentication, the command warns and uses only <code>public</code>, which can return only public/released OSTI.GOV records. With only an E-Link 2.0 API key, the command uses <code>public</code> and <code>elink2</code>. With both legacy E-Link 1 and E-Link 2.0 credentials, it uses <code>legacy</code> and <code>elink2</code>.</p>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-bash"># Query the default sources for the credentials available in the environment
+uv run brcschema retrieve-osti-site --site-code GLBRC -o glbrc_records.json
+
+# Query only E-Link 2.0 for recently entered records
+uv run brcschema retrieve-osti-site --site-code GLBRC --source elink2 --entry-date-start 2026-01-01 -o glbrc_elink2.json
+
+# Query only legacy E-Link 1 records
+uv run brcschema retrieve-osti-site --site-code CBI --source legacy --legacy-username &quot;$OSTI_LEGACY_USERNAME&quot; --legacy-password &quot;$OSTI_LEGACY_PASSWORD&quot; --limit 100 -o cbi_legacy.json
+
+# Query only public OSTI.GOV records
+uv run brcschema retrieve-osti-site --site-code CBI --source public --limit 100 -o cbi_public.json
+</code></pre>
+<p><strong>Output Metadata:</strong></p>
+<p>The output includes a transform-compatible top-level <code>records</code> list and additional metadata:</p>
+<ul>
+<li><code>retrieval_sources</code>: one entry per source API, including <code>api</code>, <code>origin_schema</code>, <code>normalized_schema</code>, query parameters, and counts</li>
+<li><code>record_origins</code>: one entry per record index, identifying the record's source API and origin schema</li>
+</ul>
+<p>This lets downstream scripts distinguish legacy E-Link 1 records (<code>osti_elink1_xml</code>), public OSTI.GOV records (<code>osti_public_api_v1_json</code>), and E-Link 2.0 records (<code>osti_elink2_json</code>) while still feeding the same <code>records</code> list to <code>transform -T osti_to_brc</code>.</p>
 <hr />
 <h3 id="transmit-osti"><code>transmit-osti</code></h3>
 <p>Transmit metadata records to OSTI E-Link 2.0 API, creating new records or updating existing ones.</p>
