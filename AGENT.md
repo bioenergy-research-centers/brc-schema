@@ -65,13 +65,17 @@ Notes:
 
 - Edit `src/brc_schema/schema/*`, `src/brc_schema/transform/*`, and supporting Python code. Do **not** hand-edit `project/` or `src/brc_schema/datamodel/`; those are generated outputs.
 - After changing `brc_schema.yaml` or the transform configs, run `make gen-project`. That target also runs `scripts/update_transform_version.py`, which keeps `src/brc_schema/transform/osti_to_brc.yaml`'s emitted `schema_version` aligned with `src/brc_schema/schema/brc_schema.yaml`.
+- If a schema change affects generated docs or schema reference pages, run `make gendoc` or `make site` so `docs/` and published artifacts stay in sync with the source schema.
 - If a change affects schema shape, generated JSON schema, or bioenergy.org compatibility, review `docs/update_schema.md` here and the `AGENT.md` in the `bioenergy.org` repository. Keep in mind that `bioenergy.org` may pin schema versions and mark new versions unsupported until its UI catches up.
+- Follow LinkML modeling conventions when editing the schema: classes and enums use `UpperCamelCase`, slots use `snake_case`, multivalued slots should be pluralized, and new elements should include clear descriptions.
+- New schema elements should come with example coverage under `src/data/examples/`, including intentionally invalid examples that fail for exactly one reason.
 - Keep wrapper shapes straight when changing transforms or CLI behavior:
   - OSTI-side collections use a top-level `records` list.
   - BRC-side collections use `DatasetCollection` with `datasets`.
   - `retrieve-osti-site` keeps `records` plus provenance metadata so the result can be transformed without losing source information.
 - `retrieve-osti` and `retrieve-osti-site` outputs are intentionally transform-ready; preserve the top-level `records` shape when changing retrieval code.
 - OSTI DOI retrieval only works for OSTI-style DOIs with the `10.11578/...` prefix. Non-OSTI DOIs are skipped rather than resolved.
+- Authenticated OSTI retrieval and some integration paths rely on environment-backed credentials: `OSTI_API_KEY` for E-Link 2.0 and `OSTI_LEGACY_USERNAME`/`OSTI_LEGACY_PASSWORD` for legacy E-Link 1 flows.
 - For `--osti-id-file` and `--doi-file`, inputs are one identifier per line and lines starting with `#` are treated as comments.
 - Example validation is part of schema work. Valid and invalid examples live under `src/data/examples/`, and CONTRIBUTING expects invalid examples to be invalid for one specific reason.
 - Existing tests favor `pytest`, `click.testing.CliRunner`, `tmp_path`, and direct utility/helper assertions. Follow those patterns for new coverage.
