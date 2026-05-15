@@ -1,5 +1,13 @@
 # Agent Instructions for `brc-schema`
 
+## Repository purpose
+
+- This repository defines the Bioenergy Research Centers data schema used for dataset metadata exchanged across the BRC ecosystem.
+- Its primary purpose is to serve as the authoritative LinkML-based source for the BRC dataset model and related OSTI interoperability mappings.
+- The schema supports the data search platform at `bioenergy.org` and this repo publishes the generated schema/docs artifacts that downstream consumers rely on.
+- Most substantive work happens in the hand-maintained schema, transform, and Python utility code under `src/`; generated outputs under `project/` and `src/brc_schema/datamodel/` should be treated as build artifacts.
+- In practice, this repo is both a schema definition project and a conversion toolchain for retrieving OSTI metadata and transforming records between OSTI and BRC representations.
+
 ## Build, test, and lint commands
 
 This repository uses `uv` for environment management. Run project commands with `uv run` unless `.venv` is already activated.
