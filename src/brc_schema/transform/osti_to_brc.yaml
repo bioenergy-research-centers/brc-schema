@@ -40,6 +40,8 @@ class_derivations:
         expr: "build_brc_bibliographic_citation(doi)"
       keywords:
         expr: "build_brc_keywords(keywords, subjects)"
+      topic:
+        expr: "build_brc_topics(subject_category_code)"
       journal_license_url:
         populated_from: journal_license_url
       journal_name:

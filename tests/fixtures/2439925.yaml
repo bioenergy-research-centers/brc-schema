@@ -3,6 +3,8 @@ records:
   workflow_status: R
   access_limitations:
   - UNL
+  subject_category_code:
+  - 09
   country_publication_code: US
   doe_supported_flag: false
   doi: 10.25983/2439925

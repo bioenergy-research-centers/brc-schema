@@ -35,6 +35,40 @@ BRC_ALIASES = {
     "JOINT BIOENERGY INSTITUTE": "JBEI",
 }
 
+# Mapping between BRC DatasetTopicEnum values and OSTI subject category codes.
+# Sourced from the bioenergy.org #236 investigation. Several topics share a
+# code (e.g. Genetic Engineering and Enzymes & Proteins both map to "55"),
+# so the reverse mapping below picks a single canonical topic per code.
+TOPIC_TO_OSTI_SUBJECT = {
+    "Genetic Engineering": "55",
+    "Plant Biology": "60",
+    "Microbiology": "59",
+    "Analytics & Methods": "96",
+    "Enzymes & Proteins": "55",
+    "Biomass & Feedstock": "09",
+    "Bioenergy Production": "09",
+    "Process Engineering": "42",
+    "Environmental Science & Sustainability": "54",
+    "Chemistry": "37",
+    "Materials Science & Bioproducts": "36",
+    "Computational Biology & Modeling": "97",
+}
+
+# Reverse mapping: OSTI subject category code -> canonical BRC topic. Codes
+# that several topics share resolve to the most general topic for that code.
+OSTI_SUBJECT_TO_TOPIC = {
+    "55": "Genetic Engineering",
+    "60": "Plant Biology",
+    "59": "Microbiology",
+    "96": "Analytics & Methods",
+    "09": "Biomass & Feedstock",
+    "42": "Process Engineering",
+    "54": "Environmental Science & Sustainability",
+    "37": "Chemistry",
+    "36": "Materials Science & Bioproducts",
+    "97": "Computational Biology & Modeling",
+}
+
 
 def _attr(obj, name, default=None):
     if obj is None:
@@ -215,6 +249,45 @@ def build_brc_keywords(keywords, subjects):
         elif item:
             result.append(str(item))
     return result or None
+
+
+def _topic_text(topic):
+    """Return the plain text of a topic, whether it is a string or enum."""
+    if topic is None:
+        return None
+    text = _attr(topic, "text", topic)
+    return str(text).strip() if text is not None else None
+
+
+def build_brc_topics(subject_category_code):
+    """Map OSTI subject category codes to BRC topics.
+
+    OSTI stores codes either with or without a leading zero (e.g. "9" or
+    "09"), so both forms are accepted. Codes with no known mapping are
+    skipped. Returns None when nothing maps, in which case the resulting
+    record will need a topic assigned by hand (the slot is required).
+    """
+    topics = []
+    for code in _as_list(subject_category_code):
+        if code is None:
+            continue
+        normalized = str(code).strip()
+        topic = OSTI_SUBJECT_TO_TOPIC.get(normalized) or OSTI_SUBJECT_TO_TOPIC.get(
+            normalized.zfill(2)
+        )
+        if topic and topic not in topics:
+            topics.append(topic)
+    return topics or None
+
+
+def build_osti_subject_category_codes(topic):
+    """Map BRC topics to OSTI subject category codes, de-duplicated."""
+    codes = []
+    for value in _as_list(topic):
+        code = TOPIC_TO_OSTI_SUBJECT.get(_topic_text(value))
+        if code and code not in codes:
+            codes.append(code)
+    return codes or None
 
 
 def build_brc_date(publication_date, entry_date):
@@ -616,6 +689,8 @@ def _register_transform_functions():
             "build_brc_value": build_brc_value,
             "build_brc_bibliographic_citation": build_brc_bibliographic_citation,
             "build_brc_keywords": build_brc_keywords,
+            "build_brc_topics": build_brc_topics,
+            "build_osti_subject_category_codes": build_osti_subject_category_codes,
             "build_brc_creators": build_brc_creators,
             "build_brc_contributors": build_brc_contributors,
             "build_brc_funding": build_brc_funding,
