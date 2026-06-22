@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.15
+# version: 0.2.0
 enum AnalysisType
   {
     affinity_purification
@@ -80,6 +80,10 @@ enum DatasetTopicEnum
     Biomass___AMPERSAND___Feedstock
     Bioenergy_Production
     Process_Engineering
+    Environmental_Science___AMPERSAND___Sustainability
+    Chemistry
+    Materials_Science___AMPERSAND___Bioproducts
+    Computational_Biology___AMPERSAND___Modeling
   }
 
 enum DatasetTypeCodes
@@ -175,7 +179,7 @@ type Dataset
     plasmidFeatures: [Plasmid]
     analysisType: String
     datasetType: DatasetTypeCodes
-    topic: [DatasetTopicEnum]
+    topic: [DatasetTopicEnum]!
     theme: [DatasetThemeEnum]
     category: [String]
     description: String

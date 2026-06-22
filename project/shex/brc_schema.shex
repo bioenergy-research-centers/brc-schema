@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.1.15
+# version: 0.2.0
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -133,7 +133,11 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/DatasetTopicEnum#Enzymes%20%26%20Proteins>
              <https://w3id.org/brc/DatasetTopicEnum#Biomass%20%26%20Feedstock>
              <https://w3id.org/brc/DatasetTopicEnum#Bioenergy%20Production>
-             <https://w3id.org/brc/DatasetTopicEnum#Process%20Engineering> ] * ;
+             <https://w3id.org/brc/DatasetTopicEnum#Process%20Engineering>
+             <https://w3id.org/brc/DatasetTopicEnum#Environmental%20Science%20%26%20Sustainability>
+             <https://w3id.org/brc/DatasetTopicEnum#Chemistry>
+             <https://w3id.org/brc/DatasetTopicEnum#Materials%20Science%20%26%20Bioproducts>
+             <https://w3id.org/brc/DatasetTopicEnum#Computational%20Biology%20%26%20Modeling> ] + ;
           <theme> [ <https://w3id.org/brc/DatasetThemeEnum#Feedstock%20Development>
              <https://w3id.org/brc/DatasetThemeEnum#Deconstruction%20and%20Separation>
              <https://w3id.org/brc/DatasetThemeEnum#Conversion> <https://w3id.org/brc/DatasetThemeEnum#Sustainability> ] * ;
