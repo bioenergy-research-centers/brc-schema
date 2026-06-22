@@ -208,7 +208,10 @@ class TestOSTIRecordRetriever:
         assert record is not None
         assert record.get('osti_id') == 2584700  # API returns int
         assert 'title' in record
-        assert record.get('doi') == '10.11578/2584700'
+        # The DOI suffix matches the OSTI ID; the prefix is asserted loosely
+        # because OSTI has re-minted records onto newer prefixes over time
+        # (e.g. 10.11578/... -> 10.82250/...).
+        assert str(record.get('doi', '')).endswith('/2584700')
 
     @pytest.mark.integration
     @skip_if_no_api_key

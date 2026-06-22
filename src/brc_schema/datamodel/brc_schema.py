@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-05T15:26:50
+# Generation date: 2026-06-22T16:27:23
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, 
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.1.15"
+version = "0.2.0"
 
 # Namespaces
 BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')
@@ -170,6 +170,7 @@ class Dataset(YAMLRoot):
     creator: Union[Union[dict, "Individual"], list[Union[dict, "Individual"]]] = None
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
+    topic: Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]] = None
     id: Optional[Union[str, URIorCURIE]] = None
     active: Optional[Union[bool, Bool]] = True
     alert: Optional[Union[bool, Bool]] = False
@@ -182,7 +183,6 @@ class Dataset(YAMLRoot):
     plasmid_features: Optional[Union[Union[dict, "Plasmid"], list[Union[dict, "Plasmid"]]]] = empty_list()
     analysisType: Optional[str] = "not specified"
     datasetType: Optional[Union[str, "DatasetTypeCodes"]] = None
-    topic: Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]] = empty_list()
     theme: Optional[Union[Union[str, "DatasetThemeEnum"], list[Union[str, "DatasetThemeEnum"]]]] = empty_list()
     category: Optional[Union[str, list[str]]] = empty_list()
     description: Optional[str] = None
@@ -238,6 +238,12 @@ class Dataset(YAMLRoot):
         if not isinstance(self.identifier, str):
             self.identifier = str(self.identifier)
 
+        if self._is_empty(self.topic):
+            self.MissingRequiredField("topic")
+        if not isinstance(self.topic, list):
+            self.topic = [self.topic] if self.topic is not None else []
+        self.topic = [v if isinstance(v, DatasetTopicEnum) else DatasetTopicEnum(v) for v in self.topic]
+
         if self.id is not None and not isinstance(self.id, URIorCURIE):
             self.id = URIorCURIE(self.id)
 
@@ -278,10 +284,6 @@ class Dataset(YAMLRoot):
 
         if self.datasetType is not None and not isinstance(self.datasetType, DatasetTypeCodes):
             self.datasetType = DatasetTypeCodes(self.datasetType)
-
-        if not isinstance(self.topic, list):
-            self.topic = [self.topic] if self.topic is not None else []
-        self.topic = [v if isinstance(v, DatasetTopicEnum) else DatasetTopicEnum(v) for v in self.topic]
 
         if not isinstance(self.theme, list):
             self.theme = [self.theme] if self.theme is not None else []
@@ -1050,15 +1052,25 @@ class DatasetTypeCodes(EnumDefinitionImpl):
 class DatasetTopicEnum(EnumDefinitionImpl):
     """
     High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list
-    of topics.
+    of topics. Where a close match exists, each value notes the corresponding OSTI subject category code (see
+    https://www.osti.gov/) used when records are submitted to OSTI.
     """
     Microbiology = PermissibleValue(
         text="Microbiology",
         description="Datasets related to microbiology, including microbial physiology, growth, and development.")
+    Chemistry = PermissibleValue(
+        text="Chemistry",
+        description="""Datasets related to inorganic, organic, physical, and analytical chemistry, including reaction mechanisms, catalysis, and chemical characterization. Distinct from Analytics & Methods, which centers on instrumentation and measurement technique.""")
+    Other = PermissibleValue(
+        text="Other",
+        description="""The dataset has an identifiable topic that none of the more specific values above captures. Use sparingly, and prefer a specific topic where one fits.""")
+    Unknown = PermissibleValue(
+        text="Unknown",
+        description="""A topic could not be determined for the dataset. Used as a placeholder for records imported from external sources (e.g. OSTI) that lack topic or subject information, pending curation. Carries no OSTI subject category code.""")
 
     _defn = EnumDefinition(
         name="DatasetTopicEnum",
-        description="""High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.""",
+        description="""High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics. Where a close match exists, each value notes the corresponding OSTI subject category code (see https://www.osti.gov/) used when records are submitted to OSTI.""",
     )
 
     @classmethod
@@ -1091,6 +1103,22 @@ class DatasetTopicEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="Process Engineering",
                 description="""Datasets related to process engineering, including process design, optimization, and control."""))
+        setattr(cls, "Environmental Science & Sustainability",
+            PermissibleValue(
+                text="Environmental Science & Sustainability",
+                description="""Datasets related to environmental science and sustainability, including life-cycle assessment, land use, soil and water quality, greenhouse gas emissions, and ecological impacts."""))
+        setattr(cls, "Materials Science & Bioproducts",
+            PermissibleValue(
+                text="Materials Science & Bioproducts",
+                description="""Datasets related to materials science and bioproducts, including biomaterials, polymers, composites, and material property characterization."""))
+        setattr(cls, "Computational Biology & Modeling",
+            PermissibleValue(
+                text="Computational Biology & Modeling",
+                description="""Datasets related to computational biology, modeling, and data science, including bioinformatics, simulation, and kinetic or techno-economic modeling."""))
+        setattr(cls, "Microscopy & Imaging",
+            PermissibleValue(
+                text="Microscopy & Imaging",
+                description="""Datasets produced by microscopy and imaging techniques, including atomic force microscopy, scanning and transmission electron microscopy, cryo-electron microscopy, and fluorescence imaging. Distinct from Analytics & Methods, which centers on spectrometry, chromatography, and separations. The closest OSTI subject is the general \"Other Instrumentation\" category (47); such datasets usually also carry a domain topic."""))
 
 class DatasetThemeEnum(EnumDefinitionImpl):
     """
@@ -1341,7 +1369,7 @@ slots.dataset__datasetType = Slot(uri=BRC.datasetType, name="dataset__datasetTyp
                    model_uri=BRC.dataset__datasetType, domain=None, range=Optional[Union[str, "DatasetTypeCodes"]])
 
 slots.dataset__topic = Slot(uri=BRC.topic, name="dataset__topic", curie=BRC.curie('topic'),
-                   model_uri=BRC.dataset__topic, domain=None, range=Optional[Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]]])
+                   model_uri=BRC.dataset__topic, domain=None, range=Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]])
 
 slots.dataset__theme = Slot(uri=BRC.theme, name="dataset__theme", curie=BRC.curie('theme'),
                    model_uri=BRC.dataset__theme, domain=None, range=Optional[Union[Union[str, "DatasetThemeEnum"], list[Union[str, "DatasetThemeEnum"]]]])

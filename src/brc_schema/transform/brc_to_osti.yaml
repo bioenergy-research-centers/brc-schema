@@ -66,6 +66,8 @@ class_derivations:
         expr: "brc if brc else None"
       keywords:
         populated_from: keywords
+      subject_category_code:
+        expr: "build_osti_subject_category_codes(topic)"
       site_url:
         expr: "build_osti_site_url(dataset_url, identifier)"
       links:

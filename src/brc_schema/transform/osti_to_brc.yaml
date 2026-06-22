@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: "'0.1.15'"
+        expr: "'0.2.0'"
 
   Dataset:
     populated_from: Record
@@ -40,6 +40,8 @@ class_derivations:
         expr: "build_brc_bibliographic_citation(doi)"
       keywords:
         expr: "build_brc_keywords(keywords, subjects)"
+      topic:
+        expr: "build_brc_topics(subject_category_code, keywords, subjects)"
       journal_license_url:
         populated_from: journal_license_url
       journal_name:

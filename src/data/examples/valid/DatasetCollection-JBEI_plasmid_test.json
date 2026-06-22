@@ -11,6 +11,7 @@
         }
       ],
       "brc": "JBEI",
+      "topic": ["Genetic Engineering"],
       "description": "fadB promoter driving RFP in E. coli Selection Markers: Kanamycin Host: E. coli DH1",
       "repository": "ICE",
       "bibliographicCitation": "https://public-registry.jbei.org/folders/171",

@@ -35,6 +35,82 @@ BRC_ALIASES = {
     "JOINT BIOENERGY INSTITUTE": "JBEI",
 }
 
+# Mapping from BRC DatasetTopicEnum values to the OSTI subject category code
+# emitted on submission. Codes follow the official OSTI subject category list
+# (SubjectCategories.pdf). Several topics deliberately share a code (e.g.
+# Genetic Engineering, Enzymes & Proteins, and Microbiology all map to "59"),
+# so the reverse mapping below picks a single canonical topic per code.
+TOPIC_TO_OSTI_SUBJECT = {
+    "Genetic Engineering": "59",
+    "Plant Biology": "60",
+    "Microbiology": "59",
+    "Analytics & Methods": "37",
+    "Enzymes & Proteins": "59",
+    "Biomass & Feedstock": "09",
+    "Bioenergy Production": "09",
+    "Process Engineering": "42",
+    "Environmental Science & Sustainability": "54",
+    "Chemistry": "37",
+    "Materials Science & Bioproducts": "36",
+    "Computational Biology & Modeling": "97",
+    "Microscopy & Imaging": "47",
+}
+
+# Reverse mapping: OSTI subject category code -> canonical BRC topic, used when
+# importing OSTI records. Includes the codes our topics emit plus extra
+# bioenergy-adjacent codes (and the legacy "55") that turn up on real OSTI
+# records, so imports land on a real topic instead of "Unknown". These extra
+# codes are import-only; they are never emitted by TOPIC_TO_OSTI_SUBJECT.
+OSTI_SUBJECT_TO_TOPIC = {
+    "08": "Bioenergy Production",       # Hydrogen
+    "09": "Biomass & Feedstock",        # Biomass Fuels
+    "10": "Bioenergy Production",       # Synthetic Fuels
+    "36": "Materials Science & Bioproducts",  # Materials Science
+    "37": "Chemistry",                  # Inorganic/Organic/Physical/Analytical Chemistry
+    "38": "Chemistry",                  # Radiation/Radio/Nuclear Chemistry
+    "42": "Process Engineering",        # Engineering
+    "47": "Microscopy & Imaging",       # Other Instrumentation
+    "54": "Environmental Science & Sustainability",  # Environmental Sciences
+    "55": "Microbiology",               # legacy Biology & Medicine, Basic Studies
+    "58": "Environmental Science & Sustainability",  # Geosciences
+    "59": "Microbiology",               # Basic Biological Sciences
+    "60": "Plant Biology",              # Applied Life Sciences
+    "75": "Materials Science & Bioproducts",  # Condensed Matter Physics
+    "77": "Materials Science & Bioproducts",  # Nanoscience and Nanotechnology
+    "97": "Computational Biology & Modeling",  # Mathematics and Computing
+}
+
+# Canonical (lower-cased) OSTI labels for the subject codes we recognise.
+# Used to confirm a two-digit prefix in a free-text keyword (e.g.
+# "09 BIOMASS FUELS") really is an OSTI subject and not an incidental number
+# such as "37 degrees" or "55 mM". Mirrors OSTI_SUBJECT_TO_TOPIC.
+OSTI_SUBJECT_LABELS = {
+    "08": "hydrogen",
+    "09": "biomass fuels",
+    "10": "synthetic fuels",
+    "36": "materials science",
+    "37": "inorganic, organic, physical, and analytical chemistry",
+    "38": "radiation chemistry, radiochemistry, and nuclear chemistry",
+    "42": "engineering",
+    "47": "other instrumentation",
+    "54": "environmental sciences",
+    "55": "biology and medicine",
+    "58": "geosciences",
+    "59": "basic biological sciences",
+    "60": "applied life sciences",
+    "75": "condensed matter physics, superconductivity and superfluidity",
+    "77": "nanoscience and nanotechnology",
+    "97": "mathematics and computing",
+}
+
+# A keyword fragment that begins with a two-digit code followed by a word
+# boundary, e.g. "09 BIOMASS FUELS". The \b prevents matching "13C" or "16S".
+_OSTI_CODE_KEYWORD_RE = re.compile(r"^\s*(\d{2})\b\s*(.*)$")
+
+# Topic used when no OSTI subject information can be mapped, so the required
+# `topic` slot is always populated for imported records.
+UNKNOWN_TOPIC = "Unknown"
+
 
 def _attr(obj, name, default=None):
     if obj is None:
@@ -215,6 +291,88 @@ def build_brc_keywords(keywords, subjects):
         elif item:
             result.append(str(item))
     return result or None
+
+
+def _topic_text(topic):
+    """Return the plain text of a topic, whether it is a string or enum."""
+    if topic is None:
+        return None
+    text = _attr(topic, "text", topic)
+    return str(text).strip() if text is not None else None
+
+
+def _codes_from_keywords(keywords):
+    """Pull OSTI subject codes out of free-text keyword strings.
+
+    OSTI records frequently carry the subject as text such as
+    "09 BIOMASS FUELS" in their keyword list (sometimes comma-joined into a
+    single string). A leading two-digit number is only treated as a code
+    when the trailing text matches the known OSTI label for that code, so
+    incidental keywords like "37 degrees" are not misread as subjects.
+    """
+    codes = []
+    for item in _as_list(keywords):
+        if not isinstance(item, str):
+            continue
+        for fragment in item.split(","):
+            match = _OSTI_CODE_KEYWORD_RE.match(fragment)
+            if not match:
+                continue
+            code, rest = match.group(1), match.group(2).strip().lower()
+            label = OSTI_SUBJECT_LABELS.get(code)
+            if label and rest and (label.startswith(rest) or rest.startswith(label)):
+                codes.append(code)
+    return codes
+
+
+def _topic_for_code(code):
+    """Resolve a single OSTI code (string) to a BRC topic, or None.
+
+    Accepts codes with or without a leading zero (e.g. "9" or "09") and
+    resolves longer drill-down codes (e.g. "550200") to their two-digit
+    parent.
+    """
+    if not code:
+        return None
+    topic = OSTI_SUBJECT_TO_TOPIC.get(code) or OSTI_SUBJECT_TO_TOPIC.get(code.zfill(2))
+    if not topic and code.isdigit() and len(code) > 2:
+        topic = OSTI_SUBJECT_TO_TOPIC.get(code[:2])
+    return topic
+
+
+def build_brc_topics(subject_category_code, keywords=None, subjects=None):
+    """Map OSTI subject information to BRC topics.
+
+    Topics are derived, in order of preference, from the OSTI
+    ``subject_category_code`` field, any subject codes embedded in
+    ``keywords`` (e.g. "09 BIOMASS FUELS"), and the legacy ``subjects``
+    field. When nothing maps, returns ["Unknown"] so the required ``topic``
+    slot is always populated; a curator can refine it later (or use "Other"
+    for an identifiable topic that no existing value captures).
+    """
+    raw_codes = [
+        str(value).strip()
+        for value in _as_list(subject_category_code) + _as_list(subjects)
+        if value is not None
+    ]
+    raw_codes.extend(_codes_from_keywords(keywords))
+
+    topics = []
+    for code in raw_codes:
+        topic = _topic_for_code(code)
+        if topic and topic not in topics:
+            topics.append(topic)
+    return topics or [UNKNOWN_TOPIC]
+
+
+def build_osti_subject_category_codes(topic):
+    """Map BRC topics to OSTI subject category codes, de-duplicated."""
+    codes = []
+    for value in _as_list(topic):
+        code = TOPIC_TO_OSTI_SUBJECT.get(_topic_text(value))
+        if code and code not in codes:
+            codes.append(code)
+    return codes or None
 
 
 def build_brc_date(publication_date, entry_date):
@@ -616,6 +774,8 @@ def _register_transform_functions():
             "build_brc_value": build_brc_value,
             "build_brc_bibliographic_citation": build_brc_bibliographic_citation,
             "build_brc_keywords": build_brc_keywords,
+            "build_brc_topics": build_brc_topics,
+            "build_osti_subject_category_codes": build_osti_subject_category_codes,
             "build_brc_creators": build_brc_creators,
             "build_brc_contributors": build_brc_contributors,
             "build_brc_funding": build_brc_funding,
