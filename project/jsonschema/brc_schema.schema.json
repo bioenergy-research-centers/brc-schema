@@ -577,7 +577,8 @@
                 "Environmental Science & Sustainability",
                 "Chemistry",
                 "Materials Science & Bioproducts",
-                "Computational Biology & Modeling"
+                "Computational Biology & Modeling",
+                "Microscopy & Imaging"
             ],
             "title": "DatasetTopicEnum",
             "type": "string"

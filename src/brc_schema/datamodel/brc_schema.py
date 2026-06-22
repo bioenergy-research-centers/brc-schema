@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-22T15:23:53
+# Generation date: 2026-06-22T15:41:31
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1109,6 +1109,10 @@ class DatasetTopicEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="Computational Biology & Modeling",
                 description="""Datasets related to computational biology, modeling, and data science, including bioinformatics, simulation, and kinetic or techno-economic modeling."""))
+        setattr(cls, "Microscopy & Imaging",
+            PermissibleValue(
+                text="Microscopy & Imaging",
+                description="""Datasets produced by microscopy and imaging techniques, including atomic force microscopy, scanning and transmission electron microscopy, cryo-electron microscopy, and fluorescence imaging. Distinct from Analytics & Methods, which centers on spectrometry, chromatography, and separations. The closest OSTI subject is the general \"Other Instrumentation\" category (47); such datasets usually also carry a domain topic."""))
 
 class DatasetThemeEnum(EnumDefinitionImpl):
     """

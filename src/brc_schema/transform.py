@@ -52,6 +52,7 @@ TOPIC_TO_OSTI_SUBJECT = {
     "Chemistry": "37",
     "Materials Science & Bioproducts": "36",
     "Computational Biology & Modeling": "97",
+    "Microscopy & Imaging": "47",
 }
 
 # Reverse mapping: OSTI subject category code -> canonical BRC topic. Codes
@@ -67,6 +68,7 @@ OSTI_SUBJECT_TO_TOPIC = {
     "37": "Chemistry",
     "36": "Materials Science & Bioproducts",
     "97": "Computational Biology & Modeling",
+    "47": "Microscopy & Imaging",
 }
 
 

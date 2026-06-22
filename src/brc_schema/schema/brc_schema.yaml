@@ -998,6 +998,17 @@ enums:
           kinetic or techno-economic modeling.
         annotations:
           osti_subject_category_code: "97"
+      Microscopy & Imaging:
+        description: >-
+          Datasets produced by microscopy and imaging techniques,
+          including atomic force microscopy, scanning and transmission
+          electron microscopy, cryo-electron microscopy, and fluorescence
+          imaging. Distinct from Analytics & Methods, which centers on
+          spectrometry, chromatography, and separations. The closest OSTI
+          subject is the general "Other Instrumentation" category (47);
+          such datasets usually also carry a domain topic.
+        annotations:
+          osti_subject_category_code: "47"
   DatasetThemeEnum:
     description: >-
       High-level theme area for the dataset. This is specific

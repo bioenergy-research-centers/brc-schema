@@ -993,6 +993,16 @@
               "value": "97"
             }
           ]
+        },
+        {
+          "text": "Microscopy & Imaging",
+          "description": "Datasets produced by microscopy and imaging techniques, including atomic force microscopy, scanning and transmission electron microscopy, cryo-electron microscopy, and fluorescence imaging. Distinct from Analytics & Methods, which centers on spectrometry, chromatography, and separations. The closest OSTI subject is the general \"Other Instrumentation\" category (47); such datasets usually also carry a domain topic.",
+          "annotations": [
+            {
+              "tag": "osti_subject_category_code",
+              "value": "47"
+            }
+          ]
         }
       ]
     },
@@ -4346,9 +4356,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-06-22T15:23:43",
-  "source_file_size": 36297,
-  "generation_date": "2026-06-22T15:23:52",
+  "source_file_date": "2026-06-22T15:40:56",
+  "source_file_size": 36900,
+  "generation_date": "2026-06-22T15:41:30",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
