@@ -1,9 +1,9 @@
 # Auto generated from osti_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-22T16:38:10
+# Generation date: 2026-06-22T16:46:13
 # Schema: osti_schema
 #
 # id: https://w3id.org/brc/osti_schema
-# description: This schema is a LinkML representation of the OSTI Submission Metadata schema, as described here: https://www.osti.gov/elink2api/ and here: https://www.osti.gov/elink2api/record-schema OSTI uses the E-Link API infrastructure. This schema corresponds to the E-Link 2.0 API (2.11.0). It also contains some deprecated fields to support backward compatibility with older records (e.g., article_type has been replaced by product_type, but some records still use the former).
+# description: This schema is a LinkML representation of the OSTI Submission Metadata schema, as described here: https://www.osti.gov/elink2api/ and here: https://www.osti.gov/elink2api/record-schema OSTI uses the E-Link API infrastructure. This schema corresponds to the E-Link 2.0 API (2.13.0). It also contains some deprecated fields to support backward compatibility with older records (e.g., article_type has been replaced by product_type, but some records still use the former).
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 
 import dataclasses
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Float, In
 from linkml_runtime.utils.metamodelcore import Bool, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "2.11.0"
+version = "2.13.0"
 
 # Namespaces
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
@@ -123,6 +123,9 @@ class Record(YAMLRoot):
     revision: Optional[int] = None
     workflow_status: Optional[Union[str, "WorkflowStatusEnum"]] = None
     access_limitation_other: Optional[str] = None
+    cui_basic_categories: Optional[Union[str, list[str]]] = empty_list()
+    cui_specified_categories: Optional[Union[str, list[str]]] = empty_list()
+    cui_limited_dissemination_controls: Optional[Union[str, list[str]]] = empty_list()
     added_by: Optional[int] = None
     added_by_email: Optional[str] = None
     added_by_name: Optional[str] = None
@@ -283,6 +286,18 @@ class Record(YAMLRoot):
 
         if self.access_limitation_other is not None and not isinstance(self.access_limitation_other, str):
             self.access_limitation_other = str(self.access_limitation_other)
+
+        if not isinstance(self.cui_basic_categories, list):
+            self.cui_basic_categories = [self.cui_basic_categories] if self.cui_basic_categories is not None else []
+        self.cui_basic_categories = [v if isinstance(v, str) else str(v) for v in self.cui_basic_categories]
+
+        if not isinstance(self.cui_specified_categories, list):
+            self.cui_specified_categories = [self.cui_specified_categories] if self.cui_specified_categories is not None else []
+        self.cui_specified_categories = [v if isinstance(v, str) else str(v) for v in self.cui_specified_categories]
+
+        if not isinstance(self.cui_limited_dissemination_controls, list):
+            self.cui_limited_dissemination_controls = [self.cui_limited_dissemination_controls] if self.cui_limited_dissemination_controls is not None else []
+        self.cui_limited_dissemination_controls = [v if isinstance(v, str) else str(v) for v in self.cui_limited_dissemination_controls]
 
         if self.added_by is not None and not isinstance(self.added_by, int):
             self.added_by = int(self.added_by)
@@ -1931,6 +1946,15 @@ slots.record__access_limitations = Slot(uri=OSTI.access_limitations, name="recor
 
 slots.record__access_limitation_other = Slot(uri=OSTI.access_limitation_other, name="record__access_limitation_other", curie=OSTI.curie('access_limitation_other'),
                    model_uri=OSTI.record__access_limitation_other, domain=None, range=Optional[str])
+
+slots.record__cui_basic_categories = Slot(uri=OSTI.cui_basic_categories, name="record__cui_basic_categories", curie=OSTI.curie('cui_basic_categories'),
+                   model_uri=OSTI.record__cui_basic_categories, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__cui_specified_categories = Slot(uri=OSTI.cui_specified_categories, name="record__cui_specified_categories", curie=OSTI.curie('cui_specified_categories'),
+                   model_uri=OSTI.record__cui_specified_categories, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.record__cui_limited_dissemination_controls = Slot(uri=OSTI.cui_limited_dissemination_controls, name="record__cui_limited_dissemination_controls", curie=OSTI.curie('cui_limited_dissemination_controls'),
+                   model_uri=OSTI.record__cui_limited_dissemination_controls, domain=None, range=Optional[Union[str, list[str]]])
 
 slots.record__added_by = Slot(uri=OSTI.added_by, name="record__added_by", curie=OSTI.curie('added_by'),
                    model_uri=OSTI.record__added_by, domain=None, range=Optional[int])

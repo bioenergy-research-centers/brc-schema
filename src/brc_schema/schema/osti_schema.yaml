@@ -8,12 +8,12 @@ description: >-
   and here:
   https://www.osti.gov/elink2api/record-schema
   OSTI uses the E-Link API infrastructure.
-  This schema corresponds to the E-Link 2.0 API (2.11.0).
+  This schema corresponds to the E-Link 2.0 API (2.13.0).
   It also contains some deprecated fields to support
   backward compatibility with older records (e.g., article_type
   has been replaced by product_type, but some records still
   use the former).
-version: "2.11.0"
+version: "2.13.0"
 prefixes:
   linkml: https://w3id.org/linkml/
   osti: https://www.osti.gov/biblio/
@@ -125,6 +125,26 @@ classes:
         range: string
         examples:
           - value: "Restricted to US Distribution Only by DOE Order."
+      cui_basic_categories:
+        description: >-
+          For CUI marked records, one or more CUI "Basic" category code
+          indicators. See examples in OSTI online help
+          (https://www.osti.gov/elink/help#cui-categories).
+        range: string
+        multivalued: true
+      cui_specified_categories:
+        description: >-
+          For CUI marked records, one or more CUI "Specified" category code
+          indicators. See examples in OSTI online help
+          (https://www.osti.gov/elink/help#cui-categories).
+        range: string
+        multivalued: true
+      cui_limited_dissemination_controls:
+        description: >-
+          For CUI marked records, one or more CUI limited dissemination
+          control code indicators.
+        range: string
+        multivalued: true
       added_by:
         description: >-
           E-Link user ID that initially entered this record.
