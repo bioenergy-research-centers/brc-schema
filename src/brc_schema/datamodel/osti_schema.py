@@ -1,5 +1,5 @@
 # Auto generated from osti_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-04-22T18:37:43
+# Generation date: 2026-06-22T16:38:10
 # Schema: osti_schema
 #
 # id: https://w3id.org/brc/osti_schema
@@ -1666,6 +1666,226 @@ class GeolocationType(EnumDefinitionImpl):
         name="GeolocationType",
     )
 
+class SubjectCategoryEnum(EnumDefinitionImpl):
+    """
+    Controlled list of OSTI subject categories. Each permissible value is the two-character subject category code; its
+    description is the official category name. Provided as a reference for the `subject_category_code` slot (which is
+    not bound to this enum because OSTI also accepts unpadded codes, e.g. "2"). Full scope notes for each category are
+    available from the source. Source: https://www.osti.gov/elink/authorities/subject (may require an OSTI E-Link
+    login).
+    """
+    _defn = EnumDefinition(
+        name="SubjectCategoryEnum",
+        description="""Controlled list of OSTI subject categories. Each permissible value is the two-character subject category code; its description is the official category name. Provided as a reference for the `subject_category_code` slot (which is not bound to this enum because OSTI also accepts unpadded codes, e.g. \"2\"). Full scope notes for each category are available from the source. Source: https://www.osti.gov/elink/authorities/subject (may require an OSTI E-Link login).""",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "01",
+            PermissibleValue(
+                text="01",
+                description="Coal, Lignite, and Peat"))
+        setattr(cls, "02",
+            PermissibleValue(
+                text="02",
+                description="Petroleum"))
+        setattr(cls, "03",
+            PermissibleValue(
+                text="03",
+                description="Natural Gas"))
+        setattr(cls, "04",
+            PermissibleValue(
+                text="04",
+                description="Oil Shales and Tar Sands"))
+        setattr(cls, "07",
+            PermissibleValue(
+                text="07",
+                description="Isotope and Radiation Sources"))
+        setattr(cls, "08",
+            PermissibleValue(
+                text="08",
+                description="Hydrogen"))
+        setattr(cls, "09",
+            PermissibleValue(
+                text="09",
+                description="Biomass Fuels"))
+        setattr(cls, "10",
+            PermissibleValue(
+                text="10",
+                description="Synthetic Fuels"))
+        setattr(cls, "11",
+            PermissibleValue(
+                text="11",
+                description="Nuclear Fuel Cycle and Fuel Materials"))
+        setattr(cls, "12",
+            PermissibleValue(
+                text="12",
+                description="Management of Radioactive and Non-Radioactive Wastes from Nuclear Facilities"))
+        setattr(cls, "13",
+            PermissibleValue(
+                text="13",
+                description="Hydro Energy"))
+        setattr(cls, "14",
+            PermissibleValue(
+                text="14",
+                description="Solar Energy"))
+        setattr(cls, "15",
+            PermissibleValue(
+                text="15",
+                description="Geothermal Energy"))
+        setattr(cls, "16",
+            PermissibleValue(
+                text="16",
+                description="Tidal and Wave Power"))
+        setattr(cls, "17",
+            PermissibleValue(
+                text="17",
+                description="Wind Energy"))
+        setattr(cls, "20",
+            PermissibleValue(
+                text="20",
+                description="Fossil-Fueled Power Plants"))
+        setattr(cls, "21",
+            PermissibleValue(
+                text="21",
+                description="Specific Nuclear Reactors and Associated Plants"))
+        setattr(cls, "22",
+            PermissibleValue(
+                text="22",
+                description="General Studies of Nuclear Reactors"))
+        setattr(cls, "24",
+            PermissibleValue(
+                text="24",
+                description="Power Transmission and Distribution"))
+        setattr(cls, "25",
+            PermissibleValue(
+                text="25",
+                description="Energy Storage"))
+        setattr(cls, "29",
+            PermissibleValue(
+                text="29",
+                description="Energy Planning, Policy, and Economy"))
+        setattr(cls, "30",
+            PermissibleValue(
+                text="30",
+                description="Direct Energy Conversion"))
+        setattr(cls, "32",
+            PermissibleValue(
+                text="32",
+                description="Energy Conservation, Consumption, and Utilization"))
+        setattr(cls, "33",
+            PermissibleValue(
+                text="33",
+                description="Advanced Propulsion Systems"))
+        setattr(cls, "36",
+            PermissibleValue(
+                text="36",
+                description="Materials Science"))
+        setattr(cls, "37",
+            PermissibleValue(
+                text="37",
+                description="Inorganic, Organic, Physical, and Analytical Chemistry"))
+        setattr(cls, "38",
+            PermissibleValue(
+                text="38",
+                description="Radiation Chemistry, Radiochemistry, and Nuclear Chemistry"))
+        setattr(cls, "42",
+            PermissibleValue(
+                text="42",
+                description="Engineering"))
+        setattr(cls, "43",
+            PermissibleValue(
+                text="43",
+                description="Particle Accelerators"))
+        setattr(cls, "45",
+            PermissibleValue(
+                text="45",
+                description="Military Technology, Weaponry, and National Defense"))
+        setattr(cls, "46",
+            PermissibleValue(
+                text="46",
+                description="Instrumentation Related to Nuclear Science and Technology"))
+        setattr(cls, "47",
+            PermissibleValue(
+                text="47",
+                description="Other Instrumentation"))
+        setattr(cls, "54",
+            PermissibleValue(
+                text="54",
+                description="Environmental Sciences"))
+        setattr(cls, "58",
+            PermissibleValue(
+                text="58",
+                description="Geosciences"))
+        setattr(cls, "59",
+            PermissibleValue(
+                text="59",
+                description="Basic Biological Sciences"))
+        setattr(cls, "60",
+            PermissibleValue(
+                text="60",
+                description="Applied Life Sciences"))
+        setattr(cls, "61",
+            PermissibleValue(
+                text="61",
+                description="Radiation Protection and Dosimetry"))
+        setattr(cls, "62",
+            PermissibleValue(
+                text="62",
+                description="Radiology and Nuclear Medicine"))
+        setattr(cls, "63",
+            PermissibleValue(
+                text="63",
+                description="""Radiation, Thermal, and Other Environmental Pollutant Effects on Living Organisms and Biological Materials"""))
+        setattr(cls, "70",
+            PermissibleValue(
+                text="70",
+                description="Plasma Physics and Fusion Technology"))
+        setattr(cls, "71",
+            PermissibleValue(
+                text="71",
+                description="Classical and Quantum Mechanics, General Physics"))
+        setattr(cls, "72",
+            PermissibleValue(
+                text="72",
+                description="Physics of Elementary Particles and Fields"))
+        setattr(cls, "73",
+            PermissibleValue(
+                text="73",
+                description="Nuclear Physics and Radiation Physics"))
+        setattr(cls, "74",
+            PermissibleValue(
+                text="74",
+                description="Atomic and Molecular Physics"))
+        setattr(cls, "75",
+            PermissibleValue(
+                text="75",
+                description="Condensed Matter Physics, Superconductivity and Superfluidity"))
+        setattr(cls, "77",
+            PermissibleValue(
+                text="77",
+                description="Nanoscience and Nanotechnology"))
+        setattr(cls, "79",
+            PermissibleValue(
+                text="79",
+                description="Astronomy and Astrophysics"))
+        setattr(cls, "96",
+            PermissibleValue(
+                text="96",
+                description="Knowledge Management and Preservation"))
+        setattr(cls, "97",
+            PermissibleValue(
+                text="97",
+                description="Mathematics and Computing"))
+        setattr(cls, "98",
+            PermissibleValue(
+                text="98",
+                description="Nuclear Disarmament, Safeguards, and Physical Protection"))
+        setattr(cls, "99",
+            PermissibleValue(
+                text="99",
+                description="General and Miscellaneous"))
+
 # Slots
 class slots:
     pass
@@ -2310,3 +2530,4 @@ slots.affiliation__name = Slot(uri=OSTI.name, name="affiliation__name", curie=OS
 
 slots.affiliation__ror_id = Slot(uri=OSTI.ror_id, name="affiliation__ror_id", curie=OSTI.curie('ror_id'),
                    model_uri=OSTI.affiliation__ror_id, domain=None, range=Optional[str])
+

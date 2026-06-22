@@ -632,7 +632,8 @@ classes:
           - value: "Also available at https://sample.com/document/report.pdf"
       subject_category_code:
         description: >-
-          Set two-character subject category code values for this record
+          Set two-character subject category code values for this record.
+          See SubjectCategoryEnum for the controlled list of codes and names.
         range: string
         examples:
           - value: "2"
@@ -2028,3 +2029,122 @@ enums:
       POINT:
       BOX:
       POLYGON:
+
+  SubjectCategoryEnum:
+    description: >-
+      Controlled list of OSTI subject categories. Each permissible value is
+      the two-character subject category code; its description is the
+      official category name. Provided as a reference for the
+      `subject_category_code` slot (which is not bound to this enum because
+      OSTI also accepts unpadded codes, e.g. "2"). Full scope notes for each
+      category are available from the source.
+      Source: https://www.osti.gov/elink/authorities/subject
+      (may require an OSTI E-Link login).
+    permissible_values:
+      "01":
+        description: Coal, Lignite, and Peat
+      "02":
+        description: Petroleum
+      "03":
+        description: Natural Gas
+      "04":
+        description: Oil Shales and Tar Sands
+      "07":
+        description: Isotope and Radiation Sources
+      "08":
+        description: Hydrogen
+      "09":
+        description: Biomass Fuels
+      "10":
+        description: Synthetic Fuels
+      "11":
+        description: Nuclear Fuel Cycle and Fuel Materials
+      "12":
+        description: >-
+          Management of Radioactive and Non-Radioactive Wastes from Nuclear
+          Facilities
+      "13":
+        description: Hydro Energy
+      "14":
+        description: Solar Energy
+      "15":
+        description: Geothermal Energy
+      "16":
+        description: Tidal and Wave Power
+      "17":
+        description: Wind Energy
+      "20":
+        description: Fossil-Fueled Power Plants
+      "21":
+        description: Specific Nuclear Reactors and Associated Plants
+      "22":
+        description: General Studies of Nuclear Reactors
+      "24":
+        description: Power Transmission and Distribution
+      "25":
+        description: Energy Storage
+      "29":
+        description: Energy Planning, Policy, and Economy
+      "30":
+        description: Direct Energy Conversion
+      "32":
+        description: Energy Conservation, Consumption, and Utilization
+      "33":
+        description: Advanced Propulsion Systems
+      "36":
+        description: Materials Science
+      "37":
+        description: Inorganic, Organic, Physical, and Analytical Chemistry
+      "38":
+        description: Radiation Chemistry, Radiochemistry, and Nuclear Chemistry
+      "42":
+        description: Engineering
+      "43":
+        description: Particle Accelerators
+      "45":
+        description: Military Technology, Weaponry, and National Defense
+      "46":
+        description: Instrumentation Related to Nuclear Science and Technology
+      "47":
+        description: Other Instrumentation
+      "54":
+        description: Environmental Sciences
+      "58":
+        description: Geosciences
+      "59":
+        description: Basic Biological Sciences
+      "60":
+        description: Applied Life Sciences
+      "61":
+        description: Radiation Protection and Dosimetry
+      "62":
+        description: Radiology and Nuclear Medicine
+      "63":
+        description: >-
+          Radiation, Thermal, and Other Environmental Pollutant Effects on
+          Living Organisms and Biological Materials
+      "70":
+        description: Plasma Physics and Fusion Technology
+      "71":
+        description: Classical and Quantum Mechanics, General Physics
+      "72":
+        description: Physics of Elementary Particles and Fields
+      "73":
+        description: Nuclear Physics and Radiation Physics
+      "74":
+        description: Atomic and Molecular Physics
+      "75":
+        description: >-
+          Condensed Matter Physics, Superconductivity and Superfluidity
+      "77":
+        description: Nanoscience and Nanotechnology
+      "79":
+        description: Astronomy and Astrophysics
+      "96":
+        description: Knowledge Management and Preservation
+      "97":
+        description: Mathematics and Computing
+      "98":
+        description: Nuclear Disarmament, Safeguards, and Physical Protection
+      "99":
+        description: General and Miscellaneous
