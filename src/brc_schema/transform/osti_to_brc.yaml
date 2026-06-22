@@ -41,7 +41,7 @@ class_derivations:
       keywords:
         expr: "build_brc_keywords(keywords, subjects)"
       topic:
-        expr: "build_brc_topics(subject_category_code)"
+        expr: "build_brc_topics(subject_category_code, keywords, subjects)"
       journal_license_url:
         populated_from: journal_license_url
       journal_name:

@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-22T15:41:31
+# Generation date: 2026-06-22T16:00:16
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1061,6 +1061,12 @@ class DatasetTopicEnum(EnumDefinitionImpl):
     Chemistry = PermissibleValue(
         text="Chemistry",
         description="""Datasets related to inorganic, organic, physical, and analytical chemistry, including reaction mechanisms, catalysis, and chemical characterization. Distinct from Analytics & Methods, which centers on instrumentation and measurement technique.""")
+    Other = PermissibleValue(
+        text="Other",
+        description="""The dataset has an identifiable topic that none of the more specific values above captures. Use sparingly, and prefer a specific topic where one fits.""")
+    Unknown = PermissibleValue(
+        text="Unknown",
+        description="""A topic could not be determined for the dataset. Used as a placeholder for records imported from external sources (e.g. OSTI) that lack topic or subject information, pending curation. Carries no OSTI subject category code.""")
 
     _defn = EnumDefinition(
         name="DatasetTopicEnum",

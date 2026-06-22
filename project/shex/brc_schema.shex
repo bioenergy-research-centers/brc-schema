@@ -138,7 +138,8 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/DatasetTopicEnum#Chemistry>
              <https://w3id.org/brc/DatasetTopicEnum#Materials%20Science%20%26%20Bioproducts>
              <https://w3id.org/brc/DatasetTopicEnum#Computational%20Biology%20%26%20Modeling>
-             <https://w3id.org/brc/DatasetTopicEnum#Microscopy%20%26%20Imaging> ] + ;
+             <https://w3id.org/brc/DatasetTopicEnum#Microscopy%20%26%20Imaging> <https://w3id.org/brc/DatasetTopicEnum#Other>
+             <https://w3id.org/brc/DatasetTopicEnum#Unknown> ] + ;
           <theme> [ <https://w3id.org/brc/DatasetThemeEnum#Feedstock%20Development>
              <https://w3id.org/brc/DatasetThemeEnum#Deconstruction%20and%20Separation>
              <https://w3id.org/brc/DatasetThemeEnum#Conversion> <https://w3id.org/brc/DatasetThemeEnum#Sustainability> ] * ;

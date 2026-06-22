@@ -1003,6 +1003,14 @@
               "value": "47"
             }
           ]
+        },
+        {
+          "text": "Other",
+          "description": "The dataset has an identifiable topic that none of the more specific values above captures. Use sparingly, and prefer a specific topic where one fits."
+        },
+        {
+          "text": "Unknown",
+          "description": "A topic could not be determined for the dataset. Used as a placeholder for records imported from external sources (e.g. OSTI) that lack topic or subject information, pending curation. Carries no OSTI subject category code."
         }
       ]
     },
@@ -4356,9 +4364,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-06-22T15:40:56",
-  "source_file_size": 36900,
-  "generation_date": "2026-06-22T15:41:30",
+  "source_file_date": "2026-06-22T15:59:48",
+  "source_file_size": 37420,
+  "generation_date": "2026-06-22T16:00:15",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

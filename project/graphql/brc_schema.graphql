@@ -85,6 +85,8 @@ enum DatasetTopicEnum
     Materials_Science___AMPERSAND___Bioproducts
     Computational_Biology___AMPERSAND___Modeling
     Microscopy___AMPERSAND___Imaging
+    Other
+    Unknown
   }
 
 enum DatasetTypeCodes

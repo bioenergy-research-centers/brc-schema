@@ -578,7 +578,9 @@
                 "Chemistry",
                 "Materials Science & Bioproducts",
                 "Computational Biology & Modeling",
-                "Microscopy & Imaging"
+                "Microscopy & Imaging",
+                "Other",
+                "Unknown"
             ],
             "title": "DatasetTopicEnum",
             "type": "string"

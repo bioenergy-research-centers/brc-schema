@@ -71,6 +71,32 @@ OSTI_SUBJECT_TO_TOPIC = {
     "47": "Microscopy & Imaging",
 }
 
+# Canonical (lower-cased) OSTI labels for the subject codes we recognise.
+# Used to confirm a two-digit prefix in a free-text keyword (e.g.
+# "09 BIOMASS FUELS") really is an OSTI subject and not an incidental number
+# such as "37 degrees" or "55 mM".
+OSTI_SUBJECT_LABELS = {
+    "09": "biomass fuels",
+    "36": "materials science",
+    "37": "inorganic, organic, physical, and analytical chemistry",
+    "42": "engineering",
+    "47": "other instrumentation",
+    "54": "environmental sciences",
+    "55": "biology and medicine",
+    "59": "basic biological sciences",
+    "60": "applied life sciences",
+    "96": "knowledge management and preservation",
+    "97": "mathematics and computing",
+}
+
+# A keyword fragment that begins with a two-digit code followed by a word
+# boundary, e.g. "09 BIOMASS FUELS". The \b prevents matching "13C" or "16S".
+_OSTI_CODE_KEYWORD_RE = re.compile(r"^\s*(\d{2})\b\s*(.*)$")
+
+# Topic used when no OSTI subject information can be mapped, so the required
+# `topic` slot is always populated for imported records.
+UNKNOWN_TOPIC = "Unknown"
+
 
 def _attr(obj, name, default=None):
     if obj is None:
@@ -261,25 +287,68 @@ def _topic_text(topic):
     return str(text).strip() if text is not None else None
 
 
-def build_brc_topics(subject_category_code):
-    """Map OSTI subject category codes to BRC topics.
+def _codes_from_keywords(keywords):
+    """Pull OSTI subject codes out of free-text keyword strings.
 
-    OSTI stores codes either with or without a leading zero (e.g. "9" or
-    "09"), so both forms are accepted. Codes with no known mapping are
-    skipped. Returns None when nothing maps, in which case the resulting
-    record will need a topic assigned by hand (the slot is required).
+    OSTI records frequently carry the subject as text such as
+    "09 BIOMASS FUELS" in their keyword list (sometimes comma-joined into a
+    single string). A leading two-digit number is only treated as a code
+    when the trailing text matches the known OSTI label for that code, so
+    incidental keywords like "37 degrees" are not misread as subjects.
     """
-    topics = []
-    for code in _as_list(subject_category_code):
-        if code is None:
+    codes = []
+    for item in _as_list(keywords):
+        if not isinstance(item, str):
             continue
-        normalized = str(code).strip()
-        topic = OSTI_SUBJECT_TO_TOPIC.get(normalized) or OSTI_SUBJECT_TO_TOPIC.get(
-            normalized.zfill(2)
-        )
+        for fragment in item.split(","):
+            match = _OSTI_CODE_KEYWORD_RE.match(fragment)
+            if not match:
+                continue
+            code, rest = match.group(1), match.group(2).strip().lower()
+            label = OSTI_SUBJECT_LABELS.get(code)
+            if label and rest and (label.startswith(rest) or rest.startswith(label)):
+                codes.append(code)
+    return codes
+
+
+def _topic_for_code(code):
+    """Resolve a single OSTI code (string) to a BRC topic, or None.
+
+    Accepts codes with or without a leading zero (e.g. "9" or "09") and
+    resolves longer drill-down codes (e.g. "550200") to their two-digit
+    parent.
+    """
+    if not code:
+        return None
+    topic = OSTI_SUBJECT_TO_TOPIC.get(code) or OSTI_SUBJECT_TO_TOPIC.get(code.zfill(2))
+    if not topic and code.isdigit() and len(code) > 2:
+        topic = OSTI_SUBJECT_TO_TOPIC.get(code[:2])
+    return topic
+
+
+def build_brc_topics(subject_category_code, keywords=None, subjects=None):
+    """Map OSTI subject information to BRC topics.
+
+    Topics are derived, in order of preference, from the OSTI
+    ``subject_category_code`` field, any subject codes embedded in
+    ``keywords`` (e.g. "09 BIOMASS FUELS"), and the legacy ``subjects``
+    field. When nothing maps, returns ["Unknown"] so the required ``topic``
+    slot is always populated; a curator can refine it later (or use "Other"
+    for an identifiable topic that no existing value captures).
+    """
+    raw_codes = [
+        str(value).strip()
+        for value in _as_list(subject_category_code) + _as_list(subjects)
+        if value is not None
+    ]
+    raw_codes.extend(_codes_from_keywords(keywords))
+
+    topics = []
+    for code in raw_codes:
+        topic = _topic_for_code(code)
         if topic and topic not in topics:
             topics.append(topic)
-    return topics or None
+    return topics or [UNKNOWN_TOPIC]
 
 
 def build_osti_subject_category_codes(topic):

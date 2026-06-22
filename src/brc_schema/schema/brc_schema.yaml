@@ -1009,6 +1009,17 @@ enums:
           such datasets usually also carry a domain topic.
         annotations:
           osti_subject_category_code: "47"
+      Other:
+        description: >-
+          The dataset has an identifiable topic that none of the more
+          specific values above captures. Use sparingly, and prefer a
+          specific topic where one fits.
+      Unknown:
+        description: >-
+          A topic could not be determined for the dataset. Used as a
+          placeholder for records imported from external sources (e.g. OSTI)
+          that lack topic or subject information, pending curation. Carries
+          no OSTI subject category code.
   DatasetThemeEnum:
     description: >-
       High-level theme area for the dataset. This is specific
