@@ -880,7 +880,7 @@
           "annotations": [
             {
               "tag": "osti_subject_category_code",
-              "value": "55"
+              "value": "59"
             }
           ]
         },
@@ -910,7 +910,7 @@
           "annotations": [
             {
               "tag": "osti_subject_category_code",
-              "value": "96"
+              "value": "37"
             }
           ]
         },
@@ -920,7 +920,7 @@
           "annotations": [
             {
               "tag": "osti_subject_category_code",
-              "value": "55"
+              "value": "59"
             }
           ]
         },
@@ -4364,9 +4364,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-06-22T15:59:48",
+  "source_file_date": "2026-06-22T16:27:07",
   "source_file_size": 37420,
-  "generation_date": "2026-06-22T16:00:15",
+  "generation_date": "2026-06-22T16:27:21",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

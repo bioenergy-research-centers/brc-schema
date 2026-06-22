@@ -35,16 +35,17 @@ BRC_ALIASES = {
     "JOINT BIOENERGY INSTITUTE": "JBEI",
 }
 
-# Mapping between BRC DatasetTopicEnum values and OSTI subject category codes.
-# Sourced from the bioenergy.org #236 investigation. Several topics share a
-# code (e.g. Genetic Engineering and Enzymes & Proteins both map to "55"),
+# Mapping from BRC DatasetTopicEnum values to the OSTI subject category code
+# emitted on submission. Codes follow the official OSTI subject category list
+# (SubjectCategories.pdf). Several topics deliberately share a code (e.g.
+# Genetic Engineering, Enzymes & Proteins, and Microbiology all map to "59"),
 # so the reverse mapping below picks a single canonical topic per code.
 TOPIC_TO_OSTI_SUBJECT = {
-    "Genetic Engineering": "55",
+    "Genetic Engineering": "59",
     "Plant Biology": "60",
     "Microbiology": "59",
-    "Analytics & Methods": "96",
-    "Enzymes & Proteins": "55",
+    "Analytics & Methods": "37",
+    "Enzymes & Proteins": "59",
     "Biomass & Feedstock": "09",
     "Bioenergy Production": "09",
     "Process Engineering": "42",
@@ -55,37 +56,50 @@ TOPIC_TO_OSTI_SUBJECT = {
     "Microscopy & Imaging": "47",
 }
 
-# Reverse mapping: OSTI subject category code -> canonical BRC topic. Codes
-# that several topics share resolve to the most general topic for that code.
+# Reverse mapping: OSTI subject category code -> canonical BRC topic, used when
+# importing OSTI records. Includes the codes our topics emit plus extra
+# bioenergy-adjacent codes (and the legacy "55") that turn up on real OSTI
+# records, so imports land on a real topic instead of "Unknown". These extra
+# codes are import-only; they are never emitted by TOPIC_TO_OSTI_SUBJECT.
 OSTI_SUBJECT_TO_TOPIC = {
-    "55": "Genetic Engineering",
-    "60": "Plant Biology",
-    "59": "Microbiology",
-    "96": "Analytics & Methods",
-    "09": "Biomass & Feedstock",
-    "42": "Process Engineering",
-    "54": "Environmental Science & Sustainability",
-    "37": "Chemistry",
-    "36": "Materials Science & Bioproducts",
-    "97": "Computational Biology & Modeling",
-    "47": "Microscopy & Imaging",
+    "08": "Bioenergy Production",       # Hydrogen
+    "09": "Biomass & Feedstock",        # Biomass Fuels
+    "10": "Bioenergy Production",       # Synthetic Fuels
+    "36": "Materials Science & Bioproducts",  # Materials Science
+    "37": "Chemistry",                  # Inorganic/Organic/Physical/Analytical Chemistry
+    "38": "Chemistry",                  # Radiation/Radio/Nuclear Chemistry
+    "42": "Process Engineering",        # Engineering
+    "47": "Microscopy & Imaging",       # Other Instrumentation
+    "54": "Environmental Science & Sustainability",  # Environmental Sciences
+    "55": "Microbiology",               # legacy Biology & Medicine, Basic Studies
+    "58": "Environmental Science & Sustainability",  # Geosciences
+    "59": "Microbiology",               # Basic Biological Sciences
+    "60": "Plant Biology",              # Applied Life Sciences
+    "75": "Materials Science & Bioproducts",  # Condensed Matter Physics
+    "77": "Materials Science & Bioproducts",  # Nanoscience and Nanotechnology
+    "97": "Computational Biology & Modeling",  # Mathematics and Computing
 }
 
 # Canonical (lower-cased) OSTI labels for the subject codes we recognise.
 # Used to confirm a two-digit prefix in a free-text keyword (e.g.
 # "09 BIOMASS FUELS") really is an OSTI subject and not an incidental number
-# such as "37 degrees" or "55 mM".
+# such as "37 degrees" or "55 mM". Mirrors OSTI_SUBJECT_TO_TOPIC.
 OSTI_SUBJECT_LABELS = {
+    "08": "hydrogen",
     "09": "biomass fuels",
+    "10": "synthetic fuels",
     "36": "materials science",
     "37": "inorganic, organic, physical, and analytical chemistry",
+    "38": "radiation chemistry, radiochemistry, and nuclear chemistry",
     "42": "engineering",
     "47": "other instrumentation",
     "54": "environmental sciences",
     "55": "biology and medicine",
+    "58": "geosciences",
     "59": "basic biological sciences",
     "60": "applied life sciences",
-    "96": "knowledge management and preservation",
+    "75": "condensed matter physics, superconductivity and superfluidity",
+    "77": "nanoscience and nanotechnology",
     "97": "mathematics and computing",
 }
 

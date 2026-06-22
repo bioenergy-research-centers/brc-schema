@@ -922,7 +922,7 @@ enums:
           design and construction of genetic constructs,
           plasmids, and engineered organisms.
         annotations:
-          osti_subject_category_code: "55"
+          osti_subject_category_code: "59"
       Plant Biology:
         description: >-
           Datasets related to plant biology, including
@@ -941,14 +941,14 @@ enums:
           including mass spectrometry, chromatography, and other
           experimental methods.
         annotations:
-          osti_subject_category_code: "96"
+          osti_subject_category_code: "37"
       Enzymes & Proteins:
         description: >-
           Datasets related to enzymes and proteins, including
           enzyme characterization, protein structure, and
           protein engineering.
         annotations:
-          osti_subject_category_code: "55"
+          osti_subject_category_code: "59"
       Biomass & Feedstock:
         description: >-
           Datasets related to biomass and feedstock, including
