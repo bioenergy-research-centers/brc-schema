@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: category - brc-schema</title>
+        <title>Slot: category (DEPRECATED) - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-category" class="md-skip">
+        <a href="#slot-category-deprecated" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: category
+              Slot: category (DEPRECATED)
             
           </span>
         </div>
@@ -554,7 +554,7 @@
   
 
 
-<h1 id="slot-category">Slot: category</h1>
+<h1 id="slot-category-deprecated">Slot: category  <span style="color: red;"><strong> (DEPRECATED) </strong></span></h1>
 <p><em>Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.</em></p>
 <p>URI: <a href="https://w3id.org/brc/category">brc:category</a>
 Alias: category</p>
@@ -616,6 +616,8 @@ Alias: category</p>
 <pre><code class="language-yaml">name: category
 description: Category of the dataset. This is specific to the BRCs and is not intended
   to be an exhaustive list of categories.
+deprecated: Use the `topic` slot instead. The `category` slot is subsumed by `topic`
+  and is retained only for backward compatibility with existing data feeds.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 alias: category

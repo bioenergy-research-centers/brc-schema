@@ -544,7 +544,7 @@
 
 
 <h1 id="enum-datasettopicenum">Enum: DatasetTopicEnum</h1>
-<p><em>High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics.</em></p>
+<p><em>High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics. Where a close match exists, each value notes the corresponding OSTI subject category code (see https://www.osti.gov/) used when records are submitted to OSTI.</em></p>
 <p>URI: <a href="https://w3id.org/brc/DatasetTopicEnum">brc:DatasetTopicEnum</a></p>
 <h2 id="permissible-values">Permissible Values</h2>
 <table>
@@ -596,6 +596,41 @@
 <td>None</td>
 <td>Datasets related to process engineering, including process design, optimizati...</td>
 </tr>
+<tr>
+<td>Environmental Science &amp; Sustainability</td>
+<td>None</td>
+<td>Datasets related to environmental science and sustainability, including life-...</td>
+</tr>
+<tr>
+<td>Chemistry</td>
+<td>None</td>
+<td>Datasets related to inorganic, organic, physical, and analytical chemistry, i...</td>
+</tr>
+<tr>
+<td>Materials Science &amp; Bioproducts</td>
+<td>None</td>
+<td>Datasets related to materials science and bioproducts, including biomaterials...</td>
+</tr>
+<tr>
+<td>Computational Biology &amp; Modeling</td>
+<td>None</td>
+<td>Datasets related to computational biology, modeling, and data science, includ...</td>
+</tr>
+<tr>
+<td>Microscopy &amp; Imaging</td>
+<td>None</td>
+<td>Datasets produced by microscopy and imaging techniques, including atomic forc...</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>None</td>
+<td>The dataset has an identifiable topic that none of the more specific values a...</td>
+</tr>
+<tr>
+<td>Unknown</td>
+<td>None</td>
+<td>A topic could not be determined for the dataset</td>
+</tr>
 </tbody>
 </table>
 <h2 id="slots">Slots</h2>
@@ -623,7 +658,9 @@
 
 <pre><code class="language-yaml">name: DatasetTopicEnum
 description: High-level topic area for the dataset. This is specific to the BRCs and
-  is not intended to be an exhaustive list of topics.
+  is not intended to be an exhaustive list of topics. Where a close match exists,
+  each value notes the corresponding OSTI subject category code (see https://www.osti.gov/)
+  used when records are submitted to OSTI.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 permissible_values:
@@ -631,34 +668,123 @@ permissible_values:
     text: Genetic Engineering
     description: Datasets related to genetic engineering, including design and construction
       of genetic constructs, plasmids, and engineered organisms.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '59'
   Plant Biology:
     text: Plant Biology
     description: Datasets related to plant biology, including plant physiology, growth,
       and development.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '60'
   Microbiology:
     text: Microbiology
     description: Datasets related to microbiology, including microbial physiology,
       growth, and development.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '59'
   Analytics &amp; Methods:
     text: Analytics &amp; Methods
     description: Datasets related to analytical techniques and methods, including
       mass spectrometry, chromatography, and other experimental methods.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '37'
   Enzymes &amp; Proteins:
     text: Enzymes &amp; Proteins
     description: Datasets related to enzymes and proteins, including enzyme characterization,
       protein structure, and protein engineering.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '59'
   Biomass &amp; Feedstock:
     text: Biomass &amp; Feedstock
     description: Datasets related to biomass and feedstock, including feedstock characterization,
       biomass composition, and biomass conversion.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: 09
   Bioenergy Production:
     text: Bioenergy Production
     description: Datasets related to bioenergy production, including biofuel production,
       bioprocessing, and bioenergy systems.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: 09
   Process Engineering:
     text: Process Engineering
     description: Datasets related to process engineering, including process design,
       optimization, and control.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '42'
+  Environmental Science &amp; Sustainability:
+    text: Environmental Science &amp; Sustainability
+    description: Datasets related to environmental science and sustainability, including
+      life-cycle assessment, land use, soil and water quality, greenhouse gas emissions,
+      and ecological impacts.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '54'
+  Chemistry:
+    text: Chemistry
+    description: Datasets related to inorganic, organic, physical, and analytical
+      chemistry, including reaction mechanisms, catalysis, and chemical characterization.
+      Distinct from Analytics &amp; Methods, which centers on instrumentation and measurement
+      technique.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '37'
+  Materials Science &amp; Bioproducts:
+    text: Materials Science &amp; Bioproducts
+    description: Datasets related to materials science and bioproducts, including
+      biomaterials, polymers, composites, and material property characterization.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '36'
+  Computational Biology &amp; Modeling:
+    text: Computational Biology &amp; Modeling
+    description: Datasets related to computational biology, modeling, and data science,
+      including bioinformatics, simulation, and kinetic or techno-economic modeling.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '97'
+  Microscopy &amp; Imaging:
+    text: Microscopy &amp; Imaging
+    description: Datasets produced by microscopy and imaging techniques, including
+      atomic force microscopy, scanning and transmission electron microscopy, cryo-electron
+      microscopy, and fluorescence imaging. Distinct from Analytics &amp; Methods, which
+      centers on spectrometry, chromatography, and separations. The closest OSTI subject
+      is the general &quot;Other Instrumentation&quot; category (47); such datasets usually
+      also carry a domain topic.
+    annotations:
+      osti_subject_category_code:
+        tag: osti_subject_category_code
+        value: '47'
+  Other:
+    text: Other
+    description: The dataset has an identifiable topic that none of the more specific
+      values above captures. Use sparingly, and prefer a specific topic where one
+      fits.
+  Unknown:
+    text: Unknown
+    description: A topic could not be determined for the dataset. Used as a placeholder
+      for records imported from external sources (e.g. OSTI) that lack topic or subject
+      information, pending curation. Carries no OSTI subject category code.
 
 </code></pre>
 
