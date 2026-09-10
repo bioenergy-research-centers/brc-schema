@@ -1181,6 +1181,16 @@
           ]
         },
         {
+          "text": "Interactive Tree of Life",
+          "description": "Interactive Tree of Life",
+          "in_subset": [
+            "sequence"
+          ],
+          "see_also": [
+            "https://itol.embl.de/"
+          ]
+        },
+        {
           "text": "iProX",
           "description": "Integrated Proteome Resources",
           "comments": [
@@ -4364,9 +4374,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-06-22T16:27:07",
+  "source_file_date": "2026-06-22T17:06:43",
   "source_file_size": 37420,
-  "generation_date": "2026-06-22T16:27:21",
+  "generation_date": "2026-09-10T13:43:46",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",
