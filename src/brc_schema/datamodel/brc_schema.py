@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-22T16:27:23
+# Generation date: 2026-09-10T13:43:47
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1239,6 +1239,10 @@ class RepositoryEnum(EnumDefinitionImpl):
             PermissibleValue(
                 text="Illinois Data Bank",
                 description="Illinois Data Bank"))
+        setattr(cls, "Interactive Tree of Life",
+            PermissibleValue(
+                text="Interactive Tree of Life",
+                description="Interactive Tree of Life"))
         setattr(cls, "JGI Data Portal",
             PermissibleValue(
                 text="JGI Data Portal",

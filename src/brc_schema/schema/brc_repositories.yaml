@@ -191,6 +191,12 @@ enums:
           - https://databank.illinois.edu/
         in_subset:
           - general_purpose
+      Interactive Tree of Life:
+        description: "Interactive Tree of Life"
+        see_also:
+          - https://itol.embl.de/
+        in_subset:
+          - sequence
       iProX:
         description: "Integrated Proteome Resources"
         see_also:
