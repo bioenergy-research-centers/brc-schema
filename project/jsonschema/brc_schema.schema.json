@@ -221,6 +221,7 @@
                 },
                 "bibliographicCitation": {
                     "description": "Citation for the dataset.",
+                    "format": "uri",
                     "type": [
                         "string",
                         "null"
@@ -319,6 +320,7 @@
                 },
                 "dataset_url": {
                     "description": "URL for the dataset landing page.",
+                    "format": "uri",
                     "type": [
                         "string",
                         "null"

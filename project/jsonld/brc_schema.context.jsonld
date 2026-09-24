@@ -324,7 +324,6 @@
          "@id": "fundingOrganization"
       },
       "affiliation": {
-         "@type": "@id",
          "@id": "affiliation"
       },
       "email": {
