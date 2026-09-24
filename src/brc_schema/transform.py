@@ -644,9 +644,10 @@ _IMG_TAXON_PATTERNS = [
 ORGANISMS_PATH = TRANSFORM_DIR / "organisms.yaml"
 _organism_index = None
 
-# "Genus epithet ...", also "Genus x epithet" for hybrids. Used only as a
-# last resort, with the genus confirmed by a taxonomy lookup.
-_BINOMIAL_RE = re.compile(r"^([A-Z][a-z]+)\s+(?:[x×]\s+)?[A-Za-z][a-z-]+\b")
+# "Genus epithet <more>", also "Genus x epithet <more>" for hybrids, e.g.
+# "Zymomonas mobilis 2032". Used only as a last resort: the two-word prefix
+# must itself be a known taxon, so "Sorghum genomics" is not an organism.
+_BINOMIAL_PREFIX_RE = re.compile(r"^([A-Z][a-z]+\s+(?:[x×]\s+)?[A-Za-z][a-z-]+)\s+\S")
 
 
 def _normalize_organism_name(name):
@@ -744,12 +745,16 @@ def _resolve_organism_keyword(keyword):
             return {"scientificName": label or keyword, "NCBITaxID": taxid}, taxids
         return {"scientificName": keyword}, taxids
 
-    match = _BINOMIAL_RE.match(keyword)
-    if hits is not None and match:
-        genus = match.group(1)
-        genus_hits = taxonomy.search_name(genus) or ()
-        if any(label == genus for _, label in genus_hits):
-            return {"scientificName": keyword}, set()
+    match = _BINOMIAL_PREFIX_RE.match(keyword)
+    if match:
+        prefix = match.group(1)
+        prefix_record = by_name.get(_normalize_organism_name(prefix))
+        if prefix_record:
+            candidates = {prefix_record["NCBITaxID"]}
+        else:
+            candidates = {taxid for taxid, _ in taxonomy.search_name(prefix) or ()}
+        if candidates:
+            return {"scientificName": keyword}, candidates
     return None
 
 

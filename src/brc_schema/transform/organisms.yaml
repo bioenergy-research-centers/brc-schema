@@ -6,8 +6,9 @@
 #   3. An NCBI Taxonomy lookup through oaklib (OLS by default); see
 #      brc_schema.util.taxonomy. One exact label or synonym match gives an ID;
 #      several matches make the name ambiguous, so it is emitted without one.
-#   4. A keyword shaped like "Genus epithet ..." whose genus is a known NCBI
-#      taxon is emitted as a name only.
+#   4. A keyword shaped like "Genus epithet <more>" whose first two words are
+#      a known taxon (e.g. "Zymomonas mobilis 2032") is emitted as a name
+#      only. A known genus alone is not enough: "Sorghum genomics" is skipped.
 # Anything else is treated as an ordinary keyword and not as an organism.
 #
 # Matching is exact after case folding and whitespace normalisation, so

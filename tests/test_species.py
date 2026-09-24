@@ -134,13 +134,30 @@ def test_ambiguous_name_is_settled_by_identifier_in_metadata():
     assert species == [{"NCBITaxID": 4558, "scientificName": "Sorghum bicolor"}]
 
 
-def test_unmatched_binomial_with_known_genus_keeps_name():
+def test_unmatched_name_starting_with_known_species_keeps_name():
     species = build_brc_species(["Zymomonas mobilis 2032"], None, None)
     assert species == [{"scientificName": "Zymomonas mobilis 2032"}]
 
 
-def test_unmatched_binomial_with_unknown_genus_is_not_an_organism():
-    assert build_brc_species(["Carbon cycling"], None, None) is None
+def test_prefix_resolved_by_lookup_keeps_name():
+    _assert_not_in_vocabulary("Ramazzottius varieornatus")
+    species = build_brc_species(["Ramazzottius varieornatus YOKOZUNA-1"], None, None)
+    assert species == [{"scientificName": "Ramazzottius varieornatus YOKOZUNA-1"}]
+
+
+def test_prefix_candidate_is_settled_by_identifier_in_metadata():
+    species = build_brc_species(
+        ["Zymomonas mobilis 2032"], None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/542")]
+    )
+    assert species == [{"scientificName": "Zymomonas mobilis", "NCBITaxID": 542}]
+
+
+@pytest.mark.parametrize(
+    "keyword",
+    ["Sorghum genomics", "Populus Transcriptome", "Zymomonas fermentation", "Carbon cycling"],
+)
+def test_genus_followed_by_ordinary_word_is_not_an_organism(keyword):
+    assert build_brc_species([keyword], None, None) is None
 
 
 def test_acronyms_are_not_looked_up():
@@ -150,7 +167,9 @@ def test_acronyms_are_not_looked_up():
 def test_lookup_disabled_uses_vocabulary_only():
     taxonomy.configure(enabled=False)
     species = build_brc_species(
-        ["poplar, Ramazzottius varieornatus, Zymomonas mobilis 2032"], None, None
+        ["poplar, Ramazzottius varieornatus, Ramazzottius varieornatus YOKOZUNA-1"],
+        None,
+        None,
     )
     assert species == [{"scientificName": "Populus", "NCBITaxID": 3689}]
 
