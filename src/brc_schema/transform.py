@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import re
+from urllib.parse import quote
 
 import yaml
 
@@ -549,11 +550,16 @@ def build_brc_funding(organizations, sponsor_orgs):
     return None
 
 
+def _encode_url(url):
+    """Percent-encode characters that make a URL invalid, such as spaces."""
+    return quote(str(url).strip(), safe=":/?#[]@!$&'()*+,;=%~")
+
+
 def build_brc_dataset_url(site_url, links):
     if site_url:
-        return site_url
+        return _encode_url(site_url)
     link_values = [link for link in _as_list(links) if link]
-    return link_values[0] if link_values else None
+    return _encode_url(link_values[0]) if link_values else None
 
 
 def build_brc_has_related_ids(
