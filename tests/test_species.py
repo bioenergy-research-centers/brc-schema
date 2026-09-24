@@ -16,6 +16,7 @@ from brc_schema.transform import (
     _parse_taxon_identifier,
     build_brc_species,
 )
+from brc_schema.util import taxonomy
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "src" / "brc_schema" / "schema" / "brc_schema.yaml"
@@ -58,9 +59,10 @@ def test_parse_taxon_identifier(value, expected):
 
 
 def test_organism_vocabulary_has_no_conflicting_names():
-    by_name, by_taxid = _load_organism_index()
+    by_name, by_taxid, ambiguous = _load_organism_index()
     assert by_name
     assert all(record["NCBITaxID"] in by_taxid for record in by_name.values())
+    assert not ambiguous & set(by_name)
 
 
 def test_species_from_ncbi_url_is_named_from_vocabulary():
@@ -70,6 +72,13 @@ def test_species_from_ncbi_url_is_named_from_vocabulary():
     assert species == [{"scientificName": "Panicum virgatum", "NCBITaxID": 38727}]
 
 
+def test_species_from_ncbi_url_is_named_from_lookup():
+    species = build_brc_species(
+        None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/1280")]
+    )
+    assert species == [{"scientificName": "Staphylococcus aureus", "NCBITaxID": 1280}]
+
+
 def test_unknown_ncbi_taxid_is_kept_without_a_name():
     species = build_brc_species(
         None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/999999")]
@@ -77,11 +86,14 @@ def test_unknown_ncbi_taxid_is_kept_without_a_name():
     assert species == [{"NCBITaxID": 999999}]
 
 
-def test_keywords_match_only_exact_vocabulary_names():
+def test_genus_common_name_maps_to_genus():
+    species = build_brc_species(["Lignin structure, HSQC, poplar, CELF, CBP, CBI"], None, None)
+    assert species == [{"scientificName": "Populus", "NCBITaxID": 3689}]
+
+
+def test_keywords_match_only_whole_names():
     species = build_brc_species(
-        ["poplar, Populus Trichocarpa, corn stover, Gene expression, E. coli"],
-        None,
-        None,
+        ["Populus Trichocarpa, corn stover, Gene expression, E. coli"], None, None
     )
     assert species == [
         {"scientificName": "Populus trichocarpa", "NCBITaxID": 3694},
@@ -89,8 +101,70 @@ def test_keywords_match_only_exact_vocabulary_names():
     ]
 
 
-def test_keywords_without_organisms_yield_nothing():
-    assert build_brc_species(["Lignin structure, HSQC, poplar, CELF, CBP, CBI"], None, None) is None
+def test_name_outside_vocabulary_gets_id_from_lookup():
+    species = build_brc_species(["Staphylococcus aureus"], None, None)
+    assert species == [{"scientificName": "Staphylococcus aureus", "NCBITaxID": 1280}]
+
+
+def test_ambiguous_lookup_keeps_name_without_id(offline_taxonomy):
+    # Only the lookup sees this name, and it matches two taxa.
+    offline_taxonomy.taxa["NCBITaxon:9999"] = ("Staphylococcus aureus", [], [])
+    species = build_brc_species(["Staphylococcus aureus"], None, None)
+    assert species == [{"scientificName": "Staphylococcus aureus"}]
+
+
+def test_vocabulary_ambiguous_name_skips_lookup():
+    assert build_brc_species(["sugarcane"], None, None) == [{"scientificName": "sugarcane"}]
+
+
+def test_ambiguous_name_is_settled_by_identifier_in_metadata():
+    species = build_brc_species(
+        ["sorghum"], None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/4558")]
+    )
+    assert species == [{"NCBITaxID": 4558, "scientificName": "Sorghum bicolor"}]
+
+
+def test_unmatched_binomial_with_known_genus_keeps_name():
+    species = build_brc_species(["Zymomonas mobilis 2032"], None, None)
+    assert species == [{"scientificName": "Zymomonas mobilis 2032"}]
+
+
+def test_unmatched_binomial_with_unknown_genus_is_not_an_organism():
+    assert build_brc_species(["Carbon cycling"], None, None) is None
+
+
+def test_acronyms_are_not_looked_up():
+    assert build_brc_species(["HIV"], None, None) is None
+
+
+def test_lookup_disabled_uses_vocabulary_only():
+    taxonomy.configure(enabled=False)
+    species = build_brc_species(
+        ["poplar, Staphylococcus aureus, Zymomonas mobilis 2032"], None, None
+    )
+    assert species == [{"scientificName": "Populus", "NCBITaxID": 3689}]
+
+
+def test_lookup_failure_is_not_fatal(monkeypatch, caplog):
+    class BrokenAdapter:
+        def basic_search(self, name, config=None):
+            raise ConnectionError("OLS unreachable")
+
+        def label(self, curie):
+            raise ConnectionError("OLS unreachable")
+
+    monkeypatch.setattr(taxonomy, "_get_adapter", lambda: BrokenAdapter())
+    taxonomy.configure()
+    species = build_brc_species(
+        ["poplar, Staphylococcus aureus"],
+        None,
+        [_url("https://www.ncbi.nlm.nih.gov/taxonomy/1280")],
+    )
+    assert species == [
+        {"NCBITaxID": 1280},
+        {"scientificName": "Populus", "NCBITaxID": 3689},
+    ]
+    assert "Taxonomy lookup failed" in caplog.text
 
 
 def test_keyword_and_identifier_for_same_taxon_merge():

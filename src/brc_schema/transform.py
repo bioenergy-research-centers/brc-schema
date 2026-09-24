@@ -10,6 +10,8 @@ from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils import eval_utils
 from linkml_runtime import SchemaView
 
+from brc_schema.util import taxonomy
+
 
 MODULE_DIR = Path(__file__).resolve().parent
 SCHEMA_DIR = MODULE_DIR / "schema"
@@ -639,33 +641,37 @@ _IMG_TAXON_PATTERNS = [
 ORGANISMS_PATH = TRANSFORM_DIR / "organisms.yaml"
 _organism_index = None
 
+# "Genus epithet ...", also "Genus x epithet" for hybrids. Used only as a
+# last resort, with the genus confirmed by a taxonomy lookup.
+_BINOMIAL_RE = re.compile(r"^([A-Z][a-z]+)\s+(?:[x×]\s+)?[A-Za-z][a-z-]+\b")
+
 
 def _normalize_organism_name(name):
     return " ".join(str(name).replace("×", "x").split()).casefold()
 
 
 def _load_organism_index():
-    """Return (name -> entry, taxid -> entry) lookups from organisms.yaml."""
+    """Return (name -> entry, taxid -> entry, ambiguous names) from organisms.yaml."""
     global _organism_index
     if _organism_index is None:
         with ORGANISMS_PATH.open(encoding="utf-8") as handle:
-            entries = yaml.safe_load(handle).get("organisms") or []
+            data = yaml.safe_load(handle) or {}
         by_name = {}
         by_taxid = {}
-        for entry in entries:
+        ambiguous = {_normalize_organism_name(name) for name in data.get("ambiguous_names") or []}
+        for entry in data.get("organisms") or []:
             taxid = int(entry["ncbi_taxid"])
             record = {"scientificName": entry["scientific_name"], "NCBITaxID": taxid}
             by_taxid[taxid] = record
             for name in [entry["scientific_name"]] + list(entry.get("synonyms") or []):
                 key = _normalize_organism_name(name)
                 existing = by_name.get(key)
-                if existing and existing["NCBITaxID"] != taxid:
+                if key in ambiguous or (existing and existing["NCBITaxID"] != taxid):
                     raise ValueError(
-                        f"{ORGANISMS_PATH.name}: name '{name}' maps to both "
-                        f"{existing['NCBITaxID']} and {taxid}"
+                        f"{ORGANISMS_PATH.name}: name '{name}' is listed more than once"
                     )
                 by_name[key] = record
-        _organism_index = (by_name, by_taxid)
+        _organism_index = (by_name, by_taxid, ambiguous)
     return _organism_index
 
 
@@ -697,19 +703,61 @@ def _parse_taxon_identifier(value):
     return None
 
 
+def _resolve_organism_keyword(keyword):
+    """Resolve one keyword to an organism.
+
+    Returns ``(record, candidate_taxids)`` or ``None`` when the keyword is not
+    an organism name. ``record`` has ``NCBITaxID`` only when the name maps to
+    exactly one taxon; ``candidate_taxids`` holds every taxon the name could
+    mean, so an identifier elsewhere in the record can settle an ambiguity.
+    """
+    by_name, _, ambiguous = _load_organism_index()
+    keyword = " ".join(str(keyword).split())
+    key = _normalize_organism_name(keyword)
+    if key in ambiguous:
+        hits = taxonomy.search_name(keyword) or ()
+        return {"scientificName": keyword}, {taxid for taxid, _ in hits}
+    if key in by_name:
+        record = dict(by_name[key])
+        return record, {record["NCBITaxID"]}
+
+    # All-caps keywords are acronyms (CBI, HSQC). NCBITaxon holds acronyms
+    # as broad synonyms, and OLS cannot tell those from exact ones.
+    if len(keyword) < 3 or not any(char.islower() for char in keyword):
+        return None
+
+    hits = taxonomy.search_name(keyword)
+    if hits:
+        taxids = {taxid for taxid, _ in hits}
+        if len(taxids) == 1:
+            taxid, label = hits[0]
+            return {"scientificName": label or keyword, "NCBITaxID": taxid}, taxids
+        return {"scientificName": keyword}, taxids
+
+    match = _BINOMIAL_RE.match(keyword)
+    if hits is not None and match:
+        genus = match.group(1)
+        genus_hits = taxonomy.search_name(genus) or ()
+        if any(label == genus for _, label in genus_hits):
+            return {"scientificName": keyword}, set()
+    return None
+
+
 def build_brc_species(keywords, subjects, related_identifiers):
     """Build BRC Organism entries from OSTI related identifiers and keywords.
 
     NCBI Taxonomy identifiers (as URLs or CURIEs) in ``related_identifiers``
-    each yield an organism, named from organisms.yaml when the taxid is known
-    there. Keywords yield an organism only on an exact match to a name in
-    organisms.yaml; other keywords are ignored. Non-NCBI identifiers (GOLD,
-    IMG) are attached to the organism when exactly one is found, and otherwise
-    are emitted as separate organisms, since the record does not say which
-    organism they belong to.
+    each yield an organism, named from organisms.yaml or a taxonomy lookup.
+    Keywords are resolved as described in organisms.yaml: a name that maps to
+    one taxon gets its NCBITaxID, and an ambiguous or unmatched organism name
+    is kept as a name alone, unless one of its possible taxa also appears as
+    an identifier. Non-NCBI identifiers (GOLD, IMG) are attached to the
+    organism when exactly one is found, and otherwise are emitted as separate
+    organisms, since the record does not say which organism they belong to.
     """
-    by_name, by_taxid = _load_organism_index()
+    _, by_taxid, _ = _load_organism_index()
     organisms = {}
+    named_only = {}
     other_ids = []
 
     for item in _as_list(related_identifiers):
@@ -718,16 +766,38 @@ def build_brc_species(keywords, subjects, related_identifiers):
             continue
         kind, value = parsed
         if kind == "ncbi":
-            organisms.setdefault(value, dict(by_taxid.get(value) or {"NCBITaxID": value}))
+            if value not in organisms:
+                record = dict(by_taxid.get(value) or {"NCBITaxID": value})
+                if "scientificName" not in record:
+                    label = taxonomy.label_for_taxid(value)
+                    if label:
+                        record = {"scientificName": label, "NCBITaxID": value}
+                organisms[value] = record
         elif value not in other_ids:
             other_ids.append(value)
 
+    identified = set(organisms)
     for keyword in build_brc_keywords(keywords, subjects) or []:
-        record = by_name.get(_normalize_organism_name(keyword))
-        if record:
-            organisms.setdefault(record["NCBITaxID"], dict(record))
+        resolved = _resolve_organism_keyword(keyword)
+        if resolved is None:
+            continue
+        record, candidates = resolved
+        if candidates & identified:
+            continue
+        taxid = record.get("NCBITaxID")
+        if taxid is not None:
+            organisms.setdefault(taxid, record)
+        else:
+            named_only.setdefault(_normalize_organism_name(record["scientificName"]), record)
 
-    species = list(organisms.values())
+    known_names = {
+        _normalize_organism_name(record["scientificName"])
+        for record in organisms.values()
+        if record.get("scientificName")
+    }
+    species = list(organisms.values()) + [
+        record for key, record in named_only.items() if key not in known_names
+    ]
     if other_ids:
         if len(species) == 1:
             species[0]["taxon_ids"] = other_ids

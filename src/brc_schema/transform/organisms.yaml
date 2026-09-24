@@ -1,27 +1,43 @@
-# Curated organisms recognised in OSTI keywords by the osti_to_brc transform.
+# Curated organism names for the osti_to_brc transform.
 #
-# A keyword becomes a BRC `species` entry only when it matches, in full,
-# one of the names below (case-insensitive, whitespace-normalised). There is
-# no partial or fuzzy matching, so "corn stover" does not match "corn".
+# Keywords are resolved to BRC `species` entries in this order:
+#   1. `ambiguous_names` below: emitted as a name only, never with an ID.
+#   2. `organisms` below: emitted with the listed NCBI taxid.
+#   3. An NCBI Taxonomy lookup through oaklib (OLS by default); see
+#      brc_schema.util.taxonomy. One exact label or synonym match gives an ID;
+#      several matches make the name ambiguous, so it is emitted without one.
+#   4. A keyword shaped like "Genus epithet ..." whose genus is a known NCBI
+#      taxon is emitted as a name only.
+# Anything else is treated as an ordinary keyword and not as an organism.
 #
-# Every entry must be at species rank (or below) in NCBI Taxonomy. Names that
-# denote a broader group are deliberately left out, even where BRC usage
-# often implies one species:
-#   - "poplar" names the genus Populus (NCBITaxon:3689)
-#   - "Sorghum", "Arabidopsis", "Camelina", "Miscanthus" are genus names
-#   - "sugarcane" is usually a Saccharum hybrid, not S. officinarum
-#   - "yeast" is not a species
+# Matching is exact after case folding and whitespace normalisation, so
+# "corn stover" does not match "corn".
 #
-# Fields:
+# This file overrides and backs up the lookup: it keeps common BRC names
+# stable when OLS is unreachable and settles names that NCBI files under
+# more than one taxon. Entries may be at any rank (a genus is fine).
+#
+# organisms fields:
 #   scientific_name: current NCBI Taxonomy scientific name
 #   ncbi_taxid:      NCBI Taxonomy ID (integer)
 #   synonyms:        other names to match: former scientific names,
 #                    abbreviations, and unambiguous common names
 #
-# Verified against NCBI Taxonomy E-utilities on 2026-09-24.
+# Taxids verified against NCBI Taxonomy E-utilities on 2026-09-24.
+
+# Names that do not identify a single taxon. They are kept as names, with no
+# ID, unless the record also carries a taxon identifier.
+ambiguous_names:
+  - sorghum      # genus Sorghum (4557) or Sorghum bicolor (4558)
+  - sugarcane    # usually a Saccharum hybrid, not S. officinarum
 
 organisms:
   # Plants
+  - scientific_name: Populus
+    ncbi_taxid: 3689
+    synonyms:
+      - poplar
+      - poplars
   - scientific_name: Arabidopsis thaliana
     ncbi_taxid: 3702
     synonyms:

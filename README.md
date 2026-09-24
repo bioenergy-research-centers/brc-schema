@@ -102,8 +102,19 @@ uv run brcschema transform -T <transformation_type> -o <output_file> <input_file
 **Options:**
 - `-T, --tx-type`: Type of transformation. Either `osti_to_brc` or `brc_to_osti` (required)
 - `-o, --output PATH`: Output YAML file path (required)
+- `--taxon-lookup / --no-taxon-lookup`: Look up organism names from keywords in NCBI Taxonomy (default: on; `osti_to_brc` only)
+- `--taxon-adapter TEXT`: oaklib adapter selector for those lookups (default: `ols:ncbitaxon`)
 - `-v, --verbose`: Enable verbose logging (can be repeated for more verbosity)
 - `-q, --quiet`: Suppress output except errors
+
+**Species and taxon identifiers:**
+
+`osti_to_brc` fills the BRC `species` slot from two sources in each OSTI record:
+
+- `related_identifiers` values that are NCBI Taxonomy URLs or CURIEs (e.g. `https://www.ncbi.nlm.nih.gov/taxonomy/38727`) become `NCBITaxID`; JGI GOLD and IMG identifiers become `taxon_ids`.
+- `keywords` that name an organism. Names are checked first against the curated list in `src/brc_schema/transform/organisms.yaml`, then looked up in NCBI Taxonomy through OLS. A name that matches exactly one taxon (at any rank) gets its ID; an ambiguous name, or an organism name with no match, is kept as `scientificName` alone.
+
+Lookups need network access to OLS. If OLS cannot be reached, the transform still completes and logs a warning; only names in `organisms.yaml` get IDs. Use `--no-taxon-lookup` for offline runs.
 
 **Examples:**
 
