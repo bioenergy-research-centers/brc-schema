@@ -1,9 +1,8 @@
 {
-  "schema_version": "0.1.9",
   "datasets": [
     {
       "id": "cbi:dataset-consortia-2022",
-      "title": "CBI Microbial Consortia Genome Survey",
+      "title": "Invalid taxon_ids: NCBI Taxonomy CURIE belongs in NCBITaxID",
       "date": "2022-05-12",
       "creator": [
         {
@@ -29,7 +28,9 @@
         }
       ],
       "brc": "CBI",
-      "additional_brcs": ["JBEI"],
+      "additional_brcs": [
+        "JBEI"
+      ],
       "active": true,
       "alert": false,
       "repository": "GenBank",
@@ -44,13 +45,8 @@
           "scientificName": "Clostridium thermocellum",
           "NCBITaxID": 203119,
           "taxon_ids": [
-            "GOLD:Gp0000000",
-            "IMG.TAXON:0000000000"
+            "NCBITaxon:203119"
           ]
-        },
-        {
-          "scientificName": "Thermoanaerobacterium saccharolyticum",
-          "NCBITaxID": 28896
         }
       ],
       "analysisType": "Genomic - SNP calling",
@@ -72,7 +68,11 @@
           "relatedItemIdentifier": "https://example.org/reports/thermophilic-consortia"
         }
       ],
-      "keywords": ["genomics", "consortia", "biomass conversion"],
+      "keywords": [
+        "genomics",
+        "consortia",
+        "biomass conversion"
+      ],
       "datasetName": "CBI Consortia Genomics",
       "funding": [
         {
