@@ -362,6 +362,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../species_and_taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../update_schema/" class="md-nav__link">
         
   
@@ -456,75 +483,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#permissible-values" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Permissible Values
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slots" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#identifier-and-mapping-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#linkml-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -545,85 +503,59 @@
 
 <h1 id="enum-datasettypecodes">Enum: DatasetTypeCodes</h1>
 <p><em>High-level type of the main content of the dataset, following OSTI categories. See https://www.osti.gov/elink/F2416instruct.jsp</em></p>
-<p>URI: <a href="https://w3id.org/brc/DatasetTypeCodes">brc:DatasetTypeCodes</a></p>
-<h2 id="permissible-values">Permissible Values</h2>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AS</td>
-<td>None</td>
-<td>Animations/Simulations - Animations and simulations resulting from runs of co...</td>
-</tr>
-<tr>
-<td>GD</td>
-<td>None</td>
-<td>Genome/Genetics Data - Information that is numeric or alpha-numeric in nature...</td>
-</tr>
-<tr>
-<td>IM</td>
-<td>None</td>
-<td>Interactive Data Map(s) - A non-static interface and the GIS data and/or shap...</td>
-</tr>
-<tr>
-<td>ND</td>
-<td>None</td>
-<td>Numeric Data - Data primarily expressed with numbers; other content is second...</td>
-</tr>
-<tr>
-<td>IP</td>
-<td>None</td>
-<td>Still Images or Photos - A collection of images or photographs that are produ...</td>
-</tr>
-<tr>
-<td>FP</td>
-<td>None</td>
-<td>Figures/Plots - A dataset consisting mainly of data diagrams, graphs and char...</td>
-</tr>
-<tr>
-<td>SM</td>
-<td>None</td>
-<td>Specialized Mix - This "type" may be used to indicate a dataset made up of co...</td>
-</tr>
-<tr>
-<td>MM</td>
-<td>None</td>
-<td>Multimedia - An example of a multimedia dataset might be a video of an experi...</td>
-</tr>
-<tr>
-<td>I</td>
-<td>None</td>
-<td>Instrument - Use this option to relate datasets which derive from a specific ...</td>
-</tr>
-</tbody>
-</table>
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../datasetType/">datasetType</a></td>
-<td>High-level type of the main content of the dataset</td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="linkml-source">LinkML Source</h2>
+<div data-search-exclude markdown="1">
+
+URI: [brc:DatasetTypeCodes](https://w3id.org/brc/DatasetTypeCodes)
+
+## Permissible Values
+| Value | Meaning | Description |
+| --- | --- | --- |
+| AS | None | Animations/Simulations - Animations and simulations resulting from runs of co... |
+| GD | None | Genome/Genetics Data - Information that is numeric or alpha-numeric in nature... |
+| IM | None | Interactive Data Map(s) - A non-static interface and the GIS data and/or shap... |
+| ND | None | Numeric Data - Data primarily expressed with numbers; other content is second... |
+| IP | None | Still Images or Photos - A collection of images or photographs that are produ... |
+| FP | None | Figures/Plots - A dataset consisting mainly of data diagrams, graphs and char... |
+| SM | None | Specialized Mix - This "type" may be used to indicate a dataset made up of co... |
+| MM | None | Multimedia - An example of a multimedia dataset might be a video of an experi... |
+| I | None | Instrument - Use this option to relate datasets which derive from a specific ... |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [datasetType](datasetType.md) | High-level type of the main content of the dataset |
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+
+
+## LinkML Source
+
 <details>
 
 <pre><code class="language-yaml">name: DatasetTypeCodes
@@ -683,11 +615,16 @@ permissible_values:
 
 </details>
 
+</div>
 
 
 
 
 
+
+
+  
+  
 
 
 

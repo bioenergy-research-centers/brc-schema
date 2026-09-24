@@ -177,6 +177,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../species_and_taxonomy/">
+<span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../update_schema/">
 <span class="md-ellipsis">
     
@@ -221,101 +233,6 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#inheritance">
-<span class="md-ellipsis">
-      
-        Inheritance
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
-<span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
-<span class="md-ellipsis">
-      
-        Usages
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#identifier-and-mapping-information">
-<span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-</a>
-<nav aria-label="Identifier and Mapping Information" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#schema-source">
-<span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mappings">
-<span class="md-ellipsis">
-      
-        Mappings
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#linkml-source">
-<span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-</a>
-<nav aria-label="LinkML Source" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#direct">
-<span class="md-ellipsis">
-      
-        Direct
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#induced">
-<span class="md-ellipsis">
-      
-        Induced
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
 </nav>
 </div>
 </div>
@@ -324,7 +241,17 @@
 <article class="md-content__inner md-typeset">
 <h1 id="class-individual">Class: Individual</h1>
 <p><em>An individual involved in the dataset.</em></p>
-<p>URI: <a href="http://schema.org/Person">schema:Person</a></p>
+<div data-search-exclude="" markdown="1">
+
+
+
+URI: [schema:Person](http://schema.org/Person)
+
+
+
+
+
+
 <div class="mermaid"> classDiagram
     class Individual
     click Individual href "../Individual/"
@@ -343,106 +270,88 @@
 
 
 </div>
-<h2 id="inheritance">Inheritance</h2>
-<ul>
-<li><strong>Individual</strong><ul>
-<li><a href="../Contributor/">Contributor</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Cardinality and Range</th>
-<th>Description</th>
-<th>Inheritance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../name/">name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Name of the individual</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../email/">email</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Email address of the individual</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../primaryContact/">primaryContact</a></td>
-<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Indicates if the individual is a primary contact</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../affiliation/">affiliation</a></td>
-<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../BRCOrganization/">BRCOrganization</a> or <br/><a href="../String/">String</a></td>
-<td>Affiliation of the individual</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../orcid/">orcid</a></td>
-<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>ORCID for the individual</td>
-<td>direct</td>
-</tr>
-</tbody>
-</table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
-<tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td><a href="../creator/">creator</a></td>
-<td>range</td>
-<td><a href="./">Individual</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>schema:Person</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:Individual</td>
-</tr>
-<tr>
-<td>exact</td>
-<td>schema:Person, osti:author</td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkml-source">LinkML Source</h2>
+
+
+
+
+
+
+## Inheritance
+* **Individual**
+    * [Contributor](Contributor.md)
+
+
+## Class Properties
+
+| Property | Value |
+| --- | --- |
+| Class URI | [schema:Person](http://schema.org/Person) |
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [name](name.md) | 0..1 <br/> [String](String.md) | Name of the individual | direct |
+| [email](email.md) | 0..1 <br/> [String](String.md) | Email address of the individual | direct |
+| [primaryContact](primaryContact.md) | 0..1 <br/> [Boolean](Boolean.md) | Indicates if the individual is a primary contact | direct |
+| [affiliation](affiliation.md) | 0..1 <br/> [String](String.md) or <br/>[BRCOrganization](BRCOrganization.md) | Affiliation of the individual | direct |
+| [orcid](orcid.md) | 0..1 <br/> [Uriorcurie](Uriorcurie.md) | ORCID for the individual | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Dataset](Dataset.md) | [creator](creator.md) | range | [Individual](Individual.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:Person |
+| native | brc:Individual |
+| exact | schema:Person, osti:author |
+
+
+
+
+
+
+## LinkML Source
+
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
-<h3 id="direct">Direct</h3>
+
+### Direct
+
 <details>
 <pre><code class="language-yaml">name: Individual
 description: An individual involved in the dataset.
@@ -500,7 +409,9 @@ class_uri: schema:Person
 
 </code></pre>
 </details>
-<h3 id="induced">Induced</h3>
+
+### Induced
+
 <details>
 <pre><code class="language-yaml">name: Individual
 description: An individual involved in the dataset.
@@ -568,7 +479,7 @@ attributes:
 class_uri: schema:Person
 
 </code></pre>
-</details>
+</details></div>
 </article>
 </div>
 <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>

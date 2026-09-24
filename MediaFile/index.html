@@ -177,6 +177,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../species_and_taxonomy/">
+<span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../update_schema/">
 <span class="md-ellipsis">
     
@@ -221,92 +233,6 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
-<span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
-<span class="md-ellipsis">
-      
-        Usages
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#identifier-and-mapping-information">
-<span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-</a>
-<nav aria-label="Identifier and Mapping Information" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#schema-source">
-<span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mappings">
-<span class="md-ellipsis">
-      
-        Mappings
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#linkml-source">
-<span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-</a>
-<nav aria-label="LinkML Source" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#direct">
-<span class="md-ellipsis">
-      
-        Direct
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#induced">
-<span class="md-ellipsis">
-      
-        Induced
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
 </nav>
 </div>
 </div>
@@ -315,7 +241,17 @@
 <article class="md-content__inner md-typeset">
 <h1 id="class-mediafile">Class: MediaFile</h1>
 <p><em>Metadata about a particular file or off-site resource associated with a dataset. This mirrors the OSTI media-file structure to preserve file-level details.</em></p>
-<p>URI: <a href="https://w3id.org/brc/MediaFile">brc:MediaFile</a></p>
+<div data-search-exclude="" markdown="1">
+
+
+
+URI: [brc:MediaFile](https://w3id.org/brc/MediaFile)
+
+
+
+
+
+
 <div class="mermaid"> classDiagram
     class MediaFile
     click MediaFile href "../MediaFile/"
@@ -362,185 +298,85 @@
 
 </div>
 <!-- no inheritance hierarchy -->
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Cardinality and Range</th>
-<th>Description</th>
-<th>Inheritance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../media_file_id/">media_file_id</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Unique identifier for this media file</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../media_id/">media_id</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Identifier of the parent media set</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../checksum/">checksum</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Checksum value for the file, if known</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../revision/">revision</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Revision number of this media file</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../parent_media_file_id/">parent_media_file_id</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Identifier of the parent media file, if this file is derived</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../media_type/">media_type</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Type code for this media file</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../url/">url</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Local file name or off-site URL</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../mime_type/">mime_type</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>MIME type describing this media file</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../media_source/">media_source</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Method of file production or association</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../file_size_bytes/">file_size_bytes</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>File size in bytes, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../duration_seconds/">duration_seconds</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Duration in seconds for audio-visual media</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../document_page_count/">document_page_count</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Page count for document-based media, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../subtitle_tracks/">subtitle_tracks</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Number of subtitle tracks for audio-visual media</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../video_tracks/">video_tracks</a></td>
-<td>0..1 <br/> <a href="../Integer/">Integer</a></td>
-<td>Number of video tracks for audio-visual media</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../pdf_version/">pdf_version</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>PDF version, if this file is a PDF</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../pdfa_conformance/">pdfa_conformance</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>PDF/A conformance level, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../pdfa_part/">pdfa_part</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>PDF/A part number, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../pdfua_part/">pdfua_part</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>PDF/UA part number, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../date_file_added/">date_file_added</a></td>
-<td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>Date this media file was created</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../date_file_updated/">date_file_updated</a></td>
-<td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>Date this media file was last modified</td>
-<td>direct</td>
-</tr>
-</tbody>
-</table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
-<tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../MediaSet/">MediaSet</a></td>
-<td><a href="../files/">files</a></td>
-<td>range</td>
-<td><a href="./">MediaFile</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>brc:MediaFile</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:MediaFile</td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkml-source">LinkML Source</h2>
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [media_file_id](media_file_id.md) | 0..1 <br/> [Integer](Integer.md) | Unique identifier for this media file | direct |
+| [media_id](media_id.md) | 0..1 <br/> [Integer](Integer.md) | Identifier of the parent media set | direct |
+| [checksum](checksum.md) | 0..1 <br/> [String](String.md) | Checksum value for the file, if known | direct |
+| [revision](revision.md) | 0..1 <br/> [Integer](Integer.md) | Revision number of this media file | direct |
+| [parent_media_file_id](parent_media_file_id.md) | 0..1 <br/> [Integer](Integer.md) | Identifier of the parent media file, if this file is derived | direct |
+| [media_type](media_type.md) | 0..1 <br/> [String](String.md) | Type code for this media file | direct |
+| [url](url.md) | 0..1 <br/> [String](String.md) | Local file name or off-site URL | direct |
+| [mime_type](mime_type.md) | 0..1 <br/> [String](String.md) | MIME type describing this media file | direct |
+| [media_source](media_source.md) | 0..1 <br/> [String](String.md) | Method of file production or association | direct |
+| [file_size_bytes](file_size_bytes.md) | 0..1 <br/> [Integer](Integer.md) | File size in bytes, if applicable | direct |
+| [duration_seconds](duration_seconds.md) | 0..1 <br/> [Integer](Integer.md) | Duration in seconds for audio-visual media | direct |
+| [document_page_count](document_page_count.md) | 0..1 <br/> [Integer](Integer.md) | Page count for document-based media, if applicable | direct |
+| [subtitle_tracks](subtitle_tracks.md) | 0..1 <br/> [Integer](Integer.md) | Number of subtitle tracks for audio-visual media | direct |
+| [video_tracks](video_tracks.md) | 0..1 <br/> [Integer](Integer.md) | Number of video tracks for audio-visual media | direct |
+| [pdf_version](pdf_version.md) | 0..1 <br/> [String](String.md) | PDF version, if this file is a PDF | direct |
+| [pdfa_conformance](pdfa_conformance.md) | 0..1 <br/> [String](String.md) | PDF/A conformance level, if applicable | direct |
+| [pdfa_part](pdfa_part.md) | 0..1 <br/> [String](String.md) | PDF/A part number, if applicable | direct |
+| [pdfua_part](pdfua_part.md) | 0..1 <br/> [String](String.md) | PDF/UA part number, if applicable | direct |
+| [date_file_added](date_file_added.md) | 0..1 <br/> [Datetime](Datetime.md) | Date this media file was created | direct |
+| [date_file_updated](date_file_updated.md) | 0..1 <br/> [Datetime](Datetime.md) | Date this media file was last modified | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [MediaSet](MediaSet.md) | [files](files.md) | range | [MediaFile](MediaFile.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | brc:MediaFile |
+| native | brc:MediaFile |
+
+
+
+
+
+
+## LinkML Source
+
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
-<h3 id="direct">Direct</h3>
+
+### Direct
+
 <details>
 <pre><code class="language-yaml">name: MediaFile
 description: Metadata about a particular file or off-site resource associated with
@@ -710,7 +546,9 @@ attributes:
 
 </code></pre>
 </details>
-<h3 id="induced">Induced</h3>
+
+### Induced
+
 <details>
 <pre><code class="language-yaml">name: MediaFile
 description: Metadata about a particular file or off-site resource associated with
@@ -919,7 +757,7 @@ attributes:
     range: datetime
 
 </code></pre>
-</details>
+</details></div>
 </article>
 </div>
 <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>

@@ -14,7 +14,7 @@
         <link rel="prev" href="../osti_elink_integration/">
       
       
-        <link rel="next" href="../update_schema/">
+        <link rel="next" href="../species_and_taxonomy/">
       
       
         
@@ -513,6 +513,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../species_and_taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../update_schema/" class="md-nav__link">
         
   
@@ -824,7 +851,12 @@ extension.</p>
 <tr>
 <td><code>identifiers</code>, <code>related_identifiers</code>, and legacy identifier fields</td>
 <td><code>has_related_ids</code></td>
-<td>Contract numbers are excluded; BioProject URLs and IDs are normalized where possible.</td>
+<td>Contract numbers and taxon identifiers are excluded; BioProject URLs and IDs are normalized where possible.</td>
+</tr>
+<tr>
+<td>taxon URLs in <code>related_identifiers</code>, and organism names in <code>keywords</code></td>
+<td><code>species</code></td>
+<td>NCBI Taxonomy IDs go to <code>NCBITaxID</code>, JGI GOLD and IMG IDs to <code>taxon_ids</code>. See <a href="../species_and_taxonomy/">Species and Taxonomy Identifiers</a>.</td>
 </tr>
 <tr>
 <td><code>media</code></td>
@@ -883,7 +915,6 @@ transform cannot infer the BRC affiliation.</p>
 are intended for bioenergy.org display and filtering. These fields are not
 currently populated from OSTI records unless the transform explicitly maps them:</p>
 <ul>
-<li><code>species</code></li>
 <li><code>plasmid_features</code></li>
 <li><code>analysisType</code></li>
 <li><code>datasetType</code></li>
@@ -892,10 +923,10 @@ currently populated from OSTI records unless the transform explicitly maps them:
 <li><code>category</code></li>
 <li><code>ontology_annotations</code></li>
 </ul>
-<p>For species and taxon identifiers specifically, OSTI does not currently provide
-a dedicated species slot in this transform. If an OSTI record includes a clear
-NCBI Taxonomy identifier in related identifiers, additional transform logic
-would be needed before it can populate the xBRC <code>species</code> slot.</p>
+<p>OSTI has no dedicated species field either, but <code>species</code> is populated from
+taxon identifiers in related identifiers and from organism names in keywords.
+<a href="../species_and_taxonomy/">Species and Taxonomy Identifiers</a> describes what to
+include in OSTI records so that organisms come through.</p>
 <h2 id="xbrc-to-osti">xBRC to OSTI</h2>
 <p>The <code>brc_to_osti</code> transform expects an xBRC <code>DatasetCollection</code> and produces an
 OSTI-style object with a <code>records</code> array.</p>
@@ -975,6 +1006,11 @@ OSTI-style object with a <code>records</code> array.</p>
 <td>BioProject IDs and DOI references get special handling.</td>
 </tr>
 <tr>
+<td><code>species</code></td>
+<td><code>related_identifiers</code></td>
+<td>Each <code>NCBITaxID</code>, GOLD ID, and IMG taxon OID becomes a <code>URL</code> related identifier with relation <code>References</code>. Species with a name only are not written.</td>
+</tr>
+<tr>
 <td><code>media</code></td>
 <td><code>media</code></td>
 <td>Media package metadata is preserved.</td>
@@ -1010,6 +1046,8 @@ round trip. Several fields are normalized, inferred, defaulted, or omitted.</p>
   <code>category</code>, and <code>ontology_annotations</code>, are not currently emitted to OSTI.</li>
 <li>OSTI fields without xBRC equivalents may be omitted unless they have an
   explicit mapping.</li>
+<li>xBRC <code>species</code> entries that have a name but no identifier are not written
+  to OSTI; entries with identifiers round-trip through <code>related_identifiers</code>.</li>
 <li>BRC affiliation may be inferred from contract numbers in <code>osti_to_brc</code>, while
   <code>brc_to_osti</code> emits contract numbers from the xBRC <code>brc</code> value.</li>
 </ul>
@@ -1018,6 +1056,7 @@ round trip. Several fields are normalized, inferred, defaulted, or omitted.</p>
 </code></pre>
 <h2 id="related-pages">Related Pages</h2>
 <ul>
+<li><a href="../species_and_taxonomy/">Species and Taxonomy Identifiers</a></li>
 <li><a href="../cli/">CLI Usage</a></li>
 <li><a href="../osti_elink_integration/">OSTI E-Link Integration</a></li>
 <li><a href="../update_schema/">Updating the Schema</a></li>

@@ -362,6 +362,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../species_and_taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../update_schema/" class="md-nav__link">
         
   
@@ -456,75 +483,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#permissible-values" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Permissible Values
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slots" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#identifier-and-mapping-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#linkml-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -545,115 +503,65 @@
 
 <h1 id="enum-datasettopicenum">Enum: DatasetTopicEnum</h1>
 <p><em>High-level topic area for the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of topics. Where a close match exists, each value notes the corresponding OSTI subject category code (see https://www.osti.gov/) used when records are submitted to OSTI.</em></p>
-<p>URI: <a href="https://w3id.org/brc/DatasetTopicEnum">brc:DatasetTopicEnum</a></p>
-<h2 id="permissible-values">Permissible Values</h2>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Genetic Engineering</td>
-<td>None</td>
-<td>Datasets related to genetic engineering, including design and construction of...</td>
-</tr>
-<tr>
-<td>Plant Biology</td>
-<td>None</td>
-<td>Datasets related to plant biology, including plant physiology, growth, and de...</td>
-</tr>
-<tr>
-<td>Microbiology</td>
-<td>None</td>
-<td>Datasets related to microbiology, including microbial physiology, growth, and...</td>
-</tr>
-<tr>
-<td>Analytics &amp; Methods</td>
-<td>None</td>
-<td>Datasets related to analytical techniques and methods, including mass spectro...</td>
-</tr>
-<tr>
-<td>Enzymes &amp; Proteins</td>
-<td>None</td>
-<td>Datasets related to enzymes and proteins, including enzyme characterization, ...</td>
-</tr>
-<tr>
-<td>Biomass &amp; Feedstock</td>
-<td>None</td>
-<td>Datasets related to biomass and feedstock, including feedstock characterizati...</td>
-</tr>
-<tr>
-<td>Bioenergy Production</td>
-<td>None</td>
-<td>Datasets related to bioenergy production, including biofuel production, biopr...</td>
-</tr>
-<tr>
-<td>Process Engineering</td>
-<td>None</td>
-<td>Datasets related to process engineering, including process design, optimizati...</td>
-</tr>
-<tr>
-<td>Environmental Science &amp; Sustainability</td>
-<td>None</td>
-<td>Datasets related to environmental science and sustainability, including life-...</td>
-</tr>
-<tr>
-<td>Chemistry</td>
-<td>None</td>
-<td>Datasets related to inorganic, organic, physical, and analytical chemistry, i...</td>
-</tr>
-<tr>
-<td>Materials Science &amp; Bioproducts</td>
-<td>None</td>
-<td>Datasets related to materials science and bioproducts, including biomaterials...</td>
-</tr>
-<tr>
-<td>Computational Biology &amp; Modeling</td>
-<td>None</td>
-<td>Datasets related to computational biology, modeling, and data science, includ...</td>
-</tr>
-<tr>
-<td>Microscopy &amp; Imaging</td>
-<td>None</td>
-<td>Datasets produced by microscopy and imaging techniques, including atomic forc...</td>
-</tr>
-<tr>
-<td>Other</td>
-<td>None</td>
-<td>The dataset has an identifiable topic that none of the more specific values a...</td>
-</tr>
-<tr>
-<td>Unknown</td>
-<td>None</td>
-<td>A topic could not be determined for the dataset</td>
-</tr>
-</tbody>
-</table>
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../topic/">topic</a></td>
-<td>High-level topic area for the dataset</td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="linkml-source">LinkML Source</h2>
+<div data-search-exclude markdown="1">
+
+URI: [brc:DatasetTopicEnum](https://w3id.org/brc/DatasetTopicEnum)
+
+## Permissible Values
+| Value | Meaning | Description |
+| --- | --- | --- |
+| Genetic Engineering | None | Datasets related to genetic engineering, including design and construction of... |
+| Plant Biology | None | Datasets related to plant biology, including plant physiology, growth, and de... |
+| Microbiology | None | Datasets related to microbiology, including microbial physiology, growth, and... |
+| Analytics & Methods | None | Datasets related to analytical techniques and methods, including mass spectro... |
+| Enzymes & Proteins | None | Datasets related to enzymes and proteins, including enzyme characterization, ... |
+| Biomass & Feedstock | None | Datasets related to biomass and feedstock, including feedstock characterizati... |
+| Bioenergy Production | None | Datasets related to bioenergy production, including biofuel production, biopr... |
+| Process Engineering | None | Datasets related to process engineering, including process design, optimizati... |
+| Environmental Science & Sustainability | None | Datasets related to environmental science and sustainability, including life-... |
+| Chemistry | None | Datasets related to inorganic, organic, physical, and analytical chemistry, i... |
+| Materials Science & Bioproducts | None | Datasets related to materials science and bioproducts, including biomaterials... |
+| Computational Biology & Modeling | None | Datasets related to computational biology, modeling, and data science, includ... |
+| Microscopy & Imaging | None | Datasets produced by microscopy and imaging techniques, including atomic forc... |
+| Other | None | The dataset has an identifiable topic that none of the more specific values a... |
+| Unknown | None | A topic could not be determined for the dataset |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [topic](topic.md) | High-level topic area for the dataset |
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+
+
+## LinkML Source
+
 <details>
 
 <pre><code class="language-yaml">name: DatasetTopicEnum
@@ -790,11 +698,16 @@ permissible_values:
 
 </details>
 
+</div>
 
 
 
 
 
+
+
+  
+  
 
 
 

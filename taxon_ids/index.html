@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/Metabolomics/">
+        <link rel="canonical" href="https://bioenergy-research-centers.github.io/brc-schema/taxon_ids/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Subset: Metabolomics - brc-schema</title>
+        <title>Slot: taxon_ids - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#subset-metabolomics" class="md-skip">
+        <a href="#slot-taxon_ids" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Subset: Metabolomics
+              Slot: taxon_ids
             
           </span>
         </div>
@@ -501,16 +501,74 @@
   
 
 
-<h1 id="subset-metabolomics">Subset: Metabolomics</h1>
-<p><em>These repositories specialize in metabolomics data, such as small molecule profiles and metabolic pathways.</em></p>
+<h1 id="slot-taxon_ids">Slot: taxon_ids</h1>
+<p><em>Taxonomic or genome identifiers for the organism from sources other than NCBI Taxonomy, as CURIEs. Supported prefixes are GOLD (JGI Genomes OnLine Database IDs, e.g., GOLD:Gp0004954; organism IDs begin with Go, sequencing project IDs with Gp) and IMG.TAXON (JGI IMG taxon OIDs, which are integers). Use NCBITaxID for NCBI Taxonomy identifiers.</em></p>
 <div data-search-exclude markdown="1">
 
-URI: [Metabolomics](Metabolomics.md)
+
+
+URI: [brc:taxon_ids](https://w3id.org/brc/taxon_ids)
+Alias: taxon_ids
+
+<!-- no inheritance hierarchy -->
 
 
 
 
 
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [Organism](Organism.md) | An organism studied in the dataset |  no  |
+
+
+
+
+
+
+## Properties
+
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Organism](Organism.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Organism](Organism.md) |
+
+
+### Value Constraints
+
+| Property | Value |
+| --- | --- |
+| Regex Pattern | `^(GOLD:G[a-z][0-9]+|IMG\.TAXON:[0-9]+)$` |
+
+
+
+
+
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| GOLD:Gp0004954 |
 
 
 
@@ -528,149 +586,41 @@ URI: [Metabolomics](Metabolomics.md)
 
 
 
+## Mappings
 
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | brc:taxon_ids |
+| native | brc:taxon_ids |
 
 
 
 
+## LinkML Source
 
+<details>
 
+<pre><code class="language-yaml">name: taxon_ids
+description: Taxonomic or genome identifiers for the organism from sources other than
+  NCBI Taxonomy, as CURIEs. Supported prefixes are GOLD (JGI Genomes OnLine Database
+  IDs, e.g., GOLD:Gp0004954; organism IDs begin with Go, sequencing project IDs with
+  Gp) and IMG.TAXON (JGI IMG taxon OIDs, which are integers). Use NCBITaxID for NCBI
+  Taxonomy identifiers.
+examples:
+- value: GOLD:Gp0004954
+from_schema: https://w3id.org/brc/brc_schema
+rank: 1000
+alias: taxon_ids
+owner: Organism
+domain_of:
+- Organism
+range: string
+multivalued: true
+pattern: ^(GOLD:G[a-z][0-9]+|IMG\.TAXON:[0-9]+)$
 
+</code></pre>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
+</details></div>
 
 
 

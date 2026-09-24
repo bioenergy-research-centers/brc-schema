@@ -177,6 +177,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../species_and_taxonomy/">
+<span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../update_schema/">
 <span class="md-ellipsis">
     
@@ -221,92 +233,6 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
-<span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
-<span class="md-ellipsis">
-      
-        Usages
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#identifier-and-mapping-information">
-<span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-</a>
-<nav aria-label="Identifier and Mapping Information" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#schema-source">
-<span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mappings">
-<span class="md-ellipsis">
-      
-        Mappings
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#linkml-source">
-<span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-</a>
-<nav aria-label="LinkML Source" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#direct">
-<span class="md-ellipsis">
-      
-        Direct
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#induced">
-<span class="md-ellipsis">
-      
-        Induced
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
 </nav>
 </div>
 </div>
@@ -315,7 +241,17 @@
 <article class="md-content__inner md-typeset">
 <h1 id="class-funding">Class: Funding</h1>
 <p><em>Funding source for the dataset. Each item corresponds to a single award or grant.</em></p>
-<p>URI: <a href="https://w3id.org/brc/Funding">brc:Funding</a></p>
+<div data-search-exclude="" markdown="1">
+
+
+
+URI: [brc:Funding](https://w3id.org/brc/Funding)
+
+
+
+
+
+
 <div class="mermaid"> classDiagram
     class Funding
     click Funding href "../Funding/"
@@ -339,93 +275,70 @@
 
 </div>
 <!-- no inheritance hierarchy -->
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Cardinality and Range</th>
-<th>Description</th>
-<th>Inheritance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../fundingOrganization/">fundingOrganization</a></td>
-<td>0..1 <br/> <a href="../BRCOrganization/">BRCOrganization</a></td>
-<td>Details of the funding entity</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../awardNumber/">awardNumber</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Award number from the funding entity</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../awardTitle/">awardTitle</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Title of the award</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../awardURI/">awardURI</a></td>
-<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>URI for the award</td>
-<td>direct</td>
-</tr>
-</tbody>
-</table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
-<tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td><a href="../funding/">funding</a></td>
-<td>range</td>
-<td><a href="./">Funding</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>brc:Funding</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:Funding</td>
-</tr>
-<tr>
-<td>close</td>
-<td>schema:Grant, osti:award</td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkml-source">LinkML Source</h2>
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [fundingOrganization](fundingOrganization.md) | 0..1 <br/> [BRCOrganization](BRCOrganization.md) | Details of the funding entity | direct |
+| [awardNumber](awardNumber.md) | 0..1 <br/> [String](String.md) | Award number from the funding entity | direct |
+| [awardTitle](awardTitle.md) | 0..1 <br/> [String](String.md) | Title of the award | direct |
+| [awardURI](awardURI.md) | 0..1 <br/> [Uriorcurie](Uriorcurie.md) | URI for the award | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Dataset](Dataset.md) | [funding](funding.md) | range | [Funding](Funding.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | brc:Funding |
+| native | brc:Funding |
+| close | schema:Grant, osti:award |
+
+
+
+
+
+
+## LinkML Source
+
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
-<h3 id="direct">Direct</h3>
+
+### Direct
+
 <details>
 <pre><code class="language-yaml">name: Funding
 description: Funding source for the dataset. Each item corresponds to a single award
@@ -476,7 +389,9 @@ attributes:
 
 </code></pre>
 </details>
-<h3 id="induced">Induced</h3>
+
+### Induced
+
 <details>
 <pre><code class="language-yaml">name: Funding
 description: Funding source for the dataset. Each item corresponds to a single award
@@ -534,7 +449,7 @@ attributes:
     range: uriorcurie
 
 </code></pre>
-</details>
+</details></div>
 </article>
 </div>
 <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>

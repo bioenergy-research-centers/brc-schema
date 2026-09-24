@@ -177,6 +177,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../species_and_taxonomy/">
+<span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../update_schema/">
 <span class="md-ellipsis">
     
@@ -221,101 +233,6 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
-<span class="md-ellipsis">
-      
-        Slots
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
-<span class="md-ellipsis">
-      
-        Usages
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#identifier-and-mapping-information">
-<span class="md-ellipsis">
-      
-        Identifier and Mapping Information
-      
-    </span>
-</a>
-<nav aria-label="Identifier and Mapping Information" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#valid-id-prefixes">
-<span class="md-ellipsis">
-      
-        Valid ID Prefixes
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#schema-source">
-<span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mappings">
-<span class="md-ellipsis">
-      
-        Mappings
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#linkml-source">
-<span class="md-ellipsis">
-      
-        LinkML Source
-      
-    </span>
-</a>
-<nav aria-label="LinkML Source" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#direct">
-<span class="md-ellipsis">
-      
-        Direct
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#induced">
-<span class="md-ellipsis">
-      
-        Induced
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
 </nav>
 </div>
 </div>
@@ -324,7 +241,17 @@
 <article class="md-content__inner md-typeset">
 <h1 id="class-dataset">Class: Dataset</h1>
 <p><em>A body of structured information describing some topic or topics of interest. This includes metadata about the dataset.</em></p>
-<p>URI: <a href="http://schema.org/Dataset">schema:Dataset</a></p>
+<div data-search-exclude="" markdown="1">
+
+
+
+URI: [schema:Dataset](http://schema.org/Dataset)
+
+
+
+
+
+
 <div class="mermaid"> classDiagram
     class Dataset
     click Dataset href "../Dataset/"
@@ -547,359 +474,133 @@
 
 </div>
 <!-- no inheritance hierarchy -->
-<h2 id="slots">Slots</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Cardinality and Range</th>
-<th>Description</th>
-<th>Inheritance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../id/">id</a></td>
-<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>Unique identifier for the dataset, assigned prior to inclusion in bioenergy</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../active/">active</a></td>
-<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Indicates whether the dataset is active or inactive</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../alert/">alert</a></td>
-<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Indicates whether availability of the dataset has encountered some inconsiste...</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../title/">title</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The title of the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../date/">date</a></td>
-<td>1 <br/> <a href="../date/">date</a></td>
-<td>The date the dataset was created or published</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../creator/">creator</a></td>
-<td>1..* <br/> <a href="../Individual/">Individual</a></td>
-<td>List of creators involved in the dataset, where one must be the primary conta...</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../contributors/">contributors</a></td>
-<td>* <br/> <a href="../Contributor/">Contributor</a></td>
-<td>Contributors to the dataset who are not necessarily authors</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../brc/">brc</a></td>
-<td>1 <br/> <a href="../BRCEnum/">BRCEnum</a></td>
-<td>The primary Bioenergy Research Center affiliation</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../additional_brcs/">additional_brcs</a></td>
-<td>* <br/> <a href="../BRCEnum/">BRCEnum</a></td>
-<td>Additional Bioenergy Research Center affiliations</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../repository/">repository</a></td>
-<td>0..1 <br/> <a href="../RepositoryEnum/">RepositoryEnum</a></td>
-<td>The repository where the dataset is stored</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../bibliographicCitation/">bibliographicCitation</a></td>
-<td>0..1 <br/> <a href="../Uri/">Uri</a></td>
-<td>Citation for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../identifier/">identifier</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>Unique identifier for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../has_related_ids/">has_related_ids</a></td>
-<td>* <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>"Related identifiers for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../species/">species</a></td>
-<td>* <br/> <a href="../Organism/">Organism</a></td>
-<td>Species information for the organism(s) studied</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../plasmid_features/">plasmid_features</a></td>
-<td>* <br/> <a href="../Plasmid/">Plasmid</a></td>
-<td>Description of plasmid features, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../analysisType/">analysisType</a></td>
-<td>0..1 <br/> <a href="../String/">String</a> or <br/><a href="../AnalysisType/">AnalysisType</a> or <br/><a href="../String/">String</a></td>
-<td>The type of analysis performed on the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../datasetType/">datasetType</a></td>
-<td>0..1 <br/> <a href="../DatasetTypeCodes/">DatasetTypeCodes</a></td>
-<td>High-level type of the main content of the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../topic/">topic</a></td>
-<td>1..* <br/> <a href="../DatasetTopicEnum/">DatasetTopicEnum</a></td>
-<td>High-level topic area for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../theme/">theme</a></td>
-<td>* <br/> <a href="../DatasetThemeEnum/">DatasetThemeEnum</a></td>
-<td>High-level theme areas for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../category/">category</a></td>
-<td>* <br/> <a href="../String/">String</a></td>
-<td>Category of the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../description/">description</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A detailed description of the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../abstract/">abstract</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>"A brief abstract summarizing the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../relatedItem/">relatedItem</a></td>
-<td>* <br/> <a href="../RelatedItem/">RelatedItem</a></td>
-<td>Related publications or items</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../keywords/">keywords</a></td>
-<td>* <br/> <a href="../String/">String</a></td>
-<td>Keywords associated with the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../ontology_annotations/">ontology_annotations</a></td>
-<td>* <br/> <a href="../OntologyAnnotation/">OntologyAnnotation</a></td>
-<td>Structured ontology term annotations that align this dataset with controlled ...</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../datasetName/">datasetName</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>"Name of a overall dataset to which this data entry belongs</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../funding/">funding</a></td>
-<td>* <br/> <a href="../Funding/">Funding</a></td>
-<td>Funding source(s) for the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../dataset_url/">dataset_url</a></td>
-<td>0..1 <br/> <a href="../Uri/">Uri</a></td>
-<td>URL for the dataset landing page</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../issue/">issue</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Issue number for a journal or other venue, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../journal_license_url/">journal_license_url</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>URL for information regarding the journal license</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../journal_name/">journal_name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Name of the journal publishing this information</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../journal_open_access_flag/">journal_open_access_flag</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Indicates whether the journal is open access</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../journal_type/">journal_type</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Specific sub-type of the journal article</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../journal_issn/">journal_issn</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>International Standard Serial Number for the journal, if known</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../volume/">volume</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Volume number for a journal or book, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../publication_date_text/">publication_date_text</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Textual representation of the publication date, if used</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../publisher_information/">publisher_information</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Publisher-specific information, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../country_publication_code/">country_publication_code</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Country code for the publication venue, if applicable</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../country_publication/">country_publication</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Human-readable country of publication, if available</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../conference_information/">conference_information</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>General conference information related to the dataset</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../conference_type/">conference_type</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Code representing the type of conference-related work</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../conference_title/">conference_title</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Title of the conference</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../conference_location/">conference_location</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Location of the conference</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../conference_date/">conference_date</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Date or date range for the conference</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../media/">media</a></td>
-<td>* <br/> <a href="../MediaSet/">MediaSet</a></td>
-<td>Media bundles and file-package metadata associated with the dataset</td>
-<td>direct</td>
-</tr>
-</tbody>
-</table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
-<tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../DatasetCollection/">DatasetCollection</a></td>
-<td><a href="../datasets/">datasets</a></td>
-<td>range</td>
-<td><a href="./">Dataset</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="valid-id-prefixes">Valid ID Prefixes</h3>
-<p>Instances of this class <em>should</em> have identifiers with one of the following prefixes:</p>
-<ul>
-<li>
-<p>cabbi</p>
-</li>
-<li>
-<p>cbi</p>
-</li>
-<li>
-<p>glbrc</p>
-</li>
-<li>
-<p>jbei</p>
-</li>
-</ul>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/brc/brc_schema</li>
-</ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>schema:Dataset</td>
-</tr>
-<tr>
-<td>native</td>
-<td>brc:Dataset</td>
-</tr>
-<tr>
-<td>exact</td>
-<td>dcat:Dataset, bald:Container</td>
-</tr>
-<tr>
-<td>close</td>
-<td>dcat:Catalog</td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkml-source">LinkML Source</h2>
+
+## Class Properties
+
+| Property | Value |
+| --- | --- |
+| Class URI | [schema:Dataset](http://schema.org/Dataset) |
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [id](id.md) | 0..1 <br/> [Uriorcurie](Uriorcurie.md) | Unique identifier for the dataset, assigned prior to inclusion in bioenergy | direct |
+| [active](active.md) | 0..1 <br/> [Boolean](Boolean.md) | Indicates whether the dataset is active or inactive | direct |
+| [alert](alert.md) | 0..1 <br/> [Boolean](Boolean.md) | Indicates whether availability of the dataset has encountered some inconsiste... | direct |
+| [title](title.md) | 1 <br/> [String](String.md) | The title of the dataset | direct |
+| [date](date.md) | 1 <br/> [date](date.md) | The date the dataset was created or published | direct |
+| [creator](creator.md) | 1..* <br/> [Individual](Individual.md) | List of creators involved in the dataset, where one must be the primary conta... | direct |
+| [contributors](contributors.md) | * <br/> [Contributor](Contributor.md) | Contributors to the dataset who are not necessarily authors | direct |
+| [brc](brc.md) | 1 <br/> [BRCEnum](BRCEnum.md) | The primary Bioenergy Research Center affiliation | direct |
+| [additional_brcs](additional_brcs.md) | * <br/> [BRCEnum](BRCEnum.md) | Additional Bioenergy Research Center affiliations | direct |
+| [repository](repository.md) | 0..1 <br/> [RepositoryEnum](RepositoryEnum.md) | The repository where the dataset is stored | direct |
+| [bibliographicCitation](bibliographicCitation.md) | 0..1 <br/> [Uri](Uri.md) | Citation for the dataset | direct |
+| [identifier](identifier.md) | 1 <br/> [String](String.md) | Unique identifier for the dataset | direct |
+| [has_related_ids](has_related_ids.md) | * <br/> [Uriorcurie](Uriorcurie.md) | "Related identifiers for the dataset | direct |
+| [species](species.md) | * <br/> [Organism](Organism.md) | Species information for the organism(s) studied | direct |
+| [plasmid_features](plasmid_features.md) | * <br/> [Plasmid](Plasmid.md) | Description of plasmid features, if applicable | direct |
+| [analysisType](analysisType.md) | 0..1 <br/> [String](String.md) or <br/>[AnalysisType](AnalysisType.md) | The type of analysis performed on the dataset | direct |
+| [datasetType](datasetType.md) | 0..1 <br/> [DatasetTypeCodes](DatasetTypeCodes.md) | High-level type of the main content of the dataset | direct |
+| [topic](topic.md) | 1..* <br/> [DatasetTopicEnum](DatasetTopicEnum.md) | High-level topic area for the dataset | direct |
+| [theme](theme.md) | * <br/> [DatasetThemeEnum](DatasetThemeEnum.md) | High-level theme areas for the dataset | direct |
+| [category](category.md) | * <br/> [String](String.md) | Category of the dataset | direct |
+| [description](description.md) | 0..1 <br/> [String](String.md) | A detailed description of the dataset | direct |
+| [abstract](abstract.md) | 0..1 <br/> [String](String.md) | "A brief abstract summarizing the dataset | direct |
+| [relatedItem](relatedItem.md) | * <br/> [RelatedItem](RelatedItem.md) | Related publications or items | direct |
+| [keywords](keywords.md) | * <br/> [String](String.md) | Keywords associated with the dataset | direct |
+| [ontology_annotations](ontology_annotations.md) | * <br/> [OntologyAnnotation](OntologyAnnotation.md) | Structured ontology term annotations that align this dataset with controlled ... | direct |
+| [datasetName](datasetName.md) | 0..1 <br/> [String](String.md) | "Name of a overall dataset to which this data entry belongs | direct |
+| [funding](funding.md) | * <br/> [Funding](Funding.md) | Funding source(s) for the dataset | direct |
+| [dataset_url](dataset_url.md) | 0..1 <br/> [Uri](Uri.md) | URL for the dataset landing page | direct |
+| [issue](issue.md) | 0..1 <br/> [String](String.md) | Issue number for a journal or other venue, if applicable | direct |
+| [journal_license_url](journal_license_url.md) | 0..1 <br/> [String](String.md) | URL for information regarding the journal license | direct |
+| [journal_name](journal_name.md) | 0..1 <br/> [String](String.md) | Name of the journal publishing this information | direct |
+| [journal_open_access_flag](journal_open_access_flag.md) | 0..1 <br/> [String](String.md) | Indicates whether the journal is open access | direct |
+| [journal_type](journal_type.md) | 0..1 <br/> [String](String.md) | Specific sub-type of the journal article | direct |
+| [journal_issn](journal_issn.md) | 0..1 <br/> [String](String.md) | International Standard Serial Number for the journal, if known | direct |
+| [volume](volume.md) | 0..1 <br/> [String](String.md) | Volume number for a journal or book, if applicable | direct |
+| [publication_date_text](publication_date_text.md) | 0..1 <br/> [String](String.md) | Textual representation of the publication date, if used | direct |
+| [publisher_information](publisher_information.md) | 0..1 <br/> [String](String.md) | Publisher-specific information, if applicable | direct |
+| [country_publication_code](country_publication_code.md) | 0..1 <br/> [String](String.md) | Country code for the publication venue, if applicable | direct |
+| [country_publication](country_publication.md) | 0..1 <br/> [String](String.md) | Human-readable country of publication, if available | direct |
+| [conference_information](conference_information.md) | 0..1 <br/> [String](String.md) | General conference information related to the dataset | direct |
+| [conference_type](conference_type.md) | 0..1 <br/> [String](String.md) | Code representing the type of conference-related work | direct |
+| [conference_title](conference_title.md) | 0..1 <br/> [String](String.md) | Title of the conference | direct |
+| [conference_location](conference_location.md) | 0..1 <br/> [String](String.md) | Location of the conference | direct |
+| [conference_date](conference_date.md) | 0..1 <br/> [String](String.md) | Date or date range for the conference | direct |
+| [media](media.md) | * <br/> [MediaSet](MediaSet.md) | Media bundles and file-package metadata associated with the dataset | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DatasetCollection](DatasetCollection.md) | [datasets](datasets.md) | range | [Dataset](Dataset.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+### Valid ID Prefixes
+
+Instances of this class *should* have identifiers with one of the following prefixes:
+
+* cabbi
+
+* cbi
+
+* glbrc
+
+* jbei
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/brc/brc_schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:Dataset |
+| native | brc:Dataset |
+| exact | dcat:Dataset, bald:Container |
+| close | dcat:Catalog |
+
+
+
+
+
+
+## LinkML Source
+
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
-<h3 id="direct">Direct</h3>
+
+### Direct
+
 <details>
 <pre><code class="language-yaml">name: Dataset
 id_prefixes:
@@ -1406,7 +1107,9 @@ class_uri: schema:Dataset
 
 </code></pre>
 </details>
-<h3 id="induced">Induced</h3>
+
+### Induced
+
 <details>
 <pre><code class="language-yaml">name: Dataset
 id_prefixes:
@@ -2003,7 +1706,7 @@ attributes:
 class_uri: schema:Dataset
 
 </code></pre>
-</details>
+</details></div>
 </article>
 </div>
 <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>

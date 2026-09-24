@@ -663,6 +663,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../species_and_taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Species and Taxonomy Identifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../update_schema/" class="md-nav__link">
         
   
@@ -1068,6 +1095,8 @@ and <code>uv.lock</code>, and runs CLI commands inside that environment.</p>
 <li><code>osti_to_brc</code>: Convert OSTI schema to BRC schema</li>
 <li><code>brc_to_osti</code>: Convert BRC schema to OSTI schema</li>
 <li><code>-o, --output</code> <strong>(required)</strong>: Output file path (format determined by extension: <code>.json</code> or <code>.yaml</code>)</li>
+<li><code>--taxon-lookup / --no-taxon-lookup</code>: Look up organism names from keywords in NCBI Taxonomy through OLS (default: on; <code>osti_to_brc</code> only). With lookups off, only names in <code>src/brc_schema/transform/organisms.yaml</code> get IDs.</li>
+<li><code>--taxon-adapter</code>: oaklib adapter selector for those lookups (default: <code>ols:ncbitaxon</code>)</li>
 </ul>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -1082,12 +1111,16 @@ uv run brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti
 
 # Transform BRC schema to OSTI format
 uv run brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+
+# Transform OSTI format to BRC schema without network access
+uv run brcschema transform -T osti_to_brc --no-taxon-lookup -o data_out_brc_form.yaml data_in_osti_form.yaml
 </code></pre>
 <p><strong>Notes:</strong></p>
 <ul>
 <li>Input files can be in JSON or YAML format</li>
 <li>JSON input is automatically converted to YAML for processing</li>
 <li>Output format is determined by the file extension</li>
+<li><code>osti_to_brc</code> fills <code>species</code> from taxon identifiers and organism keywords; see <a href="../species_and_taxonomy/">Species and Taxonomy Identifiers</a>. If OLS cannot be reached, the transform still completes, logs a warning, and uses the vocabulary alone.</li>
 </ul>
 <hr />
 <h3 id="retrieve-osti"><code>retrieve-osti</code></h3>
