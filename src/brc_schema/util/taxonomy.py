@@ -12,15 +12,20 @@ distinct from an empty result.
 """
 
 import logging
-from functools import lru_cache
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_ADAPTER = "ols:ncbitaxon"
 MAX_ATTEMPTS = 3
+# After this many lookups in a row fail, the service is treated as down and
+# lookups stop for the rest of the run.
+MAX_CONSECUTIVE_FAILURES = 3
 
 _settings = {"enabled": True, "adapter": DEFAULT_ADAPTER}
-_state = {"adapter": None, "failed": False}
+_state = {"adapter": None, "failed": False, "consecutive_failures": 0}
+# Successful results only; a failed lookup is not cached, so it can be
+# retried while the service is still considered up.
+_cache = {}
 
 
 def configure(enabled=True, adapter=None):
@@ -29,8 +34,8 @@ def configure(enabled=True, adapter=None):
     _settings["adapter"] = adapter or DEFAULT_ADAPTER
     _state["adapter"] = None
     _state["failed"] = False
-    search_name.cache_clear()
-    label_for_taxid.cache_clear()
+    _state["consecutive_failures"] = 0
+    _cache.clear()
 
 
 def is_enabled():
@@ -56,15 +61,43 @@ def _with_retries(func, description):
     last_error = None
     for _ in range(MAX_ATTEMPTS):
         try:
-            return func()
+            result = func()
         except Exception as e:  # noqa: BLE001 - network errors vary by adapter
             last_error = e
+            continue
+        _state["consecutive_failures"] = 0
+        return result
     logger.warning("Taxonomy lookup failed for %s after %d attempts: %s",
                    description, MAX_ATTEMPTS, last_error)
+    _state["consecutive_failures"] += 1
+    if _state["consecutive_failures"] >= MAX_CONSECUTIVE_FAILURES:
+        logger.warning(
+            "Taxonomy lookups disabled for this run after %d consecutive failures",
+            _state["consecutive_failures"],
+        )
+        _state["failed"] = True
     return None
 
 
-@lru_cache(maxsize=None)
+def _cached(key, func):
+    """Return a cached result, or run ``func`` through the adapter and cache it.
+
+    ``func`` takes the adapter. Results found earlier stay usable after
+    lookups are switched off; failures (``None``) are never cached.
+    """
+    if key in _cache:
+        return _cache[key]
+    if not is_enabled():
+        return None
+    adapter = _get_adapter()
+    if adapter is None:
+        return None
+    result = func(adapter)
+    if result is not None:
+        _cache[key] = result
+    return result
+
+
 def search_name(name):
     """Find NCBI taxa whose label or synonym is exactly ``name``.
 
@@ -72,36 +105,28 @@ def search_name(name):
     pairs, an empty tuple when nothing matches, or ``None`` when the lookup
     could not be made.
     """
-    if not is_enabled():
-        return None
-    adapter = _get_adapter()
-    if adapter is None:
-        return None
+    def lookup(adapter):
+        from oaklib.datamodels.search import SearchConfiguration
+        from oaklib.datamodels.search_datamodel import SearchProperty
 
-    from oaklib.datamodels.search import SearchConfiguration
-    from oaklib.datamodels.search_datamodel import SearchProperty
+        config = SearchConfiguration(
+            properties=[SearchProperty.LABEL, SearchProperty.ALIAS], is_complete=True
+        )
 
-    config = SearchConfiguration(
-        properties=[SearchProperty.LABEL, SearchProperty.ALIAS], is_complete=True
-    )
+        def run():
+            results = []
+            for curie in adapter.basic_search(name, config=config):
+                prefix, _, local_id = str(curie).partition(":")
+                if prefix == "NCBITaxon" and local_id.isdigit():
+                    results.append((int(local_id), adapter.label(curie)))
+            return tuple(results)
 
-    def run():
-        results = []
-        for curie in adapter.basic_search(name, config=config):
-            prefix, _, local_id = str(curie).partition(":")
-            if prefix == "NCBITaxon" and local_id.isdigit():
-                results.append((int(local_id), adapter.label(curie)))
-        return tuple(results)
+        return _with_retries(run, repr(name))
 
-    return _with_retries(run, repr(name))
+    return _cached(("name", name), lookup)
 
 
-@lru_cache(maxsize=None)
 def label_for_taxid(taxid):
     """Return the NCBI scientific name for ``taxid``, or ``None``."""
-    if not is_enabled():
-        return None
-    adapter = _get_adapter()
-    if adapter is None:
-        return None
-    return _with_retries(lambda: adapter.label(f"NCBITaxon:{int(taxid)}"), f"NCBITaxon:{taxid}")
+    curie = f"NCBITaxon:{int(taxid)}"
+    return _cached(("label", curie), lambda adapter: _with_retries(lambda: adapter.label(curie), curie))
