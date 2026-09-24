@@ -116,6 +116,8 @@ uv run brcschema transform -T <transformation_type> -o <output_file> <input_file
 
 Lookups need network access to OLS. If OLS cannot be reached, the transform still completes and logs a warning; only names in `organisms.yaml` get IDs. Use `--no-taxon-lookup` for offline runs.
 
+`brc_to_osti` writes each species identifier back to `related_identifiers` as a `URL` with relation `References`.
+
 **Examples:**
 
 ```bash

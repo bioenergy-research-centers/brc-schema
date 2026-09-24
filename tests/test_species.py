@@ -14,7 +14,9 @@ from brc_schema.cli import main
 from brc_schema.transform import (
     _load_organism_index,
     _parse_taxon_identifier,
+    build_brc_has_related_ids,
     build_brc_species,
+    build_osti_related_identifiers,
 )
 from brc_schema.util import taxonomy
 
@@ -206,6 +208,52 @@ def test_non_ncbi_ids_stay_separate_when_organism_is_ambiguous():
         {"scientificName": "Zymomonas mobilis", "NCBITaxID": 542},
         {"taxon_ids": ["GOLD:Gp0004954"]},
     ]
+
+
+def test_taxon_identifiers_are_not_copied_to_has_related_ids():
+    related = build_brc_has_related_ids(
+        None,
+        [
+            _url("https://www.ncbi.nlm.nih.gov/taxonomy/38727"),
+            _url("https://gold.jgi.doe.gov/project?id=Gp0004954"),
+            {"type": "DOI", "relation": "References", "value": "10.1234/abc"},
+        ],
+        None,
+        None,
+        None,
+        None,
+    )
+    assert related == ["doi:10.1234/abc"]
+
+
+def test_species_written_to_osti_related_identifiers():
+    related = build_osti_related_identifiers(
+        ["doi:10.1234/abc"],
+        [
+            {"scientificName": "Panicum virgatum", "NCBITaxID": 38727, "taxon_ids": ["GOLD:Gp0004954"]},
+            {"scientificName": "Sorghum"},
+            {"NCBITaxID": 38727},
+            {"taxon_ids": ["IMG.TAXON:1234567890"]},
+        ],
+    )
+    assert related == [
+        {"type": "DOI", "relation": "References", "value": "10.1234/abc"},
+        {"type": "URL", "relation": "References", "value": "https://www.ncbi.nlm.nih.gov/taxonomy/38727"},
+        {"type": "URL", "relation": "References", "value": "https://gold.jgi.doe.gov/resolver?id=Gp0004954"},
+        {
+            "type": "URL",
+            "relation": "References",
+            "value": "https://img.jgi.doe.gov/cgi-bin/m/main.cgi?section=TaxonDetail&page=taxonDetail&taxon_oid=1234567890",
+        },
+    ]
+
+
+def test_species_identifiers_round_trip():
+    species = [
+        {"scientificName": "Panicum virgatum", "NCBITaxID": 38727, "taxon_ids": ["GOLD:Gp0004954", "IMG.TAXON:1234567890"]}
+    ]
+    related = build_osti_related_identifiers(None, species)
+    assert build_brc_species(None, None, related) == species
 
 
 def test_osti_to_brc_transform_emits_valid_species(tmp_path):

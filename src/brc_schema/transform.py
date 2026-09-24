@@ -593,6 +593,9 @@ def build_brc_has_related_ids(
         if not item_value or str(item_value).lower() == "none":
             continue
         item_value = str(item_value)
+        if _is_taxon_identifier(item_value):
+            # Taxon identifiers go to `species` (see build_brc_species).
+            continue
         if item_type == "DOI":
             related_ids.append(f"doi:{item_value}")
         elif item_type in {"URL", "URI"} and "bioproject" in item_value.lower() and "?term=" in item_value:
@@ -701,6 +704,10 @@ def _parse_taxon_identifier(value):
     if img:
         return ("other", f"IMG.TAXON:{img}")
     return None
+
+
+def _is_taxon_identifier(value):
+    return _parse_taxon_identifier(value) is not None
 
 
 def _resolve_organism_keyword(keyword):
@@ -950,7 +957,20 @@ def build_osti_identifiers(has_related_ids, identifier, brc):
     return identifiers or None
 
 
-def build_osti_related_identifiers(has_related_ids):
+def _osti_taxon_url(taxon_id):
+    """Return a resolvable URL for a BRC taxon_ids CURIE, or None."""
+    prefix, _, local_id = str(taxon_id).partition(":")
+    if prefix == "GOLD" and local_id:
+        return f"https://gold.jgi.doe.gov/resolver?id={local_id}"
+    if prefix == "IMG.TAXON" and local_id:
+        return (
+            "https://img.jgi.doe.gov/cgi-bin/m/main.cgi"
+            f"?section=TaxonDetail&page=taxonDetail&taxon_oid={local_id}"
+        )
+    return None
+
+
+def build_osti_related_identifiers(has_related_ids, species=None):
     related_identifiers = []
     for related_id in _as_list(has_related_ids):
         if not isinstance(related_id, str):
@@ -969,6 +989,21 @@ def build_osti_related_identifiers(has_related_ids):
                         "value": f"https://www.ncbi.nlm.nih.gov/bioproject/?term={project_id}",
                     }
                 )
+
+    # Species identifiers become URLs; OSTI has no taxonomy identifier type.
+    # A species with a name but no identifier has nothing to write here.
+    taxon_urls = []
+    for organism in _as_list(species):
+        taxid = _attr(organism, "NCBITaxID")
+        if taxid:
+            taxon_urls.append(f"https://www.ncbi.nlm.nih.gov/taxonomy/{int(taxid)}")
+        for taxon_id in _as_list(_attr(organism, "taxon_ids")):
+            url = _osti_taxon_url(taxon_id)
+            if url:
+                taxon_urls.append(url)
+    related_identifiers.extend(
+        {"type": "URL", "relation": "References", "value": url} for url in _dedupe(taxon_urls)
+    )
     return related_identifiers or None
 
 
