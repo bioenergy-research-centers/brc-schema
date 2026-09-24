@@ -56,6 +56,8 @@ uv run brcschema transform -T <transformation_type> -o <output_file> <input_file
   - `osti_to_brc`: Convert OSTI schema to BRC schema
   - `brc_to_osti`: Convert BRC schema to OSTI schema
 - `-o, --output` **(required)**: Output file path (format determined by extension: `.json` or `.yaml`)
+- `--taxon-lookup / --no-taxon-lookup`: Look up organism names from keywords in NCBI Taxonomy through OLS (default: on; `osti_to_brc` only). With lookups off, only names in `src/brc_schema/transform/organisms.yaml` get IDs.
+- `--taxon-adapter`: oaklib adapter selector for those lookups (default: `ols:ncbitaxon`)
 
 **Arguments:**
 
@@ -72,6 +74,9 @@ uv run brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti
 
 # Transform BRC schema to OSTI format
 uv run brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc_form.yaml
+
+# Transform OSTI format to BRC schema without network access
+uv run brcschema transform -T osti_to_brc --no-taxon-lookup -o data_out_brc_form.yaml data_in_osti_form.yaml
 ```
 
 **Notes:**
@@ -79,6 +84,7 @@ uv run brcschema transform -T brc_to_osti -o data_out_osti_form.yaml data_in_brc
 - Input files can be in JSON or YAML format
 - JSON input is automatically converted to YAML for processing
 - Output format is determined by the file extension
+- `osti_to_brc` fills `species` from taxon identifiers and organism keywords; see [Species and Taxonomy Identifiers](species_and_taxonomy.md). If OLS cannot be reached, the transform still completes, logs a warning, and uses the vocabulary alone.
 
 ---
 

@@ -28,6 +28,7 @@ nav:
   - CLI Usage: cli.md
   - OSTI E-Link Integration: osti_elink_integration.md
   - OSTI to/from xBRC Conversion: osti_xbrc_conversion.md
+  - Species and Taxonomy Identifiers: species_and_taxonomy.md
   - Updating the Schema: update_schema.md
   - Schema Reference: index.md
   - About: about.md

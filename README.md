@@ -120,6 +120,8 @@ Lookups need network access to OLS. If OLS cannot be reached, the transform stil
 
 `brc_to_osti` writes each species identifier back to `related_identifiers` as a `URL` with relation `References`.
 
+For what to include in OSTI records so organisms reach bioenergy.org, see the [Species and Taxonomy Identifiers](https://bioenergy-research-centers.github.io/brc-schema/species_and_taxonomy/) documentation page.
+
 **Examples:**
 
 ```bash
