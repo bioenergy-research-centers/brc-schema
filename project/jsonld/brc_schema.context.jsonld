@@ -33,13 +33,25 @@
          "@id": "http://purl.obolibrary.org/obo/GO_",
          "@prefix": true
       },
+      "GOLD": {
+         "@id": "https://gold.jgi.doe.gov/resolver?id=",
+         "@prefix": true
+      },
       "IAO": {
          "@id": "http://purl.obolibrary.org/obo/IAO_",
+         "@prefix": true
+      },
+      "IMG.TAXON": {
+         "@id": "https://img.jgi.doe.gov/cgi-bin/m/main.cgi?section=TaxonDetail&page=taxonDetail&taxon_oid=",
          "@prefix": true
       },
       "INSDC.SRA": "https://www.ncbi.nlm.nih.gov/sra/",
       "MI": {
          "@id": "http://purl.obolibrary.org/obo/MI_",
+         "@prefix": true
+      },
+      "NCBITaxon": {
+         "@id": "http://purl.obolibrary.org/obo/NCBITaxon_",
          "@prefix": true
       },
       "NCIT": {
@@ -442,6 +454,9 @@
       },
       "strains": {
          "@id": "strains"
+      },
+      "taxon_ids": {
+         "@id": "taxon_ids"
       },
       "backbone": {
          "@id": "backbone"

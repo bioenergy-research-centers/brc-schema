@@ -973,7 +973,7 @@
             "description": "An organism studied in the dataset.",
             "properties": {
                 "NCBITaxID": {
-                    "description": "NCBI taxonomy ID for the organism.",
+                    "description": "NCBI Taxonomy ID for the organism, as a bare integer (e.g., 3694 for Populus trichocarpa).",
                     "type": [
                         "integer",
                         "null"
@@ -989,6 +989,17 @@
                 "strains": {
                     "description": "Name of one or more strains of the organism.",
                     "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "taxon_ids": {
+                    "description": "Taxonomic or genome identifiers for the organism from sources other than NCBI Taxonomy, as CURIEs. Supported prefixes are GOLD (JGI Genomes OnLine Database IDs, e.g., GOLD:Gp0004954; organism IDs begin with Go, sequencing project IDs with Gp) and IMG.TAXON (JGI IMG taxon OIDs, which are integers). Use NCBITaxID for NCBI Taxonomy identifiers.",
+                    "items": {
+                        "pattern": "^(GOLD:G[a-z][0-9]+|IMG\\.TAXON:[0-9]+)$",
                         "type": "string"
                     },
                     "type": [
@@ -1177,5 +1188,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.2.0"
+    "version": "0.2.1"
 }
