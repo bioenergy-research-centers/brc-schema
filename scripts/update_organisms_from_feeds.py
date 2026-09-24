@@ -17,6 +17,7 @@ Set NCBI_API_KEY to raise the NCBI rate limit.
 import argparse
 import json
 import os
+import re
 import sys
 import time
 import urllib.parse
@@ -133,11 +134,43 @@ def load_curated():
     return names, set(names.values()), ambiguous, head
 
 
+# Ranks above species. Under one of these, "Genus epithet" names a species
+# inside the taxon, so the feed name is more specific than its taxid.
+ABOVE_SPECIES = {
+    "superkingdom", "domain", "kingdom", "subkingdom", "phylum", "subphylum",
+    "class", "subclass", "order", "suborder", "superfamily", "family",
+    "subfamily", "tribe", "subtribe", "genus", "subgenus", "section",
+    "subsection", "series", "species group", "species subgroup", "clade",
+}
+RANK_WORDS = ABOVE_SPECIES | {"species", "subspecies", "strain", "variety"}
+_EPITHET_RE = re.compile(r"^[a-z][a-z-]+$")
+
+
 def agrees(feed_name, record):
+    """True when feed_name is an NCBI name for the record, or contains the
+    NCBI scientific name as whole words (e.g. "maize (Zea mays)").
+
+    Whole words matter: "Panicum virgatum" must not pass for the genus Pan.
+    Above species rank, the name may not be followed by an epithet:
+    "Zea mays" must not pass for the genus Zea.
+    """
     key = norm(feed_name)
     if key in {norm(name) for name in record["names"]}:
         return True
-    return norm(record["name"]) in key
+    text = " ".join(str(feed_name).replace("×", "x").split())
+    pattern = r"(?<!\w)" + re.escape(" ".join(record["name"].replace("×", "x").split())) + r"(?!\w)"
+    match = re.search(pattern, text, re.IGNORECASE)
+    if match is None:
+        return False
+    if record.get("rank") in ABOVE_SPECIES:
+        following = text[match.end():].split()
+        # Closing brackets are dropped ("(Zea mays)"); a trailing period is
+        # kept, so "sp." is not read as an epithet. A rank word is not one
+        # either ("Lamiaceae family").
+        word = following[0].rstrip(")]},;:") if following else ""
+        if _EPITHET_RE.match(word) and word not in RANK_WORDS:
+            return False
+    return True
 
 
 def build(found, ncbi, curated_names, curated_taxids, ambiguous):
