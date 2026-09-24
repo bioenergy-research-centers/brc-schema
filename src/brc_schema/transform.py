@@ -662,16 +662,19 @@ def _load_organism_index():
         by_name = {}
         by_taxid = {}
         ambiguous = {_normalize_organism_name(name) for name in data.get("ambiguous_names") or []}
-        for entry in data.get("organisms") or []:
+        # Curated entries first. Generated feed entries add synonyms but never
+        # replace a curated scientific name.
+        for entry in (data.get("organisms") or []) + (data.get("feed_organisms") or []):
             taxid = int(entry["ncbi_taxid"])
-            record = {"scientificName": entry["scientific_name"], "NCBITaxID": taxid}
-            by_taxid[taxid] = record
+            record = by_taxid.setdefault(
+                taxid, {"scientificName": entry["scientific_name"], "NCBITaxID": taxid}
+            )
             for name in [entry["scientific_name"]] + list(entry.get("synonyms") or []):
                 key = _normalize_organism_name(name)
                 existing = by_name.get(key)
                 if key in ambiguous or (existing and existing["NCBITaxID"] != taxid):
                     raise ValueError(
-                        f"{ORGANISMS_PATH.name}: name '{name}' is listed more than once"
+                        f"{ORGANISMS_PATH.name}: name '{name}' maps to more than one taxon"
                     )
                 by_name[key] = record
         _organism_index = (by_name, by_taxid, ambiguous)

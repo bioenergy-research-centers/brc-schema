@@ -76,9 +76,9 @@ def test_species_from_ncbi_url_is_named_from_vocabulary():
 
 def test_species_from_ncbi_url_is_named_from_lookup():
     species = build_brc_species(
-        None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/1280")]
+        None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/947166")]
     )
-    assert species == [{"scientificName": "Staphylococcus aureus", "NCBITaxID": 1280}]
+    assert species == [{"scientificName": "Ramazzottius varieornatus", "NCBITaxID": 947166}]
 
 
 def test_unknown_ncbi_taxid_is_kept_without_a_name():
@@ -103,16 +103,24 @@ def test_keywords_match_only_whole_names():
     ]
 
 
+def _assert_not_in_vocabulary(name):
+    by_name, _, ambiguous = _load_organism_index()
+    key = " ".join(name.split()).casefold()
+    assert key not in by_name and key not in ambiguous, f"{name} is in organisms.yaml"
+
+
 def test_name_outside_vocabulary_gets_id_from_lookup():
-    species = build_brc_species(["Staphylococcus aureus"], None, None)
-    assert species == [{"scientificName": "Staphylococcus aureus", "NCBITaxID": 1280}]
+    _assert_not_in_vocabulary("Ramazzottius varieornatus")
+    species = build_brc_species(["Ramazzottius varieornatus"], None, None)
+    assert species == [{"scientificName": "Ramazzottius varieornatus", "NCBITaxID": 947166}]
 
 
 def test_ambiguous_lookup_keeps_name_without_id(offline_taxonomy):
     # Only the lookup sees this name, and it matches two taxa.
-    offline_taxonomy.taxa["NCBITaxon:9999"] = ("Staphylococcus aureus", [], [])
-    species = build_brc_species(["Staphylococcus aureus"], None, None)
-    assert species == [{"scientificName": "Staphylococcus aureus"}]
+    _assert_not_in_vocabulary("Ramazzottius varieornatus")
+    offline_taxonomy.taxa["NCBITaxon:9999"] = ("Ramazzottius varieornatus", [], [])
+    species = build_brc_species(["Ramazzottius varieornatus"], None, None)
+    assert species == [{"scientificName": "Ramazzottius varieornatus"}]
 
 
 def test_vocabulary_ambiguous_name_skips_lookup():
@@ -142,7 +150,7 @@ def test_acronyms_are_not_looked_up():
 def test_lookup_disabled_uses_vocabulary_only():
     taxonomy.configure(enabled=False)
     species = build_brc_species(
-        ["poplar, Staphylococcus aureus, Zymomonas mobilis 2032"], None, None
+        ["poplar, Ramazzottius varieornatus, Zymomonas mobilis 2032"], None, None
     )
     assert species == [{"scientificName": "Populus", "NCBITaxID": 3689}]
 
@@ -158,12 +166,12 @@ def test_lookup_failure_is_not_fatal(monkeypatch, caplog):
     monkeypatch.setattr(taxonomy, "_get_adapter", lambda: BrokenAdapter())
     taxonomy.configure()
     species = build_brc_species(
-        ["poplar, Staphylococcus aureus"],
+        ["poplar, Ramazzottius varieornatus"],
         None,
-        [_url("https://www.ncbi.nlm.nih.gov/taxonomy/1280")],
+        [_url("https://www.ncbi.nlm.nih.gov/taxonomy/947166")],
     )
     assert species == [
-        {"NCBITaxID": 1280},
+        {"NCBITaxID": 947166},
         {"scientificName": "Populus", "NCBITaxID": 3689},
     ]
     assert "Taxonomy lookup failed" in caplog.text

@@ -15,8 +15,9 @@ FAKE_NCBITAXON = {
     "NCBITaxon:381124": ("Zea mays subsp. mays", ["maize", "corn"], []),
     "NCBITaxon:541": ("Zymomonas", [], []),
     "NCBITaxon:542": ("Zymomonas mobilis", [], []),
-    "NCBITaxon:1279": ("Staphylococcus", [], []),
-    "NCBITaxon:1280": ("Staphylococcus aureus", [], []),
+    # Tardigrades: absent from organisms.yaml, so only the lookup knows them.
+    "NCBITaxon:286681": ("Ramazzottius", [], []),
+    "NCBITaxon:947166": ("Ramazzottius varieornatus", [], []),
     "NCBITaxon:11676": ("Human immunodeficiency virus 1", [], ["HIV"]),
 }
 

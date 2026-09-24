@@ -114,6 +114,8 @@ uv run brcschema transform -T <transformation_type> -o <output_file> <input_file
 - `related_identifiers` values that are NCBI Taxonomy URLs or CURIEs (e.g. `https://www.ncbi.nlm.nih.gov/taxonomy/38727`) become `NCBITaxID`; JGI GOLD and IMG identifiers become `taxon_ids`.
 - `keywords` that name an organism. Names are checked first against the curated list in `src/brc_schema/transform/organisms.yaml`, then looked up in NCBI Taxonomy through OLS. A name that matches exactly one taxon (at any rank) gets its ID; an ambiguous name, or an organism name with no match, is kept as `scientificName` alone.
 
+`organisms.yaml` also carries a generated `feed_organisms` block: every organism already used in the live BRC data feeds, with names and taxids checked against NCBI Taxonomy. Refresh it with `uv run python scripts/update_organisms_from_feeds.py --report organisms_report.md`; the report lists feed names that disagree with NCBI and were left out. The report from the current block is in `reports/`.
+
 Lookups need network access to OLS. If OLS cannot be reached, the transform still completes and logs a warning; only names in `organisms.yaml` get IDs. Use `--no-taxon-lookup` for offline runs.
 
 `brc_to_osti` writes each species identifier back to `related_identifiers` as a `URL` with relation `References`.
