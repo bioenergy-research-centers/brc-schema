@@ -31,11 +31,12 @@
 # synonyms but never overrides the curated entries here. Do not edit it by
 # hand; correct names here and rerun the script.
 
-# Names that do not identify a single taxon. They are kept as names, with no
-# ID, unless the record also carries a taxon identifier.
+# Names that do not identify a single taxon, each with the NCBI taxids it
+# could mean. They are kept as names, with no ID, unless the record also
+# carries one of the listed taxids (or one a lookup finds for the name).
 ambiguous_names:
-  - sorghum      # genus Sorghum (4557) or Sorghum bicolor (4558)
-  - sugarcane    # usually a Saccharum hybrid, not S. officinarum
+  sorghum: [4557, 4558]      # genus Sorghum, Sorghum bicolor
+  sugarcane: [4547, 128810]  # Saccharum officinarum, Saccharum hybrid cultivar
 
 organisms:
   # Plants

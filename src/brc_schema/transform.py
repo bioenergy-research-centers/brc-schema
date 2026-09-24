@@ -655,14 +655,18 @@ def _normalize_organism_name(name):
 
 
 def _load_organism_index():
-    """Return (name -> entry, taxid -> entry, ambiguous names) from organisms.yaml."""
+    """Return (name -> entry, taxid -> entry, ambiguous name -> candidate taxids)
+    from organisms.yaml."""
     global _organism_index
     if _organism_index is None:
         with ORGANISMS_PATH.open(encoding="utf-8") as handle:
             data = yaml.safe_load(handle) or {}
         by_name = {}
         by_taxid = {}
-        ambiguous = {_normalize_organism_name(name) for name in data.get("ambiguous_names") or []}
+        ambiguous = {
+            _normalize_organism_name(name): {int(taxid) for taxid in taxids or []}
+            for name, taxids in (data.get("ambiguous_names") or {}).items()
+        }
         # Curated entries first. Generated feed entries add synonyms but never
         # replace a curated scientific name.
         for entry in (data.get("organisms") or []) + (data.get("feed_organisms") or []):
@@ -727,7 +731,7 @@ def _resolve_organism_keyword(keyword):
     key = _normalize_organism_name(keyword)
     if key in ambiguous:
         hits = taxonomy.search_name(keyword) or ()
-        return {"scientificName": keyword}, {taxid for taxid, _ in hits}
+        return {"scientificName": keyword}, ambiguous[key] | {taxid for taxid, _ in hits}
     if key in by_name:
         record = dict(by_name[key])
         return record, {record["NCBITaxID"]}

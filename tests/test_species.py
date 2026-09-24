@@ -64,7 +64,8 @@ def test_organism_vocabulary_has_no_conflicting_names():
     by_name, by_taxid, ambiguous = _load_organism_index()
     assert by_name
     assert all(record["NCBITaxID"] in by_taxid for record in by_name.values())
-    assert not ambiguous & set(by_name)
+    assert not set(ambiguous) & set(by_name)
+    assert all(ambiguous.values()), "each ambiguous name needs candidate taxids"
 
 
 def test_species_from_ncbi_url_is_named_from_vocabulary():
@@ -132,6 +133,14 @@ def test_ambiguous_name_is_settled_by_identifier_in_metadata():
         ["sorghum"], None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/4558")]
     )
     assert species == [{"NCBITaxID": 4558, "scientificName": "Sorghum bicolor"}]
+
+
+def test_ambiguous_name_is_settled_offline_by_listed_candidates():
+    taxonomy.configure(enabled=False)
+    species = build_brc_species(
+        ["sorghum"], None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/4558")]
+    )
+    assert species == [{"scientificName": "Sorghum bicolor", "NCBITaxID": 4558}]
 
 
 def test_unmatched_name_starting_with_known_species_keeps_name():
