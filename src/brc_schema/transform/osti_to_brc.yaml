@@ -88,6 +88,8 @@ class_derivations:
         expr: "build_brc_dataset_url(site_url, links)"
       active:
         expr: "workflow_status == 'R' if workflow_status else False"
+      species:
+        expr: "build_brc_species(keywords, subjects, related_identifiers)"
       has_related_ids:
         expr: "build_brc_has_related_ids(identifiers, related_identifiers, identifier, other_identifiers, other_number, report_number)"
 

@@ -1,0 +1,175 @@
+"""Tests for mapping OSTI keywords and related identifiers to BRC species."""
+
+import json
+from pathlib import Path
+
+import pytest
+import yaml
+from click.testing import CliRunner
+from linkml.validator import Validator
+from linkml.validator.plugins import JsonschemaValidationPlugin
+from linkml.validator.report import Severity
+
+from brc_schema.cli import main
+from brc_schema.transform import (
+    _load_organism_index,
+    _parse_taxon_identifier,
+    build_brc_species,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = ROOT / "src" / "brc_schema" / "schema" / "brc_schema.yaml"
+
+
+def _url(value, type_="URL"):
+    return {"type": type_, "relation": "IsDocumentedBy", "value": value}
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        ("https://www.ncbi.nlm.nih.gov/taxonomy/38727", ("ncbi", 38727)),
+        (
+            "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?command=show&mode=node&id=38727&lvl=",
+            ("ncbi", 38727),
+        ),
+        ("https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=38727", ("ncbi", 38727)),
+        ("https://www.ncbi.nlm.nih.gov/datasets/taxonomy/38727/", ("ncbi", 38727)),
+        ("http://purl.obolibrary.org/obo/NCBITaxon_38727", ("ncbi", 38727)),
+        ("NCBITaxon:38727", ("ncbi", 38727)),
+        ("NCBI:txid38727", ("ncbi", 38727)),
+        ("https://gold.jgi.doe.gov/project?id=Gp0004954", ("other", "GOLD:Gp0004954")),
+        ("https://gold.jgi.doe.gov/resolver?id=Gp0004954", ("other", "GOLD:Gp0004954")),
+        ("GOLD:Gp0004954", ("other", "GOLD:Gp0004954")),
+        ("Gp0004954", ("other", "GOLD:Gp0004954")),
+        (
+            "https://img.jgi.doe.gov/cgi-bin/m/main.cgi?section=TaxonDetail&page=taxonDetail&taxon_oid=1234567890",
+            ("other", "IMG.TAXON:1234567890"),
+        ),
+        ("IMG.TAXON:1234567890", ("other", "IMG.TAXON:1234567890")),
+        ("10.11578/1234567", None),
+        ("https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA123", None),
+        ("https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=Populus", None),
+        (None, None),
+    ],
+)
+def test_parse_taxon_identifier(value, expected):
+    assert _parse_taxon_identifier(value) == expected
+
+
+def test_organism_vocabulary_has_no_conflicting_names():
+    by_name, by_taxid = _load_organism_index()
+    assert by_name
+    assert all(record["NCBITaxID"] in by_taxid for record in by_name.values())
+
+
+def test_species_from_ncbi_url_is_named_from_vocabulary():
+    species = build_brc_species(
+        None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/38727")]
+    )
+    assert species == [{"scientificName": "Panicum virgatum", "NCBITaxID": 38727}]
+
+
+def test_unknown_ncbi_taxid_is_kept_without_a_name():
+    species = build_brc_species(
+        None, None, [_url("https://www.ncbi.nlm.nih.gov/taxonomy/999999")]
+    )
+    assert species == [{"NCBITaxID": 999999}]
+
+
+def test_keywords_match_only_exact_vocabulary_names():
+    species = build_brc_species(
+        ["poplar, Populus Trichocarpa, corn stover, Gene expression, E. coli"],
+        None,
+        None,
+    )
+    assert species == [
+        {"scientificName": "Populus trichocarpa", "NCBITaxID": 3694},
+        {"scientificName": "Escherichia coli", "NCBITaxID": 562},
+    ]
+
+
+def test_keywords_without_organisms_yield_nothing():
+    assert build_brc_species(["Lignin structure, HSQC, poplar, CELF, CBP, CBI"], None, None) is None
+
+
+def test_keyword_and_identifier_for_same_taxon_merge():
+    species = build_brc_species(
+        ["switchgrass"],
+        None,
+        [_url("https://www.ncbi.nlm.nih.gov/taxonomy/38727")],
+    )
+    assert species == [{"scientificName": "Panicum virgatum", "NCBITaxID": 38727}]
+
+
+def test_former_scientific_name_maps_to_current_name():
+    species = build_brc_species(["Clostridium thermocellum"], None, None)
+    assert species == [{"scientificName": "Acetivibrio thermocellus", "NCBITaxID": 1515}]
+
+
+def test_non_ncbi_ids_attach_to_single_organism():
+    species = build_brc_species(
+        None,
+        None,
+        [
+            _url("https://www.ncbi.nlm.nih.gov/taxonomy/38727"),
+            _url("Gp0004954", type_="OTHER"),
+        ],
+    )
+    assert species == [
+        {"scientificName": "Panicum virgatum", "NCBITaxID": 38727, "taxon_ids": ["GOLD:Gp0004954"]}
+    ]
+
+
+def test_non_ncbi_ids_stay_separate_when_organism_is_ambiguous():
+    species = build_brc_species(
+        ["switchgrass, Zymomonas mobilis"],
+        None,
+        [_url("GOLD:Gp0004954", type_="OTHER")],
+    )
+    assert species == [
+        {"scientificName": "Panicum virgatum", "NCBITaxID": 38727},
+        {"scientificName": "Zymomonas mobilis", "NCBITaxID": 542},
+        {"taxon_ids": ["GOLD:Gp0004954"]},
+    ]
+
+
+def test_osti_to_brc_transform_emits_valid_species(tmp_path):
+    record = {
+        "osti_id": "12345",
+        "title": "Test Dataset",
+        "description": "A test dataset",
+        "keywords": ["switchgrass, lignin"],
+        "publication_date": "2024-01-01",
+        "site_ownership_code": "GLBRC",
+        "persons": [{"type": "AUTHOR", "first_name": "Ada", "last_name": "Test"}],
+        "related_identifiers": [
+            _url("https://www.ncbi.nlm.nih.gov/taxonomy/542"),
+            _url("https://gold.jgi.doe.gov/project?id=Gp0004954"),
+        ],
+    }
+    input_file = tmp_path / "input.json"
+    input_file.write_text(json.dumps({"records": [record]}), encoding="utf-8")
+    output_file = tmp_path / "output.yaml"
+
+    result = CliRunner().invoke(
+        main, ["transform", "-T", "osti_to_brc", "-o", str(output_file), str(input_file)]
+    )
+    assert result.exit_code == 0, result.output
+
+    data = yaml.safe_load(output_file.read_text(encoding="utf-8"))
+    assert data["datasets"][0]["species"] == [
+        {"scientificName": "Zymomonas mobilis", "NCBITaxID": 542},
+        {"scientificName": "Panicum virgatum", "NCBITaxID": 38727},
+        {"taxon_ids": ["GOLD:Gp0004954"]},
+    ]
+
+    validator = Validator(
+        schema=str(SCHEMA_PATH),
+        validation_plugins=[JsonschemaValidationPlugin(closed=True)],
+    )
+    report = validator.validate(data, target_class="DatasetCollection")
+    errors = [
+        r.message for r in report.results if r.severity in (Severity.ERROR, Severity.FATAL)
+    ]
+    assert errors == []

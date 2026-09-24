@@ -1,0 +1,186 @@
+# Curated organisms recognised in OSTI keywords by the osti_to_brc transform.
+#
+# A keyword becomes a BRC `species` entry only when it matches, in full,
+# one of the names below (case-insensitive, whitespace-normalised). There is
+# no partial or fuzzy matching, so "corn stover" does not match "corn".
+#
+# Every entry must be at species rank (or below) in NCBI Taxonomy. Names that
+# denote a broader group are deliberately left out, even where BRC usage
+# often implies one species:
+#   - "poplar" names the genus Populus (NCBITaxon:3689)
+#   - "Sorghum", "Arabidopsis", "Camelina", "Miscanthus" are genus names
+#   - "sugarcane" is usually a Saccharum hybrid, not S. officinarum
+#   - "yeast" is not a species
+#
+# Fields:
+#   scientific_name: current NCBI Taxonomy scientific name
+#   ncbi_taxid:      NCBI Taxonomy ID (integer)
+#   synonyms:        other names to match: former scientific names,
+#                    abbreviations, and unambiguous common names
+#
+# Verified against NCBI Taxonomy E-utilities on 2026-09-24.
+
+organisms:
+  # Plants
+  - scientific_name: Arabidopsis thaliana
+    ncbi_taxid: 3702
+    synonyms:
+      - A. thaliana
+      - thale cress
+  - scientific_name: Brachypodium distachyon
+    ncbi_taxid: 15368
+    synonyms:
+      - B. distachyon
+      - purple false brome
+  - scientific_name: Camelina sativa
+    ncbi_taxid: 90675
+    # "C. sativa" is omitted: it also abbreviates Cannabis sativa.
+    synonyms: []
+  - scientific_name: Glycine max
+    ncbi_taxid: 3847
+    synonyms:
+      - soybean
+  - scientific_name: Medicago truncatula
+    ncbi_taxid: 3880
+    synonyms:
+      - M. truncatula
+      - barrel medic
+  - scientific_name: Miscanthus x giganteus
+    ncbi_taxid: 183674
+    synonyms:
+      - Miscanthus × giganteus
+      - Miscanthus giganteus
+      - M. x giganteus
+      - M. giganteus
+      - giant miscanthus
+  - scientific_name: Miscanthus sinensis
+    ncbi_taxid: 62337
+    synonyms:
+      - M. sinensis
+  - scientific_name: Oryza sativa
+    ncbi_taxid: 4530
+    synonyms:
+      - O. sativa
+      - rice
+  - scientific_name: Panicum virgatum
+    ncbi_taxid: 38727
+    synonyms:
+      - P. virgatum
+      - switchgrass
+  - scientific_name: Populus trichocarpa
+    ncbi_taxid: 3694
+    synonyms:
+      - P. trichocarpa
+      - black cottonwood
+  - scientific_name: Saccharum officinarum
+    ncbi_taxid: 4547
+    synonyms:
+      - S. officinarum
+  - scientific_name: Setaria viridis
+    ncbi_taxid: 4556
+    synonyms:
+      - S. viridis
+      - green foxtail
+  - scientific_name: Solanum lycopersicum
+    ncbi_taxid: 4081
+    synonyms:
+      - S. lycopersicum
+      - tomato
+  - scientific_name: Sorghum bicolor
+    ncbi_taxid: 4558
+    synonyms:
+      - S. bicolor
+  - scientific_name: Thlaspi arvense
+    ncbi_taxid: 13288
+    synonyms:
+      - T. arvense
+      - pennycress
+      - field pennycress
+  - scientific_name: Zea mays
+    ncbi_taxid: 4577
+    synonyms:
+      - Z. mays
+      - maize
+      - corn
+
+  # Fungi and yeasts
+  - scientific_name: Aspergillus niger
+    ncbi_taxid: 5061
+    synonyms:
+      - A. niger
+  - scientific_name: Neurospora crassa
+    ncbi_taxid: 5141
+    synonyms:
+      - N. crassa
+  - scientific_name: Pichia kudriavzevii
+    ncbi_taxid: 4909
+    synonyms:
+      - P. kudriavzevii
+      - Issatchenkia orientalis
+      - I. orientalis
+      - Candida krusei
+  - scientific_name: Rhodotorula toruloides
+    ncbi_taxid: 5286
+    synonyms:
+      - R. toruloides
+      - Rhodosporidium toruloides
+  - scientific_name: Saccharomyces cerevisiae
+    ncbi_taxid: 4932
+    synonyms:
+      - S. cerevisiae
+      - baker's yeast
+      - brewer's yeast
+  - scientific_name: Trichoderma reesei
+    ncbi_taxid: 51453
+    synonyms:
+      - T. reesei
+  - scientific_name: Yarrowia lipolytica
+    ncbi_taxid: 4952
+    synonyms:
+      - Y. lipolytica
+
+  # Bacteria
+  - scientific_name: Acetivibrio thermocellus
+    ncbi_taxid: 1515
+    synonyms:
+      - A. thermocellus
+      - Clostridium thermocellum
+      - C. thermocellum
+      - Hungateiclostridium thermocellum
+      - Ruminiclostridium thermocellum
+  - scientific_name: Caldicellulosiruptor bescii
+    ncbi_taxid: 31899
+    synonyms:
+      - C. bescii
+  - scientific_name: Corynebacterium glutamicum
+    ncbi_taxid: 1718
+    synonyms:
+      - C. glutamicum
+  - scientific_name: Escherichia coli
+    ncbi_taxid: 562
+    synonyms:
+      - E. coli
+  - scientific_name: Novosphingobium aromaticivorans
+    ncbi_taxid: 48935
+    synonyms:
+      - N. aromaticivorans
+  - scientific_name: Pseudomonas putida
+    ncbi_taxid: 303
+    synonyms:
+      - P. putida
+  - scientific_name: Rhodopseudomonas palustris
+    ncbi_taxid: 1076
+    synonyms:
+      - R. palustris
+  - scientific_name: Shewanella oneidensis
+    ncbi_taxid: 70863
+    synonyms:
+      - S. oneidensis
+  - scientific_name: Thermoanaerobacterium saccharolyticum
+    ncbi_taxid: 28896
+    synonyms:
+      - T. saccharolyticum
+  - scientific_name: Zymomonas mobilis
+    ncbi_taxid: 542
+    synonyms:
+      - Z. mobilis

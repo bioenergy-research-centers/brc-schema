@@ -3,6 +3,8 @@
 from pathlib import Path
 import re
 
+import yaml
+
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils import eval_utils
 from linkml_runtime import SchemaView
@@ -600,6 +602,134 @@ def build_brc_has_related_ids(
     return _dedupe(related_ids) or None
 
 
+# Taxon identifiers recognised in OSTI related identifier values. OSTI has no
+# taxonomy identifier type, so these usually arrive as URL, URI, or OTHER;
+# the value is matched regardless of the declared type.
+_NCBI_TAXON_PATTERNS = [
+    # https://www.ncbi.nlm.nih.gov/taxonomy/38727
+    # https://www.ncbi.nlm.nih.gov/datasets/taxonomy/38727/
+    re.compile(r"ncbi\.nlm\.nih\.gov/(?:datasets/)?taxonomy/(\d+)\b", re.IGNORECASE),
+    # https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?...&id=38727
+    re.compile(r"ncbi\.nlm\.nih\.gov/Taxonomy/Browser/wwwtax\.cgi\?(?:.*&)?id=(\d+)\b", re.IGNORECASE),
+    # http://purl.obolibrary.org/obo/NCBITaxon_38727
+    re.compile(r"purl\.obolibrary\.org/obo/NCBITaxon_(\d+)\b", re.IGNORECASE),
+    # NCBITaxon:38727, NCBI:txid38727, txid38727, taxid:38727
+    re.compile(r"^\s*(?:NCBITaxon:|NCBI:txid|txid|taxid:)\s*(\d+)\s*$", re.IGNORECASE),
+]
+_GOLD_ID = r"(G[a-z]\d{7,})"
+_GOLD_PATTERNS = [
+    # https://gold.jgi.doe.gov/project?id=Gp0004954 (also organism, resolver, ...)
+    re.compile(r"gold\.jgi\.doe\.gov/\w+\?(?:.*&)?id=" + _GOLD_ID + r"\b"),
+    # GOLD:Gp0004954 or a bare Gp0004954
+    re.compile(r"^\s*(?:GOLD:)?" + _GOLD_ID + r"\s*$", re.IGNORECASE),
+]
+_IMG_TAXON_PATTERNS = [
+    # https://img.jgi.doe.gov/cgi-bin/m/main.cgi?section=TaxonDetail&...&taxon_oid=2515154000
+    re.compile(r"img\.jgi\.doe\.gov/.*[?&]taxon_oid=(\d+)\b", re.IGNORECASE),
+    # IMG.TAXON:2515154000
+    re.compile(r"^\s*IMG\.TAXON:\s*(\d+)\s*$", re.IGNORECASE),
+]
+
+ORGANISMS_PATH = TRANSFORM_DIR / "organisms.yaml"
+_organism_index = None
+
+
+def _normalize_organism_name(name):
+    return " ".join(str(name).replace("×", "x").split()).casefold()
+
+
+def _load_organism_index():
+    """Return (name -> entry, taxid -> entry) lookups from organisms.yaml."""
+    global _organism_index
+    if _organism_index is None:
+        with ORGANISMS_PATH.open(encoding="utf-8") as handle:
+            entries = yaml.safe_load(handle).get("organisms") or []
+        by_name = {}
+        by_taxid = {}
+        for entry in entries:
+            taxid = int(entry["ncbi_taxid"])
+            record = {"scientificName": entry["scientific_name"], "NCBITaxID": taxid}
+            by_taxid[taxid] = record
+            for name in [entry["scientific_name"]] + list(entry.get("synonyms") or []):
+                key = _normalize_organism_name(name)
+                existing = by_name.get(key)
+                if existing and existing["NCBITaxID"] != taxid:
+                    raise ValueError(
+                        f"{ORGANISMS_PATH.name}: name '{name}' maps to both "
+                        f"{existing['NCBITaxID']} and {taxid}"
+                    )
+                by_name[key] = record
+        _organism_index = (by_name, by_taxid)
+    return _organism_index
+
+
+def _match_first(patterns, value):
+    for pattern in patterns:
+        match = pattern.search(value)
+        if match:
+            return match.group(1)
+    return None
+
+
+def _parse_taxon_identifier(value):
+    """Classify one related identifier value as a taxon identifier.
+
+    Returns ("ncbi", int), ("other", CURIE string), or None.
+    """
+    if not value:
+        return None
+    value = str(value)
+    ncbi = _match_first(_NCBI_TAXON_PATTERNS, value)
+    if ncbi:
+        return ("ncbi", int(ncbi))
+    gold = _match_first(_GOLD_PATTERNS, value)
+    if gold:
+        return ("other", f"GOLD:{gold[0].upper()}{gold[1:].lower()}")
+    img = _match_first(_IMG_TAXON_PATTERNS, value)
+    if img:
+        return ("other", f"IMG.TAXON:{img}")
+    return None
+
+
+def build_brc_species(keywords, subjects, related_identifiers):
+    """Build BRC Organism entries from OSTI related identifiers and keywords.
+
+    NCBI Taxonomy identifiers (as URLs or CURIEs) in ``related_identifiers``
+    each yield an organism, named from organisms.yaml when the taxid is known
+    there. Keywords yield an organism only on an exact match to a name in
+    organisms.yaml; other keywords are ignored. Non-NCBI identifiers (GOLD,
+    IMG) are attached to the organism when exactly one is found, and otherwise
+    are emitted as separate organisms, since the record does not say which
+    organism they belong to.
+    """
+    by_name, by_taxid = _load_organism_index()
+    organisms = {}
+    other_ids = []
+
+    for item in _as_list(related_identifiers):
+        parsed = _parse_taxon_identifier(_attr(item, "value"))
+        if parsed is None:
+            continue
+        kind, value = parsed
+        if kind == "ncbi":
+            organisms.setdefault(value, dict(by_taxid.get(value) or {"NCBITaxID": value}))
+        elif value not in other_ids:
+            other_ids.append(value)
+
+    for keyword in build_brc_keywords(keywords, subjects) or []:
+        record = by_name.get(_normalize_organism_name(keyword))
+        if record:
+            organisms.setdefault(record["NCBITaxID"], dict(record))
+
+    species = list(organisms.values())
+    if other_ids:
+        if len(species) == 1:
+            species[0]["taxon_ids"] = other_ids
+        else:
+            species.extend({"taxon_ids": [other_id]} for other_id in other_ids)
+    return species or None
+
+
 def build_osti_site_url(dataset_url, identifier):
     if dataset_url:
         return dataset_url
@@ -781,6 +911,7 @@ def _register_transform_functions():
             "build_brc_funding": build_brc_funding,
             "build_brc_dataset_url": build_brc_dataset_url,
             "build_brc_has_related_ids": build_brc_has_related_ids,
+            "build_brc_species": build_brc_species,
             "build_osti_site_url": build_osti_site_url,
             "build_osti_links": build_osti_links,
             "build_osti_authors": build_osti_authors,
