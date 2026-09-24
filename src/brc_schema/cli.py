@@ -9,6 +9,7 @@ import click
 import yaml
 
 from brc_schema.transform import TransformationError, set_up_transformer, do_transform
+from brc_schema.util import taxonomy
 from brc_schema.util.io import dump_output, read_ids_from_file, convert_json_to_yaml
 from brc_schema.util.elink import OSTIRecordRetriever, OSTIRecordTransmitter
 
@@ -46,11 +47,26 @@ def main(verbose: int) -> None:
     required=True,
     help="Output file path (YAML or JSON, determined by extension)"
 )
+@click.option(
+    "--taxon-lookup/--no-taxon-lookup",
+    default=True,
+    show_default=True,
+    help="Look up organism names in NCBI Taxonomy (osti_to_brc only). "
+    "Without it, only names in transform/organisms.yaml get IDs.",
+)
+@click.option(
+    "--taxon-adapter",
+    default=taxonomy.DEFAULT_ADAPTER,
+    show_default=True,
+    help="oaklib adapter selector for taxonomy lookups.",
+)
 @click.argument("input_data")
 def transform(
     input_data: str,
     tx_type: str,
-    output: Path
+    output: Path,
+    taxon_lookup: bool,
+    taxon_adapter: str,
 ) -> None:
     """
     Transform input data from OSTI format to BRC schema or vice-versa.
@@ -65,10 +81,13 @@ def transform(
 
         brcschema transform -T osti_to_brc -o data_out_brc_form.json data_in_osti_form.json
 
+        brcschema transform -T osti_to_brc --no-taxon-lookup -o out.yaml in.yaml
+
     """
     logger.info(
         f"Transforming {input_data} as {tx_type}"
     )
+    taxonomy.configure(enabled=taxon_lookup, adapter=taxon_adapter)
     tr = set_up_transformer(tx_type)
 
     # We may need to transform the input data to YAML first

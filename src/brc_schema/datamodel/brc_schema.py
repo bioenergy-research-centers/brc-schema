@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-09-10T13:43:47
+# Generation date: 2026-09-24T13:40:07
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, 
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.2.0"
+version = "0.2.1"
 
 # Namespaces
 BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')
@@ -71,9 +71,12 @@ ECTO = CurieNamespace('ECTO', 'http://purl.obolibrary.org/obo/ECTO_')
 ENVO = CurieNamespace('ENVO', 'http://purl.obolibrary.org/obo/ENVO_')
 ERO = CurieNamespace('ERO', 'http://purl.obolibrary.org/obo/ERO_')
 GO = CurieNamespace('GO', 'http://purl.obolibrary.org/obo/GO_')
+GOLD = CurieNamespace('GOLD', 'https://gold.jgi.doe.gov/resolver?id=')
 IAO = CurieNamespace('IAO', 'http://purl.obolibrary.org/obo/IAO_')
+IMG_TAXON = CurieNamespace('IMG_TAXON', 'https://img.jgi.doe.gov/cgi-bin/m/main.cgi?section=TaxonDetail&page=taxonDetail&taxon_oid=')
 INSDC_SRA = CurieNamespace('INSDC_SRA', 'https://www.ncbi.nlm.nih.gov/sra/')
 MI = CurieNamespace('MI', 'http://purl.obolibrary.org/obo/MI_')
+NCBITAXON = CurieNamespace('NCBITaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_')
 NCIT = CurieNamespace('NCIT', 'http://purl.obolibrary.org/obo/NCIT_')
 OBI = CurieNamespace('OBI', 'http://purl.obolibrary.org/obo/OBI_')
 PATO = CurieNamespace('PATO', 'http://purl.obolibrary.org/obo/PATO_')
@@ -549,6 +552,7 @@ class Organism(YAMLRoot):
 
     scientificName: Optional[str] = None
     NCBITaxID: Optional[int] = None
+    taxon_ids: Optional[Union[str, list[str]]] = empty_list()
     strains: Optional[Union[str, list[str]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -557,6 +561,10 @@ class Organism(YAMLRoot):
 
         if self.NCBITaxID is not None and not isinstance(self.NCBITaxID, int):
             self.NCBITaxID = int(self.NCBITaxID)
+
+        if not isinstance(self.taxon_ids, list):
+            self.taxon_ids = [self.taxon_ids] if self.taxon_ids is not None else []
+        self.taxon_ids = [v if isinstance(v, str) else str(v) for v in self.taxon_ids]
 
         if not isinstance(self.strains, list):
             self.strains = [self.strains] if self.strains is not None else []
@@ -1512,6 +1520,10 @@ slots.organism__scientificName = Slot(uri=BRC.scientificName, name="organism__sc
 
 slots.organism__NCBITaxID = Slot(uri=BRC.NCBITaxID, name="organism__NCBITaxID", curie=BRC.curie('NCBITaxID'),
                    model_uri=BRC.organism__NCBITaxID, domain=None, range=Optional[int])
+
+slots.organism__taxon_ids = Slot(uri=BRC.taxon_ids, name="organism__taxon_ids", curie=BRC.curie('taxon_ids'),
+                   model_uri=BRC.organism__taxon_ids, domain=None, range=Optional[Union[str, list[str]]],
+                   pattern=re.compile(r'^(GOLD:G[a-z][0-9]+|IMG\.TAXON:[0-9]+)$'))
 
 slots.organism__strains = Slot(uri=BRC.strains, name="organism__strains", curie=BRC.curie('strains'),
                    model_uri=BRC.organism__strains, domain=None, range=Optional[Union[str, list[str]]])

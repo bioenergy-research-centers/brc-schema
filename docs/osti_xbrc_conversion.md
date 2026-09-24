@@ -53,7 +53,8 @@ Key mappings include:
 | `persons`, `authors`, `organizations` | `creator`, `contributors` | Structured `persons` are preferred; legacy author strings are fallback input. |
 | sponsor `organizations` or `sponsor_orgs` | `funding` | Award identifiers are copied when available. |
 | `related_identifiers` | `relatedItem` | OSTI related identifiers become xBRC related items. |
-| `identifiers`, `related_identifiers`, and legacy identifier fields | `has_related_ids` | Contract numbers are excluded; BioProject URLs and IDs are normalized where possible. |
+| `identifiers`, `related_identifiers`, and legacy identifier fields | `has_related_ids` | Contract numbers and taxon identifiers are excluded; BioProject URLs and IDs are normalized where possible. |
+| taxon URLs in `related_identifiers`, and organism names in `keywords` | `species` | NCBI Taxonomy IDs go to `NCBITaxID`, JGI GOLD and IMG IDs to `taxon_ids`. See [Species and Taxonomy Identifiers](species_and_taxonomy.md). |
 | `media` | `media` | OSTI media package metadata is preserved. |
 | `site_url` or first `links` entry | `dataset_url` | `site_url` is preferred. |
 | `workflow_status` | `active` | `R` maps to `true`; missing status maps to `false`. |
@@ -82,7 +83,6 @@ Some xBRC fields are more specific than the current OSTI E-Link record model or
 are intended for bioenergy.org display and filtering. These fields are not
 currently populated from OSTI records unless the transform explicitly maps them:
 
-- `species`
 - `plasmid_features`
 - `analysisType`
 - `datasetType`
@@ -91,10 +91,10 @@ currently populated from OSTI records unless the transform explicitly maps them:
 - `category`
 - `ontology_annotations`
 
-For species and taxon identifiers specifically, OSTI does not currently provide
-a dedicated species slot in this transform. If an OSTI record includes a clear
-NCBI Taxonomy identifier in related identifiers, additional transform logic
-would be needed before it can populate the xBRC `species` slot.
+OSTI has no dedicated species field either, but `species` is populated from
+taxon identifiers in related identifiers and from organism names in keywords.
+[Species and Taxonomy Identifiers](species_and_taxonomy.md) describes what to
+include in OSTI records so that organisms come through.
 
 ## xBRC to OSTI
 
@@ -118,6 +118,7 @@ Key mappings include:
 | `creator`, `contributors` | `authors`, `persons` | Names are split into OSTI first/middle/last fields when possible. |
 | `funding`, `brc` | `organizations`, `sponsor_orgs`, `research_orgs` | xBRC funding and BRC affiliation are converted into OSTI organization structures. |
 | `has_related_ids` | `identifiers`, `related_identifiers` | BioProject IDs and DOI references get special handling. |
+| `species` | `related_identifiers` | Each `NCBITaxID`, GOLD ID, and IMG taxon OID becomes a `URL` related identifier with relation `References`. Species with a name only are not written. |
 | `media` | `media` | Media package metadata is preserved. |
 
 The transform also sets these OSTI defaults:
@@ -153,6 +154,8 @@ Expected non-lossless behavior includes:
   `category`, and `ontology_annotations`, are not currently emitted to OSTI.
 - OSTI fields without xBRC equivalents may be omitted unless they have an
   explicit mapping.
+- xBRC `species` entries that have a name but no identifier are not written
+  to OSTI; entries with identifiers round-trip through `related_identifiers`.
 - BRC affiliation may be inferred from contract numbers in `osti_to_brc`, while
   `brc_to_osti` emits contract numbers from the xBRC `brc` value.
 
@@ -164,6 +167,7 @@ make test
 
 ## Related Pages
 
+- [Species and Taxonomy Identifiers](species_and_taxonomy.md)
 - [CLI Usage](cli.md)
 - [OSTI E-Link Integration](osti_elink_integration.md)
 - [Updating the Schema](update_schema.md)

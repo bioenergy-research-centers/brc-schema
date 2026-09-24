@@ -1,0 +1,4514 @@
+# Curated organism names for the osti_to_brc transform.
+#
+# Keywords are resolved to BRC `species` entries in this order:
+#   1. `ambiguous_names` below: emitted as a name only, never with an ID.
+#   2. `organisms` below: emitted with the listed NCBI taxid.
+#   3. An NCBI Taxonomy lookup through oaklib (OLS by default); see
+#      brc_schema.util.taxonomy. One exact label or synonym match gives an ID;
+#      several matches make the name ambiguous, so it is emitted without one.
+#   4. A keyword shaped like "Genus epithet <more>" whose first two words are
+#      a known taxon (e.g. "Zymomonas mobilis 2032") is emitted as a name
+#      only. A known genus alone is not enough: "Sorghum genomics" is skipped.
+# Anything else is treated as an ordinary keyword and not as an organism.
+#
+# Matching is exact after case folding and whitespace normalisation, so
+# "corn stover" does not match "corn".
+#
+# This file overrides and backs up the lookup: it keeps common BRC names
+# stable when OLS is unreachable and settles names that NCBI files under
+# more than one taxon. Entries may be at any rank (a genus is fine).
+#
+# organisms fields:
+#   scientific_name: current NCBI Taxonomy scientific name
+#   ncbi_taxid:      NCBI Taxonomy ID (integer)
+#   synonyms:        other names to match: former scientific names,
+#                    abbreviations, and unambiguous common names
+#
+# Taxids verified against NCBI Taxonomy E-utilities on 2026-09-24.
+#
+# The feed_organisms block at the end of this file is generated from the live
+# BRC data feeds by scripts/update_organisms_from_feeds.py. It adds names and
+# synonyms but never overrides the curated entries here. Do not edit it by
+# hand; correct names here and rerun the script.
+
+# Names that do not identify a single taxon, each with the NCBI taxids it
+# could mean. They are kept as names, with no ID, unless the record also
+# carries one of the listed taxids (or one a lookup finds for the name).
+ambiguous_names:
+  sorghum: [4557, 4558]      # genus Sorghum, Sorghum bicolor
+  sugarcane: [4547, 128810]  # Saccharum officinarum, Saccharum hybrid cultivar
+
+organisms:
+  # Plants
+  - scientific_name: Populus
+    ncbi_taxid: 3689
+    synonyms:
+      - poplar
+      - poplars
+  - scientific_name: Arabidopsis thaliana
+    ncbi_taxid: 3702
+    synonyms:
+      - A. thaliana
+      - thale cress
+  - scientific_name: Brachypodium distachyon
+    ncbi_taxid: 15368
+    synonyms:
+      - B. distachyon
+      - purple false brome
+  - scientific_name: Camelina sativa
+    ncbi_taxid: 90675
+    # "C. sativa" is omitted: it also abbreviates Cannabis sativa.
+    synonyms: []
+  - scientific_name: Glycine max
+    ncbi_taxid: 3847
+    synonyms:
+      - soybean
+  - scientific_name: Medicago truncatula
+    ncbi_taxid: 3880
+    synonyms:
+      - M. truncatula
+      - barrel medic
+  - scientific_name: Miscanthus x giganteus
+    ncbi_taxid: 183674
+    synonyms:
+      - Miscanthus × giganteus
+      - Miscanthus giganteus
+      - M. x giganteus
+      - M. giganteus
+      - giant miscanthus
+  - scientific_name: Miscanthus sinensis
+    ncbi_taxid: 62337
+    synonyms:
+      - M. sinensis
+  - scientific_name: Oryza sativa
+    ncbi_taxid: 4530
+    synonyms:
+      - O. sativa
+      - rice
+  - scientific_name: Panicum virgatum
+    ncbi_taxid: 38727
+    synonyms:
+      - P. virgatum
+      - switchgrass
+  - scientific_name: Populus trichocarpa
+    ncbi_taxid: 3694
+    synonyms:
+      - P. trichocarpa
+      - black cottonwood
+  - scientific_name: Saccharum officinarum
+    ncbi_taxid: 4547
+    synonyms:
+      - S. officinarum
+  - scientific_name: Setaria viridis
+    ncbi_taxid: 4556
+    synonyms:
+      - S. viridis
+      - green foxtail
+  - scientific_name: Solanum lycopersicum
+    ncbi_taxid: 4081
+    synonyms:
+      - S. lycopersicum
+      - tomato
+  - scientific_name: Sorghum bicolor
+    ncbi_taxid: 4558
+    synonyms:
+      - S. bicolor
+  - scientific_name: Thlaspi arvense
+    ncbi_taxid: 13288
+    synonyms:
+      - T. arvense
+      - pennycress
+      - field pennycress
+  - scientific_name: Zea mays
+    ncbi_taxid: 4577
+    synonyms:
+      - Z. mays
+      - maize
+      - corn
+
+  # Fungi and yeasts
+  - scientific_name: Aspergillus niger
+    ncbi_taxid: 5061
+    synonyms:
+      - A. niger
+  - scientific_name: Neurospora crassa
+    ncbi_taxid: 5141
+    synonyms:
+      - N. crassa
+  - scientific_name: Pichia kudriavzevii
+    ncbi_taxid: 4909
+    synonyms:
+      - P. kudriavzevii
+      - Issatchenkia orientalis
+      - I. orientalis
+      - Candida krusei
+  - scientific_name: Rhodotorula toruloides
+    ncbi_taxid: 5286
+    synonyms:
+      - R. toruloides
+      - Rhodosporidium toruloides
+  - scientific_name: Saccharomyces cerevisiae
+    ncbi_taxid: 4932
+    synonyms:
+      - S. cerevisiae
+      - baker's yeast
+      - brewer's yeast
+  - scientific_name: Trichoderma reesei
+    ncbi_taxid: 51453
+    synonyms:
+      - T. reesei
+  - scientific_name: Yarrowia lipolytica
+    ncbi_taxid: 4952
+    synonyms:
+      - Y. lipolytica
+
+  # Bacteria
+  - scientific_name: Acetivibrio thermocellus
+    ncbi_taxid: 1515
+    synonyms:
+      - A. thermocellus
+      - Clostridium thermocellum
+      - C. thermocellum
+      - Hungateiclostridium thermocellum
+      - Ruminiclostridium thermocellum
+  - scientific_name: Caldicellulosiruptor bescii
+    ncbi_taxid: 31899
+    synonyms:
+      - C. bescii
+  - scientific_name: Corynebacterium glutamicum
+    ncbi_taxid: 1718
+    synonyms:
+      - C. glutamicum
+  - scientific_name: Escherichia coli
+    ncbi_taxid: 562
+    synonyms:
+      - E. coli
+  - scientific_name: Novosphingobium aromaticivorans
+    ncbi_taxid: 48935
+    synonyms:
+      - N. aromaticivorans
+  - scientific_name: Pseudomonas putida
+    ncbi_taxid: 303
+    synonyms:
+      - P. putida
+  - scientific_name: Rhodopseudomonas palustris
+    ncbi_taxid: 1076
+    synonyms:
+      - R. palustris
+  - scientific_name: Shewanella oneidensis
+    ncbi_taxid: 70863
+    synonyms:
+      - S. oneidensis
+  - scientific_name: Thermoanaerobacterium saccharolyticum
+    ncbi_taxid: 28896
+    synonyms:
+      - T. saccharolyticum
+  - scientific_name: Zymomonas mobilis
+    ncbi_taxid: 542
+    synonyms:
+      - Z. mobilis
+
+# --- BEGIN GENERATED: feed_organisms ---
+# Generated by scripts/update_organisms_from_feeds.py. Do not edit by hand;
+# add corrections to `organisms` or `ambiguous_names` above and rerun.
+# Source feeds: https://bioenergy.org/JBEI/jbei.json, https://cabbitools.igb.illinois.edu/brc/cabbi.json, https://bioenergy-research-centers.github.io/brc_data_feeds/cbi.json, https://fair-data.glbrc.org/glbrc.json
+# Generated 2026-09-24 with names and taxids checked against NCBI Taxonomy.
+feed_organisms:
+- scientific_name: '[Candida] boidinii'
+  ncbi_taxid: 5477
+  rank: species
+  synonyms:
+  - Candida boidinii
+  feeds:
+  - jbei
+- scientific_name: '[Enterobacter] lignolyticus'
+  ncbi_taxid: 1334193
+  rank: species
+  synonyms:
+  - Enterobacter lignolyticus
+  feeds:
+  - jbei
+- scientific_name: Abies
+  ncbi_taxid: 3319
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Abies grandis
+  ncbi_taxid: 46611
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Abies sp.
+  ncbi_taxid: 2942656
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acacia mangium
+  ncbi_taxid: 224085
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acaulospora lacunosa
+  ncbi_taxid: 62089
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acaulospora mellea
+  ncbi_taxid: 94116
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acer sp.
+  ncbi_taxid: 2942657
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acetivibrio thermocellus
+  ncbi_taxid: 1515
+  rank: species
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Acetobacter
+  ncbi_taxid: 434
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Acholeplasma laidlawii
+  ncbi_taxid: 2148
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acidaminococcus sp.
+  ncbi_taxid: 1872103
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acidithiobacillus ferrooxidans
+  ncbi_taxid: 920
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acidobacteriota
+  ncbi_taxid: 57723
+  rank: phylum
+  feeds:
+  - jbei
+- scientific_name: Acinetobacter
+  ncbi_taxid: 469
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Acinetobacter baumannii
+  ncbi_taxid: 470
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Acinetobacter calcoaceticus
+  ncbi_taxid: 471
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Acinetobacter sp.
+  ncbi_taxid: 472
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aconitum japonicum
+  ncbi_taxid: 1478108
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Aconitum kusnezoffii
+  ncbi_taxid: 239685
+  rank: species
+  synonyms:
+  - Aconitum kusnezoffii,
+  feeds:
+  - glbrc
+- scientific_name: Aconitum lycoctonum
+  ncbi_taxid: 112589
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Aconitum plicatum
+  ncbi_taxid: 1496660
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Aconitum vilmorinianum
+  ncbi_taxid: 226101
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Actinomadura vulgaris
+  ncbi_taxid: 1233071
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Actinomycetota
+  ncbi_taxid: 201174
+  rank: phylum
+  synonyms:
+  - Actinobacteria
+  feeds:
+  - jbei
+- scientific_name: Actinotalea sp.
+  ncbi_taxid: 1872145
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aeribacillus alveayuensis
+  ncbi_taxid: 279215
+  rank: species
+  synonyms:
+  - Bacillus alveayuensis
+  feeds:
+  - jbei
+- scientific_name: Aeromicrobium fastidiosum
+  ncbi_taxid: 52699
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Agaricus bisporus
+  ncbi_taxid: 5341
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Agave tequilana
+  ncbi_taxid: 386106
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Agrobacterium fabrum
+  ncbi_taxid: 1176649
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Agrobacterium sp. 33MFTa1.1
+  ncbi_taxid: 1279031
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Agrobacterium tumefaciens
+  ncbi_taxid: 358
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Alcanivorax borkumensis
+  ncbi_taxid: 59754
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Algoriphagus marincola
+  ncbi_taxid: 264027
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Alicyclobacillus acidocaldarius
+  ncbi_taxid: 405212
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Allium ampeloprasum
+  ncbi_taxid: 4681
+  rank: species
+  synonyms:
+  - Allium porrum
+  feeds:
+  - jbei
+- scientific_name: Allium cepa
+  ncbi_taxid: 4679
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Allomyces macrogynus
+  ncbi_taxid: 28583
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Allostigmatella aurantiaca
+  ncbi_taxid: 41
+  rank: species
+  synonyms:
+  - Stigmatella aurantiaca
+  feeds:
+  - jbei
+- scientific_name: Aloe arborescens
+  ncbi_taxid: 45385
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Alternaria
+  ncbi_taxid: 5598
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Alternaria brassicicola
+  ncbi_taxid: 29001
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Alternaria sp.
+  ncbi_taxid: 1715220
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Alterococcus agarolyticus
+  ncbi_taxid: 78554
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Amorphophallus konjac
+  ncbi_taxid: 78372
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Anaerolinea thermolimosa
+  ncbi_taxid: 229919
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Anaerolineales bacterium
+  ncbi_taxid: 2073117
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Anaeromyces robustus
+  ncbi_taxid: 1754192
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Angelica sinensis
+  ncbi_taxid: 165353
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Antirrhinum majus
+  ncbi_taxid: 4151
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Antron douglasii
+  ncbi_taxid: 1934083
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arabidopsis thaliana
+  ncbi_taxid: 3702
+  rank: species
+  synonyms:
+  - Arabidopsis (Arabidopsis thaliana)
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Archaeoglobus fulgidus
+  ncbi_taxid: 2234
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Artemisia annua
+  ncbi_taxid: 35608
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Artemisia capillaris
+  ncbi_taxid: 265783
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arthrobacter sp.
+  ncbi_taxid: 1667
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arthrobacter sp. FB24
+  ncbi_taxid: 290399
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arthrospira sp.
+  ncbi_taxid: 35824
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arundo donax
+  ncbi_taxid: 35708
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Arxiozyma telluris
+  ncbi_taxid: 36907
+  rank: species
+  synonyms:
+  - Kazachstania telluris
+  feeds:
+  - jbei
+- scientific_name: Aspergillus affinis
+  ncbi_taxid: 1070780
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus alabamensis
+  ncbi_taxid: 657433
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus allahabadii
+  ncbi_taxid: 1612426
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus alliaceus
+  ncbi_taxid: 209559
+  rank: species
+  synonyms:
+  - Aspergillus albertensis
+  feeds:
+  - jbei
+- scientific_name: Aspergillus ambiguus
+  ncbi_taxid: 176160
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus aureoterreus
+  ncbi_taxid: 41288
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus californicus
+  ncbi_taxid: 1810905
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus campestris
+  ncbi_taxid: 41068
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus candidus
+  ncbi_taxid: 41067
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus carbonarius
+  ncbi_taxid: 40993
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus carlsbadensis
+  ncbi_taxid: 1810906
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus cavernicola
+  ncbi_taxid: 176166
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus cretensis
+  ncbi_taxid: 306091
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus egyptiacus
+  ncbi_taxid: 41743
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus elegans
+  ncbi_taxid: 93033
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus falconensis
+  ncbi_taxid: 1810910
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus flavus
+  ncbi_taxid: 5059
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus floccosus
+  ncbi_taxid: 658358
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus flocculosus
+  ncbi_taxid: 306089
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus fumigatus
+  ncbi_taxid: 746128
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus germanicus
+  ncbi_taxid: 1506149
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus granulosus
+  ncbi_taxid: 176169
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus heterothallicus
+  ncbi_taxid: 41742
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus insuetus
+  ncbi_taxid: 469274
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus keveii
+  ncbi_taxid: 714993
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus lucknowensis
+  ncbi_taxid: 176173
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus multicolor
+  ncbi_taxid: 41759
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus muricatus
+  ncbi_taxid: 469875
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus neoindicus
+  ncbi_taxid: 1641034
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus nidulans
+  ncbi_taxid: 162425
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus niger
+  ncbi_taxid: 5061
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus novofumigatus
+  ncbi_taxid: 340412
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus ochraceoroseus
+  ncbi_taxid: 138278
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus ochraceus
+  ncbi_taxid: 40380
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus oryzae
+  ncbi_taxid: 5062
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus pseudodeflectus
+  ncbi_taxid: 176178
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus pseudoterreus
+  ncbi_taxid: 1565506
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus pseudoustus
+  ncbi_taxid: 1810923
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus pulvericola
+  ncbi_taxid: 1507526
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus quadrilineatus
+  ncbi_taxid: 41735
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus roseoglobulosus
+  ncbi_taxid: 1250373
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus sclerotiicarbonarius
+  ncbi_taxid: 487660
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus sclerotioniger
+  ncbi_taxid: 319627
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus steynii
+  ncbi_taxid: 306088
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus subgen. Aspergillus
+  ncbi_taxid: 2720874
+  rank: subgenus
+  feeds:
+  - jbei
+- scientific_name: Aspergillus subramanianii
+  ncbi_taxid: 1565989
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus sulphureus
+  ncbi_taxid: 138284
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus sydowii
+  ncbi_taxid: 75750
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus taichungensis
+  ncbi_taxid: 482145
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus terreus
+  ncbi_taxid: 33178
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus unguis
+  ncbi_taxid: 40381
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus ustus
+  ncbi_taxid: 40382
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus versicolor
+  ncbi_taxid: 46472
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus welwitschiae
+  ncbi_taxid: 1341132
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Aspergillus westerdijkiae
+  ncbi_taxid: 357447
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Avena barbata
+  ncbi_taxid: 146530
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Avena sativa
+  ncbi_taxid: 4498
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillati
+  ncbi_taxid: 1783272
+  rank: kingdom
+  synonyms:
+  - Firmicutes
+  feeds:
+  - jbei
+- scientific_name: Bacillus amyloliquefaciens
+  ncbi_taxid: 1390
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus cereus
+  ncbi_taxid: 1396
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus licheniformis
+  ncbi_taxid: 1402
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus pumilus
+  ncbi_taxid: 1408
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: 'Bacillus sp. (in: firmicutes)'
+  ncbi_taxid: 1409
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus sp. SG-1
+  ncbi_taxid: 161544
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus subtilis
+  ncbi_taxid: 1423
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacillus thuringiensis
+  ncbi_taxid: 1428
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacteria Latreille et al. 1825
+  ncbi_taxid: 629395
+  rank: genus
+  synonyms:
+  - Bacteria
+  feeds:
+  - jbei
+- scientific_name: bacterium
+  ncbi_taxid: 1869227
+  rank: species
+  synonyms:
+  - Chloroflexi bacterium
+  feeds:
+  - jbei
+- scientific_name: Bacteroides fragilis NCTC 9343
+  ncbi_taxid: 272559
+  rank: strain
+  feeds:
+  - glbrc
+- scientific_name: Bacteroides ovatus
+  ncbi_taxid: 28116
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacteroides thetaiotaomicron
+  ncbi_taxid: 818
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bacteroidia
+  ncbi_taxid: 200643
+  rank: class
+  synonyms:
+  - Bacteroidetes
+  feeds:
+  - jbei
+- scientific_name: Batrachochytrium dendrobatidis
+  ncbi_taxid: 109871
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bdellovibrio bacteriovorus
+  ncbi_taxid: 959
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Betula
+  ncbi_taxid: 3504
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Betula sp.
+  ncbi_taxid: 54070
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bifidobacterium adolescentis
+  ncbi_taxid: 1680
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bifidobacterium animalis subsp. lactis
+  ncbi_taxid: 302911
+  rank: subspecies
+  feeds:
+  - jbei
+- scientific_name: Bifidobacterium longum subsp. infantis
+  ncbi_taxid: 1682
+  rank: subspecies
+  feeds:
+  - jbei
+- scientific_name: Bipolaris maydis
+  ncbi_taxid: 5016
+  rank: species
+  synonyms:
+  - Cochliobolus heterostrophus
+  feeds:
+  - jbei
+- scientific_name: Bjerkandera adusta
+  ncbi_taxid: 5331
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bombyx mori
+  ncbi_taxid: 7091
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bordetella bronchiseptica
+  ncbi_taxid: 518
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bordetella petrii
+  ncbi_taxid: 94624
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bos taurus
+  ncbi_taxid: 9913
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Botrytis cinerea
+  ncbi_taxid: 40559
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Bouteloua gracilis
+  ncbi_taxid: 48732
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brachypodium distachyon
+  ncbi_taxid: 15368
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brassica oleracea
+  ncbi_taxid: 3712
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brassica rapa
+  ncbi_taxid: 3711
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brevibacillus borstelensis
+  ncbi_taxid: 45462
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brevibacillus sp.
+  ncbi_taxid: 1882945
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brevibacillus thermoruber
+  ncbi_taxid: 33942
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Brevundimonas sp.
+  ncbi_taxid: 1871086
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Burkholderia cepacia
+  ncbi_taxid: 292
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Burkholderia sp.
+  ncbi_taxid: 36773
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Burkholderia sp. RF2-non_BP3
+  ncbi_taxid: 1637844
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caecomyces churrovis
+  ncbi_taxid: 2019372
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caenorhabditis elegans
+  ncbi_taxid: 6239
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caldibacillus debilis
+  ncbi_taxid: 301148
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caldibacillus thermoamylovorans
+  ncbi_taxid: 35841
+  rank: species
+  synonyms:
+  - Bacillus thermoamylovorans
+  feeds:
+  - jbei
+- scientific_name: Caldicellulosiruptor saccharolyticus
+  ncbi_taxid: 44001
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caldilinea aerophila
+  ncbi_taxid: 133453
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caldisphaera lagunensis
+  ncbi_taxid: 200415
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caldivirga maquilingensis
+  ncbi_taxid: 76887
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Camelina sativa
+  ncbi_taxid: 90675
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Candidatus Melainabacteria bacterium
+  ncbi_taxid: 2052166
+  rank: species
+  synonyms:
+  - Melainabacteria bacterium
+  feeds:
+  - jbei
+- scientific_name: Candidatus Reconcilbacillus cellulovorans
+  ncbi_taxid: 1906605
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cannabis sativa
+  ncbi_taxid: 3483
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Capra hircus
+  ncbi_taxid: 9925
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Carica papaya
+  ncbi_taxid: 3649
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Caulobacter vibrioides
+  ncbi_taxid: 155892
+  rank: species
+  synonyms:
+  - Caulobacter crescentus
+  feeds:
+  - jbei
+- scientific_name: Cellvibrio japonicus
+  ncbi_taxid: 155077
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cerrena unicolor
+  ncbi_taxid: 90312
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chara braunii
+  ncbi_taxid: 69332
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chelativorans sp.
+  ncbi_taxid: 2203393
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chelatococcus sp.
+  ncbi_taxid: 1953771
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chitinophaga sp.
+  ncbi_taxid: 1869181
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chitinophagaceae
+  ncbi_taxid: 563835
+  rank: family
+  feeds:
+  - jbei
+- scientific_name: Chlamydomonas
+  ncbi_taxid: 3052
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Chlamydomonas reinhardtii
+  ncbi_taxid: 3055
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chlorobaculum tepidum
+  ncbi_taxid: 1097
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chlorobiota bacterium
+  ncbi_taxid: 2268192
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chloroflexus aurantiacus
+  ncbi_taxid: 1108
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Choristoneura fumiferana
+  ncbi_taxid: 7141
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chromochloris zofingiensis
+  ncbi_taxid: 31302
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Chryseobacterium sp.
+  ncbi_taxid: 1871047
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrobacter braakii
+  ncbi_taxid: 57706
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrullus amarus
+  ncbi_taxid: 1567104
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrullus colocynthis
+  ncbi_taxid: 252529
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrullus lanatus
+  ncbi_taxid: 3654
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrullus mucosospermus
+  ncbi_taxid: 519315
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Citrus sp.
+  ncbi_taxid: 2909989
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clavispora lusitaniae
+  ncbi_taxid: 36911
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clavispora opuntiae
+  ncbi_taxid: 36912
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clostridium
+  ncbi_taxid: 1485
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Clostridium acetobutylicum
+  ncbi_taxid: 1488
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clostridium beijerinckii
+  ncbi_taxid: 1520
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clostridium sp.
+  ncbi_taxid: 1506
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Clostridium tyrobutyricum
+  ncbi_taxid: 1519
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cocos nucifera
+  ncbi_taxid: 13894
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Coix lacryma-jobi
+  ncbi_taxid: 4505
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Columba livia
+  ncbi_taxid: 8932
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Colwellia psychrerythraea
+  ncbi_taxid: 28229
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Comamonas testosteroni
+  ncbi_taxid: 285
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Conexibacter sp.
+  ncbi_taxid: 1929289
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Corymbia citriodora
+  ncbi_taxid: 34329
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Corymbia citriodora subsp. variegata
+  ncbi_taxid: 360336
+  rank: subspecies
+  feeds:
+  - jbei
+- scientific_name: Corynebacterium glutamicum
+  ncbi_taxid: 1718
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Corynebacterium kroppenstedtii
+  ncbi_taxid: 161879
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cryptococcus neoformans
+  ncbi_taxid: 5207
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cucumis sativus
+  ncbi_taxid: 3659
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cuphea hookeriana
+  ncbi_taxid: 36775
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cupriavidus basilensis
+  ncbi_taxid: 68895
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cupriavidus necator
+  ncbi_taxid: 106590
+  rank: species
+  synonyms:
+  - Ralstonia eutropha
+  feeds:
+  - jbei
+- scientific_name: Cupriavidus necator H16
+  ncbi_taxid: 381666
+  rank: strain
+  synonyms:
+  - Ralstonia eutropha H16
+  feeds:
+  - jbei
+- scientific_name: Cupriavidus taiwanensis
+  ncbi_taxid: 164546
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cutaneotrichosporon dermatis
+  ncbi_taxid: 129132
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cyanobacteriota bacterium
+  ncbi_taxid: 2847862
+  rank: species
+  synonyms:
+  - Cyanobacteria bacterium
+  feeds:
+  - jbei
+- scientific_name: Cynara cardunculus
+  ncbi_taxid: 4265
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Cytophaga sp.
+  ncbi_taxid: 29535
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Danio rerio
+  ncbi_taxid: 7955
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Daucus carota
+  ncbi_taxid: 4039
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Debaryomyces fabryi
+  ncbi_taxid: 58627
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Debaryomyces hansenii
+  ncbi_taxid: 4959
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Dehalococcoides mccartyi
+  ncbi_taxid: 61435
+  rank: species
+  synonyms:
+  - Dehalococcoides ethenogenes
+  feeds:
+  - jbei
+- scientific_name: Deinococcota
+  ncbi_taxid: 1297
+  rank: phylum
+  feeds:
+  - jbei
+- scientific_name: Delftia acidovorans
+  ncbi_taxid: 80866
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Delphinium grandiflorum
+  ncbi_taxid: 85439
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Dentiscutata heterogama
+  ncbi_taxid: 1316150
+  rank: species
+  synonyms:
+  - Scutellospora heterogama
+  feeds:
+  - jbei
+- scientific_name: Desulfovibrio
+  ncbi_taxid: 872
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Desulfovibrio sp.
+  ncbi_taxid: 885
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Dianthus caryophyllus
+  ncbi_taxid: 3570
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Dictyoglomus turgidum
+  ncbi_taxid: 513050
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Diversispora celata
+  ncbi_taxid: 621257
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Diversispora spurca
+  ncbi_taxid: 308927
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Drosophila melanogaster
+  ncbi_taxid: 7227
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Durio zibethinus
+  ncbi_taxid: 66656
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ectopseudomonas mendocina
+  ncbi_taxid: 300
+  rank: species
+  synonyms:
+  - Pseudomonas mendocina
+  feeds:
+  - jbei
+- scientific_name: Elaeis guineensis
+  ncbi_taxid: 51953
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Enhydrobacter aerosaccus
+  ncbi_taxid: 225324
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Enterobacteriaceae
+  ncbi_taxid: 543
+  rank: family
+  feeds:
+  - jbei
+- scientific_name: Enterococcus
+  ncbi_taxid: 1350
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Enterococcus faecalis
+  ncbi_taxid: 1351
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Enterococcus faecium
+  ncbi_taxid: 1352
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eptatretus burgeri
+  ncbi_taxid: 7764
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Erythranthe guttata
+  ncbi_taxid: 4155
+  rank: species
+  synonyms:
+  - Mimulus guttatus
+  feeds:
+  - jbei
+- scientific_name: Erythrobacteraceae bacterium
+  ncbi_taxid: 2026738
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Erythroxylum coca
+  ncbi_taxid: 289672
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Escherichia coli
+  ncbi_taxid: 562
+  rank: species
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Escherichia coli str. K-12 substr. MG1655
+  ncbi_taxid: 511145
+  rank: no rank
+  synonyms:
+  - Escherichia coli MG1655
+  feeds:
+  - jbei
+- scientific_name: Escherichia phage MS2
+  ncbi_taxid: 12022
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Escherichia phage phiSUSP1
+  ncbi_taxid: 1718606
+  rank: no rank
+  synonyms:
+  - Escherichia phage SUSP1
+  feeds:
+  - jbei
+- scientific_name: Escherichia phage PTXU04
+  ncbi_taxid: 2508206
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Escherichia phage T4
+  ncbi_taxid: 2681598
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Escherichia phage T5
+  ncbi_taxid: 2695836
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Eschscholzia californica
+  ncbi_taxid: 3467
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus
+  ncbi_taxid: 3932
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus cinerea
+  ncbi_taxid: 370640
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus dunnii
+  ncbi_taxid: 183821
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus globulus
+  ncbi_taxid: 34317
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus grandis
+  ncbi_taxid: 71139
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Eucalyptus urophylla
+  ncbi_taxid: 99020
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Euglena mutabilis
+  ncbi_taxid: 38275
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Euphorbia lathyris
+  ncbi_taxid: 212925
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Evansstolkia leycettana
+  ncbi_taxid: 196907
+  rank: species
+  synonyms:
+  - Talaromyces leycettanus
+  feeds:
+  - jbei
+- scientific_name: Exiguobacterium sp.
+  ncbi_taxid: 44751
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Exophiala alcalophila
+  ncbi_taxid: 91920
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Feron kingi
+  ncbi_taxid: 3114556
+  rank: species
+  synonyms:
+  - Andricus kingi
+  feeds:
+  - jbei
+- scientific_name: Fibrobacter succinogenes
+  ncbi_taxid: 833
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Filobasidium oeirense
+  ncbi_taxid: 104410
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Filobasidium wieringae
+  ncbi_taxid: 104416
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Filomicrobium sp.
+  ncbi_taxid: 2024831
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Flavobacterium johnsoniae
+  ncbi_taxid: 986
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Flavobacterium sp.
+  ncbi_taxid: 239
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Fungi
+  ncbi_taxid: 4751
+  rank: kingdom
+  feeds:
+  - jbei
+- scientific_name: Funneliformis caledonium
+  ncbi_taxid: 1117310
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Funneliformis mosseae
+  ncbi_taxid: 27381
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Fusarium
+  ncbi_taxid: 5506
+  rank: genus
+  synonyms:
+  - Gibberella
+  - Haematonectria
+  feeds:
+  - jbei
+- scientific_name: Gallionella sp.
+  ncbi_taxid: 2052161
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Gallus gallus
+  ncbi_taxid: 9031
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Gemmatimonadia
+  ncbi_taxid: 219685
+  rank: class
+  synonyms:
+  - Gemmatimonadetes
+  feeds:
+  - jbei
+- scientific_name: Gemmatimonas aurantiaca
+  ncbi_taxid: 173480
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Geobacillus sp.
+  ncbi_taxid: 1891658
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Geobacillus stearothermophilus
+  ncbi_taxid: 1422
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Geotalea daltonii
+  ncbi_taxid: 1203471
+  rank: species
+  synonyms:
+  - Geobacter daltonii
+  feeds:
+  - jbei
+- scientific_name: Geotrichum
+  ncbi_taxid: 43987
+  rank: genus
+  synonyms:
+  - Galactomyces geotrichum
+  feeds:
+  - jbei
+- scientific_name: Geotrichum candidum
+  ncbi_taxid: 1173061
+  rank: species
+  synonyms:
+  - Galactomyces candidus
+  feeds:
+  - jbei
+- scientific_name: Glycine max
+  ncbi_taxid: 3847
+  rank: species
+  synonyms:
+  - soybean (Glycine max)
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Glycomyces harbinensis
+  ncbi_taxid: 58114
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Goffeauzyma gilvescens
+  ncbi_taxid: 104405
+  rank: species
+  synonyms:
+  - Cryptococcus gilvescens
+  feeds:
+  - jbei
+- scientific_name: Golovinomyces cichoracearum
+  ncbi_taxid: 62708
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Gossypium
+  ncbi_taxid: 3633
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Gossypium hirsutum
+  ncbi_taxid: 3635
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Griffonia
+  ncbi_taxid: 3849
+  rank: genus
+  feeds:
+  - cabbi
+- scientific_name: Grindelia hirsutula
+  ncbi_taxid: 1114741
+  rank: species
+  synonyms:
+  - Grindelia robusta
+  feeds:
+  - jbei
+- scientific_name: Gypsophila vaccaria
+  ncbi_taxid: 39387
+  rank: species
+  synonyms:
+  - Saponaria vaccaria
+  feeds:
+  - jbei
+- scientific_name: Haloferax volcanii
+  ncbi_taxid: 2246
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Halomonas sp. HL-48
+  ncbi_taxid: 1479235
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Halomonas sp. HL-93
+  ncbi_taxid: 1666906
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Halonotius sp.
+  ncbi_taxid: 2218529
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Haloquadratum sp.
+  ncbi_taxid: 3014035
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Haloquadratum walsbyi
+  ncbi_taxid: 293091
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Halorhabdus utahensis
+  ncbi_taxid: 146826
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Halothece sp. PCC 7418
+  ncbi_taxid: 65093
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hanseniaspora occidentalis var. occidentalis
+  ncbi_taxid: 331639
+  rank: varietas
+  feeds:
+  - glbrc
+- scientific_name: Hanseniaspora uvarum
+  ncbi_taxid: 29833
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Hanseniaspora vineae
+  ncbi_taxid: 56409
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Hansenula anomala
+  ncbi_taxid: 4927
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hansenula ciferrii
+  ncbi_taxid: 1041607
+  rank: species
+  synonyms:
+  - Wickerhamomyces ciferrii
+  feeds:
+  - jbei
+- scientific_name: Helianthus annuus
+  ncbi_taxid: 4232
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Herminiimonas arsenicoxydans
+  ncbi_taxid: 204773
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Herpetosiphon aurantiacus
+  ncbi_taxid: 65
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hildegardia barteri
+  ncbi_taxid: 82431
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Histoplasma capsulatum
+  ncbi_taxid: 5037
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Hominimerdicola alba
+  ncbi_taxid: 1264
+  rank: species
+  synonyms:
+  - Ruminococcus albus
+  feeds:
+  - jbei
+- scientific_name: Homo sapiens
+  ncbi_taxid: 9606
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Hordeum vulgare
+  ncbi_taxid: 4513
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hyaloperonospora arabidopsidis
+  ncbi_taxid: 272952
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hydrogenobaculum sp.
+  ncbi_taxid: 2053560
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hypholoma frowardii
+  ncbi_taxid: 1928835
+  rank: species
+  synonyms:
+  - Nematoloma frowardii
+  feeds:
+  - jbei
+- scientific_name: Hyphomicrobiales bacterium
+  ncbi_taxid: 1909294
+  rank: species
+  synonyms:
+  - Rhizobiales bacterium
+  feeds:
+  - jbei
+- scientific_name: Hyphomicrobium denitrificans
+  ncbi_taxid: 53399
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hyphopichia burtonii
+  ncbi_taxid: 717740
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Hypoxylon sp. EC38
+  ncbi_taxid: 1001937
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Idiomarinaceae bacterium HL-53
+  ncbi_taxid: 1298881
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ignavibacteriota
+  ncbi_taxid: 1134404
+  rank: phylum
+  feeds:
+  - jbei
+- scientific_name: Ignavibacterium album
+  ncbi_taxid: 591197
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ignicoccus sp.
+  ncbi_taxid: 3101454
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Insolitispirillum peregrinum
+  ncbi_taxid: 80876
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Jatropha curcas
+  ncbi_taxid: 180498
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Juglans
+  ncbi_taxid: 16718
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Juglans regia
+  ncbi_taxid: 51240
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Juglans sp.
+  ncbi_taxid: 3017062
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Kallotenue papyrolyticum
+  ncbi_taxid: 1325125
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsiella michiganensis
+  ncbi_taxid: 1134687
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsiella oxytoca
+  ncbi_taxid: 571
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsiella pneumoniae
+  ncbi_taxid: 573
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsiella sp.
+  ncbi_taxid: 576
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsiella terrigena
+  ncbi_taxid: 577
+  rank: species
+  synonyms:
+  - Raoultella terrigena
+  feeds:
+  - jbei
+- scientific_name: Klebsormidium flaccidum
+  ncbi_taxid: 3175
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Klebsormidium nitens
+  ncbi_taxid: 105231
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Kluyvera sp.
+  ncbi_taxid: 1538228
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Kluyveromyces lactis
+  ncbi_taxid: 28985
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Kocuria rhizophila
+  ncbi_taxid: 72000
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Kodamaea ohmeri
+  ncbi_taxid: 34356
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Komagataeibacter xylinus
+  ncbi_taxid: 28448
+  rank: species
+  synonyms:
+  - Acetobacter xylinum
+  feeds:
+  - jbei
+- scientific_name: Komagataella pastoris
+  ncbi_taxid: 4922
+  rank: species
+  synonyms:
+  - Pichia pastoris
+  feeds:
+  - jbei
+- scientific_name: Komagataella phaffii
+  ncbi_taxid: 460519
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ktedonobacter racemifer
+  ncbi_taxid: 363277
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Kurthia sp.
+  ncbi_taxid: 1963358
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lachancea sp. yHQL494
+  ncbi_taxid: 2866345
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Lactobacillus delbrueckii
+  ncbi_taxid: 1584
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lactococcus lactis
+  ncbi_taxid: 1358
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lactuca sativa
+  ncbi_taxid: 4236
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lamiaceae
+  ncbi_taxid: 4136
+  rank: family
+  synonyms:
+  - Lamiaceae family
+  feeds:
+  - glbrc
+- scientific_name: Laodelphax striatellus
+  ncbi_taxid: 195883
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lathyrus oleraceus
+  ncbi_taxid: 3888
+  rank: species
+  synonyms:
+  - Pisum sativum
+  feeds:
+  - jbei
+- scientific_name: Lavandula angustifolia
+  ncbi_taxid: 39329
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Leclercia sp.
+  ncbi_taxid: 1898428
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Leifsonia sp.
+  ncbi_taxid: 1870902
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Leptospira interrogans
+  ncbi_taxid: 173
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Leptospirillum ferrodiazotrophum
+  ncbi_taxid: 412449
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Leucosporidium scottii
+  ncbi_taxid: 5278
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lichtheimia ramosa
+  ncbi_taxid: 688394
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lilium
+  ncbi_taxid: 4688
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Linnemannia elongata
+  ncbi_taxid: 310910
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Lipomyces starkeyi
+  ncbi_taxid: 29829
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Lipomyces tetrasporus
+  ncbi_taxid: 54092
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Liquidambar styraciflua
+  ncbi_taxid: 4400
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Listeria monocytogenes
+  ncbi_taxid: 1639
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lodderomyces parapsilosis
+  ncbi_taxid: 5480
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lotus japonicus
+  ncbi_taxid: 34305
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lysinibacillus macroides
+  ncbi_taxid: 33935
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Lysobacter oryzae
+  ncbi_taxid: 498057
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Marchantia polymorpha
+  ncbi_taxid: 3197
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Marinobacter excellens
+  ncbi_taxid: 218670
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Marinobacter excellens HL-55
+  ncbi_taxid: 1305731
+  rank: strain
+  feeds:
+  - jbei
+- scientific_name: Marinobacter nauticus
+  ncbi_taxid: 2743
+  rank: species
+  synonyms:
+  - Marinobacter aquaeolei
+  feeds:
+  - jbei
+- scientific_name: Marinobacter sp. HL-58
+  ncbi_taxid: 1479237
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Martinezella rhizogenes
+  ncbi_taxid: 359
+  rank: species
+  synonyms:
+  - Rhizobium rhizogenes
+  feeds:
+  - jbei
+- scientific_name: Medicago sativa
+  ncbi_taxid: 3879
+  rank: species
+  synonyms:
+  - Alfalfa (Medicago sativa)
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Medicago truncatula
+  ncbi_taxid: 3880
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Megasphaera elsdenii
+  ncbi_taxid: 907
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mentha spicata
+  ncbi_taxid: 29719
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: metagenome
+  ncbi_taxid: 256318
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Metallosphaera sedula
+  ncbi_taxid: 43687
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Metallosphaera sp.
+  ncbi_taxid: 2020860
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanobacterium
+  ncbi_taxid: 2160
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanobacterium bryantii
+  ncbi_taxid: 2161
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanobacterium sp.
+  ncbi_taxid: 2164
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanobrevibacter millerae
+  ncbi_taxid: 230361
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanobrevibacter thaueri
+  ncbi_taxid: 190975
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanocaldococcus infernus
+  ncbi_taxid: 67760
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanocella
+  ncbi_taxid: 570266
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanococcoides burtonii
+  ncbi_taxid: 29291
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanococcus maripaludis
+  ncbi_taxid: 39152
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanocorpusculum sp.
+  ncbi_taxid: 2058474
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanoculleus
+  ncbi_taxid: 45989
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanoregula
+  ncbi_taxid: 395331
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanosarcina
+  ncbi_taxid: 2207
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanosarcina acetivorans
+  ncbi_taxid: 2214
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanosphaera sp.
+  ncbi_taxid: 2666342
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanosphaera stadtmanae
+  ncbi_taxid: 2317
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methanothermobacter
+  ncbi_taxid: 145260
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Methanothermobacter thermautotrophicus
+  ncbi_taxid: 145262
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Methylophaga thalassica
+  ncbi_taxid: 40223
+  rank: species
+  synonyms:
+  - Methylophaga aminisulfidivorans
+  feeds:
+  - jbei
+- scientific_name: Methylosinus trichosporium
+  ncbi_taxid: 426
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Metschnikowia chrysoperlae
+  ncbi_taxid: 261276
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Metschnikowia gruessii
+  ncbi_taxid: 45517
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Meyerozyma caribbica
+  ncbi_taxid: 66948
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Microbispora sp.
+  ncbi_taxid: 1898321
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Micrococcus luteus
+  ncbi_taxid: 1270
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Micromonospora sp.
+  ncbi_taxid: 1876
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mikania micrantha
+  ncbi_taxid: 192012
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Miscanthus
+  ncbi_taxid: 62336
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Miscanthus floridulus
+  ncbi_taxid: 154761
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Miscanthus sacchariflorus
+  ncbi_taxid: 183675
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Miscanthus sinensis
+  ncbi_taxid: 62337
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Miscanthus x giganteus
+  ncbi_taxid: 183674
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Moesziomyces aphidis
+  ncbi_taxid: 84754
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mortierella alpina
+  ncbi_taxid: 64518
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mus musculus
+  ncbi_taxid: 10090
+  rank: species
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Musa acuminata
+  ncbi_taxid: 4641
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mycobacterium marinum
+  ncbi_taxid: 1781
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mycobacterium sp.
+  ncbi_taxid: 1785
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mycobacterium tuberculosis
+  ncbi_taxid: 1773
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Mycolicibacterium hassiacum
+  ncbi_taxid: 46351
+  rank: species
+  synonyms:
+  - Mycobacterium hassiacum
+  feeds:
+  - jbei
+- scientific_name: Myxozyma melibiosi
+  ncbi_taxid: 54550
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Naematelia encephala
+  ncbi_taxid: 71784
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Naganishia albida
+  ncbi_taxid: 100951
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nanoarchaeum sp.
+  ncbi_taxid: 2067986
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Naumovozyma dairenensis
+  ncbi_taxid: 27289
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nelumbo nucifera
+  ncbi_taxid: 4432
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Neocallimastix californiae
+  ncbi_taxid: 1754190
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Neocallimastix lanati (nom. inval.)
+  ncbi_taxid: 2767002
+  rank: species
+  synonyms:
+  - Neocallimastix lanati
+  feeds:
+  - jbei
+- scientific_name: Neurospora crassa
+  ncbi_taxid: 5141
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Neurospora intermedia
+  ncbi_taxid: 5142
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Niabella sp.
+  ncbi_taxid: 1962976
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Niastella sp.
+  ncbi_taxid: 1869183
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nicotiana benthamiana
+  ncbi_taxid: 4100
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Nicotiana tabacum
+  ncbi_taxid: 4097
+  rank: species
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Nilaparvata lugens
+  ncbi_taxid: 108931
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nitratidesulfovibrio vulgaris
+  ncbi_taxid: 881
+  rank: species
+  synonyms:
+  - Desulfovibrio vulgaris
+  feeds:
+  - jbei
+- scientific_name: Nocardia farcinica
+  ncbi_taxid: 37329
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nocardia mexicana
+  ncbi_taxid: 279262
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Nostoc punctiforme PCC 73102
+  ncbi_taxid: 63737
+  rank: strain
+  synonyms:
+  - Nostoc punctiforme ATCC 29133
+  feeds:
+  - jbei
+- scientific_name: Novosphingobium aromaticivorans
+  ncbi_taxid: 48935
+  rank: species
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Novosphingobium aromaticivorans DSM 12444
+  ncbi_taxid: 279238
+  rank: strain
+  feeds:
+  - glbrc
+- scientific_name: Novosphingobium rhizosphaerae
+  ncbi_taxid: 1551649
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Oceanicaulis sp.
+  ncbi_taxid: 1924941
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ogataea polymorpha
+  ncbi_taxid: 460523
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Olea europaea
+  ncbi_taxid: 4146
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Opitutus sp.
+  ncbi_taxid: 1913982
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Oryza sativa
+  ncbi_taxid: 4530
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Oryza sativa Japonica Group
+  ncbi_taxid: 39947
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Oscillochloris trichoides
+  ncbi_taxid: 104176
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ostreococcus tauri
+  ncbi_taxid: 70448
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Paenarthrobacter aurescens
+  ncbi_taxid: 43663
+  rank: species
+  synonyms:
+  - Arthrobacter aurescens
+  feeds:
+  - jbei
+- scientific_name: Paenibacillus
+  ncbi_taxid: 44249
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Paenibacillus kobensis
+  ncbi_taxid: 59841
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Paenibacillus lactis
+  ncbi_taxid: 228574
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Paenibacillus sp.
+  ncbi_taxid: 58172
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Panicum virgatum
+  ncbi_taxid: 38727
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Pantoea ananatis
+  ncbi_taxid: 553
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Papaver somniferum
+  ncbi_taxid: 3469
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Papiliotrema laurentii
+  ncbi_taxid: 5418
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Paraburkholderia bryophila
+  ncbi_taxid: 420952
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Paraburkholderia phytofirmans
+  ncbi_taxid: 261302
+  rank: species
+  synonyms:
+  - Burkholderia phytofirmans
+  feeds:
+  - jbei
+- scientific_name: Paracoccaceae bacterium
+  ncbi_taxid: 1904441
+  rank: species
+  synonyms:
+  - Rhodobacteraceae bacterium
+  feeds:
+  - jbei
+- scientific_name: Parthenium argentatum
+  ncbi_taxid: 35935
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pascua guehoae
+  ncbi_taxid: 105714
+  rank: species
+  synonyms:
+  - Cutaneotrichosporon guehoae
+  feeds:
+  - jbei
+- scientific_name: Pecoramyces ruminantium
+  ncbi_taxid: 1987568
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pediococcus acidilactici
+  ncbi_taxid: 1254
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pedobacter sp. GW460-11-11-14-LB5
+  ncbi_taxid: 3693099
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium
+  ncbi_taxid: 5073
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Penicillium biforme
+  ncbi_taxid: 707954
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium brevicompactum
+  ncbi_taxid: 5074
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium chrysogenum
+  ncbi_taxid: 5076
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium cvjetkovicii
+  ncbi_taxid: 1465813
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium nordicum
+  ncbi_taxid: 229535
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium rubens
+  ncbi_taxid: 1108849
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium solitum
+  ncbi_taxid: 60172
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium sp.
+  ncbi_taxid: 5081
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Penicillium verrucosum
+  ncbi_taxid: 60171
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Persicaria tinctoria
+  ncbi_taxid: 96455
+  rank: species
+  synonyms:
+  - Polygonum tinctorium
+  feeds:
+  - jbei
+- scientific_name: Petunia x hybrida
+  ncbi_taxid: 4102
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pewenomyces kalosus
+  ncbi_taxid: 2996542
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pewenomyces kutranfy
+  ncbi_taxid: 2726395
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pewenomyces lalenivora
+  ncbi_taxid: 2996543
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pewenomyces tapulicola
+  ncbi_taxid: 2996544
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phaeodactylum tricornutum
+  ncbi_taxid: 2850
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phaffia rhodozyma
+  ncbi_taxid: 264483
+  rank: species
+  synonyms:
+  - Xanthophyllomyces dendrorhous
+  feeds:
+  - jbei
+- scientific_name: Phalaenopsis amabilis
+  ncbi_taxid: 148545
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phanerochaete carnosa
+  ncbi_taxid: 231932
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phanerodontia chrysosporium
+  ncbi_taxid: 2822231
+  rank: species
+  synonyms:
+  - Phanerochaete chrysosporium
+  feeds:
+  - jbei
+- scientific_name: Phenylobacterium sp.
+  ncbi_taxid: 1871053
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phialocephala sphaeroides
+  ncbi_taxid: 271845
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phlebia radiata
+  ncbi_taxid: 5308
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phocaeicola salanitronis
+  ncbi_taxid: 376805
+  rank: species
+  synonyms:
+  - Bacteroides salanitronis
+  feeds:
+  - jbei
+- scientific_name: Phormidium sp.
+  ncbi_taxid: 1199
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Photobacterium damselae
+  ncbi_taxid: 38293
+  rank: species
+  synonyms:
+  - Photobacterium damsela
+  feeds:
+  - jbei
+- scientific_name: Phyllachora graminis
+  ncbi_taxid: 101486
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Phyllotreta nemorum
+  ncbi_taxid: 385017
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Physcomitrium patens
+  ncbi_taxid: 3218
+  rank: species
+  synonyms:
+  - Physcomitrella patens
+  feeds:
+  - jbei
+- scientific_name: Phytophthora megasperma
+  ncbi_taxid: 4788
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Picea abies
+  ncbi_taxid: 3329
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Picea glauca
+  ncbi_taxid: 3330
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pichia kluyveri
+  ncbi_taxid: 36015
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pichia kudriavzevii
+  ncbi_taxid: 4909
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Pichia senei
+  ncbi_taxid: 3112614
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Pichia sp. yHMH446
+  ncbi_taxid: 2866352
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Pieris rapae
+  ncbi_taxid: 64459
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pilosella officinarum
+  ncbi_taxid: 221204
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pinus
+  ncbi_taxid: 3337
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Pinus contorta
+  ncbi_taxid: 3339
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pinus radiata
+  ncbi_taxid: 3347
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pinus sp.
+  ncbi_taxid: 2909993
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pinus taeda
+  ncbi_taxid: 3352
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Piromyces finnis
+  ncbi_taxid: 1754191
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Piromyces sp.
+  ncbi_taxid: 45796
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Piromyces sp. E2
+  ncbi_taxid: 73868
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Piromyces sp. TSL-2022a
+  ncbi_taxid: 2913424
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Planifilum yunnanense
+  ncbi_taxid: 337094
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Plantago ovata
+  ncbi_taxid: 185002
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Plasmodium falciparum
+  ncbi_taxid: 5833
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Plasticicumulans lactativorans
+  ncbi_taxid: 1133106
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Plesiocystis pacifica
+  ncbi_taxid: 191768
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pleurotus ostreatus
+  ncbi_taxid: 5322
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Poa pratensis
+  ncbi_taxid: 4545
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pongamia pinnata
+  ncbi_taxid: 56065
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus
+  ncbi_taxid: 3689
+  rank: genus
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Populus alba x Populus grandidentata
+  ncbi_taxid: 228933
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus balsamifera
+  ncbi_taxid: 73824
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Populus deltoides
+  ncbi_taxid: 3696
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus nigra
+  ncbi_taxid: 3691
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus sp.
+  ncbi_taxid: 3697
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus tremula x Populus alba
+  ncbi_taxid: 80863
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus tremula x Populus tremuloides
+  ncbi_taxid: 47664
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Populus trichocarpa
+  ncbi_taxid: 3694
+  rank: species
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Populus x canadensis
+  ncbi_taxid: 3690
+  rank: species
+  synonyms:
+  - Populus deltoides x Populus nigra
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Porphyrobacter sp. HL-46
+  ncbi_taxid: 1479239
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Priestia flexa
+  ncbi_taxid: 86664
+  rank: species
+  synonyms:
+  - Bacillus flexus
+  feeds:
+  - jbei
+- scientific_name: Priestia megaterium
+  ncbi_taxid: 1404
+  rank: species
+  synonyms:
+  - Bacillus megaterium
+  feeds:
+  - jbei
+- scientific_name: Prodigiosinella confusarubida
+  ncbi_taxid: 104623
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Propioniferax innocua
+  ncbi_taxid: 1753
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Prunus dulcis
+  ncbi_taxid: 3755
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudarthrobacter chlorophenolicus
+  ncbi_taxid: 85085
+  rank: species
+  synonyms:
+  - Arthrobacter chlorophenolicus
+  feeds:
+  - jbei
+- scientific_name: Pseudoalteromonas haloplanktis
+  ncbi_taxid: 228
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudoalteromonas rubra
+  ncbi_taxid: 43658
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudobacteroides cellulosolvens
+  ncbi_taxid: 35825
+  rank: species
+  synonyms:
+  - Bacteroides cellulosolvens
+  feeds:
+  - jbei
+- scientific_name: Pseudohyphozyma bogoriensis
+  ncbi_taxid: 106002
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonadota
+  ncbi_taxid: 1224
+  rank: phylum
+  synonyms:
+  - Proteobacteria
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas alloputida
+  ncbi_taxid: 2093743
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas asplenii
+  ncbi_taxid: 53407
+  rank: species
+  synonyms:
+  - Pseudomonas fuscovaginae
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas azotoformans
+  ncbi_taxid: 47878
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas fluorescens
+  ncbi_taxid: 294
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas fragi
+  ncbi_taxid: 296
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas lutea
+  ncbi_taxid: 243924
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas mosselii
+  ncbi_taxid: 78327
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas nitroreducens
+  ncbi_taxid: 46680
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas putida
+  ncbi_taxid: 303
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas putida KT2440
+  ncbi_taxid: 160488
+  rank: strain
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas sp.
+  ncbi_taxid: 306
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas sp. 'mevalonii'
+  ncbi_taxid: 32044
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas sp. BP6
+  ncbi_taxid: 2817863
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas sp. BP8
+  ncbi_taxid: 2817864
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas sp. M2
+  ncbi_taxid: 228756
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas syringae
+  ncbi_taxid: 317
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas taiwanensis
+  ncbi_taxid: 470150
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas veronii
+  ncbi_taxid: 76761
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudomonas viridiflava
+  ncbi_taxid: 33069
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudoselenomonas ruminantium
+  ncbi_taxid: 971
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudotsuga menziesii
+  ncbi_taxid: 3357
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudoxanthomonas sp.
+  ncbi_taxid: 1871049
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pseudoxanthomonas suwonensis
+  ncbi_taxid: 314722
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Puccinia novopanici
+  ncbi_taxid: 1904429
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Pyricularia oryzae
+  ncbi_taxid: 318829
+  rank: species
+  synonyms:
+  - Magnaporthe oryzae
+  feeds:
+  - jbei
+- scientific_name: Pyrococcus horikoshii
+  ncbi_taxid: 53953
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pyrolobus fumarii
+  ncbi_taxid: 54252
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Pythium aphanidermatum
+  ncbi_taxid: 65070
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Quercus lobata
+  ncbi_taxid: 97700
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Quercus sp.
+  ncbi_taxid: 2506272
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ralstonia sp.
+  ncbi_taxid: 54061
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ralstonia sp. UNC404CL21Col
+  ncbi_taxid: 1380362
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Raphanus sativus
+  ncbi_taxid: 3726
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rattus norvegicus
+  ncbi_taxid: 10116
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Renibacterium salmoninarum
+  ncbi_taxid: 1646
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhizophagus clarus
+  ncbi_taxid: 94130
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhizophagus intraradices
+  ncbi_taxid: 4876
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhizophagus irregularis
+  ncbi_taxid: 588596
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodanobacter sp.
+  ncbi_taxid: 1883446
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodococcus erythropolis
+  ncbi_taxid: 1833
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodococcus jostii
+  ncbi_taxid: 132919
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodococcus jostii RHA1
+  ncbi_taxid: 101510
+  rank: strain
+  feeds:
+  - jbei
+- scientific_name: Rhodococcus opacus
+  ncbi_taxid: 37919
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodococcus rhodochrous
+  ncbi_taxid: 1829
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodomicrobium udaipurense
+  ncbi_taxid: 1202716
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodopseudomonas palustris
+  ncbi_taxid: 1076
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodospirillaceae bacterium
+  ncbi_taxid: 1898112
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodosporidiobolus odoratus
+  ncbi_taxid: 168509
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodosporidiobolus ruineniae
+  ncbi_taxid: 5004
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodothermus marinus
+  ncbi_taxid: 29549
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula babjevae
+  ncbi_taxid: 86837
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula cf. toruloides
+  ncbi_taxid: 2872729
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Rhodotorula dairenensis
+  ncbi_taxid: 86832
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula glutinis
+  ncbi_taxid: 5535
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula graminis
+  ncbi_taxid: 29898
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula mucilaginosa
+  ncbi_taxid: 5537
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula paludigena
+  ncbi_taxid: 86838
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula sphaerocarpa
+  ncbi_taxid: 86839
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rhodotorula toruloides
+  ncbi_taxid: 5286
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ricinus communis
+  ncbi_taxid: 3988
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Robinia pseudoacacia
+  ncbi_taxid: 35938
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Roseiflexus castenholzii
+  ncbi_taxid: 120962
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Roystonea regia
+  ncbi_taxid: 145709
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rozella allomycis
+  ncbi_taxid: 281847
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Rubrobacter xylanophilus
+  ncbi_taxid: 49319
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ruminococcus champanellensis
+  ncbi_taxid: 1161942
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ruminococcus flavefaciens
+  ncbi_taxid: 1265
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharina latissima
+  ncbi_taxid: 309358
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharolobus islandicus
+  ncbi_taxid: 43080
+  rank: species
+  synonyms:
+  - Sulfolobus islandicus
+  feeds:
+  - cabbi
+- scientific_name: Saccharolobus solfataricus
+  ncbi_taxid: 2287
+  rank: species
+  synonyms:
+  - Sulfolobus solfataricus
+  feeds:
+  - jbei
+- scientific_name: Saccharolobus solfataricus P2
+  ncbi_taxid: 273057
+  rank: strain
+  synonyms:
+  - Sulfolobus solfataricus P2
+  feeds:
+  - jbei
+- scientific_name: Saccharomyces cariocanus
+  ncbi_taxid: 114526
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharomyces cerevisiae
+  ncbi_taxid: 4932
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Saccharomyces cerevisiae YPS1009
+  ncbi_taxid: 947046
+  rank: strain
+  feeds:
+  - glbrc
+- scientific_name: Saccharomyces eubayanus
+  ncbi_taxid: 1080349
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saccharomyces kudriavzevii
+  ncbi_taxid: 114524
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saccharomyces paradoxus
+  ncbi_taxid: 27291
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saccharomycodales
+  ncbi_taxid: 3243779
+  rank: order
+  feeds:
+  - glbrc
+- scientific_name: Saccharomycodes sp. B7079-1
+  ncbi_taxid: 3470749
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saccharomycopsis sp. KB-2023a
+  ncbi_taxid: 3044176
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saccharomycotina
+  ncbi_taxid: 147537
+  rank: subphylum
+  synonyms:
+  - Saccharomycotina subphylum
+  feeds:
+  - glbrc
+- scientific_name: Saccharopolyspora erythraea
+  ncbi_taxid: 1836
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharothrix espanaensis
+  ncbi_taxid: 103731
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharum
+  ncbi_taxid: 4546
+  rank: genus
+  synonyms:
+  - Saccharum spp. hybrid
+  feeds:
+  - cabbi
+- scientific_name: Saccharum hybrid cultivar CP88-1762
+  ncbi_taxid: 657290
+  rank: no rank
+  feeds:
+  - cabbi
+- scientific_name: Saccharum hybrid cultivar R570
+  ncbi_taxid: 131158
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Saccharum officinarum
+  ncbi_taxid: 4547
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Saccharum sp.
+  ncbi_taxid: 15819
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saccharum spontaneum
+  ncbi_taxid: 62335
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Salinibacter ruber
+  ncbi_taxid: 146919
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Salinispora tropica
+  ncbi_taxid: 168695
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Salix purpurea
+  ncbi_taxid: 77065
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Salmonella enterica
+  ncbi_taxid: 28901
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Saturnispora dispora
+  ncbi_taxid: 29835
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saturnispora hagleri
+  ncbi_taxid: 297360
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Saturnispora silvae
+  ncbi_taxid: 52249
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Scheffersomyces xylosifermentans
+  ncbi_taxid: 1304137
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Schizosaccharomyces pombe
+  ncbi_taxid: 4896
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Schwanniomyces occidentalis
+  ncbi_taxid: 27300
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Scutellospora dipurpurescens
+  ncbi_taxid: 78547
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Secale cereale
+  ncbi_taxid: 4550
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Secundilactobacillus kimchicus
+  ncbi_taxid: 528209
+  rank: species
+  synonyms:
+  - Lactobacillus kimchicus
+  feeds:
+  - jbei
+- scientific_name: Selaginella moellendorffii
+  ncbi_taxid: 88036
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Septoglomus constrictum
+  ncbi_taxid: 1133423
+  rank: species
+  synonyms:
+  - Glomus constrictum
+  feeds:
+  - jbei
+- scientific_name: Setaria italica
+  ncbi_taxid: 4555
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Shewanella oneidensis
+  ncbi_taxid: 70863
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Shewanella oneidensis MR-1
+  ncbi_taxid: 211586
+  rank: strain
+  feeds:
+  - jbei
+- scientific_name: Shewanella sp. MR-4
+  ncbi_taxid: 60480
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Shewanella sp. MR-7
+  ncbi_taxid: 60481
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Shewanella sp. W3-18-1
+  ncbi_taxid: 351745
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sinorhizobium meliloti
+  ncbi_taxid: 382
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sogatella furcifera
+  ncbi_taxid: 113103
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Solanum habrochaites
+  ncbi_taxid: 62890
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Solanum lycopersicum
+  ncbi_taxid: 4081
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Solanum tuberosum
+  ncbi_taxid: 4113
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sorangium cellulosum
+  ncbi_taxid: 56
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sorangium sp.
+  ncbi_taxid: 2093377
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sorghum bicolor
+  ncbi_taxid: 4558
+  rank: species
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Sphaerobacter thermophilus
+  ncbi_taxid: 2057
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sphaerochaeta sp.
+  ncbi_taxid: 1972642
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sphingobium sp. SYK-6
+  ncbi_taxid: 627192
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sphingomonas paucimobilis
+  ncbi_taxid: 13689
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sporobolus cryptandrus
+  ncbi_taxid: 641383
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sporolactobacillus sp.
+  ncbi_taxid: 1958931
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Staphylococcus aureus
+  ncbi_taxid: 1280
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Staphylococcus epidermidis
+  ncbi_taxid: 1282
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Stenotrophomonas sp.
+  ncbi_taxid: 69392
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptococcus equinus
+  ncbi_taxid: 1335
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptococcus pasteurianus
+  ncbi_taxid: 197614
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptococcus pyogenes
+  ncbi_taxid: 1314
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces
+  ncbi_taxid: 1883
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Streptomyces aizunensis
+  ncbi_taxid: 255848
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces albireticuli
+  ncbi_taxid: 1940
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces albus
+  ncbi_taxid: 1888
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces ambofaciens
+  ncbi_taxid: 1889
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces clavuligerus
+  ncbi_taxid: 1901
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces coelicolor
+  ncbi_taxid: 1902
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces flaveolus
+  ncbi_taxid: 67297
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces fragilis
+  ncbi_taxid: 67301
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces griseus
+  ncbi_taxid: 1911
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces hygroscopicus
+  ncbi_taxid: 1912
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces lasalocidi
+  ncbi_taxid: 324833
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces lavendulae
+  ncbi_taxid: 1914
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces lividans
+  ncbi_taxid: 1916
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces mauvecolor
+  ncbi_taxid: 58345
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces natalensis
+  ncbi_taxid: 68242
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces noursei
+  ncbi_taxid: 1971
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces ochraceiscleroticus
+  ncbi_taxid: 47761
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces olivoverticillatus
+  ncbi_taxid: 66427
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces parvulus
+  ncbi_taxid: 146923
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces rimosus
+  ncbi_taxid: 1927
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces sp.
+  ncbi_taxid: 1931
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces sp. AM-7161
+  ncbi_taxid: 221710
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces sp. NRRL 30748
+  ncbi_taxid: 367779
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces tsukubensis
+  ncbi_taxid: 83656
+  rank: species
+  synonyms:
+  - Streptomyces tsukubaensis
+  feeds:
+  - jbei
+- scientific_name: Streptomyces venezuelae
+  ncbi_taxid: 54571
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Streptomyces vinaceus
+  ncbi_taxid: 1960
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Streptomyces virginiae
+  ncbi_taxid: 1961
+  rank: species
+  synonyms:
+  - Streptomyces cinnamonensis
+  feeds:
+  - jbei
+- scientific_name: Streptosporangium roseum
+  ncbi_taxid: 2001
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Striga asiatica
+  ncbi_taxid: 4170
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Striga gesnerioides
+  ncbi_taxid: 46029
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Striga hermonthica
+  ncbi_taxid: 68872
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sulfobacillus
+  ncbi_taxid: 28033
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Sulfolobus acidocaldarius
+  ncbi_taxid: 2285
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sulfolobus sp.
+  ncbi_taxid: 2288
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sulfurisphaera tokodaii
+  ncbi_taxid: 111955
+  rank: species
+  synonyms:
+  - Sulfolobus tokodaii
+  feeds:
+  - jbei
+- scientific_name: Sulfurivirga caldicuralii
+  ncbi_taxid: 364032
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Sus scrofa
+  ncbi_taxid: 9823
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Synechococcus elongatus PCC 7942 = FACHB-805
+  ncbi_taxid: 1140
+  rank: strain
+  feeds:
+  - jbei
+- scientific_name: Synechocystis sp.
+  ncbi_taxid: 1143
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Synechocystis sp. PCC 6803
+  ncbi_taxid: 1148
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Tepidanaerobacter
+  ncbi_taxid: 499228
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Teratosphaeria carnegiei
+  ncbi_taxid: 2972962
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Tetrabaena socialis
+  ncbi_taxid: 47790
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thalassiosira pseudonana
+  ncbi_taxid: 35128
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thauera aminoaromatica
+  ncbi_taxid: 164330
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermaerobacter composti
+  ncbi_taxid: 554949
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoanaerobacter brockii
+  ncbi_taxid: 29323
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoascus aurantiacus
+  ncbi_taxid: 5087
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobacillus composti
+  ncbi_taxid: 377615
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobacillus sp.
+  ncbi_taxid: 2108467
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobaculum terrenum
+  ncbi_taxid: 166501
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobifida fusca
+  ncbi_taxid: 2021
+  rank: species
+  synonyms:
+  - Thermomonospora fusca
+  feeds:
+  - jbei
+- scientific_name: Thermobifida halotolerans
+  ncbi_taxid: 483545
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobifida sp.
+  ncbi_taxid: 2027107
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermobispora bispora
+  ncbi_taxid: 2006
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoclostridium stercorarium
+  ncbi_taxid: 1510
+  rank: species
+  synonyms:
+  - Clostridium stercorarium
+  feeds:
+  - jbei
+- scientific_name: Thermococcus nautili
+  ncbi_taxid: 195522
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoflavifilum thermophilum
+  ncbi_taxid: 1393122
+  rank: species
+  synonyms:
+  - Crenotalea thermophila
+  feeds:
+  - jbei
+- scientific_name: Thermomicrobium roseum
+  ncbi_taxid: 500
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermomyces lanuginosus
+  ncbi_taxid: 5541
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoplasma acidophilum
+  ncbi_taxid: 2303
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermoproteus uzoniensis
+  ncbi_taxid: 184117
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermothelomyces thermophilus
+  ncbi_taxid: 78579
+  rank: species
+  synonyms:
+  - Myceliophthora thermophila
+  feeds:
+  - jbei
+- scientific_name: Thermotoga maritima
+  ncbi_taxid: 2336
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermotoga petrophila
+  ncbi_taxid: 93929
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thermus
+  ncbi_taxid: 270
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Thermus thermophilus
+  ncbi_taxid: 274
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thioalkalivibrio sulfidiphilus
+  ncbi_taxid: 1033854
+  rank: species
+  synonyms:
+  - Thioalkalivibrio sulfidophilus
+  feeds:
+  - jbei
+- scientific_name: Thiobacillus denitrificans
+  ncbi_taxid: 36861
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thiobacter subterraneus
+  ncbi_taxid: 279810
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thiohalobacter sp.
+  ncbi_taxid: 2025948
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thiomonas arsenitoxydans
+  ncbi_taxid: 426114
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thiomonas delicata
+  ncbi_taxid: 364030
+  rank: species
+  synonyms:
+  - Thiomonas arsenivorans
+  feeds:
+  - jbei
+- scientific_name: Thiomonas sp.
+  ncbi_taxid: 2047785
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Thunbergia alata
+  ncbi_taxid: 32198
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Thunbergia laurifolia
+  ncbi_taxid: 504053
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Tilletia maclaganii
+  ncbi_taxid: 1031713
+  rank: species
+  feeds:
+  - glbrc
+- scientific_name: Tolumonas auensis
+  ncbi_taxid: 43948
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Tolumonas lignilytica
+  ncbi_taxid: 1283284
+  rank: species
+  synonyms:
+  - Tolumonas lignolytica
+  feeds:
+  - jbei
+- scientific_name: Trametes sp. C30
+  ncbi_taxid: 191221
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trametes versicolor
+  ncbi_taxid: 5325
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trichoderma atroviride
+  ncbi_taxid: 63577
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trichoderma reesei
+  ncbi_taxid: 51453
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trichoderma viride
+  ncbi_taxid: 5547
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trichormus variabilis ATCC 29413
+  ncbi_taxid: 240292
+  rank: strain
+  synonyms:
+  - Anabaena variabilis ATCC 29413
+  feeds:
+  - jbei
+- scientific_name: Trifolium pratense
+  ncbi_taxid: 57577
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trigonopsis variabilis
+  ncbi_taxid: 34364
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Triticum aestivum
+  ncbi_taxid: 4565
+  rank: species
+  synonyms:
+  - winter wheat (Triticum aestivum)
+  feeds:
+  - glbrc
+  - jbei
+- scientific_name: Truepera radiovictrix
+  ncbi_taxid: 332249
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Trueperaceae
+  ncbi_taxid: 332247
+  rank: family
+  feeds:
+  - jbei
+- scientific_name: Tyto alba
+  ncbi_taxid: 56313
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Ulva lactuca
+  ncbi_taxid: 63410
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Umbellularia californica
+  ncbi_taxid: 3438
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: uncultured bacterium
+  ncbi_taxid: 77133
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vaccinium corymbosum
+  ncbi_taxid: 69266
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Valeriana officinalis
+  ncbi_taxid: 19953
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vanrija albida
+  ncbi_taxid: 181172
+  rank: species
+  synonyms:
+  - Cryptococcus ramirezgomezianus
+  feeds:
+  - jbei
+- scientific_name: Vanrija humicola
+  ncbi_taxid: 5417
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vanrija musci
+  ncbi_taxid: 181173
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Variovorax sp.
+  ncbi_taxid: 1871043
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Veratrum californicum
+  ncbi_taxid: 50242
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Veratrum nigrum
+  ncbi_taxid: 203100
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vigna radiata
+  ncbi_taxid: 157791
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vishniacozyma heimaeyensis
+  ncbi_taxid: 159573
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vitis
+  ncbi_taxid: 3603
+  rank: genus
+  synonyms:
+  - Allorhizobium vitis
+  feeds:
+  - jbei
+- scientific_name: Vitis vinifera
+  ncbi_taxid: 29760
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vogesella sp.
+  ncbi_taxid: 1904252
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Vulcanisaeta sp.
+  ncbi_taxid: 2020871
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Weissella
+  ncbi_taxid: 46255
+  rank: genus
+  feeds:
+  - jbei
+- scientific_name: Weissella sp.
+  ncbi_taxid: 1896315
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Williopsis saturnus
+  ncbi_taxid: 907340
+  rank: species
+  synonyms:
+  - Cyberlindnera saturnus
+  feeds:
+  - jbei
+- scientific_name: Xanthobacter autotrophicus
+  ncbi_taxid: 280
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Xanthomonas euvesicatoria
+  ncbi_taxid: 456327
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Xanthomonas oryzae
+  ncbi_taxid: 347
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Xanthomonas oryzae pv. oryzae
+  ncbi_taxid: 64187
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Xanthomonas oryzae pv. oryzicola
+  ncbi_taxid: 129394
+  rank: no rank
+  feeds:
+  - jbei
+- scientific_name: Xanthomonas vasicola pv. musacearum
+  ncbi_taxid: 454958
+  rank: no rank
+  synonyms:
+  - Xanthomonas campestris pv. musacearum
+  feeds:
+  - jbei
+- scientific_name: Yamadazyma diddensiae
+  ncbi_taxid: 45543
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Yarrowia lipolytica
+  ncbi_taxid: 4952
+  rank: species
+  feeds:
+  - cabbi
+  - jbei
+- scientific_name: Yersinia enterocolitica
+  ncbi_taxid: 630
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Yersinia pestis
+  ncbi_taxid: 632
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Zea mays
+  ncbi_taxid: 4577
+  rank: species
+  synonyms:
+  - maize (Zea mays)
+  feeds:
+  - cabbi
+  - glbrc
+  - jbei
+- scientific_name: Zingiber zerumbet
+  ncbi_taxid: 311405
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Zygoascus hellenicus
+  ncbi_taxid: 5621
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Zygoascus meyerae
+  ncbi_taxid: 374461
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Zygosaccharomyces rouxii
+  ncbi_taxid: 4956
+  rank: species
+  feeds:
+  - cabbi
+- scientific_name: Zymomonas mobilis
+  ncbi_taxid: 542
+  rank: species
+  feeds:
+  - jbei
+- scientific_name: Zymomonas mobilis subsp. mobilis ZM4 = ATCC 31821
+  ncbi_taxid: 264203
+  rank: strain
+  feeds:
+  - glbrc

@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.0
+# version: 0.2.1
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -261,6 +261,7 @@ linkml:Sparqlpath xsd:string
 <Organism> CLOSED {
     (  $<Organism_tes> (  <scientificName> @linkml:String ? ;
           <NCBITaxID> @linkml:Integer ? ;
+          <taxon_ids> @linkml:String * ;
           <strains> @linkml:String *
        ) ;
        rdf:type [ <Organism> ] ?

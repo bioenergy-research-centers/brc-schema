@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: "'0.2.0'"
+        expr: "'0.2.1'"
 
   Dataset:
     populated_from: Record
@@ -88,6 +88,8 @@ class_derivations:
         expr: "build_brc_dataset_url(site_url, links)"
       active:
         expr: "workflow_status == 'R' if workflow_status else False"
+      species:
+        expr: "build_brc_species(keywords, subjects, related_identifiers)"
       has_related_ids:
         expr: "build_brc_has_related_ids(identifiers, related_identifiers, identifier, other_identifiers, other_number, report_number)"
 

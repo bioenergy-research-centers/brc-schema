@@ -87,7 +87,7 @@ class_derivations:
       identifiers:
         expr: "build_osti_identifiers(has_related_ids, identifier, brc)"
       related_identifiers:
-        expr: "build_osti_related_identifiers(has_related_ids)"
+        expr: "build_osti_related_identifiers(has_related_ids, species)"
       media:
         populated_from: media
       doe_contract_number:

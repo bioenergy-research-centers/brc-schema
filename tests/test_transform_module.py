@@ -54,3 +54,13 @@ def test_cli_transform_converts_transformation_error_to_click_exception(tmp_path
 
     assert result.exit_code != 0
     assert "Error during transformation: bad transform input" in result.output
+
+
+def test_dataset_url_spaces_are_percent_encoded():
+    """A raw space makes dataset_url an invalid URI; other characters are kept."""
+    from brc_schema.transform import build_brc_dataset_url
+
+    assert build_brc_dataset_url(
+        "https://labkey.ornl.gov/CBI/Public Data/begin.view?", None
+    ) == "https://labkey.ornl.gov/CBI/Public%20Data/begin.view?"
+    assert build_brc_dataset_url(None, ["https://a.org/p?x=1&y=a%20b#f"]) == "https://a.org/p?x=1&y=a%20b#f"

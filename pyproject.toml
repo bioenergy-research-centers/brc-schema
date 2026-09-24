@@ -9,12 +9,15 @@ authors = [
 ]
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
-requires-python = ">=3.9,<=3.13"
+requires-python = ">=3.10,<=3.13"
 dependencies = [
     "elinkapi>=0.5.3,<0.6.0",
     "linkml>1.9.4",
     "linkml-map>0.3.8",
     "linkml-runtime>1.7.0",
+    "oaklib>=0.7.4",
+    # oaklib imports eutils, which needs pkg_resources (removed in setuptools 81)
+    "setuptools<81",
 ]
 
 [project.optional-dependencies]
