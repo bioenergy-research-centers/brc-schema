@@ -1158,6 +1158,7 @@
                 "Protein Data Bank",
                 "Protocols.io",
                 "The Cambridge Crystallographic Data Centre",
+                "Yoda",
                 "Zenodo"
             ],
             "title": "RepositoryEnum",

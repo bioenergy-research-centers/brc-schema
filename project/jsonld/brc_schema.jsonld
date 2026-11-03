@@ -1470,6 +1470,16 @@
           ]
         },
         {
+          "text": "Yoda",
+          "description": "Data Publication Platform of Utrecht University",
+          "in_subset": [
+            "general_purpose"
+          ],
+          "see_also": [
+            "https://public.yoda.uu.nl/"
+          ]
+        },
+        {
           "text": "Zenodo",
           "description": "Zenodo",
           "in_subset": [
@@ -4422,9 +4432,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-09-24T13:15:06",
+  "source_file_date": "2026-11-02T20:40:00",
   "source_file_size": 38309,
-  "generation_date": "2026-09-24T13:40:06",
+  "generation_date": "2026-11-02T20:43:17",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

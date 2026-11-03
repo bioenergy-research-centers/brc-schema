@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-09-24T13:40:07
+# Generation date: 2026-11-02T20:43:18
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1207,6 +1207,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     PRIDE = PermissibleValue(
         text="PRIDE",
         description="PRoteomics IDEntifications database")
+    Yoda = PermissibleValue(
+        text="Yoda",
+        description="Data Publication Platform of Utrecht University")
     Zenodo = PermissibleValue(
         text="Zenodo",
         description="Zenodo")

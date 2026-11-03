@@ -143,6 +143,7 @@ enum RepositoryEnum
     Protein_Data_Bank
     Protocols__FULL_STOP__io
     The_Cambridge_Crystallographic_Data_Centre
+    Yoda
     Zenodo
   }
 

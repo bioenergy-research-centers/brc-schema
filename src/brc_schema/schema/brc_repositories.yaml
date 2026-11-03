@@ -369,6 +369,12 @@ enums:
           - sequence
           - structure
           - requires_login_some
+      Yoda:
+        description: "Data Publication Platform of Utrecht University"
+        see_also:
+          - https://public.yoda.uu.nl/
+        in_subset:
+          - general_purpose
       Zenodo:
         description: "Zenodo"
         see_also:
