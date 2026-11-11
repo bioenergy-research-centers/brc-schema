@@ -5,7 +5,7 @@ import sys
 from unittest.mock import patch
 
 from brc_schema.cli import main
-from brc_schema.transform import build_osti_persons
+from brc_schema.transform import build_brc_creators, build_osti_persons
 
 
 class TestTransformations:
@@ -30,6 +30,26 @@ class TestTransformations:
                 "contributor_type": "DataManager",
             },
         ]
+
+    def test_build_brc_creators_preserves_order_and_flags_first_author(self):
+        """Creators keep OSTI author order; roles are assigned by position."""
+        persons = [
+            {"type": "AUTHOR", "first_name": "Ada", "last_name": "Lovelace"},
+            {"type": "CONTRIBUTING", "first_name": "Not", "last_name": "Author",
+             "contributor_type": "DataCurator"},
+            {"type": "AUTHOR", "first_name": "Rosalind", "last_name": "Franklin"},
+            {"type": "AUTHOR", "first_name": "Barbara", "last_name": "McClintock"},
+        ]
+        creators = build_brc_creators(persons, None, None)
+
+        assert [c["name"] for c in creators] == [
+            "Ada Lovelace", "Rosalind Franklin", "Barbara McClintock"
+        ]
+        assert [c["individual_roles"] for c in creators] == [
+            ["FirstAuthor"], ["ContributingAuthor"], ["ContributingAuthor"]
+        ]
+        # No CONTACT person: primary contact falls back to the first author.
+        assert [c["primaryContact"] for c in creators] == [True, False, False]
 
     def test_build_osti_persons_skips_blank_names(self):
         """Blank names should be omitted instead of emitting placeholder values."""
@@ -538,6 +558,9 @@ class TestTransformations:
         assert len(creators) == 3
         assert creators[0]['name'] == 'John Doe'
         assert creators[0]['primaryContact'] is True  # First author is primary
+        assert creators[0]['individual_roles'] == ['FirstAuthor']
+        assert creators[1]['individual_roles'] == ['ContributingAuthor']
+        assert creators[2]['individual_roles'] == ['ContributingAuthor']
         assert creators[1]['name'] == 'Jane Smith'
         assert creators[1]['primaryContact'] is False
         assert creators[2]['name'] == 'Bob Wilson'

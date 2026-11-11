@@ -433,6 +433,12 @@ def build_brc_bibliographic_citation(doi):
 
 
 def build_brc_creators(persons, authors, organizations):
+    """Build ordered BRC creators from OSTI AUTHOR persons.
+
+    Author order follows the OSTI persons list. OSTI records carry no
+    author-role metadata, so roles are assigned by position: the first
+    author gets FirstAuthor and every other author gets ContributingAuthor.
+    """
     creators = []
     for person in _as_list(persons):
         if _attr(person, "type") != "AUTHOR":
@@ -444,7 +450,13 @@ def build_brc_creators(persons, authors, organizations):
         )
         if not name:
             continue
-        creator = {"name": name, "primaryContact": len(creators) == 0}
+        creator = {
+            "name": name,
+            "primaryContact": len(creators) == 0,
+            "individual_roles": [
+                "FirstAuthor" if not creators else "ContributingAuthor"
+            ],
+        }
         email = _normalize_email(_attr(person, "email"))
         if email:
             creator["email"] = email
@@ -463,7 +475,13 @@ def build_brc_creators(persons, authors, organizations):
     author_list = [author for author in _as_list(authors) if author]
     if author_list:
         return [
-            {"name": author, "primaryContact": idx == 0}
+            {
+                "name": author,
+                "primaryContact": idx == 0,
+                "individual_roles": [
+                    "FirstAuthor" if idx == 0 else "ContributingAuthor"
+                ],
+            }
             for idx, author in enumerate(author_list)
         ]
 
