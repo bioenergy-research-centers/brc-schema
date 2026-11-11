@@ -50,7 +50,7 @@ Key mappings include:
 | `osti_id` | `identifier` | Rendered as `https://www.osti.gov/biblio/<osti_id>`. |
 | `doi` | `bibliographicCitation` | Rendered as `https://doi.org/<doi>`. |
 | `keywords` or `subjects` | `keywords` | Comma-separated strings are split into individual keywords. |
-| `persons`, `authors`, `organizations` | `creator`, `contributors` | Structured `persons` are preferred; legacy author strings are fallback input. Creator order follows OSTI author order; OSTI has no author-role metadata, so roles are positional: the first author gets `individual_roles: [FirstAuthor]`, all others `[ContributingAuthor]`. |
+| `persons`, `authors`, `organizations` | `creator`, `contributors` | Structured `persons` are preferred; legacy author strings are fallback input. Creator order follows OSTI author order; OSTI has no author-role metadata, so roles are positional: the first author gets `individual_roles: [FirstAuthor]`, all others `[ContributingAuthor]`. `primaryContact` goes to the author matching an OSTI `CONTACT` person (by ORCID, email, or name), else the first author. |
 | sponsor `organizations` or `sponsor_orgs` | `funding` | Award identifiers are copied when available. |
 | `related_identifiers` | `relatedItem` | OSTI related identifiers become xBRC related items. |
 | `identifiers`, `related_identifiers`, and legacy identifier fields | `has_related_ids` | Contract numbers and taxon identifiers are excluded; BioProject URLs and IDs are normalized where possible. |

@@ -51,6 +51,36 @@ class TestTransformations:
         # No CONTACT person: primary contact falls back to the first author.
         assert [c["primaryContact"] for c in creators] == [True, False, False]
 
+    def test_build_brc_creators_primary_contact_follows_osti_contact(self):
+        """An OSTI CONTACT person matching an author becomes the primary contact."""
+        persons = [
+            {"type": "AUTHOR", "first_name": "Ada", "last_name": "Lovelace"},
+            {"type": "AUTHOR", "first_name": "Rosalind", "last_name": "Franklin",
+             "email": ["rfranklin@example.org"]},
+            {"type": "CONTACT", "first_name": "R.", "last_name": "Franklin",
+             "email": ["RFranklin@example.org"]},
+        ]
+        creators = build_brc_creators(persons, None, None)
+
+        assert len(creators) == 2
+        assert [c["primaryContact"] for c in creators] == [False, True]
+        assert [c["individual_roles"] for c in creators] == [
+            ["FirstAuthor"], ["ContributingAuthor"]
+        ]
+
+    def test_build_brc_creators_unmatched_contact_falls_back_to_first(self):
+        """A CONTACT person who is not an author leaves the first author as contact."""
+        persons = [
+            {"type": "AUTHOR", "first_name": "Ada", "last_name": "Lovelace",
+             "orcid": "0000-0001-2345-6789"},
+            {"type": "AUTHOR", "first_name": "Rosalind", "last_name": "Franklin"},
+            {"type": "CONTACT", "first_name": "Data", "last_name": "Desk",
+             "email": ["help@example.org"]},
+        ]
+        creators = build_brc_creators(persons, None, None)
+
+        assert [c["primaryContact"] for c in creators] == [True, False]
+
     def test_build_osti_persons_skips_blank_names(self):
         """Blank names should be omitted instead of emitting placeholder values."""
         assert build_osti_persons(

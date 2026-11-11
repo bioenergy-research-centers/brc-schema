@@ -432,14 +432,42 @@ def build_brc_bibliographic_citation(doi):
     return f"https://doi.org/{normalized_doi}" if normalized_doi else None
 
 
+def _person_keys(person):
+    """Identity keys (ORCID, emails, lowercased name) used to match OSTI persons."""
+    keys = set()
+    orcid = _attr(person, "orcid")
+    if orcid:
+        keys.add(("orcid", str(orcid).rstrip("/").rsplit("/", 1)[-1].lower()))
+    for email in _as_list(_attr(person, "email")):
+        if email:
+            keys.add(("email", str(email).strip().lower()))
+    name = _full_name(
+        _attr(person, "first_name"),
+        _attr(person, "middle_name"),
+        _attr(person, "last_name"),
+    )
+    if name:
+        keys.add(("name", " ".join(name.lower().split())))
+    return keys
+
+
 def build_brc_creators(persons, authors, organizations):
     """Build ordered BRC creators from OSTI AUTHOR persons.
 
     Author order follows the OSTI persons list. OSTI records carry no
     author-role metadata, so roles are assigned by position: the first
     author gets FirstAuthor and every other author gets ContributingAuthor.
+    primaryContact goes to the author who matches an OSTI CONTACT person
+    (by ORCID, email, or name), or to the first author when no CONTACT
+    person matches.
     """
+    contact_keys = set()
+    for person in _as_list(persons):
+        if _attr(person, "type") == "CONTACT":
+            contact_keys |= _person_keys(person)
+
     creators = []
+    contact_index = None
     for person in _as_list(persons):
         if _attr(person, "type") != "AUTHOR":
             continue
@@ -450,9 +478,11 @@ def build_brc_creators(persons, authors, organizations):
         )
         if not name:
             continue
+        if contact_index is None and contact_keys & _person_keys(person):
+            contact_index = len(creators)
         creator = {
             "name": name,
-            "primaryContact": len(creators) == 0,
+            "primaryContact": False,
             "individual_roles": [
                 "FirstAuthor" if not creators else "ContributingAuthor"
             ],
@@ -470,6 +500,7 @@ def build_brc_creators(persons, authors, organizations):
                 break
         creators.append(creator)
     if creators:
+        creators[contact_index or 0]["primaryContact"] = True
         return creators
 
     author_list = [author for author in _as_list(authors) if author]
