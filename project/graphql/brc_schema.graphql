@@ -168,6 +168,7 @@ type Contributor
     email: String
     primaryContact: Boolean
     affiliation: String
+    affiliations: [BRCOrganization]
     orcid: String
     individualRoles: [IndividualRoleEnum]
     contributorType: ContributorTypeCodes
@@ -180,7 +181,8 @@ type Dataset
     alert: Boolean
     title: String!
     date: String!
-    creator: [Individual]!
+    creator: [Individual]
+    organizationalCreators: [BRCOrganization]
     contributors: [Contributor]
     brc: BRCEnum!
     additionalBrcs: [BRCEnum]
@@ -242,6 +244,7 @@ type Individual
     email: String
     primaryContact: Boolean
     affiliation: String
+    affiliations: [BRCOrganization]
     orcid: String
     individualRoles: [IndividualRoleEnum]
   }

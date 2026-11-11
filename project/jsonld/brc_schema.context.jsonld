@@ -254,6 +254,10 @@
          "@type": "@id",
          "@id": "dcterms:subject"
       },
+      "organizational_creators": {
+         "@type": "@id",
+         "@id": "dcterms:creator"
+      },
       "plasmid_features": {
          "@type": "@id",
          "@id": "plasmid_features"
@@ -325,6 +329,10 @@
       },
       "affiliation": {
          "@id": "affiliation"
+      },
+      "affiliations": {
+         "@type": "@id",
+         "@id": "affiliations"
       },
       "email": {
          "@id": "schema:email"

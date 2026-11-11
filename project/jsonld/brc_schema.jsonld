@@ -1635,7 +1635,7 @@
     },
     {
       "name": "dataset__creator",
-      "description": "List of creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors.",
+      "description": "List of individual creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors. A dataset must have creator, organizational_creators, or both.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "mappings": [
         "http://purl.org/dc/terms/creator"
@@ -1647,7 +1647,28 @@
         "Dataset"
       ],
       "range": "Individual",
-      "required": true,
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__organizational_creators",
+      "description": "Organizations credited as authors of the dataset, such as consortia, collaborations, or institutions. The list is ordered, and is kept separate from creator, matching OSTI E-Link 2.0, which lists organizations with type AUTHOR apart from AUTHOR persons. A dataset must have creator, organizational_creators, or both.",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "mappings": [
+        "http://purl.org/dc/terms/creator"
+      ],
+      "close_mappings": [
+        "https://www.osti.gov/biblio/organizations"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/creator",
+      "alias": "organizational_creators",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "range": "BRCOrganization",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
@@ -2354,7 +2375,8 @@
     },
     {
       "name": "individual__affiliation",
-      "description": "Affiliation of the individual.",
+      "description": "Name of the individual's affiliation.",
+      "deprecated": "Use affiliations, which supports multiple affiliations and organization identifiers such as ROR IDs. Kept for compatibility; when both are present, this holds the name of the first affiliation.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slot_uri": "https://w3id.org/brc/affiliation",
       "alias": "affiliation",
@@ -2363,16 +2385,22 @@
         "Individual"
       ],
       "range": "string",
-      "any_of": [
-        {
-          "range": "BRCOrganization",
-          "@type": "AnonymousSlotExpression"
-        },
-        {
-          "range": "string",
-          "@type": "AnonymousSlotExpression"
-        }
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "individual__affiliations",
+      "description": "All affiliations of the individual, in the order given by the source record. Affiliations may be any organization, not only a Bioenergy Research Center: for example, a GLBRC member may list both Great Lakes Bioenergy Research Center and University of Michigan. Matches the affiliations of a Person in OSTI E-Link 2.0 (name and ROR ID).",
+      "from_schema": "https://w3id.org/brc/brc_schema",
+      "slot_uri": "https://w3id.org/brc/affiliations",
+      "alias": "affiliations",
+      "owner": "Individual",
+      "domain_of": [
+        "Individual"
       ],
+      "range": "BRCOrganization",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
@@ -3329,6 +3357,7 @@
         "dataset__title",
         "dataset__date",
         "dataset__creator",
+        "dataset__organizational_creators",
         "dataset__contributors",
         "dataset__brc",
         "dataset__additional_brcs",
@@ -3417,10 +3446,21 @@
         },
         {
           "name": "creator",
-          "description": "List of creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors.",
+          "description": "List of individual creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors. A dataset must have creator, organizational_creators, or both.",
           "slot_uri": "dcterms:creator",
           "range": "Individual",
-          "required": true,
+          "multivalued": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "organizational_creators",
+          "description": "Organizations credited as authors of the dataset, such as consortia, collaborations, or institutions. The list is ordered, and is kept separate from creator, matching OSTI E-Link 2.0, which lists organizations with type AUTHOR apart from AUTHOR persons. A dataset must have creator, organizational_creators, or both.",
+          "close_mappings": [
+            "osti:organizations"
+          ],
+          "slot_uri": "dcterms:creator",
+          "range": "BRCOrganization",
           "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
@@ -3778,6 +3818,28 @@
         }
       ],
       "class_uri": "http://schema.org/Dataset",
+      "any_of": [
+        {
+          "slot_conditions": [
+            {
+              "name": "creator",
+              "required": true,
+              "@type": "SlotDefinition"
+            }
+          ],
+          "@type": "AnonymousClassExpression"
+        },
+        {
+          "slot_conditions": [
+            {
+              "name": "organizational_creators",
+              "required": true,
+              "@type": "SlotDefinition"
+            }
+          ],
+          "@type": "AnonymousClassExpression"
+        }
+      ],
       "@type": "ClassDefinition"
     },
     {
@@ -3797,6 +3859,7 @@
         "individual__email",
         "individual__primaryContact",
         "individual__affiliation",
+        "individual__affiliations",
         "individual__orcid",
         "individual__individual_roles"
       ],
@@ -3824,17 +3887,17 @@
         },
         {
           "name": "affiliation",
-          "description": "Affiliation of the individual.",
-          "any_of": [
-            {
-              "range": "BRCOrganization",
-              "@type": "AnonymousSlotExpression"
-            },
-            {
-              "range": "string",
-              "@type": "AnonymousSlotExpression"
-            }
-          ],
+          "description": "Name of the individual's affiliation.",
+          "deprecated": "Use affiliations, which supports multiple affiliations and organization identifiers such as ROR IDs. Kept for compatibility; when both are present, this holds the name of the first affiliation.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "affiliations",
+          "description": "All affiliations of the individual, in the order given by the source record. Affiliations may be any organization, not only a Bioenergy Research Center: for example, a GLBRC member may list both Great Lakes Bioenergy Research Center and University of Michigan. Matches the affiliations of a Person in OSTI E-Link 2.0 (name and ROR ID).",
+          "range": "BRCOrganization",
+          "multivalued": true,
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
@@ -3923,6 +3986,7 @@
         "individual__email",
         "individual__primaryContact",
         "individual__affiliation",
+        "individual__affiliations",
         "individual__orcid",
         "individual__individual_roles",
         "contributor__contributorType"
@@ -4005,7 +4069,7 @@
     {
       "name": "BRCOrganization",
       "definition_uri": "https://w3id.org/brc/BRCOrganization",
-      "description": "An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.",
+      "description": "An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.",
       "from_schema": "https://w3id.org/brc/brc_schema",
       "slots": [
         "bRCOrganization__organizationName",
@@ -4475,9 +4539,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "brc_schema.yaml",
-  "source_file_date": "2026-11-11T14:55:55",
-  "source_file_size": 40390,
-  "generation_date": "2026-11-11T14:56:28",
+  "source_file_date": "2026-11-11T15:06:37",
+  "source_file_size": 42305,
+  "generation_date": "2026-11-11T15:10:13",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

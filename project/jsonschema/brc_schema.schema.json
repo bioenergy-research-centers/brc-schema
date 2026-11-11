@@ -30,7 +30,7 @@
         },
         "BRCOrganization": {
             "additionalProperties": false,
-            "description": "An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.",
+            "description": "An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.",
             "properties": {
                 "organizationName": {
                     "description": "Name of the organization.",
@@ -91,19 +91,21 @@
             "description": "An individual who contributed to the dataset in some manner, not necessarily as an author.",
             "properties": {
                 "affiliation": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/BRCOrganization"
-                        },
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Affiliation of the individual.",
-                    "type": "string"
+                    "description": "Name of the individual's affiliation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "affiliations": {
+                    "description": "All affiliations of the individual, in the order given by the source record. Affiliations may be any organization, not only a Bioenergy Research Center: for example, a GLBRC member may list both Great Lakes Bioenergy Research Center and University of Michigan. Matches the affiliations of a Person in OSTI E-Link 2.0 (name and ROR ID).",
+                    "items": {
+                        "$ref": "#/$defs/BRCOrganization"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "contributorType": {
                     "$ref": "#/$defs/ContributorTypeCodes",
@@ -181,6 +183,30 @@
         },
         "Dataset": {
             "additionalProperties": false,
+            "anyOf": [
+                {
+                    "properties": {
+                        "creator": {
+                            "items": {},
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "creator"
+                    ]
+                },
+                {
+                    "properties": {
+                        "organizational_creators": {
+                            "items": {},
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "organizational_creators"
+                    ]
+                }
+            ],
             "description": "A body of structured information describing some topic or topics of interest. This includes metadata about the dataset.",
             "properties": {
                 "abstract": {
@@ -311,11 +337,14 @@
                     ]
                 },
                 "creator": {
-                    "description": "List of creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors.",
+                    "description": "List of individual creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors. A dataset must have creator, organizational_creators, or both.",
                     "items": {
                         "$ref": "#/$defs/Individual"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "datasetName": {
                     "description": "\"Name of a overall dataset to which this data entry belongs.\"",
@@ -451,6 +480,16 @@
                         "null"
                     ]
                 },
+                "organizational_creators": {
+                    "description": "Organizations credited as authors of the dataset, such as consortia, collaborations, or institutions. The list is ordered, and is kept separate from creator, matching OSTI E-Link 2.0, which lists organizations with type AUTHOR apart from AUTHOR persons. A dataset must have creator, organizational_creators, or both.",
+                    "items": {
+                        "$ref": "#/$defs/BRCOrganization"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "plasmid_features": {
                     "description": "Description of plasmid features, if applicable. This is a multivalued field.",
                     "items": {
@@ -531,7 +570,6 @@
             "required": [
                 "title",
                 "date",
-                "creator",
                 "brc",
                 "identifier",
                 "topic"
@@ -658,19 +696,21 @@
             "description": "An individual involved in the dataset.",
             "properties": {
                 "affiliation": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/BRCOrganization"
-                        },
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Affiliation of the individual.",
-                    "type": "string"
+                    "description": "Name of the individual's affiliation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "affiliations": {
+                    "description": "All affiliations of the individual, in the order given by the source record. Affiliations may be any organization, not only a Bioenergy Research Center: for example, a GLBRC member may list both Great Lakes Bioenergy Research Center and University of Michigan. Matches the affiliations of a Person in OSTI E-Link 2.0 (name and ROR ID).",
+                    "items": {
+                        "$ref": "#/$defs/BRCOrganization"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "email": {
                     "description": "Email address of the individual.",

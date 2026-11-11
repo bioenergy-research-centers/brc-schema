@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-11-11T14:56:29
+# Generation date: 2026-11-11T15:10:14
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -170,13 +170,14 @@ class Dataset(YAMLRoot):
 
     title: str = None
     date: Union[str, XSDDate] = None
-    creator: Union[Union[dict, "Individual"], list[Union[dict, "Individual"]]] = None
     brc: Union[str, "BRCEnum"] = None
     identifier: str = None
     topic: Union[Union[str, "DatasetTopicEnum"], list[Union[str, "DatasetTopicEnum"]]] = None
     id: Optional[Union[str, URIorCURIE]] = None
     active: Optional[Union[bool, Bool]] = True
     alert: Optional[Union[bool, Bool]] = False
+    creator: Optional[Union[Union[dict, "Individual"], list[Union[dict, "Individual"]]]] = empty_list()
+    organizational_creators: Optional[Union[Union[dict, "BRCOrganization"], list[Union[dict, "BRCOrganization"]]]] = empty_list()
     contributors: Optional[Union[Union[dict, "Contributor"], list[Union[dict, "Contributor"]]]] = empty_list()
     additional_brcs: Optional[Union[Union[str, "BRCEnum"], list[Union[str, "BRCEnum"]]]] = empty_list()
     repository: Optional[Union[str, "RepositoryEnum"]] = None
@@ -225,12 +226,6 @@ class Dataset(YAMLRoot):
         if not isinstance(self.date, XSDDate):
             self.date = XSDDate(self.date)
 
-        if self._is_empty(self.creator):
-            self.MissingRequiredField("creator")
-        if not isinstance(self.creator, list):
-            self.creator = [self.creator] if self.creator is not None else []
-        self.creator = [v if isinstance(v, Individual) else Individual(**as_dict(v)) for v in self.creator]
-
         if self._is_empty(self.brc):
             self.MissingRequiredField("brc")
         if not isinstance(self.brc, BRCEnum):
@@ -255,6 +250,14 @@ class Dataset(YAMLRoot):
 
         if self.alert is not None and not isinstance(self.alert, Bool):
             self.alert = Bool(self.alert)
+
+        if not isinstance(self.creator, list):
+            self.creator = [self.creator] if self.creator is not None else []
+        self.creator = [v if isinstance(v, Individual) else Individual(**as_dict(v)) for v in self.creator]
+
+        if not isinstance(self.organizational_creators, list):
+            self.organizational_creators = [self.organizational_creators] if self.organizational_creators is not None else []
+        self.organizational_creators = [v if isinstance(v, BRCOrganization) else BRCOrganization(**as_dict(v)) for v in self.organizational_creators]
 
         if not isinstance(self.contributors, list):
             self.contributors = [self.contributors] if self.contributors is not None else []
@@ -393,6 +396,7 @@ class Individual(YAMLRoot):
     email: Optional[str] = None
     primaryContact: Optional[Union[bool, Bool]] = None
     affiliation: Optional[str] = None
+    affiliations: Optional[Union[Union[dict, "BRCOrganization"], list[Union[dict, "BRCOrganization"]]]] = empty_list()
     orcid: Optional[Union[str, URIorCURIE]] = None
     individual_roles: Optional[Union[Union[str, "IndividualRoleEnum"], list[Union[str, "IndividualRoleEnum"]]]] = empty_list()
 
@@ -408,6 +412,10 @@ class Individual(YAMLRoot):
 
         if self.affiliation is not None and not isinstance(self.affiliation, str):
             self.affiliation = str(self.affiliation)
+
+        if not isinstance(self.affiliations, list):
+            self.affiliations = [self.affiliations] if self.affiliations is not None else []
+        self.affiliations = [v if isinstance(v, BRCOrganization) else BRCOrganization(**as_dict(v)) for v in self.affiliations]
 
         if self.orcid is not None and not isinstance(self.orcid, URIorCURIE):
             self.orcid = URIorCURIE(self.orcid)
@@ -512,8 +520,10 @@ class Funding(YAMLRoot):
 @dataclass(repr=False)
 class BRCOrganization(YAMLRoot):
     """
-    An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization,
-    rather than that defined by OSTI, though the classes are similar.
+    An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may
+    be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research
+    Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by
+    OSTI, though the classes are similar.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1372,7 +1382,10 @@ slots.dataset__date = Slot(uri=DCTERMS.date, name="dataset__date", curie=DCTERMS
                    model_uri=BRC.dataset__date, domain=None, range=Union[str, XSDDate])
 
 slots.dataset__creator = Slot(uri=DCTERMS.creator, name="dataset__creator", curie=DCTERMS.curie('creator'),
-                   model_uri=BRC.dataset__creator, domain=None, range=Union[Union[dict, Individual], list[Union[dict, Individual]]])
+                   model_uri=BRC.dataset__creator, domain=None, range=Optional[Union[Union[dict, Individual], list[Union[dict, Individual]]]])
+
+slots.dataset__organizational_creators = Slot(uri=DCTERMS.creator, name="dataset__organizational_creators", curie=DCTERMS.curie('creator'),
+                   model_uri=BRC.dataset__organizational_creators, domain=None, range=Optional[Union[Union[dict, BRCOrganization], list[Union[dict, BRCOrganization]]]])
 
 slots.dataset__contributors = Slot(uri=BRC.contributors, name="dataset__contributors", curie=BRC.curie('contributors'),
                    model_uri=BRC.dataset__contributors, domain=None, range=Optional[Union[Union[dict, Contributor], list[Union[dict, Contributor]]]])
@@ -1502,6 +1515,9 @@ slots.individual__primaryContact = Slot(uri=BRC.primaryContact, name="individual
 
 slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affiliation", curie=BRC.curie('affiliation'),
                    model_uri=BRC.individual__affiliation, domain=None, range=Optional[str])
+
+slots.individual__affiliations = Slot(uri=BRC.affiliations, name="individual__affiliations", curie=BRC.curie('affiliations'),
+                   model_uri=BRC.individual__affiliations, domain=None, range=Optional[Union[Union[dict, BRCOrganization], list[Union[dict, BRCOrganization]]]])
 
 slots.individual__orcid = Slot(uri=BRC.orcid, name="individual__orcid", curie=BRC.curie('orcid'),
                    model_uri=BRC.individual__orcid, domain=None, range=Optional[Union[str, URIorCURIE]])

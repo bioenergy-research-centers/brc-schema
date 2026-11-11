@@ -2,7 +2,7 @@
  package
 // metamodel_version: 1.7.0
 // version: 0.2.2
-// An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.
+// An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.
 message BRCOrganization
  {
   string organizationName = 0
@@ -17,6 +17,7 @@ message Contributor
   string email = 0
   boolean primaryContact = 0
   string affiliation = 0
+ repeated  bRCOrganization affiliations = 0
   uriorcurie orcid = 0
  repeated  individualRoleEnum individualRoles = 0
   contributorTypeCodes contributorType = 0
@@ -30,6 +31,7 @@ message Dataset
   string title = 0
   date date = 0
  repeated  individual creator = 0
+ repeated  bRCOrganization organizationalCreators = 0
  repeated  contributor contributors = 0
   bRCEnum brc = 0
  repeated  bRCEnum additionalBrcs = 0
@@ -91,6 +93,7 @@ message Individual
   string email = 0
   boolean primaryContact = 0
   string affiliation = 0
+ repeated  bRCOrganization affiliations = 0
   uriorcurie orcid = 0
  repeated  individualRoleEnum individualRoles = 0
  }

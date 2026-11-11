@@ -91,7 +91,8 @@ linkml:Sparqlpath xsd:string
           <alert> @linkml:Boolean ? ;
           dcterms:title @linkml:String ;
           dcterms:date @linkml:Date ;
-          dcterms:creator @<Individual> + ;
+          dcterms:creator @<Individual> * ;
+          dcterms:creator @<BRCOrganization> * ;
           <contributors> @<Contributor> * ;
           prov:wasAttributedTo [ <https://w3id.org/brc/BRCEnum#CABBI> <https://w3id.org/brc/BRCEnum#CBI>
              <https://w3id.org/brc/BRCEnum#GLBRC> <https://w3id.org/brc/BRCEnum#JBEI> ] ;
@@ -199,6 +200,7 @@ linkml:Sparqlpath xsd:string
              schema1:email @linkml:String ? ;
              <primaryContact> @linkml:Boolean ? ;
              <affiliation> @linkml:String ? ;
+             <affiliations> @<BRCOrganization> * ;
              <orcid> @linkml:Uriorcurie ? ;
              <individual_roles> [ <https://w3id.org/brc/IndividualRoleEnum#FirstAuthor>
                 <https://w3id.org/brc/IndividualRoleEnum#ContributingAuthor>
