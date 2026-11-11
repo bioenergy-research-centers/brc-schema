@@ -11,13 +11,15 @@
           "email": "avery.chen@example.org",
           "primaryContact": true,
           "affiliation": "Great Lakes Bioenergy Research Center",
-          "orcid": "https://orcid.org/0000-0001-5566-7788"
+          "orcid": "https://orcid.org/0000-0001-5566-7788",
+          "individual_roles": ["FirstAuthor"]
         },
         {
           "name": "Jordan Rivera",
           "email": "jordan.rivera@example.org",
           "primaryContact": false,
-          "affiliation": "Michigan State University"
+          "affiliation": "Michigan State University",
+          "individual_roles": ["ContributingAuthor", "CorrespondingAuthor"]
         }
       ],
       "contributors": [
