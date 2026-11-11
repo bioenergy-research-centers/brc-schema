@@ -432,8 +432,122 @@ def build_brc_bibliographic_citation(doi):
     return f"https://doi.org/{normalized_doi}" if normalized_doi else None
 
 
-def build_brc_creators(persons, authors, organizations):
+def _ror_curie(value):
+    """Normalize a ROR ID (bare, ror: CURIE, or ror.org URL) to a ror: CURIE."""
+    bare = _ror_bare(value)
+    return f"ror:{bare}" if bare else None
+
+
+def _ror_bare(value):
+    """Normalize a ROR ID to the bare form OSTI uses (e.g. 02x0wxr53)."""
+    if not value:
+        return None
+    text = str(value).strip()
+    for prefix in ("https://ror.org/", "http://ror.org/", "ror.org/", "ror:"):
+        if text.lower().startswith(prefix):
+            text = text[len(prefix):]
+            break
+    return text.strip("/") or None
+
+
+def _brc_organization(name, ror_id):
+    """Build a BRCOrganization dict from a name and/or ROR ID, or None."""
+    organization = {}
+    if name:
+        organization["organizationName"] = name
+    ror_curie = _ror_curie(ror_id)
+    if ror_curie:
+        organization["ror_id"] = ror_curie
+    return organization or None
+
+
+def _apply_brc_affiliations(individual, person):
+    """Copy all OSTI affiliations of a person onto a BRC individual.
+
+    Every affiliation is kept, in order, in ``affiliations``. The deprecated
+    ``affiliation`` field still receives the first affiliation name so that
+    existing consumers keep working.
+    """
+    affiliations = []
+    for affiliation in _as_list(_attr(person, "affiliations")):
+        organization = _brc_organization(
+            _attr(affiliation, "name"), _attr(affiliation, "ror_id")
+        )
+        if organization:
+            affiliations.append(organization)
+    if not affiliations:
+        return
+    individual["affiliations"] = affiliations
+    for organization in affiliations:
+        if organization.get("organizationName"):
+            individual["affiliation"] = organization["organizationName"]
+            break
+
+
+def _osti_affiliations(individual):
+    """Build OSTI affiliations from a BRC individual's affiliations.
+
+    Falls back to the deprecated single ``affiliation`` name when
+    ``affiliations`` is absent.
+    """
+    affiliations = []
+    for organization in _as_list(_attr(individual, "affiliations")):
+        affiliation = {}
+        name = _attr(organization, "organizationName")
+        if name:
+            affiliation["name"] = name
+        ror_bare = _ror_bare(_attr(organization, "ror_id"))
+        if ror_bare:
+            affiliation["ror_id"] = ror_bare
+        if affiliation:
+            affiliations.append(affiliation)
+    if not affiliations:
+        name = _attr(individual, "affiliation")
+        if isinstance(name, str) and name.strip():
+            affiliations.append({"name": name})
+    return affiliations or None
+
+
+def _person_keys(person):
+    """Identity keys (ORCID, emails, lowercased name) used to match OSTI persons."""
+    keys = set()
+    orcid = _attr(person, "orcid")
+    if orcid:
+        keys.add(("orcid", str(orcid).rstrip("/").rsplit("/", 1)[-1].lower()))
+    for email in _as_list(_attr(person, "email")):
+        if email:
+            keys.add(("email", str(email).strip().lower()))
+    name = _full_name(
+        _attr(person, "first_name"),
+        _attr(person, "middle_name"),
+        _attr(person, "last_name"),
+    )
+    if name:
+        keys.add(("name", " ".join(name.lower().split())))
+    return keys
+
+
+def build_brc_creators(persons, authors):
+    """Build ordered BRC creators from OSTI AUTHOR persons.
+
+    Falls back to legacy author name strings when there are no AUTHOR
+    persons. Organizational authors are handled separately by
+    build_brc_organizational_creators.
+
+    Author order follows the OSTI persons list. OSTI records carry no
+    author-role metadata, so roles are assigned by position: the first
+    author gets FirstAuthor and every other author gets ContributingAuthor.
+    primaryContact goes to the author who matches an OSTI CONTACT person
+    (by ORCID, email, or name), or to the first author when no CONTACT
+    person matches.
+    """
+    contact_keys = set()
+    for person in _as_list(persons):
+        if _attr(person, "type") == "CONTACT":
+            contact_keys |= _person_keys(person)
+
     creators = []
+    contact_index = None
     for person in _as_list(persons):
         if _attr(person, "type") != "AUTHOR":
             continue
@@ -444,35 +558,51 @@ def build_brc_creators(persons, authors, organizations):
         )
         if not name:
             continue
-        creator = {"name": name, "primaryContact": len(creators) == 0}
+        if contact_index is None and contact_keys & _person_keys(person):
+            contact_index = len(creators)
+        creator = {
+            "name": name,
+            "primaryContact": False,
+            "individual_roles": [
+                "FirstAuthor" if not creators else "ContributingAuthor"
+            ],
+        }
         email = _normalize_email(_attr(person, "email"))
         if email:
             creator["email"] = email
         orcid = _attr(person, "orcid")
         if orcid:
             creator["orcid"] = orcid
-        for affiliation in _as_list(_attr(person, "affiliations")):
-            affiliation_name = _attr(affiliation, "name")
-            if affiliation_name:
-                creator["affiliation"] = affiliation_name
-                break
+        _apply_brc_affiliations(creator, person)
         creators.append(creator)
     if creators:
+        creators[contact_index or 0]["primaryContact"] = True
         return creators
 
     author_list = [author for author in _as_list(authors) if author]
     if author_list:
         return [
-            {"name": author, "primaryContact": idx == 0}
+            {
+                "name": author,
+                "primaryContact": idx == 0,
+                "individual_roles": [
+                    "FirstAuthor" if idx == 0 else "ContributingAuthor"
+                ],
+            }
             for idx, author in enumerate(author_list)
         ]
+    return None
 
+
+def build_brc_organizational_creators(organizations):
+    """Build ordered BRC organizational creators from OSTI AUTHOR organizations."""
     org_creators = []
     for org in _as_list(organizations):
-        if _attr(org, "type") == "AUTHOR" and _attr(org, "name"):
-            org_creators.append(
-                {"name": _attr(org, "name"), "primaryContact": len(org_creators) == 0}
-            )
+        if _attr(org, "type") != "AUTHOR":
+            continue
+        organization = _brc_organization(_attr(org, "name"), _attr(org, "ror_id"))
+        if organization:
+            org_creators.append(organization)
     return org_creators or None
 
 
@@ -498,11 +628,7 @@ def build_brc_contributors(persons, organizations):
         contributor_type = _attr(person, "contributor_type")
         if contributor_type:
             contributor["contributorType"] = contributor_type
-        for affiliation in _as_list(_attr(person, "affiliations")):
-            affiliation_name = _attr(affiliation, "name")
-            if affiliation_name:
-                contributor["affiliation"] = affiliation_name
-                break
+        _apply_brc_affiliations(contributor, person)
         contributors.append(contributor)
     if contributors:
         return contributors
@@ -863,9 +989,9 @@ def build_osti_persons(creators, contributors):
         orcid = _attr(creator, "orcid")
         if orcid:
             person["orcid"] = orcid
-        affiliation = _attr(creator, "affiliation")
-        if affiliation:
-            person["affiliations"] = [{"name": affiliation}]
+        affiliations = _osti_affiliations(creator)
+        if affiliations:
+            person["affiliations"] = affiliations
         persons.append(person)
 
     for contributor in _as_list(contributors):
@@ -886,9 +1012,9 @@ def build_osti_persons(creators, contributors):
         orcid = _attr(contributor, "orcid")
         if orcid:
             person["orcid"] = orcid
-        affiliation = _attr(contributor, "affiliation")
-        if affiliation:
-            person["affiliations"] = [{"name": affiliation}]
+        affiliations = _osti_affiliations(contributor)
+        if affiliations:
+            person["affiliations"] = affiliations
         contributor_type = _attr(contributor, "contributorType")
         if contributor_type:
             person["contributor_type"] = contributor_type
@@ -896,7 +1022,19 @@ def build_osti_persons(creators, contributors):
     return persons or None
 
 
-def build_osti_organizations(funding, brc):
+def build_osti_organizations(funding, brc, organizational_creators=None):
+    author_orgs = []
+    for org_creator in _as_list(organizational_creators):
+        name = _attr(org_creator, "organizationName")
+        if not name:
+            # OSTI requires a name for every organization.
+            continue
+        organization = {"type": "AUTHOR", "name": name}
+        ror_bare = _ror_bare(_attr(org_creator, "ror_id"))
+        if ror_bare:
+            organization["ror_id"] = ror_bare
+        author_orgs.append(organization)
+
     organizations = []
     for fund in _as_list(funding):
         funding_org = _attr(fund, "fundingOrganization")
@@ -931,6 +1069,7 @@ def build_osti_organizations(funding, brc):
     research_org = _brc_research_org(brc)
     if research_org:
         organizations.append(research_org)
+    organizations = author_orgs + organizations
     return organizations or None
 
 
@@ -1030,6 +1169,7 @@ def _register_transform_functions():
             "build_brc_topics": build_brc_topics,
             "build_osti_subject_category_codes": build_osti_subject_category_codes,
             "build_brc_creators": build_brc_creators,
+            "build_brc_organizational_creators": build_brc_organizational_creators,
             "build_brc_contributors": build_brc_contributors,
             "build_brc_funding": build_brc_funding,
             "build_brc_dataset_url": build_brc_dataset_url,

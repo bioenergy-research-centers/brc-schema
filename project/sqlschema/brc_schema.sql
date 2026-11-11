@@ -40,7 +40,7 @@
 --     * Slot: name Description: Name of the individual.
 --     * Slot: email Description: Email address of the individual.
 --     * Slot: primaryContact Description: Indicates if the individual is a primary contact.
---     * Slot: affiliation Description: Affiliation of the individual.
+--     * Slot: affiliation Description: Name of the individual's affiliation.
 --     * Slot: orcid Description: ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 -- # Class: OntologyAnnotation Description: A structured reference to an ontology term used to annotate a dataset. This captures both the local display name used in BRC metadata and the canonical label used by the source ontology.
@@ -54,7 +54,7 @@
 --     * Slot: name Description: Name of the individual.
 --     * Slot: email Description: Email address of the individual.
 --     * Slot: primaryContact Description: Indicates if the individual is a primary contact.
---     * Slot: affiliation Description: Affiliation of the individual.
+--     * Slot: affiliation Description: Name of the individual's affiliation.
 --     * Slot: orcid Description: ORCID for the individual. This should include the full URI with prefix, e.g., https://orcid.org/0000-0002-1825-0097.
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 -- # Class: Funding Description: Funding source for the dataset. Each item corresponds to a single award or grant.
@@ -63,11 +63,14 @@
 --     * Slot: awardTitle Description: Title of the award.
 --     * Slot: awardURI Description: URI for the award. This may be a DOI. Include prefix.
 --     * Slot: fundingOrganization_id Description: Details of the funding entity.
--- # Class: BRCOrganization Description: An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.
+-- # Class: BRCOrganization Description: An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.
 --     * Slot: id
 --     * Slot: organizationName Description: Name of the organization.
 --     * Slot: wikidata_id Description: Wikidata identifier for the organization.
 --     * Slot: ror_id Description: ROR identifier for the organization.
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+--     * Slot: Individual_id Description: Autocreated FK slot
+--     * Slot: Contributor_id Description: Autocreated FK slot
 --     * Slot: parentOrganization_id Description: Higher-level parent of this organization.
 -- # Class: Organism Description: An organism studied in the dataset.
 --     * Slot: id
@@ -151,6 +154,12 @@
 -- # Class: Dataset_funding
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: funding_id Description: Funding source(s) for the dataset.
+-- # Class: Individual_individual_roles
+--     * Slot: Individual_id Description: Autocreated FK slot
+--     * Slot: individual_roles Description: Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.
+-- # Class: Contributor_individual_roles
+--     * Slot: Contributor_id Description: Autocreated FK slot
+--     * Slot: individual_roles Description: Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.
 -- # Class: Organism_taxon_ids
 --     * Slot: Organism_id Description: Autocreated FK slot
 --     * Slot: taxon_ids Description: Taxonomic or genome identifiers for the organism from sources other than NCBI Taxonomy, as CURIEs. Supported prefixes are GOLD (JGI Genomes OnLine Database IDs, e.g., GOLD:Gp0004954; organism IDs begin with Go, sequencing project IDs with Gp) and IMG.TAXON (JGI IMG taxon OIDs, which are integers). Use NCBITaxID for NCBI Taxonomy identifiers.
@@ -176,17 +185,6 @@ CREATE TABLE "DatasetCollection" (
 	PRIMARY KEY (id)
 );
 CREATE INDEX "ix_DatasetCollection_id" ON "DatasetCollection" (id);
-
-CREATE TABLE "BRCOrganization" (
-	id INTEGER NOT NULL,
-	"organizationName" TEXT,
-	wikidata_id TEXT,
-	ror_id TEXT,
-	"parentOrganization_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("parentOrganization_id") REFERENCES "BRCOrganization" (id)
-);
-CREATE INDEX "ix_BRCOrganization_id" ON "BRCOrganization" (id);
 
 CREATE TABLE "Organism" (
 	id INTEGER NOT NULL,
@@ -244,17 +242,6 @@ CREATE TABLE "Dataset" (
 );
 CREATE INDEX "ix_Dataset_uid" ON "Dataset" (uid);
 
-CREATE TABLE "Funding" (
-	id INTEGER NOT NULL,
-	"awardNumber" TEXT,
-	"awardTitle" TEXT,
-	"awardURI" TEXT,
-	"fundingOrganization_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("fundingOrganization_id") REFERENCES "BRCOrganization" (id)
-);
-CREATE INDEX "ix_Funding_id" ON "Funding" (id);
-
 CREATE TABLE "Plasmid" (
 	uid INTEGER NOT NULL,
 	id TEXT,
@@ -273,8 +260,8 @@ CREATE TABLE "Organism_taxon_ids" (
 	PRIMARY KEY ("Organism_id", taxon_ids),
 	FOREIGN KEY("Organism_id") REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Organism_taxon_ids_taxon_ids" ON "Organism_taxon_ids" (taxon_ids);
 CREATE INDEX "ix_Organism_taxon_ids_Organism_id" ON "Organism_taxon_ids" ("Organism_id");
+CREATE INDEX "ix_Organism_taxon_ids_taxon_ids" ON "Organism_taxon_ids" (taxon_ids);
 
 CREATE TABLE "Organism_strains" (
 	"Organism_id" INTEGER,
@@ -346,8 +333,8 @@ CREATE TABLE "Dataset_additional_brcs" (
 	PRIMARY KEY ("Dataset_uid", additional_brcs),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 
 CREATE TABLE "Dataset_has_related_ids" (
 	"Dataset_uid" INTEGER,
@@ -355,8 +342,8 @@ CREATE TABLE "Dataset_has_related_ids" (
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
+CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
@@ -375,8 +362,8 @@ CREATE TABLE "Dataset_plasmid_features" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(plasmid_features_uid) REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 CREATE INDEX "ix_Dataset_plasmid_features_Dataset_uid" ON "Dataset_plasmid_features" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 
 CREATE TABLE "Dataset_topic" (
 	"Dataset_uid" INTEGER,
@@ -402,8 +389,8 @@ CREATE TABLE "Dataset_category" (
 	PRIMARY KEY ("Dataset_uid", category),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -421,18 +408,8 @@ CREATE TABLE "Dataset_keywords" (
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
-
-CREATE TABLE "Dataset_funding" (
-	"Dataset_uid" INTEGER,
-	funding_id INTEGER,
-	PRIMARY KEY ("Dataset_uid", funding_id),
-	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
-	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
-);
-CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
-CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -440,8 +417,8 @@ CREATE TABLE "Plasmid_promoters" (
 	PRIMARY KEY ("Plasmid_uid", promoters),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
+CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_replicates_in" (
 	"Plasmid_uid" INTEGER,
@@ -450,8 +427,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -459,8 +436,25 @@ CREATE TABLE "Plasmid_selection_markers" (
 	PRIMARY KEY ("Plasmid_uid", selection_markers),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
+CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
+
+CREATE TABLE "BRCOrganization" (
+	id INTEGER NOT NULL,
+	"organizationName" TEXT,
+	wikidata_id TEXT,
+	ror_id TEXT,
+	"Dataset_uid" INTEGER,
+	"Individual_id" INTEGER,
+	"Contributor_id" INTEGER,
+	"parentOrganization_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
+	FOREIGN KEY("Individual_id") REFERENCES "Individual" (id),
+	FOREIGN KEY("Contributor_id") REFERENCES "Contributor" (id),
+	FOREIGN KEY("parentOrganization_id") REFERENCES "BRCOrganization" (id)
+);
+CREATE INDEX "ix_BRCOrganization_id" ON "BRCOrganization" (id);
 
 CREATE TABLE "MediaFile" (
 	id INTEGER NOT NULL,
@@ -490,6 +484,24 @@ CREATE TABLE "MediaFile" (
 );
 CREATE INDEX "ix_MediaFile_id" ON "MediaFile" (id);
 
+CREATE TABLE "Individual_individual_roles" (
+	"Individual_id" INTEGER,
+	individual_roles VARCHAR(19),
+	PRIMARY KEY ("Individual_id", individual_roles),
+	FOREIGN KEY("Individual_id") REFERENCES "Individual" (id)
+);
+CREATE INDEX "ix_Individual_individual_roles_Individual_id" ON "Individual_individual_roles" ("Individual_id");
+CREATE INDEX "ix_Individual_individual_roles_individual_roles" ON "Individual_individual_roles" (individual_roles);
+
+CREATE TABLE "Contributor_individual_roles" (
+	"Contributor_id" INTEGER,
+	individual_roles VARCHAR(19),
+	PRIMARY KEY ("Contributor_id", individual_roles),
+	FOREIGN KEY("Contributor_id") REFERENCES "Contributor" (id)
+);
+CREATE INDEX "ix_Contributor_individual_roles_individual_roles" ON "Contributor_individual_roles" (individual_roles);
+CREATE INDEX "ix_Contributor_individual_roles_Contributor_id" ON "Contributor_individual_roles" ("Contributor_id");
+
 CREATE TABLE "MediaSet_access_limitations" (
 	"MediaSet_id" INTEGER,
 	access_limitations TEXT,
@@ -498,3 +510,24 @@ CREATE TABLE "MediaSet_access_limitations" (
 );
 CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);
 CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");
+
+CREATE TABLE "Funding" (
+	id INTEGER NOT NULL,
+	"awardNumber" TEXT,
+	"awardTitle" TEXT,
+	"awardURI" TEXT,
+	"fundingOrganization_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("fundingOrganization_id") REFERENCES "BRCOrganization" (id)
+);
+CREATE INDEX "ix_Funding_id" ON "Funding" (id);
+
+CREATE TABLE "Dataset_funding" (
+	"Dataset_uid" INTEGER,
+	funding_id INTEGER,
+	PRIMARY KEY ("Dataset_uid", funding_id),
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
+	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
+);
+CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);

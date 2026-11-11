@@ -11,13 +11,15 @@
           "email": "lena.morales@example.org",
           "primaryContact": true,
           "affiliation": "Center for Advanced Bioenergy and Bioproducts Innovation",
-          "orcid": "https://orcid.org/0000-0003-1122-3344"
+          "orcid": "https://orcid.org/0000-0003-1122-3344",
+          "individual_roles": ["FirstAuthor"]
         },
         {
           "name": "Evan Patel",
           "email": "evan.patel@example.org",
           "primaryContact": false,
-          "affiliation": "University of Illinois Urbana-Champaign"
+          "affiliation": "University of Illinois Urbana-Champaign",
+          "individual_roles": ["FirstAuthor", "CorrespondingAuthor"]
         }
       ],
       "contributors": [

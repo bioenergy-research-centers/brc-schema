@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.1
+# version: 0.2.2
 enum AnalysisType
   {
     affinity_purification
@@ -102,6 +102,13 @@ enum DatasetTypeCodes
     I
   }
 
+enum IndividualRoleEnum
+  {
+    FirstAuthor
+    ContributingAuthor
+    CorrespondingAuthor
+  }
+
 enum RepositoryEnum
   {
     AmeriFlux
@@ -161,7 +168,9 @@ type Contributor
     email: String
     primaryContact: Boolean
     affiliation: String
+    affiliations: [BRCOrganization]
     orcid: String
+    individualRoles: [IndividualRoleEnum]
     contributorType: ContributorTypeCodes
   }
 
@@ -172,7 +181,8 @@ type Dataset
     alert: Boolean
     title: String!
     date: String!
-    creator: [Individual]!
+    creator: [Individual]
+    organizationalCreators: [BRCOrganization]
     contributors: [Contributor]
     brc: BRCEnum!
     additionalBrcs: [BRCEnum]
@@ -234,7 +244,9 @@ type Individual
     email: String
     primaryContact: Boolean
     affiliation: String
+    affiliations: [BRCOrganization]
     orcid: String
+    individualRoles: [IndividualRoleEnum]
   }
 
 type MediaFile
