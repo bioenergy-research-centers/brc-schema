@@ -50,7 +50,7 @@ Key mappings include:
 | `osti_id` | `identifier` | Rendered as `https://www.osti.gov/biblio/<osti_id>`. |
 | `doi` | `bibliographicCitation` | Rendered as `https://doi.org/<doi>`. |
 | `keywords` or `subjects` | `keywords` | Comma-separated strings are split into individual keywords. |
-| `persons`, `authors`, `organizations` | `creator`, `contributors` | Structured `persons` are preferred; legacy author strings are fallback input. Creator order follows OSTI author order; OSTI has no author-role metadata, so roles are positional: the first author gets `individual_roles: [FirstAuthor]`, all others `[ContributingAuthor]`. `primaryContact` goes to the author matching an OSTI `CONTACT` person (by ORCID, email, or name), else the first author. |
+| `persons`, `authors`, `organizations` | `creator`, `contributors` | Structured `persons` are preferred; legacy author strings are fallback input. Every person affiliation is kept, in order, in `affiliations` (`name` → `organizationName`, `ror_id` → `ror:` CURIE); the deprecated `affiliation` field receives the first affiliation name. Creator order follows OSTI author order; OSTI has no author-role metadata, so roles are positional: the first author gets `individual_roles: [FirstAuthor]`, all others `[ContributingAuthor]`. `primaryContact` goes to the author matching an OSTI `CONTACT` person (by ORCID, email, or name), else the first author. |
 | sponsor `organizations` or `sponsor_orgs` | `funding` | Award identifiers are copied when available. |
 | `related_identifiers` | `relatedItem` | OSTI related identifiers become xBRC related items. |
 | `identifiers`, `related_identifiers`, and legacy identifier fields | `has_related_ids` | Contract numbers and taxon identifiers are excluded; BioProject URLs and IDs are normalized where possible. |
@@ -115,7 +115,7 @@ Key mappings include:
 | `keywords` | `keywords` | Direct mapping. |
 | `dataset_url` or non-OSTI `identifier` | `site_url`, `links` | The dataset landing page is preferred. |
 | `active` | `workflow_status` | `true` maps to `R`; falsey values map to `SR`. |
-| `creator`, `contributors` | `authors`, `persons` | Names are split into OSTI first/middle/last fields when possible. Author order is preserved; `individual_roles` has no E-Link 2.0 equivalent and is not exported. |
+| `creator`, `contributors` | `authors`, `persons` | Names are split into OSTI first/middle/last fields when possible. Author order is preserved; `individual_roles` has no E-Link 2.0 equivalent and is not exported. All `affiliations` are exported with bare ROR IDs; the deprecated `affiliation` name is used only when `affiliations` is absent. |
 | `funding`, `brc` | `organizations`, `sponsor_orgs`, `research_orgs` | xBRC funding and BRC affiliation are converted into OSTI organization structures. |
 | `has_related_ids` | `identifiers`, `related_identifiers` | BioProject IDs and DOI references get special handling. |
 | `species` | `related_identifiers` | Each `NCBITaxID`, GOLD ID, and IMG taxon OID becomes a `URL` related identifier with relation `References`. Species with a name only are not written. |

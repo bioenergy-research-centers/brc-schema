@@ -868,6 +868,114 @@ class TestTransformations:
         assert dataset['funding'][0]['fundingOrganization']['organizationName'] == 'Legacy Sponsor Office'
         assert dataset['has_related_ids'] == ['LEG-12345']
 
+    @staticmethod
+    def _run_transform(tmp_path, transform, data):
+        """Run a transform through the CLI and return the parsed JSON output."""
+        input_file = tmp_path / f"{transform}_input.json"
+        input_file.write_text(json.dumps(data))
+        output_file = tmp_path / f"{transform}_output.json"
+        test_args = [
+            'brcschema', 'transform', '-T', transform,
+            '-o', str(output_file), str(input_file)
+        ]
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+        return json.loads(output_file.read_text())
+
+    @staticmethod
+    def _brc_validation_errors(collection):
+        """Validate a BRC DatasetCollection against the schema."""
+        from pathlib import Path
+
+        from linkml.validator import Validator
+        from linkml.validator.plugins import JsonschemaValidationPlugin
+        from linkml.validator.report import Severity
+
+        schema = (Path(__file__).resolve().parents[1]
+                  / "src" / "brc_schema" / "schema" / "brc_schema.yaml")
+        validator = Validator(
+            schema=str(schema),
+            validation_plugins=[JsonschemaValidationPlugin(closed=True)],
+        )
+        # JSON output carries a top-level JSON-LD "@type" tag; it is not data.
+        collection = {k: v for k, v in collection.items() if k != "@type"}
+        report = validator.validate(collection, target_class="DatasetCollection")
+        return [r.message for r in report.results
+                if r.severity in (Severity.ERROR, Severity.FATAL)]
+
+    def test_osti_to_brc_keeps_all_affiliations(self, tmp_path):
+        """Persons keep every affiliation, in order, with ROR IDs."""
+        result = self._run_transform(tmp_path, 'osti_to_brc', {
+            "records": [{
+                "osti_id": "2584700",
+                "title": "Mixed Authorship Dataset",
+                "publication_date": "2025-03-01",
+                "site_ownership_code": "GLBRC",
+                "persons": [
+                    {"type": "AUTHOR", "first_name": "Avery", "last_name": "Chen",
+                     "affiliations": [
+                         {"name": "Great Lakes Bioenergy Research Center",
+                          "ror_id": "02x0wxr53"},
+                         {"name": "University of Michigan"},
+                         {"ror_id": "https://ror.org/05hs6h993"}
+                     ]},
+                    {"type": "CONTRIBUTING", "first_name": "Sam", "last_name": "Lee",
+                     "contributor_type": "DataCurator",
+                     "affiliations": [{"name": "Michigan State University"},
+                                      {"name": "GLBRC"}]}
+                ]
+            }]
+        })
+
+        dataset = result['datasets'][0]
+        creator = dataset['creator'][0]
+        assert creator['affiliations'] == [
+            {"organizationName": "Great Lakes Bioenergy Research Center",
+             "ror_id": "ror:02x0wxr53"},
+            {"organizationName": "University of Michigan"},
+            {"ror_id": "ror:05hs6h993"},
+        ]
+        # Deprecated single affiliation keeps the first name for compatibility.
+        assert creator['affiliation'] == "Great Lakes Bioenergy Research Center"
+        contributor = dataset['contributors'][0]
+        assert [a['organizationName'] for a in contributor['affiliations']] == [
+            "Michigan State University", "GLBRC"
+        ]
+        assert self._brc_validation_errors(result) == []
+
+    def test_brc_to_osti_exports_affiliations(self, tmp_path):
+        """All affiliations map back to OSTI with bare ROR IDs."""
+        result = self._run_transform(tmp_path, 'brc_to_osti', {
+            "datasets": [{
+                "title": "Export Dataset",
+                "date": "2024-01-15",
+                "brc": "GLBRC",
+                "creator": [
+                    {"name": "Avery Chen", "primaryContact": True,
+                     "affiliations": [
+                         {"organizationName": "Great Lakes Bioenergy Research Center",
+                          "ror_id": "ror:02x0wxr53"},
+                         {"organizationName": "University of Michigan"}
+                     ]},
+                    {"name": "Jordan Rivera",
+                     "affiliation": "Michigan State University"}
+                ],
+                "active": True
+            }]
+        })
+
+        record = result['records'][0]
+        persons = {p['last_name']: p for p in record['persons']}
+        assert persons['Chen']['affiliations'] == [
+            {"name": "Great Lakes Bioenergy Research Center", "ror_id": "02x0wxr53"},
+            {"name": "University of Michigan"},
+        ]
+        # Deprecated single affiliation still exports.
+        assert persons['Rivera']['affiliations'] == [{"name": "Michigan State University"}]
+
     def test_author_organizations_fallback_to_creator(self, tmp_path):
         """Current OSTI records with only AUTHOR organizations should still produce creators."""
         test_data = {
