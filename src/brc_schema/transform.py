@@ -527,8 +527,12 @@ def _person_keys(person):
     return keys
 
 
-def build_brc_creators(persons, authors, organizations):
+def build_brc_creators(persons, authors):
     """Build ordered BRC creators from OSTI AUTHOR persons.
+
+    Falls back to legacy author name strings when there are no AUTHOR
+    persons. Organizational authors are handled separately by
+    build_brc_organizational_creators.
 
     Author order follows the OSTI persons list. OSTI records carry no
     author-role metadata, so roles are assigned by position: the first
@@ -587,13 +591,18 @@ def build_brc_creators(persons, authors, organizations):
             }
             for idx, author in enumerate(author_list)
         ]
+    return None
 
+
+def build_brc_organizational_creators(organizations):
+    """Build ordered BRC organizational creators from OSTI AUTHOR organizations."""
     org_creators = []
     for org in _as_list(organizations):
-        if _attr(org, "type") == "AUTHOR" and _attr(org, "name"):
-            org_creators.append(
-                {"name": _attr(org, "name"), "primaryContact": len(org_creators) == 0}
-            )
+        if _attr(org, "type") != "AUTHOR":
+            continue
+        organization = _brc_organization(_attr(org, "name"), _attr(org, "ror_id"))
+        if organization:
+            org_creators.append(organization)
     return org_creators or None
 
 
@@ -1013,7 +1022,19 @@ def build_osti_persons(creators, contributors):
     return persons or None
 
 
-def build_osti_organizations(funding, brc):
+def build_osti_organizations(funding, brc, organizational_creators=None):
+    author_orgs = []
+    for org_creator in _as_list(organizational_creators):
+        name = _attr(org_creator, "organizationName")
+        if not name:
+            # OSTI requires a name for every organization.
+            continue
+        organization = {"type": "AUTHOR", "name": name}
+        ror_bare = _ror_bare(_attr(org_creator, "ror_id"))
+        if ror_bare:
+            organization["ror_id"] = ror_bare
+        author_orgs.append(organization)
+
     organizations = []
     for fund in _as_list(funding):
         funding_org = _attr(fund, "fundingOrganization")
@@ -1048,6 +1069,7 @@ def build_osti_organizations(funding, brc):
     research_org = _brc_research_org(brc)
     if research_org:
         organizations.append(research_org)
+    organizations = author_orgs + organizations
     return organizations or None
 
 
@@ -1147,6 +1169,7 @@ def _register_transform_functions():
             "build_brc_topics": build_brc_topics,
             "build_osti_subject_category_codes": build_osti_subject_category_codes,
             "build_brc_creators": build_brc_creators,
+            "build_brc_organizational_creators": build_brc_organizational_creators,
             "build_brc_contributors": build_brc_contributors,
             "build_brc_funding": build_brc_funding,
             "build_brc_dataset_url": build_brc_dataset_url,

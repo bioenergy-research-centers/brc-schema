@@ -73,7 +73,9 @@ class_derivations:
       conference_date:
         populated_from: conference_date
       creator:
-        expr: "build_brc_creators(persons, authors, organizations)"
+        expr: "build_brc_creators(persons, authors)"
+      organizational_creators:
+        expr: "build_brc_organizational_creators(organizations)"
       contributors:
         expr: "build_brc_contributors(persons, organizations)"
       funding:

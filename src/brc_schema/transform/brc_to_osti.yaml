@@ -79,7 +79,7 @@ class_derivations:
       persons:
         expr: "build_osti_persons(creator, contributors)"
       organizations:
-        expr: "build_osti_organizations(funding, brc)"
+        expr: "build_osti_organizations(funding, brc, organizational_creators)"
       sponsor_orgs:
         expr: "build_osti_sponsor_orgs(funding, brc)"
       research_orgs:
