@@ -11,6 +11,15 @@
           "email": "avery.chen@example.org",
           "primaryContact": true,
           "affiliation": "Great Lakes Bioenergy Research Center",
+          "affiliations": [
+            {
+              "organizationName": "Great Lakes Bioenergy Research Center"
+            },
+            {
+              "organizationName": "University of Michigan",
+              "ror_id": "ror:00jmfr291"
+            }
+          ],
           "orcid": "https://orcid.org/0000-0001-5566-7788",
           "individual_roles": ["FirstAuthor"]
         },
@@ -20,6 +29,11 @@
           "primaryContact": false,
           "affiliation": "Michigan State University",
           "individual_roles": ["ContributingAuthor", "CorrespondingAuthor"]
+        }
+      ],
+      "organizational_creators": [
+        {
+          "organizationName": "Example Switchgrass Field Trial Consortium"
         }
       ],
       "contributors": [
