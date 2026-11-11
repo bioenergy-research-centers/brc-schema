@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.1
+# version: 0.2.2
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -199,7 +199,10 @@ linkml:Sparqlpath xsd:string
              schema1:email @linkml:String ? ;
              <primaryContact> @linkml:Boolean ? ;
              <affiliation> @linkml:String ? ;
-             <orcid> @linkml:Uriorcurie ?
+             <orcid> @linkml:Uriorcurie ? ;
+             <individual_roles> [ <https://w3id.org/brc/IndividualRoleEnum#FirstAuthor>
+                <https://w3id.org/brc/IndividualRoleEnum#ContributingAuthor>
+                <https://w3id.org/brc/IndividualRoleEnum#CorrespondingAuthor> ] *
           ) ;
           rdf:type [ schema1:Person ] ?
        )

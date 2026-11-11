@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.1
+# version: 0.2.2
 enum AnalysisType
   {
     affinity_purification
@@ -102,6 +102,13 @@ enum DatasetTypeCodes
     I
   }
 
+enum IndividualRoleEnum
+  {
+    FirstAuthor
+    ContributingAuthor
+    CorrespondingAuthor
+  }
+
 enum RepositoryEnum
   {
     AmeriFlux
@@ -162,6 +169,7 @@ type Contributor
     primaryContact: Boolean
     affiliation: String
     orcid: String
+    individualRoles: [IndividualRoleEnum]
     contributorType: ContributorTypeCodes
   }
 
@@ -235,6 +243,7 @@ type Individual
     primaryContact: Boolean
     affiliation: String
     orcid: String
+    individualRoles: [IndividualRoleEnum]
   }
 
 type MediaFile

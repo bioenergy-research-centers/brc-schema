@@ -151,6 +151,12 @@
 -- # Class: Dataset_funding
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: funding_id Description: Funding source(s) for the dataset.
+-- # Class: Individual_individual_roles
+--     * Slot: Individual_id Description: Autocreated FK slot
+--     * Slot: individual_roles Description: Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.
+-- # Class: Contributor_individual_roles
+--     * Slot: Contributor_id Description: Autocreated FK slot
+--     * Slot: individual_roles Description: Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.
 -- # Class: Organism_taxon_ids
 --     * Slot: Organism_id Description: Autocreated FK slot
 --     * Slot: taxon_ids Description: Taxonomic or genome identifiers for the organism from sources other than NCBI Taxonomy, as CURIEs. Supported prefixes are GOLD (JGI Genomes OnLine Database IDs, e.g., GOLD:Gp0004954; organism IDs begin with Go, sequencing project IDs with Gp) and IMG.TAXON (JGI IMG taxon OIDs, which are integers). Use NCBITaxID for NCBI Taxonomy identifiers.
@@ -346,8 +352,8 @@ CREATE TABLE "Dataset_additional_brcs" (
 	PRIMARY KEY ("Dataset_uid", additional_brcs),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 
 CREATE TABLE "Dataset_has_related_ids" (
 	"Dataset_uid" INTEGER,
@@ -365,8 +371,8 @@ CREATE TABLE "Dataset_species" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(species_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Dataset_species_species_id" ON "Dataset_species" (species_id);
 CREATE INDEX "ix_Dataset_species_Dataset_uid" ON "Dataset_species" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_species_species_id" ON "Dataset_species" (species_id);
 
 CREATE TABLE "Dataset_plasmid_features" (
 	"Dataset_uid" INTEGER,
@@ -375,8 +381,8 @@ CREATE TABLE "Dataset_plasmid_features" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(plasmid_features_uid) REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 CREATE INDEX "ix_Dataset_plasmid_features_Dataset_uid" ON "Dataset_plasmid_features" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_plasmid_features_plasmid_features_uid" ON "Dataset_plasmid_features" (plasmid_features_uid);
 
 CREATE TABLE "Dataset_topic" (
 	"Dataset_uid" INTEGER,
@@ -384,8 +390,8 @@ CREATE TABLE "Dataset_topic" (
 	PRIMARY KEY ("Dataset_uid", topic),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_topic_Dataset_uid" ON "Dataset_topic" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_topic_topic" ON "Dataset_topic" (topic);
+CREATE INDEX "ix_Dataset_topic_Dataset_uid" ON "Dataset_topic" ("Dataset_uid");
 
 CREATE TABLE "Dataset_theme" (
 	"Dataset_uid" INTEGER,
@@ -431,8 +437,8 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
-CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -440,8 +446,8 @@ CREATE TABLE "Plasmid_promoters" (
 	PRIMARY KEY ("Plasmid_uid", promoters),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
+CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_replicates_in" (
 	"Plasmid_uid" INTEGER,
@@ -459,8 +465,8 @@ CREATE TABLE "Plasmid_selection_markers" (
 	PRIMARY KEY ("Plasmid_uid", selection_markers),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_selection_markers_selection_markers" ON "Plasmid_selection_markers" (selection_markers);
+CREATE INDEX "ix_Plasmid_selection_markers_Plasmid_uid" ON "Plasmid_selection_markers" ("Plasmid_uid");
 
 CREATE TABLE "MediaFile" (
 	id INTEGER NOT NULL,
@@ -490,11 +496,29 @@ CREATE TABLE "MediaFile" (
 );
 CREATE INDEX "ix_MediaFile_id" ON "MediaFile" (id);
 
+CREATE TABLE "Individual_individual_roles" (
+	"Individual_id" INTEGER,
+	individual_roles VARCHAR(19),
+	PRIMARY KEY ("Individual_id", individual_roles),
+	FOREIGN KEY("Individual_id") REFERENCES "Individual" (id)
+);
+CREATE INDEX "ix_Individual_individual_roles_individual_roles" ON "Individual_individual_roles" (individual_roles);
+CREATE INDEX "ix_Individual_individual_roles_Individual_id" ON "Individual_individual_roles" ("Individual_id");
+
+CREATE TABLE "Contributor_individual_roles" (
+	"Contributor_id" INTEGER,
+	individual_roles VARCHAR(19),
+	PRIMARY KEY ("Contributor_id", individual_roles),
+	FOREIGN KEY("Contributor_id") REFERENCES "Contributor" (id)
+);
+CREATE INDEX "ix_Contributor_individual_roles_Contributor_id" ON "Contributor_individual_roles" ("Contributor_id");
+CREATE INDEX "ix_Contributor_individual_roles_individual_roles" ON "Contributor_individual_roles" (individual_roles);
+
 CREATE TABLE "MediaSet_access_limitations" (
 	"MediaSet_id" INTEGER,
 	access_limitations TEXT,
 	PRIMARY KEY ("MediaSet_id", access_limitations),
 	FOREIGN KEY("MediaSet_id") REFERENCES "MediaSet" (id)
 );
-CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);
 CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");
+CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);

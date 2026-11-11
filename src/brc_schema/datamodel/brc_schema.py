@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-11-02T20:43:18
+# Generation date: 2026-11-11T14:56:29
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -60,7 +60,7 @@ from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, 
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.2.1"
+version = "0.2.2"
 
 # Namespaces
 BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')
@@ -394,6 +394,7 @@ class Individual(YAMLRoot):
     primaryContact: Optional[Union[bool, Bool]] = None
     affiliation: Optional[str] = None
     orcid: Optional[Union[str, URIorCURIE]] = None
+    individual_roles: Optional[Union[Union[str, "IndividualRoleEnum"], list[Union[str, "IndividualRoleEnum"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.name is not None and not isinstance(self.name, str):
@@ -410,6 +411,10 @@ class Individual(YAMLRoot):
 
         if self.orcid is not None and not isinstance(self.orcid, URIorCURIE):
             self.orcid = URIorCURIE(self.orcid)
+
+        if not isinstance(self.individual_roles, list):
+            self.individual_roles = [self.individual_roles] if self.individual_roles is not None else []
+        self.individual_roles = [v if isinstance(v, IndividualRoleEnum) else IndividualRoleEnum(v) for v in self.individual_roles]
 
         super().__post_init__(**kwargs)
 
@@ -944,6 +949,25 @@ class CitedItemType(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="CitedItemType",
         description="Type of cited item, e.g., journal article.",
+    )
+
+class IndividualRoleEnum(EnumDefinitionImpl):
+    """
+    Roles an individual may hold for a dataset, particularly with respect to authorship.
+    """
+    FirstAuthor = PermissibleValue(
+        text="FirstAuthor",
+        description="""An author credited as a first author. By default this is the first creator in the author list, but several creators may share this role when they are designated co-first authors.""")
+    ContributingAuthor = PermissibleValue(
+        text="ContributingAuthor",
+        description="An author credited in the author list who is not a first author.")
+    CorrespondingAuthor = PermissibleValue(
+        text="CorrespondingAuthor",
+        description="""The author to whom correspondence should be addressed: the author to contact with any communications about the dataset or its associated publication. This may or may not be the same individual as the dataset's primary contact (see primaryContact). A corresponding author also holds an authorship role such as FirstAuthor or ContributingAuthor.""")
+
+    _defn = EnumDefinition(
+        name="IndividualRoleEnum",
+        description="Roles an individual may hold for a dataset, particularly with respect to authorship.",
     )
 
 class ContributorTypeCodes(EnumDefinitionImpl):
@@ -1481,6 +1505,9 @@ slots.individual__affiliation = Slot(uri=BRC.affiliation, name="individual__affi
 
 slots.individual__orcid = Slot(uri=BRC.orcid, name="individual__orcid", curie=BRC.curie('orcid'),
                    model_uri=BRC.individual__orcid, domain=None, range=Optional[Union[str, URIorCURIE]])
+
+slots.individual__individual_roles = Slot(uri=BRC.individual_roles, name="individual__individual_roles", curie=BRC.curie('individual_roles'),
+                   model_uri=BRC.individual__individual_roles, domain=None, range=Optional[Union[Union[str, "IndividualRoleEnum"], list[Union[str, "IndividualRoleEnum"]]]])
 
 slots.ontologyAnnotation__term_id = Slot(uri=BRC.term_id, name="ontologyAnnotation__term_id", curie=BRC.curie('term_id'),
                    model_uri=BRC.ontologyAnnotation__term_id, domain=None, range=URIRef)

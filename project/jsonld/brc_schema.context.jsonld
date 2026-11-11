@@ -329,6 +329,14 @@
       "email": {
          "@id": "schema:email"
       },
+      "individual_roles": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "individual_roles"
+      },
       "name": {
          "@id": "schema:name"
       },

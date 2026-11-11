@@ -116,6 +116,16 @@
                         "null"
                     ]
                 },
+                "individual_roles": {
+                    "description": "Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.",
+                    "items": {
+                        "$ref": "#/$defs/IndividualRoleEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "name": {
                     "description": "Name of the individual.",
                     "type": [
@@ -301,7 +311,7 @@
                     ]
                 },
                 "creator": {
-                    "description": "List of creators involved in the dataset, where one must be the primary contact.",
+                    "description": "List of creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors.",
                     "items": {
                         "$ref": "#/$defs/Individual"
                     },
@@ -669,6 +679,16 @@
                         "null"
                     ]
                 },
+                "individual_roles": {
+                    "description": "Roles this individual holds for the dataset, such as first author, contributing author, or corresponding author. More than one individual may hold the same role (e.g., co-first authors), and one individual may hold several roles (e.g., a first author who is also the corresponding author). When no creator is explicitly marked FirstAuthor, the first creator in the list is taken to be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema, so they are not carried over to OSTI records; author order is preserved there through list order.",
+                    "items": {
+                        "$ref": "#/$defs/IndividualRoleEnum"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "name": {
                     "description": "Name of the individual.",
                     "type": [
@@ -693,6 +713,16 @@
             },
             "title": "Individual",
             "type": "object"
+        },
+        "IndividualRoleEnum": {
+            "description": "Roles an individual may hold for a dataset, particularly with respect to authorship.",
+            "enum": [
+                "FirstAuthor",
+                "ContributingAuthor",
+                "CorrespondingAuthor"
+            ],
+            "title": "IndividualRoleEnum",
+            "type": "string"
         },
         "MediaFile": {
             "additionalProperties": false,
@@ -1191,5 +1221,5 @@
     },
     "title": "brc_schema",
     "type": "object",
-    "version": "0.2.1"
+    "version": "0.2.2"
 }
