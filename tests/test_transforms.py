@@ -547,6 +547,48 @@ class TestTransformations:
 
         assert result['datasets'][0]['brc'] == 'CBI'
 
+    def test_osti_to_brc_maps_besc_organization_to_cbi(self, tmp_path):
+        """Legacy BESC records are treated as CBI data (issue #159)."""
+        test_data = {
+            "records": [{
+                "osti_id": "12346",
+                "title": "Legacy BESC dataset",
+                "publication_date": "2015-01-01",
+                "organizations": [
+                    {
+                        "type": "RESEARCHING",
+                        "name": "BioEnergy Science Center (BESC), Oak Ridge National Laboratory, Oak Ridge, TN (United States)",
+                    }
+                ],
+                "authors": ["Jane Doe"],
+            }]
+        }
+
+        input_file = tmp_path / "besc_org_input.json"
+        with open(input_file, 'w') as f:
+            json.dump(test_data, f)
+
+        output_file = tmp_path / "besc_org_output.json"
+
+        test_args = [
+            'brcschema', 'transform',
+            '-T', 'osti_to_brc',
+            '--no-taxon-lookup',
+            '-o', str(output_file),
+            str(input_file)
+        ]
+
+        with patch.object(sys, 'argv', test_args):
+            try:
+                main()
+            except SystemExit:
+                pass
+
+        with open(output_file, 'r') as f:
+            result = json.load(f)
+
+        assert result['datasets'][0]['brc'] == 'CBI'
+
     def test_fallback_authors_field(self, tmp_path):
         """Test fallback to authors field when persons is not available."""
         data_with_authors = {
