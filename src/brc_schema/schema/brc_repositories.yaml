@@ -335,6 +335,12 @@ enums:
           - http://www.peptideatlas.org/
         in_subset:
           - proteomics
+      PISCES:
+        description: "Project PISCES: Process Integration & Synthesis using Chemical Engineering Standards"
+        see_also:
+          - https://projectpisces.org/
+        comments:
+          - "Public database of process flowsheets in the PISCES Standard Flowsheet Format (SFF)."
       PRIDE:
         description: "PRoteomics IDEntifications database"
         see_also:

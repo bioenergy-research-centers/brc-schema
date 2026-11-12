@@ -1436,6 +1436,16 @@
           ]
         },
         {
+          "text": "PISCES",
+          "description": "Project PISCES: Process Integration & Synthesis using Chemical Engineering Standards",
+          "comments": [
+            "Public database of process flowsheets in the PISCES Standard Flowsheet Format (SFF)."
+          ],
+          "see_also": [
+            "https://projectpisces.org/"
+          ]
+        },
+        {
           "text": "PRIDE",
           "description": "PRoteomics IDEntifications database",
           "in_subset": [
@@ -4541,7 +4551,7 @@
   "source_file": "brc_schema.yaml",
   "source_file_date": "2026-11-11T15:06:37",
   "source_file_size": 42305,
-  "generation_date": "2026-11-11T15:10:13",
+  "generation_date": "2026-11-12T13:40:20",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/brc_schema.context.jsonld",

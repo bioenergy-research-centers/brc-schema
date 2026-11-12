@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-11-11T15:10:14
+# Generation date: 2026-11-12T13:40:21
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -1238,6 +1238,9 @@ class RepositoryEnum(EnumDefinitionImpl):
     PeptideAtlas = PermissibleValue(
         text="PeptideAtlas",
         description="PeptideAtlas")
+    PISCES = PermissibleValue(
+        text="PISCES",
+        description="Project PISCES: Process Integration & Synthesis using Chemical Engineering Standards")
     PRIDE = PermissibleValue(
         text="PRIDE",
         description="PRoteomics IDEntifications database")

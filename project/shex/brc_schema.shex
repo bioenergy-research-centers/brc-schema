@@ -115,7 +115,8 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/brc/RepositoryEnum#NCBI%20BioProject> <https://w3id.org/brc/RepositoryEnum#NCBI%20SRA>
              <https://w3id.org/brc/RepositoryEnum#Open%20Science%20Framework> <https://w3id.org/brc/RepositoryEnum#ORNL%20DAAC>
              ror:031478740 <https://w3id.org/brc/RepositoryEnum#PanoramaPublic> <https://w3id.org/brc/RepositoryEnum#PeptideAtlas>
-             <https://w3id.org/brc/RepositoryEnum#PRIDE> <https://w3id.org/brc/RepositoryEnum#Princeton%20Data%20Commons>
+             <https://w3id.org/brc/RepositoryEnum#PISCES> <https://w3id.org/brc/RepositoryEnum#PRIDE>
+             <https://w3id.org/brc/RepositoryEnum#Princeton%20Data%20Commons>
              <https://w3id.org/brc/RepositoryEnum#Protein%20Data%20Bank> <https://w3id.org/brc/RepositoryEnum#Protocols.io>
              ror:00zbfm828 <https://w3id.org/brc/RepositoryEnum#Yoda> <https://w3id.org/brc/RepositoryEnum#Zenodo> ] ? ;
           dcterms:bibliographicCitation @linkml:Uri ? ;
