@@ -1390,3 +1390,79 @@ class TestTransformations:
             identifier['type'] == 'CN_DOE' and identifier['value'] == 'NSF-1234567'
             for identifier in sponsor_org['identifiers']
         )
+
+    def test_osti_to_brc_maps_geolocations(self, tmp_path):
+        """OSTI points, boxes, and polygons become BRC geolocations."""
+        result = self._run_transform(tmp_path, 'osti_to_brc', {
+            "records": [{
+                "osti_id": "2584701",
+                "title": "Geolocated Dataset",
+                "publication_date": "2025-04-01",
+                "site_ownership_code": "GLBRC",
+                "persons": [{"type": "AUTHOR", "first_name": "Avery", "last_name": "Chen"}],
+                "geolocations": [
+                    {"type": "POINT", "label": "Kellogg Biological Station",
+                     "points": [{"latitude": 42.4057, "longitude": -85.4011}]},
+                    # No type given: two points are a box.
+                    {"points": [{"latitude": 43.32, "longitude": -89.40},
+                                {"latitude": 43.29, "longitude": -89.33}]},
+                    # An open polygon is closed on its first point.
+                    {"type": "POLYGON",
+                     "points": [{"latitude": 42.41, "longitude": -85.375},
+                                {"latitude": 42.41, "longitude": -85.370},
+                                {"latitude": 42.407, "longitude": -85.370}]},
+                    # Unusable: latitude out of range, and a box with one point.
+                    {"type": "POINT", "points": [{"latitude": 95, "longitude": 0}]},
+                    {"type": "BOX", "points": [{"latitude": 1, "longitude": 1}]},
+                ]
+            }]
+        })
+
+        geolocations = result['datasets'][0]['geolocations']
+        assert geolocations == [
+            {"geolocation_type": "POINT", "label": "Kellogg Biological Station",
+             "points": [{"latitude": 42.4057, "longitude": -85.4011}]},
+            {"geolocation_type": "BOX",
+             "points": [{"latitude": 43.32, "longitude": -89.40},
+                        {"latitude": 43.29, "longitude": -89.33}]},
+            {"geolocation_type": "POLYGON",
+             "points": [{"latitude": 42.41, "longitude": -85.375},
+                        {"latitude": 42.41, "longitude": -85.370},
+                        {"latitude": 42.407, "longitude": -85.370},
+                        {"latitude": 42.41, "longitude": -85.375}]},
+        ]
+        assert self._brc_validation_errors(result) == []
+
+    def test_brc_to_osti_exports_geolocations_without_accuracy_or_altitude(self, tmp_path):
+        """BRC geolocations export to OSTI; OSTI has no accuracy or altitude."""
+        result = self._run_transform(tmp_path, 'brc_to_osti', {
+            "datasets": [{
+                "title": "Export Geolocations",
+                "date": "2024-01-15",
+                "brc": "GLBRC",
+                "creator": [{"name": "Avery Chen", "primaryContact": True}],
+                "geolocations": [
+                    {"geolocation_type": "POINT", "label": "Kellogg Biological Station",
+                     "points": [{"latitude": 42.4057, "longitude": -85.4011,
+                                 "altitude": 288.0}],
+                     "horizontal_accuracy": 30.0, "vertical_accuracy": 5.0}
+                ],
+                "active": True
+            }]
+        })
+
+        assert result['records'][0]['geolocations'] == [
+            {"type": "POINT", "label": "Kellogg Biological Station",
+             "points": [{"latitude": 42.4057, "longitude": -85.4011}]}
+        ]
+
+    def test_dataset_without_geolocations_omits_them(self, tmp_path):
+        """Records without geolocations produce no geolocations slot."""
+        result = self._run_transform(tmp_path, 'osti_to_brc', {
+            "records": [{
+                "osti_id": "2584702", "title": "No Place", "publication_date": "2025-04-01",
+                "site_ownership_code": "GLBRC",
+                "persons": [{"type": "AUTHOR", "first_name": "Avery", "last_name": "Chen"}],
+            }]
+        })
+        assert 'geolocations' not in result['datasets'][0]

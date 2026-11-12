@@ -1,5 +1,5 @@
 # Auto generated from brc_schema.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-11-12T13:48:48
+# Generation date: 2026-11-12T14:34:18
 # Schema: brc_schema
 #
 # id: https://w3id.org/brc/brc_schema
@@ -56,11 +56,11 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, String, Uri, Uriorcurie
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Float, Integer, String, Uri, Uriorcurie
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
-version = "0.2.2"
+version = "0.2.3"
 
 # Namespaces
 BERVO = CurieNamespace('BERVO', 'https://w3id.org/bervo/BERVO_')
@@ -91,6 +91,7 @@ CABBI = CurieNamespace('cabbi', 'https://cabbitools.igb.illinois.edu/brc/')
 CBI = CurieNamespace('cbi', 'https://fair.ornl.gov/CBI/')
 DCAT = CurieNamespace('dcat', 'http://www.w3.org/ns/dcat#')
 DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
+DWC = CurieNamespace('dwc', 'http://rs.tdwg.org/dwc/terms/')
 EDAM = CurieNamespace('edam', 'http://edamontology.org/')
 GLBRC = CurieNamespace('glbrc', 'https://fair-data.glbrc.org/')
 JBEI = CurieNamespace('jbei', 'https://hello.bioenergy.org/JBEI/')
@@ -214,6 +215,7 @@ class Dataset(YAMLRoot):
     conference_location: Optional[str] = None
     conference_date: Optional[str] = None
     media: Optional[Union[Union[dict, "MediaSet"], list[Union[dict, "MediaSet"]]]] = empty_list()
+    geolocations: Optional[Union[Union[dict, "Geolocation"], list[Union[dict, "Geolocation"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.title):
@@ -376,6 +378,10 @@ class Dataset(YAMLRoot):
         if not isinstance(self.media, list):
             self.media = [self.media] if self.media is not None else []
         self.media = [v if isinstance(v, MediaSet) else MediaSet(**as_dict(v)) for v in self.media]
+
+        if not isinstance(self.geolocations, list):
+            self.geolocations = [self.geolocations] if self.geolocations is not None else []
+        self.geolocations = [v if isinstance(v, Geolocation) else Geolocation(**as_dict(v)) for v in self.geolocations]
 
         super().__post_init__(**kwargs)
 
@@ -835,6 +841,81 @@ class MediaFile(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
+class Geolocation(YAMLRoot):
+    """
+    A geographic location associated with a dataset: a single point, a bounding box, or a polygon. Coordinates are WGS
+    84 decimal degrees. This mirrors the OSTI E-Link 2.0 Geolocation structure, adding optional accuracy values. Many
+    legacy coordinates were backfilled from place names or site descriptions, so leave the accuracy slots empty when
+    the accuracy is not known rather than guessing.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = DCTERMS["Location"]
+    class_class_curie: ClassVar[str] = "dcterms:Location"
+    class_name: ClassVar[str] = "Geolocation"
+    class_model_uri: ClassVar[URIRef] = BRC.Geolocation
+
+    points: Union[Union[dict, "GeoPoint"], list[Union[dict, "GeoPoint"]]] = None
+    geolocation_type: Optional[Union[str, "GeolocationTypeEnum"]] = None
+    label: Optional[str] = None
+    horizontal_accuracy: Optional[float] = None
+    vertical_accuracy: Optional[float] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.points):
+            self.MissingRequiredField("points")
+        self._normalize_inlined_as_list(slot_name="points", slot_type=GeoPoint, key_name="latitude", keyed=False)
+
+        if self.geolocation_type is not None and not isinstance(self.geolocation_type, GeolocationTypeEnum):
+            self.geolocation_type = GeolocationTypeEnum(self.geolocation_type)
+
+        if self.label is not None and not isinstance(self.label, str):
+            self.label = str(self.label)
+
+        if self.horizontal_accuracy is not None and not isinstance(self.horizontal_accuracy, float):
+            self.horizontal_accuracy = float(self.horizontal_accuracy)
+
+        if self.vertical_accuracy is not None and not isinstance(self.vertical_accuracy, float):
+            self.vertical_accuracy = float(self.vertical_accuracy)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class GeoPoint(YAMLRoot):
+    """
+    A single geographic point, in WGS 84 decimal degrees, with an optional altitude. Mirrors the point structure of
+    OSTI E-Link 2.0, which has latitude and longitude only.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SCHEMA["GeoCoordinates"]
+    class_class_curie: ClassVar[str] = "schema:GeoCoordinates"
+    class_name: ClassVar[str] = "GeoPoint"
+    class_model_uri: ClassVar[URIRef] = BRC.GeoPoint
+
+    latitude: float = None
+    longitude: float = None
+    altitude: Optional[float] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.latitude):
+            self.MissingRequiredField("latitude")
+        if not isinstance(self.latitude, float):
+            self.latitude = float(self.latitude)
+
+        if self._is_empty(self.longitude):
+            self.MissingRequiredField("longitude")
+        if not isinstance(self.longitude, float):
+            self.longitude = float(self.longitude)
+
+        if self.altitude is not None and not isinstance(self.altitude, float):
+            self.altitude = float(self.altitude)
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class AnalysisType(EnumDefinitionImpl):
     """
@@ -1051,6 +1132,25 @@ class ContributorTypeCodes(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="ContributorTypeCodes",
         description="The type of contribution. These values are based on the OSTI schema (ELINK 241.6).",
+    )
+
+class GeolocationTypeEnum(EnumDefinitionImpl):
+    """
+    The shape of a geolocation. Matches the OSTI E-Link 2.0 geolocation types.
+    """
+    POINT = PermissibleValue(
+        text="POINT",
+        description="A single point.")
+    BOX = PermissibleValue(
+        text="BOX",
+        description="A bounding box, given by its northwest and southeast corners.")
+    POLYGON = PermissibleValue(
+        text="POLYGON",
+        description="A closed polygon, given by four or more points with the first point repeated as the last.")
+
+    _defn = EnumDefinition(
+        name="GeolocationTypeEnum",
+        description="The shape of a geolocation. Matches the OSTI E-Link 2.0 geolocation types.",
     )
 
 class DatasetTypeCodes(EnumDefinitionImpl):
@@ -1507,6 +1607,9 @@ slots.dataset__conference_date = Slot(uri=BRC.conference_date, name="dataset__co
 slots.dataset__media = Slot(uri=BRC.media, name="dataset__media", curie=BRC.curie('media'),
                    model_uri=BRC.dataset__media, domain=None, range=Optional[Union[Union[dict, MediaSet], list[Union[dict, MediaSet]]]])
 
+slots.dataset__geolocations = Slot(uri=DCTERMS.spatial, name="dataset__geolocations", curie=DCTERMS.curie('spatial'),
+                   model_uri=BRC.dataset__geolocations, domain=None, range=Optional[Union[Union[dict, Geolocation], list[Union[dict, Geolocation]]]])
+
 slots.individual__name = Slot(uri=SCHEMA.name, name="individual__name", curie=SCHEMA.curie('name'),
                    model_uri=BRC.individual__name, domain=None, range=Optional[str])
 
@@ -1705,3 +1808,27 @@ slots.mediaFile__date_file_added = Slot(uri=BRC.date_file_added, name="mediaFile
 
 slots.mediaFile__date_file_updated = Slot(uri=BRC.date_file_updated, name="mediaFile__date_file_updated", curie=BRC.curie('date_file_updated'),
                    model_uri=BRC.mediaFile__date_file_updated, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.geolocation__geolocation_type = Slot(uri=BRC.geolocation_type, name="geolocation__geolocation_type", curie=BRC.curie('geolocation_type'),
+                   model_uri=BRC.geolocation__geolocation_type, domain=None, range=Optional[Union[str, "GeolocationTypeEnum"]])
+
+slots.geolocation__label = Slot(uri=RDFS.label, name="geolocation__label", curie=RDFS.curie('label'),
+                   model_uri=BRC.geolocation__label, domain=None, range=Optional[str])
+
+slots.geolocation__points = Slot(uri=BRC.points, name="geolocation__points", curie=BRC.curie('points'),
+                   model_uri=BRC.geolocation__points, domain=None, range=Union[Union[dict, GeoPoint], list[Union[dict, GeoPoint]]])
+
+slots.geolocation__horizontal_accuracy = Slot(uri=BRC.horizontal_accuracy, name="geolocation__horizontal_accuracy", curie=BRC.curie('horizontal_accuracy'),
+                   model_uri=BRC.geolocation__horizontal_accuracy, domain=None, range=Optional[float])
+
+slots.geolocation__vertical_accuracy = Slot(uri=BRC.vertical_accuracy, name="geolocation__vertical_accuracy", curie=BRC.curie('vertical_accuracy'),
+                   model_uri=BRC.geolocation__vertical_accuracy, domain=None, range=Optional[float])
+
+slots.geoPoint__latitude = Slot(uri=SCHEMA.latitude, name="geoPoint__latitude", curie=SCHEMA.curie('latitude'),
+                   model_uri=BRC.geoPoint__latitude, domain=None, range=float)
+
+slots.geoPoint__longitude = Slot(uri=SCHEMA.longitude, name="geoPoint__longitude", curie=SCHEMA.curie('longitude'),
+                   model_uri=BRC.geoPoint__longitude, domain=None, range=float)
+
+slots.geoPoint__altitude = Slot(uri=BRC.altitude, name="geoPoint__altitude", curie=BRC.curie('altitude'),
+                   model_uri=BRC.geoPoint__altitude, domain=None, range=Optional[float])

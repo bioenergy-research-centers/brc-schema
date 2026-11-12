@@ -93,6 +93,7 @@
       "cbi": "https://fair.ornl.gov/CBI/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "dcterms": "http://purl.org/dc/terms/",
+      "dwc": "http://rs.tdwg.org/dwc/terms/",
       "edam": "http://edamontology.org/",
       "glbrc": "https://fair-data.glbrc.org/",
       "jbei": "https://hello.bioenergy.org/JBEI/",
@@ -215,6 +216,10 @@
          "@type": "@id",
          "@id": "funding"
       },
+      "geolocations": {
+         "@type": "@id",
+         "@id": "dcterms:spatial"
+      },
       "has_related_ids": {
          "@type": "xsd:anyURI",
          "@id": "has_related_ids"
@@ -326,6 +331,41 @@
       "fundingOrganization": {
          "@type": "@id",
          "@id": "fundingOrganization"
+      },
+      "geolocation_type": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "geolocation_type"
+      },
+      "horizontal_accuracy": {
+         "@type": "xsd:float",
+         "@id": "horizontal_accuracy"
+      },
+      "label": {
+         "@id": "rdfs:label"
+      },
+      "points": {
+         "@type": "@id",
+         "@id": "points"
+      },
+      "vertical_accuracy": {
+         "@type": "xsd:float",
+         "@id": "vertical_accuracy"
+      },
+      "altitude": {
+         "@type": "xsd:float",
+         "@id": "altitude"
+      },
+      "latitude": {
+         "@type": "xsd:float",
+         "@id": "schema:latitude"
+      },
+      "longitude": {
+         "@type": "xsd:float",
+         "@id": "schema:longitude"
       },
       "affiliation": {
          "@id": "affiliation"
@@ -519,6 +559,12 @@
       },
       "Funding": {
          "@id": "Funding"
+      },
+      "Geolocation": {
+         "@id": "dcterms:Location"
+      },
+      "GeoPoint": {
+         "@id": "schema:GeoCoordinates"
       },
       "Individual": {
          "@id": "schema:Person"

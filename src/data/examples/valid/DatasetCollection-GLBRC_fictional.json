@@ -103,7 +103,38 @@
           "awardURI": "https://example.org/awards/de-fake-glbrc-010"
         }
       ],
-      "dataset_url": "https://example.org/datasets/glbrc-field-metabolomics-2023"
+      "dataset_url": "https://example.org/datasets/glbrc-field-metabolomics-2023",
+      "geolocations": [
+        {
+          "geolocation_type": "POINT",
+          "label": "Kellogg Biological Station, Hickory Corners, Michigan",
+          "points": [
+            {"latitude": 42.4057, "longitude": -85.4011, "altitude": 288.0}
+          ],
+          "horizontal_accuracy": 30.0,
+          "vertical_accuracy": 5.0
+        },
+        {
+          "geolocation_type": "BOX",
+          "label": "Arlington Agricultural Research Station, Wisconsin",
+          "points": [
+            {"latitude": 43.32, "longitude": -89.40},
+            {"latitude": 43.29, "longitude": -89.33}
+          ]
+        },
+        {
+          "geolocation_type": "POLYGON",
+          "label": "Example switchgrass field plot",
+          "points": [
+            {"latitude": 42.41, "longitude": -85.375},
+            {"latitude": 42.41, "longitude": -85.370},
+            {"latitude": 42.407, "longitude": -85.370},
+            {"latitude": 42.407, "longitude": -85.375},
+            {"latitude": 42.41, "longitude": -85.375}
+          ],
+          "horizontal_accuracy": 10.0
+        }
+      ]
     }
   ]
 }

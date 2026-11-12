@@ -27,6 +27,7 @@
    "cbi": "https://fair.ornl.gov/CBI/",
    "dcat": "http://www.w3.org/ns/dcat#",
    "dcterms": "http://purl.org/dc/terms/",
+   "dwc": "http://rs.tdwg.org/dwc/terms/",
    "edam": "http://edamontology.org/",
    "glbrc": "https://fair-data.glbrc.org/",
    "jbei": "https://hello.bioenergy.org/JBEI/",
@@ -43,6 +44,12 @@
    "wikidata": "https://www.wikidata.org/wiki/",
    "Dataset": {
       "@id": "schema:Dataset"
+   },
+   "Geolocation": {
+      "@id": "dcterms:Location"
+   },
+   "GeoPoint": {
+      "@id": "schema:GeoCoordinates"
    },
    "Individual": {
       "@id": "schema:Person"

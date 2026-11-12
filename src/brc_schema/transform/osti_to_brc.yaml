@@ -13,7 +13,7 @@ class_derivations:
       # This is a static value here but is updated when the BRC schema
       # is updated
       schema_version:
-        expr: "'0.2.2'"
+        expr: "'0.2.3'"
 
   Dataset:
     populated_from: Record
@@ -84,6 +84,8 @@ class_derivations:
         populated_from: related_identifiers
       media:
         populated_from: media
+      geolocations:
+        expr: "build_brc_geolocations(geolocations)"
       #datasetType:
       #  populated_from: product_type
       dataset_url:

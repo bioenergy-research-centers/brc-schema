@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.2
+# version: 0.2.3
 enum AnalysisType
   {
     affinity_purification
@@ -100,6 +100,13 @@ enum DatasetTypeCodes
     SM
     MM
     I
+  }
+
+enum GeolocationTypeEnum
+  {
+    POINT
+    BOX
+    POLYGON
   }
 
 enum IndividualRoleEnum
@@ -223,6 +230,7 @@ type Dataset
     conferenceLocation: String
     conferenceDate: String
     media: [MediaSet]
+    geolocations: [Geolocation]
   }
 
 type DatasetCollection
@@ -237,6 +245,22 @@ type Funding
     awardNumber: String
     awardTitle: String
     awardURI: String
+  }
+
+type Geolocation
+  {
+    geolocationType: GeolocationTypeEnum
+    label: String
+    points: [GeoPoint]!
+    horizontalAccuracy: Float
+    verticalAccuracy: Float
+  }
+
+type GeoPoint
+  {
+    latitude: Float!
+    longitude: Float!
+    altitude: Float
   }
 
 type Individual
