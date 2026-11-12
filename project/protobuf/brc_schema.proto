@@ -1,7 +1,7 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// version: 0.2.2
+// version: 0.2.3
 // An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.
 message BRCOrganization
  {
@@ -71,6 +71,7 @@ message Dataset
   string conferenceLocation = 0
   string conferenceDate = 0
  repeated  mediaSet media = 0
+ repeated  geolocation geolocations = 0
  }
 // Container class for defining a collection of datasets.
 message DatasetCollection
@@ -85,6 +86,22 @@ message Funding
   string awardNumber = 0
   string awardTitle = 0
   uriorcurie awardURI = 0
+ }
+// A geographic location associated with a dataset: a single point, a bounding box, or a polygon. Coordinates are WGS 84 decimal degrees. This mirrors the OSTI E-Link 2.0 Geolocation structure, adding optional accuracy values. Many legacy coordinates were backfilled from place names or site descriptions, so leave the accuracy slots empty when the accuracy is not known rather than guessing.
+message Geolocation
+ {
+  geolocationTypeEnum geolocationType = 0
+  string label = 0
+ repeated  geoPoint points = 0
+  float horizontalAccuracy = 0
+  float verticalAccuracy = 0
+ }
+// A single geographic point, in WGS 84 decimal degrees, with an optional altitude. Mirrors the point structure of OSTI E-Link 2.0, which has latitude and longitude only.
+message GeoPoint
+ {
+  float latitude = 0
+  float longitude = 0
+  float altitude = 0
  }
 // An individual involved in the dataset.
 message Individual

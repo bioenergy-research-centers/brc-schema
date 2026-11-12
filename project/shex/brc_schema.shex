@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-# version: 0.2.2
+# version: 0.2.3
 BASE <https://w3id.org/brc/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -171,7 +171,8 @@ linkml:Sparqlpath xsd:string
           <conference_title> @linkml:String ? ;
           <conference_location> @linkml:String ? ;
           <conference_date> @linkml:String ? ;
-          <media> @<MediaSet> *
+          <media> @<MediaSet> * ;
+          dcterms:spatial @<Geolocation> *
        ) ;
        rdf:type [ schema1:Dataset ] ?
     )
@@ -192,6 +193,27 @@ linkml:Sparqlpath xsd:string
           <awardURI> @linkml:Uriorcurie ?
        ) ;
        rdf:type [ <Funding> ] ?
+    )
+}
+
+<Geolocation> CLOSED {
+    (  $<Geolocation_tes> (  <geolocation_type> [ <https://w3id.org/brc/GeolocationTypeEnum#POINT>
+             <https://w3id.org/brc/GeolocationTypeEnum#BOX> <https://w3id.org/brc/GeolocationTypeEnum#POLYGON> ] ? ;
+          rdfs:label @linkml:String ? ;
+          <points> @<GeoPoint> + ;
+          <horizontal_accuracy> @linkml:Float ? ;
+          <vertical_accuracy> @linkml:Float ?
+       ) ;
+       rdf:type [ dcterms:Location ] ?
+    )
+}
+
+<GeoPoint> CLOSED {
+    (  $<GeoPoint_tes> (  schema1:latitude @linkml:Float ;
+          schema1:longitude @linkml:Float ;
+          <altitude> @linkml:Float ?
+       ) ;
+       rdf:type [ schema1:GeoCoordinates ] ?
     )
 }
 

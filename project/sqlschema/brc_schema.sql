@@ -124,6 +124,19 @@
 --     * Slot: date_file_added Description: Date this media file was created.
 --     * Slot: date_file_updated Description: Date this media file was last modified.
 --     * Slot: MediaSet_id Description: Autocreated FK slot
+-- # Class: Geolocation Description: A geographic location associated with a dataset: a single point, a bounding box, or a polygon. Coordinates are WGS 84 decimal degrees. This mirrors the OSTI E-Link 2.0 Geolocation structure, adding optional accuracy values. Many legacy coordinates were backfilled from place names or site descriptions, so leave the accuracy slots empty when the accuracy is not known rather than guessing.
+--     * Slot: id
+--     * Slot: geolocation_type Description: The shape of this geolocation. Optional, as the shape can be determined from the points: one point is a POINT; two points, the northwest and southeast corners, are a BOX; four or more points are a POLYGON. A POLYGON should begin and end on the same point, so that the shape is closed.
+--     * Slot: label Description: Place name for this location or set of points.
+--     * Slot: horizontal_accuracy Description: Horizontal accuracy of the coordinates, in meters: the radius within which the true location is expected to lie. Applies to every point in this geolocation. Not part of the OSTI schema, so it is not carried over to OSTI records.
+--     * Slot: vertical_accuracy Description: Vertical accuracy of the altitude values, in meters. Applies to every point in this geolocation that has an altitude. Not part of the OSTI schema, so it is not carried over to OSTI records.
+--     * Slot: Dataset_uid Description: Autocreated FK slot
+-- # Class: GeoPoint Description: A single geographic point, in WGS 84 decimal degrees, with an optional altitude. Mirrors the point structure of OSTI E-Link 2.0, which has latitude and longitude only.
+--     * Slot: id
+--     * Slot: latitude Description: Latitude in decimal degrees (WGS 84), from -90 to 90 inclusive. Positive values are north of the equator.
+--     * Slot: longitude Description: Longitude in decimal degrees (WGS 84), from -180 to 180 inclusive. Positive values are east of the prime meridian.
+--     * Slot: altitude Description: Altitude in meters above mean sea level. Negative values are below sea level. Not part of the OSTI schema, so it is not carried over to OSTI records.
+--     * Slot: Geolocation_id Description: Autocreated FK slot
 -- # Class: Dataset_additional_brcs
 --     * Slot: Dataset_uid Description: Autocreated FK slot
 --     * Slot: additional_brcs Description: Additional Bioenergy Research Center affiliations. This is a list of one or more additional BRC names, for instances in which the dataset is associated with multiple centers.
@@ -260,8 +273,8 @@ CREATE TABLE "Organism_taxon_ids" (
 	PRIMARY KEY ("Organism_id", taxon_ids),
 	FOREIGN KEY("Organism_id") REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Organism_taxon_ids_taxon_ids" ON "Organism_taxon_ids" (taxon_ids);
 CREATE INDEX "ix_Organism_taxon_ids_Organism_id" ON "Organism_taxon_ids" ("Organism_id");
+CREATE INDEX "ix_Organism_taxon_ids_taxon_ids" ON "Organism_taxon_ids" (taxon_ids);
 
 CREATE TABLE "Organism_strains" (
 	"Organism_id" INTEGER,
@@ -327,6 +340,18 @@ CREATE TABLE "MediaSet" (
 );
 CREATE INDEX "ix_MediaSet_id" ON "MediaSet" (id);
 
+CREATE TABLE "Geolocation" (
+	id INTEGER NOT NULL,
+	geolocation_type VARCHAR(7),
+	label TEXT,
+	horizontal_accuracy FLOAT,
+	vertical_accuracy FLOAT,
+	"Dataset_uid" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
+);
+CREATE INDEX "ix_Geolocation_id" ON "Geolocation" (id);
+
 CREATE TABLE "Dataset_additional_brcs" (
 	"Dataset_uid" INTEGER,
 	additional_brcs VARCHAR(5),
@@ -342,8 +367,8 @@ CREATE TABLE "Dataset_has_related_ids" (
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
 CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
 
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
@@ -380,8 +405,8 @@ CREATE TABLE "Dataset_theme" (
 	PRIMARY KEY ("Dataset_uid", theme),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_theme_theme" ON "Dataset_theme" (theme);
 CREATE INDEX "ix_Dataset_theme_Dataset_uid" ON "Dataset_theme" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_theme_theme" ON "Dataset_theme" (theme);
 
 CREATE TABLE "Dataset_category" (
 	"Dataset_uid" INTEGER,
@@ -389,8 +414,8 @@ CREATE TABLE "Dataset_category" (
 	PRIMARY KEY ("Dataset_uid", category),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
+CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -408,8 +433,8 @@ CREATE TABLE "Dataset_keywords" (
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
 CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -417,8 +442,8 @@ CREATE TABLE "Plasmid_promoters" (
 	PRIMARY KEY ("Plasmid_uid", promoters),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
+CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_replicates_in" (
 	"Plasmid_uid" INTEGER,
@@ -427,8 +452,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
+CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -484,6 +509,17 @@ CREATE TABLE "MediaFile" (
 );
 CREATE INDEX "ix_MediaFile_id" ON "MediaFile" (id);
 
+CREATE TABLE "GeoPoint" (
+	id INTEGER NOT NULL,
+	latitude FLOAT NOT NULL,
+	longitude FLOAT NOT NULL,
+	altitude FLOAT,
+	"Geolocation_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("Geolocation_id") REFERENCES "Geolocation" (id)
+);
+CREATE INDEX "ix_GeoPoint_id" ON "GeoPoint" (id);
+
 CREATE TABLE "Individual_individual_roles" (
 	"Individual_id" INTEGER,
 	individual_roles VARCHAR(19),
@@ -499,8 +535,8 @@ CREATE TABLE "Contributor_individual_roles" (
 	PRIMARY KEY ("Contributor_id", individual_roles),
 	FOREIGN KEY("Contributor_id") REFERENCES "Contributor" (id)
 );
-CREATE INDEX "ix_Contributor_individual_roles_Contributor_id" ON "Contributor_individual_roles" ("Contributor_id");
 CREATE INDEX "ix_Contributor_individual_roles_individual_roles" ON "Contributor_individual_roles" (individual_roles);
+CREATE INDEX "ix_Contributor_individual_roles_Contributor_id" ON "Contributor_individual_roles" ("Contributor_id");
 
 CREATE TABLE "MediaSet_access_limitations" (
 	"MediaSet_id" INTEGER,
@@ -529,5 +565,5 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
-CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
+CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
