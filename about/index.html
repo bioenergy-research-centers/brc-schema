@@ -454,6 +454,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -470,6 +488,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bioenergy-research-centers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bioenergy Research Centers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bioenergy Research Centers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#besc-data-under-cbi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BESC data under CBI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -495,6 +560,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bioenergy-research-centers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bioenergy Research Centers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bioenergy Research Centers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#besc-data-under-cbi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BESC data under CBI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -516,6 +617,37 @@
 <h1 id="about-the-brc-schema">About the BRC Schema</h1>
 <p>The BRC schema is used with data on the <a href="https://bioenergy.org/">https://bioenergy.org/</a> data portal.</p>
 <p>It is intended to represent metadata most relevant to the DOE bioenergy research community. It has also been designed to align with the data submission schema used by <a href="https://www.osti.gov/">OSTI.gov</a>.</p>
+<h2 id="bioenergy-research-centers">Bioenergy Research Centers</h2>
+<p>The schema covers datasets from four DOE Bioenergy Research Centers (BRCs). Each dataset names its primary center in the <code>brc</code> slot:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Center</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CABBI</code></td>
+<td>Center for Advanced Bioenergy and Bioproducts Innovation</td>
+</tr>
+<tr>
+<td><code>CBI</code></td>
+<td>Center for Bioenergy Innovation</td>
+</tr>
+<tr>
+<td><code>GLBRC</code></td>
+<td>Great Lakes Bioenergy Research Center</td>
+</tr>
+<tr>
+<td><code>JBEI</code></td>
+<td>Joint BioEnergy Institute</td>
+</tr>
+</tbody>
+</table>
+<h3 id="besc-data-under-cbi">BESC data under CBI</h3>
+<p>CBI was preceded by the <a href="https://www.ornl.gov/news/besc-caps-biofuels-research-legacy-license-custom-microbe-enchi-corporation/">BioEnergy Science Center (BESC)</a>, also based at Oak Ridge National Laboratory. BESC was a separate project with its own datasets and branding, but its legacy data is gradually being brought into CBI's collection. CBI data may therefore include datasets produced by BESC.</p>
+<p>The schema treats CBI as the continuation of BESC. There is no separate <code>BESC</code> value in <code>BRCEnum</code>; BESC datasets use <code>brc: CBI</code>. When transforming OSTI records, organization names that mention "BESC" or "BioEnergy Science Center" are assigned to CBI.</p>
 
 
 

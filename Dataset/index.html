@@ -513,7 +513,7 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [has_related_ids](has_related_ids.md) | * <br/> [Uriorcurie](Uriorcurie.md) | "Related identifiers for the dataset | direct |
 | [species](species.md) | * <br/> [Organism](Organism.md) | Species information for the organism(s) studied | direct |
 | [plasmid_features](plasmid_features.md) | * <br/> [Plasmid](Plasmid.md) | Description of plasmid features, if applicable | direct |
-| [analysisType](analysisType.md) | 0..1 <br/> [String](String.md) or <br/>[AnalysisType](AnalysisType.md) | The type of analysis performed on the dataset | direct |
+| [analysisType](analysisType.md) | 0..1 <br/> [AnalysisType](AnalysisType.md) or <br/>[String](String.md) | The type of analysis performed on the dataset | direct |
 | [datasetType](datasetType.md) | 0..1 <br/> [DatasetTypeCodes](DatasetTypeCodes.md) | High-level type of the main content of the dataset | direct |
 | [topic](topic.md) | 1..* <br/> [DatasetTopicEnum](DatasetTopicEnum.md) | High-level topic area for the dataset | direct |
 | [theme](theme.md) | * <br/> [DatasetThemeEnum](DatasetThemeEnum.md) | High-level theme areas for the dataset | direct |
@@ -752,7 +752,8 @@ attributes:
   brc:
     name: brc
     description: The primary Bioenergy Research Center affiliation. This is a single
-      BRC name.
+      BRC name. Legacy datasets from the BioEnergy Science Center (BESC) use CBI,
+      as CBI is BESC's successor.
     from_schema: https://w3id.org/brc/brc_schema
     broad_mappings:
     - osti:originating_research_org
@@ -1307,7 +1308,8 @@ attributes:
   brc:
     name: brc
     description: The primary Bioenergy Research Center affiliation. This is a single
-      BRC name.
+      BRC name. Legacy datasets from the BioEnergy Science Center (BESC) use CBI,
+      as CBI is BESC's successor.
     from_schema: https://w3id.org/brc/brc_schema
     broad_mappings:
     - osti:originating_research_org
