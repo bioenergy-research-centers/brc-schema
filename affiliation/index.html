@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: affiliation - brc-schema</title>
+        <title>Slot: affiliation (DEPRECATED) - brc-schema</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-affiliation" class="md-skip">
+        <a href="#slot-affiliation-deprecated" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: affiliation
+              Slot: affiliation (DEPRECATED)
             
           </span>
         </div>
@@ -501,8 +501,8 @@
   
 
 
-<h1 id="slot-affiliation">Slot: affiliation</h1>
-<p><em>Affiliation of the individual.</em></p>
+<h1 id="slot-affiliation-deprecated">Slot: affiliation  <span style="color: red;"><strong> (DEPRECATED) </strong></span></h1>
+<p><em>Name of the individual's affiliation.</em></p>
 <div data-search-exclude markdown="1">
 
 
@@ -520,8 +520,8 @@ Alias: affiliation
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Contributor](Contributor.md) | An individual who contributed to the dataset in some manner, not necessarily ... |  no  |
 | [Individual](Individual.md) | An individual involved in the dataset |  no  |
+| [Contributor](Contributor.md) | An individual who contributed to the dataset in some manner, not necessarily ... |  no  |
 
 
 
@@ -534,7 +534,7 @@ Alias: affiliation
 
 | Property | Value |
 | --- | --- |
-| Range | [BRCOrganization](BRCOrganization.md)&nbsp;or&nbsp;<br />[String](String.md) |
+| Range | [String](String.md) |
 | Domain Of | [Individual](Individual.md) |
 
 ### Cardinality and Requirements
@@ -547,16 +547,6 @@ Alias: affiliation
 | --- | --- |
 | Owner | [Individual](Individual.md) |
 
-
-<details>
-<summary>Expressions & Logic</summary>
-#### Any Of
-
-Value must satisfy at least one of:
-- AnonymousSlotExpression({'range': 'BRCOrganization'})
-- AnonymousSlotExpression({'range': 'string'})
-
-</details>
 
 
 
@@ -597,7 +587,10 @@ Value must satisfy at least one of:
 <details>
 
 <pre><code class="language-yaml">name: affiliation
-description: Affiliation of the individual.
+description: Name of the individual's affiliation.
+deprecated: Use affiliations, which supports multiple affiliations and organization
+  identifiers such as ROR IDs. Kept for compatibility; when both are present, this
+  holds the name of the first affiliation.
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 alias: affiliation
@@ -605,9 +598,6 @@ owner: Individual
 domain_of:
 - Individual
 range: string
-any_of:
-- range: BRCOrganization
-- range: string
 
 </code></pre>
 

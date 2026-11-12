@@ -260,6 +260,17 @@ URI: [brc:Contributor](https://w3id.org/brc/Contributor)
 
       Contributor : affiliation
 
+      Contributor : affiliations
+
+
+
+
+
+        Contributor --&gt; "*" BRCOrganization : affiliations
+        click BRCOrganization href "../BRCOrganization/"
+
+
+
       Contributor : contributorType
 
 
@@ -272,6 +283,17 @@ URI: [brc:Contributor](https://w3id.org/brc/Contributor)
 
 
       Contributor : email
+
+      Contributor : individual_roles
+
+
+
+
+
+        Contributor --&gt; "*" IndividualRoleEnum : individual_roles
+        click IndividualRoleEnum href "../IndividualRoleEnum/"
+
+
 
       Contributor : name
 
@@ -300,8 +322,10 @@ URI: [brc:Contributor](https://w3id.org/brc/Contributor)
 | [name](name.md) | 0..1 <br/> [String](String.md) | Name of the individual | [Individual](Individual.md) |
 | [email](email.md) | 0..1 <br/> [String](String.md) | Email address of the individual | [Individual](Individual.md) |
 | [primaryContact](primaryContact.md) | 0..1 <br/> [Boolean](Boolean.md) | Indicates if the individual is a primary contact | [Individual](Individual.md) |
-| [affiliation](affiliation.md) | 0..1 <br/> [BRCOrganization](BRCOrganization.md) or <br/>[String](String.md) | Affiliation of the individual | [Individual](Individual.md) |
+| [affiliation](affiliation.md) | 0..1 <br/> [String](String.md) | Name of the individual's affiliation | [Individual](Individual.md) |
+| [affiliations](affiliations.md) | * <br/> [BRCOrganization](BRCOrganization.md) | All affiliations of the individual, in the order given by the source record | [Individual](Individual.md) |
 | [orcid](orcid.md) | 0..1 <br/> [Uriorcurie](Uriorcurie.md) | ORCID for the individual | [Individual](Individual.md) |
+| [individual_roles](individual_roles.md) | * <br/> [IndividualRoleEnum](IndividualRoleEnum.md) | Roles this individual holds for the dataset, such as first author, contributi... | [Individual](Individual.md) |
 
 
 
@@ -428,7 +452,10 @@ attributes:
     range: boolean
   affiliation:
     name: affiliation
-    description: Affiliation of the individual.
+    description: Name of the individual's affiliation.
+    deprecated: Use affiliations, which supports multiple affiliations and organization
+      identifiers such as ROR IDs. Kept for compatibility; when both are present,
+      this holds the name of the first affiliation.
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     alias: affiliation
@@ -436,9 +463,23 @@ attributes:
     domain_of:
     - Individual
     range: string
-    any_of:
-    - range: BRCOrganization
-    - range: string
+  affiliations:
+    name: affiliations
+    description: 'All affiliations of the individual, in the order given by the source
+      record. Affiliations may be any organization, not only a Bioenergy Research
+      Center: for example, a GLBRC member may list both Great Lakes Bioenergy Research
+      Center and University of Michigan. Matches the affiliations of a Person in OSTI
+      E-Link 2.0 (name and ROR ID).'
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: affiliations
+    owner: Contributor
+    domain_of:
+    - Individual
+    range: BRCOrganization
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   orcid:
     name: orcid
     description: ORCID for the individual. This should include the full URI with prefix,
@@ -450,6 +491,24 @@ attributes:
     domain_of:
     - Individual
     range: uriorcurie
+  individual_roles:
+    name: individual_roles
+    description: Roles this individual holds for the dataset, such as first author,
+      contributing author, or corresponding author. More than one individual may hold
+      the same role (e.g., co-first authors), and one individual may hold several
+      roles (e.g., a first author who is also the corresponding author). When no creator
+      is explicitly marked FirstAuthor, the first creator in the list is taken to
+      be the first author. These roles have no equivalent in the OSTI E-Link 2.0 schema,
+      so they are not carried over to OSTI records; author order is preserved there
+      through list order.
+    from_schema: https://w3id.org/brc/brc_schema
+    rank: 1000
+    alias: individual_roles
+    owner: Contributor
+    domain_of:
+    - Individual
+    range: IndividualRoleEnum
+    multivalued: true
 
 </code></pre>
 </details></div>

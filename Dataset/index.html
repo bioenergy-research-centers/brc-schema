@@ -320,7 +320,7 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 
 
 
-        Dataset --&gt; "1..*" Individual : creator
+        Dataset --&gt; "*" Individual : creator
         click Individual href "../Individual/"
 
 
@@ -394,6 +394,17 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 
         Dataset --&gt; "*" OntologyAnnotation : ontology_annotations
         click OntologyAnnotation href "../OntologyAnnotation/"
+
+
+
+      Dataset : organizational_creators
+
+
+
+
+
+        Dataset --&gt; "*" BRCOrganization : organizational_creators
+        click BRCOrganization href "../BRCOrganization/"
 
 
 
@@ -491,7 +502,8 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [alert](alert.md) | 0..1 <br/> [Boolean](Boolean.md) | Indicates whether availability of the dataset has encountered some inconsiste... | direct |
 | [title](title.md) | 1 <br/> [String](String.md) | The title of the dataset | direct |
 | [date](date.md) | 1 <br/> [date](date.md) | The date the dataset was created or published | direct |
-| [creator](creator.md) | 1..* <br/> [Individual](Individual.md) | List of creators involved in the dataset, where one must be the primary conta... | direct |
+| [creator](creator.md) | * <br/> [Individual](Individual.md) | List of individual creators (authors) involved in the dataset, where one must... | direct |
+| [organizational_creators](organizational_creators.md) | * <br/> [BRCOrganization](BRCOrganization.md) | Organizations credited as authors of the dataset, such as consortia, collabor... | direct |
 | [contributors](contributors.md) | * <br/> [Contributor](Contributor.md) | Contributors to the dataset who are not necessarily authors | direct |
 | [brc](brc.md) | 1 <br/> [BRCEnum](BRCEnum.md) | The primary Bioenergy Research Center affiliation | direct |
 | [additional_brcs](additional_brcs.md) | * <br/> [BRCEnum](BRCEnum.md) | Additional Bioenergy Research Center affiliations | direct |
@@ -501,7 +513,7 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [has_related_ids](has_related_ids.md) | * <br/> [Uriorcurie](Uriorcurie.md) | "Related identifiers for the dataset | direct |
 | [species](species.md) | * <br/> [Organism](Organism.md) | Species information for the organism(s) studied | direct |
 | [plasmid_features](plasmid_features.md) | * <br/> [Plasmid](Plasmid.md) | Description of plasmid features, if applicable | direct |
-| [analysisType](analysisType.md) | 0..1 <br/> [AnalysisType](AnalysisType.md) or <br/>[String](String.md) | The type of analysis performed on the dataset | direct |
+| [analysisType](analysisType.md) | 0..1 <br/> [String](String.md) or <br/>[AnalysisType](AnalysisType.md) | The type of analysis performed on the dataset | direct |
 | [datasetType](datasetType.md) | 0..1 <br/> [DatasetTypeCodes](DatasetTypeCodes.md) | High-level type of the main content of the dataset | direct |
 | [topic](topic.md) | 1..* <br/> [DatasetTopicEnum](DatasetTopicEnum.md) | High-level topic area for the dataset | direct |
 | [theme](theme.md) | * <br/> [DatasetThemeEnum](DatasetThemeEnum.md) | High-level theme areas for the dataset | direct |
@@ -531,6 +543,20 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [conference_location](conference_location.md) | 0..1 <br/> [String](String.md) | Location of the conference | direct |
 | [conference_date](conference_date.md) | 0..1 <br/> [String](String.md) | Date or date range for the conference | direct |
 | [media](media.md) | * <br/> [MediaSet](MediaSet.md) | Media bundles and file-package metadata associated with the dataset | direct |
+
+<details>
+<summary>Expressions &amp; Logic</summary>
+#### Any Of
+
+The class must satisfy at least one of:
+- AnonymousClassExpression({
+  'slot_conditions': {'creator': SlotDefinition({'name': 'creator', 'required': True})}
+})
+- AnonymousClassExpression({
+  'slot_conditions': {'organizational_creators': SlotDefinition({'name': 'organizational_creators', 'required': True})}
+})
+
+</details>
 
 
 
@@ -679,15 +705,36 @@ attributes:
     required: true
   creator:
     name: creator
-    description: List of creators involved in the dataset, where one must be the primary
-      contact.
+    description: 'List of individual creators (authors) involved in the dataset, where
+      one must be the primary contact. The list is ordered: creators appear in author
+      order, matching the order of AUTHOR persons in the corresponding OSTI record.
+      Use individual_roles on each creator to label first, contributing, and corresponding
+      authors explicitly, for example when there are co-first authors. A dataset must
+      have creator, organizational_creators, or both.'
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:creator
     domain_of:
     - Dataset
     range: Individual
-    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  organizational_creators:
+    name: organizational_creators
+    description: Organizations credited as authors of the dataset, such as consortia,
+      collaborations, or institutions. The list is ordered, and is kept separate from
+      creator, matching OSTI E-Link 2.0, which lists organizations with type AUTHOR
+      apart from AUTHOR persons. A dataset must have creator, organizational_creators,
+      or both.
+    from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - osti:organizations
+    rank: 1000
+    slot_uri: dcterms:creator
+    domain_of:
+    - Dataset
+    range: BRCOrganization
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -1104,6 +1151,15 @@ attributes:
     inlined: true
     inlined_as_list: true
 class_uri: schema:Dataset
+any_of:
+- slot_conditions:
+    creator:
+      name: creator
+      required: true
+- slot_conditions:
+    organizational_creators:
+      name: organizational_creators
+      required: true
 
 </code></pre>
 </details>
@@ -1198,8 +1254,12 @@ attributes:
     required: true
   creator:
     name: creator
-    description: List of creators involved in the dataset, where one must be the primary
-      contact.
+    description: 'List of individual creators (authors) involved in the dataset, where
+      one must be the primary contact. The list is ordered: creators appear in author
+      order, matching the order of AUTHOR persons in the corresponding OSTI record.
+      Use individual_roles on each creator to label first, contributing, and corresponding
+      authors explicitly, for example when there are co-first authors. A dataset must
+      have creator, organizational_creators, or both.'
     from_schema: https://w3id.org/brc/brc_schema
     rank: 1000
     slot_uri: dcterms:creator
@@ -1208,7 +1268,26 @@ attributes:
     domain_of:
     - Dataset
     range: Individual
-    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  organizational_creators:
+    name: organizational_creators
+    description: Organizations credited as authors of the dataset, such as consortia,
+      collaborations, or institutions. The list is ordered, and is kept separate from
+      creator, matching OSTI E-Link 2.0, which lists organizations with type AUTHOR
+      apart from AUTHOR persons. A dataset must have creator, organizational_creators,
+      or both.
+    from_schema: https://w3id.org/brc/brc_schema
+    close_mappings:
+    - osti:organizations
+    rank: 1000
+    slot_uri: dcterms:creator
+    alias: organizational_creators
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: BRCOrganization
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -1704,6 +1783,15 @@ attributes:
     inlined: true
     inlined_as_list: true
 class_uri: schema:Dataset
+any_of:
+- slot_conditions:
+    creator:
+      name: creator
+      required: true
+- slot_conditions:
+    organizational_creators:
+      name: organizational_creators
+      required: true
 
 </code></pre>
 </details></div>

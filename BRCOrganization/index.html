@@ -240,7 +240,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-brcorganization">Class: BRCOrganization</h1>
-<p><em>An organization involved in the dataset. The name denotes this is the BRC-specific model of an organization, rather than that defined by OSTI, though the classes are similar.</em></p>
+<p><em>An organization involved in the dataset, such as a funder, an affiliation, or an organizational author. This may be any organization (a university, national laboratory, consortium, or agency), not only a Bioenergy Research Center. The name denotes that this is the BRC schema's model of an organization, rather than the one defined by OSTI, though the classes are similar.</em></p>
 <div data-search-exclude="" markdown="1">
 
 
@@ -293,8 +293,9 @@ URI: [brc:BRCOrganization](https://w3id.org/brc/BRCOrganization)
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [Individual](Individual.md) | [affiliation](affiliation.md) | any_of[range] | [BRCOrganization](BRCOrganization.md) |
-| [Contributor](Contributor.md) | [affiliation](affiliation.md) | any_of[range] | [BRCOrganization](BRCOrganization.md) |
+| [Dataset](Dataset.md) | [organizational_creators](organizational_creators.md) | range | [BRCOrganization](BRCOrganization.md) |
+| [Individual](Individual.md) | [affiliations](affiliations.md) | range | [BRCOrganization](BRCOrganization.md) |
+| [Contributor](Contributor.md) | [affiliations](affiliations.md) | range | [BRCOrganization](BRCOrganization.md) |
 | [Funding](Funding.md) | [fundingOrganization](fundingOrganization.md) | range | [BRCOrganization](BRCOrganization.md) |
 | [BRCOrganization](BRCOrganization.md) | [parentOrganization](parentOrganization.md) | range | [BRCOrganization](BRCOrganization.md) |
 
@@ -343,9 +344,11 @@ URI: [brc:BRCOrganization](https://w3id.org/brc/BRCOrganization)
 
 <details>
 <pre><code class="language-yaml">name: BRCOrganization
-description: An organization involved in the dataset. The name denotes this is the
-  BRC-specific model of an organization, rather than that defined by OSTI, though
-  the classes are similar.
+description: An organization involved in the dataset, such as a funder, an affiliation,
+  or an organizational author. This may be any organization (a university, national
+  laboratory, consortium, or agency), not only a Bioenergy Research Center. The name
+  denotes that this is the BRC schema's model of an organization, rather than the
+  one defined by OSTI, though the classes are similar.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
   organizationName:
@@ -397,9 +400,11 @@ attributes:
 
 <details>
 <pre><code class="language-yaml">name: BRCOrganization
-description: An organization involved in the dataset. The name denotes this is the
-  BRC-specific model of an organization, rather than that defined by OSTI, though
-  the classes are similar.
+description: An organization involved in the dataset, such as a funder, an affiliation,
+  or an organizational author. This may be any organization (a university, national
+  laboratory, consortium, or agency), not only a Bioenergy Research Center. The name
+  denotes that this is the BRC schema's model of an organization, rather than the
+  one defined by OSTI, though the classes are similar.
 from_schema: https://w3id.org/brc/brc_schema
 attributes:
   organizationName:

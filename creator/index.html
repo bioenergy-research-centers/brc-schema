@@ -502,7 +502,7 @@
 
 
 <h1 id="slot-creator">Slot: creator</h1>
-<p><em>List of creators involved in the dataset, where one must be the primary contact.</em></p>
+<p><em>List of individual creators (authors) involved in the dataset, where one must be the primary contact. The list is ordered: creators appear in author order, matching the order of AUTHOR persons in the corresponding OSTI record. Use individual_roles on each creator to label first, contributing, and corresponding authors explicitly, for example when there are co-first authors. A dataset must have creator, organizational_creators, or both.</em></p>
 <div data-search-exclude markdown="1">
 
 
@@ -541,7 +541,6 @@ Alias: creator
 
 | Property | Value |
 | --- | --- |
-| Required | Yes |
 | Multivalued | Yes |
 ### Slot Characteristics
 
@@ -589,8 +588,12 @@ Alias: creator
 <details>
 
 <pre><code class="language-yaml">name: creator
-description: List of creators involved in the dataset, where one must be the primary
-  contact.
+description: 'List of individual creators (authors) involved in the dataset, where
+  one must be the primary contact. The list is ordered: creators appear in author
+  order, matching the order of AUTHOR persons in the corresponding OSTI record. Use
+  individual_roles on each creator to label first, contributing, and corresponding
+  authors explicitly, for example when there are co-first authors. A dataset must
+  have creator, organizational_creators, or both.'
 from_schema: https://w3id.org/brc/brc_schema
 rank: 1000
 slot_uri: dcterms:creator
@@ -599,7 +602,6 @@ owner: Dataset
 domain_of:
 - Dataset
 range: Individual
-required: true
 multivalued: true
 inlined: true
 inlined_as_list: true

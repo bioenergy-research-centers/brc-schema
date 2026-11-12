@@ -834,9 +834,14 @@ extension.</p>
 <td>Comma-separated strings are split into individual keywords.</td>
 </tr>
 <tr>
-<td><code>persons</code>, <code>authors</code>, <code>organizations</code></td>
+<td><code>persons</code>, <code>authors</code></td>
 <td><code>creator</code>, <code>contributors</code></td>
-<td>Structured <code>persons</code> are preferred; legacy author strings are fallback input.</td>
+<td>Structured <code>persons</code> are preferred; legacy author strings are fallback input. Every person affiliation is kept, in order, in <code>affiliations</code> (<code>name</code> → <code>organizationName</code>, <code>ror_id</code> → <code>ror:</code> CURIE); the deprecated <code>affiliation</code> field receives the first affiliation name. Creator order follows OSTI author order; OSTI has no author-role metadata, so roles are positional: the first author gets <code>individual_roles: [FirstAuthor]</code>, all others <code>[ContributingAuthor]</code>. <code>primaryContact</code> goes to the author matching an OSTI <code>CONTACT</code> person (by ORCID, email, or name), else the first author.</td>
+</tr>
+<tr>
+<td><code>organizations</code> with <code>type: AUTHOR</code></td>
+<td><code>organizational_creators</code></td>
+<td>Consortium, collaboration, and institutional authors, in order. Kept alongside individual <code>creator</code> entries rather than replacing them. A dataset needs <code>creator</code>, <code>organizational_creators</code>, or both.</td>
 </tr>
 <tr>
 <td>sponsor <code>organizations</code> or <code>sponsor_orgs</code></td>
@@ -993,7 +998,12 @@ OSTI-style object with a <code>records</code> array.</p>
 <tr>
 <td><code>creator</code>, <code>contributors</code></td>
 <td><code>authors</code>, <code>persons</code></td>
-<td>Names are split into OSTI first/middle/last fields when possible.</td>
+<td>Names are split into OSTI first/middle/last fields when possible. Author order is preserved; <code>individual_roles</code> has no E-Link 2.0 equivalent and is not exported. All <code>affiliations</code> are exported with bare ROR IDs; the deprecated <code>affiliation</code> name is used only when <code>affiliations</code> is absent.</td>
+</tr>
+<tr>
+<td><code>organizational_creators</code></td>
+<td><code>organizations</code> (<code>type: AUTHOR</code>)</td>
+<td>ROR IDs are exported in bare form. Entries without an <code>organizationName</code> are skipped, because OSTI requires a name.</td>
 </tr>
 <tr>
 <td><code>funding</code>, <code>brc</code></td>
