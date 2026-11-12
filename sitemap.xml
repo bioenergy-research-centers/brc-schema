@@ -93,6 +93,18 @@
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/GeoPoint/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/Geolocation/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/GeolocationTypeEnum/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/Individual/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
@@ -246,6 +258,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/alert/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/altitude/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
@@ -409,11 +425,23 @@
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/geolocation_type/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/geolocations/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/getting_started/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/has_related_ids/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/horizontal_accuracy/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
@@ -458,6 +486,18 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/keywords/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/label/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/latitude/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/longitude/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
@@ -550,6 +590,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/plasmid_features/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/points/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>
@@ -654,6 +698,10 @@
     </url>
     <url>
          <loc>https://bioenergy-research-centers.github.io/brc-schema/url/</loc>
+         <lastmod>2026-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://bioenergy-research-centers.github.io/brc-schema/vertical_accuracy/</loc>
          <lastmod>2026-11-12</lastmod>
     </url>
     <url>

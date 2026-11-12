@@ -355,6 +355,17 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 
 
 
+      Dataset : geolocations
+
+
+
+
+
+        Dataset --&gt; "*" Geolocation : geolocations
+        click Geolocation href "../Geolocation/"
+
+
+
       Dataset : has_related_ids
 
       Dataset : id
@@ -513,7 +524,7 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [has_related_ids](has_related_ids.md) | * <br/> [Uriorcurie](Uriorcurie.md) | "Related identifiers for the dataset | direct |
 | [species](species.md) | * <br/> [Organism](Organism.md) | Species information for the organism(s) studied | direct |
 | [plasmid_features](plasmid_features.md) | * <br/> [Plasmid](Plasmid.md) | Description of plasmid features, if applicable | direct |
-| [analysisType](analysisType.md) | 0..1 <br/> [AnalysisType](AnalysisType.md) or <br/>[String](String.md) | The type of analysis performed on the dataset | direct |
+| [analysisType](analysisType.md) | 0..1 <br/> [String](String.md) or <br/>[AnalysisType](AnalysisType.md) | The type of analysis performed on the dataset | direct |
 | [datasetType](datasetType.md) | 0..1 <br/> [DatasetTypeCodes](DatasetTypeCodes.md) | High-level type of the main content of the dataset | direct |
 | [topic](topic.md) | 1..* <br/> [DatasetTopicEnum](DatasetTopicEnum.md) | High-level topic area for the dataset | direct |
 | [theme](theme.md) | * <br/> [DatasetThemeEnum](DatasetThemeEnum.md) | High-level theme areas for the dataset | direct |
@@ -543,6 +554,7 @@ URI: [schema:Dataset](http://schema.org/Dataset)
 | [conference_location](conference_location.md) | 0..1 <br/> [String](String.md) | Location of the conference | direct |
 | [conference_date](conference_date.md) | 0..1 <br/> [String](String.md) | Date or date range for the conference | direct |
 | [media](media.md) | * <br/> [MediaSet](MediaSet.md) | Media bundles and file-package metadata associated with the dataset | direct |
+| [geolocations](geolocations.md) | * <br/> [Geolocation](Geolocation.md) | Geographic locations associated with the dataset, such as field sites, sampli... | direct |
 
 <details>
 <summary>Expressions &amp; Logic</summary>
@@ -1148,6 +1160,26 @@ attributes:
     domain_of:
     - Dataset
     range: MediaSet
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  geolocations:
+    name: geolocations
+    description: Geographic locations associated with the dataset, such as field sites,
+      sampling locations, or study areas. Each entry is a single point, a bounding
+      box, or a polygon, so a dataset collected at several sites lists one entry per
+      site. Matches the geolocations of an OSTI E-Link 2.0 record, which supports
+      lists of points, boxes, and polygons; accuracy and altitude are BRC additions.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:geolocations
+    close_mappings:
+    - schema:spatialCoverage
+    rank: 1000
+    slot_uri: dcterms:spatial
+    domain_of:
+    - Dataset
+    range: Geolocation
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -1781,6 +1813,28 @@ attributes:
     domain_of:
     - Dataset
     range: MediaSet
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  geolocations:
+    name: geolocations
+    description: Geographic locations associated with the dataset, such as field sites,
+      sampling locations, or study areas. Each entry is a single point, a bounding
+      box, or a polygon, so a dataset collected at several sites lists one entry per
+      site. Matches the geolocations of an OSTI E-Link 2.0 record, which supports
+      lists of points, boxes, and polygons; accuracy and altitude are BRC additions.
+    from_schema: https://w3id.org/brc/brc_schema
+    exact_mappings:
+    - osti:geolocations
+    close_mappings:
+    - schema:spatialCoverage
+    rank: 1000
+    slot_uri: dcterms:spatial
+    alias: geolocations
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: Geolocation
     multivalued: true
     inlined: true
     inlined_as_list: true

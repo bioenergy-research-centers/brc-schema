@@ -869,6 +869,11 @@ extension.</p>
 <td>OSTI media package metadata is preserved.</td>
 </tr>
 <tr>
+<td><code>geolocations</code></td>
+<td><code>geolocations</code></td>
+<td>Points, boxes, and polygons are kept with their labels; OSTI <code>type</code> → <code>geolocation_type</code>. A missing type is inferred from the point count (1 → POINT, 2 → BOX, 3 or more → POLYGON), and an open polygon is closed on its first point. A geolocation with an out-of-range coordinate or a point count that does not fit its type is dropped.</td>
+</tr>
+<tr>
 <td><code>site_url</code> or first <code>links</code> entry</td>
 <td><code>dataset_url</code></td>
 <td><code>site_url</code> is preferred.</td>
@@ -1025,6 +1030,11 @@ OSTI-style object with a <code>records</code> array.</p>
 <td><code>media</code></td>
 <td>Media package metadata is preserved.</td>
 </tr>
+<tr>
+<td><code>geolocations</code></td>
+<td><code>geolocations</code></td>
+<td>Shape, label, and coordinates are exported with the same checks as the import. OSTI has no fields for <code>altitude</code>, <code>horizontal_accuracy</code>, or <code>vertical_accuracy</code>, so they are not exported.</td>
+</tr>
 </tbody>
 </table>
 <p>The transform also sets these OSTI defaults:</p>
@@ -1058,6 +1068,8 @@ round trip. Several fields are normalized, inferred, defaulted, or omitted.</p>
   explicit mapping.</li>
 <li>xBRC <code>species</code> entries that have a name but no identifier are not written
   to OSTI; entries with identifiers round-trip through <code>related_identifiers</code>.</li>
+<li>xBRC geolocation <code>altitude</code>, <code>horizontal_accuracy</code>, and <code>vertical_accuracy</code>
+  are not written to OSTI, which has no equivalent fields.</li>
 <li>BRC affiliation may be inferred from contract numbers in <code>osti_to_brc</code>, while
   <code>brc_to_osti</code> emits contract numbers from the xBRC <code>brc</code> value.</li>
 </ul>
