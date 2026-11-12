@@ -84,6 +84,8 @@ class_derivations:
         populated_from: related_identifiers
       media:
         populated_from: media
+      geolocations:
+        expr: "build_brc_geolocations(geolocations)"
       #datasetType:
       #  populated_from: product_type
       dataset_url:

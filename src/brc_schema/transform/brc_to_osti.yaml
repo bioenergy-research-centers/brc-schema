@@ -90,6 +90,8 @@ class_derivations:
         expr: "build_osti_related_identifiers(has_related_ids, species)"
       media:
         populated_from: media
+      geolocations:
+        expr: "build_osti_geolocations(geolocations)"
       doe_contract_number:
         expr: "brc_contract(brc)"
       contract_number:

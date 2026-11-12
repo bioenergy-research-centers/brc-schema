@@ -57,6 +57,7 @@ Key mappings include:
 | `identifiers`, `related_identifiers`, and legacy identifier fields | `has_related_ids` | Contract numbers and taxon identifiers are excluded; BioProject URLs and IDs are normalized where possible. |
 | taxon URLs in `related_identifiers`, and organism names in `keywords` | `species` | NCBI Taxonomy IDs go to `NCBITaxID`, JGI GOLD and IMG IDs to `taxon_ids`. See [Species and Taxonomy Identifiers](species_and_taxonomy.md). |
 | `media` | `media` | OSTI media package metadata is preserved. |
+| `geolocations` | `geolocations` | Points, boxes, and polygons are kept with their labels; OSTI `type` → `geolocation_type`. A missing type is inferred from the point count (1 → POINT, 2 → BOX, 3 or more → POLYGON), and an open polygon is closed on its first point. A geolocation with an out-of-range coordinate or a point count that does not fit its type is dropped. |
 | `site_url` or first `links` entry | `dataset_url` | `site_url` is preferred. |
 | `workflow_status` | `active` | `R` maps to `true`; missing status maps to `false`. |
 
@@ -122,6 +123,7 @@ Key mappings include:
 | `has_related_ids` | `identifiers`, `related_identifiers` | BioProject IDs and DOI references get special handling. |
 | `species` | `related_identifiers` | Each `NCBITaxID`, GOLD ID, and IMG taxon OID becomes a `URL` related identifier with relation `References`. Species with a name only are not written. |
 | `media` | `media` | Media package metadata is preserved. |
+| `geolocations` | `geolocations` | Shape, label, and coordinates are exported with the same checks as the import. OSTI has no fields for `altitude`, `horizontal_accuracy`, or `vertical_accuracy`, so they are not exported. |
 
 The transform also sets these OSTI defaults:
 
@@ -158,6 +160,8 @@ Expected non-lossless behavior includes:
   explicit mapping.
 - xBRC `species` entries that have a name but no identifier are not written
   to OSTI; entries with identifiers round-trip through `related_identifiers`.
+- xBRC geolocation `altitude`, `horizontal_accuracy`, and `vertical_accuracy`
+  are not written to OSTI, which has no equivalent fields.
 - BRC affiliation may be inferred from contract numbers in `osti_to_brc`, while
   `brc_to_osti` emits contract numbers from the xBRC `brc` value.
 

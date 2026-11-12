@@ -1161,6 +1161,94 @@ def build_osti_related_identifiers(has_related_ids, species=None):
     return related_identifiers or None
 
 
+def _coordinate(value, limit):
+    """Return value as a float within [-limit, limit], or None."""
+    if isinstance(value, bool):
+        return None
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if number != number or not -limit <= number <= limit:
+        return None
+    return number
+
+
+def _geo_points(points):
+    """Return (latitude, longitude) pairs, or None if any point is unusable."""
+    parsed = []
+    for point in _as_list(points):
+        latitude = _coordinate(_attr(point, "latitude"), 90)
+        longitude = _coordinate(_attr(point, "longitude"), 180)
+        if latitude is None or longitude is None:
+            return None
+        parsed.append((latitude, longitude))
+    return parsed or None
+
+
+def _geolocation_shape(geolocation, type_slot):
+    """Return (shape, points) for a geolocation, or None if it is unusable.
+
+    The shape is taken from the geolocation's type when given, otherwise from
+    the point count: one point is a POINT, two are a BOX (northwest and
+    southeast corners), and three or more are a POLYGON. A polygon that does
+    not end on its first point is closed by repeating that point. A
+    geolocation with an unusable point, an unknown type, or a point count
+    that does not fit its type is dropped rather than guessed at.
+    """
+    points = _geo_points(_attr(geolocation, "points"))
+    if not points:
+        return None
+    shape = _attr(geolocation, type_slot)
+    # Enum values may arrive as LinkML enum objects rather than strings.
+    shape = getattr(shape, "code", shape)
+    shape = str(getattr(shape, "text", shape)).upper() if shape else None
+    if shape is None:
+        shape = {1: "POINT", 2: "BOX"}.get(len(points), "POLYGON")
+    if shape == "POLYGON" and len(points) >= 3 and points[0] != points[-1]:
+        points = points + [points[0]]
+    counts = {"POINT": (1, 1), "BOX": (2, 2), "POLYGON": (4, None)}
+    if shape not in counts:
+        return None
+    fewest, most = counts[shape]
+    if len(points) < fewest or (most is not None and len(points) > most):
+        return None
+    return shape, points
+
+
+def _convert_geolocations(geolocations, source_type_slot, target_type_slot):
+    """Copy shape, label, and coordinates between OSTI and BRC geolocations."""
+    result = []
+    for geolocation in _as_list(geolocations):
+        shaped = _geolocation_shape(geolocation, source_type_slot)
+        if not shaped:
+            continue
+        shape, points = shaped
+        entry = {target_type_slot: shape}
+        label = _attr(geolocation, "label")
+        if label:
+            entry["label"] = label
+        entry["points"] = [{"latitude": lat, "longitude": lon} for lat, lon in points]
+        result.append(entry)
+    return result or None
+
+
+def build_brc_geolocations(geolocations):
+    """Build BRC geolocations from OSTI geolocations.
+
+    OSTI has no accuracy or altitude values, so those slots stay empty.
+    """
+    return _convert_geolocations(geolocations, "type", "geolocation_type")
+
+
+def build_osti_geolocations(geolocations):
+    """Build OSTI geolocations from BRC geolocations.
+
+    OSTI has no place for altitude or accuracy values, so they are dropped.
+    """
+    return _convert_geolocations(geolocations, "geolocation_type", "type")
+
+
 def _register_transform_functions():
     eval_utils.FUNCTIONS.update(
         {
@@ -1178,6 +1266,7 @@ def _register_transform_functions():
             "build_brc_dataset_url": build_brc_dataset_url,
             "build_brc_has_related_ids": build_brc_has_related_ids,
             "build_brc_species": build_brc_species,
+            "build_brc_geolocations": build_brc_geolocations,
             "build_osti_site_url": build_osti_site_url,
             "build_osti_links": build_osti_links,
             "build_osti_authors": build_osti_authors,
@@ -1187,6 +1276,7 @@ def _register_transform_functions():
             "build_osti_research_orgs": build_osti_research_orgs,
             "build_osti_identifiers": build_osti_identifiers,
             "build_osti_related_identifiers": build_osti_related_identifiers,
+            "build_osti_geolocations": build_osti_geolocations,
         }
     )
 
