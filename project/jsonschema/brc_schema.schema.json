@@ -265,7 +265,7 @@
                 },
                 "brc": {
                     "$ref": "#/$defs/BRCEnum",
-                    "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name."
+                    "description": "The primary Bioenergy Research Center affiliation. This is a single BRC name. Legacy datasets from the BioEnergy Science Center (BESC) use CBI, as CBI is BESC's successor."
                 },
                 "category": {
                     "description": "Category of the dataset. This is specific to the BRCs and is not intended to be an exhaustive list of categories.",

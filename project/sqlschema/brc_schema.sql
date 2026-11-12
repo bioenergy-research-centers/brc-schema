@@ -8,7 +8,7 @@
 --     * Slot: alert Description: Indicates whether availability of the dataset has encountered some inconsistency. This is a boolean field - true indicates alert, false indicates no alert. For example, if we have a Dataset object but the Dataset is missing from its source feed, this should be set to true.
 --     * Slot: title Description: The title of the dataset.
 --     * Slot: date Description: The date the dataset was created or published.
---     * Slot: brc Description: The primary Bioenergy Research Center affiliation. This is a single BRC name.
+--     * Slot: brc Description: The primary Bioenergy Research Center affiliation. This is a single BRC name. Legacy datasets from the BioEnergy Science Center (BESC) use CBI, as CBI is BESC's successor.
 --     * Slot: repository Description: The repository where the dataset is stored.
 --     * Slot: bibliographicCitation Description: Citation for the dataset.
 --     * Slot: identifier Description: Unique identifier for the dataset.
@@ -269,8 +269,8 @@ CREATE TABLE "Organism_strains" (
 	PRIMARY KEY ("Organism_id", strains),
 	FOREIGN KEY("Organism_id") REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Organism_strains_strains" ON "Organism_strains" (strains);
 CREATE INDEX "ix_Organism_strains_Organism_id" ON "Organism_strains" ("Organism_id");
+CREATE INDEX "ix_Organism_strains_strains" ON "Organism_strains" (strains);
 
 CREATE TABLE "Individual" (
 	id INTEGER NOT NULL,
@@ -333,8 +333,8 @@ CREATE TABLE "Dataset_additional_brcs" (
 	PRIMARY KEY ("Dataset_uid", additional_brcs),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 CREATE INDEX "ix_Dataset_additional_brcs_Dataset_uid" ON "Dataset_additional_brcs" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_additional_brcs_additional_brcs" ON "Dataset_additional_brcs" (additional_brcs);
 
 CREATE TABLE "Dataset_has_related_ids" (
 	"Dataset_uid" INTEGER,
@@ -342,8 +342,8 @@ CREATE TABLE "Dataset_has_related_ids" (
 	PRIMARY KEY ("Dataset_uid", has_related_ids),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_has_related_ids_has_related_ids" ON "Dataset_has_related_ids" (has_related_ids);
+CREATE INDEX "ix_Dataset_has_related_ids_Dataset_uid" ON "Dataset_has_related_ids" ("Dataset_uid");
 
 CREATE TABLE "Dataset_species" (
 	"Dataset_uid" INTEGER,
@@ -389,8 +389,8 @@ CREATE TABLE "Dataset_category" (
 	PRIMARY KEY ("Dataset_uid", category),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 CREATE INDEX "ix_Dataset_category_Dataset_uid" ON "Dataset_category" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_category_category" ON "Dataset_category" (category);
 
 CREATE TABLE "Dataset_relatedItem" (
 	"Dataset_uid" INTEGER,
@@ -399,8 +399,8 @@ CREATE TABLE "Dataset_relatedItem" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY("relatedItem_id") REFERENCES "RelatedItem" (id)
 );
-CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");
 CREATE INDEX "ix_Dataset_relatedItem_Dataset_uid" ON "Dataset_relatedItem" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_relatedItem_relatedItem_id" ON "Dataset_relatedItem" ("relatedItem_id");
 
 CREATE TABLE "Dataset_keywords" (
 	"Dataset_uid" INTEGER,
@@ -408,8 +408,8 @@ CREATE TABLE "Dataset_keywords" (
 	PRIMARY KEY ("Dataset_uid", keywords),
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid)
 );
-CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 CREATE INDEX "ix_Dataset_keywords_keywords" ON "Dataset_keywords" (keywords);
+CREATE INDEX "ix_Dataset_keywords_Dataset_uid" ON "Dataset_keywords" ("Dataset_uid");
 
 CREATE TABLE "Plasmid_promoters" (
 	"Plasmid_uid" INTEGER,
@@ -417,8 +417,8 @@ CREATE TABLE "Plasmid_promoters" (
 	PRIMARY KEY ("Plasmid_uid", promoters),
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid)
 );
-CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
 CREATE INDEX "ix_Plasmid_promoters_Plasmid_uid" ON "Plasmid_promoters" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_promoters_promoters" ON "Plasmid_promoters" (promoters);
 
 CREATE TABLE "Plasmid_replicates_in" (
 	"Plasmid_uid" INTEGER,
@@ -427,8 +427,8 @@ CREATE TABLE "Plasmid_replicates_in" (
 	FOREIGN KEY("Plasmid_uid") REFERENCES "Plasmid" (uid),
 	FOREIGN KEY(replicates_in_id) REFERENCES "Organism" (id)
 );
-CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 CREATE INDEX "ix_Plasmid_replicates_in_Plasmid_uid" ON "Plasmid_replicates_in" ("Plasmid_uid");
+CREATE INDEX "ix_Plasmid_replicates_in_replicates_in_id" ON "Plasmid_replicates_in" (replicates_in_id);
 
 CREATE TABLE "Plasmid_selection_markers" (
 	"Plasmid_uid" INTEGER,
@@ -508,8 +508,8 @@ CREATE TABLE "MediaSet_access_limitations" (
 	PRIMARY KEY ("MediaSet_id", access_limitations),
 	FOREIGN KEY("MediaSet_id") REFERENCES "MediaSet" (id)
 );
-CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);
 CREATE INDEX "ix_MediaSet_access_limitations_MediaSet_id" ON "MediaSet_access_limitations" ("MediaSet_id");
+CREATE INDEX "ix_MediaSet_access_limitations_access_limitations" ON "MediaSet_access_limitations" (access_limitations);
 
 CREATE TABLE "Funding" (
 	id INTEGER NOT NULL,
@@ -529,5 +529,5 @@ CREATE TABLE "Dataset_funding" (
 	FOREIGN KEY("Dataset_uid") REFERENCES "Dataset" (uid),
 	FOREIGN KEY(funding_id) REFERENCES "Funding" (id)
 );
-CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
 CREATE INDEX "ix_Dataset_funding_Dataset_uid" ON "Dataset_funding" ("Dataset_uid");
+CREATE INDEX "ix_Dataset_funding_funding_id" ON "Dataset_funding" (funding_id);
