@@ -39,6 +39,7 @@ prefixes:
   cbi: https://fair.ornl.gov/CBI/
   dcat: http://www.w3.org/ns/dcat#
   dcterms: http://purl.org/dc/terms/
+  dwc: http://rs.tdwg.org/dwc/terms/
   edam: http://edamontology.org/
   glbrc: https://fair-data.glbrc.org/
   jbei: https://hello.bioenergy.org/JBEI/
@@ -400,6 +401,22 @@ classes:
         description: "Media bundles and file-package metadata associated with the dataset."
         exact_mappings:
           - osti:media
+      geolocations:
+        range: Geolocation
+        multivalued: true
+        inlined_as_list: true
+        description: >-
+          Geographic locations associated with the dataset, such as field
+          sites, sampling locations, or study areas. Each entry is a single
+          point, a bounding box, or a polygon, so a dataset collected at
+          several sites lists one entry per site. Matches the geolocations
+          of an OSTI E-Link 2.0 record, which supports lists of points,
+          boxes, and polygons; accuracy and altitude are BRC additions.
+        slot_uri: dcterms:spatial
+        exact_mappings:
+          - osti:geolocations
+        close_mappings:
+          - schema:spatialCoverage
 
   Individual:
     description: An individual involved in the dataset.
@@ -757,6 +774,162 @@ classes:
         range: datetime
         description: "Date this media file was last modified."
 
+  Geolocation:
+    description: >-
+      A geographic location associated with a dataset: a single point, a
+      bounding box, or a polygon. Coordinates are WGS 84 decimal degrees.
+      This mirrors the OSTI E-Link 2.0 Geolocation structure, adding
+      optional accuracy values. Many legacy coordinates were backfilled
+      from place names or site descriptions, so leave the accuracy slots
+      empty when the accuracy is not known rather than guessing.
+    class_uri: dcterms:Location
+    close_mappings:
+      - schema:Place
+      - osti:Geolocation
+    attributes:
+      geolocation_type:
+        range: GeolocationTypeEnum
+        description: >-
+          The shape of this geolocation. Optional, as the shape can be
+          determined from the points: one point is a POINT; two points,
+          the northwest and southeast corners, are a BOX; four or more
+          points are a POLYGON. A POLYGON should begin and end on the same
+          point, so that the shape is closed.
+        exact_mappings:
+          - osti:type
+        examples:
+          - value: POINT
+      label:
+        range: string
+        description: >-
+          Place name for this location or set of points.
+        slot_uri: rdfs:label
+        exact_mappings:
+          - osti:label
+        examples:
+          - value: "Kellogg Biological Station, Hickory Corners, Michigan"
+      points:
+        range: GeoPoint
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        description: >-
+          The points defining this location, in order. One point for a
+          POINT, two (northwest corner, then southeast corner) for a BOX,
+          and four or more for a POLYGON, with the first point repeated
+          as the last.
+        exact_mappings:
+          - osti:points
+      horizontal_accuracy:
+        range: float
+        minimum_value: 0
+        unit:
+          ucum_code: m
+        description: >-
+          Horizontal accuracy of the coordinates, in meters: the radius
+          within which the true location is expected to lie. Applies to
+          every point in this geolocation. Not part of the OSTI schema, so
+          it is not carried over to OSTI records.
+        exact_mappings:
+          - dwc:coordinateUncertaintyInMeters
+        examples:
+          - value: "30"
+      vertical_accuracy:
+        range: float
+        minimum_value: 0
+        unit:
+          ucum_code: m
+        description: >-
+          Vertical accuracy of the altitude values, in meters. Applies to
+          every point in this geolocation that has an altitude. Not part of
+          the OSTI schema, so it is not carried over to OSTI records.
+        examples:
+          - value: "5"
+    # LinkML 1.11 drops cardinality from rule postconditions when generating
+    # JSON Schema, so these rules are documentation only in the generated
+    # artifacts for now. Keep them so enforcement arrives with a fix.
+    rules:
+      - description: A POINT has exactly one point.
+        preconditions:
+          slot_conditions:
+            geolocation_type:
+              equals_string: POINT
+        postconditions:
+          slot_conditions:
+            points:
+              minimum_cardinality: 1
+              maximum_cardinality: 1
+      - description: >-
+          A BOX has exactly two points, the northwest and southeast corners.
+        preconditions:
+          slot_conditions:
+            geolocation_type:
+              equals_string: BOX
+        postconditions:
+          slot_conditions:
+            points:
+              minimum_cardinality: 2
+              maximum_cardinality: 2
+      - description: >-
+          A POLYGON has at least four points, as it must close on its first
+          point.
+        preconditions:
+          slot_conditions:
+            geolocation_type:
+              equals_string: POLYGON
+        postconditions:
+          slot_conditions:
+            points:
+              minimum_cardinality: 4
+
+  GeoPoint:
+    description: >-
+      A single geographic point, in WGS 84 decimal degrees, with an optional
+      altitude. Mirrors the point structure of OSTI E-Link 2.0, which has
+      latitude and longitude only.
+    class_uri: schema:GeoCoordinates
+    attributes:
+      latitude:
+        range: float
+        minimum_value: -90
+        maximum_value: 90
+        required: true
+        description: >-
+          Latitude in decimal degrees (WGS 84), from -90 to 90 inclusive.
+          Positive values are north of the equator.
+        slot_uri: schema:latitude
+        exact_mappings:
+          - osti:latitude
+          - dwc:decimalLatitude
+        examples:
+          - value: "42.4108"
+      longitude:
+        range: float
+        minimum_value: -180
+        maximum_value: 180
+        required: true
+        description: >-
+          Longitude in decimal degrees (WGS 84), from -180 to 180 inclusive.
+          Positive values are east of the prime meridian.
+        slot_uri: schema:longitude
+        exact_mappings:
+          - osti:longitude
+          - dwc:decimalLongitude
+        examples:
+          - value: "-85.3726"
+      altitude:
+        range: float
+        unit:
+          ucum_code: m
+        description: >-
+          Altitude in meters above mean sea level. Negative values are below
+          sea level. Not part of the OSTI schema, so it is not carried over
+          to OSTI records.
+        close_mappings:
+          - schema:elevation
+        examples:
+          - value: "288"
+
 enums:
   AnalysisType:
     description: Type of analysis performed on the dataset.
@@ -957,6 +1130,21 @@ enums:
         description: >-
           Any person or institution making a significant contribution, but whose
           contribution does not "fit".
+  GeolocationTypeEnum:
+    description: >-
+      The shape of a geolocation. Matches the OSTI E-Link 2.0 geolocation
+      types.
+    permissible_values:
+      POINT:
+        description: A single point.
+      BOX:
+        description: >-
+          A bounding box, given by its northwest and southeast corners.
+      POLYGON:
+        description: >-
+          A closed polygon, given by four or more points with the first
+          point repeated as the last.
+
   DatasetTypeCodes:
     description: >-
       High-level type of the main content of the dataset,
