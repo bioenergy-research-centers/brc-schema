@@ -145,6 +145,7 @@ enum RepositoryEnum
     OSTI
     PanoramaPublic
     PeptideAtlas
+    PISCES
     PRIDE
     Princeton_Data_Commons
     Protein_Data_Bank
